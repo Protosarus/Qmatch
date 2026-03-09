@@ -1,0 +1,12 @@
+Checking for wireless devices...
+
+Connected devices:
+Ümit iPhone’u (mobile) • 00008030-001128AA1A2A802E            • ios            • iOS 17.6.1 21G93
+iPhone 16e (mobile)    • E118EBDD-00BC-4E5F-8662-2A267B36558F • ios            • com.apple.CoreSimulator.SimRuntime.iOS-26-2 (simulator)
+macOS (desktop)        • macos                                • darwin-arm64   • macOS 26.1 25B78 darwin-arm64
+Chrome (web)           • chrome                               • web-javascript • Google Chrome 144.0.7559.133
+[1]: Ümit iPhone’u (00008030-001128AA1A2A802E)
+[2]: iPhone 16e (E118EBDD-00BC-4E5F-8662-2A267B36558F)
+[3]: macOS (macos)
+[4]: Chrome (chrome)
+Please choose one (or "q" to quit): 

@@ -1,0 +1,146 @@
+[
+  {
+    "id": "eq_1",
+    "question": "A close friend shares that they're going through a difficult breakup. How do you respond?",
+    "options": [
+      "Give them practical advice on how to move on",
+      "Listen attentively and validate their feelings",
+      "Share a similar experience you had",
+      "Suggest they keep themselves busy to forget"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 1
+  },
+  {
+    "id": "eq_2",
+    "question": "During a heated team meeting, a colleague becomes visibly upset. What's your first instinct?",
+    "options": [
+      "Continue the discussion, they'll calm down eventually",
+      "Acknowledge their emotions and suggest a break",
+      "Point out that emotions shouldn't affect work",
+      "Ask them directly what's bothering them"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_3",
+    "question": "You notice someone sitting alone at a social gathering looking uncomfortable. What do you do?",
+    "options": [
+      "Assume they prefer solitude and leave them alone",
+      "Approach them with a warm smile and start a conversation",
+      "Point them out to others who might include them",
+      "Wait to see if they approach someone first"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 1
+  },
+  {
+    "id": "eq_4",
+    "question": "Your partner seems distant after a long day. How do you handle it?",
+    "options": [
+      "Ask them multiple times what's wrong",
+      "Give them space and let them come to you when ready",
+      "Assume you did something wrong and apologize",
+      "Try to cheer them up with jokes or activities"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_5",
+    "question": "You receive harsh criticism on a project you worked hard on. What's your response?",
+    "options": [
+      "Defend your work and explain your reasoning",
+      "Feel hurt but try to understand the feedback objectively",
+      "Dismiss the criticism as unfair",
+      "Immediately start planning how to improve"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_6",
+    "question": "A family member keeps bringing up a topic that makes you uncomfortable. How do you handle it?",
+    "options": [
+      "Ignore it and change the subject each time",
+      "Calmly express your boundaries and why the topic bothers you",
+      "Get angry and tell them to stop",
+      "Endure it to keep the peace"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_7",
+    "question": "Two of your friends are in conflict and both confide in you. What do you do?",
+    "options": [
+      "Take the side of whoever you agree with more",
+      "Listen to both without judgment and encourage direct communication",
+      "Try to solve their problem for them",
+      "Stay completely out of it"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 3
+  },
+  {
+    "id": "eq_8",
+    "question": "You're in a conversation where someone shares a very different political view. How do you respond?",
+    "options": [
+      "Argue your point to help them see the truth",
+      "Listen with curiosity to understand their perspective",
+      "Politely end the conversation",
+      "Nod along but mentally dismiss their views"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_9",
+    "question": "You made a mistake that affected your team's project. What's your approach?",
+    "options": [
+      "Justify why the mistake happened",
+      "Acknowledge it, apologize sincerely, and focus on solutions",
+      "Downplay the mistake's impact",
+      "Wait to see if anyone notices before saying anything"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_10",
+    "question": "A colleague is consistently negative and complaining. How do you deal with this?",
+    "options": [
+      "Avoid them as much as possible",
+      "Try to understand what might be causing their negativity",
+      "Tell them they're being too negative",
+      "Match their energy to show solidarity"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_11",
+    "question": "You're feeling overwhelmed with stress. What's your healthiest coping mechanism?",
+    "options": [
+      "Push through and ignore the feelings",
+      "Recognize the stress and take steps to address it (talk, exercise, rest)",
+      "Distract yourself with work or entertainment",
+      "Vent to anyone who will listen"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "eq_12",
+    "question": "Someone shares an achievement and seems excited. How do you respond?",
+    "options": [
+      "Congratulate them and share your own recent success",
+      "Show genuine enthusiasm and ask them about their experience",
+      "Congratulate them briefly and move on",
+      "Point out the challenges they might face next"
+    ],
+    "correctAnswer": 1,
+    "difficulty": 1
+  }
+]
