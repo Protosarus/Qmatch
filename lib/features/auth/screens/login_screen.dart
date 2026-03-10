@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Title
                   Text(
-                    'Log In',
+                    'Welcome',
                     style: GoogleFonts.playfairDisplay(
                       color: _loginGold,
                       fontSize: 36,
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Continue to your account.',
+                    'Sign in to QMatch',
                     style: GoogleFonts.inter(
                       color: AppColors.textSecondary,
                       fontSize: 16,
