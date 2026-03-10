@@ -7,7 +7,7 @@ import '../../../core/navigation/auth_wrapper.dart';
 import 'login_screen.dart';
 
 // Social login screen — Welcome + Apple/Google + email/password + CTA + footer
-const Color _loginGold = Color(0xFFD4AF37);
+const Color _loginGold = AppColors.primary; // unified brand gold
 const Color _loginDividerText = Color(0xFFB8B8B8);
 
 class SocialLoginScreen extends StatefulWidget {

@@ -200,7 +200,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFD4AF37),
+                          backgroundColor: AppColors.primary,
                           foregroundColor: AppColors.background,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),

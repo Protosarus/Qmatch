@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Title
                   Text(
-                    'Welcome Back',
+                    'Welcome',
                     style: GoogleFonts.playfairDisplay(
                       color: AppColors.primary,
                       fontSize: 36,
