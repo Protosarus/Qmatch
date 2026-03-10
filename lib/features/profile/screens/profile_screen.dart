@@ -276,7 +276,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ),
-                  const SizedBox(height: 24),
+                    const SizedBox(height: 20),
 
                   // Bio
                   _buildSection(
@@ -339,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         _buildInfoRow(
                             Icons.favorite, 'Arıyor', _profile!.lookingFor),
                       ],
-                    ),
+                      ),
                   ),
                   const SizedBox(height: 24),
 

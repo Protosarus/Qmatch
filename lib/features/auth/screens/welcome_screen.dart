@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_screen.dart';
-import 'signup_screen.dart';
 import 'social_login_screen.dart';
 import '../../../core/theme/app_colors.dart';
 
@@ -223,8 +222,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     // Login button → LoginScreen (existing users)
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.primary, width: 2),
+                        border: Border.all(color: AppColors.primary, width: 2),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: SizedBox(

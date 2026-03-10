@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/services/auth_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -80,8 +81,9 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Çıkış Yap',
                     subtitle: 'Hesabından çıkış yap',
                     isDestructive: true,
-                    onTap: () {
-                      // TODO: Logout
+                    onTap: () async {
+                      await AuthService().signOut();
+                      // AuthWrapper authStateChanges ile Welcome ekranına geçer
                     },
                   ),
                 ],
@@ -144,7 +146,7 @@ class SettingsScreen extends StatelessWidget {
         ),
         trailing: Icon(
           Icons.chevron_right,
-          color: AppColors.textSecondary,
+          color: isDestructive ? Colors.red : AppColors.textSecondary,
         ),
       ),
     );

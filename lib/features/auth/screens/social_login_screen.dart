@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/navigation/auth_wrapper.dart';
+import '../../../core/services/auth_service.dart';
 import 'login_screen.dart';
 
 // Social login screen — Welcome + Apple/Google + email/password + CTA + footer
@@ -21,6 +22,7 @@ class _SocialLoginScreenState extends State<SocialLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _authService = AuthService();
   bool _isLoading = false;
   bool _obscurePassword = true;
 
@@ -31,28 +33,62 @@ class _SocialLoginScreenState extends State<SocialLoginScreen> {
     super.dispose();
   }
 
-  Future<void> _handleLogin() async {
+  Future<void> _handleSignup() async {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      // 1. Firebase Auth'a kayıt ol
+      final userCredential = await _authService.signUpWithEmail(
         email: _emailController.text.trim(),
         password: _passwordController.text,
+        // Geçici isim: email'in @ öncesi kısmı
+        name: _emailController.text.trim().split('@').first,
+      );
+
+      // 2. Firestore'a kullanıcı kaydı
+      await _authService.createUserInFirestore(
+        uid: userCredential.user!.uid,
+        name: _emailController.text.trim().split('@').first,
+        email: _emailController.text.trim(),
       );
 
       if (mounted) {
+        // AuthWrapper kullanıcı durumuna göre yönlendirecek
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const AuthWrapper()),
         );
       }
-    } catch (_) {
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'weak-password':
+          errorMessage = 'Password is too weak';
+          break;
+        case 'email-already-in-use':
+          errorMessage = 'An account already exists with this email';
+          break;
+        case 'invalid-email':
+          errorMessage = 'Invalid email address';
+          break;
+        default:
+          errorMessage = 'Signup failed. Please try again';
+      }
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Login failed. Please try again'),
+          SnackBar(
+            content: Text(errorMessage),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${e.toString()}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -90,7 +126,7 @@ class _SocialLoginScreenState extends State<SocialLoginScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Sign in to QMatch',
+                    'Create your QMatch account',
                     style: GoogleFonts.inter(
                       color: AppColors.textSecondary,
                       fontSize: 16,
@@ -313,30 +349,6 @@ class _SocialLoginScreenState extends State<SocialLoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 12),
-
-                  // Forgot password?
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        // Forgot password
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: _loginGold,
-                        padding: const EdgeInsets.symmetric(horizontal: 0),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        'Forgot password?',
-                        style: GoogleFonts.inter(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
                   const SizedBox(height: 24),
 
                   // Primary button: Sign Up (label), same style as Login
@@ -344,7 +356,7 @@ class _SocialLoginScreenState extends State<SocialLoginScreen> {
                     width: double.infinity,
                     height: 60,
                     child: ElevatedButton(
-                      onPressed: _isLoading ? null : _handleLogin,
+                      onPressed: _isLoading ? null : _handleSignup,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _loginGold,
                         foregroundColor: AppColors.background,
