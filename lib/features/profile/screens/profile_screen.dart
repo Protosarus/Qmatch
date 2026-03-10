@@ -72,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         slivers: [
           // App Bar
           SliverAppBar(
-            expandedHeight: 300,
+            expandedHeight: 280,
             pinned: true,
             backgroundColor: AppColors.background,
             flexibleSpace: FlexibleSpaceBar(
@@ -86,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppColors.primary.withValues(alpha: 0.3),
+                          AppColors.primary.withValues(alpha: 0.22),
                           AppColors.background,
                         ],
                       ),
@@ -148,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 child: const Icon(
                                   Icons.camera_alt,
-                                  color: Colors.black,
+                            color: Colors.black,
                                   size: 20,
                                 ),
                               ),
@@ -163,13 +163,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.edit, color: AppColors.primary),
+                icon: Icon(
+                  Icons.edit,
+                  color: AppColors.primary.withValues(alpha: 0.9),
+                ),
                 onPressed: () {
                   // TODO: Edit profile details (bio, interests, etc.)
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.settings, color: AppColors.primary),
+                icon: Icon(
+                  Icons.settings,
+                  color: AppColors.primary.withValues(alpha: 0.9),
+                ),
                 onPressed: () {
                   // TODO: Settings
                 },
@@ -180,7 +186,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // Profile Content
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -193,9 +199,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontSize: 32,
                         fontWeight: FontWeight.w600,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
                   // Archetype Badge (Minds First - Sadece Arketip Gösterilir)
                   if (_profile!.archetype != null)
@@ -243,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
 
                   // Location
                   if (_profile!.locationText != null)

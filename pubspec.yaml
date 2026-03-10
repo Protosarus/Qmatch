@@ -39,3 +39,4 @@ flutter:
     - assets/images/
     - assets/data/iq_questions.json
     - assets/data/eq_questions.json
+    - assets/images/chat_wallpaper_dark.png
