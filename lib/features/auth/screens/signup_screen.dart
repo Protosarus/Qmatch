@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/navigation/auth_wrapper.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -316,6 +318,42 @@ class _SignupScreenState extends State<SignupScreen> {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Already have an account? Log in
+                  Center(
+                    child: Text.rich(
+                      TextSpan(
+                        text: 'Already have an account? ',
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Log in',
+                            style: GoogleFonts.inter(
+                              color: AppColors.primary,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                );
+                              },
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'signup_screen.dart';
 import 'login_screen.dart';
+import 'signup_screen.dart';
+import 'social_login_screen.dart';
 import '../../../core/theme/app_colors.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -185,7 +186,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 opacity: _buttonsOpacity,
                 child: Column(
                   children: [
-                    // Sign Up Button (Primary — flat gold)
+                    // Sign Up button → SocialLoginScreen (Apple/Google + email login)
                     SizedBox(
                       width: double.infinity,
                       height: 64,
@@ -194,7 +195,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const SignupScreen(),
+                              builder: (context) => const SocialLoginScreen(),
                             ),
                           );
                         },
@@ -219,7 +220,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
                     const SizedBox(height: 16),
 
-                    // Login Button (Secondary — outline only)
+                    // Login button → LoginScreen (existing users)
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(

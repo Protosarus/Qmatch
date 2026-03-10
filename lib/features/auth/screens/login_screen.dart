@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/navigation/auth_wrapper.dart';
-
-// Login screen — single brand gold
-const Color _loginGold = Color(0xFFD4AF37);
-const Color _loginDividerText = Color(0xFFB8B8B8);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -95,114 +90,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Title
                   Text(
-                    'Welcome',
+                    'Welcome Back',
                     style: GoogleFonts.playfairDisplay(
-                      color: _loginGold,
+                      color: AppColors.primary,
                       fontSize: 36,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Sign in to QMatch',
+                    'Login to continue',
                     style: GoogleFonts.inter(
                       color: AppColors.textSecondary,
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 32),
-
-                  // Continue with Apple
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        // Social login — no navigation change
-                      },
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: _loginGold,
-                        side: const BorderSide(
-                          color: _loginGold,
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      child: Text(
-                        'Continue with Apple',
-                        style: GoogleFonts.inter(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-
-                  // Continue with Google
-                  SizedBox(
-                    width: double.infinity,
-                    height: 56,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        // Social login — no navigation change
-                      },
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: _loginGold,
-                        side: const BorderSide(
-                          color: _loginGold,
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        backgroundColor: Colors.transparent,
-                      ),
-                      child: Text(
-                        'Continue with Google',
-                        style: GoogleFonts.inter(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  // Divider: or login with email
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: _loginGold.withValues(alpha: 0.4),
-                          thickness: 1,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          'or login with email',
-                          style: GoogleFonts.inter(
-                            color: _loginDividerText,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: _loginGold.withValues(alpha: 0.4),
-                          thickness: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 48),
 
                   // Email Field
                   TextFormField(
@@ -216,14 +119,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(
-                          color: _loginGold,
+                        borderSide: BorderSide(
+                          color: AppColors.primary.withValues(alpha: 0.3),
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: const BorderSide(
-                          color: _loginGold,
+                          color: AppColors.primary,
                           width: 2,
                         ),
                       ),
@@ -265,14 +168,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(
-                          color: _loginGold,
+                        borderSide: BorderSide(
+                          color: AppColors.primary.withValues(alpha: 0.3),
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                         borderSide: const BorderSide(
-                          color: _loginGold,
+                          color: AppColors.primary,
                           width: 2,
                         ),
                       ),
@@ -313,31 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 12),
-
-                  // Forgot password?
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        // Forgot password — no navigation change
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: _loginGold,
-                        padding: const EdgeInsets.symmetric(horizontal: 0),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        'Forgot password?',
-                        style: GoogleFonts.inter(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 32),
 
                   // Login Button
                   SizedBox(
@@ -346,8 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: _isLoading ? null : _handleLogin,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _loginGold,
-                        foregroundColor: AppColors.background,
+                        backgroundColor: AppColors.primary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -390,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: _loginGold,
+              color: AppColors.primary,
               size: 24,
             ),
           ),
