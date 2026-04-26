@@ -1,0 +1,39 @@
+{
+  "@@locale": "en",
+  "addPhotos": "ADD PHOTOS",
+  "@addPhotos": {
+    "description": "Button text for adding photos"
+  },
+  "photosUploaded": "{count} photos uploaded",
+  "@photosUploaded": {
+    "description": "Message shown after photos are uploaded",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setAsMain": "Set as Main Photo",
+  "delete": "Delete",
+  "mainPhotoUpdated": "⭐ Main photo updated",
+  "photoDeleted": "Photo deleted",
+  "myPhotos": "My Photos",
+  "maxPhotos": "Maximum 9 photos allowed",
+  "photoCount": "{current}/9 photos",
+  "@photoCount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      }
+    }
+  },
+  "longPressHint": "Long press photo for options",
+  "errorMessage": "Error: {message}",
+  "@errorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  }
+}

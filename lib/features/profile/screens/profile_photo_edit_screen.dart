@@ -65,6 +65,21 @@ class _ProfilePhotoEditScreenState extends State<ProfilePhotoEditScreen> {
     }
   }
 
+  Future<void> _setAsMainPhoto(int index) async {
+    if (index == 0) return; // Zaten ana fotoğraf
+    
+    setState(() {
+      final photo = _photos.removeAt(index);
+      _photos.insert(0, photo);
+    });
+    
+    await _savePhotos();
+    
+    if (mounted) {
+      showElegantWarning(context, '⭐ Ana fotoğraf güncellendi');
+    }
+  }
+
   Future<void> _deletePhoto(int index) async {
     try {
       final photoUrl = _photos[index];
@@ -94,6 +109,47 @@ class _ProfilePhotoEditScreenState extends State<ProfilePhotoEditScreen> {
     );
     
     await _profileService.saveProfile(updatedProfile);
+  }
+
+  void _showPhotoOptions(int index) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (index != 0)
+              ListTile(
+                leading: Icon(Icons.star, color: AppColors.primary),
+                title: Text(
+                  'Ana Fotoğraf Yap',
+                  style: GoogleFonts.inter(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  _setAsMainPhoto(index);
+                },
+              ),
+            ListTile(
+              leading: const Icon(Icons.delete, color: Colors.red),
+              title: Text(
+                'Sil',
+                style: GoogleFonts.inter(color: Colors.red),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                _deletePhoto(index);
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -126,6 +182,14 @@ class _ProfilePhotoEditScreenState extends State<ProfilePhotoEditScreen> {
               style: GoogleFonts.inter(
                 color: AppColors.textSecondary,
                 fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Fotoğrafa uzun basarak seçenekleri görebilirsiniz',
+              style: GoogleFonts.inter(
+                color: AppColors.textSecondary,
+                fontSize: 12,
               ),
             ),
             const SizedBox(height: 16),
@@ -182,88 +246,81 @@ class _ProfilePhotoEditScreenState extends State<ProfilePhotoEditScreen> {
   }
 
   Widget _buildPhotoTile(String photoUrl, int index) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            photoUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              debugPrint('Error loading photo at index $index: $error');
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: Colors.red.withValues(alpha: 0.5),
-                    width: 2,
+    return GestureDetector(
+      onLongPress: () => _showPhotoOptions(index),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              photoUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                debugPrint('Error loading photo at index $index: $error');
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade900,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Colors.red.withValues(alpha: 0.5),
+                      width: 2,
+                    ),
                   ),
-                ),
-                child: Icon(
-                  Icons.broken_image,
-                  color: Colors.red.withValues(alpha: 0.5),
-                  size: 32,
-                ),
-              );
-            },
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-                ),
-              );
-            },
+                  child: Icon(
+                    Icons.broken_image,
+                    color: Colors.red.withValues(alpha: 0.5),
+                    size: 32,
+                  ),
+                );
+              },
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-        
-        if (index == 0)
-          Positioned(
-            top: 8,
-            left: 8,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                'ANA',
-                style: GoogleFonts.inter(
+          
+          // Altın Yıldız - Sadece ilk fotoğrafta
+          if (index == 0)
+            Positioned(
+              top: 8,
+              left: 8,
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.primary,
+                      AppColors.primary.withValues(alpha: 0.8),
+                    ],
+                  ),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.5),
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.star,
                   color: Colors.black,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
+                  size: 16,
                 ),
               ),
             ),
-          ),
-        
-        Positioned(
-          top: 8,
-          right: 8,
-          child: GestureDetector(
-            onTap: () => _deletePhoto(index),
-            child: Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.close,
-                color: Colors.white,
-                size: 16,
-              ),
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

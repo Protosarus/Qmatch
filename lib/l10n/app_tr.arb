@@ -1,0 +1,39 @@
+{
+  "@@locale": "tr",
+  "addPhotos": "FOTOĞRAF EKLE",
+  "@addPhotos": {
+    "description": "Button text for adding photos"
+  },
+  "photosUploaded": "{count} fotoğraf yüklendi",
+  "@photosUploaded": {
+    "description": "Message shown after photos are uploaded",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setAsMain": "Ana Fotoğraf Yap",
+  "delete": "Sil",
+  "mainPhotoUpdated": "⭐ Ana fotoğraf güncellendi",
+  "photoDeleted": "Fotoğraf silindi",
+  "myPhotos": "Fotoğraflarım",
+  "maxPhotos": "En fazla 9 fotoğraf ekleyebilirsiniz",
+  "photoCount": "{current}/9 fotoğraf",
+  "@photoCount": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      }
+    }
+  },
+  "longPressHint": "Fotoğrafa uzun basarak seçenekleri görebilirsiniz",
+  "errorMessage": "Hata: {message}",
+  "@errorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  }
+}
