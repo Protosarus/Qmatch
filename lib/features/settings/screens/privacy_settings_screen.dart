@@ -13,7 +13,6 @@ class PrivacySettingsScreen extends StatefulWidget {
 class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
   bool _showInDiscover = true;
   bool _showApproxLocation = false;
-  bool _alwaysAskRevealConsent = true;
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +53,6 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
                   onChanged: (v) => setState(() => _showApproxLocation = v),
                 ),
               ],
-            ),
-          ),
-          const SizedBox(height: 18),
-          _sectionTitle('Blur Reveal'),
-          const SizedBox(height: 10),
-          _card(
-            child: _switch(
-              title: 'Reveal için her zaman onay iste',
-              subtitle: 'Fotoğraflar yalnızca karşılıklı onayla açılsın',
-              value: _alwaysAskRevealConsent,
-              onChanged: (v) => setState(() => _alwaysAskRevealConsent = v),
             ),
           ),
           const SizedBox(height: 18),

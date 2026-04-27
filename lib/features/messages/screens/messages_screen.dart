@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -215,7 +213,7 @@ class _ThreadTile extends StatelessWidget {
             ),
             child: Row(
               children: [
-                _BlurAvatar(photoUrl: photoUrl),
+                _Avatar(photoUrl: photoUrl),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -324,10 +322,10 @@ class _ThreadTile extends StatelessWidget {
   }
 }
 
-class _BlurAvatar extends StatelessWidget {
+class _Avatar extends StatelessWidget {
   final String? photoUrl;
 
-  const _BlurAvatar({required this.photoUrl});
+  const _Avatar({required this.photoUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -351,13 +349,10 @@ class _BlurAvatar extends StatelessWidget {
       child: SizedBox(
         width: 52,
         height: 52,
-        child: ImageFiltered(
-          imageFilter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-          child: Image.network(
-            photoUrl!,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => placeholder,
-          ),
+        child: Image.network(
+          photoUrl!,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) => placeholder,
         ),
       ),
     );

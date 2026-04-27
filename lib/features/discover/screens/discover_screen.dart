@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -307,29 +305,26 @@ class _CandidateCard extends StatelessWidget {
                       color: Colors.grey.shade900,
                       child: Icon(Icons.person, size: 100, color: AppColors.primary.withValues(alpha: 0.5)),
                     )
-                  : ImageFiltered(
-                      imageFilter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-                      child: Image.network(
-                        url,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: 280,
-                        errorBuilder: (_, __, ___) => Container(
-                          color: Colors.grey.shade900,
-                          child: Icon(Icons.broken_image, color: AppColors.textSecondary),
-                        ),
-                        loadingBuilder: (context, child, progress) {
-                          if (progress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.primary,
-                              value: progress.expectedTotalBytes != null
-                                  ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        },
+                  : Image.network(
+                      url,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 280,
+                      errorBuilder: (_, __, ___) => Container(
+                        color: Colors.grey.shade900,
+                        child: Icon(Icons.broken_image, color: AppColors.textSecondary),
                       ),
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primary,
+                            value: progress.expectedTotalBytes != null
+                                ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
                     ),
             ),
             Padding(
@@ -488,15 +483,6 @@ class _CandidateCard extends StatelessWidget {
                       color: AppColors.textSecondary,
                       fontSize: 13,
                       fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Photos become clearer as the conversation grows.',
-                    style: GoogleFonts.inter(
-                      color: AppColors.textSecondary.withValues(alpha: 0.85),
-                      fontSize: 12,
-                      height: 1.35,
                     ),
                   ),
                 ],

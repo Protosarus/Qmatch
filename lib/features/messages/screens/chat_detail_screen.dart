@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,9 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../models/message_model.dart';
 import '../services/chat_service.dart';
-import '../../reveal/services/reveal_service.dart';
-import '../../reveal/models/reveal_state_model.dart';
-import '../../reveal/widgets/blurred_profile_photo.dart';
 import '../../safety/services/safety_service.dart';
 import '../../matching/services/match_service.dart';
 
@@ -31,7 +26,6 @@ class ChatDetailScreen extends StatefulWidget {
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
   final ChatService _chat = ChatService();
-  final RevealService _reveal = RevealService();
   final SafetyService _safety = SafetyService();
   final MatchService _matchService = MatchService();
   final ScrollController _scroll = ScrollController();
@@ -43,7 +37,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   bool _sending = false;
   String? _initError;
   String? _matchId;
-  int _lastProgressCheckMs = 0;
 
   @override
   void initState() {
@@ -98,7 +91,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       if (!mounted) return;
       _input.clear();
       _scrollToBottom();
-      await _maybeUpdateBlurProgress(force: true);
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -126,75 +118,6 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       if (u.trim().isNotEmpty) return u;
     }
     return null;
-  }
-
-  Future<void> _maybeUpdateBlurProgress({bool force = false}) async {
-    final matchId = _matchId;
-    if (matchId == null || matchId.isEmpty) return;
-
-    final now = DateTime.now().millisecondsSinceEpoch;
-    if (!force && (now - _lastProgressCheckMs) < 2500) return;
-    _lastProgressCheckMs = now;
-
-    try {
-      await _reveal.updateBlurProgressFromMessages(
-        matchId: matchId,
-        threadId: widget.threadId,
-      );
-    } catch (_) {
-      // MVP: do not block chat if reveal progression fails.
-    }
-  }
-
-  Future<void> _handleRevealRequest() async {
-    final matchId = _matchId;
-    if (matchId == null) return;
-    try {
-      await _reveal.requestReveal(matchId);
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Reveal request sent.'), backgroundColor: AppColors.success),
-      );
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString()), backgroundColor: AppColors.error),
-      );
-    }
-  }
-
-  Future<void> _handleRevealAccept() async {
-    final matchId = _matchId;
-    if (matchId == null) return;
-    try {
-      await _reveal.acceptReveal(matchId);
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Reveal accepted.'), backgroundColor: AppColors.success),
-      );
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString()), backgroundColor: AppColors.error),
-      );
-    }
-  }
-
-  Future<void> _handleRevealReject() async {
-    final matchId = _matchId;
-    if (matchId == null) return;
-    try {
-      await _reveal.rejectReveal(matchId);
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Not yet.'), backgroundColor: AppColors.success),
-      );
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString()), backgroundColor: AppColors.error),
-      );
-    }
   }
 
   Future<void> _showReportDialog() async {
@@ -444,90 +367,24 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   fontWeight: FontWeight.w600,
                 ),
               )
-            : _matchId == null
-                ? Row(
-                    children: [
-                      _HeaderBlurAvatar(photoUrl: _resolvePhotoUrl()),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              _resolveTitle(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.playfairDisplay(
-                                color: AppColors.primary,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              'Photos reveal as trust grows',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                                color: AppColors.textSecondary.withValues(alpha: 0.85),
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        ),
+            : Row(
+                children: [
+                  _HeaderAvatar(photoUrl: _resolvePhotoUrl()),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      _resolveTitle(),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.playfairDisplay(
+                        color: AppColors.primary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                  )
-                : StreamBuilder<RevealStateModel>(
-                    stream: _reveal.getRevealStateStream(_matchId!),
-                    builder: (context, snap) {
-                      final state = snap.data ?? const RevealStateModel();
-                      final safeBlur = state.isFullyRevealed ? 0 : state.blurLevel.clamp(0, 3);
-
-                      return Row(
-                        children: [
-                          ClipOval(
-                            child: BlurredProfilePhoto(
-                              imageUrl: _resolvePhotoUrl(),
-                              blurLevel: safeBlur,
-                              width: 36,
-                              height: 36,
-                              borderRadius: BorderRadius.circular(999),
-                              overlayText: null,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  _resolveTitle(),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.playfairDisplay(
-                                    color: AppColors.primary,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  'Photos reveal as trust grows',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.textSecondary.withValues(alpha: 0.85),
-                                    fontSize: 11,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                    ),
                   ),
+                ],
+              ),
       ),
       body: Column(
         children: [
@@ -593,7 +450,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  'The photo becomes clearer as the connection grows.',
+                                  'Start a conversation based on real compatibility.',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.inter(
                                     color: AppColors.textSecondary,
@@ -607,27 +464,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                         );
                       }
 
-                      // Update blur progression as messages come in (throttled).
-                      _maybeUpdateBlurProgress();
-
                       _scrollToBottom();
 
                       return Column(
                         children: [
-                          if (_matchId != null)
-                            StreamBuilder<RevealStateModel>(
-                              stream: _reveal.getRevealStateStream(_matchId!),
-                              builder: (context, revealSnap) {
-                                final reveal = revealSnap.data ?? const RevealStateModel();
-                                return _RevealBanner(
-                                  reveal: reveal,
-                                  currentUid: currentUid,
-                                  onRequest: _handleRevealRequest,
-                                  onAccept: _handleRevealAccept,
-                                  onReject: _handleRevealReject,
-                                );
-                              },
-                            ),
                           Expanded(
                             child: ListView.builder(
                               controller: _scroll,
@@ -708,10 +548,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   }
 }
 
-class _HeaderBlurAvatar extends StatelessWidget {
+class _HeaderAvatar extends StatelessWidget {
   final String? photoUrl;
-
-  const _HeaderBlurAvatar({required this.photoUrl});
+  const _HeaderAvatar({required this.photoUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -721,144 +560,27 @@ class _HeaderBlurAvatar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.shade900,
         shape: BoxShape.circle,
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.25)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
       ),
-      child: Icon(Icons.person, color: AppColors.primary.withValues(alpha: 0.65), size: 20),
+      child: Icon(
+        Icons.person,
+        color: AppColors.primary.withValues(alpha: 0.6),
+        size: 18,
+      ),
     );
 
-    final url = photoUrl;
+    final url = photoUrl?.trim();
     if (url == null || url.isEmpty) return placeholder;
 
     return ClipOval(
       child: SizedBox(
         width: 36,
         height: 36,
-        child: ImageFiltered(
-          imageFilter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: Image.network(
-            url,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => placeholder,
-          ),
+        child: Image.network(
+          url,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) => placeholder,
         ),
-      ),
-    );
-  }
-}
-
-class _RevealBanner extends StatelessWidget {
-  final RevealStateModel reveal;
-  final String currentUid;
-  final VoidCallback onRequest;
-  final VoidCallback onAccept;
-  final VoidCallback onReject;
-
-  const _RevealBanner({
-    required this.reveal,
-    required this.currentUid,
-    required this.onRequest,
-    required this.onAccept,
-    required this.onReject,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isFully = reveal.isFullyRevealed;
-    final blur = isFully ? 0 : reveal.blurLevel.clamp(0, 3);
-
-    String title;
-    String subtitle;
-    Widget? actions;
-
-    if (blur >= 3) {
-      title = 'Connection just started';
-      subtitle = 'Keep talking to make the photo clearer.';
-    } else if (blur == 2) {
-      title = 'Connection is getting clearer';
-      subtitle = 'A few more meaningful messages will unlock reveal request.';
-    } else if (blur == 1 && reveal.requestedBy == null) {
-      title = 'Ready for reveal?';
-      subtitle = 'Both people must agree before photos become clear.';
-      actions = SizedBox(
-        width: double.infinity,
-        child: FilledButton(
-          onPressed: onRequest,
-          style: FilledButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.black,
-          ),
-          child: const Text('Request Reveal'),
-        ),
-      );
-    } else if (blur == 1 && reveal.requestedBy == currentUid) {
-      title = 'Reveal request sent';
-      subtitle = 'Waiting for the other person to accept.';
-    } else if (blur == 1 && reveal.requestedBy != null && reveal.requestedBy != currentUid) {
-      title = 'Reveal requested';
-      subtitle = 'Accept only if you feel ready.';
-      actions = Row(
-        children: [
-          Expanded(
-            child: OutlinedButton(
-              onPressed: onReject,
-              style: OutlinedButton.styleFrom(
-                foregroundColor: AppColors.textSecondary,
-                side: BorderSide(color: AppColors.textSecondary.withValues(alpha: 0.5)),
-              ),
-              child: const Text('Not yet'),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: FilledButton(
-              onPressed: onAccept,
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.black,
-              ),
-              child: const Text('Accept'),
-            ),
-          ),
-        ],
-      );
-    } else {
-      title = 'Photos revealed';
-      subtitle = 'You both agreed to reveal.';
-    }
-
-    return Container(
-      margin: const EdgeInsets.fromLTRB(12, 6, 12, 6),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.14)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: GoogleFonts.inter(
-              color: Colors.white,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 12,
-              height: 1.35,
-            ),
-          ),
-          if (actions != null) ...[
-            const SizedBox(height: 10),
-            actions,
-          ],
-        ],
       ),
     );
   }

@@ -32,19 +32,19 @@ class HelpSupportScreen extends StatelessWidget {
                 'Qmatch; düşünme (IQ), hissetme (EQ) ve bağ kurma tarzını (Frequency) temel alarak eşleşmeler önerir. Amaç, sadece görünüşe değil uyuma odaklanmaktır.',
           ),
           _faq(
-            q: 'Fotoğraflar neden bulanık?',
+            q: 'Eşleşmeler nasıl sıralanır?',
             a:
-                'Fotoğraflar, konuşma ve karşılıklı güven arttıkça kademeli olarak netleşir. Tam netleşme için karşılıklı onay gerekir.',
-          ),
-          _faq(
-            q: 'Reveal isteği nedir?',
-            a:
-                'Reveal isteği, fotoğrafları tamamen netleştirmek için gönderilen onay talebidir. İki taraf da kabul ederse fotoğraflar açılır.',
+                'Keşfet ekranında öneriler; uyumluluk (IQ/EQ/Frequency), arketip ve ortak ilgi alanlarına göre sıralanır.',
           ),
           _faq(
             q: 'Frequency ne anlama gelir?',
             a:
                 'Frequency, birinin nasıl bağ kurduğunu ve iletişim ritmini anlatır. Derinlik, sosyal enerji ve güven hızı gibi boyutlardan oluşur.',
+          ),
+          _faq(
+            q: 'Qmatch’te fotoğraflar görünür mü?',
+            a:
+                'Evet. Qmatch, uyumluluk katmanlarıyla daha anlamlı bağlantılar kurmayı hedefler; fotoğraflar normal şekilde görüntülenir.',
           ),
           _faq(
             q: 'Bir kullanıcıyı nasıl engellerim?',

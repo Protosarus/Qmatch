@@ -16,7 +16,6 @@ class _NotificationsSettingsScreenState
   bool _push = true;
   bool _newMatch = true;
   bool _newMessage = true;
-  bool _revealRequest = true;
   bool _dailyFrequency = false;
 
   @override
@@ -62,15 +61,6 @@ class _NotificationsSettingsScreenState
                   value: _newMessage,
                   onChanged:
                       _push ? (v) => setState(() => _newMessage = v) : null,
-                ),
-                const Divider(height: 1),
-                _switch(
-                  title: 'Reveal isteği bildirimleri',
-                  subtitle: 'Fotoğraf reveal isteği geldiğinde bildir',
-                  value: _revealRequest,
-                  onChanged: _push
-                      ? (v) => setState(() => _revealRequest = v)
-                      : null,
                 ),
                 const Divider(height: 1),
                 _switch(
