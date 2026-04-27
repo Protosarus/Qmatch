@@ -156,6 +156,7 @@ class MatchService {
           'status': 'closed',
           'closed_at': FieldValue.serverTimestamp(),
           'closed_by': me.uid,
+          'closed_reason': 'unmatched',
         },
         SetOptions(merge: true),
       );

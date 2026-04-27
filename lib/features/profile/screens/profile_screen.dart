@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/theme/app_colors.dart';
 import '../models/user_profile_model.dart';
 import '../services/profile_service.dart';
@@ -16,6 +18,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _profileService = ProfileService();
   bool _isLoading = true;
   UserProfileModel? _profile;
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> _loadFrequencyBadge() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      return FirebaseFirestore.instance.collection('users').doc('_missing').get();
+    }
+    return FirebaseFirestore.instance.collection('users').doc(uid).get();
+  }
 
   @override
   void initState() {
@@ -252,6 +262,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
+                  const SizedBox(height: 16),
+
+                  // Frequency badge (optional)
+                  FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                    future: _loadFrequencyBadge(),
+                    builder: (context, snap) {
+                      final data = snap.data?.data();
+                      final type = (data?['frequency_type'] as String?)?.trim();
+                      final completed = data?['frequency_completed'] as bool? ?? false;
+                      if (!completed || type == null || type.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+
+                      return Center(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: AppColors.surface,
+                            borderRadius: BorderRadius.circular(999),
+                            border: Border.all(
+                              color: AppColors.primary.withValues(alpha: 0.18),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.waves, color: AppColors.primary, size: 18),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Frequency: $type',
+                                style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 16),
 
                   // Location

@@ -345,6 +345,77 @@ class _CandidateCard extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  if (candidate.compatibilityLabel != null ||
+                      candidate.compatibilityScore != null ||
+                      (candidate.compatibilityReasons?.isNotEmpty ?? false)) ...[
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        if (candidate.compatibilityLabel != null)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withValues(alpha: 0.18),
+                              borderRadius: BorderRadius.circular(999),
+                              border: Border.all(
+                                color: AppColors.primary.withValues(alpha: 0.25),
+                              ),
+                            ),
+                            child: Text(
+                              candidate.compatibilityLabel!,
+                              style: GoogleFonts.inter(
+                                color: AppColors.primary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        if (candidate.compatibilityScore != null)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: AppColors.surface,
+                              borderRadius: BorderRadius.circular(999),
+                              border: Border.all(
+                                color: AppColors.primary.withValues(alpha: 0.14),
+                              ),
+                            ),
+                            child: Text(
+                              '${((candidate.compatibilityScore!.clamp(0.0, 1.0)) * 100).round()}% compatibility',
+                              style: GoogleFonts.inter(
+                                color: AppColors.textSecondary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    if (candidate.compatibilityReasons != null &&
+                        candidate.compatibilityReasons!.isNotEmpty) ...[
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: candidate.compatibilityReasons!
+                            .take(3)
+                            .map(
+                              (r) => Chip(
+                                label: Text(
+                                  r,
+                                  style: GoogleFonts.inter(color: Colors.black, fontSize: 11),
+                                ),
+                                backgroundColor: AppColors.primary.withValues(alpha: 0.35),
+                                padding: EdgeInsets.zero,
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ],
                   if (candidate.archetype != null || candidate.category != null) ...[
                     const SizedBox(height: 10),
                     Wrap(

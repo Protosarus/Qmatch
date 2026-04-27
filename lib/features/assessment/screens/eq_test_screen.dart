@@ -7,7 +7,7 @@ import '../../../core/widgets/elegant_warning.dart';
 import '../models/question_model.dart';
 import '../models/archetype_model.dart';
 import '../services/question_service.dart';
-import '../../profile/screens/name_selection_screen.dart';
+import 'frequency_intro_screen.dart';
 
 class EQTestScreen extends StatefulWidget {
   final int iqScore;
@@ -175,7 +175,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => const NameSelectionScreen(),
+                    builder: (context) => const FrequencyIntroScreen(),
                   ),
                   (route) => false,
                 );

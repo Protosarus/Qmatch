@@ -1,0 +1,95 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class FrequencyQuestion {
+  final String id;
+  final String question;
+  final String dimension;
+  final bool reverseScored;
+  final List<String> options;
+
+  const FrequencyQuestion({
+    required this.id,
+    required this.question,
+    required this.dimension,
+    this.reverseScored = false,
+    this.options = const [
+      'Strongly disagree',
+      'Disagree',
+      'Neutral',
+      'Agree',
+      'Strongly agree',
+    ],
+  });
+}
+
+class FrequencyAnswer {
+  final String questionId;
+  final int value; // 1..5
+
+  const FrequencyAnswer({
+    required this.questionId,
+    required this.value,
+  });
+}
+
+class FrequencyResult {
+  final bool completed;
+  final double scoreTotal; // 0..100
+  final Map<String, double> vector; // 0..1 per dimension
+  final String type;
+  final List<String> tags;
+  final Timestamp? completedAt;
+  final Map<String, int>? answers; // optional raw answers (1..5)
+
+  const FrequencyResult({
+    this.completed = false,
+    this.scoreTotal = 0,
+    this.vector = const {},
+    this.type = 'Balanced Frequency',
+    this.tags = const [],
+    this.completedAt,
+    this.answers,
+  });
+
+  factory FrequencyResult.fromFirestore(Map<String, dynamic> data) {
+    final vectorRaw = (data['vector'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final vector = <String, double>{};
+    for (final e in vectorRaw.entries) {
+      final v = e.value;
+      if (v is num) vector[e.key] = v.toDouble();
+    }
+
+    final answersRaw = (data['answers'] as Map?)?.cast<String, dynamic>();
+    Map<String, int>? answers;
+    if (answersRaw != null) {
+      answers = <String, int>{};
+      for (final e in answersRaw.entries) {
+        final v = e.value;
+        if (v is num) answers[e.key] = v.toInt();
+      }
+    }
+
+    return FrequencyResult(
+      completed: data['completed'] as bool? ?? false,
+      scoreTotal: (data['scoreTotal'] as num?)?.toDouble() ?? 0,
+      vector: vector,
+      type: (data['type'] as String?) ?? 'Balanced Frequency',
+      tags: List<String>.from(data['tags'] ?? const []),
+      completedAt: data['completedAt'] is Timestamp ? data['completedAt'] as Timestamp : null,
+      answers: answers,
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      'completed': completed,
+      'scoreTotal': scoreTotal,
+      'vector': vector,
+      'type': type,
+      'tags': tags,
+      'completedAt': completedAt,
+      if (answers != null) 'answers': answers,
+    };
+  }
+}
+

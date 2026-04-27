@@ -10,6 +10,9 @@ class DiscoverUserModel {
   final String lookingFor;
   final String? archetype;
   final String? category;
+  final String? frequencyType;
+  final double? frequencyScore;
+  final List<String>? frequencyTags;
   final String? profilePhotoUrl;
   final List<String> photos;
   final List<String> interests;
@@ -20,6 +23,10 @@ class DiscoverUserModel {
   final bool testCompleted;
   final bool active;
 
+  final double? compatibilityScore; // 0..1
+  final String? compatibilityLabel;
+  final List<String>? compatibilityReasons;
+
   const DiscoverUserModel({
     required this.uid,
     required this.name,
@@ -29,6 +36,9 @@ class DiscoverUserModel {
     this.lookingFor = '',
     this.archetype,
     this.category,
+    this.frequencyType,
+    this.frequencyScore,
+    this.frequencyTags,
     this.profilePhotoUrl,
     this.photos = const [],
     this.interests = const [],
@@ -38,7 +48,62 @@ class DiscoverUserModel {
     this.profileCompleted = false,
     this.testCompleted = false,
     this.active = true,
+    this.compatibilityScore,
+    this.compatibilityLabel,
+    this.compatibilityReasons,
   });
+
+  DiscoverUserModel copyWith({
+    String? uid,
+    String? name,
+    int? age,
+    String? bio,
+    String? gender,
+    String? lookingFor,
+    String? archetype,
+    String? category,
+    String? frequencyType,
+    double? frequencyScore,
+    List<String>? frequencyTags,
+    String? profilePhotoUrl,
+    List<String>? photos,
+    List<String>? interests,
+    Timestamp? lastActiveAt,
+    int? iqNormalized,
+    int? eqNormalized,
+    bool? profileCompleted,
+    bool? testCompleted,
+    bool? active,
+    double? compatibilityScore,
+    String? compatibilityLabel,
+    List<String>? compatibilityReasons,
+  }) {
+    return DiscoverUserModel(
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      bio: bio ?? this.bio,
+      gender: gender ?? this.gender,
+      lookingFor: lookingFor ?? this.lookingFor,
+      archetype: archetype ?? this.archetype,
+      category: category ?? this.category,
+      frequencyType: frequencyType ?? this.frequencyType,
+      frequencyScore: frequencyScore ?? this.frequencyScore,
+      frequencyTags: frequencyTags ?? this.frequencyTags,
+      profilePhotoUrl: profilePhotoUrl ?? this.profilePhotoUrl,
+      photos: photos ?? this.photos,
+      interests: interests ?? this.interests,
+      lastActiveAt: lastActiveAt ?? this.lastActiveAt,
+      iqNormalized: iqNormalized ?? this.iqNormalized,
+      eqNormalized: eqNormalized ?? this.eqNormalized,
+      profileCompleted: profileCompleted ?? this.profileCompleted,
+      testCompleted: testCompleted ?? this.testCompleted,
+      active: active ?? this.active,
+      compatibilityScore: compatibilityScore ?? this.compatibilityScore,
+      compatibilityLabel: compatibilityLabel ?? this.compatibilityLabel,
+      compatibilityReasons: compatibilityReasons ?? this.compatibilityReasons,
+    );
+  }
 
   /// Primary photo URL for display (first usable URL).
   String? get primaryPhotoUrl {
@@ -83,6 +148,11 @@ class DiscoverUserModel {
       lookingFor: (data['looking_for'] as String?)?.trim() ?? '',
       archetype: data['archetype'] as String?,
       category: data['category'] as String?,
+      frequencyType: data['frequency_type'] as String?,
+      frequencyScore: (data['frequency_score'] as num?)?.toDouble(),
+      frequencyTags: data['frequency_tags'] is List
+          ? List<String>.from(data['frequency_tags'] as List)
+          : null,
       profilePhotoUrl: data['profile_photo_url'] as String?,
       photos: photosList,
       interests: List<String>.from(data['interests'] ?? const []),

@@ -72,10 +72,12 @@ class MessageModel {
       senderId: (data['sender_id'] as String?) ?? '',
       type: _typeFromString(data['type'] as String?),
       text: (data['text'] as String?) ?? '',
-      createdAt: data['created_at'] as Timestamp?,
+      createdAt: data['created_at'] is Timestamp ? data['created_at'] as Timestamp : null,
       clientCreatedAt: (data['client_created_at'] as num?)?.toInt(),
       readBy: readBy,
-      moderation: (data['moderation'] as Map?)?.cast<String, dynamic>(),
+      moderation: data['moderation'] is Map
+          ? (data['moderation'] as Map).cast<String, dynamic>()
+          : null,
     );
   }
 
