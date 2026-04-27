@@ -115,20 +115,11 @@ class RevealService {
       return 0;
     }
 
-    // Count text messages and per-user counts (MVP: read all).
-    final msgSnap = await FirestorePaths.threadMessages(threadId)
-        .where('type', isEqualTo: 'text')
-        .get();
-    final docs = msgSnap.docs;
-
-    int totalText = docs.length;
-    int aCount = 0;
-    int bCount = 0;
-    for (final d in docs) {
-      final sender = d.data()['sender_id'] as String?;
-      if (sender == userA) aCount++;
-      if (sender == userB) bCount++;
-    }
+    // Use thread-level counters (no message subcollection scan).
+    final totalText = (threadData['text_count_total'] as num?)?.toInt() ?? 0;
+    final byUidRaw = (threadData['text_count_by_uid'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final aCount = (byUidRaw[userA] as num?)?.toInt() ?? 0;
+    final bCount = (byUidRaw[userB] as num?)?.toInt() ?? 0;
 
     int suggested = 3;
     if (totalText >= 5) suggested = 2;

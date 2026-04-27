@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../assessment/screens/iq_test_intro_screen.dart';
+import '../../../core/navigation/auth_wrapper.dart';
 
 class EmailSignupScreen extends StatefulWidget {
   const EmailSignupScreen({super.key});
@@ -56,10 +56,10 @@ class _EmailSignupScreenState extends State<EmailSignupScreen> {
         debugPrint('3. Firestore write complete'); // LOG
 
         if (mounted) {
-          debugPrint('4. Navigating to IQ Test'); // LOG
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const IQTestIntroScreen()),
+          // Let AuthWrapper route: email verification -> onboarding steps.
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (_) => const AuthWrapper()),
+            (route) => false,
           );
         }
       } catch (e) {

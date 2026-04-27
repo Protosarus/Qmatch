@@ -5,7 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/widgets/success_dialog.dart';
 import '../../../core/widgets/elegant_warning.dart';
-import 'profile_screen.dart';
+import '../../../core/navigation/auth_wrapper.dart';
 import '../models/user_profile_model.dart';
 import '../services/profile_service.dart';
 import 'steps/basic_info_step.dart';
@@ -142,16 +142,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             title: 'Profil Hazır!',
             message: 'Harika! Artık eşleşmeleri keşfetmeye başlayabilirsin.',
             onContinue: () {
+              // Route through AuthWrapper so gating stays consistent.
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
-                ),
-                (route) => false,
-              );
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => const AuthWrapper()),
                 (route) => false,
               );
             },

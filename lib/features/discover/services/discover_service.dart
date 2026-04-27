@@ -29,7 +29,25 @@ class DiscoverService {
     final currentUid = me.uid;
 
     final meDoc = await FirestorePaths.userDoc(currentUid).get();
-    final meData = meDoc.data() ?? <String, dynamic>{};
+    final meData = Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
+
+    // Frequency fallback: if mirror fields missing, try reading assessments/frequency for current user only.
+    if (meData['frequency_type'] == null && meData['frequency_tags'] == null) {
+      try {
+        final freqDoc = await FirestorePaths.userDoc(currentUid)
+            .collection('assessments')
+            .doc('frequency')
+            .get();
+        final freq = freqDoc.data();
+        if (freq != null) {
+          meData['frequency_type'] ??= freq['type'] ?? freq['frequency_type'];
+          meData['frequency_tags'] ??= freq['tags'] ?? freq['frequency_tags'];
+          meData['frequency_score'] ??= freq['scoreTotal'] ?? freq['score_total'] ?? freq['frequency_score'];
+        }
+      } catch (_) {
+        // ignore for MVP
+      }
+    }
 
     final swiped = await _swipeService.getMySwipedUserIds();
     Set<String> blocked;
@@ -40,11 +58,11 @@ class DiscoverService {
     }
     // TODO: Server-side enforcement is needed later to fully exclude users who blocked the current user.
 
-    // Simple index-friendly query; local filters remove many rows — fetch a bit more than [limit].
+    // Prefer discover_eligible to avoid composite index needs.
+    // TODO: Backfill discover_eligible for existing users if needed.
     final batchSize = (limit * 3).clamp(30, 120);
     final snapshot = await FirestorePaths.users()
-        .where('test_completed', isEqualTo: true)
-        .where('profile_completed', isEqualTo: true)
+        .where('discover_eligible', isEqualTo: true)
         .limit(batchSize)
         .get();
 

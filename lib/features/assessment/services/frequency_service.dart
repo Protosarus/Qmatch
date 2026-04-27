@@ -171,7 +171,7 @@ class FrequencyService {
     await doc.set(
       {
         ...result.toFirestore(),
-        'completedAt': FieldValue.serverTimestamp(),
+        'completed_at': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
     );

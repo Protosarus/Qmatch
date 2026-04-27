@@ -6,6 +6,28 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Future<void> _refreshDiscoverEligibility(String uid) async {
+    final doc = await _firestore.collection('users').doc(uid).get();
+    final data = doc.data() ?? <String, dynamic>{};
+
+    final testCompleted = data['test_completed'] as bool? ?? false;
+    final profileCompleted = data['profile_completed'] as bool? ?? false;
+    final active = data['active'] as bool? ?? true;
+    final profilePhotoUrl = (data['profile_photo_url'] as String?)?.trim();
+    final photos = (data['photos'] as List?)?.cast<String>() ?? const <String>[];
+    final hasPhoto = (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty) || photos.isNotEmpty;
+
+    final eligible = active && testCompleted && profileCompleted && hasPhoto;
+
+    await _firestore.collection('users').doc(uid).set(
+      {
+        'discover_eligible': eligible,
+        'updated_at': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
+
   // Current user getter
   User? get currentUser => _auth.currentUser;
 
@@ -45,6 +67,8 @@ class AuthService {
         'email': email,
         'test_completed': false,
         'profile_completed': false,
+        'discover_eligible': false,
+        'active': true,
         'archetype': null,
         'category': null, // HH, HM, HL, MH, MM, ML, LH, LM, LL
         'iq_score': null, // Raw score (0-10)
@@ -127,6 +151,9 @@ class AuthService {
         'eq_normalized': eqNormalized,
         'test_completed_at': FieldValue.serverTimestamp(),
       });
+
+      // Safe MVP: recompute discover eligibility after tests complete.
+      await _refreshDiscoverEligibility(user.uid);
       
       debugPrint('✅ Test results saved: IQ=$iqScore($iqNormalized), EQ=$eqScore($eqNormalized), Category=$category');
     } catch (e) {

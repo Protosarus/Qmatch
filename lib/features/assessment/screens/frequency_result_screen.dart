@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../profile/screens/name_selection_screen.dart';
+import '../../../core/navigation/auth_wrapper.dart';
 import '../models/frequency_model.dart';
 
 class FrequencyResultScreen extends StatelessWidget {
@@ -143,9 +143,9 @@ class FrequencyResultScreen extends StatelessWidget {
                 height: 56,
                 child: FilledButton(
                   onPressed: () {
-                    // MVP: treat this as part of onboarding flow and continue.
+                    // Continue onboarding via AuthWrapper (profile -> main).
                     Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (_) => const NameSelectionScreen()),
+                      MaterialPageRoute(builder: (_) => const AuthWrapper()),
                       (route) => false,
                     );
                   },

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../features/auth/screens/welcome_screen.dart';
+import '../../features/auth/screens/email_verification_screen.dart';
+import '../../features/assessment/screens/frequency_intro_screen.dart';
+import '../../features/assessment/screens/iq_test_intro_screen.dart';
 import '../../features/profile/screens/profile_setup_screen.dart';
-import '../../features/assessment/screens/iq_test_screen.dart';
+import '../services/auth_service.dart';
 import 'main_navigation_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -33,15 +36,17 @@ class AuthWrapper extends StatelessWidget {
 
         final user = snapshot.data!;
 
-        // Kullanıcı durumunu kontrol et
-        return FutureBuilder<DocumentSnapshot>(
-          future: FirebaseFirestore.instance
-              .collection('users')
-              .doc(user.uid)
-              .get(),
-          builder: (context, userSnapshot) {
+        // If email is not verified, keep user in verification screen.
+        if (!user.emailVerified) {
+          return EmailVerificationScreen(email: user.email ?? '');
+        }
+
+        // Ensure a user doc exists, then route based on completion flags.
+        return FutureBuilder<void>(
+          future: AuthService().ensureUserDocumentExists(),
+          builder: (context, ensureSnap) {
             // Loading
-            if (userSnapshot.connectionState == ConnectionState.waiting) {
+            if (ensureSnap.connectionState == ConnectionState.waiting) {
               return const Scaffold(
                 backgroundColor: Color(0xFF0C0C0C),
                 body: Center(
@@ -53,27 +58,56 @@ class AuthWrapper extends StatelessWidget {
               );
             }
 
-            // Kullanıcı verisi yok - setup'a yönlendir
-            if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
-              return const ProfileSetupScreen();
-            }
+            return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              future: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user.uid)
+                  .get(),
+              builder: (context, userSnapshot) {
+                // Loading
+                if (userSnapshot.connectionState == ConnectionState.waiting) {
+                  return const Scaffold(
+                    backgroundColor: Color(0xFF0C0C0C),
+                    body: Center(
+                      child: CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xFFE3C565)),
+                      ),
+                    ),
+                  );
+                }
 
-            final userData = userSnapshot.data!.data() as Map<String, dynamic>;
-            final testCompleted = userData['test_completed'] ?? false;
-            final profileCompleted = userData['profile_completed'] ?? false;
+                // If user doc is still missing for any reason, route safely to setup.
+                if (!userSnapshot.hasData || !userSnapshot.data!.exists) {
+                  return const ProfileSetupScreen();
+                }
 
-            // Test tamamlanmamış - Test ekranına
-            if (!testCompleted) {
-              return const IQTestScreen();
-            }
+                final userData = userSnapshot.data!.data() ?? <String, dynamic>{};
+                final testCompleted = userData['test_completed'] as bool? ?? false;
+                final frequencyCompleted =
+                    userData['frequency_completed'] as bool? ?? false;
+                final profileCompleted =
+                    userData['profile_completed'] as bool? ?? false;
 
-            // Profil tamamlanmamış - Profil setup'a
-            if (!profileCompleted) {
-              return const ProfileSetupScreen();
-            }
+                // Tests not completed -> IQ intro flow.
+                if (!testCompleted) {
+                  return const IQTestIntroScreen();
+                }
 
-            // Her şey tamam - Ana uygulamaya
-            return const MainNavigationScreen();
+                // Frequency not completed -> Frequency intro flow.
+                if (!frequencyCompleted) {
+                  return const FrequencyIntroScreen();
+                }
+
+                // Profile not completed -> profile setup.
+                if (!profileCompleted) {
+                  return const ProfileSetupScreen();
+                }
+
+                // Everything complete -> main app.
+                return const MainNavigationScreen();
+              },
+            );
           },
         );
       },

@@ -71,11 +71,18 @@ class FrequencyResult {
 
     return FrequencyResult(
       completed: data['completed'] as bool? ?? false,
-      scoreTotal: (data['scoreTotal'] as num?)?.toDouble() ?? 0,
+      scoreTotal: (data['scoreTotal'] as num?)?.toDouble() ??
+          (data['score_total'] as num?)?.toDouble() ??
+          0,
       vector: vector,
-      type: (data['type'] as String?) ?? 'Balanced Frequency',
-      tags: List<String>.from(data['tags'] ?? const []),
-      completedAt: data['completedAt'] is Timestamp ? data['completedAt'] as Timestamp : null,
+      type: (data['type'] as String?) ??
+          (data['frequency_type'] as String?) ??
+          'Balanced Frequency',
+      tags: List<String>.from(
+        data['tags'] ?? data['frequency_tags'] ?? const [],
+      ),
+      completedAt: (data['completedAt'] is Timestamp ? data['completedAt'] as Timestamp : null) ??
+          (data['completed_at'] is Timestamp ? data['completed_at'] as Timestamp : null),
       answers: answers,
     );
   }
@@ -83,11 +90,12 @@ class FrequencyResult {
   Map<String, dynamic> toFirestore() {
     return {
       'completed': completed,
-      'scoreTotal': scoreTotal,
+      // Prefer snake_case going forward, keep camelCase readers for backward compatibility.
+      'score_total': scoreTotal,
       'vector': vector,
       'type': type,
       'tags': tags,
-      'completedAt': completedAt,
+      'completed_at': completedAt,
       if (answers != null) 'answers': answers,
     };
   }

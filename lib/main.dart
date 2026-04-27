@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'firebase_options.dart';
 import 'core/navigation/auth_wrapper.dart';
 import 'l10n/app_localizations.dart';

@@ -160,6 +160,9 @@ class ChatService {
       'last_message_sender': me.uid,
       'unread_counts.${me.uid}': 0,
       'unread_counts.$otherUid': FieldValue.increment(1),
+      // MVP counters for reveal progression (safe on old threads: increments create fields).
+      'text_count_total': FieldValue.increment(1),
+      'text_count_by_uid.${me.uid}': FieldValue.increment(1),
     });
 
     await batch.commit();

@@ -83,6 +83,8 @@ class MatchService {
         'last_message_preview': 'You matched!',
         'last_message_sender': 'system',
         'unread_counts': {userA: 0, userB: 0},
+        'text_count_total': 0,
+        'text_count_by_uid': {userA: 0, userB: 0},
         'status': 'active',
       }, SetOptions(merge: true));
 

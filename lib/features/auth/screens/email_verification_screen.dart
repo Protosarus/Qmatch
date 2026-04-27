@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/services/auth_service.dart';
-import '../../assessment/screens/iq_test_intro_screen.dart';
+import '../../../core/navigation/auth_wrapper.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final String email;
@@ -38,9 +38,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       bool isVerified = await _authService.isEmailVerified();
       if (isVerified && mounted) {
         _timer?.cancel();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const IQTestIntroScreen()),
+        // Let AuthWrapper continue the onboarding flow (tests/frequency/profile).
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const AuthWrapper()),
+          (route) => false,
         );
       }
     });
