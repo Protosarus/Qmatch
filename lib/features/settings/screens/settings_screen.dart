@@ -2,9 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../core/navigation/auth_wrapper.dart';
+import 'about_screen.dart';
+import 'blocked_users_screen.dart';
+import 'help_support_screen.dart';
+import 'notifications_settings_screen.dart';
+import 'privacy_settings_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
+
+  Future<void> _confirmLogout(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: AppColors.surface,
+          title: Text(
+            'Çıkış yapılsın mı?',
+            style: GoogleFonts.playfairDisplay(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          content: Text(
+            'Hesabından çıkış yapacaksın.',
+            style: GoogleFonts.inter(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(
+                'İptal',
+                style: GoogleFonts.inter(color: AppColors.textSecondary),
+              ),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              child: Text(
+                'Çıkış Yap',
+                style: GoogleFonts.inter(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed != true) return;
+    await AuthService().signOut();
+    if (!context.mounted) return;
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const AuthWrapper()),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +96,11 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Bildirimler',
                     subtitle: 'Bildirim tercihlerini yönet',
                     onTap: () {
-                      // TODO: Navigate to notifications settings
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const NotificationsSettingsScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildSettingItem(
@@ -48,7 +108,11 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Gizlilik',
                     subtitle: 'Gizlilik ayarları',
                     onTap: () {
-                      // TODO: Navigate to privacy settings
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const PrivacySettingsScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildSettingItem(
@@ -56,7 +120,11 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Engellenenler',
                     subtitle: 'Engellenen kullanıcılar',
                     onTap: () {
-                      // TODO: Navigate to blocked users
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const BlockedUsersScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildSettingItem(
@@ -64,7 +132,11 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Yardım & Destek',
                     subtitle: 'Sıkça sorulan sorular',
                     onTap: () {
-                      // TODO: Navigate to help
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const HelpSupportScreen(),
+                        ),
+                      );
                     },
                   ),
                   _buildSettingItem(
@@ -72,7 +144,11 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Hakkında',
                     subtitle: 'Uygulama bilgileri',
                     onTap: () {
-                      // TODO: Navigate to about
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const AboutScreen(),
+                        ),
+                      );
                     },
                   ),
                   const SizedBox(height: 24),
@@ -82,8 +158,7 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: 'Hesabından çıkış yap',
                     isDestructive: true,
                     onTap: () async {
-                      await AuthService().signOut();
-                      // AuthWrapper authStateChanges ile Welcome ekranına geçer
+                      await _confirmLogout(context);
                     },
                   ),
                 ],

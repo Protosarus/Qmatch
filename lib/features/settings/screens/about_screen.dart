@@ -31,7 +31,7 @@ class AboutScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'QMatch',
+              'Qmatch',
               style: GoogleFonts.playfairDisplay(
                 color: AppColors.primary,
                 fontSize: 32,
@@ -40,7 +40,7 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Versiyon 0.1.0',
+              'Version 1.0.0',
               style: GoogleFonts.inter(
                 color: AppColors.textSecondary,
                 fontSize: 14,
@@ -48,7 +48,7 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Minds First. 🧠',
+              'Minds First',
               style: GoogleFonts.playfairDisplay(
                 color: AppColors.primary,
                 fontSize: 20,
@@ -57,10 +57,42 @@ class AboutScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'IQ/EQ uyumlu eşleşmeler için yapay zeka destekli dating platformu.',
+              'Qmatch, insanları yalnızca görünüşe göre değil; düşünme, hissetme ve bağ kurma tarzlarına göre eşleştiren sosyal dating uygulamasıdır.',
               style: GoogleFonts.inter(
                 color: Colors.white,
                 fontSize: 14,
+                height: 1.5,
+              ),
+            ),
+            const SizedBox(height: 18),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.surface,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.14)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Yasal',
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Gizlilik Politikası (TODO)\nKullanım Şartları (TODO)',
+                    style: GoogleFonts.inter(
+                      color: AppColors.textSecondary,
+                      fontSize: 13,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
