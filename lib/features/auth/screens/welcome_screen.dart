@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login_screen.dart';
 import 'social_login_screen.dart';
+import 'phone_signup_screen.dart';
 import '../../../core/theme/app_colors.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -185,7 +186,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 opacity: _buttonsOpacity,
                 child: Column(
                   children: [
-                    // Sign Up button → SocialLoginScreen (Apple/Google + email login)
+                    // Primary CTA: phone-first auth
                     SizedBox(
                       width: double.infinity,
                       height: 64,
@@ -194,7 +195,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const SocialLoginScreen(),
+                              builder: (context) => const PhoneSignupScreen(),
                             ),
                           );
                         },
@@ -207,7 +208,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           elevation: 0,
                         ),
                         child: Text(
-                          'Sign Up',
+                          'Continue with phone number',
                           style: GoogleFonts.inter(
                             fontSize: 19,
                             fontWeight: FontWeight.w600,
@@ -219,7 +220,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
                     const SizedBox(height: 16),
 
-                    // Login button → LoginScreen (existing users)
+                    // Secondary CTA: legacy email login (kept for compatibility)
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: AppColors.primary, width: 2),
@@ -246,6 +247,25 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                               letterSpacing: 0.5,
                             ),
                           ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SocialLoginScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Other sign up options',
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),

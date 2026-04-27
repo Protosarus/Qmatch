@@ -82,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         slivers: [
           // App Bar
           SliverAppBar(
-            expandedHeight: 280,
+            expandedHeight: 240,
             pinned: true,
             backgroundColor: AppColors.background,
             flexibleSpace: FlexibleSpaceBar(
@@ -196,7 +196,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // Profile Content
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+              // Extra bottom padding prevents chips from being hidden under the bottom nav.
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -214,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
 
                   // Archetype Badge (Minds First - Sadece Arketip Gösterilir)
                   if (_profile!.archetype != null)
@@ -262,7 +263,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
 
                   // Frequency badge (optional)
                   FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -304,7 +305,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
 
                   // Location
                   if (_profile!.locationText != null)

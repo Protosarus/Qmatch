@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../features/auth/screens/welcome_screen.dart';
-import '../../features/auth/screens/email_verification_screen.dart';
 import '../../features/assessment/screens/frequency_intro_screen.dart';
 import '../../features/assessment/screens/iq_test_intro_screen.dart';
 import '../../features/profile/screens/profile_setup_screen.dart';
@@ -35,11 +34,6 @@ class AuthWrapper extends StatelessWidget {
         }
 
         final user = snapshot.data!;
-
-        // If email is not verified, keep user in verification screen.
-        if (!user.emailVerified) {
-          return EmailVerificationScreen(email: user.email ?? '');
-        }
 
         // Ensure a user doc exists, then route based on completion flags.
         return FutureBuilder<void>(

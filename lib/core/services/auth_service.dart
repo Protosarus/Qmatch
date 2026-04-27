@@ -6,6 +6,14 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  String _friendlyPhoneAuthError(Object error) {
+    if (error is FirebaseAuthException) {
+      // FirebaseAuthException.message is typically already user-friendly enough.
+      return error.message ?? 'Phone verification failed. Please try again.';
+    }
+    return 'Phone verification failed. Please try again.';
+  }
+
   Future<void> _refreshDiscoverEligibility(String uid) async {
     final doc = await _firestore.collection('users').doc(uid).get();
     final data = doc.data() ?? <String, dynamic>{};
@@ -30,6 +38,96 @@ class AuthService {
 
   // Current user getter
   User? get currentUser => _auth.currentUser;
+
+  Future<void> startPhoneVerification({
+    required String phoneNumber,
+    required void Function(String verificationId) onCodeSent,
+    required void Function(PhoneAuthCredential credential) onAutoVerified,
+    required void Function(String message) onFailed,
+    void Function()? onTimeout,
+  }) async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (credential) async {
+          try {
+            // Auto-verification on Android can complete without user input.
+            await _auth.signInWithCredential(credential);
+            onAutoVerified(credential);
+          } catch (e) {
+            onFailed(_friendlyPhoneAuthError(e));
+          }
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          onFailed(_friendlyPhoneAuthError(e));
+        },
+        codeSent: (verificationId, _) {
+          onCodeSent(verificationId);
+        },
+        codeAutoRetrievalTimeout: (_) {
+          onTimeout?.call();
+        },
+      );
+    } catch (e) {
+      onFailed(_friendlyPhoneAuthError(e));
+    }
+  }
+
+  Future<UserCredential> verifySmsCode({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    final credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+    final userCredential = await _auth.signInWithCredential(credential);
+    final user = userCredential.user;
+    if (user != null) {
+      await ensureUserDocumentForPhoneUser(user);
+    }
+    return userCredential;
+  }
+
+  Future<void> ensureUserDocumentForPhoneUser(User user) async {
+    final ref = _firestore.collection('users').doc(user.uid);
+    final doc = await ref.get();
+
+    final phoneNumber = user.phoneNumber;
+
+    if (!doc.exists) {
+      await ref.set(
+        {
+          'uid': user.uid,
+          'phone_number': phoneNumber,
+          'name': user.displayName,
+          'email': user.email,
+          'auth_provider': 'phone',
+          'test_completed': false,
+          'frequency_completed': false,
+          'profile_completed': false,
+          'discover_eligible': false,
+          'active': true,
+          'created_at': FieldValue.serverTimestamp(),
+          'updated_at': FieldValue.serverTimestamp(),
+          'last_active_at': FieldValue.serverTimestamp(),
+        },
+        SetOptions(merge: true),
+      );
+      return;
+    }
+
+    // Existing doc: only merge safe fields.
+    await ref.set(
+      {
+        if (phoneNumber != null && phoneNumber.isNotEmpty) 'phone_number': phoneNumber,
+        'auth_provider': 'phone',
+        'updated_at': FieldValue.serverTimestamp(),
+        'last_active_at': FieldValue.serverTimestamp(),
+      },
+      SetOptions(merge: true),
+    );
+  }
 
   // Email ile kayıt
   Future<UserCredential> signUpWithEmail({
@@ -63,9 +161,12 @@ class AuthService {
   }) async {
     try {
       await _firestore.collection('users').doc(uid).set({
+        'uid': uid,
         'name': name,
         'email': email,
+        'auth_provider': 'email',
         'test_completed': false,
+        'frequency_completed': false,
         'profile_completed': false,
         'discover_eligible': false,
         'active': true,
@@ -76,6 +177,8 @@ class AuthService {
         'iq_normalized': null, // Normalized (0-100)
         'eq_normalized': null, // Normalized (0-100)
         'created_at': FieldValue.serverTimestamp(),
+        'updated_at': FieldValue.serverTimestamp(),
+        'last_active_at': FieldValue.serverTimestamp(),
       });
     } catch (e) {
       debugPrint('Error creating user in Firestore: $e');
@@ -90,10 +193,24 @@ class AuthService {
     
     final doc = await _firestore.collection('users').doc(user.uid).get();
     if (!doc.exists) {
-      await createUserInFirestore(
-        uid: user.uid,
-        name: user.displayName ?? 'User',
-        email: user.email ?? '',
+      // If signed in with phone, create a phone-first doc.
+      if ((user.phoneNumber ?? '').isNotEmpty) {
+        await ensureUserDocumentForPhoneUser(user);
+      } else {
+        await createUserInFirestore(
+          uid: user.uid,
+          name: user.displayName ?? 'User',
+          email: user.email ?? '',
+        );
+      }
+    } else {
+      // Keep last active fresh without overwriting onboarding fields.
+      await _firestore.collection('users').doc(user.uid).set(
+        {
+          'updated_at': FieldValue.serverTimestamp(),
+          'last_active_at': FieldValue.serverTimestamp(),
+        },
+        SetOptions(merge: true),
       );
     }
   }
