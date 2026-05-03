@@ -11,8 +11,11 @@ import '../models/assessment_set_model.dart';
 
 /// Assigns persistent IQ/EQ/Frequency question sets per user via Firestore.
 ///
-/// Primary store: `assessment_sets/{setId}`  
+/// Primary store: `assessment_sets/{setId}`
 /// Assignments: `users/{uid}/assessment_assignments/{type}`
+///
+/// Question order is shuffled once per assignment and stored in `question_order`.
+/// IQ option permutations are stored in `option_orders` (EQ/Frequency options stay ordered).
 class AssessmentSetService {
   AssessmentSetService({
     FirebaseAuth? auth,
@@ -38,25 +41,56 @@ class AssessmentSetService {
         assignmentSnap.data()!,
       );
       if (assignment.setId.isNotEmpty) {
-        final set = await _loadSetById(assignment.setId, type);
-        if (set != null && set.questions.isNotEmpty) {
-          return set;
+        final rawSet = await _loadSetById(assignment.setId, type);
+        if (rawSet == null || rawSet.questions.isEmpty) {
+          throw StateError(
+            'Assigned assessment set "${assignment.setId}" could not be loaded.',
+          );
         }
-        throw StateError(
-          'Assigned assessment set "${assignment.setId}" could not be loaded.',
+
+        final normalized = _ensureQuestionIds(rawSet);
+        final synced = await _syncAssignmentOrders(
+          assignmentRef,
+          assignment,
+          normalized,
+          type,
         );
+
+        debugPrint(
+          'AssessmentSet[$type]: set=${normalized.id} '
+          'questions=${normalized.questions.length} '
+          'order=${synced.didRepair ? "repaired/saved" : "reused"}',
+        );
+
+        return _applyOrdersToSet(normalized, synced.model, type);
       }
     }
 
     final picked = await _pickRandomActiveSet(type);
+    final normalized = _ensureQuestionIds(picked);
+    final questionOrder = _buildShuffledQuestionIds(normalized);
+    final optionOrders = type == 'iq'
+        ? _buildOptionPermutationsForMcq(normalized.questions)
+        : <String, List<int>>{};
+
+    final newAssignment = AssessmentAssignmentModel(
+      type: type,
+      setId: normalized.id,
+      questionOrder: questionOrder,
+      optionOrders: optionOrders,
+    );
+
     await assignmentRef.set(
-      AssessmentAssignmentModel(
-        type: type,
-        setId: picked.id,
-      ).toFirestoreNewAssignment(),
+      newAssignment.toFirestoreNewAssignment(),
       SetOptions(merge: true),
     );
-    return picked;
+
+    debugPrint(
+      'AssessmentSet[$type]: set=${normalized.id} '
+      'questions=${normalized.questions.length} order=created',
+    );
+
+    return _applyOrdersToSet(normalized, newAssignment, type);
   }
 
   Future<void> markAssignmentCompleted({
@@ -76,6 +110,295 @@ class AssessmentSetService {
       },
       SetOptions(merge: true),
     );
+  }
+
+  // --- Question ids ---
+
+  AssessmentSetModel _ensureQuestionIds(AssessmentSetModel set) {
+    final out = <Map<String, dynamic>>[];
+    for (var i = 0; i < set.questions.length; i++) {
+      final m = Map<String, dynamic>.from(set.questions[i]);
+      final idRaw = m['id'];
+      final idStr = idRaw?.toString().trim() ?? '';
+      if (idStr.isEmpty) {
+        m['id'] = '${set.id}_q_${i + 1}';
+      }
+      out.add(m);
+    }
+    return AssessmentSetModel(
+      id: set.id,
+      type: set.type,
+      setNumber: set.setNumber,
+      version: set.version,
+      active: set.active,
+      questionCount: set.questionCount,
+      questions: out,
+      createdAt: set.createdAt,
+      updatedAt: set.updatedAt,
+    );
+  }
+
+  List<String> _buildShuffledQuestionIds(AssessmentSetModel set) {
+    final ids = set.questions.map((q) => q['id'] as String).toList();
+    ids.shuffle(Random());
+    return ids;
+  }
+
+  Map<String, List<int>> _buildOptionPermutationsForMcq(
+    List<Map<String, dynamic>> questions,
+  ) {
+    final rnd = Random();
+    final out = <String, List<int>>{};
+    for (final q in questions) {
+      final id = q['id'] as String;
+      final opts = q['options'];
+      final n = opts is List ? opts.length : 0;
+      if (n <= 1) continue;
+      out[id] = List<int>.generate(n, (i) => i)..shuffle(rnd);
+    }
+    return out;
+  }
+
+  // --- Order repair / sync ---
+
+  Future<({AssessmentAssignmentModel model, bool didRepair})> _syncAssignmentOrders(
+    DocumentReference<Map<String, dynamic>> assignmentRef,
+    AssessmentAssignmentModel assignment,
+    AssessmentSetModel normalizedSet,
+    String type,
+  ) async {
+    final canonicalIds =
+        normalizedSet.questions.map((q) => q['id'] as String).toList();
+
+    if (assignment.completed) {
+      var qOrder = List<String>.from(assignment.questionOrder);
+      if (qOrder.isEmpty) {
+        qOrder = List<String>.from(canonicalIds);
+      }
+      final opts =
+          type == 'iq' ? Map<String, List<int>>.from(assignment.optionOrders) : <String, List<int>>{};
+      return (
+        model: AssessmentAssignmentModel(
+          type: assignment.type,
+          setId: assignment.setId,
+          assignedAt: assignment.assignedAt,
+          completed: assignment.completed,
+          completedAt: assignment.completedAt,
+          score: assignment.score,
+          questionOrder: qOrder,
+          optionOrders: opts,
+        ),
+        didRepair: false,
+      );
+    }
+
+    var qOrder = List<String>.from(assignment.questionOrder);
+    var optOrders = type == 'iq'
+        ? Map<String, List<int>>.from(assignment.optionOrders)
+        : <String, List<int>>{};
+
+    final repairedQ = _repairQuestionOrder(canonicalIds, qOrder);
+    var repaired = !listEquals(repairedQ, qOrder);
+    qOrder = repairedQ;
+
+    if (type == 'iq') {
+      final fixedOpt =
+          _repairOptionOrdersForIq(normalizedSet.questions, optOrders);
+      if (!_optionOrdersMapsEqual(fixedOpt, optOrders)) {
+        repaired = true;
+      }
+      optOrders = fixedOpt;
+    } else if (optOrders.isNotEmpty) {
+      optOrders = {};
+      repaired = true;
+    }
+
+    if (repaired) {
+      await assignmentRef.set(
+        {
+          'question_order': qOrder,
+          'option_orders': optOrders,
+        },
+        SetOptions(merge: true),
+      );
+    }
+
+    return (
+      model: AssessmentAssignmentModel(
+        type: assignment.type,
+        setId: assignment.setId,
+        assignedAt: assignment.assignedAt,
+        completed: assignment.completed,
+        completedAt: assignment.completedAt,
+        score: assignment.score,
+        questionOrder: qOrder,
+        optionOrders: optOrders,
+      ),
+      didRepair: repaired,
+    );
+  }
+
+  List<String> _repairQuestionOrder(
+    List<String> canonicalIds,
+    List<String> savedOrder,
+  ) {
+    if (canonicalIds.isEmpty) return const [];
+    final idSet = canonicalIds.toSet();
+
+    if (savedOrder.isEmpty) {
+      return List<String>.from(canonicalIds)..shuffle(Random());
+    }
+
+    final seen = <String>{};
+    final base = <String>[];
+    for (final id in savedOrder) {
+      if (idSet.contains(id) && seen.add(id)) {
+        base.add(id);
+      }
+    }
+    final missing = <String>[];
+    for (final id in canonicalIds) {
+      if (!seen.contains(id)) missing.add(id);
+    }
+    missing.shuffle(Random());
+    var result = [...base, ...missing];
+
+    if (result.length != canonicalIds.length ||
+        result.toSet().length != canonicalIds.length) {
+      result = List<String>.from(canonicalIds)..shuffle(Random());
+    }
+    return result;
+  }
+
+  Map<String, List<int>> _repairOptionOrdersForIq(
+    List<Map<String, dynamic>> questions,
+    Map<String, List<int>> existing,
+  ) {
+    final rnd = Random();
+    final out = <String, List<int>>{};
+    for (final q in questions) {
+      final id = q['id'] as String;
+      final opts = q['options'];
+      final n = opts is List ? opts.length : 0;
+      if (n <= 1) continue;
+
+      final prev = existing[id];
+      if (prev != null &&
+          prev.length == n &&
+          _isPermutationIndices(prev, n)) {
+        out[id] = List<int>.from(prev);
+      } else {
+        out[id] = List<int>.generate(n, (i) => i)..shuffle(rnd);
+      }
+    }
+    return out;
+  }
+
+  bool _isPermutationIndices(List<int> perm, int n) {
+    if (perm.length != n) return false;
+    final s = perm.toSet();
+    return s.length == n && s.every((e) => e >= 0 && e < n);
+  }
+
+  bool _optionOrdersMapsEqual(
+    Map<String, List<int>> a,
+    Map<String, List<int>> b,
+  ) {
+    if (a.length != b.length) return false;
+    for (final e in a.entries) {
+      if (!listEquals(e.value, b[e.key])) return false;
+    }
+    return true;
+  }
+
+  // --- Apply persisted orders to returned set ---
+
+  AssessmentSetModel _applyOrdersToSet(
+    AssessmentSetModel normalized,
+    AssessmentAssignmentModel assignment,
+    String type,
+  ) {
+    final byId = <String, Map<String, dynamic>>{
+      for (final q in normalized.questions)
+        q['id'] as String: Map<String, dynamic>.from(q),
+    };
+
+    final order = assignment.questionOrder.isNotEmpty
+        ? assignment.questionOrder
+        : normalized.questions.map((q) => q['id'] as String).toList();
+
+    final ordered = <Map<String, dynamic>>[];
+    final used = <String>{};
+    for (final id in order) {
+      final m = byId[id];
+      if (m != null && used.add(id)) {
+        ordered.add(Map<String, dynamic>.from(m));
+      }
+    }
+    for (final q in normalized.questions) {
+      final id = q['id'] as String;
+      if (!used.contains(id)) {
+        ordered.add(Map<String, dynamic>.from(q));
+      }
+    }
+
+    if (type == 'iq') {
+      for (var i = 0; i < ordered.length; i++) {
+        final id = ordered[i]['id'] as String;
+        final perm = assignment.optionOrders[id];
+        if (perm != null && perm.isNotEmpty) {
+          ordered[i] = _applyOptionPermutationToQuestionMap(ordered[i], perm);
+        }
+      }
+    }
+
+    return AssessmentSetModel(
+      id: normalized.id,
+      type: normalized.type,
+      setNumber: normalized.setNumber,
+      version: normalized.version,
+      active: normalized.active,
+      questionCount: ordered.length,
+      questions: ordered,
+      createdAt: normalized.createdAt,
+      updatedAt: normalized.updatedAt,
+    );
+  }
+
+  Map<String, dynamic> _applyOptionPermutationToQuestionMap(
+    Map<String, dynamic> q,
+    List<int> order,
+  ) {
+    final optionsRaw = q['options'];
+    if (optionsRaw is! List) return q;
+    final options =
+        List<String>.from(optionsRaw.map((e) => e.toString()));
+    if (order.length != options.length ||
+        !_isPermutationIndices(order, options.length)) {
+      return q;
+    }
+
+    final oldCorrectRaw = q['correctAnswer'];
+    final oldCorrect = oldCorrectRaw is int
+        ? oldCorrectRaw
+        : (oldCorrectRaw as num?)?.toInt();
+    if (oldCorrect == null ||
+        oldCorrect < 0 ||
+        oldCorrect >= options.length) {
+      return q;
+    }
+
+    final newCorrect = order.indexOf(oldCorrect);
+    if (newCorrect < 0) return q;
+
+    final newOptions = List<String>.generate(
+      order.length,
+      (i) => options[order[i]],
+    );
+
+    return Map<String, dynamic>.from(q)
+      ..['options'] = newOptions
+      ..['correctAnswer'] = newCorrect;
   }
 
   Future<AssessmentSetModel?> _loadSetById(String setId, String type) async {

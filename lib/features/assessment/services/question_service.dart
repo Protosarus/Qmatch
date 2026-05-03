@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 
 import '../models/assessment_set_model.dart';
@@ -48,8 +46,8 @@ class QuestionService {
     if (allQuestions.length <= count) {
       return allQuestions;
     }
-    final shuffled = List<QuestionModel>.from(allQuestions)..shuffle(Random());
-    return shuffled.take(count).toList();
+    // Preserve assignment question_order (Step 14); do not reshuffle here.
+    return allQuestions.sublist(0, count);
   }
 
   List<QuestionModel> _mapQuestions(AssessmentSetModel set) {

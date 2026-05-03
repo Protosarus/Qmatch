@@ -117,6 +117,10 @@ class AssessmentAssignmentModel {
   final bool completed;
   final Timestamp? completedAt;
   final num? score;
+  /// Persisted as `question_order` — stable question ids for this user (shuffled once).
+  final List<String> questionOrder;
+  /// Persisted as `option_orders` — per-question permutation of original option indexes (IQ only).
+  final Map<String, List<int>> optionOrders;
 
   const AssessmentAssignmentModel({
     required this.type,
@@ -125,6 +129,8 @@ class AssessmentAssignmentModel {
     this.completed = false,
     this.completedAt,
     this.score,
+    this.questionOrder = const [],
+    this.optionOrders = const {},
   });
 
   factory AssessmentAssignmentModel.fromFirestore(Map<String, dynamic> data) {
@@ -139,7 +145,37 @@ class AssessmentAssignmentModel {
           ? data['completed_at'] as Timestamp
           : null,
       score: data['score'] as num?,
+      questionOrder: _parseQuestionOrder(data['question_order']),
+      optionOrders: _parseOptionOrders(data['option_orders']),
     );
+  }
+
+  static List<String> _parseQuestionOrder(dynamic raw) {
+    if (raw is! List) return const [];
+    final out = <String>[];
+    for (final e in raw) {
+      if (e != null) out.add(e.toString());
+    }
+    return out;
+  }
+
+  static Map<String, List<int>> _parseOptionOrders(dynamic raw) {
+    if (raw is! Map) return const {};
+    final out = <String, List<int>>{};
+    for (final e in raw.entries) {
+      final k = e.key.toString();
+      final v = e.value;
+      if (v is List) {
+        final ints = <int>[];
+        for (final x in v) {
+          if (x is num) {
+            ints.add(x.toInt());
+          }
+        }
+        out[k] = ints;
+      }
+    }
+    return out;
   }
 
   Map<String, dynamic> toFirestoreNewAssignment() {
@@ -150,6 +186,10 @@ class AssessmentAssignmentModel {
       'completed': false,
       'completed_at': null,
       'score': null,
+      'question_order': questionOrder,
+      'option_orders': {
+        for (final e in optionOrders.entries) e.key: e.value,
+      },
     };
   }
 }

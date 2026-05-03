@@ -15,12 +15,16 @@ class QuestionModel {
 
   // JSON'dan model oluştur
   factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    final id = json['id']?.toString().trim() ?? '';
+    if (id.isEmpty) {
+      throw FormatException('QuestionModel.fromJson requires non-empty id');
+    }
     return QuestionModel(
-      id: json['id'] as String,
+      id: id,
       question: json['question'] as String,
-      options: List<String>.from(json['options']),
-      correctAnswer: json['correctAnswer'] as int,
-      difficulty: json['difficulty'] as int,
+      options: List<String>.from(json['options'] as List),
+      correctAnswer: (json['correctAnswer'] as num?)?.toInt() ?? 0,
+      difficulty: (json['difficulty'] as num?)?.toInt() ?? 0,
     );
   }
 
