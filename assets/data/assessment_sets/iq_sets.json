@@ -9,123 +9,123 @@
       "question_count": 10,
       "questions": [
         {
-          "id": "iq_1",
-          "question": "What comes next in the sequence?\n2, 4, 8, 16, ?",
+          "id": "iq_set_001_q01",
+          "question": "Which number comes next?\n2, 4, 8, 16, ?",
           "options": [
-            "24",
             "32",
-            "20",
-            "28"
+            "34",
+            "30",
+            "38"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_001_q02",
+          "question": "What comes next in the sequence?\n10, 12, 15, 19, ?",
+          "options": [
+            "31",
+            "24",
+            "19",
+            "22"
           ],
           "correctAnswer": 1,
           "difficulty": 1
         },
         {
-          "id": "iq_2",
-          "question": "Complete the pattern:\n\u2b1b \u2b1c \u2b1b \u2b1c \u2b1b ?",
+          "id": "iq_set_001_q03",
+          "question": "All V1s are K1s. All K1s are R1s. Which statement must be true?",
           "options": [
-            "\u2b1b",
-            "\u2b1c",
-            "\u2b1b\u2b1c",
-            "\u2b1c\u2b1b"
-          ],
-          "correctAnswer": 1,
-          "difficulty": 1
-        },
-        {
-          "id": "iq_3",
-          "question": "Which figure completes the pattern?\n\nRow 1:  \u2014  ::  \u2715\nRow 2:  /   /   ?\nRow 3:  /   /   _",
-          "options": [
-            "/",
-            "\u2014",
-            "\u2715",
-            "+"
+            "Every R1 is a V1.",
+            "Some K1s are not V1s.",
+            "Every V1 is a R1.",
+            "No V1 is a K1."
           ],
           "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_001_q04",
+          "question": "No V1 is a K1. Some R1s are K1s. Which statement cannot be true?",
+          "options": [
+            "Some R1s are not K1s.",
+            "Some K1s are not R1s.",
+            "Some V1s are not R1s.",
+            "Every R1 is a V1."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_001_q05",
+          "question": "A pattern lists shapes: circle, diamond, circle, diamond, circle. What comes next?",
+          "options": [
+            "Diamond",
+            "Square",
+            "Triangle",
+            "Oval"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_001_q06",
+          "question": "A code repeats as A, B, A, B, A. What is the next symbol?",
+          "options": [
+            "P",
+            "B",
+            "Q",
+            "R"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_001_q07",
+          "question": "Finger is to hand as brick is to ?",
+          "options": [
+            "Screen",
+            "Film",
+            "Branch",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_001_q08",
+          "question": "Which number does not fit the same rule?\n8, 10, 12, 9\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "8",
+            "10",
+            "12",
+            "9"
+          ],
+          "correctAnswer": 3,
           "difficulty": 3
         },
         {
-          "id": "iq_4",
-          "question": "Complete the sequence:\n\u25b3 \u25cb \u25b3 \u25cb \u25b3 ?",
+          "id": "iq_set_001_q09",
+          "question": "A cube (layout 1) pairs opposite faces as A-D, B-E, C-F. Which face is opposite B?",
           "options": [
-            "\u25b3",
-            "\u25cb",
-            "\u25a1",
-            "\u25c7"
-          ],
-          "correctAnswer": 1,
-          "difficulty": 1
-        },
-        {
-          "id": "iq_5",
-          "question": "Which shape doesn't belong?\n\ud83d\udd34 \ud83d\udd35 \ud83d\udfe1 \u2b1c \ud83d\udfe2",
-          "options": [
-            "\ud83d\udd34",
-            "\u2b1c",
-            "\ud83d\udfe1",
-            "\ud83d\udfe2"
-          ],
-          "correctAnswer": 1,
-          "difficulty": 2
-        },
-        {
-          "id": "iq_6",
-          "question": "Pattern recognition:\n\u2605 \u2605 \u2606 \u2605 \u2605 \u2606 \u2605 ?",
-          "options": [
-            "\u2605",
-            "\u2606",
-            "\u2605\u2605",
-            "\u2606\u2606"
+            "E",
+            "A",
+            "C",
+            "D"
           ],
           "correctAnswer": 0,
-          "difficulty": 2
+          "difficulty": 3
         },
         {
-          "id": "iq_7",
-          "question": "If 5 + 3 = 28, 9 + 1 = 810, 8 + 6 = 214, then 5 + 4 = ?",
+          "id": "iq_set_001_q10",
+          "question": "The two-digit number with tens 1 and ones 5, minus (1+5), equals what?",
           "options": [
-            "19",
-            "91",
             "20",
-            "14"
+            "9",
+            "2",
+            "28"
           ],
-          "correctAnswer": 0,
-          "difficulty": 4
-        },
-        {
-          "id": "iq_8",
-          "question": "Complete the triangle:\n\ud83d\udd3a\ud83d\udd3a\ud83d\udd3a\n\ud83d\udd3a\ud83d\udd3a _\n\ud83d\udd3a _ _",
-          "options": [
-            "\ud83d\udd3a",
-            "\ud83d\udd3b",
-            "\u2b1b",
-            "\u2b1c"
-          ],
-          "correctAnswer": 0,
-          "difficulty": 2
-        },
-        {
-          "id": "iq_9",
-          "question": "What is the missing number?\n8, 15, 29, 57, ?",
-          "options": [
-            "113",
-            "115",
-            "111",
-            "109"
-          ],
-          "correctAnswer": 0,
-          "difficulty": 4
-        },
-        {
-          "id": "iq_10",
-          "question": "Which number doesn't belong?\n2, 3, 6, 7, 8, 14, 15",
-          "options": [
-            "3",
-            "6",
-            "8",
-            "15"
-          ],
-          "correctAnswer": 2,
+          "correctAnswer": 1,
           "difficulty": 3
         }
       ]
@@ -139,123 +139,6363 @@
       "question_count": 10,
       "questions": [
         {
-          "id": "iq_1_b",
-          "question": "What comes next in the sequence?\n2, 4, 8, 16, ?",
+          "id": "iq_set_002_q01",
+          "question": "Which number comes next?\n2, 6, 18, 54, ?",
           "options": [
-            "24",
-            "32",
-            "20",
-            "28"
+            "164",
+            "160",
+            "162",
+            "168"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": 2,
           "difficulty": 1
         },
         {
-          "id": "iq_2_b",
-          "question": "Complete the pattern:\n\u2b1b \u2b1c \u2b1b \u2b1c \u2b1b ?",
+          "id": "iq_set_002_q02",
+          "question": "What comes next in the sequence?\n11, 14, 18, 23, ?",
           "options": [
-            "\u2b1b",
-            "\u2b1c",
-            "\u2b1b\u2b1c",
-            "\u2b1c\u2b1b"
+            "36",
+            "23",
+            "26",
+            "29"
           ],
-          "correctAnswer": 1,
+          "correctAnswer": 3,
           "difficulty": 1
         },
         {
-          "id": "iq_3_b",
-          "question": "Which figure completes the pattern?\n\nRow 1:  \u2014  ::  \u2715\nRow 2:  /   /   ?\nRow 3:  /   /   _",
+          "id": "iq_set_002_q03",
+          "question": "All V2s are K2s. All K2s are R2s. Which statement must be true?",
           "options": [
-            "/",
-            "\u2014",
-            "\u2715",
-            "+"
+            "Every V2 is a R2.",
+            "Every R2 is a V2.",
+            "Some K2s are not V2s.",
+            "No V2 is a K2."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_002_q04",
+          "question": "No V2 is a K2. Some R2s are K2s. Which statement cannot be true?",
+          "options": [
+            "Some R2s are not K2s.",
+            "Every R2 is a V2.",
+            "Some K2s are not R2s.",
+            "Some V2s are not R2s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_002_q05",
+          "question": "A pattern lists shapes: square, oval, square, oval, square. What comes next?",
+          "options": [
+            "Triangle",
+            "Diamond",
+            "Oval",
+            "Hexagon"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_002_q06",
+          "question": "A code repeats as B, C, B, C, B. What is the next symbol?",
+          "options": [
+            "U",
+            "V",
+            "W",
+            "C"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_002_q07",
+          "question": "Wheel is to car as act is to ?",
+          "options": [
+            "Film",
+            "Branch",
+            "Screen",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_002_q08",
+          "question": "Which number does not fit the same rule?\n15, 18, 21, 16\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "15",
+            "16",
+            "18",
+            "21"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_002_q09",
+          "question": "A cube (layout 2) pairs opposite faces as D-G, E-H, F-I. Which face is opposite E?",
+          "options": [
+            "D",
+            "F",
+            "H",
+            "G"
           ],
           "correctAnswer": 2,
           "difficulty": 3
         },
         {
-          "id": "iq_4_b",
-          "question": "Complete the sequence:\n\u25b3 \u25cb \u25b3 \u25cb \u25b3 ?",
+          "id": "iq_set_002_q10",
+          "question": "The two-digit number with tens 1 and ones 6, minus (1+6), equals what?",
           "options": [
-            "\u25b3",
-            "\u25cb",
-            "\u25a1",
-            "\u25c7"
+            "21",
+            "3",
+            "29",
+            "9"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_003",
+      "type": "iq",
+      "set_number": 3,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_003_q01",
+          "question": "Which number comes next?\n2, 8, 32, 128, ?",
+          "options": [
+            "512",
+            "514",
+            "510",
+            "518"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_003_q02",
+          "question": "What comes next in the sequence?\n12, 16, 21, 27, ?",
+          "options": [
+            "41",
+            "34",
+            "27",
+            "30"
           ],
           "correctAnswer": 1,
           "difficulty": 1
         },
         {
-          "id": "iq_5_b",
-          "question": "Which shape doesn't belong?\n\ud83d\udd34 \ud83d\udd35 \ud83d\udfe1 \u2b1c \ud83d\udfe2",
+          "id": "iq_set_003_q03",
+          "question": "All V3s are K3s. All K3s are R3s. Which statement must be true?",
           "options": [
-            "\ud83d\udd34",
-            "\u2b1c",
-            "\ud83d\udfe1",
-            "\ud83d\udfe2"
+            "Every R3 is a V3.",
+            "Some K3s are not V3s.",
+            "Every V3 is a R3.",
+            "No V3 is a K3."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_003_q04",
+          "question": "No V3 is a K3. Some R3s are K3s. Which statement cannot be true?",
+          "options": [
+            "Some R3s are not K3s.",
+            "Some K3s are not R3s.",
+            "Some V3s are not R3s.",
+            "Every R3 is a V3."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_003_q05",
+          "question": "A pattern lists shapes: triangle, hexagon, triangle, hexagon, triangle. What comes next?",
+          "options": [
+            "Hexagon",
+            "Diamond",
+            "Oval",
+            "Ring"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_003_q06",
+          "question": "A code repeats as C, D, C, D, C. What is the next symbol?",
+          "options": [
+            "Z",
+            "D",
+            "A",
+            "B"
           ],
           "correctAnswer": 1,
           "difficulty": 2
         },
         {
-          "id": "iq_6_b",
-          "question": "Pattern recognition:\n\u2605 \u2605 \u2606 \u2605 \u2605 \u2606 \u2605 ?",
+          "id": "iq_set_003_q07",
+          "question": "Chapter is to book as fruit is to ?",
           "options": [
-            "\u2605",
-            "\u2606",
-            "\u2605\u2605",
-            "\u2606\u2606"
-          ],
-          "correctAnswer": 0,
-          "difficulty": 2
-        },
-        {
-          "id": "iq_7_b",
-          "question": "If 5 + 3 = 28, 9 + 1 = 810, 8 + 6 = 214, then 5 + 4 = ?",
-          "options": [
-            "19",
-            "91",
-            "20",
-            "14"
-          ],
-          "correctAnswer": 0,
-          "difficulty": 4
-        },
-        {
-          "id": "iq_8_b",
-          "question": "Complete the triangle:\n\ud83d\udd3a\ud83d\udd3a\ud83d\udd3a\n\ud83d\udd3a\ud83d\udd3a _\n\ud83d\udd3a _ _",
-          "options": [
-            "\ud83d\udd3a",
-            "\ud83d\udd3b",
-            "\u2b1b",
-            "\u2b1c"
-          ],
-          "correctAnswer": 0,
-          "difficulty": 2
-        },
-        {
-          "id": "iq_9_b",
-          "question": "What is the missing number?\n8, 15, 29, 57, ?",
-          "options": [
-            "113",
-            "115",
-            "111",
-            "109"
-          ],
-          "correctAnswer": 0,
-          "difficulty": 4
-        },
-        {
-          "id": "iq_10_b",
-          "question": "Which number doesn't belong?\n2, 3, 6, 7, 8, 14, 15",
-          "options": [
-            "3",
-            "6",
-            "8",
-            "15"
+            "Branch",
+            "Screen",
+            "Play",
+            "Film"
           ],
           "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_003_q08",
+          "question": "Which number does not fit the same rule?\n24, 28, 32, 25\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "24",
+            "28",
+            "32",
+            "25"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_003_q09",
+          "question": "A cube (layout 3) pairs opposite faces as G-J, H-K, I-L. Which face is opposite H?",
+          "options": [
+            "K",
+            "G",
+            "I",
+            "J"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_003_q10",
+          "question": "The two-digit number with tens 1 and ones 7, minus (1+7), equals what?",
+          "options": [
+            "22",
+            "9",
+            "4",
+            "30"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_004",
+      "type": "iq",
+      "set_number": 4,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_004_q01",
+          "question": "Which number comes next?\n2, 10, 50, 250, ?",
+          "options": [
+            "1252",
+            "1248",
+            "1250",
+            "1256"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_004_q02",
+          "question": "What comes next in the sequence?\n13, 18, 24, 31, ?",
+          "options": [
+            "46",
+            "31",
+            "34",
+            "39"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_004_q03",
+          "question": "All V4s are K4s. All K4s are R4s. Which statement must be true?",
+          "options": [
+            "Every V4 is a R4.",
+            "Every R4 is a V4.",
+            "Some K4s are not V4s.",
+            "No V4 is a K4."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_004_q04",
+          "question": "No V4 is a K4. Some R4s are K4s. Which statement cannot be true?",
+          "options": [
+            "Some R4s are not K4s.",
+            "Every R4 is a V4.",
+            "Some K4s are not R4s.",
+            "Some V4s are not R4s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_004_q05",
+          "question": "A pattern lists shapes: diamond, ring, diamond, ring, diamond. What comes next?",
+          "options": [
+            "Oval",
+            "Hexagon",
+            "Ring",
+            "Cross"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_004_q06",
+          "question": "A code repeats as D, E, D, E, D. What is the next symbol?",
+          "options": [
+            "F",
+            "G",
+            "H",
+            "E"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_004_q07",
+          "question": "Tile is to floor as melody is to ?",
+          "options": [
+            "Chord",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_004_q08",
+          "question": "Which number does not fit the same rule?\n35, 40, 45, 36\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "35",
+            "36",
+            "40",
+            "45"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_004_q09",
+          "question": "A cube (layout 4) pairs opposite faces as J-M, K-N, L-O. Which face is opposite K?",
+          "options": [
+            "J",
+            "L",
+            "N",
+            "M"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_004_q10",
+          "question": "The two-digit number with tens 1 and ones 8, minus (1+8), equals what?",
+          "options": [
+            "23",
+            "5",
+            "31",
+            "9"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_005",
+      "type": "iq",
+      "set_number": 5,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_005_q01",
+          "question": "Which number comes next?\n2, 12, 72, 432, ?",
+          "options": [
+            "2592",
+            "2594",
+            "2590",
+            "2598"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_005_q02",
+          "question": "What comes next in the sequence?\n14, 20, 27, 35, ?",
+          "options": [
+            "51",
+            "44",
+            "35",
+            "38"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_005_q03",
+          "question": "All V5s are K5s. All K5s are R5s. Which statement must be true?",
+          "options": [
+            "Every R5 is a V5.",
+            "Some K5s are not V5s.",
+            "Every V5 is a R5.",
+            "No V5 is a K5."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_005_q04",
+          "question": "No V5 is a K5. Some R5s are K5s. Which statement cannot be true?",
+          "options": [
+            "Some R5s are not K5s.",
+            "Some K5s are not R5s.",
+            "Some V5s are not R5s.",
+            "Every R5 is a V5."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_005_q05",
+          "question": "A pattern lists shapes: oval, cross, oval, cross, oval. What comes next?",
+          "options": [
+            "Cross",
+            "Hexagon",
+            "Ring",
+            "Dot"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_005_q06",
+          "question": "A code repeats as E, F, E, F, E. What is the next symbol?",
+          "options": [
+            "K",
+            "F",
+            "L",
+            "M"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_005_q07",
+          "question": "Stanza is to poem as spoke is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Circuit",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_005_q08",
+          "question": "Which number does not fit the same rule?\n48, 54, 60, 49\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "48",
+            "54",
+            "60",
+            "49"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_005_q09",
+          "question": "A cube (layout 5) pairs opposite faces as M-P, N-Q, O-R. Which face is opposite N?",
+          "options": [
+            "Q",
+            "M",
+            "O",
+            "P"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_005_q10",
+          "question": "The two-digit number with tens 1 and ones 9, minus (1+9), equals what?",
+          "options": [
+            "24",
+            "9",
+            "6",
+            "32"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_006",
+      "type": "iq",
+      "set_number": 6,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_006_q01",
+          "question": "Which number comes next?\n2, 14, 98, 686, ?",
+          "options": [
+            "4804",
+            "4800",
+            "4802",
+            "4808"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_006_q02",
+          "question": "What comes next in the sequence?\n15, 17, 21, 26, ?",
+          "options": [
+            "39",
+            "26",
+            "30",
+            "32"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_006_q03",
+          "question": "All V6s are K6s. All K6s are R6s. Which statement must be true?",
+          "options": [
+            "Every V6 is a R6.",
+            "Every R6 is a V6.",
+            "Some K6s are not V6s.",
+            "No V6 is a K6."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_006_q04",
+          "question": "No V6 is a K6. Some R6s are K6s. Which statement cannot be true?",
+          "options": [
+            "Some R6s are not K6s.",
+            "Every R6 is a V6.",
+            "Some K6s are not R6s.",
+            "Some V6s are not R6s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_006_q05",
+          "question": "A pattern lists shapes: hexagon, dot, hexagon, dot, hexagon. What comes next?",
+          "options": [
+            "Ring",
+            "Cross",
+            "Dot",
+            "Arc"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_006_q06",
+          "question": "A code repeats as F, G, F, G, F. What is the next symbol?",
+          "options": [
+            "Q",
+            "R",
+            "S",
+            "G"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_006_q07",
+          "question": "Seed is to tree as bulb is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_006_q08",
+          "question": "Which number does not fit the same rule?\n63, 70, 77, 64\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "63",
+            "64",
+            "70",
+            "77"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_006_q09",
+          "question": "A cube (layout 6) pairs opposite faces as P-S, Q-T, R-U. Which face is opposite Q?",
+          "options": [
+            "P",
+            "R",
+            "T",
+            "S"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_006_q10",
+          "question": "The two-digit number with tens 2 and ones 0, minus (2+0), equals what?",
+          "options": [
+            "34",
+            "16",
+            "42",
+            "18"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_007",
+      "type": "iq",
+      "set_number": 7,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_007_q01",
+          "question": "Which number comes next?\n2, 16, 128, 1024, ?",
+          "options": [
+            "8192",
+            "8194",
+            "8190",
+            "8198"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_007_q02",
+          "question": "What comes next in the sequence?\n16, 19, 24, 30, ?",
+          "options": [
+            "44",
+            "37",
+            "30",
+            "34"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_007_q03",
+          "question": "All V7s are K7s. All K7s are R7s. Which statement must be true?",
+          "options": [
+            "Every R7 is a V7.",
+            "Some K7s are not V7s.",
+            "Every V7 is a R7.",
+            "No V7 is a K7."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_007_q04",
+          "question": "No V7 is a K7. Some R7s are K7s. Which statement cannot be true?",
+          "options": [
+            "Some R7s are not K7s.",
+            "Some K7s are not R7s.",
+            "Some V7s are not R7s.",
+            "Every R7 is a V7."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_007_q05",
+          "question": "A pattern lists shapes: ring, arc, ring, arc, ring. What comes next?",
+          "options": [
+            "Arc",
+            "Cross",
+            "Dot",
+            "Circle"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_007_q06",
+          "question": "A code repeats as G, H, G, H, G. What is the next symbol?",
+          "options": [
+            "V",
+            "H",
+            "W",
+            "X"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_007_q07",
+          "question": "Note is to scale as page is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_007_q08",
+          "question": "Which number does not fit the same rule?\n80, 88, 96, 81\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "80",
+            "88",
+            "96",
+            "81"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_007_q09",
+          "question": "A cube (layout 7) pairs opposite faces as S-V, T-W, U-X. Which face is opposite T?",
+          "options": [
+            "W",
+            "S",
+            "U",
+            "V"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_007_q10",
+          "question": "The two-digit number with tens 2 and ones 1, minus (2+1), equals what?",
+          "options": [
+            "35",
+            "18",
+            "17",
+            "43"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_008",
+      "type": "iq",
+      "set_number": 8,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_008_q01",
+          "question": "Which number comes next?\n3, 6, 12, 24, ?",
+          "options": [
+            "51",
+            "45",
+            "48",
+            "57"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_008_q02",
+          "question": "What comes next in the sequence?\n17, 21, 27, 34, ?",
+          "options": [
+            "49",
+            "34",
+            "38",
+            "42"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_008_q03",
+          "question": "All V8s are K8s. All K8s are R8s. Which statement must be true?",
+          "options": [
+            "Every V8 is a R8.",
+            "Every R8 is a V8.",
+            "Some K8s are not V8s.",
+            "No V8 is a K8."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_008_q04",
+          "question": "No V8 is a K8. Some R8s are K8s. Which statement cannot be true?",
+          "options": [
+            "Some R8s are not K8s.",
+            "Every R8 is a V8.",
+            "Some K8s are not R8s.",
+            "Some V8s are not R8s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_008_q05",
+          "question": "A pattern lists shapes: cross, circle, cross, circle, cross. What comes next?",
+          "options": [
+            "Dot",
+            "Arc",
+            "Circle",
+            "Square"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_008_q06",
+          "question": "A code repeats as H, J, H, J, H. What is the next symbol?",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "J"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_008_q07",
+          "question": "Rim is to wheel as leaf is to ?",
+          "options": [
+            "Play",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_008_q08",
+          "question": "Which number does not fit the same rule?\n22, 24, 26, 23\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "22",
+            "23",
+            "24",
+            "26"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_008_q09",
+          "question": "A cube (layout 8) pairs opposite faces as V-Y, W-Z, X-A. Which face is opposite W?",
+          "options": [
+            "V",
+            "X",
+            "Z",
+            "Y"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_008_q10",
+          "question": "The two-digit number with tens 2 and ones 2, minus (2+2), equals what?",
+          "options": [
+            "36",
+            "44",
+            "22",
+            "18"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_009",
+      "type": "iq",
+      "set_number": 9,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_009_q01",
+          "question": "Which number comes next?\n3, 9, 27, 81, ?",
+          "options": [
+            "243",
+            "246",
+            "240",
+            "252"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_009_q02",
+          "question": "What comes next in the sequence?\n18, 23, 30, 38, ?",
+          "options": [
+            "54",
+            "47",
+            "38",
+            "42"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_009_q03",
+          "question": "All V9s are K9s. All K9s are R9s. Which statement must be true?",
+          "options": [
+            "Every R9 is a V9.",
+            "Some K9s are not V9s.",
+            "Every V9 is a R9.",
+            "No V9 is a K9."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_009_q04",
+          "question": "No V9 is a K9. Some R9s are K9s. Which statement cannot be true?",
+          "options": [
+            "Some R9s are not K9s.",
+            "Some K9s are not R9s.",
+            "Some V9s are not R9s.",
+            "Every R9 is a V9."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_009_q05",
+          "question": "A pattern lists shapes: dot, square, dot, square, dot. What comes next?",
+          "options": [
+            "Square",
+            "Arc",
+            "Circle",
+            "Triangle"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_009_q06",
+          "question": "A code repeats as J, K, J, K, J. What is the next symbol?",
+          "options": [
+            "F",
+            "K",
+            "G",
+            "H"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_009_q07",
+          "question": "Switch is to panel as pixel is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Chord",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_009_q08",
+          "question": "Which number does not fit the same rule?\n36, 39, 42, 37\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "36",
+            "39",
+            "42",
+            "37"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_009_q09",
+          "question": "A cube (layout 9) pairs opposite faces as Y-B, Z-C, A-D. Which face is opposite Z?",
+          "options": [
+            "C",
+            "Y",
+            "A",
+            "B"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_009_q10",
+          "question": "The two-digit number with tens 2 and ones 3, minus (2+3), equals what?",
+          "options": [
+            "37",
+            "18",
+            "19",
+            "45"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_010",
+      "type": "iq",
+      "set_number": 10,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_010_q01",
+          "question": "Which number comes next?\n3, 12, 48, 192, ?",
+          "options": [
+            "771",
+            "765",
+            "768",
+            "777"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_010_q02",
+          "question": "What comes next in the sequence?\n19, 25, 33, 42, ?",
+          "options": [
+            "59",
+            "42",
+            "46",
+            "52"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_010_q03",
+          "question": "All V10s are K10s. All K10s are R10s. Which statement must be true?",
+          "options": [
+            "Every V10 is a R10.",
+            "Every R10 is a V10.",
+            "Some K10s are not V10s.",
+            "No V10 is a K10."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_010_q04",
+          "question": "No V10 is a K10. Some R10s are K10s. Which statement cannot be true?",
+          "options": [
+            "Some R10s are not K10s.",
+            "Every R10 is a V10.",
+            "Some K10s are not R10s.",
+            "Some V10s are not R10s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_010_q05",
+          "question": "A pattern lists shapes: arc, triangle, arc, triangle, arc. What comes next?",
+          "options": [
+            "Circle",
+            "Square",
+            "Triangle",
+            "Diamond"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_010_q06",
+          "question": "A code repeats as K, L, K, L, K. What is the next symbol?",
+          "options": [
+            "M",
+            "N",
+            "P",
+            "L"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_010_q07",
+          "question": "Scene is to stage as scene is to ?",
+          "options": [
+            "Circuit",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_010_q08",
+          "question": "Which number does not fit the same rule?\n52, 56, 60, 53\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "52",
+            "53",
+            "56",
+            "60"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_010_q09",
+          "question": "A cube (layout 10) pairs opposite faces as B-E, C-F, D-G. Which face is opposite C?",
+          "options": [
+            "B",
+            "D",
+            "F",
+            "E"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_010_q10",
+          "question": "The two-digit number with tens 2 and ones 4, minus (2+4), equals what?",
+          "options": [
+            "38",
+            "20",
+            "46",
+            "18"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_011",
+      "type": "iq",
+      "set_number": 11,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_011_q01",
+          "question": "Which number comes next?\n3, 15, 75, 375, ?",
+          "options": [
+            "1875",
+            "1878",
+            "1872",
+            "1884"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_011_q02",
+          "question": "What comes next in the sequence?\n20, 22, 25, 29, ?",
+          "options": [
+            "42",
+            "35",
+            "29",
+            "33"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_011_q03",
+          "question": "All V11s are K11s. All K11s are R11s. Which statement must be true?",
+          "options": [
+            "Every R11 is a V11.",
+            "Some K11s are not V11s.",
+            "Every V11 is a R11.",
+            "No V11 is a K11."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_011_q04",
+          "question": "No V11 is a K11. Some R11s are K11s. Which statement cannot be true?",
+          "options": [
+            "Some R11s are not K11s.",
+            "Some K11s are not R11s.",
+            "Some V11s are not R11s.",
+            "Every R11 is a V11."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_011_q05",
+          "question": "A pattern lists shapes: circle, oval, circle, oval, circle. What comes next?",
+          "options": [
+            "Oval",
+            "Square",
+            "Triangle",
+            "Diamond"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_011_q06",
+          "question": "A code repeats as L, M, L, M, L. What is the next symbol?",
+          "options": [
+            "R",
+            "M",
+            "S",
+            "T"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_011_q07",
+          "question": "Finger is to car as brick is to ?",
+          "options": [
+            "Screen",
+            "Film",
+            "Branch",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_011_q08",
+          "question": "Which number does not fit the same rule?\n70, 75, 80, 71\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "70",
+            "75",
+            "80",
+            "71"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_011_q09",
+          "question": "A cube (layout 11) pairs opposite faces as E-H, F-I, G-J. Which face is opposite F?",
+          "options": [
+            "I",
+            "E",
+            "G",
+            "H"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_011_q10",
+          "question": "The two-digit number with tens 2 and ones 5, minus (2+5), equals what?",
+          "options": [
+            "39",
+            "18",
+            "21",
+            "47"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_012",
+      "type": "iq",
+      "set_number": 12,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_012_q01",
+          "question": "Which number comes next?\n3, 18, 108, 648, ?",
+          "options": [
+            "3891",
+            "3885",
+            "3888",
+            "3897"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_012_q02",
+          "question": "What comes next in the sequence?\n21, 24, 28, 33, ?",
+          "options": [
+            "47",
+            "33",
+            "37",
+            "40"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_012_q03",
+          "question": "All V12s are K12s. All K12s are R12s. Which statement must be true?",
+          "options": [
+            "Every V12 is a R12.",
+            "Every R12 is a V12.",
+            "Some K12s are not V12s.",
+            "No V12 is a K12."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_012_q04",
+          "question": "No V12 is a K12. Some R12s are K12s. Which statement cannot be true?",
+          "options": [
+            "Some R12s are not K12s.",
+            "Every R12 is a V12.",
+            "Some K12s are not R12s.",
+            "Some V12s are not R12s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_012_q05",
+          "question": "A pattern lists shapes: square, hexagon, square, hexagon, square. What comes next?",
+          "options": [
+            "Triangle",
+            "Diamond",
+            "Hexagon",
+            "Oval"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_012_q06",
+          "question": "A code repeats as M, N, M, N, M. What is the next symbol?",
+          "options": [
+            "W",
+            "X",
+            "Y",
+            "N"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_012_q07",
+          "question": "Wheel is to book as act is to ?",
+          "options": [
+            "Film",
+            "Branch",
+            "Screen",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_012_q08",
+          "question": "Which number does not fit the same rule?\n24, 30, 36, 25\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "24",
+            "25",
+            "30",
+            "36"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_012_q09",
+          "question": "A cube (layout 12) pairs opposite faces as H-K, I-L, J-M. Which face is opposite I?",
+          "options": [
+            "H",
+            "J",
+            "L",
+            "K"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_012_q10",
+          "question": "The two-digit number with tens 2 and ones 6, minus (2+6), equals what?",
+          "options": [
+            "40",
+            "22",
+            "48",
+            "18"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_013",
+      "type": "iq",
+      "set_number": 13,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_013_q01",
+          "question": "Which number comes next?\n3, 21, 147, 1029, ?",
+          "options": [
+            "7203",
+            "7206",
+            "7200",
+            "7212"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_013_q02",
+          "question": "What comes next in the sequence?\n22, 26, 31, 37, ?",
+          "options": [
+            "52",
+            "45",
+            "37",
+            "41"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_013_q03",
+          "question": "All V13s are K13s. All K13s are R13s. Which statement must be true?",
+          "options": [
+            "Every R13 is a V13.",
+            "Some K13s are not V13s.",
+            "Every V13 is a R13.",
+            "No V13 is a K13."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_013_q04",
+          "question": "No V13 is a K13. Some R13s are K13s. Which statement cannot be true?",
+          "options": [
+            "Some R13s are not K13s.",
+            "Some K13s are not R13s.",
+            "Some V13s are not R13s.",
+            "Every R13 is a V13."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_013_q05",
+          "question": "A pattern lists shapes: triangle, ring, triangle, ring, triangle. What comes next?",
+          "options": [
+            "Ring",
+            "Diamond",
+            "Oval",
+            "Hexagon"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_013_q06",
+          "question": "A code repeats as N, P, N, P, N. What is the next symbol?",
+          "options": [
+            "B",
+            "P",
+            "C",
+            "D"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_013_q07",
+          "question": "Chapter is to floor as fruit is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Play",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_013_q08",
+          "question": "Which number does not fit the same rule?\n35, 42, 49, 36\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "35",
+            "42",
+            "49",
+            "36"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_013_q09",
+          "question": "A cube (layout 13) pairs opposite faces as K-N, L-O, M-P. Which face is opposite L?",
+          "options": [
+            "O",
+            "K",
+            "M",
+            "N"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_013_q10",
+          "question": "The two-digit number with tens 2 and ones 7, minus (2+7), equals what?",
+          "options": [
+            "41",
+            "18",
+            "23",
+            "49"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_014",
+      "type": "iq",
+      "set_number": 14,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_014_q01",
+          "question": "Which number comes next?\n3, 24, 192, 1536, ?",
+          "options": [
+            "12291",
+            "12285",
+            "12288",
+            "12297"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_014_q02",
+          "question": "What comes next in the sequence?\n23, 28, 34, 41, ?",
+          "options": [
+            "57",
+            "41",
+            "45",
+            "50"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_014_q03",
+          "question": "All V14s are K14s. All K14s are R14s. Which statement must be true?",
+          "options": [
+            "Every V14 is a R14.",
+            "Every R14 is a V14.",
+            "Some K14s are not V14s.",
+            "No V14 is a K14."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_014_q04",
+          "question": "No V14 is a K14. Some R14s are K14s. Which statement cannot be true?",
+          "options": [
+            "Some R14s are not K14s.",
+            "Every R14 is a V14.",
+            "Some K14s are not R14s.",
+            "Some V14s are not R14s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_014_q05",
+          "question": "A pattern lists shapes: diamond, cross, diamond, cross, diamond. What comes next?",
+          "options": [
+            "Oval",
+            "Hexagon",
+            "Cross",
+            "Ring"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_014_q06",
+          "question": "A code repeats as P, Q, P, Q, P. What is the next symbol?",
+          "options": [
+            "G",
+            "H",
+            "J",
+            "Q"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_014_q07",
+          "question": "Tile is to poem as melody is to ?",
+          "options": [
+            "Chord",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_014_q08",
+          "question": "Which number does not fit the same rule?\n48, 56, 64, 49\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "48",
+            "49",
+            "56",
+            "64"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_014_q09",
+          "question": "A cube (layout 14) pairs opposite faces as N-Q, O-R, P-S. Which face is opposite O?",
+          "options": [
+            "N",
+            "P",
+            "R",
+            "Q"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_014_q10",
+          "question": "The two-digit number with tens 2 and ones 8, minus (2+8), equals what?",
+          "options": [
+            "42",
+            "24",
+            "50",
+            "18"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_015",
+      "type": "iq",
+      "set_number": 15,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_015_q01",
+          "question": "Which number comes next?\n4, 8, 16, 32, ?",
+          "options": [
+            "64",
+            "68",
+            "60",
+            "76"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_015_q02",
+          "question": "What comes next in the sequence?\n24, 30, 37, 45, ?",
+          "options": [
+            "62",
+            "55",
+            "45",
+            "49"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_015_q03",
+          "question": "All V15s are K15s. All K15s are R15s. Which statement must be true?",
+          "options": [
+            "Every R15 is a V15.",
+            "Some K15s are not V15s.",
+            "Every V15 is a R15.",
+            "No V15 is a K15."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_015_q04",
+          "question": "No V15 is a K15. Some R15s are K15s. Which statement cannot be true?",
+          "options": [
+            "Some R15s are not K15s.",
+            "Some K15s are not R15s.",
+            "Some V15s are not R15s.",
+            "Every R15 is a V15."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_015_q05",
+          "question": "A pattern lists shapes: oval, dot, oval, dot, oval. What comes next?",
+          "options": [
+            "Dot",
+            "Hexagon",
+            "Ring",
+            "Cross"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_015_q06",
+          "question": "A code repeats as Q, R, Q, R, Q. What is the next symbol?",
+          "options": [
+            "M",
+            "R",
+            "N",
+            "P"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_015_q07",
+          "question": "Stanza is to tree as spoke is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Circuit",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_015_q08",
+          "question": "Which number does not fit the same rule?\n14, 16, 18, 15\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "14",
+            "16",
+            "18",
+            "15"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_015_q09",
+          "question": "A cube (layout 15) pairs opposite faces as Q-T, R-U, S-V. Which face is opposite R?",
+          "options": [
+            "U",
+            "Q",
+            "S",
+            "T"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_015_q10",
+          "question": "The two-digit number with tens 2 and ones 9, minus (2+9), equals what?",
+          "options": [
+            "43",
+            "18",
+            "25",
+            "51"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_016",
+      "type": "iq",
+      "set_number": 16,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_016_q01",
+          "question": "Which number comes next?\n4, 12, 36, 108, ?",
+          "options": [
+            "328",
+            "320",
+            "324",
+            "336"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_016_q02",
+          "question": "What comes next in the sequence?\n25, 27, 31, 36, ?",
+          "options": [
+            "50",
+            "36",
+            "41",
+            "43"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_016_q03",
+          "question": "All V16s are K16s. All K16s are R16s. Which statement must be true?",
+          "options": [
+            "Every V16 is a R16.",
+            "Every R16 is a V16.",
+            "Some K16s are not V16s.",
+            "No V16 is a K16."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_016_q04",
+          "question": "No V16 is a K16. Some R16s are K16s. Which statement cannot be true?",
+          "options": [
+            "Some R16s are not K16s.",
+            "Every R16 is a V16.",
+            "Some K16s are not R16s.",
+            "Some V16s are not R16s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_016_q05",
+          "question": "A pattern lists shapes: hexagon, arc, hexagon, arc, hexagon. What comes next?",
+          "options": [
+            "Ring",
+            "Cross",
+            "Arc",
+            "Dot"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_016_q06",
+          "question": "A code repeats as R, S, R, S, R. What is the next symbol?",
+          "options": [
+            "T",
+            "U",
+            "V",
+            "S"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_016_q07",
+          "question": "Seed is to scale as bulb is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_016_q08",
+          "question": "Which number does not fit the same rule?\n24, 27, 30, 25\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "24",
+            "25",
+            "27",
+            "30"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_016_q09",
+          "question": "A cube (layout 16) pairs opposite faces as T-W, U-X, V-Y. Which face is opposite U?",
+          "options": [
+            "T",
+            "V",
+            "X",
+            "W"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_016_q10",
+          "question": "The two-digit number with tens 3 and ones 0, minus (3+0), equals what?",
+          "options": [
+            "53",
+            "35",
+            "61",
+            "27"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_017",
+      "type": "iq",
+      "set_number": 17,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_017_q01",
+          "question": "Which number comes next?\n4, 16, 64, 256, ?",
+          "options": [
+            "1024",
+            "1028",
+            "1020",
+            "1036"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_017_q02",
+          "question": "What comes next in the sequence?\n26, 29, 34, 40, ?",
+          "options": [
+            "55",
+            "48",
+            "40",
+            "45"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_017_q03",
+          "question": "All V17s are K17s. All K17s are R17s. Which statement must be true?",
+          "options": [
+            "Every R17 is a V17.",
+            "Some K17s are not V17s.",
+            "Every V17 is a R17.",
+            "No V17 is a K17."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_017_q04",
+          "question": "No V17 is a K17. Some R17s are K17s. Which statement cannot be true?",
+          "options": [
+            "Some R17s are not K17s.",
+            "Some K17s are not R17s.",
+            "Some V17s are not R17s.",
+            "Every R17 is a V17."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_017_q05",
+          "question": "A pattern lists shapes: ring, circle, ring, circle, ring. What comes next?",
+          "options": [
+            "Circle",
+            "Cross",
+            "Dot",
+            "Arc"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_017_q06",
+          "question": "A code repeats as S, T, S, T, S. What is the next symbol?",
+          "options": [
+            "X",
+            "T",
+            "Y",
+            "Z"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_017_q07",
+          "question": "Note is to wheel as page is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_017_q08",
+          "question": "Which number does not fit the same rule?\n36, 40, 44, 37\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "36",
+            "40",
+            "44",
+            "37"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_017_q09",
+          "question": "A cube (layout 17) pairs opposite faces as W-Z, X-A, Y-B. Which face is opposite X?",
+          "options": [
+            "A",
+            "W",
+            "Y",
+            "Z"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_017_q10",
+          "question": "The two-digit number with tens 3 and ones 1, minus (3+1), equals what?",
+          "options": [
+            "54",
+            "27",
+            "36",
+            "62"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_018",
+      "type": "iq",
+      "set_number": 18,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_018_q01",
+          "question": "Which number comes next?\n4, 20, 100, 500, ?",
+          "options": [
+            "2504",
+            "2496",
+            "2500",
+            "2512"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_018_q02",
+          "question": "What comes next in the sequence?\n27, 31, 37, 44, ?",
+          "options": [
+            "60",
+            "44",
+            "49",
+            "53"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_018_q03",
+          "question": "All V18s are K18s. All K18s are R18s. Which statement must be true?",
+          "options": [
+            "Every V18 is a R18.",
+            "Every R18 is a V18.",
+            "Some K18s are not V18s.",
+            "No V18 is a K18."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_018_q04",
+          "question": "No V18 is a K18. Some R18s are K18s. Which statement cannot be true?",
+          "options": [
+            "Some R18s are not K18s.",
+            "Every R18 is a V18.",
+            "Some K18s are not R18s.",
+            "Some V18s are not R18s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_018_q05",
+          "question": "A pattern lists shapes: cross, square, cross, square, cross. What comes next?",
+          "options": [
+            "Dot",
+            "Arc",
+            "Square",
+            "Circle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_018_q06",
+          "question": "A code repeats as T, U, T, U, T. What is the next symbol?",
+          "options": [
+            "C",
+            "D",
+            "E",
+            "U"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_018_q07",
+          "question": "Rim is to panel as leaf is to ?",
+          "options": [
+            "Play",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_018_q08",
+          "question": "Which number does not fit the same rule?\n50, 55, 60, 51\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "50",
+            "51",
+            "55",
+            "60"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_018_q09",
+          "question": "A cube (layout 18) pairs opposite faces as Z-C, A-D, B-E. Which face is opposite A?",
+          "options": [
+            "Z",
+            "B",
+            "D",
+            "C"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_018_q10",
+          "question": "The two-digit number with tens 3 and ones 2, minus (3+2), equals what?",
+          "options": [
+            "55",
+            "37",
+            "63",
+            "27"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_019",
+      "type": "iq",
+      "set_number": 19,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_019_q01",
+          "question": "Which number comes next?\n4, 24, 144, 864, ?",
+          "options": [
+            "5184",
+            "5188",
+            "5180",
+            "5196"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_019_q02",
+          "question": "What comes next in the sequence?\n28, 33, 40, 48, ?",
+          "options": [
+            "65",
+            "58",
+            "48",
+            "53"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_019_q03",
+          "question": "All V19s are K19s. All K19s are R19s. Which statement must be true?",
+          "options": [
+            "Every R19 is a V19.",
+            "Some K19s are not V19s.",
+            "Every V19 is a R19.",
+            "No V19 is a K19."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_019_q04",
+          "question": "No V19 is a K19. Some R19s are K19s. Which statement cannot be true?",
+          "options": [
+            "Some R19s are not K19s.",
+            "Some K19s are not R19s.",
+            "Some V19s are not R19s.",
+            "Every R19 is a V19."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_019_q05",
+          "question": "A pattern lists shapes: dot, triangle, dot, triangle, dot. What comes next?",
+          "options": [
+            "Triangle",
+            "Arc",
+            "Circle",
+            "Square"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_019_q06",
+          "question": "A code repeats as U, V, U, V, U. What is the next symbol?",
+          "options": [
+            "H",
+            "V",
+            "J",
+            "K"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_019_q07",
+          "question": "Switch is to stage as pixel is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Chord",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_019_q08",
+          "question": "Which number does not fit the same rule?\n66, 72, 78, 67\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "66",
+            "72",
+            "78",
+            "67"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_019_q09",
+          "question": "A cube (layout 19) pairs opposite faces as C-F, D-G, E-H. Which face is opposite D?",
+          "options": [
+            "G",
+            "C",
+            "E",
+            "F"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_019_q10",
+          "question": "The two-digit number with tens 3 and ones 3, minus (3+3), equals what?",
+          "options": [
+            "56",
+            "27",
+            "38",
+            "64"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_020",
+      "type": "iq",
+      "set_number": 20,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_020_q01",
+          "question": "Which number comes next?\n4, 28, 196, 1372, ?",
+          "options": [
+            "9608",
+            "9600",
+            "9604",
+            "9616"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_020_q02",
+          "question": "What comes next in the sequence?\n29, 35, 43, 52, ?",
+          "options": [
+            "70",
+            "52",
+            "57",
+            "63"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_020_q03",
+          "question": "All V20s are K20s. All K20s are R20s. Which statement must be true?",
+          "options": [
+            "Every V20 is a R20.",
+            "Every R20 is a V20.",
+            "Some K20s are not V20s.",
+            "No V20 is a K20."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_020_q04",
+          "question": "No V20 is a K20. Some R20s are K20s. Which statement cannot be true?",
+          "options": [
+            "Some R20s are not K20s.",
+            "Every R20 is a V20.",
+            "Some K20s are not R20s.",
+            "Some V20s are not R20s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_020_q05",
+          "question": "A pattern lists shapes: arc, diamond, arc, diamond, arc. What comes next?",
+          "options": [
+            "Circle",
+            "Square",
+            "Diamond",
+            "Triangle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_020_q06",
+          "question": "A code repeats as V, W, V, W, V. What is the next symbol?",
+          "options": [
+            "N",
+            "P",
+            "Q",
+            "W"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_020_q07",
+          "question": "Scene is to hand as scene is to ?",
+          "options": [
+            "Circuit",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_020_q08",
+          "question": "Which number does not fit the same rule?\n84, 91, 98, 85\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "84",
+            "85",
+            "91",
+            "98"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_020_q09",
+          "question": "A cube (layout 20) pairs opposite faces as F-I, G-J, H-K. Which face is opposite G?",
+          "options": [
+            "F",
+            "H",
+            "J",
+            "I"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_020_q10",
+          "question": "The two-digit number with tens 3 and ones 4, minus (3+4), equals what?",
+          "options": [
+            "57",
+            "39",
+            "65",
+            "27"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_021",
+      "type": "iq",
+      "set_number": 21,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_021_q01",
+          "question": "Which number comes next?\n4, 32, 256, 2048, ?",
+          "options": [
+            "16384",
+            "16388",
+            "16380",
+            "16396"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_021_q02",
+          "question": "What comes next in the sequence?\n30, 32, 35, 39, ?",
+          "options": [
+            "51",
+            "44",
+            "39",
+            "42"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_021_q03",
+          "question": "All V21s are K21s. All K21s are R21s. Which statement must be true?",
+          "options": [
+            "Every R21 is a V21.",
+            "Some K21s are not V21s.",
+            "Every V21 is a R21.",
+            "No V21 is a K21."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_021_q04",
+          "question": "No V21 is a K21. Some R21s are K21s. Which statement cannot be true?",
+          "options": [
+            "Some R21s are not K21s.",
+            "Some K21s are not R21s.",
+            "Some V21s are not R21s.",
+            "Every R21 is a V21."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_021_q05",
+          "question": "A pattern lists shapes: circle, hexagon, circle, hexagon, circle. What comes next?",
+          "options": [
+            "Hexagon",
+            "Square",
+            "Triangle",
+            "Diamond"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_021_q06",
+          "question": "A code repeats as W, X, W, X, W. What is the next symbol?",
+          "options": [
+            "T",
+            "X",
+            "U",
+            "V"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_021_q07",
+          "question": "Finger is to book as brick is to ?",
+          "options": [
+            "Screen",
+            "Film",
+            "Branch",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_021_q08",
+          "question": "Which number does not fit the same rule?\n104, 112, 120, 105\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "104",
+            "112",
+            "120",
+            "105"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_021_q09",
+          "question": "A cube (layout 21) pairs opposite faces as I-L, J-M, K-N. Which face is opposite J?",
+          "options": [
+            "M",
+            "I",
+            "K",
+            "L"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_021_q10",
+          "question": "The two-digit number with tens 3 and ones 5, minus (3+5), equals what?",
+          "options": [
+            "58",
+            "27",
+            "40",
+            "66"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_022",
+      "type": "iq",
+      "set_number": 22,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_022_q01",
+          "question": "Which number comes next?\n5, 10, 20, 40, ?",
+          "options": [
+            "85",
+            "75",
+            "80",
+            "95"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_022_q02",
+          "question": "What comes next in the sequence?\n31, 34, 38, 43, ?",
+          "options": [
+            "56",
+            "43",
+            "46",
+            "49"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_022_q03",
+          "question": "All V22s are K22s. All K22s are R22s. Which statement must be true?",
+          "options": [
+            "Every V22 is a R22.",
+            "Every R22 is a V22.",
+            "Some K22s are not V22s.",
+            "No V22 is a K22."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_022_q04",
+          "question": "No V22 is a K22. Some R22s are K22s. Which statement cannot be true?",
+          "options": [
+            "Some R22s are not K22s.",
+            "Every R22 is a V22.",
+            "Some K22s are not R22s.",
+            "Some V22s are not R22s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_022_q05",
+          "question": "A pattern lists shapes: square, ring, square, ring, square. What comes next?",
+          "options": [
+            "Triangle",
+            "Diamond",
+            "Ring",
+            "Oval"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_022_q06",
+          "question": "A code repeats as X, Y, X, Y, X. What is the next symbol?",
+          "options": [
+            "Z",
+            "A",
+            "B",
+            "Y"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_022_q07",
+          "question": "Wheel is to floor as act is to ?",
+          "options": [
+            "Film",
+            "Branch",
+            "Screen",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_022_q08",
+          "question": "Which number does not fit the same rule?\n28, 30, 32, 29\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "28",
+            "29",
+            "30",
+            "32"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_022_q09",
+          "question": "A cube (layout 22) pairs opposite faces as L-O, M-P, N-Q. Which face is opposite M?",
+          "options": [
+            "L",
+            "N",
+            "P",
+            "O"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_022_q10",
+          "question": "The two-digit number with tens 3 and ones 6, minus (3+6), equals what?",
+          "options": [
+            "59",
+            "41",
+            "67",
+            "27"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_023",
+      "type": "iq",
+      "set_number": 23,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_023_q01",
+          "question": "Which number comes next?\n5, 15, 45, 135, ?",
+          "options": [
+            "405",
+            "410",
+            "400",
+            "420"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_023_q02",
+          "question": "What comes next in the sequence?\n32, 36, 41, 47, ?",
+          "options": [
+            "61",
+            "54",
+            "47",
+            "50"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_023_q03",
+          "question": "All V23s are K23s. All K23s are R23s. Which statement must be true?",
+          "options": [
+            "Every R23 is a V23.",
+            "Some K23s are not V23s.",
+            "Every V23 is a R23.",
+            "No V23 is a K23."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_023_q04",
+          "question": "No V23 is a K23. Some R23s are K23s. Which statement cannot be true?",
+          "options": [
+            "Some R23s are not K23s.",
+            "Some K23s are not R23s.",
+            "Some V23s are not R23s.",
+            "Every R23 is a V23."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_023_q05",
+          "question": "A pattern lists shapes: triangle, cross, triangle, cross, triangle. What comes next?",
+          "options": [
+            "Cross",
+            "Diamond",
+            "Oval",
+            "Hexagon"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_023_q06",
+          "question": "A code repeats as Y, Z, Y, Z, Y. What is the next symbol?",
+          "options": [
+            "D",
+            "Z",
+            "E",
+            "F"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_023_q07",
+          "question": "Chapter is to poem as fruit is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Play",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_023_q08",
+          "question": "Which number does not fit the same rule?\n12, 15, 18, 13\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "12",
+            "15",
+            "18",
+            "13"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_023_q09",
+          "question": "A cube (layout 23) pairs opposite faces as O-R, P-S, Q-T. Which face is opposite P?",
+          "options": [
+            "S",
+            "O",
+            "Q",
+            "R"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_023_q10",
+          "question": "The two-digit number with tens 3 and ones 7, minus (3+7), equals what?",
+          "options": [
+            "60",
+            "27",
+            "42",
+            "68"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_024",
+      "type": "iq",
+      "set_number": 24,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_024_q01",
+          "question": "Which number comes next?\n5, 20, 80, 320, ?",
+          "options": [
+            "1285",
+            "1275",
+            "1280",
+            "1295"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_024_q02",
+          "question": "What comes next in the sequence?\n33, 38, 44, 51, ?",
+          "options": [
+            "66",
+            "51",
+            "54",
+            "59"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_024_q03",
+          "question": "All V24s are K24s. All K24s are R24s. Which statement must be true?",
+          "options": [
+            "Every V24 is a R24.",
+            "Every R24 is a V24.",
+            "Some K24s are not V24s.",
+            "No V24 is a K24."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_024_q04",
+          "question": "No V24 is a K24. Some R24s are K24s. Which statement cannot be true?",
+          "options": [
+            "Some R24s are not K24s.",
+            "Every R24 is a V24.",
+            "Some K24s are not R24s.",
+            "Some V24s are not R24s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_024_q05",
+          "question": "A pattern lists shapes: diamond, dot, diamond, dot, diamond. What comes next?",
+          "options": [
+            "Oval",
+            "Hexagon",
+            "Dot",
+            "Ring"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_024_q06",
+          "question": "A code repeats as Z, A, Z, A, Z. What is the next symbol?",
+          "options": [
+            "J",
+            "K",
+            "L",
+            "A"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_024_q07",
+          "question": "Tile is to tree as melody is to ?",
+          "options": [
+            "Chord",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_024_q08",
+          "question": "Which number does not fit the same rule?\n20, 24, 28, 21\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "20",
+            "21",
+            "24",
+            "28"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_024_q09",
+          "question": "A cube (layout 24) pairs opposite faces as R-U, S-V, T-W. Which face is opposite S?",
+          "options": [
+            "R",
+            "T",
+            "V",
+            "U"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_024_q10",
+          "question": "The two-digit number with tens 3 and ones 8, minus (3+8), equals what?",
+          "options": [
+            "61",
+            "43",
+            "69",
+            "27"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_025",
+      "type": "iq",
+      "set_number": 25,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_025_q01",
+          "question": "Which number comes next?\n5, 25, 125, 625, ?",
+          "options": [
+            "3125",
+            "3130",
+            "3120",
+            "3140"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_025_q02",
+          "question": "What comes next in the sequence?\n34, 40, 47, 55, ?",
+          "options": [
+            "71",
+            "64",
+            "55",
+            "58"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_025_q03",
+          "question": "All V25s are K25s. All K25s are R25s. Which statement must be true?",
+          "options": [
+            "Every R25 is a V25.",
+            "Some K25s are not V25s.",
+            "Every V25 is a R25.",
+            "No V25 is a K25."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_025_q04",
+          "question": "No V25 is a K25. Some R25s are K25s. Which statement cannot be true?",
+          "options": [
+            "Some R25s are not K25s.",
+            "Some K25s are not R25s.",
+            "Some V25s are not R25s.",
+            "Every R25 is a V25."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_025_q05",
+          "question": "A pattern lists shapes: oval, arc, oval, arc, oval. What comes next?",
+          "options": [
+            "Arc",
+            "Hexagon",
+            "Ring",
+            "Cross"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_025_q06",
+          "question": "A code repeats as A, C, A, C, A. What is the next symbol?",
+          "options": [
+            "P",
+            "C",
+            "Q",
+            "R"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_025_q07",
+          "question": "Stanza is to scale as spoke is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Circuit",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_025_q08",
+          "question": "Which number does not fit the same rule?\n30, 35, 40, 31\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "30",
+            "35",
+            "40",
+            "31"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_025_q09",
+          "question": "A cube (layout 25) pairs opposite faces as U-X, V-Y, W-Z. Which face is opposite V?",
+          "options": [
+            "Y",
+            "U",
+            "W",
+            "X"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_025_q10",
+          "question": "The two-digit number with tens 3 and ones 9, minus (3+9), equals what?",
+          "options": [
+            "62",
+            "27",
+            "44",
+            "70"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_026",
+      "type": "iq",
+      "set_number": 26,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_026_q01",
+          "question": "Which number comes next?\n5, 30, 180, 1080, ?",
+          "options": [
+            "6485",
+            "6475",
+            "6480",
+            "6495"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_026_q02",
+          "question": "What comes next in the sequence?\n35, 37, 41, 46, ?",
+          "options": [
+            "59",
+            "46",
+            "50",
+            "52"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_026_q03",
+          "question": "All V26s are K26s. All K26s are R26s. Which statement must be true?",
+          "options": [
+            "Every V26 is a R26.",
+            "Every R26 is a V26.",
+            "Some K26s are not V26s.",
+            "No V26 is a K26."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_026_q04",
+          "question": "No V26 is a K26. Some R26s are K26s. Which statement cannot be true?",
+          "options": [
+            "Some R26s are not K26s.",
+            "Every R26 is a V26.",
+            "Some K26s are not R26s.",
+            "Some V26s are not R26s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_026_q05",
+          "question": "A pattern lists shapes: hexagon, circle, hexagon, circle, hexagon. What comes next?",
+          "options": [
+            "Ring",
+            "Cross",
+            "Circle",
+            "Dot"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_026_q06",
+          "question": "A code repeats as B, D, B, D, B. What is the next symbol?",
+          "options": [
+            "U",
+            "V",
+            "W",
+            "D"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_026_q07",
+          "question": "Seed is to wheel as bulb is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_026_q08",
+          "question": "Which number does not fit the same rule?\n42, 48, 54, 43\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "42",
+            "43",
+            "48",
+            "54"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_026_q09",
+          "question": "A cube (layout 26) pairs opposite faces as X-A, Y-B, Z-C. Which face is opposite Y?",
+          "options": [
+            "X",
+            "Z",
+            "B",
+            "A"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_026_q10",
+          "question": "The two-digit number with tens 4 and ones 0, minus (4+0), equals what?",
+          "options": [
+            "72",
+            "54",
+            "80",
+            "36"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_027",
+      "type": "iq",
+      "set_number": 27,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_027_q01",
+          "question": "Which number comes next?\n5, 35, 245, 1715, ?",
+          "options": [
+            "12005",
+            "12010",
+            "12000",
+            "12020"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_027_q02",
+          "question": "What comes next in the sequence?\n36, 39, 44, 50, ?",
+          "options": [
+            "64",
+            "57",
+            "50",
+            "54"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_027_q03",
+          "question": "All V27s are K27s. All K27s are R27s. Which statement must be true?",
+          "options": [
+            "Every R27 is a V27.",
+            "Some K27s are not V27s.",
+            "Every V27 is a R27.",
+            "No V27 is a K27."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_027_q04",
+          "question": "No V27 is a K27. Some R27s are K27s. Which statement cannot be true?",
+          "options": [
+            "Some R27s are not K27s.",
+            "Some K27s are not R27s.",
+            "Some V27s are not R27s.",
+            "Every R27 is a V27."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_027_q05",
+          "question": "A pattern lists shapes: ring, square, ring, square, ring. What comes next?",
+          "options": [
+            "Square",
+            "Cross",
+            "Dot",
+            "Arc"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_027_q06",
+          "question": "A code repeats as C, E, C, E, C. What is the next symbol?",
+          "options": [
+            "Z",
+            "E",
+            "A",
+            "B"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_027_q07",
+          "question": "Note is to panel as page is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_027_q08",
+          "question": "Which number does not fit the same rule?\n56, 63, 70, 57\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "56",
+            "63",
+            "70",
+            "57"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_027_q09",
+          "question": "A cube (layout 27) pairs opposite faces as A-D, B-E, C-F. Which face is opposite B?",
+          "options": [
+            "E",
+            "A",
+            "C",
+            "D"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_027_q10",
+          "question": "The two-digit number with tens 4 and ones 1, minus (4+1), equals what?",
+          "options": [
+            "73",
+            "36",
+            "55",
+            "81"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_028",
+      "type": "iq",
+      "set_number": 28,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_028_q01",
+          "question": "Which number comes next?\n5, 40, 320, 2560, ?",
+          "options": [
+            "20485",
+            "20475",
+            "20480",
+            "20495"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_028_q02",
+          "question": "What comes next in the sequence?\n37, 41, 47, 54, ?",
+          "options": [
+            "69",
+            "54",
+            "58",
+            "62"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_028_q03",
+          "question": "All V28s are K28s. All K28s are R28s. Which statement must be true?",
+          "options": [
+            "Every V28 is a R28.",
+            "Every R28 is a V28.",
+            "Some K28s are not V28s.",
+            "No V28 is a K28."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_028_q04",
+          "question": "No V28 is a K28. Some R28s are K28s. Which statement cannot be true?",
+          "options": [
+            "Some R28s are not K28s.",
+            "Every R28 is a V28.",
+            "Some K28s are not R28s.",
+            "Some V28s are not R28s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_028_q05",
+          "question": "A pattern lists shapes: cross, triangle, cross, triangle, cross. What comes next?",
+          "options": [
+            "Dot",
+            "Arc",
+            "Triangle",
+            "Circle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_028_q06",
+          "question": "A code repeats as D, F, D, F, D. What is the next symbol?",
+          "options": [
+            "E",
+            "G",
+            "H",
+            "F"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_028_q07",
+          "question": "Rim is to stage as leaf is to ?",
+          "options": [
+            "Play",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_028_q08",
+          "question": "Which number does not fit the same rule?\n72, 80, 88, 73\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "72",
+            "73",
+            "80",
+            "88"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_028_q09",
+          "question": "A cube (layout 28) pairs opposite faces as D-G, E-H, F-I. Which face is opposite E?",
+          "options": [
+            "D",
+            "F",
+            "H",
+            "G"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_028_q10",
+          "question": "The two-digit number with tens 4 and ones 2, minus (4+2), equals what?",
+          "options": [
+            "74",
+            "56",
+            "82",
+            "36"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_029",
+      "type": "iq",
+      "set_number": 29,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_029_q01",
+          "question": "Which number comes next?\n6, 12, 24, 48, ?",
+          "options": [
+            "96",
+            "102",
+            "90",
+            "114"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_029_q02",
+          "question": "What comes next in the sequence?\n38, 43, 50, 58, ?",
+          "options": [
+            "74",
+            "67",
+            "58",
+            "62"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_029_q03",
+          "question": "All V29s are K29s. All K29s are R29s. Which statement must be true?",
+          "options": [
+            "Every R29 is a V29.",
+            "Some K29s are not V29s.",
+            "Every V29 is a R29.",
+            "No V29 is a K29."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_029_q04",
+          "question": "No V29 is a K29. Some R29s are K29s. Which statement cannot be true?",
+          "options": [
+            "Some R29s are not K29s.",
+            "Some K29s are not R29s.",
+            "Some V29s are not R29s.",
+            "Every R29 is a V29."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_029_q05",
+          "question": "A pattern lists shapes: dot, diamond, dot, diamond, dot. What comes next?",
+          "options": [
+            "Diamond",
+            "Arc",
+            "Circle",
+            "Square"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_029_q06",
+          "question": "A code repeats as E, G, E, G, E. What is the next symbol?",
+          "options": [
+            "K",
+            "G",
+            "L",
+            "M"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_029_q07",
+          "question": "Switch is to hand as pixel is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Chord",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_029_q08",
+          "question": "Which number does not fit the same rule?\n20, 22, 24, 21\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "20",
+            "22",
+            "24",
+            "21"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_029_q09",
+          "question": "A cube (layout 29) pairs opposite faces as G-J, H-K, I-L. Which face is opposite H?",
+          "options": [
+            "K",
+            "G",
+            "I",
+            "J"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_029_q10",
+          "question": "The two-digit number with tens 4 and ones 3, minus (4+3), equals what?",
+          "options": [
+            "75",
+            "36",
+            "57",
+            "83"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_030",
+      "type": "iq",
+      "set_number": 30,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_030_q01",
+          "question": "Which number comes next?\n6, 18, 54, 162, ?",
+          "options": [
+            "492",
+            "480",
+            "486",
+            "504"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_030_q02",
+          "question": "What comes next in the sequence?\n39, 45, 53, 62, ?",
+          "options": [
+            "79",
+            "62",
+            "66",
+            "72"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_030_q03",
+          "question": "All V30s are K30s. All K30s are R30s. Which statement must be true?",
+          "options": [
+            "Every V30 is a R30.",
+            "Every R30 is a V30.",
+            "Some K30s are not V30s.",
+            "No V30 is a K30."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_030_q04",
+          "question": "No V30 is a K30. Some R30s are K30s. Which statement cannot be true?",
+          "options": [
+            "Some R30s are not K30s.",
+            "Every R30 is a V30.",
+            "Some K30s are not R30s.",
+            "Some V30s are not R30s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_030_q05",
+          "question": "A pattern lists shapes: arc, oval, arc, oval, arc. What comes next?",
+          "options": [
+            "Circle",
+            "Square",
+            "Oval",
+            "Triangle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_030_q06",
+          "question": "A code repeats as F, H, F, H, F. What is the next symbol?",
+          "options": [
+            "Q",
+            "R",
+            "S",
+            "H"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_030_q07",
+          "question": "Scene is to car as scene is to ?",
+          "options": [
+            "Circuit",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_030_q08",
+          "question": "Which number does not fit the same rule?\n33, 36, 39, 34\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "33",
+            "34",
+            "36",
+            "39"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_030_q09",
+          "question": "A cube (layout 30) pairs opposite faces as J-M, K-N, L-O. Which face is opposite K?",
+          "options": [
+            "J",
+            "L",
+            "N",
+            "M"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_030_q10",
+          "question": "The two-digit number with tens 4 and ones 4, minus (4+4), equals what?",
+          "options": [
+            "76",
+            "58",
+            "84",
+            "36"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_031",
+      "type": "iq",
+      "set_number": 31,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_031_q01",
+          "question": "Which number comes next?\n6, 24, 96, 384, ?",
+          "options": [
+            "1536",
+            "1542",
+            "1530",
+            "1554"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_031_q02",
+          "question": "What comes next in the sequence?\n40, 42, 45, 49, ?",
+          "options": [
+            "62",
+            "55",
+            "49",
+            "53"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_031_q03",
+          "question": "All V31s are K31s. All K31s are R31s. Which statement must be true?",
+          "options": [
+            "Every R31 is a V31.",
+            "Some K31s are not V31s.",
+            "Every V31 is a R31.",
+            "No V31 is a K31."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_031_q04",
+          "question": "No V31 is a K31. Some R31s are K31s. Which statement cannot be true?",
+          "options": [
+            "Some R31s are not K31s.",
+            "Some K31s are not R31s.",
+            "Some V31s are not R31s.",
+            "Every R31 is a V31."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_031_q05",
+          "question": "A pattern lists shapes: circle, ring, circle, ring, circle. What comes next?",
+          "options": [
+            "Ring",
+            "Square",
+            "Triangle",
+            "Diamond"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_031_q06",
+          "question": "A code repeats as G, J, G, J, G. What is the next symbol?",
+          "options": [
+            "V",
+            "J",
+            "W",
+            "X"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_031_q07",
+          "question": "Finger is to floor as brick is to ?",
+          "options": [
+            "Screen",
+            "Film",
+            "Branch",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_031_q08",
+          "question": "Which number does not fit the same rule?\n48, 52, 56, 49\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "48",
+            "52",
+            "56",
+            "49"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_031_q09",
+          "question": "A cube (layout 31) pairs opposite faces as M-P, N-Q, O-R. Which face is opposite N?",
+          "options": [
+            "Q",
+            "M",
+            "O",
+            "P"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_031_q10",
+          "question": "The two-digit number with tens 4 and ones 5, minus (4+5), equals what?",
+          "options": [
+            "77",
+            "36",
+            "59",
+            "85"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_032",
+      "type": "iq",
+      "set_number": 32,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_032_q01",
+          "question": "Which number comes next?\n6, 30, 150, 750, ?",
+          "options": [
+            "3756",
+            "3744",
+            "3750",
+            "3768"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_032_q02",
+          "question": "What comes next in the sequence?\n41, 44, 48, 53, ?",
+          "options": [
+            "67",
+            "53",
+            "57",
+            "60"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_032_q03",
+          "question": "All V32s are K32s. All K32s are R32s. Which statement must be true?",
+          "options": [
+            "Every V32 is a R32.",
+            "Every R32 is a V32.",
+            "Some K32s are not V32s.",
+            "No V32 is a K32."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_032_q04",
+          "question": "No V32 is a K32. Some R32s are K32s. Which statement cannot be true?",
+          "options": [
+            "Some R32s are not K32s.",
+            "Every R32 is a V32.",
+            "Some K32s are not R32s.",
+            "Some V32s are not R32s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_032_q05",
+          "question": "A pattern lists shapes: square, cross, square, cross, square. What comes next?",
+          "options": [
+            "Triangle",
+            "Diamond",
+            "Cross",
+            "Oval"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_032_q06",
+          "question": "A code repeats as H, K, H, K, H. What is the next symbol?",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "K"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_032_q07",
+          "question": "Wheel is to poem as act is to ?",
+          "options": [
+            "Film",
+            "Branch",
+            "Screen",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_032_q08",
+          "question": "Which number does not fit the same rule?\n65, 70, 75, 66\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "65",
+            "66",
+            "70",
+            "75"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_032_q09",
+          "question": "A cube (layout 32) pairs opposite faces as P-S, Q-T, R-U. Which face is opposite Q?",
+          "options": [
+            "P",
+            "R",
+            "T",
+            "S"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_032_q10",
+          "question": "The two-digit number with tens 4 and ones 6, minus (4+6), equals what?",
+          "options": [
+            "78",
+            "60",
+            "86",
+            "36"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_033",
+      "type": "iq",
+      "set_number": 33,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_033_q01",
+          "question": "Which number comes next?\n6, 36, 216, 1296, ?",
+          "options": [
+            "7776",
+            "7782",
+            "7770",
+            "7794"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_033_q02",
+          "question": "What comes next in the sequence?\n42, 46, 51, 57, ?",
+          "options": [
+            "72",
+            "65",
+            "57",
+            "61"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_033_q03",
+          "question": "All V33s are K33s. All K33s are R33s. Which statement must be true?",
+          "options": [
+            "Every R33 is a V33.",
+            "Some K33s are not V33s.",
+            "Every V33 is a R33.",
+            "No V33 is a K33."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_033_q04",
+          "question": "No V33 is a K33. Some R33s are K33s. Which statement cannot be true?",
+          "options": [
+            "Some R33s are not K33s.",
+            "Some K33s are not R33s.",
+            "Some V33s are not R33s.",
+            "Every R33 is a V33."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_033_q05",
+          "question": "A pattern lists shapes: triangle, dot, triangle, dot, triangle. What comes next?",
+          "options": [
+            "Dot",
+            "Diamond",
+            "Oval",
+            "Hexagon"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_033_q06",
+          "question": "A code repeats as J, L, J, L, J. What is the next symbol?",
+          "options": [
+            "F",
+            "L",
+            "G",
+            "H"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_033_q07",
+          "question": "Chapter is to tree as fruit is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Play",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_033_q08",
+          "question": "Which number does not fit the same rule?\n84, 90, 96, 85\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "84",
+            "90",
+            "96",
+            "85"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_033_q09",
+          "question": "A cube (layout 33) pairs opposite faces as S-V, T-W, U-X. Which face is opposite T?",
+          "options": [
+            "W",
+            "S",
+            "U",
+            "V"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_033_q10",
+          "question": "The two-digit number with tens 4 and ones 7, minus (4+7), equals what?",
+          "options": [
+            "79",
+            "36",
+            "61",
+            "87"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_034",
+      "type": "iq",
+      "set_number": 34,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_034_q01",
+          "question": "Which number comes next?\n6, 42, 294, 2058, ?",
+          "options": [
+            "14412",
+            "14400",
+            "14406",
+            "14424"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_034_q02",
+          "question": "What comes next in the sequence?\n43, 48, 54, 61, ?",
+          "options": [
+            "77",
+            "61",
+            "65",
+            "70"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_034_q03",
+          "question": "All V34s are K34s. All K34s are R34s. Which statement must be true?",
+          "options": [
+            "Every V34 is a R34.",
+            "Every R34 is a V34.",
+            "Some K34s are not V34s.",
+            "No V34 is a K34."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_034_q04",
+          "question": "No V34 is a K34. Some R34s are K34s. Which statement cannot be true?",
+          "options": [
+            "Some R34s are not K34s.",
+            "Every R34 is a V34.",
+            "Some K34s are not R34s.",
+            "Some V34s are not R34s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_034_q05",
+          "question": "A pattern lists shapes: diamond, arc, diamond, arc, diamond. What comes next?",
+          "options": [
+            "Oval",
+            "Hexagon",
+            "Arc",
+            "Ring"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_034_q06",
+          "question": "A code repeats as K, M, K, M, K. What is the next symbol?",
+          "options": [
+            "L",
+            "N",
+            "P",
+            "M"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_034_q07",
+          "question": "Tile is to scale as melody is to ?",
+          "options": [
+            "Chord",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_034_q08",
+          "question": "Which number does not fit the same rule?\n28, 35, 42, 29\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "28",
+            "29",
+            "35",
+            "42"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_034_q09",
+          "question": "A cube (layout 34) pairs opposite faces as V-Y, W-Z, X-A. Which face is opposite W?",
+          "options": [
+            "V",
+            "X",
+            "Z",
+            "Y"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_034_q10",
+          "question": "The two-digit number with tens 4 and ones 8, minus (4+8), equals what?",
+          "options": [
+            "80",
+            "62",
+            "88",
+            "36"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_035",
+      "type": "iq",
+      "set_number": 35,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_035_q01",
+          "question": "Which number comes next?\n6, 48, 384, 3072, ?",
+          "options": [
+            "24576",
+            "24582",
+            "24570",
+            "24594"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_035_q02",
+          "question": "What comes next in the sequence?\n44, 50, 57, 65, ?",
+          "options": [
+            "82",
+            "75",
+            "65",
+            "69"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_035_q03",
+          "question": "All V35s are K35s. All K35s are R35s. Which statement must be true?",
+          "options": [
+            "Every R35 is a V35.",
+            "Some K35s are not V35s.",
+            "Every V35 is a R35.",
+            "No V35 is a K35."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_035_q04",
+          "question": "No V35 is a K35. Some R35s are K35s. Which statement cannot be true?",
+          "options": [
+            "Some R35s are not K35s.",
+            "Some K35s are not R35s.",
+            "Some V35s are not R35s.",
+            "Every R35 is a V35."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_035_q05",
+          "question": "A pattern lists shapes: oval, circle, oval, circle, oval. What comes next?",
+          "options": [
+            "Circle",
+            "Hexagon",
+            "Ring",
+            "Cross"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_035_q06",
+          "question": "A code repeats as L, N, L, N, L. What is the next symbol?",
+          "options": [
+            "R",
+            "N",
+            "S",
+            "T"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_035_q07",
+          "question": "Stanza is to wheel as spoke is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Circuit",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_035_q08",
+          "question": "Which number does not fit the same rule?\n40, 48, 56, 41\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "40",
+            "48",
+            "56",
+            "41"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_035_q09",
+          "question": "A cube (layout 35) pairs opposite faces as Y-B, Z-C, A-D. Which face is opposite Z?",
+          "options": [
+            "C",
+            "Y",
+            "A",
+            "B"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_035_q10",
+          "question": "The two-digit number with tens 4 and ones 9, minus (4+9), equals what?",
+          "options": [
+            "81",
+            "36",
+            "63",
+            "89"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_036",
+      "type": "iq",
+      "set_number": 36,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_036_q01",
+          "question": "Which number comes next?\n7, 14, 28, 56, ?",
+          "options": [
+            "119",
+            "105",
+            "112",
+            "133"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_036_q02",
+          "question": "What comes next in the sequence?\n45, 47, 51, 56, ?",
+          "options": [
+            "70",
+            "56",
+            "61",
+            "63"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_036_q03",
+          "question": "All V36s are K36s. All K36s are R36s. Which statement must be true?",
+          "options": [
+            "Every V36 is a R36.",
+            "Every R36 is a V36.",
+            "Some K36s are not V36s.",
+            "No V36 is a K36."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_036_q04",
+          "question": "No V36 is a K36. Some R36s are K36s. Which statement cannot be true?",
+          "options": [
+            "Some R36s are not K36s.",
+            "Every R36 is a V36.",
+            "Some K36s are not R36s.",
+            "Some V36s are not R36s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_036_q05",
+          "question": "A pattern lists shapes: hexagon, square, hexagon, square, hexagon. What comes next?",
+          "options": [
+            "Ring",
+            "Cross",
+            "Square",
+            "Dot"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_036_q06",
+          "question": "A code repeats as M, P, M, P, M. What is the next symbol?",
+          "options": [
+            "W",
+            "X",
+            "Y",
+            "P"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_036_q07",
+          "question": "Seed is to panel as bulb is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_036_q08",
+          "question": "Which number does not fit the same rule?\n12, 14, 16, 13\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "12",
+            "13",
+            "14",
+            "16"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_036_q09",
+          "question": "A cube (layout 36) pairs opposite faces as B-E, C-F, D-G. Which face is opposite C?",
+          "options": [
+            "B",
+            "D",
+            "F",
+            "E"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_036_q10",
+          "question": "The two-digit number with tens 5 and ones 0, minus (5+0), equals what?",
+          "options": [
+            "91",
+            "73",
+            "99",
+            "45"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_037",
+      "type": "iq",
+      "set_number": 37,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_037_q01",
+          "question": "Which number comes next?\n7, 21, 63, 189, ?",
+          "options": [
+            "567",
+            "574",
+            "560",
+            "588"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_037_q02",
+          "question": "What comes next in the sequence?\n46, 49, 54, 60, ?",
+          "options": [
+            "75",
+            "68",
+            "60",
+            "65"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_037_q03",
+          "question": "All V37s are K37s. All K37s are R37s. Which statement must be true?",
+          "options": [
+            "Every R37 is a V37.",
+            "Some K37s are not V37s.",
+            "Every V37 is a R37.",
+            "No V37 is a K37."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_037_q04",
+          "question": "No V37 is a K37. Some R37s are K37s. Which statement cannot be true?",
+          "options": [
+            "Some R37s are not K37s.",
+            "Some K37s are not R37s.",
+            "Some V37s are not R37s.",
+            "Every R37 is a V37."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_037_q05",
+          "question": "A pattern lists shapes: ring, triangle, ring, triangle, ring. What comes next?",
+          "options": [
+            "Triangle",
+            "Cross",
+            "Dot",
+            "Arc"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_037_q06",
+          "question": "A code repeats as N, Q, N, Q, N. What is the next symbol?",
+          "options": [
+            "B",
+            "Q",
+            "C",
+            "D"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_037_q07",
+          "question": "Note is to stage as page is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_037_q08",
+          "question": "Which number does not fit the same rule?\n21, 24, 27, 22\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "21",
+            "24",
+            "27",
+            "22"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_037_q09",
+          "question": "A cube (layout 37) pairs opposite faces as E-H, F-I, G-J. Which face is opposite F?",
+          "options": [
+            "I",
+            "E",
+            "G",
+            "H"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_037_q10",
+          "question": "The two-digit number with tens 5 and ones 1, minus (5+1), equals what?",
+          "options": [
+            "92",
+            "45",
+            "74",
+            "100"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_038",
+      "type": "iq",
+      "set_number": 38,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_038_q01",
+          "question": "Which number comes next?\n7, 28, 112, 448, ?",
+          "options": [
+            "1799",
+            "1785",
+            "1792",
+            "1813"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_038_q02",
+          "question": "What comes next in the sequence?\n47, 51, 57, 64, ?",
+          "options": [
+            "80",
+            "64",
+            "69",
+            "73"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_038_q03",
+          "question": "All V38s are K38s. All K38s are R38s. Which statement must be true?",
+          "options": [
+            "Every V38 is a R38.",
+            "Every R38 is a V38.",
+            "Some K38s are not V38s.",
+            "No V38 is a K38."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_038_q04",
+          "question": "No V38 is a K38. Some R38s are K38s. Which statement cannot be true?",
+          "options": [
+            "Some R38s are not K38s.",
+            "Every R38 is a V38.",
+            "Some K38s are not R38s.",
+            "Some V38s are not R38s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_038_q05",
+          "question": "A pattern lists shapes: cross, diamond, cross, diamond, cross. What comes next?",
+          "options": [
+            "Dot",
+            "Arc",
+            "Diamond",
+            "Circle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_038_q06",
+          "question": "A code repeats as P, R, P, R, P. What is the next symbol?",
+          "options": [
+            "G",
+            "H",
+            "J",
+            "R"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_038_q07",
+          "question": "Rim is to hand as leaf is to ?",
+          "options": [
+            "Play",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_038_q08",
+          "question": "Which number does not fit the same rule?\n32, 36, 40, 33\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "32",
+            "33",
+            "36",
+            "40"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_038_q09",
+          "question": "A cube (layout 38) pairs opposite faces as H-K, I-L, J-M. Which face is opposite I?",
+          "options": [
+            "H",
+            "J",
+            "L",
+            "K"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_038_q10",
+          "question": "The two-digit number with tens 5 and ones 2, minus (5+2), equals what?",
+          "options": [
+            "93",
+            "75",
+            "101",
+            "45"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_039",
+      "type": "iq",
+      "set_number": 39,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_039_q01",
+          "question": "Which number comes next?\n7, 35, 175, 875, ?",
+          "options": [
+            "4375",
+            "4382",
+            "4368",
+            "4396"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_039_q02",
+          "question": "What comes next in the sequence?\n48, 53, 60, 68, ?",
+          "options": [
+            "85",
+            "78",
+            "68",
+            "73"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_039_q03",
+          "question": "All V39s are K39s. All K39s are R39s. Which statement must be true?",
+          "options": [
+            "Every R39 is a V39.",
+            "Some K39s are not V39s.",
+            "Every V39 is a R39.",
+            "No V39 is a K39."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_039_q04",
+          "question": "No V39 is a K39. Some R39s are K39s. Which statement cannot be true?",
+          "options": [
+            "Some R39s are not K39s.",
+            "Some K39s are not R39s.",
+            "Some V39s are not R39s.",
+            "Every R39 is a V39."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_039_q05",
+          "question": "A pattern lists shapes: dot, oval, dot, oval, dot. What comes next?",
+          "options": [
+            "Oval",
+            "Arc",
+            "Circle",
+            "Square"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_039_q06",
+          "question": "A code repeats as Q, S, Q, S, Q. What is the next symbol?",
+          "options": [
+            "M",
+            "S",
+            "N",
+            "P"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_039_q07",
+          "question": "Switch is to car as pixel is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Chord",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_039_q08",
+          "question": "Which number does not fit the same rule?\n45, 50, 55, 46\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "45",
+            "50",
+            "55",
+            "46"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_039_q09",
+          "question": "A cube (layout 39) pairs opposite faces as K-N, L-O, M-P. Which face is opposite L?",
+          "options": [
+            "O",
+            "K",
+            "M",
+            "N"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_039_q10",
+          "question": "The two-digit number with tens 5 and ones 3, minus (5+3), equals what?",
+          "options": [
+            "94",
+            "45",
+            "76",
+            "102"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_040",
+      "type": "iq",
+      "set_number": 40,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_040_q01",
+          "question": "Which number comes next?\n7, 42, 252, 1512, ?",
+          "options": [
+            "9079",
+            "9065",
+            "9072",
+            "9093"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_040_q02",
+          "question": "What comes next in the sequence?\n49, 55, 63, 72, ?",
+          "options": [
+            "90",
+            "72",
+            "77",
+            "83"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_040_q03",
+          "question": "All V40s are K40s. All K40s are R40s. Which statement must be true?",
+          "options": [
+            "Every V40 is a R40.",
+            "Every R40 is a V40.",
+            "Some K40s are not V40s.",
+            "No V40 is a K40."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_040_q04",
+          "question": "No V40 is a K40. Some R40s are K40s. Which statement cannot be true?",
+          "options": [
+            "Some R40s are not K40s.",
+            "Every R40 is a V40.",
+            "Some K40s are not R40s.",
+            "Some V40s are not R40s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_040_q05",
+          "question": "A pattern lists shapes: arc, hexagon, arc, hexagon, arc. What comes next?",
+          "options": [
+            "Circle",
+            "Square",
+            "Hexagon",
+            "Triangle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_040_q06",
+          "question": "A code repeats as R, T, R, T, R. What is the next symbol?",
+          "options": [
+            "S",
+            "U",
+            "V",
+            "T"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_040_q07",
+          "question": "Scene is to book as scene is to ?",
+          "options": [
+            "Circuit",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_040_q08",
+          "question": "Which number does not fit the same rule?\n60, 66, 72, 61\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "60",
+            "61",
+            "66",
+            "72"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_040_q09",
+          "question": "A cube (layout 40) pairs opposite faces as N-Q, O-R, P-S. Which face is opposite O?",
+          "options": [
+            "N",
+            "P",
+            "R",
+            "Q"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_040_q10",
+          "question": "The two-digit number with tens 5 and ones 4, minus (5+4), equals what?",
+          "options": [
+            "95",
+            "77",
+            "103",
+            "45"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_041",
+      "type": "iq",
+      "set_number": 41,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_041_q01",
+          "question": "Which number comes next?\n7, 49, 343, 2401, ?",
+          "options": [
+            "16807",
+            "16814",
+            "16800",
+            "16828"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_041_q02",
+          "question": "What comes next in the sequence?\n50, 52, 55, 59, ?",
+          "options": [
+            "71",
+            "64",
+            "59",
+            "62"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_041_q03",
+          "question": "All V41s are K41s. All K41s are R41s. Which statement must be true?",
+          "options": [
+            "Every R41 is a V41.",
+            "Some K41s are not V41s.",
+            "Every V41 is a R41.",
+            "No V41 is a K41."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_041_q04",
+          "question": "No V41 is a K41. Some R41s are K41s. Which statement cannot be true?",
+          "options": [
+            "Some R41s are not K41s.",
+            "Some K41s are not R41s.",
+            "Some V41s are not R41s.",
+            "Every R41 is a V41."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_041_q05",
+          "question": "A pattern lists shapes: circle, cross, circle, cross, circle. What comes next?",
+          "options": [
+            "Cross",
+            "Square",
+            "Triangle",
+            "Diamond"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_041_q06",
+          "question": "A code repeats as S, U, S, U, S. What is the next symbol?",
+          "options": [
+            "X",
+            "U",
+            "Y",
+            "Z"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_041_q07",
+          "question": "Finger is to poem as brick is to ?",
+          "options": [
+            "Screen",
+            "Film",
+            "Branch",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_041_q08",
+          "question": "Which number does not fit the same rule?\n77, 84, 91, 78\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "77",
+            "84",
+            "91",
+            "78"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_041_q09",
+          "question": "A cube (layout 41) pairs opposite faces as Q-T, R-U, S-V. Which face is opposite R?",
+          "options": [
+            "U",
+            "Q",
+            "S",
+            "T"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_041_q10",
+          "question": "The two-digit number with tens 5 and ones 5, minus (5+5), equals what?",
+          "options": [
+            "96",
+            "45",
+            "78",
+            "104"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_042",
+      "type": "iq",
+      "set_number": 42,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_042_q01",
+          "question": "Which number comes next?\n7, 56, 448, 3584, ?",
+          "options": [
+            "28679",
+            "28665",
+            "28672",
+            "28693"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_042_q02",
+          "question": "What comes next in the sequence?\n51, 54, 58, 63, ?",
+          "options": [
+            "76",
+            "63",
+            "66",
+            "69"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_042_q03",
+          "question": "All V42s are K42s. All K42s are R42s. Which statement must be true?",
+          "options": [
+            "Every V42 is a R42.",
+            "Every R42 is a V42.",
+            "Some K42s are not V42s.",
+            "No V42 is a K42."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_042_q04",
+          "question": "No V42 is a K42. Some R42s are K42s. Which statement cannot be true?",
+          "options": [
+            "Some R42s are not K42s.",
+            "Every R42 is a V42.",
+            "Some K42s are not R42s.",
+            "Some V42s are not R42s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_042_q05",
+          "question": "A pattern lists shapes: square, dot, square, dot, square. What comes next?",
+          "options": [
+            "Triangle",
+            "Diamond",
+            "Dot",
+            "Oval"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_042_q06",
+          "question": "A code repeats as T, V, T, V, T. What is the next symbol?",
+          "options": [
+            "C",
+            "D",
+            "E",
+            "V"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_042_q07",
+          "question": "Wheel is to tree as act is to ?",
+          "options": [
+            "Film",
+            "Branch",
+            "Screen",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_042_q08",
+          "question": "Which number does not fit the same rule?\n96, 104, 112, 97\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "96",
+            "97",
+            "104",
+            "112"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_042_q09",
+          "question": "A cube (layout 42) pairs opposite faces as T-W, U-X, V-Y. Which face is opposite U?",
+          "options": [
+            "T",
+            "V",
+            "X",
+            "W"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_042_q10",
+          "question": "The two-digit number with tens 5 and ones 6, minus (5+6), equals what?",
+          "options": [
+            "97",
+            "79",
+            "105",
+            "45"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_043",
+      "type": "iq",
+      "set_number": 43,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_043_q01",
+          "question": "Which number comes next?\n8, 16, 32, 64, ?",
+          "options": [
+            "128",
+            "136",
+            "120",
+            "152"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_043_q02",
+          "question": "What comes next in the sequence?\n52, 56, 61, 67, ?",
+          "options": [
+            "81",
+            "74",
+            "67",
+            "70"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_043_q03",
+          "question": "All V43s are K43s. All K43s are R43s. Which statement must be true?",
+          "options": [
+            "Every R43 is a V43.",
+            "Some K43s are not V43s.",
+            "Every V43 is a R43.",
+            "No V43 is a K43."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_043_q04",
+          "question": "No V43 is a K43. Some R43s are K43s. Which statement cannot be true?",
+          "options": [
+            "Some R43s are not K43s.",
+            "Some K43s are not R43s.",
+            "Some V43s are not R43s.",
+            "Every R43 is a V43."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_043_q05",
+          "question": "A pattern lists shapes: triangle, arc, triangle, arc, triangle. What comes next?",
+          "options": [
+            "Arc",
+            "Diamond",
+            "Oval",
+            "Hexagon"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_043_q06",
+          "question": "A code repeats as U, W, U, W, U. What is the next symbol?",
+          "options": [
+            "H",
+            "W",
+            "J",
+            "K"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_043_q07",
+          "question": "Chapter is to scale as fruit is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Play",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_043_q08",
+          "question": "Which number does not fit the same rule?\n26, 28, 30, 27\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "26",
+            "28",
+            "30",
+            "27"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_043_q09",
+          "question": "A cube (layout 43) pairs opposite faces as W-Z, X-A, Y-B. Which face is opposite X?",
+          "options": [
+            "A",
+            "W",
+            "Y",
+            "Z"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_043_q10",
+          "question": "The two-digit number with tens 5 and ones 7, minus (5+7), equals what?",
+          "options": [
+            "98",
+            "45",
+            "80",
+            "106"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_044",
+      "type": "iq",
+      "set_number": 44,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_044_q01",
+          "question": "Which number comes next?\n8, 24, 72, 216, ?",
+          "options": [
+            "656",
+            "640",
+            "648",
+            "672"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_044_q02",
+          "question": "What comes next in the sequence?\n53, 58, 64, 71, ?",
+          "options": [
+            "86",
+            "71",
+            "74",
+            "79"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_044_q03",
+          "question": "All V44s are K44s. All K44s are R44s. Which statement must be true?",
+          "options": [
+            "Every V44 is a R44.",
+            "Every R44 is a V44.",
+            "Some K44s are not V44s.",
+            "No V44 is a K44."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_044_q04",
+          "question": "No V44 is a K44. Some R44s are K44s. Which statement cannot be true?",
+          "options": [
+            "Some R44s are not K44s.",
+            "Every R44 is a V44.",
+            "Some K44s are not R44s.",
+            "Some V44s are not R44s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_044_q05",
+          "question": "A pattern lists shapes: diamond, circle, diamond, circle, diamond. What comes next?",
+          "options": [
+            "Oval",
+            "Hexagon",
+            "Circle",
+            "Ring"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_044_q06",
+          "question": "A code repeats as V, X, V, X, V. What is the next symbol?",
+          "options": [
+            "N",
+            "P",
+            "Q",
+            "X"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_044_q07",
+          "question": "Tile is to wheel as melody is to ?",
+          "options": [
+            "Chord",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_044_q08",
+          "question": "Which number does not fit the same rule?\n42, 45, 48, 43\n(Three numbers are multiples of 3; one is not.)",
+          "options": [
+            "42",
+            "43",
+            "45",
+            "48"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_044_q09",
+          "question": "A cube (layout 44) pairs opposite faces as Z-C, A-D, B-E. Which face is opposite A?",
+          "options": [
+            "Z",
+            "B",
+            "D",
+            "C"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_044_q10",
+          "question": "The two-digit number with tens 5 and ones 8, minus (5+8), equals what?",
+          "options": [
+            "99",
+            "81",
+            "107",
+            "45"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_045",
+      "type": "iq",
+      "set_number": 45,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_045_q01",
+          "question": "Which number comes next?\n8, 32, 128, 512, ?",
+          "options": [
+            "2048",
+            "2056",
+            "2040",
+            "2072"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_045_q02",
+          "question": "What comes next in the sequence?\n54, 60, 67, 75, ?",
+          "options": [
+            "91",
+            "84",
+            "75",
+            "78"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_045_q03",
+          "question": "All V45s are K45s. All K45s are R45s. Which statement must be true?",
+          "options": [
+            "Every R45 is a V45.",
+            "Some K45s are not V45s.",
+            "Every V45 is a R45.",
+            "No V45 is a K45."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_045_q04",
+          "question": "No V45 is a K45. Some R45s are K45s. Which statement cannot be true?",
+          "options": [
+            "Some R45s are not K45s.",
+            "Some K45s are not R45s.",
+            "Some V45s are not R45s.",
+            "Every R45 is a V45."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_045_q05",
+          "question": "A pattern lists shapes: oval, square, oval, square, oval. What comes next?",
+          "options": [
+            "Square",
+            "Hexagon",
+            "Ring",
+            "Cross"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_045_q06",
+          "question": "A code repeats as W, Y, W, Y, W. What is the next symbol?",
+          "options": [
+            "T",
+            "Y",
+            "U",
+            "V"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_045_q07",
+          "question": "Stanza is to panel as spoke is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Circuit",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_045_q08",
+          "question": "Which number does not fit the same rule?\n16, 20, 24, 17\n(Three numbers are multiples of 4; one is not.)",
+          "options": [
+            "16",
+            "20",
+            "24",
+            "17"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_045_q09",
+          "question": "A cube (layout 45) pairs opposite faces as C-F, D-G, E-H. Which face is opposite D?",
+          "options": [
+            "G",
+            "C",
+            "E",
+            "F"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_045_q10",
+          "question": "The two-digit number with tens 5 and ones 9, minus (5+9), equals what?",
+          "options": [
+            "100",
+            "45",
+            "82",
+            "108"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_046",
+      "type": "iq",
+      "set_number": 46,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_046_q01",
+          "question": "Which number comes next?\n8, 40, 200, 1000, ?",
+          "options": [
+            "5008",
+            "4992",
+            "5000",
+            "5024"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_046_q02",
+          "question": "What comes next in the sequence?\n55, 57, 61, 66, ?",
+          "options": [
+            "79",
+            "66",
+            "70",
+            "72"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_046_q03",
+          "question": "All V46s are K46s. All K46s are R46s. Which statement must be true?",
+          "options": [
+            "Every V46 is a R46.",
+            "Every R46 is a V46.",
+            "Some K46s are not V46s.",
+            "No V46 is a K46."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_046_q04",
+          "question": "No V46 is a K46. Some R46s are K46s. Which statement cannot be true?",
+          "options": [
+            "Some R46s are not K46s.",
+            "Every R46 is a V46.",
+            "Some K46s are not R46s.",
+            "Some V46s are not R46s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_046_q05",
+          "question": "A pattern lists shapes: hexagon, triangle, hexagon, triangle, hexagon. What comes next?",
+          "options": [
+            "Ring",
+            "Cross",
+            "Triangle",
+            "Dot"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_046_q06",
+          "question": "A code repeats as X, Z, X, Z, X. What is the next symbol?",
+          "options": [
+            "Y",
+            "A",
+            "B",
+            "Z"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_046_q07",
+          "question": "Seed is to stage as bulb is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_046_q08",
+          "question": "Which number does not fit the same rule?\n25, 30, 35, 26\n(Three numbers are multiples of 5; one is not.)",
+          "options": [
+            "25",
+            "26",
+            "30",
+            "35"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_046_q09",
+          "question": "A cube (layout 46) pairs opposite faces as F-I, G-J, H-K. Which face is opposite G?",
+          "options": [
+            "F",
+            "H",
+            "J",
+            "I"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_046_q10",
+          "question": "The two-digit number with tens 6 and ones 0, minus (6+0), equals what?",
+          "options": [
+            "110",
+            "92",
+            "118",
+            "54"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_047",
+      "type": "iq",
+      "set_number": 47,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_047_q01",
+          "question": "Which number comes next?\n8, 48, 288, 1728, ?",
+          "options": [
+            "10368",
+            "10376",
+            "10360",
+            "10392"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_047_q02",
+          "question": "What comes next in the sequence?\n56, 59, 64, 70, ?",
+          "options": [
+            "84",
+            "77",
+            "70",
+            "74"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_047_q03",
+          "question": "All V47s are K47s. All K47s are R47s. Which statement must be true?",
+          "options": [
+            "Every R47 is a V47.",
+            "Some K47s are not V47s.",
+            "Every V47 is a R47.",
+            "No V47 is a K47."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_047_q04",
+          "question": "No V47 is a K47. Some R47s are K47s. Which statement cannot be true?",
+          "options": [
+            "Some R47s are not K47s.",
+            "Some K47s are not R47s.",
+            "Some V47s are not R47s.",
+            "Every R47 is a V47."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_047_q05",
+          "question": "A pattern lists shapes: ring, diamond, ring, diamond, ring. What comes next?",
+          "options": [
+            "Diamond",
+            "Cross",
+            "Dot",
+            "Arc"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_047_q06",
+          "question": "A code repeats as Y, A, Y, A, Y. What is the next symbol?",
+          "options": [
+            "D",
+            "A",
+            "E",
+            "F"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_047_q07",
+          "question": "Note is to hand as page is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Film",
+            "Wall"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_047_q08",
+          "question": "Which number does not fit the same rule?\n36, 42, 48, 37\n(Three numbers are multiples of 6; one is not.)",
+          "options": [
+            "36",
+            "42",
+            "48",
+            "37"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_047_q09",
+          "question": "A cube (layout 47) pairs opposite faces as I-L, J-M, K-N. Which face is opposite J?",
+          "options": [
+            "M",
+            "I",
+            "K",
+            "L"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_047_q10",
+          "question": "The two-digit number with tens 6 and ones 1, minus (6+1), equals what?",
+          "options": [
+            "111",
+            "54",
+            "93",
+            "119"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_048",
+      "type": "iq",
+      "set_number": 48,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_048_q01",
+          "question": "Which number comes next?\n8, 56, 392, 2744, ?",
+          "options": [
+            "19216",
+            "19200",
+            "19208",
+            "19232"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_048_q02",
+          "question": "What comes next in the sequence?\n57, 61, 67, 74, ?",
+          "options": [
+            "89",
+            "74",
+            "78",
+            "82"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_048_q03",
+          "question": "All V48s are K48s. All K48s are R48s. Which statement must be true?",
+          "options": [
+            "Every V48 is a R48.",
+            "Every R48 is a V48.",
+            "Some K48s are not V48s.",
+            "No V48 is a K48."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_048_q04",
+          "question": "No V48 is a K48. Some R48s are K48s. Which statement cannot be true?",
+          "options": [
+            "Some R48s are not K48s.",
+            "Every R48 is a V48.",
+            "Some K48s are not R48s.",
+            "Some V48s are not R48s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_048_q05",
+          "question": "A pattern lists shapes: cross, oval, cross, oval, cross. What comes next?",
+          "options": [
+            "Dot",
+            "Arc",
+            "Oval",
+            "Circle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_048_q06",
+          "question": "A code repeats as Z, B, Z, B, Z. What is the next symbol?",
+          "options": [
+            "J",
+            "K",
+            "L",
+            "B"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_048_q07",
+          "question": "Rim is to car as leaf is to ?",
+          "options": [
+            "Play",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_048_q08",
+          "question": "Which number does not fit the same rule?\n49, 56, 63, 50\n(Three numbers are multiples of 7; one is not.)",
+          "options": [
+            "49",
+            "50",
+            "56",
+            "63"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_048_q09",
+          "question": "A cube (layout 48) pairs opposite faces as L-O, M-P, N-Q. Which face is opposite M?",
+          "options": [
+            "L",
+            "N",
+            "P",
+            "O"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_048_q10",
+          "question": "The two-digit number with tens 6 and ones 2, minus (6+2), equals what?",
+          "options": [
+            "112",
+            "94",
+            "120",
+            "54"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_049",
+      "type": "iq",
+      "set_number": 49,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_049_q01",
+          "question": "Which number comes next?\n8, 64, 512, 4096, ?",
+          "options": [
+            "32768",
+            "32776",
+            "32760",
+            "32792"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_049_q02",
+          "question": "What comes next in the sequence?\n58, 63, 70, 78, ?",
+          "options": [
+            "94",
+            "87",
+            "78",
+            "82"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_049_q03",
+          "question": "All V49s are K49s. All K49s are R49s. Which statement must be true?",
+          "options": [
+            "Every R49 is a V49.",
+            "Some K49s are not V49s.",
+            "Every V49 is a R49.",
+            "No V49 is a K49."
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_049_q04",
+          "question": "No V49 is a K49. Some R49s are K49s. Which statement cannot be true?",
+          "options": [
+            "Some R49s are not K49s.",
+            "Some K49s are not R49s.",
+            "Some V49s are not R49s.",
+            "Every R49 is a V49."
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_049_q05",
+          "question": "A pattern lists shapes: dot, hexagon, dot, hexagon, dot. What comes next?",
+          "options": [
+            "Hexagon",
+            "Arc",
+            "Circle",
+            "Square"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_049_q06",
+          "question": "A code repeats as A, D, A, D, A. What is the next symbol?",
+          "options": [
+            "P",
+            "D",
+            "Q",
+            "R"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_049_q07",
+          "question": "Switch is to book as pixel is to ?",
+          "options": [
+            "Branch",
+            "Screen",
+            "Chord",
+            "Film"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_049_q08",
+          "question": "Which number does not fit the same rule?\n64, 72, 80, 65\n(Three numbers are multiples of 8; one is not.)",
+          "options": [
+            "64",
+            "72",
+            "80",
+            "65"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_049_q09",
+          "question": "A cube (layout 49) pairs opposite faces as O-R, P-S, Q-T. Which face is opposite P?",
+          "options": [
+            "S",
+            "O",
+            "Q",
+            "R"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_049_q10",
+          "question": "The two-digit number with tens 6 and ones 3, minus (6+3), equals what?",
+          "options": [
+            "113",
+            "54",
+            "95",
+            "121"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_050",
+      "type": "iq",
+      "set_number": 50,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_set_050_q01",
+          "question": "Which number comes next?\n9, 18, 36, 72, ?",
+          "options": [
+            "153",
+            "135",
+            "144",
+            "171"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_050_q02",
+          "question": "What comes next in the sequence?\n59, 65, 73, 82, ?",
+          "options": [
+            "99",
+            "82",
+            "86",
+            "92"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_050_q03",
+          "question": "All V50s are K50s. All K50s are R50s. Which statement must be true?",
+          "options": [
+            "Every V50 is a R50.",
+            "Every R50 is a V50.",
+            "Some K50s are not V50s.",
+            "No V50 is a K50."
+          ],
+          "correctAnswer": 0,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_set_050_q04",
+          "question": "No V50 is a K50. Some R50s are K50s. Which statement cannot be true?",
+          "options": [
+            "Some R50s are not K50s.",
+            "Every R50 is a V50.",
+            "Some K50s are not R50s.",
+            "Some V50s are not R50s."
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_050_q05",
+          "question": "A pattern lists shapes: arc, ring, arc, ring, arc. What comes next?",
+          "options": [
+            "Circle",
+            "Square",
+            "Ring",
+            "Triangle"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_050_q06",
+          "question": "A code repeats as B, E, B, E, B. What is the next symbol?",
+          "options": [
+            "U",
+            "V",
+            "W",
+            "E"
+          ],
+          "correctAnswer": 3,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_050_q07",
+          "question": "Scene is to floor as scene is to ?",
+          "options": [
+            "Circuit",
+            "Branch",
+            "Screen",
+            "Film"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_set_050_q08",
+          "question": "Which number does not fit the same rule?\n18, 20, 22, 19\n(Three numbers are multiples of 2; one is not.)",
+          "options": [
+            "18",
+            "19",
+            "20",
+            "22"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_050_q09",
+          "question": "A cube (layout 50) pairs opposite faces as R-U, S-V, T-W. Which face is opposite S?",
+          "options": [
+            "R",
+            "T",
+            "V",
+            "U"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_set_050_q10",
+          "question": "The two-digit number with tens 6 and ones 4, minus (6+4), equals what?",
+          "options": [
+            "114",
+            "96",
+            "122",
+            "54"
+          ],
+          "correctAnswer": 3,
           "difficulty": 3
         }
       ]
