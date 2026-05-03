@@ -2,16 +2,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/frequency_model.dart';
+import 'assessment_set_service.dart';
 
 class FrequencyService {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
+  final AssessmentSetService _assessmentSetService;
 
   FrequencyService({
     FirebaseAuth? auth,
     FirebaseFirestore? firestore,
+    AssessmentSetService? assessmentSetService,
   })  : _auth = auth ?? FirebaseAuth.instance,
-        _firestore = firestore ?? FirebaseFirestore.instance;
+        _firestore = firestore ?? FirebaseFirestore.instance,
+        _assessmentSetService =
+            assessmentSetService ?? AssessmentSetService(auth: auth, firestore: firestore);
+
+  Future<List<FrequencyQuestion>> loadAssignedFrequencyQuestions() async {
+    final set = await _assessmentSetService.getOrAssignSet(type: 'frequency');
+    return set.questions
+        .map((m) => FrequencyQuestion.fromJson(m))
+        .toList();
+  }
 
   List<FrequencyQuestion> getFrequencyQuestions() {
     // 12 questions: 6 dimensions x 2 each.
@@ -82,9 +94,11 @@ class FrequencyService {
     ];
   }
 
-  FrequencyResult calculateResult(Map<String, int> answers) {
+  FrequencyResult calculateResult(
+    Map<String, int> answers,
+    List<FrequencyQuestion> questions,
+  ) {
     // Normalize: Likert 1..5 -> 0..1 using (score - 1) / 4.
-    final questions = getFrequencyQuestions();
 
     final byDim = <String, List<double>>{};
 

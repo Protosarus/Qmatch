@@ -20,6 +20,27 @@ class FrequencyQuestion {
       'Strongly agree',
     ],
   });
+
+  static const List<String> _defaultLikert = [
+    'Strongly disagree',
+    'Disagree',
+    'Neutral',
+    'Agree',
+    'Strongly agree',
+  ];
+
+  factory FrequencyQuestion.fromJson(Map<String, dynamic> json) {
+    final optsRaw = json['options'];
+    return FrequencyQuestion(
+      id: json['id'] as String,
+      question: json['question'] as String,
+      dimension: json['dimension'] as String,
+      reverseScored: json['reverseScored'] as bool? ?? false,
+      options: optsRaw is List && optsRaw.isNotEmpty
+          ? List<String>.from(optsRaw.map((e) => e.toString()))
+          : _defaultLikert,
+    );
+  }
 }
 
 class FrequencyAnswer {

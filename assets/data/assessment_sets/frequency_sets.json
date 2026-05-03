@@ -1,0 +1,168 @@
+{
+  "sets": [
+    {
+      "id": "frequency_set_001",
+      "type": "frequency",
+      "set_number": 1,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "I prefer deep conversations over small talk.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "q2",
+          "question": "I connect faster when conversations are meaningful.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "q3",
+          "question": "I enjoy playful and energetic conversations.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "q4",
+          "question": "I feel drained by too much social intensity.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "q5",
+          "question": "I enjoy spontaneous plans.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "q6",
+          "question": "I prefer slow-building attraction over instant intensity.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "q7",
+          "question": "I prefer stable and intentional relationships.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "q8",
+          "question": "I need consistency to feel safe.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "q9",
+          "question": "I can express what I feel clearly.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "q10",
+          "question": "Emotional honesty matters more to me than constant excitement.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "q11",
+          "question": "I like frequent communication when I feel connected.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "q12",
+          "question": "I need time before I fully trust someone.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_002",
+      "type": "frequency",
+      "set_number": 2,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "q1_alt",
+          "question": "I prefer deep conversations over small talk.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "q2_alt",
+          "question": "I connect faster when conversations are meaningful.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "q3_alt",
+          "question": "I enjoy playful and energetic conversations.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "q4_alt",
+          "question": "I feel drained by too much social intensity.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "q5_alt",
+          "question": "I enjoy spontaneous plans.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "q6_alt",
+          "question": "I prefer slow-building attraction over instant intensity.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "q7_alt",
+          "question": "I prefer stable and intentional relationships.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "q8_alt",
+          "question": "I need consistency to feel safe.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "q9_alt",
+          "question": "I can express what I feel clearly.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "q10_alt",
+          "question": "Emotional honesty matters more to me than constant excitement.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "q11_alt",
+          "question": "I like frequent communication when I feel connected.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "q12_alt",
+          "question": "I need time before I fully trust someone.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    }
+  ]
+}

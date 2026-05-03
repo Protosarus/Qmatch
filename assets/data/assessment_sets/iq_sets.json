@@ -1,0 +1,264 @@
+{
+  "sets": [
+    {
+      "id": "iq_set_001",
+      "type": "iq",
+      "set_number": 1,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_1",
+          "question": "What comes next in the sequence?\n2, 4, 8, 16, ?",
+          "options": [
+            "24",
+            "32",
+            "20",
+            "28"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_2",
+          "question": "Complete the pattern:\n\u2b1b \u2b1c \u2b1b \u2b1c \u2b1b ?",
+          "options": [
+            "\u2b1b",
+            "\u2b1c",
+            "\u2b1b\u2b1c",
+            "\u2b1c\u2b1b"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_3",
+          "question": "Which figure completes the pattern?\n\nRow 1:  \u2014  ::  \u2715\nRow 2:  /   /   ?\nRow 3:  /   /   _",
+          "options": [
+            "/",
+            "\u2014",
+            "\u2715",
+            "+"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_4",
+          "question": "Complete the sequence:\n\u25b3 \u25cb \u25b3 \u25cb \u25b3 ?",
+          "options": [
+            "\u25b3",
+            "\u25cb",
+            "\u25a1",
+            "\u25c7"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_5",
+          "question": "Which shape doesn't belong?\n\ud83d\udd34 \ud83d\udd35 \ud83d\udfe1 \u2b1c \ud83d\udfe2",
+          "options": [
+            "\ud83d\udd34",
+            "\u2b1c",
+            "\ud83d\udfe1",
+            "\ud83d\udfe2"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_6",
+          "question": "Pattern recognition:\n\u2605 \u2605 \u2606 \u2605 \u2605 \u2606 \u2605 ?",
+          "options": [
+            "\u2605",
+            "\u2606",
+            "\u2605\u2605",
+            "\u2606\u2606"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_7",
+          "question": "If 5 + 3 = 28, 9 + 1 = 810, 8 + 6 = 214, then 5 + 4 = ?",
+          "options": [
+            "19",
+            "91",
+            "20",
+            "14"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 4
+        },
+        {
+          "id": "iq_8",
+          "question": "Complete the triangle:\n\ud83d\udd3a\ud83d\udd3a\ud83d\udd3a\n\ud83d\udd3a\ud83d\udd3a _\n\ud83d\udd3a _ _",
+          "options": [
+            "\ud83d\udd3a",
+            "\ud83d\udd3b",
+            "\u2b1b",
+            "\u2b1c"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_9",
+          "question": "What is the missing number?\n8, 15, 29, 57, ?",
+          "options": [
+            "113",
+            "115",
+            "111",
+            "109"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 4
+        },
+        {
+          "id": "iq_10",
+          "question": "Which number doesn't belong?\n2, 3, 6, 7, 8, 14, 15",
+          "options": [
+            "3",
+            "6",
+            "8",
+            "15"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        }
+      ]
+    },
+    {
+      "id": "iq_set_002",
+      "type": "iq",
+      "set_number": 2,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 10,
+      "questions": [
+        {
+          "id": "iq_1_b",
+          "question": "What comes next in the sequence?\n2, 4, 8, 16, ?",
+          "options": [
+            "24",
+            "32",
+            "20",
+            "28"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_2_b",
+          "question": "Complete the pattern:\n\u2b1b \u2b1c \u2b1b \u2b1c \u2b1b ?",
+          "options": [
+            "\u2b1b",
+            "\u2b1c",
+            "\u2b1b\u2b1c",
+            "\u2b1c\u2b1b"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_3_b",
+          "question": "Which figure completes the pattern?\n\nRow 1:  \u2014  ::  \u2715\nRow 2:  /   /   ?\nRow 3:  /   /   _",
+          "options": [
+            "/",
+            "\u2014",
+            "\u2715",
+            "+"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        },
+        {
+          "id": "iq_4_b",
+          "question": "Complete the sequence:\n\u25b3 \u25cb \u25b3 \u25cb \u25b3 ?",
+          "options": [
+            "\u25b3",
+            "\u25cb",
+            "\u25a1",
+            "\u25c7"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 1
+        },
+        {
+          "id": "iq_5_b",
+          "question": "Which shape doesn't belong?\n\ud83d\udd34 \ud83d\udd35 \ud83d\udfe1 \u2b1c \ud83d\udfe2",
+          "options": [
+            "\ud83d\udd34",
+            "\u2b1c",
+            "\ud83d\udfe1",
+            "\ud83d\udfe2"
+          ],
+          "correctAnswer": 1,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_6_b",
+          "question": "Pattern recognition:\n\u2605 \u2605 \u2606 \u2605 \u2605 \u2606 \u2605 ?",
+          "options": [
+            "\u2605",
+            "\u2606",
+            "\u2605\u2605",
+            "\u2606\u2606"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_7_b",
+          "question": "If 5 + 3 = 28, 9 + 1 = 810, 8 + 6 = 214, then 5 + 4 = ?",
+          "options": [
+            "19",
+            "91",
+            "20",
+            "14"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 4
+        },
+        {
+          "id": "iq_8_b",
+          "question": "Complete the triangle:\n\ud83d\udd3a\ud83d\udd3a\ud83d\udd3a\n\ud83d\udd3a\ud83d\udd3a _\n\ud83d\udd3a _ _",
+          "options": [
+            "\ud83d\udd3a",
+            "\ud83d\udd3b",
+            "\u2b1b",
+            "\u2b1c"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 2
+        },
+        {
+          "id": "iq_9_b",
+          "question": "What is the missing number?\n8, 15, 29, 57, ?",
+          "options": [
+            "113",
+            "115",
+            "111",
+            "109"
+          ],
+          "correctAnswer": 0,
+          "difficulty": 4
+        },
+        {
+          "id": "iq_10_b",
+          "question": "Which number doesn't belong?\n2, 3, 6, 7, 8, 14, 15",
+          "options": [
+            "3",
+            "6",
+            "8",
+            "15"
+          ],
+          "correctAnswer": 2,
+          "difficulty": 3
+        }
+      ]
+    }
+  ]
+}

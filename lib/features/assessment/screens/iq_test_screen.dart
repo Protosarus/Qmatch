@@ -4,6 +4,7 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/elegant_warning.dart';
 import '../models/question_model.dart';
+import '../services/assessment_set_service.dart';
 import '../services/question_service.dart';
 import 'eq_test_screen.dart';
 
@@ -59,7 +60,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
     });
   }
 
-  void _nextQuestion() {
+  Future<void> _nextQuestion() async {
     if (_selectedAnswer == null) {
       showElegantWarning(context, 'Lütfen bir cevap seçin');
       return;
@@ -75,7 +76,15 @@ class _IQTestScreenState extends State<IQTestScreen> {
         _selectedAnswer = null;
       });
     } else {
-      // IQ testi tamamlandı - Geçiş dialogu göster
+      try {
+        await AssessmentSetService().markAssignmentCompleted(
+          type: 'iq',
+          score: _correctAnswers,
+        );
+      } catch (e) {
+        debugPrint('IQ assignment completion: $e');
+      }
+      if (!mounted) return;
       _showTransitionDialog();
     }
   }
@@ -354,7 +363,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                 width: double.infinity,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: _nextQuestion,
+                  onPressed: () => _nextQuestion(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     shape: RoundedRectangleBorder(

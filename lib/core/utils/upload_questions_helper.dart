@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+// TODO: Legacy questions collection upload. New scalable system uses assessment_sets
+// (see UploadAssessmentSetsHelper in lib/features/debug/helpers/).
 class UploadQuestionsHelper {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 

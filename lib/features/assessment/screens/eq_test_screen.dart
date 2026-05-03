@@ -6,6 +6,7 @@ import '../../../core/services/auth_service.dart';
 import '../../../core/widgets/elegant_warning.dart';
 import '../models/question_model.dart';
 import '../models/archetype_model.dart';
+import '../services/assessment_set_service.dart';
 import '../services/question_service.dart';
 import 'frequency_intro_screen.dart';
 
@@ -103,7 +104,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
         iqNormalized: archetype.iqNormalized,
         eqNormalized: archetype.eqNormalized,
       );
-      
+      await AssessmentSetService().markAssignmentCompleted(
+        type: 'eq',
+        score: _correctAnswers,
+      );
+
       debugPrint('✅ Test completed: ${archetype.name} (${archetype.category})');
     } catch (e) {
       debugPrint('❌ Error saving test results: $e');

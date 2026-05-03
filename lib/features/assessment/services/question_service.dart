@@ -1,116 +1,60 @@
-import 'dart:convert';
 import 'dart:math';
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../models/assessment_set_model.dart';
 import '../models/question_model.dart';
+import 'assessment_set_service.dart';
 
 class QuestionService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final AssessmentSetService _assessmentSetService;
 
-  // IQ sorularını yükle (Firestore -> fallback local JSON)
+  QuestionService({AssessmentSetService? assessmentSetService})
+      : _assessmentSetService =
+            assessmentSetService ?? AssessmentSetService();
+
   Future<List<QuestionModel>> loadIQQuestions() async {
     try {
-      // Önce Firestore'dan dene
-      final snapshot = await _firestore
-          .collection('questions')
-          .where('type', isEqualTo: 'iq')
-          .where('active', isEqualTo: true)
-          .limit(1)
-          .get();
-
-      if (snapshot.docs.isNotEmpty) {
-        debugPrint('✅ Loading IQ questions from Firestore');
-        final doc = snapshot.docs.first;
-        final List<dynamic> questionsData = doc.data()['questions'] ?? [];
-        
-        return questionsData
-            .map((json) => QuestionModel.fromJson(json as Map<String, dynamic>))
-            .toList();
-      }
-      
-      // Firestore'da yoksa local JSON'dan oku
-      debugPrint('⚠️ No questions in Firestore, loading from local JSON');
-      final String response =
-          await rootBundle.loadString('assets/data/iq_questions.json');
-      final List<dynamic> data = json.decode(response);
-      return data.map((json) => QuestionModel.fromJson(json)).toList();
-    } catch (e) {
-      debugPrint('❌ Error loading IQ questions: $e');
-      
-      // Hata olursa local JSON'dan dene
-      try {
-        final String response =
-            await rootBundle.loadString('assets/data/iq_questions.json');
-        final List<dynamic> data = json.decode(response);
-        return data.map((json) => QuestionModel.fromJson(json)).toList();
-      } catch (e2) {
-        debugPrint('❌ Error loading from local JSON: $e2');
-        return [];
-      }
+      final set = await _assessmentSetService.getOrAssignSet(type: 'iq');
+      return _mapQuestions(set);
+    } catch (e, st) {
+      debugPrint('❌ Error loading IQ assessment set: $e\n$st');
+      return [];
     }
   }
 
-  // Random IQ soruları seç
   Future<List<QuestionModel>> getRandomIQQuestions({int count = 10}) async {
     final allQuestions = await loadIQQuestions();
+    if (allQuestions.isEmpty) return [];
     if (allQuestions.length <= count) {
       return allQuestions;
     }
-    final shuffled = List<QuestionModel>.from(allQuestions)..shuffle(Random());
-    return shuffled.take(count).toList();
+    return allQuestions.sublist(0, count);
   }
 
-  // EQ sorularını yükle (Firestore -> fallback local JSON)
   Future<List<QuestionModel>> loadEQQuestions() async {
     try {
-      // Önce Firestore'dan dene
-      final snapshot = await _firestore
-          .collection('questions')
-          .where('type', isEqualTo: 'eq')
-          .where('active', isEqualTo: true)
-          .limit(1)
-          .get();
-
-      if (snapshot.docs.isNotEmpty) {
-        debugPrint('✅ Loading EQ questions from Firestore');
-        final doc = snapshot.docs.first;
-        final List<dynamic> questionsData = doc.data()['questions'] ?? [];
-        
-        return questionsData
-            .map((json) => QuestionModel.fromJson(json as Map<String, dynamic>))
-            .toList();
-      }
-      
-      // Firestore'da yoksa local JSON'dan oku
-      debugPrint('⚠️ No questions in Firestore, loading from local JSON');
-      final String response =
-          await rootBundle.loadString('assets/data/eq_questions.json');
-      final List<dynamic> data = json.decode(response);
-      return data.map((json) => QuestionModel.fromJson(json)).toList();
-    } catch (e) {
-      debugPrint('❌ Error loading EQ questions: $e');
-      
-      // Hata olursa local JSON'dan dene
-      try {
-        final String response =
-            await rootBundle.loadString('assets/data/eq_questions.json');
-        final List<dynamic> data = json.decode(response);
-        return data.map((json) => QuestionModel.fromJson(json)).toList();
-      } catch (e2) {
-        debugPrint('❌ Error loading from local JSON: $e2');
-        return [];
-      }
+      final set = await _assessmentSetService.getOrAssignSet(type: 'eq');
+      return _mapQuestions(set);
+    } catch (e, st) {
+      debugPrint('❌ Error loading EQ assessment set: $e\n$st');
+      return [];
     }
   }
 
-  // Random EQ soruları seç
   Future<List<QuestionModel>> getRandomEQQuestions({int count = 10}) async {
     final allQuestions = await loadEQQuestions();
+    if (allQuestions.isEmpty) return [];
     if (allQuestions.length <= count) {
       return allQuestions;
     }
     final shuffled = List<QuestionModel>.from(allQuestions)..shuffle(Random());
     return shuffled.take(count).toList();
+  }
+
+  List<QuestionModel> _mapQuestions(AssessmentSetModel set) {
+    return set.questions
+        .map((m) => QuestionModel.fromJson(m))
+        .toList();
   }
 }

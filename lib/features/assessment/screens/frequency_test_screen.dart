@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../models/frequency_model.dart';
+import '../services/assessment_set_service.dart';
 import '../services/frequency_service.dart';
 import 'frequency_result_screen.dart';
 
@@ -15,7 +16,8 @@ class FrequencyTestScreen extends StatefulWidget {
 
 class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   final _service = FrequencyService();
-  late final List<FrequencyQuestion> _questions;
+  List<FrequencyQuestion> _questions = [];
+  bool _loadingQuestions = true;
 
   int _index = 0;
   final Map<String, int> _answers = {};
@@ -24,7 +26,25 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   @override
   void initState() {
     super.initState();
-    _questions = _service.getFrequencyQuestions();
+    _loadQuestions();
+  }
+
+  Future<void> _loadQuestions() async {
+    try {
+      final list = await _service.loadAssignedFrequencyQuestions();
+      if (!mounted) return;
+      setState(() {
+        _questions =
+            list.isNotEmpty ? list : _service.getFrequencyQuestions();
+        _loadingQuestions = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _questions = _service.getFrequencyQuestions();
+        _loadingQuestions = false;
+      });
+    }
   }
 
   FrequencyQuestion get _current => _questions[_index];
@@ -54,7 +74,13 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   Future<void> _finish() async {
     setState(() => _saving = true);
     try {
-      final result = _service.calculateResult(_answers);
+      final result = _service.calculateResult(_answers, _questions);
+      try {
+        await AssessmentSetService().markAssignmentCompleted(
+          type: 'frequency',
+          score: result.scoreTotal,
+        );
+      } catch (_) {}
       await _service.saveFrequencyResult(result);
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -75,6 +101,29 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_loadingQuestions || _questions.isEmpty) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          iconTheme: const IconThemeData(color: AppColors.primary),
+          title: Text(
+            'Frequency Test',
+            style: GoogleFonts.playfairDisplay(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        body: const Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+          ),
+        ),
+      );
+    }
+
     final progress = (_index + 1) / _questions.length;
 
     return Scaffold(

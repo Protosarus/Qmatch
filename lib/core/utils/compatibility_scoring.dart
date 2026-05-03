@@ -37,8 +37,10 @@ class CompatibilityScoring {
   }
 
   static double tagOverlapScore(List<String> a, List<String> b) {
-    final sa = a.map((e) => e.trim().toLowerCase()).where((e) => e.isNotEmpty).toSet();
-    final sb = b.map((e) => e.trim().toLowerCase()).where((e) => e.isNotEmpty).toSet();
+    final sa =
+        a.map((e) => e.trim().toLowerCase()).where((e) => e.isNotEmpty).toSet();
+    final sb =
+        b.map((e) => e.trim().toLowerCase()).where((e) => e.isNotEmpty).toSet();
     if (sa.isEmpty && sb.isEmpty) return 0.5;
     final inter = sa.intersection(sb).length.toDouble();
     final uni = sa.union(sb).length.toDouble();
@@ -57,7 +59,11 @@ class CompatibilityScoring {
     if ((a == null || a.isEmpty) && (b == null || b.isEmpty)) {
       final ma = myArchetype?.trim();
       final ca = candidateArchetype?.trim();
-      if (ma != null && ca != null && ma.isNotEmpty && ca.isNotEmpty && ma == ca) {
+      if (ma != null &&
+          ca != null &&
+          ma.isNotEmpty &&
+          ca.isNotEmpty &&
+          ma == ca) {
         return 0.75;
       }
       return 0.5;
@@ -73,7 +79,11 @@ class CompatibilityScoring {
     }
     final ma = myArchetype?.trim();
     final ca = candidateArchetype?.trim();
-    if (ma != null && ca != null && ma.isNotEmpty && ca.isNotEmpty && ma == ca) {
+    if (ma != null &&
+        ca != null &&
+        ma.isNotEmpty &&
+        ca.isNotEmpty &&
+        ma == ca) {
       return 0.75;
     }
     return 0.50;
@@ -196,7 +206,9 @@ class CompatibilityScoring {
         reasons.add(e.key);
       }
     }
-    while (reasons.length < 2 && sorted.isNotEmpty && reasons.length < sorted.length) {
+    while (reasons.length < 2 &&
+        sorted.isNotEmpty &&
+        reasons.length < sorted.length) {
       final next = sorted[reasons.length];
       if (!reasons.contains(next.key)) reasons.add(next.key);
     }
@@ -209,4 +221,3 @@ class CompatibilityScoring {
     );
   }
 }
-

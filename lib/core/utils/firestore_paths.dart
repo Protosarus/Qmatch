@@ -12,6 +12,13 @@ class FirestorePaths {
   static CollectionReference<Map<String, dynamic>> threads() => _db.collection('threads');
   static CollectionReference<Map<String, dynamic>> reports() => _db.collection('reports');
 
+  /// Global assessment set definitions (IQ / EQ / frequency variants).
+  static CollectionReference<Map<String, dynamic>> assessmentSets() =>
+      _db.collection('assessment_sets');
+
+  static DocumentReference<Map<String, dynamic>> assessmentSetDoc(String setId) =>
+      assessmentSets().doc(setId);
+
   // users/{uid}
   static DocumentReference<Map<String, dynamic>> userDoc(String uid) => users().doc(uid);
 
@@ -34,6 +41,16 @@ class FirestorePaths {
     String blockedUid,
   ) =>
       userBlocks(uid).doc(blockedUid);
+
+  /// Per-user assignment to a specific assessment set (`iq`, `eq`, `frequency`).
+  static CollectionReference<Map<String, dynamic>> userAssessmentAssignments(String uid) =>
+      userDoc(uid).collection('assessment_assignments');
+
+  static DocumentReference<Map<String, dynamic>> userAssessmentAssignmentDoc(
+    String uid,
+    String type,
+  ) =>
+      userAssessmentAssignments(uid).doc(type);
 
   // matches/{matchId}
   static DocumentReference<Map<String, dynamic>> matchDoc(String matchId) =>
