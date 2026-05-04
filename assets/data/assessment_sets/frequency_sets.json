@@ -9,76 +9,76 @@
       "question_count": 12,
       "questions": [
         {
-          "id": "q1",
-          "question": "I prefer deep conversations over small talk.",
+          "id": "frequency_set_001_q01",
+          "question": "When I'm drawn to someone, I naturally steer toward topics that feel substantive. Surface-level chatter alone rarely helps me decide if we're a fit.",
           "dimension": "depth",
           "reverseScored": false
         },
         {
-          "id": "q2",
-          "question": "I connect faster when conversations are meaningful.",
+          "id": "frequency_set_001_q02",
+          "question": "I prefer pacing that allows curiosity rather than racing through checkpoints. Staying generic makes it harder for me to sense authenticity.",
           "dimension": "depth",
-          "reverseScored": false
+          "reverseScored": true
         },
         {
-          "id": "q3",
-          "question": "I enjoy playful and energetic conversations.",
+          "id": "frequency_set_001_q03",
+          "question": "I often bring upbeat energy to dates when I'm comfortable. Nonstop stimulation usually wears me down faster than it thrills me.",
           "dimension": "socialEnergy",
           "reverseScored": false
         },
         {
-          "id": "q4",
-          "question": "I feel drained by too much social intensity.",
+          "id": "frequency_set_001_q04",
+          "question": "I enjoy novelty when it doesn't erase calm moments entirely. I'm sensitive to environments that feel loud or rushed every time.",
           "dimension": "socialEnergy",
-          "reverseScored": true
+          "reverseScored": false
         },
         {
-          "id": "q5",
-          "question": "I enjoy spontaneous plans.",
+          "id": "frequency_set_001_q05",
+          "question": "I enjoy unexpected plans when they still feel considerate. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
           "dimension": "spontaneity",
           "reverseScored": false
         },
         {
-          "id": "q6",
-          "question": "I prefer slow-building attraction over instant intensity.",
+          "id": "frequency_set_001_q06",
+          "question": "I'm curious about micro-surprises\u2014thoughtful, not extreme. I like pacing that lets affection accumulate naturally.",
           "dimension": "spontaneity",
           "reverseScored": true
         },
         {
-          "id": "q7",
-          "question": "I prefer stable and intentional relationships.",
+          "id": "frequency_set_001_q07",
+          "question": "I feel safest when plans and follow-through generally align. Chaos without repair tends to drain my sense of safety.",
           "dimension": "stability",
           "reverseScored": false
         },
         {
-          "id": "q8",
-          "question": "I need consistency to feel safe.",
+          "id": "frequency_set_001_q08",
+          "question": "I'm nourished when steadiness includes gentle initiation. I'm unsettled by frequent last-minute cancellations without care.",
           "dimension": "stability",
           "reverseScored": false
         },
         {
-          "id": "q9",
-          "question": "I can express what I feel clearly.",
+          "id": "frequency_set_001_q09",
+          "question": "I'm willing to name feelings roughly\u2014even when wording isn't perfect. I pace vulnerability carefully until reciprocity feels plausible.",
           "dimension": "emotionalOpenness",
           "reverseScored": false
         },
         {
-          "id": "q10",
-          "question": "Emotional honesty matters more to me than constant excitement.",
+          "id": "frequency_set_001_q10",
+          "question": "I'm open to naming fears about commitment without panic framing. I sometimes need time before putting feelings into words.",
           "dimension": "emotionalOpenness",
-          "reverseScored": false
-        },
-        {
-          "id": "q11",
-          "question": "I like frequent communication when I feel connected.",
-          "dimension": "conversationPace",
-          "reverseScored": false
-        },
-        {
-          "id": "q12",
-          "question": "I need time before I fully trust someone.",
-          "dimension": "conversationPace",
           "reverseScored": true
+        },
+        {
+          "id": "frequency_set_001_q11",
+          "question": "When I'm interested, I like thoughtful messages\u2014not necessarily constant, but present. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_001_q12",
+          "question": "I'm hoping communication adapts during travel or crunch weeks. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
         }
       ]
     },
@@ -91,74 +91,4010 @@
       "question_count": 12,
       "questions": [
         {
-          "id": "q1_alt",
-          "question": "I prefer deep conversations over small talk.",
+          "id": "frequency_set_002_q01",
+          "question": "I feel most engaged when we move past polite updates and share what actually matters. Surface-level chatter alone rarely helps me decide if we're a fit.",
           "dimension": "depth",
           "reverseScored": false
         },
         {
-          "id": "q2_alt",
-          "question": "I connect faster when conversations are meaningful.",
+          "id": "frequency_set_002_q02",
+          "question": "I'm aligned when we discuss what emotional safety looks like for each of us. Staying generic makes it harder for me to sense authenticity.",
           "dimension": "depth",
           "reverseScored": false
         },
         {
-          "id": "q3_alt",
-          "question": "I enjoy playful and energetic conversations.",
+          "id": "frequency_set_002_q03",
+          "question": "Playful teasing can feel connecting when trust is forming. Nonstop stimulation usually wears me down faster than it thrills me.",
           "dimension": "socialEnergy",
           "reverseScored": false
         },
         {
-          "id": "q4_alt",
-          "question": "I feel drained by too much social intensity.",
+          "id": "frequency_set_002_q04",
+          "question": "I'm drawn to social confidence paired with emotional attentiveness. I'm sensitive to environments that feel loud or rushed every time.",
           "dimension": "socialEnergy",
           "reverseScored": true
         },
         {
-          "id": "q5_alt",
-          "question": "I enjoy spontaneous plans.",
+          "id": "frequency_set_002_q05",
+          "question": "Impromptu outings can feel romantic when logistics aren't reckless. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
           "dimension": "spontaneity",
           "reverseScored": false
         },
         {
-          "id": "q6_alt",
-          "question": "I prefer slow-building attraction over instant intensity.",
+          "id": "frequency_set_002_q06",
+          "question": "I value spontaneity that doesn't dismiss preparation entirely. I like pacing that lets affection accumulate naturally.",
           "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_002_q07",
+          "question": "Consistency helps me relax into vulnerability. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_002_q08",
+          "question": "I value transparency about travel, workload, or bandwidth dips. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
           "reverseScored": true
         },
         {
-          "id": "q7_alt",
-          "question": "I prefer stable and intentional relationships.",
-          "dimension": "stability",
-          "reverseScored": false
-        },
-        {
-          "id": "q8_alt",
-          "question": "I need consistency to feel safe.",
-          "dimension": "stability",
-          "reverseScored": false
-        },
-        {
-          "id": "q9_alt",
-          "question": "I can express what I feel clearly.",
+          "id": "frequency_set_002_q09",
+          "question": "I prefer honesty over pristine image management. I pace vulnerability carefully until reciprocity feels plausible.",
           "dimension": "emotionalOpenness",
           "reverseScored": false
         },
         {
-          "id": "q10_alt",
-          "question": "Emotional honesty matters more to me than constant excitement.",
+          "id": "frequency_set_002_q10",
+          "question": "I'm willing to discuss money attitudes without shame when timing fits. I sometimes need time before putting feelings into words.",
           "dimension": "emotionalOpenness",
           "reverseScored": false
         },
         {
-          "id": "q11_alt",
-          "question": "I like frequent communication when I feel connected.",
+          "id": "frequency_set_002_q11",
+          "question": "I'm soothed by predictable rhythms\u2014good morning check-ins sometimes, not surveillance. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
           "dimension": "conversationPace",
           "reverseScored": false
         },
         {
-          "id": "q12_alt",
-          "question": "I need time before I fully trust someone.",
+          "id": "frequency_set_002_q12",
+          "question": "I'm reassured when someone follows through on 'talk tomorrow.' I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_003",
+      "type": "frequency",
+      "set_number": 3,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_003_q01",
+          "question": "I'm refreshed when a date skips rehearsed small talk and explores real motivations. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q02",
+          "question": "I feel seen when conversations acknowledge mixed feelings, not only certainty. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_003_q03",
+          "question": "I enjoy lively back-and-forth when it still feels respectful. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q04",
+          "question": "I like texting energy that feels steady\u2014not constant ping-pong. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q05",
+          "question": "I like flexibility that signals curiosity\u2014not chaos. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q06",
+          "question": "I'm comfortable changing venues if mood shifts naturally. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_003_q07",
+          "question": "Predictable kindness matters as much as peaks of romance. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q08",
+          "question": "I'm aligned when both people invest consistently\u2014not perfectly evenly every day. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q09",
+          "question": "I'm open to discussing attachment fears without shame. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q10",
+          "question": "I'm curious how someone defines emotional safety. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_003_q11",
+          "question": "I'm attentive to response latency without treating it as a verdict. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_003_q12",
+          "question": "I'm hoping mutual curiosity survives mundane weeks. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_004",
+      "type": "frequency",
+      "set_number": 4,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_004_q01",
+          "question": "Meaningful dialogue helps me sense whether we're compatible beyond surface charm. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q02",
+          "question": "I appreciate when someone asks how I'm processing\u2014not only how my day went. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q03",
+          "question": "I like social warmth that feels inviting rather than performative. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q04",
+          "question": "I'm responsive when someone initiates plans with clear enthusiasm. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_004_q05",
+          "question": "I'm open to changing plans when communication stays clear. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q06",
+          "question": "I enjoy fluid evenings that don't require rigid itineraries. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q07",
+          "question": "I appreciate texts that don't disappear for days without context. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q08",
+          "question": "I appreciate calm reassurance during stressful weeks. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_004_q09",
+          "question": "I'm comfortable acknowledging jealousy as information\u2014not verdicts. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q10",
+          "question": "I'm open to naming disappointment without contempt. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q11",
+          "question": "I'm hoping texting feels mutual\u2014not always perfectly balanced, but reciprocal. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_004_q12",
+          "question": "I'm attentive to whether praise arrives verbally\u2014not only implied. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_005",
+      "type": "frequency",
+      "set_number": 5,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_005_q01",
+          "question": "I notice chemistry more when conversations reveal values, not just weekend plans. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q02",
+          "question": "I'm motivated when dialogue explores boundaries and comfort openly. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_005_q03",
+          "question": "I'm animated when conversation flows without needing perfect restraint. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q04",
+          "question": "I enjoy vivid storytelling when it invites dialogue rather than monologue. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q05",
+          "question": "Last-minute ideas appeal when they respect my bandwidth. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q06",
+          "question": "I'm excited when someone proposes a twist without pressure. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_005_q07",
+          "question": "I value showing up\u2014emotionally and practically\u2014more than grand gestures alone. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q08",
+          "question": "I'm steadier when affection isn't used as leverage. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q09",
+          "question": "I'm responsive when someone shares insecurity kindly. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q10",
+          "question": "I'm responsive when someone asks for clarification kindly. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_005_q11",
+          "question": "I appreciate voice notes when nuance matters. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_005_q12",
+          "question": "I'm comfortable with asynchronous romance when trust exists. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_006",
+      "type": "frequency",
+      "set_number": 6,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_006_q01",
+          "question": "I'm energized when someone asks thoughtful questions instead of staying generic. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q02",
+          "question": "I relax when we can speak plainly about needs without performing cool detachment. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q03",
+          "question": "I appreciate spontaneous laughter during getting-to-know-you moments. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q04",
+          "question": "I warm up when someone's energy feels welcoming, not competitive. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_006_q05",
+          "question": "I appreciate spontaneity paired with basic reliability. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q06",
+          "question": "I'm drawn to low-stakes spontaneity early on. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q07",
+          "question": "I'm reassured when words and actions track together over time. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q08",
+          "question": "I notice safety when disagreements don't redefine the entire bond overnight. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_006_q09",
+          "question": "I'm willing to revisit misunderstandings instead of freezing. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q10",
+          "question": "I'm willing to share rough drafts of feelings before they're polished. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q11",
+          "question": "I'm comfortable naming preferred communication cadence. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_006_q12",
+          "question": "I'm hoping logistics texts include warmth sometimes. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_007",
+      "type": "frequency",
+      "set_number": 7,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_007_q01",
+          "question": "I warm up faster when we trade perspectives that feel honest rather than performative. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q02",
+          "question": "I'm interested in how someone sees relationships, not only hobbies. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_007_q03",
+          "question": "I sometimes match higher energy when it helps someone relax. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q04",
+          "question": "I'm comfortable at upbeat venues when conversation can still happen. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q05",
+          "question": "I enjoy surprises that align with boundaries we've discussed. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q06",
+          "question": "I like exploring new neighborhoods together casually. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_007_q07",
+          "question": "I navigate uncertainty better when baseline reliability exists. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q08",
+          "question": "I'm reassured when apologies translate into changed behavior sometimes. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q09",
+          "question": "I appreciate direct asks rather than prolonged guessing games. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q10",
+          "question": "I'm open to discussing mental health logistics pragmatically. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_007_q11",
+          "question": "I'm responsive when plans include realistic texting expectations. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_007_q12",
+          "question": "I'm attentive to whether affection shows between dates\u2014not only during dates. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_008",
+      "type": "frequency",
+      "set_number": 8,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_008_q01",
+          "question": "I appreciate partners who make space for nuanced feelings, not only headlines. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q02",
+          "question": "I feel trust emerging when stories include vulnerability, not only highlights. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q03",
+          "question": "I enjoy dates that feel socially alive without turning chaotic. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q04",
+          "question": "I like group hangouts once we've established a baseline one-on-one rhythm. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_008_q05",
+          "question": "I'm drawn to playful deviations from routine\u2014within reason. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q06",
+          "question": "I appreciate playful risk-taking that still feels respectful. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q07",
+          "question": "I appreciate clarity about availability\u2014even imperfect clarity. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q08",
+          "question": "I prefer repair attempts soonish\u2014not perfection, just effort. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_008_q09",
+          "question": "I'm open to naming boundaries early\u2014even imperfectly. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q10",
+          "question": "I'm attentive to consent language around intimacy milestones. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q11",
+          "question": "I enjoy depthful threads even if they're asynchronous. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_008_q12",
+          "question": "I'm responsive when someone names texting boundaries kindly. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_009",
+      "type": "frequency",
+      "set_number": 9,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_009_q01",
+          "question": "I'm curious about someone's inner life\u2014not only their itinerary. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q02",
+          "question": "I like when someone shares what they're weighing\u2014not only polished conclusions. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_009_q03",
+          "question": "I like charisma that feels grounded\u2014not loud for its own sake. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q04",
+          "question": "I enjoy meeting someone's friends when timing feels natural. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q05",
+          "question": "I like partners who can pivot plans without guilt trips. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q06",
+          "question": "I'm animated when plans leave room for wandering conversation. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_009_q07",
+          "question": "I'm soothed by steady warmth rather than intermittent intensity. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q08",
+          "question": "I'm calmer when jealousy isn't managed through withdrawal. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q09",
+          "question": "I'm willing to apologize specifically\u2014not only generally. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q10",
+          "question": "I'm willing to slow down when someone feels flooded. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_009_q11",
+          "question": "I'm okay with quiet days when trust explains bandwidth shifts. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_009_q12",
+          "question": "I'm hoping partners interpret offline hours generously. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_010",
+      "type": "frequency",
+      "set_number": 10,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_010_q01",
+          "question": "Connection clicks for me when we talk about what shapes us, not only what we do. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q02",
+          "question": "I'm drawn to exchanges where humor carries warmth, not avoidance. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q03",
+          "question": "I'm comfortable keeping pace when excitement stays mutual. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q04",
+          "question": "I often mirror relaxed confidence when the vibe feels mutual. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_010_q05",
+          "question": "Weekend shifts feel energizing when they're mutual. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q06",
+          "question": "I enjoy improvising once basic trust exists. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q07",
+          "question": "I prefer transparent scheduling conflicts over vague disappearance. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q08",
+          "question": "I appreciate partners who name limits honestly rather than overpromising. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_010_q09",
+          "question": "I'm curious about emotional bids beneath sarcasm or jokes. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q10",
+          "question": "I'm open to feedback about how my communication lands. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q11",
+          "question": "I'm reassured when silence isn't punitive. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_010_q12",
+          "question": "I'm clear when I need slower texting seasons. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_011",
+      "type": "frequency",
+      "set_number": 11,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_011_q01",
+          "question": "I enjoy noticing how someone thinks, not only what they've achieved socially. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q02",
+          "question": "I value rhythm that lets ideas breathe instead of rushing topic to topic. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_011_q03",
+          "question": "I enjoy flirtation that feels playful rather than pressured. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q04",
+          "question": "I appreciate enthusiasm that reads as interest, not auditioning. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q05",
+          "question": "I'm intrigued when someone suggests small adventures on ordinary days. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q06",
+          "question": "I'm responsive to invitations that feel inviting, not ambushing. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_011_q07",
+          "question": "I'm attentive to whether someone honors simple commitments. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q08",
+          "question": "I'm hoping reliability includes emotional steadiness too. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q09",
+          "question": "I'm attentive to tone because kindness matters during hard talks. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q10",
+          "question": "I'm interested in learning someone's love languages loosely\u2014not rigidly. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_011_q11",
+          "question": "I'm hoping closeness includes initiation from both sides sometimes. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_011_q12",
+          "question": "I'm nourished by quality contact over quantity alone. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_012",
+      "type": "frequency",
+      "set_number": 12,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_012_q01",
+          "question": "I'm more present when dialogue invites reflection rather than constant banter. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q02",
+          "question": "I'm attracted to conversations that leave room for ambiguity and sincerity. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q03",
+          "question": "I feel engaged when banter leaves space for sincerity too. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q04",
+          "question": "I like energetic chemistry when it doesn't dominate every silence. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_012_q05",
+          "question": "I enjoy novelty that feels collaborative, not dominating. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q06",
+          "question": "I'm refreshed when dates aren't identical scripts each time. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q07",
+          "question": "I feel respected when check-ins feel dependable, not sporadic. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q08",
+          "question": "I value routines that protect connection\u2014date nights, rituals, small rituals. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_012_q09",
+          "question": "I'm open to couples-ish pacing conversations when mutual. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q10",
+          "question": "I'm comfortable naming needs without demanding instant fixes. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q11",
+          "question": "I'm attentive to whether someone listens fully\u2014not only replies quickly. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_012_q12",
+          "question": "I'm hoping conflict doesn't happen only via text forever. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_013",
+      "type": "frequency",
+      "set_number": 13,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_013_q01",
+          "question": "I feel closer when we explore intentions behind choices, not only outcomes. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q02",
+          "question": "I feel closer when we explore intentions behind choices, not only outcomes. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_013_q03",
+          "question": "I'm drawn to people who can lighten tension without dismissing feelings. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q04",
+          "question": "I'm drawn to people who can lighten tension without dismissing feelings. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q05",
+          "question": "I like keeping some openness in the calendar. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q06",
+          "question": "I like keeping some openness in the calendar. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_013_q07",
+          "question": "I'm grounded when conflict repair happens without ghosting. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q08",
+          "question": "I'm grounded when conflict repair happens without ghosting. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q09",
+          "question": "I'm willing to disclose dealbreakers without catastrophizing. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q10",
+          "question": "I'm willing to disclose dealbreakers without catastrophizing. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_013_q11",
+          "question": "I'm comfortable pausing chats when either of us is overwhelmed. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_013_q12",
+          "question": "I'm comfortable pausing chats when either of us is overwhelmed. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_014",
+      "type": "frequency",
+      "set_number": 14,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_014_q01",
+          "question": "I'm attracted to conversations that leave room for ambiguity and sincerity. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q02",
+          "question": "I'm more present when dialogue invites reflection rather than constant banter. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q03",
+          "question": "I like energetic chemistry when it doesn't dominate every silence. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q04",
+          "question": "I feel engaged when banter leaves space for sincerity too. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_014_q05",
+          "question": "I'm refreshed when dates aren't identical scripts each time. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q06",
+          "question": "I enjoy novelty that feels collaborative, not dominating. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q07",
+          "question": "I value routines that protect connection\u2014date nights, rituals, small rituals. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q08",
+          "question": "I feel respected when check-ins feel dependable, not sporadic. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_014_q09",
+          "question": "I'm comfortable naming needs without demanding instant fixes. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q10",
+          "question": "I'm open to couples-ish pacing conversations when mutual. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q11",
+          "question": "I'm hoping conflict doesn't happen only via text forever. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_014_q12",
+          "question": "I'm attentive to whether someone listens fully\u2014not only replies quickly. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_015",
+      "type": "frequency",
+      "set_number": 15,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_015_q01",
+          "question": "I value rhythm that lets ideas breathe instead of rushing topic to topic. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q02",
+          "question": "I enjoy noticing how someone thinks, not only what they've achieved socially. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_015_q03",
+          "question": "I appreciate enthusiasm that reads as interest, not auditioning. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q04",
+          "question": "I enjoy flirtation that feels playful rather than pressured. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q05",
+          "question": "I'm responsive to invitations that feel inviting, not ambushing. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q06",
+          "question": "I'm intrigued when someone suggests small adventures on ordinary days. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_015_q07",
+          "question": "I'm hoping reliability includes emotional steadiness too. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q08",
+          "question": "I'm attentive to whether someone honors simple commitments. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q09",
+          "question": "I'm interested in learning someone's love languages loosely\u2014not rigidly. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q10",
+          "question": "I'm attentive to tone because kindness matters during hard talks. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_015_q11",
+          "question": "I'm nourished by quality contact over quantity alone. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_015_q12",
+          "question": "I'm hoping closeness includes initiation from both sides sometimes. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_016",
+      "type": "frequency",
+      "set_number": 16,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_016_q01",
+          "question": "I'm drawn to exchanges where humor carries warmth, not avoidance. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q02",
+          "question": "Connection clicks for me when we talk about what shapes us, not only what we do. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q03",
+          "question": "I often mirror relaxed confidence when the vibe feels mutual. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q04",
+          "question": "I'm comfortable keeping pace when excitement stays mutual. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_016_q05",
+          "question": "I enjoy improvising once basic trust exists. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q06",
+          "question": "Weekend shifts feel energizing when they're mutual. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q07",
+          "question": "I appreciate partners who name limits honestly rather than overpromising. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q08",
+          "question": "I prefer transparent scheduling conflicts over vague disappearance. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_016_q09",
+          "question": "I'm open to feedback about how my communication lands. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q10",
+          "question": "I'm curious about emotional bids beneath sarcasm or jokes. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q11",
+          "question": "I'm clear when I need slower texting seasons. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_016_q12",
+          "question": "I'm reassured when silence isn't punitive. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_017",
+      "type": "frequency",
+      "set_number": 17,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_017_q01",
+          "question": "I like when someone shares what they're weighing\u2014not only polished conclusions. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q02",
+          "question": "I'm curious about someone's inner life\u2014not only their itinerary. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_017_q03",
+          "question": "I enjoy meeting someone's friends when timing feels natural. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q04",
+          "question": "I like charisma that feels grounded\u2014not loud for its own sake. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q05",
+          "question": "I'm animated when plans leave room for wandering conversation. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q06",
+          "question": "I like partners who can pivot plans without guilt trips. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_017_q07",
+          "question": "I'm calmer when jealousy isn't managed through withdrawal. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q08",
+          "question": "I'm soothed by steady warmth rather than intermittent intensity. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q09",
+          "question": "I'm willing to slow down when someone feels flooded. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q10",
+          "question": "I'm willing to apologize specifically\u2014not only generally. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_017_q11",
+          "question": "I'm hoping partners interpret offline hours generously. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_017_q12",
+          "question": "I'm okay with quiet days when trust explains bandwidth shifts. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_018",
+      "type": "frequency",
+      "set_number": 18,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_018_q01",
+          "question": "I feel trust emerging when stories include vulnerability, not only highlights. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q02",
+          "question": "I appreciate partners who make space for nuanced feelings, not only headlines. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q03",
+          "question": "I like group hangouts once we've established a baseline one-on-one rhythm. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q04",
+          "question": "I enjoy dates that feel socially alive without turning chaotic. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_018_q05",
+          "question": "I appreciate playful risk-taking that still feels respectful. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q06",
+          "question": "I'm drawn to playful deviations from routine\u2014within reason. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q07",
+          "question": "I prefer repair attempts soonish\u2014not perfection, just effort. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q08",
+          "question": "I appreciate clarity about availability\u2014even imperfect clarity. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_018_q09",
+          "question": "I'm attentive to consent language around intimacy milestones. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q10",
+          "question": "I'm open to naming boundaries early\u2014even imperfectly. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q11",
+          "question": "I'm responsive when someone names texting boundaries kindly. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_018_q12",
+          "question": "I enjoy depthful threads even if they're asynchronous. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_019",
+      "type": "frequency",
+      "set_number": 19,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_019_q01",
+          "question": "I'm interested in how someone sees relationships, not only hobbies. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q02",
+          "question": "I warm up faster when we trade perspectives that feel honest rather than performative. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_019_q03",
+          "question": "I'm comfortable at upbeat venues when conversation can still happen. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q04",
+          "question": "I sometimes match higher energy when it helps someone relax. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q05",
+          "question": "I like exploring new neighborhoods together casually. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q06",
+          "question": "I enjoy surprises that align with boundaries we've discussed. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_019_q07",
+          "question": "I'm reassured when apologies translate into changed behavior sometimes. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q08",
+          "question": "I navigate uncertainty better when baseline reliability exists. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q09",
+          "question": "I'm open to discussing mental health logistics pragmatically. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q10",
+          "question": "I appreciate direct asks rather than prolonged guessing games. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_019_q11",
+          "question": "I'm attentive to whether affection shows between dates\u2014not only during dates. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_019_q12",
+          "question": "I'm responsive when plans include realistic texting expectations. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_020",
+      "type": "frequency",
+      "set_number": 20,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_020_q01",
+          "question": "I relax when we can speak plainly about needs without performing cool detachment. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q02",
+          "question": "I'm energized when someone asks thoughtful questions instead of staying generic. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q03",
+          "question": "I warm up when someone's energy feels welcoming, not competitive. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q04",
+          "question": "I appreciate spontaneous laughter during getting-to-know-you moments. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_020_q05",
+          "question": "I'm drawn to low-stakes spontaneity early on. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q06",
+          "question": "I appreciate spontaneity paired with basic reliability. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q07",
+          "question": "I notice safety when disagreements don't redefine the entire bond overnight. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q08",
+          "question": "I'm reassured when words and actions track together over time. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_020_q09",
+          "question": "I'm willing to share rough drafts of feelings before they're polished. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q10",
+          "question": "I'm willing to revisit misunderstandings instead of freezing. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q11",
+          "question": "I'm hoping logistics texts include warmth sometimes. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_020_q12",
+          "question": "I'm comfortable naming preferred communication cadence. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_021",
+      "type": "frequency",
+      "set_number": 21,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_021_q01",
+          "question": "I'm motivated when dialogue explores boundaries and comfort openly. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q02",
+          "question": "I notice chemistry more when conversations reveal values, not just weekend plans. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_021_q03",
+          "question": "I enjoy vivid storytelling when it invites dialogue rather than monologue. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q04",
+          "question": "I'm animated when conversation flows without needing perfect restraint. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q05",
+          "question": "I'm excited when someone proposes a twist without pressure. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q06",
+          "question": "Last-minute ideas appeal when they respect my bandwidth. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_021_q07",
+          "question": "I'm steadier when affection isn't used as leverage. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q08",
+          "question": "I value showing up\u2014emotionally and practically\u2014more than grand gestures alone. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q09",
+          "question": "I'm responsive when someone asks for clarification kindly. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q10",
+          "question": "I'm responsive when someone shares insecurity kindly. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_021_q11",
+          "question": "I'm comfortable with asynchronous romance when trust exists. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_021_q12",
+          "question": "I appreciate voice notes when nuance matters. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_022",
+      "type": "frequency",
+      "set_number": 22,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_022_q01",
+          "question": "I appreciate when someone asks how I'm processing\u2014not only how my day went. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q02",
+          "question": "Meaningful dialogue helps me sense whether we're compatible beyond surface charm. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q03",
+          "question": "I'm responsive when someone initiates plans with clear enthusiasm. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q04",
+          "question": "I like social warmth that feels inviting rather than performative. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_022_q05",
+          "question": "I enjoy fluid evenings that don't require rigid itineraries. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q06",
+          "question": "I'm open to changing plans when communication stays clear. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q07",
+          "question": "I appreciate calm reassurance during stressful weeks. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q08",
+          "question": "I appreciate texts that don't disappear for days without context. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_022_q09",
+          "question": "I'm open to naming disappointment without contempt. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q10",
+          "question": "I'm comfortable acknowledging jealousy as information\u2014not verdicts. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q11",
+          "question": "I'm attentive to whether praise arrives verbally\u2014not only implied. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_022_q12",
+          "question": "I'm hoping texting feels mutual\u2014not always perfectly balanced, but reciprocal. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_023",
+      "type": "frequency",
+      "set_number": 23,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_023_q01",
+          "question": "I feel seen when conversations acknowledge mixed feelings, not only certainty. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q02",
+          "question": "I'm refreshed when a date skips rehearsed small talk and explores real motivations. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_023_q03",
+          "question": "I like texting energy that feels steady\u2014not constant ping-pong. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q04",
+          "question": "I enjoy lively back-and-forth when it still feels respectful. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q05",
+          "question": "I'm comfortable changing venues if mood shifts naturally. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q06",
+          "question": "I like flexibility that signals curiosity\u2014not chaos. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_023_q07",
+          "question": "I'm aligned when both people invest consistently\u2014not perfectly evenly every day. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q08",
+          "question": "Predictable kindness matters as much as peaks of romance. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q09",
+          "question": "I'm curious how someone defines emotional safety. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q10",
+          "question": "I'm open to discussing attachment fears without shame. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_023_q11",
+          "question": "I'm hoping mutual curiosity survives mundane weeks. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_023_q12",
+          "question": "I'm attentive to response latency without treating it as a verdict. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_024",
+      "type": "frequency",
+      "set_number": 24,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_024_q01",
+          "question": "I'm aligned when we discuss what emotional safety looks like for each of us. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q02",
+          "question": "I feel most engaged when we move past polite updates and share what actually matters. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q03",
+          "question": "I'm drawn to social confidence paired with emotional attentiveness. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q04",
+          "question": "Playful teasing can feel connecting when trust is forming. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_024_q05",
+          "question": "I value spontaneity that doesn't dismiss preparation entirely. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q06",
+          "question": "Impromptu outings can feel romantic when logistics aren't reckless. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q07",
+          "question": "I value transparency about travel, workload, or bandwidth dips. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q08",
+          "question": "Consistency helps me relax into vulnerability. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_024_q09",
+          "question": "I'm willing to discuss money attitudes without shame when timing fits. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q10",
+          "question": "I prefer honesty over pristine image management. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q11",
+          "question": "I'm reassured when someone follows through on 'talk tomorrow.' I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_024_q12",
+          "question": "I'm soothed by predictable rhythms\u2014good morning check-ins sometimes, not surveillance. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_025",
+      "type": "frequency",
+      "set_number": 25,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_025_q01",
+          "question": "I prefer pacing that allows curiosity rather than racing through checkpoints. Surface-level chatter alone rarely helps me decide if we're a fit.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q02",
+          "question": "When I'm drawn to someone, I naturally steer toward topics that feel substantive. Staying generic makes it harder for me to sense authenticity.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_025_q03",
+          "question": "I enjoy novelty when it doesn't erase calm moments entirely. Nonstop stimulation usually wears me down faster than it thrills me.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q04",
+          "question": "I often bring upbeat energy to dates when I'm comfortable. I'm sensitive to environments that feel loud or rushed every time.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q05",
+          "question": "I'm curious about micro-surprises\u2014thoughtful, not extreme. I still prefer emotional attraction to deepen steadily rather than spike overnight.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q06",
+          "question": "I enjoy unexpected plans when they still feel considerate. I like pacing that lets affection accumulate naturally.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_025_q07",
+          "question": "I'm nourished when steadiness includes gentle initiation. Chaos without repair tends to drain my sense of safety.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q08",
+          "question": "I feel safest when plans and follow-through generally align. I'm unsettled by frequent last-minute cancellations without care.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q09",
+          "question": "I'm open to naming fears about commitment without panic framing. I pace vulnerability carefully until reciprocity feels plausible.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q10",
+          "question": "I'm willing to name feelings roughly\u2014even when wording isn't perfect. I sometimes need time before putting feelings into words.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_025_q11",
+          "question": "I'm hoping communication adapts during travel or crunch weeks. I rarely feel comfortable texting all day every day\u2014it's not my baseline.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_025_q12",
+          "question": "When I'm interested, I like thoughtful messages\u2014not necessarily constant, but present. I'm cautious when frequent contact feels like monitoring.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_026",
+      "type": "frequency",
+      "set_number": 26,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_026_q01",
+          "question": "When I'm drawn to someone, I naturally steer toward topics that feel substantive. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q02",
+          "question": "I prefer pacing that allows curiosity rather than racing through checkpoints. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q03",
+          "question": "I often bring upbeat energy to dates when I'm comfortable. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q04",
+          "question": "I enjoy novelty when it doesn't erase calm moments entirely. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_026_q05",
+          "question": "I enjoy unexpected plans when they still feel considerate. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q06",
+          "question": "I'm curious about micro-surprises\u2014thoughtful, not extreme. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q07",
+          "question": "I feel safest when plans and follow-through generally align. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q08",
+          "question": "I'm nourished when steadiness includes gentle initiation. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_026_q09",
+          "question": "I'm willing to name feelings roughly\u2014even when wording isn't perfect. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q10",
+          "question": "I'm open to naming fears about commitment without panic framing. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q11",
+          "question": "When I'm interested, I like thoughtful messages\u2014not necessarily constant, but present. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_026_q12",
+          "question": "I'm hoping communication adapts during travel or crunch weeks. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_027",
+      "type": "frequency",
+      "set_number": 27,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_027_q01",
+          "question": "I feel most engaged when we move past polite updates and share what actually matters. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q02",
+          "question": "I'm aligned when we discuss what emotional safety looks like for each of us. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_027_q03",
+          "question": "Playful teasing can feel connecting when trust is forming. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q04",
+          "question": "I'm drawn to social confidence paired with emotional attentiveness. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q05",
+          "question": "Impromptu outings can feel romantic when logistics aren't reckless. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q06",
+          "question": "I value spontaneity that doesn't dismiss preparation entirely. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_027_q07",
+          "question": "Consistency helps me relax into vulnerability. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q08",
+          "question": "I value transparency about travel, workload, or bandwidth dips. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q09",
+          "question": "I prefer honesty over pristine image management. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q10",
+          "question": "I'm willing to discuss money attitudes without shame when timing fits. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_027_q11",
+          "question": "I'm soothed by predictable rhythms\u2014good morning check-ins sometimes, not surveillance. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_027_q12",
+          "question": "I'm reassured when someone follows through on 'talk tomorrow.' I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_028",
+      "type": "frequency",
+      "set_number": 28,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_028_q01",
+          "question": "I'm refreshed when a date skips rehearsed small talk and explores real motivations. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q02",
+          "question": "I feel seen when conversations acknowledge mixed feelings, not only certainty. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q03",
+          "question": "I enjoy lively back-and-forth when it still feels respectful. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q04",
+          "question": "I like texting energy that feels steady\u2014not constant ping-pong. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_028_q05",
+          "question": "I like flexibility that signals curiosity\u2014not chaos. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q06",
+          "question": "I'm comfortable changing venues if mood shifts naturally. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q07",
+          "question": "Predictable kindness matters as much as peaks of romance. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q08",
+          "question": "I'm aligned when both people invest consistently\u2014not perfectly evenly every day. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_028_q09",
+          "question": "I'm open to discussing attachment fears without shame. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q10",
+          "question": "I'm curious how someone defines emotional safety. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q11",
+          "question": "I'm attentive to response latency without treating it as a verdict. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_028_q12",
+          "question": "I'm hoping mutual curiosity survives mundane weeks. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_029",
+      "type": "frequency",
+      "set_number": 29,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_029_q01",
+          "question": "Meaningful dialogue helps me sense whether we're compatible beyond surface charm. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q02",
+          "question": "I appreciate when someone asks how I'm processing\u2014not only how my day went. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_029_q03",
+          "question": "I like social warmth that feels inviting rather than performative. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q04",
+          "question": "I'm responsive when someone initiates plans with clear enthusiasm. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q05",
+          "question": "I'm open to changing plans when communication stays clear. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q06",
+          "question": "I enjoy fluid evenings that don't require rigid itineraries. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_029_q07",
+          "question": "I appreciate texts that don't disappear for days without context. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q08",
+          "question": "I appreciate calm reassurance during stressful weeks. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q09",
+          "question": "I'm comfortable acknowledging jealousy as information\u2014not verdicts. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q10",
+          "question": "I'm open to naming disappointment without contempt. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_029_q11",
+          "question": "I'm hoping texting feels mutual\u2014not always perfectly balanced, but reciprocal. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_029_q12",
+          "question": "I'm attentive to whether praise arrives verbally\u2014not only implied. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_030",
+      "type": "frequency",
+      "set_number": 30,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_030_q01",
+          "question": "I notice chemistry more when conversations reveal values, not just weekend plans. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q02",
+          "question": "I'm motivated when dialogue explores boundaries and comfort openly. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q03",
+          "question": "I'm animated when conversation flows without needing perfect restraint. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q04",
+          "question": "I enjoy vivid storytelling when it invites dialogue rather than monologue. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_030_q05",
+          "question": "Last-minute ideas appeal when they respect my bandwidth. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q06",
+          "question": "I'm excited when someone proposes a twist without pressure. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q07",
+          "question": "I value showing up\u2014emotionally and practically\u2014more than grand gestures alone. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q08",
+          "question": "I'm steadier when affection isn't used as leverage. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_030_q09",
+          "question": "I'm responsive when someone shares insecurity kindly. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q10",
+          "question": "I'm responsive when someone asks for clarification kindly. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q11",
+          "question": "I appreciate voice notes when nuance matters. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_030_q12",
+          "question": "I'm comfortable with asynchronous romance when trust exists. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_031",
+      "type": "frequency",
+      "set_number": 31,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_031_q01",
+          "question": "I'm energized when someone asks thoughtful questions instead of staying generic. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q02",
+          "question": "I relax when we can speak plainly about needs without performing cool detachment. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_031_q03",
+          "question": "I appreciate spontaneous laughter during getting-to-know-you moments. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q04",
+          "question": "I warm up when someone's energy feels welcoming, not competitive. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q05",
+          "question": "I appreciate spontaneity paired with basic reliability. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q06",
+          "question": "I'm drawn to low-stakes spontaneity early on. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_031_q07",
+          "question": "I'm reassured when words and actions track together over time. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q08",
+          "question": "I notice safety when disagreements don't redefine the entire bond overnight. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q09",
+          "question": "I'm willing to revisit misunderstandings instead of freezing. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q10",
+          "question": "I'm willing to share rough drafts of feelings before they're polished. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_031_q11",
+          "question": "I'm comfortable naming preferred communication cadence. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_031_q12",
+          "question": "I'm hoping logistics texts include warmth sometimes. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_032",
+      "type": "frequency",
+      "set_number": 32,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_032_q01",
+          "question": "I warm up faster when we trade perspectives that feel honest rather than performative. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q02",
+          "question": "I'm interested in how someone sees relationships, not only hobbies. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q03",
+          "question": "I sometimes match higher energy when it helps someone relax. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q04",
+          "question": "I'm comfortable at upbeat venues when conversation can still happen. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_032_q05",
+          "question": "I enjoy surprises that align with boundaries we've discussed. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q06",
+          "question": "I like exploring new neighborhoods together casually. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q07",
+          "question": "I navigate uncertainty better when baseline reliability exists. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q08",
+          "question": "I'm reassured when apologies translate into changed behavior sometimes. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_032_q09",
+          "question": "I appreciate direct asks rather than prolonged guessing games. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q10",
+          "question": "I'm open to discussing mental health logistics pragmatically. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q11",
+          "question": "I'm responsive when plans include realistic texting expectations. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_032_q12",
+          "question": "I'm attentive to whether affection shows between dates\u2014not only during dates. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_033",
+      "type": "frequency",
+      "set_number": 33,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_033_q01",
+          "question": "I appreciate partners who make space for nuanced feelings, not only headlines. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q02",
+          "question": "I feel trust emerging when stories include vulnerability, not only highlights. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_033_q03",
+          "question": "I enjoy dates that feel socially alive without turning chaotic. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q04",
+          "question": "I like group hangouts once we've established a baseline one-on-one rhythm. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q05",
+          "question": "I'm drawn to playful deviations from routine\u2014within reason. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q06",
+          "question": "I appreciate playful risk-taking that still feels respectful. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_033_q07",
+          "question": "I appreciate clarity about availability\u2014even imperfect clarity. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q08",
+          "question": "I prefer repair attempts soonish\u2014not perfection, just effort. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q09",
+          "question": "I'm open to naming boundaries early\u2014even imperfectly. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q10",
+          "question": "I'm attentive to consent language around intimacy milestones. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_033_q11",
+          "question": "I enjoy depthful threads even if they're asynchronous. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_033_q12",
+          "question": "I'm responsive when someone names texting boundaries kindly. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_034",
+      "type": "frequency",
+      "set_number": 34,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_034_q01",
+          "question": "I'm curious about someone's inner life\u2014not only their itinerary. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q02",
+          "question": "I like when someone shares what they're weighing\u2014not only polished conclusions. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q03",
+          "question": "I like charisma that feels grounded\u2014not loud for its own sake. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q04",
+          "question": "I enjoy meeting someone's friends when timing feels natural. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_034_q05",
+          "question": "I like partners who can pivot plans without guilt trips. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q06",
+          "question": "I'm animated when plans leave room for wandering conversation. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q07",
+          "question": "I'm soothed by steady warmth rather than intermittent intensity. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q08",
+          "question": "I'm calmer when jealousy isn't managed through withdrawal. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_034_q09",
+          "question": "I'm willing to apologize specifically\u2014not only generally. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q10",
+          "question": "I'm willing to slow down when someone feels flooded. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q11",
+          "question": "I'm okay with quiet days when trust explains bandwidth shifts. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_034_q12",
+          "question": "I'm hoping partners interpret offline hours generously. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_035",
+      "type": "frequency",
+      "set_number": 35,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_035_q01",
+          "question": "Connection clicks for me when we talk about what shapes us, not only what we do. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q02",
+          "question": "I'm drawn to exchanges where humor carries warmth, not avoidance. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_035_q03",
+          "question": "I'm comfortable keeping pace when excitement stays mutual. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q04",
+          "question": "I often mirror relaxed confidence when the vibe feels mutual. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q05",
+          "question": "Weekend shifts feel energizing when they're mutual. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q06",
+          "question": "I enjoy improvising once basic trust exists. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_035_q07",
+          "question": "I prefer transparent scheduling conflicts over vague disappearance. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q08",
+          "question": "I appreciate partners who name limits honestly rather than overpromising. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q09",
+          "question": "I'm curious about emotional bids beneath sarcasm or jokes. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q10",
+          "question": "I'm open to feedback about how my communication lands. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_035_q11",
+          "question": "I'm reassured when silence isn't punitive. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_035_q12",
+          "question": "I'm clear when I need slower texting seasons. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_036",
+      "type": "frequency",
+      "set_number": 36,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_036_q01",
+          "question": "I enjoy noticing how someone thinks, not only what they've achieved socially. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q02",
+          "question": "I value rhythm that lets ideas breathe instead of rushing topic to topic. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q03",
+          "question": "I enjoy flirtation that feels playful rather than pressured. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q04",
+          "question": "I appreciate enthusiasm that reads as interest, not auditioning. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_036_q05",
+          "question": "I'm intrigued when someone suggests small adventures on ordinary days. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q06",
+          "question": "I'm responsive to invitations that feel inviting, not ambushing. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q07",
+          "question": "I'm attentive to whether someone honors simple commitments. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q08",
+          "question": "I'm hoping reliability includes emotional steadiness too. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_036_q09",
+          "question": "I'm attentive to tone because kindness matters during hard talks. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q10",
+          "question": "I'm interested in learning someone's love languages loosely\u2014not rigidly. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q11",
+          "question": "I'm hoping closeness includes initiation from both sides sometimes. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_036_q12",
+          "question": "I'm nourished by quality contact over quantity alone. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_037",
+      "type": "frequency",
+      "set_number": 37,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_037_q01",
+          "question": "I'm more present when dialogue invites reflection rather than constant banter. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q02",
+          "question": "I'm attracted to conversations that leave room for ambiguity and sincerity. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_037_q03",
+          "question": "I feel engaged when banter leaves space for sincerity too. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q04",
+          "question": "I like energetic chemistry when it doesn't dominate every silence. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q05",
+          "question": "I enjoy novelty that feels collaborative, not dominating. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q06",
+          "question": "I'm refreshed when dates aren't identical scripts each time. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_037_q07",
+          "question": "I feel respected when check-ins feel dependable, not sporadic. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q08",
+          "question": "I value routines that protect connection\u2014date nights, rituals, small rituals. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q09",
+          "question": "I'm open to couples-ish pacing conversations when mutual. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q10",
+          "question": "I'm comfortable naming needs without demanding instant fixes. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_037_q11",
+          "question": "I'm attentive to whether someone listens fully\u2014not only replies quickly. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_037_q12",
+          "question": "I'm hoping conflict doesn't happen only via text forever. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_038",
+      "type": "frequency",
+      "set_number": 38,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_038_q01",
+          "question": "I feel closer when we explore intentions behind choices, not only outcomes. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q02",
+          "question": "I feel closer when we explore intentions behind choices, not only outcomes. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q03",
+          "question": "I'm drawn to people who can lighten tension without dismissing feelings. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q04",
+          "question": "I'm drawn to people who can lighten tension without dismissing feelings. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_038_q05",
+          "question": "I like keeping some openness in the calendar. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q06",
+          "question": "I like keeping some openness in the calendar. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q07",
+          "question": "I'm grounded when conflict repair happens without ghosting. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q08",
+          "question": "I'm grounded when conflict repair happens without ghosting. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_038_q09",
+          "question": "I'm willing to disclose dealbreakers without catastrophizing. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q10",
+          "question": "I'm willing to disclose dealbreakers without catastrophizing. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q11",
+          "question": "I'm comfortable pausing chats when either of us is overwhelmed. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_038_q12",
+          "question": "I'm comfortable pausing chats when either of us is overwhelmed. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_039",
+      "type": "frequency",
+      "set_number": 39,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_039_q01",
+          "question": "I'm attracted to conversations that leave room for ambiguity and sincerity. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q02",
+          "question": "I'm more present when dialogue invites reflection rather than constant banter. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_039_q03",
+          "question": "I like energetic chemistry when it doesn't dominate every silence. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q04",
+          "question": "I feel engaged when banter leaves space for sincerity too. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q05",
+          "question": "I'm refreshed when dates aren't identical scripts each time. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q06",
+          "question": "I enjoy novelty that feels collaborative, not dominating. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_039_q07",
+          "question": "I value routines that protect connection\u2014date nights, rituals, small rituals. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q08",
+          "question": "I feel respected when check-ins feel dependable, not sporadic. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q09",
+          "question": "I'm comfortable naming needs without demanding instant fixes. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q10",
+          "question": "I'm open to couples-ish pacing conversations when mutual. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_039_q11",
+          "question": "I'm hoping conflict doesn't happen only via text forever. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_039_q12",
+          "question": "I'm attentive to whether someone listens fully\u2014not only replies quickly. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_040",
+      "type": "frequency",
+      "set_number": 40,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_040_q01",
+          "question": "I value rhythm that lets ideas breathe instead of rushing topic to topic. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q02",
+          "question": "I enjoy noticing how someone thinks, not only what they've achieved socially. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q03",
+          "question": "I appreciate enthusiasm that reads as interest, not auditioning. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q04",
+          "question": "I enjoy flirtation that feels playful rather than pressured. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_040_q05",
+          "question": "I'm responsive to invitations that feel inviting, not ambushing. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q06",
+          "question": "I'm intrigued when someone suggests small adventures on ordinary days. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q07",
+          "question": "I'm hoping reliability includes emotional steadiness too. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q08",
+          "question": "I'm attentive to whether someone honors simple commitments. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_040_q09",
+          "question": "I'm interested in learning someone's love languages loosely\u2014not rigidly. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q10",
+          "question": "I'm attentive to tone because kindness matters during hard talks. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q11",
+          "question": "I'm nourished by quality contact over quantity alone. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_040_q12",
+          "question": "I'm hoping closeness includes initiation from both sides sometimes. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_041",
+      "type": "frequency",
+      "set_number": 41,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_041_q01",
+          "question": "I'm drawn to exchanges where humor carries warmth, not avoidance. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q02",
+          "question": "Connection clicks for me when we talk about what shapes us, not only what we do. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_041_q03",
+          "question": "I often mirror relaxed confidence when the vibe feels mutual. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q04",
+          "question": "I'm comfortable keeping pace when excitement stays mutual. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q05",
+          "question": "I enjoy improvising once basic trust exists. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q06",
+          "question": "Weekend shifts feel energizing when they're mutual. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_041_q07",
+          "question": "I appreciate partners who name limits honestly rather than overpromising. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q08",
+          "question": "I prefer transparent scheduling conflicts over vague disappearance. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q09",
+          "question": "I'm open to feedback about how my communication lands. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q10",
+          "question": "I'm curious about emotional bids beneath sarcasm or jokes. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_041_q11",
+          "question": "I'm clear when I need slower texting seasons. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_041_q12",
+          "question": "I'm reassured when silence isn't punitive. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_042",
+      "type": "frequency",
+      "set_number": 42,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_042_q01",
+          "question": "I like when someone shares what they're weighing\u2014not only polished conclusions. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q02",
+          "question": "I'm curious about someone's inner life\u2014not only their itinerary. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q03",
+          "question": "I enjoy meeting someone's friends when timing feels natural. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q04",
+          "question": "I like charisma that feels grounded\u2014not loud for its own sake. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_042_q05",
+          "question": "I'm animated when plans leave room for wandering conversation. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q06",
+          "question": "I like partners who can pivot plans without guilt trips. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q07",
+          "question": "I'm calmer when jealousy isn't managed through withdrawal. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q08",
+          "question": "I'm soothed by steady warmth rather than intermittent intensity. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_042_q09",
+          "question": "I'm willing to slow down when someone feels flooded. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q10",
+          "question": "I'm willing to apologize specifically\u2014not only generally. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q11",
+          "question": "I'm hoping partners interpret offline hours generously. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_042_q12",
+          "question": "I'm okay with quiet days when trust explains bandwidth shifts. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_043",
+      "type": "frequency",
+      "set_number": 43,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_043_q01",
+          "question": "I feel trust emerging when stories include vulnerability, not only highlights. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q02",
+          "question": "I appreciate partners who make space for nuanced feelings, not only headlines. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_043_q03",
+          "question": "I like group hangouts once we've established a baseline one-on-one rhythm. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q04",
+          "question": "I enjoy dates that feel socially alive without turning chaotic. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q05",
+          "question": "I appreciate playful risk-taking that still feels respectful. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q06",
+          "question": "I'm drawn to playful deviations from routine\u2014within reason. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_043_q07",
+          "question": "I prefer repair attempts soonish\u2014not perfection, just effort. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q08",
+          "question": "I appreciate clarity about availability\u2014even imperfect clarity. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q09",
+          "question": "I'm attentive to consent language around intimacy milestones. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q10",
+          "question": "I'm open to naming boundaries early\u2014even imperfectly. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_043_q11",
+          "question": "I'm responsive when someone names texting boundaries kindly. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_043_q12",
+          "question": "I enjoy depthful threads even if they're asynchronous. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_044",
+      "type": "frequency",
+      "set_number": 44,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_044_q01",
+          "question": "I'm interested in how someone sees relationships, not only hobbies. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q02",
+          "question": "I warm up faster when we trade perspectives that feel honest rather than performative. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q03",
+          "question": "I'm comfortable at upbeat venues when conversation can still happen. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q04",
+          "question": "I sometimes match higher energy when it helps someone relax. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_044_q05",
+          "question": "I like exploring new neighborhoods together casually. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q06",
+          "question": "I enjoy surprises that align with boundaries we've discussed. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q07",
+          "question": "I'm reassured when apologies translate into changed behavior sometimes. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q08",
+          "question": "I navigate uncertainty better when baseline reliability exists. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_044_q09",
+          "question": "I'm open to discussing mental health logistics pragmatically. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q10",
+          "question": "I appreciate direct asks rather than prolonged guessing games. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q11",
+          "question": "I'm attentive to whether affection shows between dates\u2014not only during dates. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_044_q12",
+          "question": "I'm responsive when plans include realistic texting expectations. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_045",
+      "type": "frequency",
+      "set_number": 45,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_045_q01",
+          "question": "I relax when we can speak plainly about needs without performing cool detachment. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q02",
+          "question": "I'm energized when someone asks thoughtful questions instead of staying generic. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_045_q03",
+          "question": "I warm up when someone's energy feels welcoming, not competitive. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q04",
+          "question": "I appreciate spontaneous laughter during getting-to-know-you moments. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q05",
+          "question": "I'm drawn to low-stakes spontaneity early on. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q06",
+          "question": "I appreciate spontaneity paired with basic reliability. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_045_q07",
+          "question": "I notice safety when disagreements don't redefine the entire bond overnight. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q08",
+          "question": "I'm reassured when words and actions track together over time. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q09",
+          "question": "I'm willing to share rough drafts of feelings before they're polished. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q10",
+          "question": "I'm willing to revisit misunderstandings instead of freezing. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_045_q11",
+          "question": "I'm hoping logistics texts include warmth sometimes. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_045_q12",
+          "question": "I'm comfortable naming preferred communication cadence. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_046",
+      "type": "frequency",
+      "set_number": 46,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_046_q01",
+          "question": "I'm motivated when dialogue explores boundaries and comfort openly. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q02",
+          "question": "I notice chemistry more when conversations reveal values, not just weekend plans. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q03",
+          "question": "I enjoy vivid storytelling when it invites dialogue rather than monologue. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q04",
+          "question": "I'm animated when conversation flows without needing perfect restraint. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_046_q05",
+          "question": "I'm excited when someone proposes a twist without pressure. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q06",
+          "question": "Last-minute ideas appeal when they respect my bandwidth. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q07",
+          "question": "I'm steadier when affection isn't used as leverage. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q08",
+          "question": "I value showing up\u2014emotionally and practically\u2014more than grand gestures alone. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_046_q09",
+          "question": "I'm responsive when someone asks for clarification kindly. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q10",
+          "question": "I'm responsive when someone shares insecurity kindly. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q11",
+          "question": "I'm comfortable with asynchronous romance when trust exists. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_046_q12",
+          "question": "I appreciate voice notes when nuance matters. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_047",
+      "type": "frequency",
+      "set_number": 47,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_047_q01",
+          "question": "I appreciate when someone asks how I'm processing\u2014not only how my day went. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q02",
+          "question": "Meaningful dialogue helps me sense whether we're compatible beyond surface charm. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_047_q03",
+          "question": "I'm responsive when someone initiates plans with clear enthusiasm. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q04",
+          "question": "I like social warmth that feels inviting rather than performative. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q05",
+          "question": "I enjoy fluid evenings that don't require rigid itineraries. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q06",
+          "question": "I'm open to changing plans when communication stays clear. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_047_q07",
+          "question": "I appreciate calm reassurance during stressful weeks. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q08",
+          "question": "I appreciate texts that don't disappear for days without context. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q09",
+          "question": "I'm open to naming disappointment without contempt. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q10",
+          "question": "I'm comfortable acknowledging jealousy as information\u2014not verdicts. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_047_q11",
+          "question": "I'm attentive to whether praise arrives verbally\u2014not only implied. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_047_q12",
+          "question": "I'm hoping texting feels mutual\u2014not always perfectly balanced, but reciprocal. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_048",
+      "type": "frequency",
+      "set_number": 48,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_048_q01",
+          "question": "I feel seen when conversations acknowledge mixed feelings, not only certainty. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q02",
+          "question": "I'm refreshed when a date skips rehearsed small talk and explores real motivations. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q03",
+          "question": "I like texting energy that feels steady\u2014not constant ping-pong. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q04",
+          "question": "I enjoy lively back-and-forth when it still feels respectful. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_048_q05",
+          "question": "I'm comfortable changing venues if mood shifts naturally. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q06",
+          "question": "I like flexibility that signals curiosity\u2014not chaos. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q07",
+          "question": "I'm aligned when both people invest consistently\u2014not perfectly evenly every day. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q08",
+          "question": "Predictable kindness matters as much as peaks of romance. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_048_q09",
+          "question": "I'm curious how someone defines emotional safety. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q10",
+          "question": "I'm open to discussing attachment fears without shame. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q11",
+          "question": "I'm hoping mutual curiosity survives mundane weeks. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_048_q12",
+          "question": "I'm attentive to response latency without treating it as a verdict. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": true
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_049",
+      "type": "frequency",
+      "set_number": 49,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_049_q01",
+          "question": "I'm aligned when we discuss what emotional safety looks like for each of us. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q02",
+          "question": "I feel most engaged when we move past polite updates and share what actually matters. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_049_q03",
+          "question": "I'm drawn to social confidence paired with emotional attentiveness. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q04",
+          "question": "Playful teasing can feel connecting when trust is forming. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q05",
+          "question": "I value spontaneity that doesn't dismiss preparation entirely. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q06",
+          "question": "Impromptu outings can feel romantic when logistics aren't reckless. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_049_q07",
+          "question": "I value transparency about travel, workload, or bandwidth dips. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q08",
+          "question": "Consistency helps me relax into vulnerability. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q09",
+          "question": "I'm willing to discuss money attitudes without shame when timing fits. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q10",
+          "question": "I prefer honesty over pristine image management. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_049_q11",
+          "question": "I'm reassured when someone follows through on 'talk tomorrow.' I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_049_q12",
+          "question": "I'm soothed by predictable rhythms\u2014good morning check-ins sometimes, not surveillance. I'm sensitive to rapid-fire texting expectations daily.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        }
+      ]
+    },
+    {
+      "id": "frequency_set_050",
+      "type": "frequency",
+      "set_number": 50,
+      "version": "2026_01",
+      "active": true,
+      "question_count": 12,
+      "questions": [
+        {
+          "id": "frequency_set_050_q01",
+          "question": "I prefer pacing that allows curiosity rather than racing through checkpoints. Light banter is enjoyable, yet depth is what signals compatibility to me.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q02",
+          "question": "When I'm drawn to someone, I naturally steer toward topics that feel substantive. Skimming topics tends to leave me unsure about emotional alignment.",
+          "dimension": "depth",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q03",
+          "question": "I enjoy novelty when it doesn't erase calm moments entirely. I still need pockets of calm even when chemistry feels electric.",
+          "dimension": "socialEnergy",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q04",
+          "question": "I often bring upbeat energy to dates when I'm comfortable. Long stretches of high stimulation leave me needing quiet recovery.",
+          "dimension": "socialEnergy",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_050_q05",
+          "question": "I'm curious about micro-surprises\u2014thoughtful, not extreme. Quick intensity can feel thrilling yet unsettling without consistency beside it.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q06",
+          "question": "I enjoy unexpected plans when they still feel considerate. I'm cautious when chemistry races ahead of trust-building.",
+          "dimension": "spontaneity",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q07",
+          "question": "I'm nourished when steadiness includes gentle initiation. Mixed signals make it harder for me to stay open-hearted.",
+          "dimension": "stability",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q08",
+          "question": "I feel safest when plans and follow-through generally align. I'm cautious when affection swings wildly without explanation.",
+          "dimension": "stability",
+          "reverseScored": true
+        },
+        {
+          "id": "frequency_set_050_q09",
+          "question": "I'm open to naming fears about commitment without panic framing. I'm selective about early disclosures\u2014not secretive, just paced.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q10",
+          "question": "I'm willing to name feelings roughly\u2014even when wording isn't perfect. I don't narrate every emotion immediately\u2014context matters.",
+          "dimension": "emotionalOpenness",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q11",
+          "question": "I'm hoping communication adapts during travel or crunch weeks. I often need quiet stretches without it meaning withdrawal.",
+          "dimension": "conversationPace",
+          "reverseScored": false
+        },
+        {
+          "id": "frequency_set_050_q12",
+          "question": "When I'm interested, I like thoughtful messages\u2014not necessarily constant, but present. I'm sensitive to rapid-fire texting expectations daily.",
           "dimension": "conversationPace",
           "reverseScored": true
         }
