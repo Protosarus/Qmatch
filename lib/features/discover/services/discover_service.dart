@@ -31,8 +31,11 @@ class DiscoverService {
     final meDoc = await FirestorePaths.userDoc(currentUid).get();
     final meData = Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
 
-    // Frequency fallback: if mirror fields missing, try reading assessments/frequency for current user only.
-    if (meData['frequency_type'] == null && meData['frequency_tags'] == null) {
+    // Frequency fallback: hydrate type/tags/score/vector from assessments/frequency
+    // when user-doc mirrors are missing (legacy users).
+    if (meData['frequency_type'] == null ||
+        meData['frequency_tags'] == null ||
+        meData['frequency_vector'] == null) {
       try {
         final freqDoc = await FirestorePaths.userDoc(currentUid)
             .collection('assessments')
@@ -42,7 +45,9 @@ class DiscoverService {
         if (freq != null) {
           meData['frequency_type'] ??= freq['type'] ?? freq['frequency_type'];
           meData['frequency_tags'] ??= freq['tags'] ?? freq['frequency_tags'];
-          meData['frequency_score'] ??= freq['scoreTotal'] ?? freq['score_total'] ?? freq['frequency_score'];
+          meData['frequency_score'] ??=
+              freq['scoreTotal'] ?? freq['score_total'] ?? freq['frequency_score'];
+          meData['frequency_vector'] ??= freq['vector'] ?? freq['frequency_vector'];
         }
       } catch (_) {
         // ignore for MVP

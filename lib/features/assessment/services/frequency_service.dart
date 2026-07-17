@@ -241,6 +241,9 @@ class FrequencyService {
         'frequency_type': result.type,
         'frequency_score': result.scoreTotal,
         'frequency_tags': result.tags,
+        // Cold-start Discover needs 6D vector without N+1 assessment reads.
+        // Additive mirror only — does not change Frequency scoring.
+        'frequency_vector': result.vector,
         'frequency_language_used': language,
         'updated_at': FieldValue.serverTimestamp(),
       },
