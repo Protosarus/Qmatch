@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/navigation/auth_wrapper.dart';
 import '../../../core/widgets/elegant_warning.dart';
+import '../../../l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -65,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLogin() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() => _inlineError = null);
     if (!_formKey.currentState!.validate()) return;
 
@@ -88,13 +90,13 @@ class _LoginScreenState extends State<LoginScreen> {
         case 'user-not-found':
         case 'wrong-password':
         case 'invalid-credential':
-          errorMessage = 'Email or password is incorrect.';
+          errorMessage = l10n.loginErrorIncorrectCredentials;
           break;
         case 'invalid-email':
-          errorMessage = 'Please enter a valid email address.';
+          errorMessage = l10n.loginErrorValidEmailAddress;
           break;
         default:
-          errorMessage = 'Login failed. Please try again.';
+          errorMessage = l10n.loginErrorFailed;
       }
       if (mounted) {
         setState(() => _inlineError = errorMessage);
@@ -109,6 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -144,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       const SizedBox(height: 12),
                       Text(
-                        'Welcome back',
+                        l10n.loginWelcomeBack,
                         style: GoogleFonts.playfairDisplay(
                           color: AppColors.primary,
                           fontSize: 28,
@@ -153,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Sign in with your email to continue.',
+                        l10n.loginSubtitle,
                         style: GoogleFonts.inter(
                           color: AppColors.textSecondary,
                           fontSize: 14,
@@ -167,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         style: GoogleFonts.inter(color: Colors.white),
-                        decoration: _fieldDecoration(label: 'Email'),
+                        decoration: _fieldDecoration(label: l10n.email),
                         onChanged: (_) {
                           if (_inlineError != null) {
                             setState(() => _inlineError = null);
@@ -175,10 +178,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return l10n.loginErrorEnterEmail;
                           }
                           if (!value.contains('@')) {
-                            return 'Please enter a valid email';
+                            return l10n.loginErrorValidEmail;
                           }
                           return null;
                         },
@@ -192,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onFieldSubmitted: (_) => _handleLogin(),
                         style: GoogleFonts.inter(color: Colors.white),
                         decoration: _fieldDecoration(
-                          label: 'Password',
+                          label: l10n.password,
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscurePassword
@@ -215,10 +218,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
+                            return l10n.loginErrorEnterPassword;
                           }
                           if (value.length < 6) {
-                            return 'Password must be at least 6 characters';
+                            return l10n.loginErrorPasswordMinLength;
                           }
                           return null;
                         },
@@ -265,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 )
                               : Text(
-                                  'Log in',
+                                  l10n.logIn,
                                   maxLines: 1,
                                   softWrap: false,
                                   style: GoogleFonts.inter(
@@ -281,7 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       Center(
                         child: Text(
-                          'Prefer phone? Go back and continue with phone.',
+                          l10n.loginPreferPhoneHint,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: AppColors.textSecondary

@@ -1,0 +1,502 @@
+[
+  {
+    "id": "eq_set_011_q01",
+    "en": "They go quiet after you ask a personal question on a video date. How do you respond?",
+    "tr": "Görüntülü buluşmada kişisel bir soru sorunca susuyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_011_q02",
+    "en": "Someone you're seeing avoids talking about their week when you check in. What do you do first?",
+    "tr": "Görüştüğün kişi nasıl geçti diye sorunca haftasını anlatmaktan kaçınıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_011_q03",
+    "en": "Your match redirects every deep question back to small talk. How would you handle it?",
+    "tr": "Eşleşmen her derin soruyu sohbete çeviriyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_011_q04",
+    "en": "A friend dodges when you ask if they're okay after a tough day. What feels closest to you?",
+    "tr": "Zor bir günden sonra iyi misin diye sorunca arkadaşın kaçıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_011_q05",
+    "en": "Your partner changes the subject when you ask what they need from you. What would you be most likely to do?",
+    "tr": "Partnerin senden neye ihtiyaç duyduğunu sorunca konuyu değiştiriyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_011_q06",
+    "en": "Someone you're messaging freezes when feelings come up. How do you respond?",
+    "tr": "Yazıştığın kişi duygular konuşulunca donuyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_011_q07",
+    "en": "They laugh off your question about where this is going. What do you do first?",
+    "tr": "Bunun nereye gittiğini sorunca gülüp geçiyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_011_q08",
+    "en": "A coworker you like avoids answering when you ask if plans still feel good. How would you handle it?",
+    "tr": "Hoşlandığın iş arkadaşın planın hâlâ iyi gelip gelmediğini sorunca kaçınıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_011_q09",
+    "en": "Your roommate shuts down when you ask how shared living is feeling. What feels closest to you?",
+    "tr": "Ev arkadaşın ortak yaşamın nasıl hissettirdiğini sorunca kapanıyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_011_q10",
+    "en": "Someone new softens every honest talk into a joke. What would you be most likely to do?",
+    "tr": "Yeni tanıştığın biri her dürüst konuşmayı şakaya bağlıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_012_q01",
+    "en": "They ask for a slower pace after you suggested seeing each other more. How do you respond?",
+    "tr": "Daha sık görüşmeyi önerince daha yavaş ilerlemek istediklerini söylüyorlar. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_012_q02",
+    "en": "Someone you like needs a few days alone after an intense weekend. What do you do first?",
+    "tr": "Yoğun bir hafta sonundan sonra birkaç gün yalnız kalmak istiyorlar. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_012_q03",
+    "en": "Your date says they care but aren't ready for labels yet. How would you handle it?",
+    "tr": "Buluşman önemsediğini ama henüz tanım için hazır olmadığını söylüyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_012_q04",
+    "en": "A friend asks for less frequent check-ins while they're overwhelmed. What feels closest to you?",
+    "tr": "Bunalmışken daha seyrek yazışmayı isteyen bir arkadaşın var. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_012_q05",
+    "en": "They leave your vulnerable message on read for a day. What would you be most likely to do?",
+    "tr": "Kırılgan mesajını bir gün okunmuş bırakıyorlar. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_012_q06",
+    "en": "Someone you're dating says your affection feels fast for them. How do you respond?",
+    "tr": "Görüştüğün kişi yakınlığının onlar için hızlı geldiğini söylüyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_012_q07",
+    "en": "Your partner asks for quiet time instead of processing right away. What do you do first?",
+    "tr": "Partnerin hemen konuşmak yerine sessiz zamana ihtiyaç duyuyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_012_q08",
+    "en": "A long-distance match wants fewer late-night calls this month. How would you handle it?",
+    "tr": "Uzak mesafe eşleşmen bu ay daha az gece araması istiyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_012_q09",
+    "en": "They say they need space after a small disagreement. What feels closest to you?",
+    "tr": "Küçük bir anlaşmazlıktan sonra alan istediğini söylüyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_012_q10",
+    "en": "Someone from your social circle pulls back after you shared more personally. What would you be most likely to do?",
+    "tr": "Daha kişisel bir şey paylaşınca sosyal çevrenden biri geri çekiliyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_013_q01",
+    "en": "They mention how many people have liked their dating profile lately. How do you respond?",
+    "tr": "Son zamanlarda profiline kaç kişinin ilgi gösterdiğinden bahsediyorlar. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_013_q02",
+    "en": "Your partner gets quiet when you talk about an attractive coworker. What do you do first?",
+    "tr": "Çekici bir iş arkadaşından bahsedince partnerin sessizleşiyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_013_q03",
+    "en": "A friend criticizes your dating choices in front of others. How would you handle it?",
+    "tr": "Bir arkadaşın başkalarının önünde flört seçimlerini eleştiriyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_013_q04",
+    "en": "Someone you're seeing compares your style to their friends' partners. What feels closest to you?",
+    "tr": "Görüştüğün kişi tarzını arkadaşlarının partnerleriyle kıyaslıyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_013_q05",
+    "en": "They joke that you're \"too intense\" after you shared excitement. What would you be most likely to do?",
+    "tr": "Heyecanını paylaşınca \"çok yoğunsun\" diye şaka yapıyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_013_q06",
+    "en": "Your date rolls their eyes when you set a boundary about late plans. How do you respond?",
+    "tr": "Geç planlar hakkında sınır koyunca buluşman gözlerini deviriyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_013_q07",
+    "en": "Someone close says you overthink every message. What do you do first?",
+    "tr": "Yakın birinin her mesajı aşırı düşündüğünü söylemesi. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_013_q08",
+    "en": "They criticize how you handled a group dinner. How would you handle it?",
+    "tr": "Grup yemeğini nasıl yönettiğini eleştiriyorlar. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_013_q09",
+    "en": "A family member questions whether this person is \"serious enough\". What feels closest to you?",
+    "tr": "Bir aile üyesi bu kişinin yeterince ciddi olup olmadığını sorguluyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_013_q10",
+    "en": "Your match teases you for wanting clarity too early. What would you be most likely to do?",
+    "tr": "Eşleşmen çok erken netlik istediğin için takılıyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_014_q01",
+    "en": "They apologize twice after missing your call without explaining why. How do you respond?",
+    "tr": "Nedenini açıklamadan aramanı kaçırınca iki kez özür diliyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_014_q02",
+    "en": "Someone you're seeing says sorry for being distant but keeps repeating it. What do you do first?",
+    "tr": "Görüştüğün kişi mesafeli olduğu için özür diliyor ama tekrarlıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_014_q03",
+    "en": "Your partner apologizes quickly then expects everything to feel fine. How would you handle it?",
+    "tr": "Partnerin hızlı özür dileyip her şeyin düzelmiş olmasını bekliyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_014_q04",
+    "en": "A friend keeps apologizing for canceling but offers no new plan. What feels closest to you?",
+    "tr": "İptal için özür dileyen arkadaşın yeni plan önermiyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_014_q05",
+    "en": "They send three apology texts after you replied late once. What would you be most likely to do?",
+    "tr": "Bir kez geç yanıtlayınca üç özür mesajı atıyorlar. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_014_q06",
+    "en": "Someone new apologizes for a harsh tone but doesn't ask how you felt. How do you respond?",
+    "tr": "Yeni biri sert tonu için özür diliyor ama senin nasıl hissettiğini sormuyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_014_q07",
+    "en": "Your date apologizes in a joke so the moment stays light. What do you do first?",
+    "tr": "Buluşman anı hafif tutmak için şaka gibi özür diliyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_014_q08",
+    "en": "They say \"my bad\" and move on after forgetting something important to you. How would you handle it?",
+    "tr": "Senin için önemli bir şeyi unutup \"hata bende\" deyip geçiyorlar. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_014_q09",
+    "en": "A roommate apologizes for noise again with no change in behavior. What feels closest to you?",
+    "tr": "Ev arkadaşın gürültü için yine özür diliyor ama davranış değişmiyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_014_q10",
+    "en": "Someone you like apologizes for mixed signals then sends another one. What would you be most likely to do?",
+    "tr": "Hoşlandığın kişi karışık sinyaller için özür dileyip yine karışık yazıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_015_q01",
+    "en": "They switch tonight's plan to \"maybe later\" after you already left home. How do you respond?",
+    "tr": "Sen evden çıktıktan sonra bu akşamki planı \"belki sonra\"ya çeviriyorlar. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_015_q02",
+    "en": "Your match keeps your chat warm but never suggests meeting. What do you do first?",
+    "tr": "Eşleşmen sohbeti sıcak tutuyor ama hiç buluşma önermiyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_015_q03",
+    "en": "Someone you're dating cancels and offers a vague \"soon\" instead. How would you handle it?",
+    "tr": "Görüştüğün kişi iptal edip belirsiz bir \"yakında\" öneriyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_015_q04",
+    "en": "They appear active online but ignore a plan-related question. What feels closest to you?",
+    "tr": "Çevrimiçi aktif görünüyorlar ama planla ilgili sorunu görmezden geliyorlar. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_015_q05",
+    "en": "A friend changes weekend plans after you rearranged your schedule. What would you be most likely to do?",
+    "tr": "Programını ayarladıktan sonra arkadaşın hafta sonu planını değiştiriyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_015_q06",
+    "en": "Your partner invites others to a date you thought was private. How do you respond?",
+    "tr": "Partnerin özel sandığın buluşmaya başkalarını da davet ediyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_015_q07",
+    "en": "Someone new keeps saying they're free then disappears for days. What do you do first?",
+    "tr": "Yeni biri müsaitim deyip günlerce kayboluyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_015_q08",
+    "en": "They leave a group decision hanging while everyone waits on you both. How would you handle it?",
+    "tr": "Herkes ikinizi beklerken grup kararını askıda bırakıyorlar. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_015_q09",
+    "en": "An online match asks deep questions but avoids sharing similarly. What feels closest to you?",
+    "tr": "Online eşleşmen derin sorular soruyor ama kendisi aynı açıklığı göstermiyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_015_q10",
+    "en": "They change the restaurant last minute without checking your preference. What would you be most likely to do?",
+    "tr": "Tercihine bakmadan restoranı son dakika değiştiriyorlar. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_016_q01",
+    "en": "They share a personal win and watch your face carefully. How do you respond?",
+    "tr": "Kişisel bir başarısını anlatıp yüz ifadeni dikkatle izliyorlar. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_016_q02",
+    "en": "Someone you're seeing tells you they got the job they wanted. What do you do first?",
+    "tr": "Görüştüğün kişi istediği işi aldığını söylüyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_016_q03",
+    "en": "Your friend opens up about finally leaving a draining situation. How would you handle it?",
+    "tr": "Arkadaşın yoran bir durumdan sonunda çıktığını anlatıyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_016_q04",
+    "en": "They share creative work and wait for your honest reaction. What feels closest to you?",
+    "tr": "Yaratıcı işlerini paylaşıp dürüst tepkini bekliyorlar. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_016_q05",
+    "en": "Your partner tells you they handled a hard conversation well. What would you be most likely to do?",
+    "tr": "Partnerin zor bir konuşmayı iyi yönettiğini anlatıyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_016_q06",
+    "en": "Someone new shares a family milestone and seems nervous. How do you respond?",
+    "tr": "Yeni biri aileyle ilgili bir dönüm noktasını heyecanlı ama gergin paylaşıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_016_q07",
+    "en": "They tell you about a health scare that turned out okay. What do you do first?",
+    "tr": "Sonunda iyi biten bir sağlık korkusunu anlatıyorlar. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_016_q08",
+    "en": "A coworker you trust shares a promotion they haven't announced yet. How would you handle it?",
+    "tr": "Güvendiğin iş arkadaşın henüz duyurmadığı terfisini paylaşıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_016_q09",
+    "en": "Your roommate excitedly shows you a personal project. What feels closest to you?",
+    "tr": "Ev arkadaşın heyecanla kişisel projesini gösteriyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_016_q10",
+    "en": "Someone you like shares soft news and asks if you have time to hear it. What would you be most likely to do?",
+    "tr": "Hoşlandığın kişi yumuşak bir haberi anlatmak için vaktin var mı diye soruyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_017_q01",
+    "en": "A friend asks you to take sides in their argument with someone you also like. How do you respond?",
+    "tr": "Bir arkadaşın, sevdiğin başka biriyle tartışmasında taraf tutmanı istiyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_017_q02",
+    "en": "Your family questions your dating pace at dinner. What do you do first?",
+    "tr": "Ailen yemekte flört temposunu sorguluyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_017_q03",
+    "en": "Someone you're seeing wants access to your phone \"just for fun\". How would you handle it?",
+    "tr": "Görüştüğün kişi \"şaka olsun\" diye telefonuna bakmak istiyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_017_q04",
+    "en": "A friend repeatedly borrows money and treats it casually. What feels closest to you?",
+    "tr": "Bir arkadaşın sürekli borç alıp bunu hafife alıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_017_q05",
+    "en": "Your partner jokes about reading your private messages. What would you be most likely to do?",
+    "tr": "Partnerin özel mesajlarını okumak hakkında şaka yapıyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_017_q06",
+    "en": "Someone new pressures you to post about them online. How do you respond?",
+    "tr": "Yeni biri hakkında paylaşım yapman için baskı kuruyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_017_q07",
+    "en": "They want you to cancel a friends night for an unplanned hangout. What do you do first?",
+    "tr": "Plansız bir buluşma için arkadaş geceni iptal etmeni istiyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_017_q08",
+    "en": "A relative comments on your relationship status in a group chat. How would you handle it?",
+    "tr": "Bir akraban grup sohbetinde ilişki durumun hakkında yorum yapıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_017_q09",
+    "en": "Your match asks for exclusivity before you've met many times. What feels closest to you?",
+    "tr": "Eşleşmen birkaç kez buluşmadan özel olmayı istiyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_017_q10",
+    "en": "Someone close ignores a boundary you clearly stated last week. What would you be most likely to do?",
+    "tr": "Yakın biri geçen hafta net koyduğun sınırı yok sayıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_018_q01",
+    "en": "They say your joke in chat sounded cold even though you meant warmth. How do you respond?",
+    "tr": "Sıcak niyetli şakan sohbette soğuk gelmiş. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_018_q02",
+    "en": "Someone you're dating misreads a delayed reply as losing interest. What do you do first?",
+    "tr": "Görüştüğün kişi geç yanıtı ilginin azalması sanıyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_018_q03",
+    "en": "Your partner says you sounded annoyed when you were just tired. How would you handle it?",
+    "tr": "Partnerin yorgun olduğunu fark etmeyip sinirli sandığını söylüyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_018_q04",
+    "en": "A friend thinks your short reply meant you were mad. What feels closest to you?",
+    "tr": "Arkadaşın kısa yanıtını kızgınlık sanıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_018_q05",
+    "en": "They correct your story in front of friends mid-conversation. What would you be most likely to do?",
+    "tr": "Arkadaşların önünde hikâyeni yarıda düzeltmeye kalkıyorlar. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_018_q06",
+    "en": "Someone new says your honesty felt harsh. How do you respond?",
+    "tr": "Yeni biri dürüstlüğünün sert geldiğini söylüyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_018_q07",
+    "en": "Your date asks why you text less on busy weekdays. What do you do first?",
+    "tr": "Buluşman yoğun hafta içlerinde neden daha az yazdığını soruyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_018_q08",
+    "en": "They say you \"always\" do something after one recent slip. How would you handle it?",
+    "tr": "Tek bir aksilikten sonra \"hep böyle yapıyorsun\" diyorlar. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_018_q09",
+    "en": "A coworker you socialize with says you interrupted them earlier. What feels closest to you?",
+    "tr": "Sosyalleştiğin iş arkadaşın daha önce sözünü kestiğini söylüyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_018_q10",
+    "en": "Someone you like says they felt dismissed when you multitasked. What would you be most likely to do?",
+    "tr": "Hoşlandığın kişi sen başka işle uğraşırken geçiştirildiğini hissettiğini söylüyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_019_q01",
+    "en": "They cut in while you're sharing something vulnerable. How do you respond?",
+    "tr": "Kırılgan bir şey anlatırken sözünü kesiyorlar. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_019_q02",
+    "en": "Someone you're seeing finishes your sentence incorrectly. What do you do first?",
+    "tr": "Görüştüğün kişi cümleni yanlış tamamlıyor. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_019_q03",
+    "en": "Your partner jumps to solutions before you finish the story. How would you handle it?",
+    "tr": "Partnerin hikâyeyi bitirmeden çözüme atlıyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_019_q04",
+    "en": "A friend interrupts your personal update with their own news. What feels closest to you?",
+    "tr": "Arkadaşın kişisel güncellemeni kendi haberiyle kesiyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_019_q05",
+    "en": "They talk over you when you're explaining a boundary. What would you be most likely to do?",
+    "tr": "Sınır açıklarken üzerine konuşuyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_019_q06",
+    "en": "Someone new checks their phone while you open up. How do you respond?",
+    "tr": "Yeni biri sen açılırken telefonuna bakıyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_019_q07",
+    "en": "Your date interrupts to debate a small detail of your story. What do you do first?",
+    "tr": "Buluşman hikâyendeki küçük bir detayı tartışmak için araya giriyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_019_q08",
+    "en": "They redirect your serious share into advice mode too fast. How would you handle it?",
+    "tr": "Ciddi paylaşımını çok hızlı tavsiye moduna çeviriyorlar. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_019_q09",
+    "en": "A roommate cuts you off while you're asking for a house agreement. What feels closest to you?",
+    "tr": "Ev kuralı isterken ev arkadaşın sözünü kesiyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_019_q10",
+    "en": "Someone close interrupts and says they already know what you'll say. What would you be most likely to do?",
+    "tr": "Yakın biri araya girip ne diyeceğini bildiğini söylüyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_020_q01",
+    "en": "They say they \"forgot\" a plan that mattered to you. How do you respond?",
+    "tr": "Senin için önemli bir planı \"unuttum\" diyorlar. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_020_q02",
+    "en": "Your match keeps warm chat energy but cancels first meets twice. What do you do first?",
+    "tr": "Eşleşmen sohbeti sıcak tutuyor ama ilk buluşmayı iki kez iptal ediyor. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_020_q03",
+    "en": "Someone you're dating says they need more time before introducing you socially. How would you handle it?",
+    "tr": "Görüştüğün kişi seni sosyal çevresine tanıtmadan önce zamana ihtiyaç duyuyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_020_q04",
+    "en": "They celebrate with others first and tell you later. What feels closest to you?",
+    "tr": "Önce başkalarıyla kutlayıp sana sonra anlatıyorlar. Bunu nasıl ele alırsın?"
+  },
+  {
+    "id": "eq_set_020_q05",
+    "en": "A friend chooses a group hangout over the one-on-one you planned. What would you be most likely to do?",
+    "tr": "Arkadaşın planladığınız bire bir yerine grup buluşmasını seçiyor. Ne yaparsın?"
+  },
+  {
+    "id": "eq_set_020_q06",
+    "en": "Your partner delays a promised conversation again. How do you respond?",
+    "tr": "Partnerin söz verdiği konuşmayı yine erteliyor. Hangi yaklaşım sana daha yakın?"
+  },
+  {
+    "id": "eq_set_020_q07",
+    "en": "Someone new says they're \"bad at consistency\" after going quiet. What do you do first?",
+    "tr": "Yeni biri sessiz kaldıktan sonra \"istikrarda kötüyüm\" diyor. Nasıl karşılık verirsin?"
+  },
+  {
+    "id": "eq_set_020_q08",
+    "en": "They want to keep options open while asking for more of your time. How would you handle it?",
+    "tr": "Senin daha çok zamanını isterken seçeneklerini açık tutmak istiyorlar. İlk tepkin ne olur?"
+  },
+  {
+    "id": "eq_set_020_q09",
+    "en": "An online match asks for photos before agreeing to meet safely. What feels closest to you?",
+    "tr": "Online eşleşmen güvenli buluşmadan önce fotoğraf istiyor. Nasıl yaklaşırsın?"
+  },
+  {
+    "id": "eq_set_020_q10",
+    "en": "Someone you like says they care but keeps the connection undefined on purpose. What would you be most likely to do?",
+    "tr": "Hoşlandığın kişi önemsediğini söyleyip bağın tanımsız kalmasını bilinçli sürdürüyor. Bunu nasıl ele alırsın?"
+  }
+]

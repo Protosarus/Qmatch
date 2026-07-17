@@ -1,0 +1,72 @@
+[
+  {
+    "id": "iq_1",
+    "question": "What comes next in the sequence?\n2, 4, 8, 16, ?",
+    "options": ["24", "32", "20", "28"],
+    "correctAnswer": 1,
+    "difficulty": 1
+  },
+  {
+    "id": "iq_2",
+    "question": "Complete the pattern:\n⬛ ⬜ ⬛ ⬜ ⬛ ?",
+    "options": ["⬛", "⬜", "⬛⬜", "⬜⬛"],
+    "correctAnswer": 1,
+    "difficulty": 1
+  },
+  {
+    "id": "iq_3",
+    "question": "Which figure completes the pattern?\n\nRow 1:  —  ::  ✕\nRow 2:  /   /   ?\nRow 3:  /   /   _",
+    "options": ["/", "—", "✕", "+"],
+    "correctAnswer": 2,
+    "difficulty": 3
+  },
+  {
+    "id": "iq_4",
+    "question": "Complete the sequence:\n△ ○ △ ○ △ ?",
+    "options": ["△", "○", "□", "◇"],
+    "correctAnswer": 1,
+    "difficulty": 1
+  },
+  {
+    "id": "iq_5",
+    "question": "Which shape doesn't belong?\n🔴 🔵 🟡 ⬜ 🟢",
+    "options": ["🔴", "⬜", "🟡", "🟢"],
+    "correctAnswer": 1,
+    "difficulty": 2
+  },
+  {
+    "id": "iq_6",
+    "question": "Pattern recognition:\n★ ★ ☆ ★ ★ ☆ ★ ?",
+    "options": ["★", "☆", "★★", "☆☆"],
+    "correctAnswer": 0,
+    "difficulty": 2
+  },
+  {
+    "id": "iq_7",
+    "question": "If 5 + 3 = 28, 9 + 1 = 810, 8 + 6 = 214, then 5 + 4 = ?",
+    "options": ["19", "91", "20", "14"],
+    "correctAnswer": 0,
+    "difficulty": 4
+  },
+  {
+    "id": "iq_8",
+    "question": "Complete the triangle:\n🔺🔺🔺\n🔺🔺 _\n🔺 _ _",
+    "options": ["🔺", "🔻", "⬛", "⬜"],
+    "correctAnswer": 0,
+    "difficulty": 2
+  },
+  {
+    "id": "iq_9",
+    "question": "What is the missing number?\n8, 15, 29, 57, ?",
+    "options": ["113", "115", "111", "109"],
+    "correctAnswer": 0,
+    "difficulty": 4
+  },
+  {
+    "id": "iq_10",
+    "question": "Which number doesn't belong?\n2, 3, 6, 7, 8, 14, 15",
+    "options": ["3", "6", "8", "15"],
+    "correctAnswer": 2,
+    "difficulty": 3
+  }
+]

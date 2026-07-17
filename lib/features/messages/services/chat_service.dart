@@ -1,0 +1,189 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../core/utils/firestore_paths.dart';
+import '../models/chat_thread_model.dart';
+import '../models/message_model.dart';
+
+class ChatService {
+  final FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+
+  ChatService({
+    FirebaseAuth? auth,
+    FirebaseFirestore? firestore,
+  })  : _auth = auth ?? FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance;
+
+  Stream<List<ChatThreadModel>> getMyThreadsStream() {
+    final me = _auth.currentUser;
+    if (me == null) {
+      return Stream<List<ChatThreadModel>>.error(
+        StateError('User is not authenticated.'),
+      );
+    }
+
+    return FirestorePaths.threads()
+        .where('participants', arrayContains: me.uid)
+        .snapshots()
+        .map((snapshot) {
+          final threads = snapshot.docs
+              .map((d) => ChatThreadModel.fromFirestore(d.id, d.data()))
+              .where((t) => t.status == ThreadStatus.active)
+              .toList();
+
+          threads.sort((a, b) {
+            final aTs = a.lastMessageAt?.millisecondsSinceEpoch ?? 0;
+            final bTs = b.lastMessageAt?.millisecondsSinceEpoch ?? 0;
+            return bTs.compareTo(aTs);
+          });
+
+          return threads;
+        });
+  }
+
+  Future<ChatThreadModel?> getThreadById(String threadId) async {
+    final doc = await FirestorePaths.threadDoc(threadId).get();
+    final data = doc.data();
+    if (!doc.exists || data == null) return null;
+    return ChatThreadModel.fromFirestore(threadId, data);
+  }
+
+  Future<Map<String, dynamic>?> getUserPublicProfile(String uid) async {
+    final doc = await FirestorePaths.userDoc(uid).get();
+    final data = doc.data();
+    if (data == null) return null;
+
+    return {
+      'uid': uid,
+      'name': data['name'],
+      'age': data['age'],
+      'archetype': data['archetype'],
+      'category': data['category'],
+      'profile_photo_url': data['profile_photo_url'],
+      'photos': data['photos'],
+    };
+  }
+
+  String getOtherParticipantId(ChatThreadModel thread, String currentUid) {
+    if (thread.participants.length < 2) {
+      throw StateError('Invalid thread participants.');
+    }
+    for (final p in thread.participants) {
+      if (p != currentUid) return p;
+    }
+    throw StateError('Invalid thread participants.');
+  }
+
+  /// Realtime messages for [threadId], ordered by [client_created_at] ascending (MVP stable ordering).
+  Stream<List<MessageModel>> getMessagesStream(String threadId) async* {
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+
+    final thread = await getThreadById(threadId);
+    if (thread == null) {
+      throw StateError('Thread not found.');
+    }
+    if (!thread.participants.contains(me.uid)) {
+      throw StateError('Current user is not a participant of this thread.');
+    }
+    if (thread.status != ThreadStatus.active) {
+      throw StateError('This conversation is closed.');
+    }
+
+    yield* FirestorePaths.threadMessages(threadId)
+        .orderBy('client_created_at', descending: false)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.docs
+              .map((d) => MessageModel.fromFirestore(d.id, d.data()))
+              .toList(),
+        );
+  }
+
+  Future<void> sendTextMessage(String threadId, String text) async {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) {
+      throw StateError('Message cannot be empty.');
+    }
+
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+
+    final threadSnap = await FirestorePaths.threadDoc(threadId).get();
+    final threadData = threadSnap.data();
+    if (!threadSnap.exists || threadData == null) {
+      throw StateError('Thread not found.');
+    }
+
+    final thread = ChatThreadModel.fromFirestore(threadId, threadData);
+    if (!thread.participants.contains(me.uid)) {
+      throw StateError('Current user is not a participant of this thread.');
+    }
+    if (thread.status != ThreadStatus.active) {
+      throw StateError('This conversation is closed.');
+    }
+
+    final otherUid = thread.participants.firstWhere(
+      (id) => id != me.uid,
+      orElse: () => '',
+    );
+    if (otherUid.isEmpty) {
+      throw StateError('Invalid thread participants.');
+    }
+
+    final preview = trimmed.length > 80 ? trimmed.substring(0, 80) : trimmed;
+    final msgRef = FirestorePaths.threadMessages(threadId).doc();
+    final threadRef = FirestorePaths.threadDoc(threadId);
+
+    final batch = _firestore.batch();
+    batch.set(msgRef, {
+      'thread_id': threadId,
+      'sender_id': me.uid,
+      'type': 'text',
+      'text': trimmed,
+      'created_at': FieldValue.serverTimestamp(),
+      'client_created_at': DateTime.now().millisecondsSinceEpoch,
+      'read_by': {
+        me.uid: FieldValue.serverTimestamp(),
+      },
+      'moderation': null,
+    });
+
+    batch.update(threadRef, {
+      'last_message_at': FieldValue.serverTimestamp(),
+      'last_message_preview': preview,
+      'last_message_sender': me.uid,
+      'unread_counts.${me.uid}': 0,
+      'unread_counts.$otherUid': FieldValue.increment(1),
+      // MVP counters for reveal progression (safe on old threads: increments create fields).
+      'text_count_total': FieldValue.increment(1),
+      'text_count_by_uid.${me.uid}': FieldValue.increment(1),
+    });
+
+    await batch.commit();
+  }
+
+  Future<void> markThreadAsRead(String threadId) async {
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+
+    final thread = await getThreadById(threadId);
+    if (thread == null) {
+      throw StateError('Thread not found.');
+    }
+    if (!thread.participants.contains(me.uid)) {
+      throw StateError('Current user is not a participant of this thread.');
+    }
+
+    await FirestorePaths.threadDoc(threadId).update({
+      'unread_counts.${me.uid}': 0,
+    });
+  }
+}

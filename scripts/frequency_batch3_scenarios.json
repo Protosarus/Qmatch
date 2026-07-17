@@ -1,0 +1,602 @@
+[
+  {
+    "id": "frequency_set_021_q01",
+    "en": "Open talk about boundaries and comfort pushes me to go deeper. Light chat alone is a weak fit signal.",
+    "tr": "Sınırlar ve konfor hakkında açık konuşma daha derine gitmeme yardım eder. Hafif sohbet tek başına zayıf uyum sinyalidir."
+  },
+  {
+    "id": "frequency_set_021_q02",
+    "en": "Values showing up in conversation reveal chemistry more than weekend plans alone. Overly generic talk hides sincerity.",
+    "tr": "Sohbette değerlerin görünmesi, yalnızca hafta sonu planından çok çekimi gösterir. Çok genel konuşma samimiyeti gizler."
+  },
+  {
+    "id": "frequency_set_021_q03",
+    "en": "Vivid storytelling works when it invites dialogue, not a monologue. Endless high stimulation tires me out.",
+    "tr": "Canlı anlatım monolog değil diyalog davet edince işe yarar. Bitmeyen yüksek uyaran beni yorar."
+  },
+  {
+    "id": "frequency_set_021_q04",
+    "en": "Conversation that flows without perfect restraint brings me alive. Nonstop hype leaves me flat afterward.",
+    "tr": "Kusursuz kısıtlama olmadan akan sohbet beni canlandırır. Durmayan hype sonrasında boşluk bırakır."
+  },
+  {
+    "id": "frequency_set_021_q05",
+    "en": "A twist in plans without pressure sparks interest. Steady deepening beats overnight intensity spikes.",
+    "tr": "Baskısız bir plan sapması ilgi uyandırır. Yavaş derinleşme bir gecelik yoğunluk sıçramasından iyidir."
+  },
+  {
+    "id": "frequency_set_021_q06",
+    "en": "Last-minute ideas work when they respect my energy. Warmth holds better when nobody forces the pace.",
+    "tr": "Enerjime saygı duyunca son dakika fikirleri işe yarar. Tempo zorlanmadan sıcaklık daha iyi tutar."
+  },
+  {
+    "id": "frequency_set_021_q07",
+    "en": "Affection used as leverage makes me less steady. Unrepaired chaos shrinks trust over time.",
+    "tr": "Şefkat kaldıraç olunca dengem bozulur. Onarımsız kaos zamanla güveni küçültür."
+  },
+  {
+    "id": "frequency_set_021_q08",
+    "en": "Showing up emotionally and practically matters more than grand gestures alone. Missing repair after conflict erodes safety.",
+    "tr": "Yalnızca büyük jestlerden çok duygusal ve pratik olarak orada olmak önemli. Çatışma sonrası onarım yoksa güvenlik erir."
+  },
+  {
+    "id": "frequency_set_021_q09",
+    "en": "Kind requests for clarification get a warm reply. Sharing stays paced until care looks mutual.",
+    "tr": "Nazik netleştirme istekleri sıcak yanıt alır. İlgi karşılıklı görünene kadar paylaşım tempolu kalır."
+  },
+  {
+    "id": "frequency_set_021_q10",
+    "en": "Kind sharing of insecurity gets a caring response. Feelings sometimes wait before becoming words.",
+    "tr": "Nazikçe paylaşılan güvensizlik özenli yanıt alır. Duygular bazen kelime olmadan önce bekler."
+  },
+  {
+    "id": "frequency_set_021_q11",
+    "en": "Async closeness works when trust is already there. All-day texting every day is not my usual tempo.",
+    "tr": "Güven varken zamana yayılan yakınlık işe yarar. Her gün gün boyu yazışmak tipik tempom değil."
+  },
+  {
+    "id": "frequency_set_021_q12",
+    "en": "Voice notes help when nuance matters. Constant daily chat is not my default pace.",
+    "tr": "Nüans önemliyken sesli mesajlar yardım eder. Sürekli günlük sohbet varsayılan tempom değil."
+  },
+  {
+    "id": "frequency_set_022_q01",
+    "en": "Questions about how I'm processing land better than day-recaps alone. Shallow updates rarely show real compatibility.",
+    "tr": "Gün özetinden çok nasıl işlediğimi soran sorular daha iyi oturur. Yüzeysel güncellemeler gerçek uyumu nadiren gösterir."
+  },
+  {
+    "id": "frequency_set_022_q02",
+    "en": "Meaningful dialogue reveals compatibility beyond surface charm. Without substance, early chemistry stays fuzzy.",
+    "tr": "Anlamlı diyalog yüzey cazibesinin ötesinde uyumu gösterir. Öz olmadan erken çekim bulanık kalır."
+  },
+  {
+    "id": "frequency_set_022_q03",
+    "en": "Clear enthusiasm when initiating plans draws a yes from me. Too much stimulation drains energy fast.",
+    "tr": "Plan başlatırken net coşku benden evet alır. Fazla uyaran enerjiyi çabuk tüketir."
+  },
+  {
+    "id": "frequency_set_022_q04",
+    "en": "Inviting social warmth works better than performative warmth. Always-loud or rushed rooms wear me down.",
+    "tr": "Gösterişli sıcaklıktan çok davetkâr sosyal sıcaklık işe yarar. Hep gürültülü veya aceleye dayalı ortamlar yorar."
+  },
+  {
+    "id": "frequency_set_022_q05",
+    "en": "Fluid evenings without rigid itineraries work well. Gradual attraction holds better than instant heat.",
+    "tr": "Katı program olmadan akan akşamlar iyi gider. Kademeli çekim anlık ısıdan daha sağlam."
+  },
+  {
+    "id": "frequency_set_022_q06",
+    "en": "Changing plans is fine when communication stays clear. Paced closeness is more reliable than sudden spikes.",
+    "tr": "İletişim net kalınca plan değiştirmek sorun olmaz. Tempolu yakınlık ani sıçramalardan daha güvenilir."
+  },
+  {
+    "id": "frequency_set_022_q07",
+    "en": "Calm reassurance during stressful weeks helps me settle. Unresolved mess drains trust.",
+    "tr": "Stresli haftalarda sakin güvence beni rahatlatır. Çözülmeyen dağınıklık güveni tüketir."
+  },
+  {
+    "id": "frequency_set_022_q08",
+    "en": "Texts that vanish for days without context shake trust. Careless last-minute cancels unsettle me.",
+    "tr": "Bağlam olmadan günlerce kaybolan mesajlar güveni sarsar. Özenden yoksun son dakika iptalleri huzursuz eder."
+  },
+  {
+    "id": "frequency_set_022_q09",
+    "en": "Disappointment can be named without contempt. Vulnerability opens more once care is two-way.",
+    "tr": "Hayal kırıklığı küçümseme olmadan söylenebilir. Özen iki taraflı olunca kırılganlık daha açılır."
+  },
+  {
+    "id": "frequency_set_022_q10",
+    "en": "Jealousy can be treated as information, not a verdict. Openness increases when mutual care shows.",
+    "tr": "Kıskançlık hüküm değil bilgi olarak ele alınabilir. Karşılıklı özen görünce açıklık artar."
+  },
+  {
+    "id": "frequency_set_022_q11",
+    "en": "Spoken appreciation lands more clearly than implied praise. Wall-to-wall daily messaging is outside my normal.",
+    "tr": "İma edilen övgüden çok sözlü takdir daha net oturur. Duvar gibi günlük mesajlaşma normalimin dışında."
+  },
+  {
+    "id": "frequency_set_022_q12",
+    "en": "Mutual messaging matters more than perfect hourly balance. Monitoring-style contact puts me on guard.",
+    "tr": "Her saat kusursuz dengeden çok karşılıklı mesajlaşma önemli. İzleme tarzı temas beni tetikte tutar."
+  },
+  {
+    "id": "frequency_set_023_q01",
+    "en": "Room for mixed feelings in conversation helps me feel seen. Polite chatter alone leaves fit unclear.",
+    "tr": "Sohbette karışık duygulara yer olması görülmüş hissettirir. Yalnızca kibar muhabbet uyumu belirsiz bırakır."
+  },
+  {
+    "id": "frequency_set_023_q02",
+    "en": "Skipping rehearsed small talk for real motives refreshes a date. Rushing topics makes honesty harder to notice.",
+    "tr": "Ezber sohbeti atlayıp gerçek motivasyonlara geçmek buluşmayı yeniler. Konuları acele geçmek dürüstlüğü zorlaştırır."
+  },
+  {
+    "id": "frequency_set_023_q03",
+    "en": "Steady texting energy works better than constant ping-pong. Constant noise costs more than it gives.",
+    "tr": "Sürekli masa tenisi gibi değil, dengeli mesaj enerjisi daha iyi gelir. Sürekli gürültü verdiğinden fazlasına mal olur."
+  },
+  {
+    "id": "frequency_set_023_q04",
+    "en": "Lively back-and-forth works when respect stays intact. All-night intensity usually overshoots.",
+    "tr": "Saygı duruyorsa canlı al-ver işe yarar. Gece boyu yoğunluk çoğu zaman fazla kaçar."
+  },
+  {
+    "id": "frequency_set_023_q05",
+    "en": "Changing venues mid-plan is fine when the mood shifts naturally. Overnight intensity is less steady than gradual growth.",
+    "tr": "Ruh hali doğal değişince mekân değiştirmek sorun olmaz. Bir gecelik yoğunluk kademeli büyümeden az dengeli."
+  },
+  {
+    "id": "frequency_set_023_q06",
+    "en": "Flexibility that signals curiosity, not chaos, works for me. Affection lands better without force.",
+    "tr": "Kaos değil merak gösteren esneklik işe yarar. Zorlama olmadan ilgi daha iyi oturur."
+  },
+  {
+    "id": "frequency_set_023_q07",
+    "en": "Consistent investment from both sides helps, even if not perfect daily. Chaos without repair makes safety hard to keep.",
+    "tr": "Her gün kusursuz olmasa da iki taraftan tutarlı emek yardım eder. Onarımsız kaos güvenliği korumayı zorlaştırır."
+  },
+  {
+    "id": "frequency_set_023_q08",
+    "en": "Predictable kindness matters as much as romantic peaks. Safety drops when chaos never gets repaired.",
+    "tr": "Öngörülebilir nezaket romantik zirveler kadar önemli. Kaos onarılmayınca güvenlik düşer."
+  },
+  {
+    "id": "frequency_set_023_q09",
+    "en": "Curiosity about how someone defines emotional safety comes easily. Careful pacing helps until reciprocity shows up.",
+    "tr": "Duygusal güvenliğin nasıl tanımlandığını merak etmek kolay gelir. Karşılıklılık belirene kadar temkinli tempo yardım eder."
+  },
+  {
+    "id": "frequency_set_023_q10",
+    "en": "Attachment fears can be discussed without shame. Words for feelings can arrive a beat later.",
+    "tr": "Bağlanma korkuları utanç olmadan konuşulabilir. Duygular için kelimeler biraz sonra gelebilir."
+  },
+  {
+    "id": "frequency_set_023_q11",
+    "en": "Mutual curiosity that survives ordinary weeks matters. Nonstop day-long texting is not how I usually connect.",
+    "tr": "Sıradan haftalarda da süren karşılıklı merak önemli. Durmayan gün boyu yazışma tipik bağ kurma biçimim değil."
+  },
+  {
+    "id": "frequency_set_023_q12",
+    "en": "Response delay gets noticed without becoming a verdict. Day-long messaging every day is not my baseline.",
+    "tr": "Yanıt gecikmesi fark edilir ama hüküm olmaz. Her gün uzun mesajlaşma temel tarzım değil."
+  },
+  {
+    "id": "frequency_set_024_q01",
+    "en": "Talking about what emotional safety looks like for each of us helps connection. Thin conversation rarely builds trust.",
+    "tr": "Duygusal güvenliğin her birimiz için ne demek olduğunu konuşmak bağa yardım eder. İnce sohbet nadiren güven kurar."
+  },
+  {
+    "id": "frequency_set_024_q02",
+    "en": "Moving past polite updates into what matters keeps me engaged. Light chat alone is a weak fit signal.",
+    "tr": "Kibar güncellemeleri geçip önemli olana gelmek ilgimi canlı tutar. Hafif sohbet tek başına zayıf uyum sinyalidir."
+  },
+  {
+    "id": "frequency_set_024_q03",
+    "en": "Social confidence paired with real attention draws me in. Endless high stimulation tires me out.",
+    "tr": "Gerçek dikkatle birleşen sosyal özgüven beni çeker. Bitmeyen yüksek uyaran beni yorar."
+  },
+  {
+    "id": "frequency_set_024_q04",
+    "en": "Playful teasing can build closeness while trust is forming. Crowded rushed energy depletes me.",
+    "tr": "Güven oluşurken şakacı takılmalar yakınlık kurabilir. Kalabalık ve aceleye dayalı enerji tüketir."
+  },
+  {
+    "id": "frequency_set_024_q05",
+    "en": "Spontaneity works when preparation is not ignored. Slow-building attraction sticks better.",
+    "tr": "Hazırlık yok sayılmayınca kendiliğindenlik işe yarar. Yavaş büyüyen çekim daha iyi tutar."
+  },
+  {
+    "id": "frequency_set_024_q06",
+    "en": "Impromptu outings feel romantic when the basics stay considered. Steady deepening beats overnight intensity spikes.",
+    "tr": "Temel özen duruyorsa ani çıkışlar romantik gelebilir. Yavaş derinleşme bir gecelik yoğunluk sıçramasından iyidir."
+  },
+  {
+    "id": "frequency_set_024_q07",
+    "en": "Clear updates about travel, work, or low-energy stretches build trust. Unrepaired chaos shrinks trust over time.",
+    "tr": "Seyahat, iş veya düşük enerji dönemleri hakkında net bilgi güven kurar. Onarımsız kaos zamanla güveni küçültür."
+  },
+  {
+    "id": "frequency_set_024_q08",
+    "en": "Consistency makes vulnerability easier to open into. No-notice flaking shakes trust.",
+    "tr": "Tutarlılık kırılganlığa açılmayı kolaylaştırır. Habersiz vazgeçmeler güveni sarsar."
+  },
+  {
+    "id": "frequency_set_024_q09",
+    "en": "Money attitudes can be discussed without shame when timing fits. More sharing comes after mutual care is clear.",
+    "tr": "Zamanı doğruysa para yaklaşımları utanç olmadan konuşulabilir. Karşılıklı özen netleşince daha çok paylaşım gelir."
+  },
+  {
+    "id": "frequency_set_024_q10",
+    "en": "Honesty matters more than a polished image. Sharing stays paced until care looks mutual.",
+    "tr": "Cilalı imajdan çok dürüstlük önemli. İlgi karşılıklı görünene kadar paylaşım tempolu kalır."
+  },
+  {
+    "id": "frequency_set_024_q11",
+    "en": "Follow-through on \"talk tomorrow\" reassures me. All-day texting every day is not my usual tempo.",
+    "tr": "\"Yarın konuşuruz\" deyip gerçekten takip etmek rahatlatır. Her gün gün boyu yazışmak tipik tempom değil."
+  },
+  {
+    "id": "frequency_set_024_q12",
+    "en": "Simple predictable check-ins soothe more than surveillance-style contact. Surveillance-style messaging makes me pull back.",
+    "tr": "Basit öngörülebilir yoklamalar, gözetim tarzı temastan daha iyi gelir. Gözetim gibi mesajlaşma geri çekilmeme yol açar."
+  },
+  {
+    "id": "frequency_set_025_q01",
+    "en": "Curiosity grows better without rushing through dating checkpoints. Shallow updates rarely show real compatibility.",
+    "tr": "Flört adımlarını acele etmeden merak daha iyi büyür. Yüzeysel güncellemeler gerçek uyumu nadiren gösterir."
+  },
+  {
+    "id": "frequency_set_025_q02",
+    "en": "Attraction steers me toward substantive topics naturally. Skimming the surface leaves sincerity unclear.",
+    "tr": "Çekim doğal olarak içerikli konulara yöneltir. Yüzeyi sıyırmak samimiyeti belirsiz bırakır."
+  },
+  {
+    "id": "frequency_set_025_q03",
+    "en": "Novelty works when calm moments still exist. Nonstop hype leaves me flat afterward.",
+    "tr": "Sakin anlar duruyorsa yenilik işe yarar. Durmayan hype sonrasında boşluk bırakır."
+  },
+  {
+    "id": "frequency_set_025_q04",
+    "en": "Upbeat energy shows up on dates once comfort is there. Too much stimulation drains energy fast.",
+    "tr": "Rahat olunca buluşmalara canlı enerji gelir. Fazla uyaran enerjiyi çabuk tüketir."
+  },
+  {
+    "id": "frequency_set_025_q05",
+    "en": "Small thoughtful surprises interest me more than extreme ones. Gradual attraction holds better than instant heat.",
+    "tr": "Aşırı sürprizlerden çok küçük düşünceli olanlar ilgimi çeker. Kademeli çekim anlık ısıdan daha sağlam."
+  },
+  {
+    "id": "frequency_set_025_q06",
+    "en": "Unexpected plans work when they still feel considerate. Closeness sticks better when it accumulates gently.",
+    "tr": "Düşünceli kaldığı sürece beklenmedik planlar işe yarar. Yumuşak birikince yakınlık daha iyi yapışır."
+  },
+  {
+    "id": "frequency_set_025_q07",
+    "en": "Steady care that includes gentle initiation helps me settle. Missing repair after conflict erodes safety.",
+    "tr": "Nazik inisiyatif içeren istikrar beni rahatlatır. Çatışma sonrası onarım yoksa güvenlik erir."
+  },
+  {
+    "id": "frequency_set_025_q08",
+    "en": "Safety rises when plans and follow-through usually match. Unresolved mess drains trust.",
+    "tr": "Planlar ve takip genelde uyumluysa güvenlik artar. Çözülmeyen dağınıklık güveni tüketir."
+  },
+  {
+    "id": "frequency_set_025_q09",
+    "en": "Commitment fears can be named without panic framing. Vulnerability opens more once care is two-way.",
+    "tr": "Bağlanma korkuları panik çerçevesi olmadan söylenebilir. Özen iki taraflı olunca kırılganlık daha açılır."
+  },
+  {
+    "id": "frequency_set_025_q10",
+    "en": "Feelings can be named roughly even when wording is imperfect. Naming emotions can wait until readiness.",
+    "tr": "Kelimeler kusursuz olmasa da duygular kabaca adlandırılabilir. Duyguları adlandırmak hazır olana kadar bekleyebilir."
+  },
+  {
+    "id": "frequency_set_025_q11",
+    "en": "Communication that flexes in travel or busy weeks works better. Constant daily chat is not my default pace.",
+    "tr": "Seyahat veya yoğun haftalarda esneyen iletişim daha iyi gelir. Sürekli günlük sohbet varsayılan tempom değil."
+  },
+  {
+    "id": "frequency_set_025_q12",
+    "en": "Thoughtful messages matter more than constant ones when interest is real. Wall-to-wall daily messaging is outside my normal.",
+    "tr": "İlgi gerçekse düşünceli mesajlar sürekli olandan daha önemli. Duvar gibi günlük mesajlaşma normalimin dışında."
+  },
+  {
+    "id": "frequency_set_026_q01",
+    "en": "Substantive topics draw me in once attraction appears. Light banter is fun, yet depth signals fit more clearly.",
+    "tr": "Çekim oluşunca içerikli konular beni çeker. Hafif şaka keyifli olsa da uyumu derinlik daha net gösterir."
+  },
+  {
+    "id": "frequency_set_026_q02",
+    "en": "Curiosity without checkpoint racing works better. Banter can be enjoyable while depth still marks compatibility.",
+    "tr": "Kontrol noktası yarışı olmadan merak daha iyi işler. Şakalaşma keyifli olabilir ama uyumu yine derinlik işaret eder."
+  },
+  {
+    "id": "frequency_set_026_q03",
+    "en": "Comfortable dates bring out upbeat energy. Calm pockets still matter even when chemistry is strong.",
+    "tr": "Rahat buluşmalar canlı enerjiyi ortaya çıkarır. Çekim güçlü olsa da sakin aralıklar yine önemli."
+  },
+  {
+    "id": "frequency_set_026_q04",
+    "en": "Novelty that keeps calm moments intact works. Long high-stimulation stretches leave me needing quiet recovery.",
+    "tr": "Sakin anları koruyan yenilik işe yarar. Uzun yüksek uyaran dönemleri sessiz toparlanma ister."
+  },
+  {
+    "id": "frequency_set_026_q05",
+    "en": "Considerate unexpected plans work well. Quick intensity thrills yet unsettles without consistency beside it.",
+    "tr": "Düşünceli beklenmedik planlar iyi gider. Hızlı yoğunluk heyecan verir ama yanında tutarlılık yoksa huzursuz da eder."
+  },
+  {
+    "id": "frequency_set_026_q06",
+    "en": "Thoughtful micro-surprises keep early dating interesting. Sudden intensity can thrill and unsettle without consistency.",
+    "tr": "Düşünceli küçük sürprizler erken flörtü canlı tutar. Ani yoğunluk tutarlılık olmadan hem heyecanlandırır hem huzursuz eder."
+  },
+  {
+    "id": "frequency_set_026_q07",
+    "en": "Matched plans and follow-through raise safety. Mixed signals make staying open harder.",
+    "tr": "Uyumlu plan ve takip güvenliği yükseltir. Karışık sinyaller açık kalmayı zorlaştırır."
+  },
+  {
+    "id": "frequency_set_026_q08",
+    "en": "Gentle initiation inside steadiness nourishes connection. Wild unexplained swings in affection make me cautious.",
+    "tr": "İstikrar içinde nazik inisiyatif bağı besler. Açıklamasız sert şefkat salınımları temkinli yapar."
+  },
+  {
+    "id": "frequency_set_026_q09",
+    "en": "Rough naming of feelings is possible before perfect wording. Early disclosures stay selective and paced, not secretive.",
+    "tr": "Kusursuz kelime olmadan duyguları kabaca adlandırmak mümkün. Erken paylaşımlar gizli değil, seçici ve tempolu kalır."
+  },
+  {
+    "id": "frequency_set_026_q10",
+    "en": "Commitment fears can be named without panic. Not every emotion gets narrated instantly; context matters.",
+    "tr": "Bağlanma korkuları panik olmadan söylenebilir. Her duygu anında anlatılmaz; bağlam önemli."
+  },
+  {
+    "id": "frequency_set_026_q11",
+    "en": "Present thoughtful messages matter more than constant chat. Quiet stretches are fine without meaning withdrawal.",
+    "tr": "Sürekli sohbetten çok mevcut ve düşünceli mesajlar önemli. Sessiz aralıklar çekilme anlamına gelmeden sorun olmaz."
+  },
+  {
+    "id": "frequency_set_026_q12",
+    "en": "Flexible communication in busy or travel weeks helps. Rapid-fire daily texting expectations feel heavy.",
+    "tr": "Yoğun veya seyahat haftalarında esnek iletişim yardım eder. Her gün peş peşe mesaj beklentisi ağır gelir."
+  },
+  {
+    "id": "frequency_set_027_q01",
+    "en": "Sharing what actually matters past polite updates keeps me engaged. Fun small talk helps, but depth clarifies fit.",
+    "tr": "Kibar güncellemeleri geçip gerçekten önemli olanı paylaşmak ilgimi tutar. Eğlenceli küçük sohbet yardım eder ama uyumu derinlik netleştirir."
+  },
+  {
+    "id": "frequency_set_027_q02",
+    "en": "Defining emotional safety together helps connection. Skimming topics leaves emotional fit unclear.",
+    "tr": "Duygusal güvenliği birlikte tanımlamak bağa yardım eder. Konuları yüzeyden geçmek duygusal uyumu belirsiz bırakır."
+  },
+  {
+    "id": "frequency_set_027_q03",
+    "en": "Playful teasing builds closeness as trust forms. Quiet pockets still help when attraction runs high.",
+    "tr": "Güven oluşurken şakacı takılma yakınlık kurar. Çekim yüksekken de sessiz aralıklar yardım eder."
+  },
+  {
+    "id": "frequency_set_027_q04",
+    "en": "Social confidence with emotional attentiveness draws me in. Even strong chemistry needs calm windows.",
+    "tr": "Duygusal dikkatli sosyal özgüven beni çeker. Güçlü çekimde bile sakin pencereler gerekir."
+  },
+  {
+    "id": "frequency_set_027_q05",
+    "en": "Impromptu outings feel romantic when basics stay considered. Fast heat without consistency feels shaky.",
+    "tr": "Temel özen duruyorsa ani çıkışlar romantik gelebilir. Tutarlılık olmadan hızlı ısı sakat hissettirir."
+  },
+  {
+    "id": "frequency_set_027_q06",
+    "en": "Spontaneity that keeps preparation in the mix works better. Caution rises when chemistry outruns trust.",
+    "tr": "Hazırlığı tamamen silmeyen kendiliğindenlik daha iyi işler. Çekim güvenin önüne geçince temkin artar."
+  },
+  {
+    "id": "frequency_set_027_q07",
+    "en": "Consistency makes vulnerability easier. Unclear signals make openness harder to sustain.",
+    "tr": "Tutarlılık kırılganlığı kolaylaştırır. Belirsiz sinyaller açıklığı sürdürmeyi zorlaştırır."
+  },
+  {
+    "id": "frequency_set_027_q08",
+    "en": "Transparency about travel, work, or low energy builds safety. Confusing signals close me down faster.",
+    "tr": "Seyahat, iş veya düşük enerji hakkında şeffaflık güvenlik kurar. Kafa karıştıran sinyaller daha çabuk kapatır."
+  },
+  {
+    "id": "frequency_set_027_q09",
+    "en": "Honesty beats polished image management. Early sharing stays paced and selective, not hidden.",
+    "tr": "Cilalı imaj yönetiminden çok dürüstlük önemli. Erken paylaşım gizli değil, tempolu ve seçici kalır."
+  },
+  {
+    "id": "frequency_set_027_q10",
+    "en": "Money attitudes can be discussed without shame when timing fits. Instant emotion narration is not required; context matters.",
+    "tr": "Zamanı doğruysa para yaklaşımları utanç olmadan konuşulabilir. Anında duygu anlatımı şart değil; bağlam önemli."
+  },
+  {
+    "id": "frequency_set_027_q11",
+    "en": "Predictable gentle check-ins soothe more than surveillance. Quiet gaps can be normal without meaning pullback.",
+    "tr": "Öngörülebilir nazik yoklamalar gözetimden daha iyi gelir. Sessiz boşluklar geri çekilme demeden normal olabilir."
+  },
+  {
+    "id": "frequency_set_027_q12",
+    "en": "Follow-through on \"talk tomorrow\" reassures. Quiet days need not mean withdrawal.",
+    "tr": "\"Yarın konuşuruz\" takibi rahatlatır. Sessiz günler çekilme anlamına gelmek zorunda değil."
+  },
+  {
+    "id": "frequency_set_028_q01",
+    "en": "Skipping rehearsed chat for real motives refreshes a date. Fun small talk helps, but depth clarifies fit.",
+    "tr": "Ezber sohbeti atlayıp gerçek motivasyonlara geçmek buluşmayı yeniler. Eğlenceli küçük sohbet yardım eder ama uyumu derinlik netleştirir."
+  },
+  {
+    "id": "frequency_set_028_q02",
+    "en": "Acknowledging mixed feelings, not only certainty, helps me feel seen. Surface skimming leaves emotional match fuzzy.",
+    "tr": "Yalnızca kesinliği değil karışık duyguları da kabul etmek görülmüş hissettirir. Yüzeyi sıyırmak duygusal eşleşmeyi bulanık bırakır."
+  },
+  {
+    "id": "frequency_set_028_q03",
+    "en": "Respectful lively back-and-forth works. High chemistry still pairs well with calm breaks.",
+    "tr": "Saygılı canlı al-ver işe yarar. Yüksek çekim yine sakin molalarla iyi gider."
+  },
+  {
+    "id": "frequency_set_028_q04",
+    "en": "Steady texting energy beats constant ping-pong. Extended high stimulation pushes me toward quiet recovery.",
+    "tr": "Dengeli mesaj enerjisi sürekli masa tenisini geçer. Uzayan yüksek uyaran sessiz toparlanmaya iter."
+  },
+  {
+    "id": "frequency_set_028_q05",
+    "en": "Curiosity-signaling flexibility, not chaos, works. Intensity without steadiness beside it feels unstable.",
+    "tr": "Kaos değil merak gösteren esneklik işe yarar. Yanında istikrar olmayan yoğunluk dengesiz gelir."
+  },
+  {
+    "id": "frequency_set_028_q06",
+    "en": "Natural mood shifts can include a venue change. Thrill without consistency can also unsettle.",
+    "tr": "Doğal ruh hali değişiminde mekân değiştirmek sorun olmaz. Tutarlılık olmadan heyecan da huzursuz edebilir."
+  },
+  {
+    "id": "frequency_set_028_q07",
+    "en": "Predictable kindness matters as much as romantic peaks. Mixed cues make staying soft-hearted harder.",
+    "tr": "Öngörülebilir nezaket romantik zirveler kadar önemli. Karışık ipuçları yumuşak kalmayı zorlaştırır."
+  },
+  {
+    "id": "frequency_set_028_q08",
+    "en": "Consistent investment from both sides helps even without perfect daily balance. Sudden unexplained affection swings raise caution.",
+    "tr": "Her gün kusursuz eşit olmasa da iki taraftan tutarlı emek yardım eder. Ani açıklamasız şefkat salınımları temkini artırır."
+  },
+  {
+    "id": "frequency_set_028_q09",
+    "en": "Attachment fears can be discussed without shame. Early openness is paced, not secretive.",
+    "tr": "Bağlanma korkuları utanç olmadan konuşulabilir. Erken açıklık gizli değil, tempoludur."
+  },
+  {
+    "id": "frequency_set_028_q10",
+    "en": "Curiosity about someone's definition of emotional safety comes easily. Context matters before every feeling is narrated.",
+    "tr": "Duygusal güvenliğin nasıl tanımlandığını merak etmek kolay gelir. Her duygu anlatılmadan önce bağlam önemli."
+  },
+  {
+    "id": "frequency_set_028_q11",
+    "en": "Response delay gets noticed without becoming a verdict. Space in chat can be healthy, not a retreat.",
+    "tr": "Yanıt gecikmesi fark edilir ama hüküm olmaz. Sohbette boşluk kaçış değil, sağlıklı olabilir."
+  },
+  {
+    "id": "frequency_set_028_q12",
+    "en": "Mutual curiosity surviving ordinary weeks matters. Daily rapid-fire texting pressure feels heavy.",
+    "tr": "Sıradan haftalarda süren karşılıklı merak önemli. Günlük peş peşe mesaj baskısı ağır gelir."
+  },
+  {
+    "id": "frequency_set_029_q01",
+    "en": "Meaningful dialogue reveals compatibility beyond surface charm. Light banter is fun, yet depth signals fit more clearly.",
+    "tr": "Anlamlı diyalog yüzey cazibesinin ötesinde uyumu gösterir. Hafif şaka keyifli olsa da uyumu derinlik daha net gösterir."
+  },
+  {
+    "id": "frequency_set_029_q02",
+    "en": "Questions about processing, not only the day, land better. Surface skimming leaves emotional match fuzzy.",
+    "tr": "Yalnızca günü değil nasıl işlediğimi soran sorular daha iyi oturur. Yüzeyi sıyırmak duygusal eşleşmeyi bulanık bırakır."
+  },
+  {
+    "id": "frequency_set_029_q03",
+    "en": "Inviting social warmth works better than performative warmth. Strong spark still needs calm social windows.",
+    "tr": "Gösterişli sıcaklıktan çok davetkâr sosyal sıcaklık işe yarar. Güçlü kıvılcım yine sakin sosyal pencereler ister."
+  },
+  {
+    "id": "frequency_set_029_q04",
+    "en": "Clear enthusiasm when starting plans gets a response. Calm pockets still matter even when chemistry is strong.",
+    "tr": "Plan başlatırken net coşku yanıt alır. Çekim güçlü olsa da sakin aralıklar yine önemli."
+  },
+  {
+    "id": "frequency_set_029_q05",
+    "en": "Changing plans is fine when communication stays clear. Quick intensity thrills yet unsettles without consistency beside it.",
+    "tr": "İletişim net kalınca plan değiştirmek sorun olmaz. Hızlı yoğunluk heyecan verir ama yanında tutarlılık yoksa huzursuz da eder."
+  },
+  {
+    "id": "frequency_set_029_q06",
+    "en": "Fluid evenings without rigid itineraries work. When attraction outpaces trust, caution rises.",
+    "tr": "Katı program olmadan akan akşamlar işe yarar. Çekim güveni sollayınca temkin artar."
+  },
+  {
+    "id": "frequency_set_029_q07",
+    "en": "Texts that do not vanish for days without context help trust. Inconsistent signals make openness costly.",
+    "tr": "Bağlam olmadan günlerce kaybolmayan mesajlar güvene yardım eder. Tutarsız sinyaller açıklığı maliyetli yapar."
+  },
+  {
+    "id": "frequency_set_029_q08",
+    "en": "Calm reassurance in stressful weeks helps. Mixed signals make staying open harder.",
+    "tr": "Stresli haftalarda sakin güvence yardım eder. Karışık sinyaller açık kalmayı zorlaştırır."
+  },
+  {
+    "id": "frequency_set_029_q09",
+    "en": "Jealousy can be treated as information, not a verdict. Selective early sharing is paced, not closed-off.",
+    "tr": "Kıskançlık hüküm değil bilgi olarak ele alınabilir. Seçici erken paylaşım kapalı değil, tempoludur."
+  },
+  {
+    "id": "frequency_set_029_q10",
+    "en": "Disappointment can be named without contempt. Not every feeling needs immediate narration.",
+    "tr": "Hayal kırıklığı küçümseme olmadan söylenebilir. Her duygu anında anlatılmak zorunda değil."
+  },
+  {
+    "id": "frequency_set_029_q11",
+    "en": "Mutual messaging matters more than perfect hourly balance. Quiet intervals can be okay without signaling distance.",
+    "tr": "Her saat kusursuz dengeden çok karşılıklı mesajlaşma önemli. Sessiz aralıklar mesafe sinyali olmadan sorun olmayabilir."
+  },
+  {
+    "id": "frequency_set_029_q12",
+    "en": "Spoken appreciation lands more clearly than implied praise. Quiet stretches are fine without meaning withdrawal.",
+    "tr": "İma edilen övgüden çok sözlü takdir daha net oturur. Sessiz aralıklar çekilme anlamına gelmeden sorun olmaz."
+  },
+  {
+    "id": "frequency_set_030_q01",
+    "en": "Values in conversation reveal chemistry more than weekend plans alone. Banter can be enjoyable while depth still marks compatibility.",
+    "tr": "Sohbette değerler, yalnızca hafta sonu planından çok çekimi gösterir. Şakalaşma keyifli olabilir ama uyumu yine derinlik işaret eder."
+  },
+  {
+    "id": "frequency_set_030_q02",
+    "en": "Open talk about boundaries and comfort motivates deeper dialogue. Fun small talk helps, but depth clarifies fit.",
+    "tr": "Sınırlar ve konfor hakkında açık konuşma daha derin diyaloğa iter. Eğlenceli küçük sohbet yardım eder ama uyumu derinlik netleştirir."
+  },
+  {
+    "id": "frequency_set_030_q03",
+    "en": "Conversation that flows without perfect restraint brings energy. Quiet pockets still help when attraction runs high.",
+    "tr": "Kusursuz kısıtlama olmadan akan sohbet enerji getirir. Çekim yüksekken de sessiz aralıklar yardım eder."
+  },
+  {
+    "id": "frequency_set_030_q04",
+    "en": "Vivid storytelling that invites dialogue works. Too much stimulation in a row needs quiet reset.",
+    "tr": "Diyalog davet eden canlı anlatım işe yarar. Peş peşe fazla uyaran sessiz sıfırlama ister."
+  },
+  {
+    "id": "frequency_set_030_q05",
+    "en": "Last-minute ideas work when they respect bandwidth. Sudden intensity can thrill and unsettle without consistency.",
+    "tr": "Enerjiye saygı duyunca son dakika fikirleri işe yarar. Ani yoğunluk tutarlılık olmadan hem heyecanlandırır hem huzursuz eder."
+  },
+  {
+    "id": "frequency_set_030_q06",
+    "en": "A pressure-free twist in plans sparks interest. Fast heat without consistency feels shaky.",
+    "tr": "Baskısız plan sapması ilgi uyandırır. Tutarlılık olmadan hızlı ısı sakat hissettirir."
+  },
+  {
+    "id": "frequency_set_030_q07",
+    "en": "Showing up emotionally and practically beats grand gestures alone. Unclear signals make openness harder to sustain.",
+    "tr": "Yalnızca büyük jestlerden çok duygusal ve pratik olarak orada olmak önemli. Belirsiz sinyaller açıklığı sürdürmeyi zorlaştırır."
+  },
+  {
+    "id": "frequency_set_030_q08",
+    "en": "Affection without leverage keeps me steadier. Affection that swings without context makes me careful.",
+    "tr": "Kaldıraç olmayan şefkat dengemi korur. Bağlamsız salınan şefkat dikkatli yapar."
+  },
+  {
+    "id": "frequency_set_030_q09",
+    "en": "Kind sharing of insecurity gets a caring response. Early vulnerability stays paced rather than hidden.",
+    "tr": "Nazikçe paylaşılan güvensizlik özenli yanıt alır. Erken kırılganlık gizli değil, tempolu kalır."
+  },
+  {
+    "id": "frequency_set_030_q10",
+    "en": "Kind clarification requests get a warm reply. Immediate play-by-play of every emotion is unnecessary.",
+    "tr": "Nazik netleştirme istekleri sıcak yanıt alır. Her duygunun anında aktarımı gerekmez."
+  },
+  {
+    "id": "frequency_set_030_q11",
+    "en": "Voice notes help when nuance matters. Quiet gaps can be normal without meaning pullback.",
+    "tr": "Nüans önemliyken sesli mesajlar yardım eder. Sessiz boşluklar geri çekilme demeden normal olabilir."
+  },
+  {
+    "id": "frequency_set_030_q12",
+    "en": "Async closeness works when trust exists. Expecting constant rapid texts daily weighs on me.",
+    "tr": "Güven varken zamana yayılan yakınlık işe yarar. Her gün sürekli hızlı mesaj beklentisi ağır basar."
+  }
+]

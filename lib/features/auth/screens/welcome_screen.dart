@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'login_screen.dart';
 import 'phone_signup_screen.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -74,6 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -121,7 +123,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Match minds.',
+                              l10n.welcomeMatchMinds,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.playfairDisplay(
                                 color: AppColors.primary,
@@ -133,7 +135,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Feel the frequency.',
+                              l10n.welcomeFeelTheFrequency,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.playfairDisplay(
                                 color: AppColors.primary,
@@ -152,7 +154,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       FadeTransition(
                         opacity: _textBlockOpacity,
                         child: Text(
-                          'Meet people through personality, emotion, and real compatibility.',
+                          l10n.welcomeSubtitle,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: const Color(0xFFC8C8C8),
@@ -192,7 +194,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                   elevation: 0,
                                 ),
                                 child: Text(
-                                  'Continue with phone',
+                                  l10n.welcomeContinueWithPhone,
                                   maxLines: 1,
                                   softWrap: false,
                                   style: GoogleFonts.inter(
@@ -207,7 +209,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             const SizedBox(height: 10),
 
                             Text(
-                              'Secure sign-in. No email required.',
+                              l10n.welcomeSecureSignInHint,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.inter(
                                 color: AppColors.textSecondary
@@ -245,11 +247,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                                     fontWeight: FontWeight.w400,
                                   ),
                                   children: [
-                                    const TextSpan(
-                                      text: 'Already have an account? ',
+                                    TextSpan(
+                                      text: l10n.welcomeAlreadyHaveAccount,
                                     ),
                                     TextSpan(
-                                      text: 'Log in',
+                                      text: l10n.welcomeLogIn,
                                       style: GoogleFonts.inter(
                                         color: AppColors.primary,
                                         fontSize: 14,
@@ -269,7 +271,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       FadeTransition(
                         opacity: _buttonsOpacity,
                         child: Text(
-                          'By continuing, you agree to Qmatch’s Terms and Privacy Policy.',
+                          l10n.welcomeTermsPrivacy,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
                             color: AppColors.textSecondary

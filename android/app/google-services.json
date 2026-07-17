@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "55490039374",
+    "project_id": "qmatch-53d62",
+    "storage_bucket": "qmatch-53d62.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55490039374:android:5c9fd0918fe15626c7fd1f",
+        "android_client_info": {
+          "package_name": "com.example.qmatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55490039374-q70ifo47t03rgem5t7631otno0pr5jd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvOtItm7jT-KU42BhoDbI7riMU6tH0-ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55490039374-q70ifo47t03rgem5t7631otno0pr5jd5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "55490039374-21ko5chgn5vavoter69joe0kfvs6b2l3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.qmatch.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
