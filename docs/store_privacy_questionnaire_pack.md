@@ -3,7 +3,7 @@
 Date: 2026-07-18
 Project: Qmatch (`qmatch-53d62`)
 Mode: **Draft for App Store App Privacy + Google Play Data Safety**
-Status: Engineering-derived draft — **not legal advice**; confirm with founder/legal before store submit
+Status: Engineering-derived draft — **not legal advice**. Use **`docs/store_privacy_final_confirmation_matrix.md` (3P-A25)** for founder confirmations before store submit. Legal URLs + support mailbox receive are **verified (3P-A24)**.
 
 Sources inspected: `pubspec.yaml`, Auth/Profile/Assessment/Discover/Chat/Safety/Settings/Deletion services, Firebase usage, in-app Privacy draft, launch audit.
 
@@ -26,8 +26,8 @@ Sources inspected: `pubspec.yaml`, Auth/Profile/Assessment/Discover/Chat/Safety/
 | Cloud Firestore | Yes | Profiles, assessments, matches, threads, reports, deletion requests |
 | Firebase Storage | Yes | `profile_photos/{uid}/…` |
 | Firebase Core | Yes | Init |
-| `google_sign_in` | Dependency present | Social screen exists; **welcome primary path is phone** — NEEDS CONFIRMATION if shipped live |
-| `sign_in_with_apple` | Dependency present | Same — NEEDS CONFIRMATION if shipped live |
+| `google_sign_in` | Dependency present | **No `lib` import/usage**; SocialLoginScreen Google button is empty stub — not wired |
+| `sign_in_with_apple` | Dependency present | **No `lib` import/usage**; Apple button empty stub — not wired |
 | `geolocator` / `geocoding` | Yes | Optional approximate location in profile setup |
 | `image_picker` / `permission_handler` | Yes | Photos + permissions |
 | `google_fonts` | Yes | May fetch fonts over network at runtime — NEEDS CONFIRMATION (privacy/network) |
@@ -36,7 +36,7 @@ Sources inspected: `pubspec.yaml`, Auth/Profile/Assessment/Discover/Chat/Safety/
 | `flutter_windowmanager` | Yes | Likely screenshot/secure flag — not user data collection |
 | Firebase Analytics | **No** (not in pubspec) | Declare “not collected via Analytics SDK” unless Console/other tooling adds it — NEEDS CONFIRMATION |
 | Firebase Crashlytics / Performance | **No** (not in pubspec) | NEEDS CONFIRMATION (Console-only enablement?) |
-| Firebase Cloud Messaging / push | **No FCM package** | Notification toggles appear **device-local UI**; push delivery not implemented in inspected deps — NEEDS CONFIRMATION |
+| Firebase Cloud Messaging / push | **No FCM package** | Notification toggles are **local UI only** (`setState`); no server push wiring found — Confirmed not implemented |
 | Ads / ATT tracking SDKs | **Not found** | Draft assumes **no advertising tracking** unless founder adds later |
 
 **Processors (typical Firebase stack):** Google LLC / Firebase as infrastructure. Treat as **third-party service providers** used to operate the app (not “sold” data). Exact subprocessors list — NEEDS CONFIRMATION with legal.
@@ -52,7 +52,7 @@ Sources inspected: `pubspec.yaml`, Auth/Profile/Assessment/Discover/Chat/Safety/
 | Name / display name | Yes | Required for profile | Profile / matching UX | Firestore `users/{uid}` | Firebase; visible to other signed-in users (Discover/chat) | Yes | No | While account active | Deleted/anonymized on fulfillment |
 | Age / birth-related age | Yes | Required (≥18) | Eligibility / matching filters | Firestore users | Firebase; may be shown to others | Yes | No | While account active | Deleted on fulfillment |
 | Bio, interests, lifestyle, preferences | Yes | Mostly required to complete setup | Profile / personalization / matching | Firestore users | Firebase; shown to others per product | Yes | No | While account active | Deleted on fulfillment |
-| Approximate location (GeoPoint / text) | Yes if user enables | Optional | Matching / profile | Firestore users | Firebase; may be shown approx. to others | Yes | No | While account active | Deleted on fulfillment |
+| Approximate location (GeoPoint / text) | Yes if user enables | Optional | Matching / profile | Firestore users | Firebase; may be shown approx. to others | Yes | No | While account active | Deleted on fulfillment. **Note:** code uses `LocationAccuracy.high` + stores `GeoPoint` — precise vs coarse **Needs Founder Confirmation** (see final matrix) |
 | Profile photos | Yes if uploaded | Optional for wizard; encouraged | Profile / discovery | Firebase Storage `profile_photos/{uid}/` + URLs on user doc | Firebase; shown to other users | Yes | No | While account active | Storage prefix delete on fulfillment |
 | Assessment answers (IQ/EQ/Frequency) | Yes | Required to unlock app loop | Compatibility / app functionality | Firestore user assignments/results; scores/tags/vectors on user | Firebase; derived signals may be shown (archetype etc.) | Yes | No | While account active | Subcollections deleted on fulfillment |
 | Compatibility / Frequency vector / scores | Yes (derived) | Generated from assessments | Matching / ranking | Firestore users / match `compat` | Firebase; used in Discover | Yes | No | While account active | Cleared with user data |
@@ -243,21 +243,23 @@ See: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_
 - [ ] Paste **Privacy Policy** HTTPS URL into store consoles
 - [ ] Paste **Terms of Use** HTTPS URL where required
 - [ ] Confirm account deletion instructions match store answers (in-app + web + email)
-- [ ] Confirm final **SDK list** for the binary under review (esp. Apple/Google Sign-In) — still NEEDS CONFIRMATION
-- [ ] Confirm analytics / crash reporting status (Console + binary) — still NEEDS CONFIRMATION
+- [ ] Confirm final **SDK list** for the binary under review — Google/Apple Sign-In are **stubs only** (see final matrix); confirm hide vs implement
+- [ ] Confirm analytics / crash reporting status (**Console** + binary) — still Needs Founder Confirmation
 - [ ] Confirm data retention / safety-report retention policy in writing
 - [ ] Confirm legal review of Privacy/Terms + this questionnaire pack (optional / recommended)
 - [ ] Confirm ops owner for 30-day deletion fulfillment (manual ops)
-- [ ] Confirm location precision declaration (coarse vs precise)
+- [ ] Confirm location precision declaration (coarse vs precise) — code uses high accuracy + GeoPoint
 - [ ] Confirm no advertising / ATT tracking before shipping
-- [ ] Align Play Data Safety + Apple App Privacy answers with the same inventory
+- [ ] Align Play Data Safety + Apple App Privacy answers with `docs/store_privacy_final_confirmation_matrix.md`
 
 ---
 
 ## 7. Related product docs
 
+- `docs/store_privacy_final_confirmation_matrix.md` (**3P-A25** — founder confirmation matrix)
 - `docs/launch_readiness_consolidated_audit.md`
-- `docs/legal_help_privacy_launch_content_audit.md`
+- `docs/qmatch_site_live_verification.md`
+- `docs/qmatch_site_support_mailbox_verification.md`
 - `docs/account_deletion_manual_ops_runbook.md`
 - `docs/account_deletion_pending_ux.md`
 
