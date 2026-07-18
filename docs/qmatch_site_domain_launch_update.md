@@ -22,24 +22,27 @@ iOS/Android bundle id **`com.qmatch.app`** and macOS product name **`qmatch.app`
 
 ---
 
-## Mailbox status
+## Mailbox status (updated 3P-A24)
 
-`support@qmatch.site` — **NEEDS CONFIRMATION**
+`support@qmatch.site` — **confirmed receiving**
 
-- Domain purchased does **not** automatically mean email works.
-- Still need MX/SPF (etc.), receive/send test, and monitoring owner.
+- Cloudflare Email Routing → `sirinumit@gmail.com`
+- Test email received successfully; monitored via that Gmail inbox
+- Gmail “Send mail as support@qmatch.site” — optional / future (not a launch blocker)
+- See `docs/qmatch_site_support_mailbox_verification.md`
+
+---
+
+## Hosted URL status (updated 3P-A24)
+
+Legal/support pages — **live and manually verified** on Cloudflare Pages (`qmatch.site`).
+
+- Public EN/TR URLs open in incognito
+- Store-facing copy verified (no launch-draft / NEEDS CONFIRMATION / “future hosting” wording)
+- See `docs/qmatch_site_live_verification.md`
 
 ---
 
-## Hosted URL status
-
-Legal/support pages — **live on Cloudflare Pages** at `qmatch.site` (operator-reported, 2026-07-18).
-
-- Static package: `docs/legal_static_site/`
-- 3P-A22B: local store-facing copy cleanup done; **Cloudflare re-upload still required** so live pages drop launch-draft / NEEDS CONFIRMATION wording.
-- See `docs/qmatch_site_live_verification.md`.
-
----
 
 ## Files changed (high level)
 
@@ -56,12 +59,12 @@ Legal/support pages — **live on Cloudflare Pages** at `qmatch.site` (operator-
 
 ## Remaining steps
 
-1. Configure email for **`support@qmatch.site`** (DNS + mailbox + monitoring) — still **NEEDS CONFIRMATION**
-2. ~~Choose hosting~~ → Cloudflare Pages live
-3. **Re-upload** cleaned `docs/legal_static_site/` to Cloudflare
-4. Re-verify URLs (incognito) after re-upload
-5. Update App Store Connect / Play Console forms with final URLs
-6. Optional: counsel review before calling pages “final”
+1. ~~Configure / verify `support@qmatch.site` receive~~ → Done (3P-A24)
+2. ~~Choose hosting + verify live URLs~~ → Done (Cloudflare Pages)
+3. Paste Privacy / Terms / Support / Account-deletion URLs into store forms
+4. Finish store privacy questionnaire items still marked NEEDS CONFIRMATION
+5. Staff deletion fulfillment ops (manual runbook)
+6. Optional: counsel review; Gmail send-as `support@qmatch.site`
 
 ---
 

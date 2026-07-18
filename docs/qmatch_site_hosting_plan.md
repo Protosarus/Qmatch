@@ -1,10 +1,10 @@
 # qmatch.site Hosting Plan (Phase 3P-A21B)
 
 Date: 2026-07-18
-Mode: Plan created in 3P-A21B. **Update (3P-A22B):** Cloudflare Pages + `qmatch.site` reported live. Initial deploy done by ops. Local package later cleaned for store-facing copy — **re-upload still DO NOT RUN in 3P-A22B** (later phase).
+Mode: Plan created in 3P-A21B. **Update (3P-A24):** Cloudflare Pages + `qmatch.site` **manually verified live** with store-facing copy; `support@qmatch.site` receive confirmed. This file remains historical plan + checklist.
 
 Source package: `docs/legal_static_site/`
-Related: `docs/legal_static_site_package_report.md`, `docs/qmatch_site_domain_launch_update.md`, `docs/qmatch_site_live_verification.md`
+Related: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_verification.md`
 
 ---
 
@@ -15,8 +15,8 @@ Related: `docs/legal_static_site_package_report.md`, `docs/qmatch_site_domain_la
 | Package present | Yes — `docs/legal_static_site/` |
 | Old `qmatch.app` web URLs in package | **None found** |
 | Support email in pages | `support@qmatch.site` |
-| Mailbox verified | **NEEDS CONFIRMATION** (still) |
-| Pages live on HTTPS | **Yes** (Cloudflare Pages / `qmatch.site`) — re-upload cleaned copy still pending |
+| Mailbox receive verified | **Yes** (3P-A24) — routes to `sirinumit@gmail.com` |
+| Pages live on HTTPS | **Yes** — manually verified; store-facing copy live |
 
 Output folder to publish (as-is):
 
@@ -111,56 +111,49 @@ Keep **website DNS** and **email DNS** coordinated so MX is not broken when atta
 
 ---
 
-## 5. HTTPS verification checklist (after a future deploy)
+## 5. HTTPS verification checklist (3P-A24 — passed)
 
-- [ ] `https://qmatch.site/` loads hub (padlock / valid cert)
-- [ ] HTTP → HTTPS redirect works (if offered)
-- [ ] Incognito / logged-out browser
-- [ ] Mobile viewport OK
-- [ ] No mixed-content warnings
-- [ ] No analytics/tracking scripts injected by host (keep package clean)
+- [x] `https://qmatch.site/` loads hub
+- [x] Incognito / logged-out browser
+- [x] Store-facing copy (no draft / NEEDS CONFIRMATION wording)
+- [ ] Spot-check HTTP → HTTPS / mobile / mixed-content as needed ongoing
 
 ---
 
-## 6. URL checklist (must open publicly after deploy)
+## 6. URL checklist (3P-A24 — verified)
 
-- [ ] `https://qmatch.site/privacy`
-- [ ] `https://qmatch.site/terms`
-- [ ] `https://qmatch.site/support`
-- [ ] `https://qmatch.site/account-deletion`
-- [ ] Optional TR: `https://qmatch.site/tr/privacy` (and terms/support/account-deletion)
+- [x] `https://qmatch.site/privacy/`
+- [x] `https://qmatch.site/terms/`
+- [x] `https://qmatch.site/support/`
+- [x] `https://qmatch.site/account-deletion/`
+- [x] TR: `https://qmatch.site/tr/privacy/` (and terms/support/account-deletion)
 
-Then paste into App Store Connect / Play Console + store privacy pack.
+Paste into App Store Connect / Play Console + store privacy pack.
 
 ---
 
-## 7. Mailbox checklist — `support@qmatch.site`
+## 7. Mailbox checklist — `support@qmatch.site` (3P-A24)
 
-Still **NEEDS CONFIRMATION** (domain purchase ≠ mailbox live):
-
-- [ ] MX (and SPF/DKIM as applicable) for `qmatch.site`
-- [ ] Can **receive** mail to `support@qmatch.site`
-- [ ] Can **send** replies
-- [ ] Monitored (daily at launch / owner named)
+- [x] Cloudflare Email Routing configured
+- [x] Can **receive** mail to `support@qmatch.site` (test passed → `sirinumit@gmail.com`)
+- [x] Monitored via destination Gmail
+- [ ] Optional: Gmail “Send mail as support@qmatch.site” (not a launch blocker)
 - [ ] Deletion requests labeled/tracked (see ops runbook)
-- [ ] Confirm DNS changes for Pages do **not** break MX
+
+See `docs/qmatch_site_support_mailbox_verification.md`
 
 ---
 
-## 8. Explicit non-actions (this phase)
+## 8. Explicit non-actions (plan / doc phases)
 
-- No hosting deploy
-- No website publish
-- No DNS modification
-- No Firebase writes
-- No Admin SDK
-- No commit / push
+- Agent does not deploy, modify DNS, or write Firebase in these phases
+- No commit / push unless separately requested
 
 ---
 
-## 9. Recommended next step (after approval)
+## 9. Recommended next step
 
-1. Configure **email** for `support@qmatch.site` first (or in parallel carefully with DNS).
-2. Create Cloudflare Pages project and Direct Upload `docs/legal_static_site/`.
-3. On approval: attach custom domain + apply DNS.
-4. Verify HTTPS URLs → update store forms.
+1. Paste verified URLs into store forms.
+2. Finish store privacy questionnaire **NEEDS CONFIRMATION** items.
+3. Keep deletion fulfillment ops staffed (manual).
+4. Optional: Gmail send-as + counsel review.

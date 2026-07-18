@@ -1,6 +1,6 @@
 # Account Deletion Launch Readiness (Phase 3P-A5)
 
-Date: 2026-07-18  
+Date: 2026-07-18
 Scope: In-app **account deletion request** flow only. No automatic wipe of Auth, Storage, or user data.
 
 ## Files inspected
@@ -39,7 +39,7 @@ Includes:
 - What will be deleted (profile, photos/media refs, assessments, compatibility/Discover-related account data, match/chat access as part of closure)
 - What may be retained (safety reports, abuse prevention, limited legal/compliance logs)
 - Processing timeline: within **30 days**; not temporary deactivation
-- Support contact: `support@qmatch.app`
+- Support contact: `support@qmatch.site`
 - Two acknowledgement checkboxes (irreversible + timeline)
 - Confirmation input: user must type `DELETE`
 - Submit disabled until checkboxes + token match
@@ -48,12 +48,12 @@ Includes:
 
 ## Firestore paths written by the app
 
-1. **`account_deletion_requests/{uid}`** (create/merge)  
+1. **`account_deletion_requests/{uid}`** (create/merge)
    Fields include: `uid`, `email_or_phone_masked`, `status: "requested"`, `requested_at`, `source: "in_app"`, `app_version` (from About version string when available), `platform`, `locale`, `user_acknowledged_irreversible`, `user_acknowledged_timeline`, `updated_at`
 
-2. **`users/{uid}`** (merge only soft markers)  
-   - `account_deletion_requested: true`  
-   - `account_deletion_requested_at`  
+2. **`users/{uid}`** (merge only soft markers)
+   - `account_deletion_requested: true`
+   - `account_deletion_requested_at`
    - `updated_at`
 
 **Not written:** `assessment_sets`, other users’ docs, global matches/messages/reports mutations for deletion.
@@ -107,7 +107,7 @@ match /account_deletion_requests/{uid} {
    - Deletes Firebase Auth user
    - Retains reports/compliance per policy
    - Sets request `status` to `completed` / `failed`
-4. Confirm `support@qmatch.app` mailbox is monitored.
+4. Confirm `support@qmatch.site` mailbox is monitored.
 5. Optionally hide Discover / soft-disable account while `account_deletion_requested == true` (not in this phase).
 
 ## App Store launch risk level

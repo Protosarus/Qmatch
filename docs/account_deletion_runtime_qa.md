@@ -91,7 +91,7 @@ Not attempted:
 In-app `AccountDeletionRequestScreen`:
 
 - On `permission-denied`, service returns `errorMessage: permission-denied`
-- Screen maps non-`not_signed_in` failures to `accountDeletionRequestError` (EN/TR friendly copy pointing to retry / `support@qmatch.app`)
+- Screen maps non-`not_signed_in` failures to `accountDeletionRequestError` (EN/TR friendly copy pointing to retry / `support@qmatch.site`)
 - Submit button remains non-destructive; no wipe path exists in client
 - Success dialog **does not** show when submit fails (correct)
 
@@ -128,7 +128,7 @@ This QA exercised the **service path** used by the screen; it did not manually d
 1. **Approve and deploy** least-privilege rules for `account_deletion_requests/{uid}` (+ ensure self soft-marker on `users/{uid}`) — see rules plan.
 2. Re-run this QA tool; expect `submit ok=true` and read-back of `status=requested`, `source=in_app`, acknowledgements `true`, and `account_deletion_requested=true`.
 3. Build privileged deletion processor (Admin SDK / Cloud Function) to fulfill the 30-day promise.
-4. Keep `support@qmatch.app` monitored as fallback.
+4. Keep `support@qmatch.site` monitored as fallback.
 
 ---
 

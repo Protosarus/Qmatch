@@ -1,7 +1,7 @@
 # Privileged Account Deletion Processor Plan (Phase 3P-A11)
 
-Date: 2026-07-18  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+Project: `qmatch-53d62`
 Status: **DESIGN ONLY — NO DESTRUCTIVE EXECUTION**
 
 Related:
@@ -134,13 +134,13 @@ Align copy already shown in-app: safety reports and limited compliance logs may 
 **Mutations (privileged only)**
 
 1. Request → `status: processing`, `processing_started_at`, `processed_by`
-2. Close/anonymize matches + threads for uid  
-3. Redact/delete messages as policy  
-4. Delete user subcollections  
-5. Delete Storage `profile_photos/{uid}/`  
-6. Delete or tombstone `users/{uid}`  
-7. Delete Auth user  
-8. Request → `status: completed`, `processed_at`, `final_deletion_status: completed`, counts/summary  
+2. Close/anonymize matches + threads for uid
+3. Redact/delete messages as policy
+4. Delete user subcollections
+5. Delete Storage `profile_photos/{uid}/`
+6. Delete or tombstone `users/{uid}`
+7. Delete Auth user
+8. Request → `status: completed`, `processed_at`, `final_deletion_status: completed`, counts/summary
 9. On failure → `status: failed` or return to `requested` with `last_error` (see retry)
 
 **Forbidden**
@@ -268,9 +268,9 @@ Required phrase (example): PROCESS_ACCOUNT_DELETION_REQUESTS
 
 Refuse execute mode unless:
 
-1. `QMATCH_FIRESTORE_ADMIN_CREDENTIALS` points to a key **outside** the repo  
-2. `--dry-run=false`  
-3. `--confirmation-phrase=PROCESS_ACCOUNT_DELETION_REQUESTS`  
+1. `QMATCH_FIRESTORE_ADMIN_CREDENTIALS` points to a key **outside** the repo
+2. `--dry-run=false`
+3. `--confirmation-phrase=PROCESS_ACCOUNT_DELETION_REQUESTS`
 4. Explicit `--uid=<single>` for v1 (no “process all” without a second phrase like `PROCESS_ALL_PENDING_DELETIONS`)
 
 ---
@@ -325,7 +325,7 @@ Therefore: dry-run + single-uid execute + test accounts first. Do not promise Co
 | Soft-hide pending users from Discover | Recommended quick client follow-up (non-destructive) |
 | SLA monitoring | Needed before calling launch “complete” for deletion |
 
-**App Store / privacy:** Initiation is satisfied; **fulfillment** must exist in ops capacity within 30 days. For launch, a **manual Admin one-shot** + monitored `support@qmatch.app` can be acceptable if documented in runbook and capacity is real. Automate after proven.
+**App Store / privacy:** Initiation is satisfied; **fulfillment** must exist in ops capacity within 30 days. For launch, a **manual Admin one-shot** + monitored `support@qmatch.site` can be acceptable if documented in runbook and capacity is real. Automate after proven.
 
 **Launch readiness for deletion fulfillment:** **Conditional / Medium** until at least dry-run inventory + one test-account execute succeeds.
 
@@ -335,9 +335,9 @@ Therefore: dry-run + single-uid execute + test accounts first. Do not promise Co
 
 See `tool/discover_account_deletion_requests_readonly.py`:
 
-- Lists pending `status == requested` via Admin SDK when credentials provided  
-- Prints **count** + **masked UIDs** only  
-- **No** deletes, updates, Auth, or Storage calls  
+- Lists pending `status == requested` via Admin SDK when credentials provided
+- Prints **count** + **masked UIDs** only
+- **No** deletes, updates, Auth, or Storage calls
 
 Default without credentials: prints usage and exits (no network required).
 
@@ -345,13 +345,13 @@ Default without credentials: prints usage and exits (no network required).
 
 ## 19. Explicit non-actions (this phase)
 
-- No real user data deleted  
-- No Auth / Storage deletion  
-- No destructive Admin SDK script run  
-- No Cloud Function deploy  
-- No Firestore rules deploy  
-- No `assessment_sets` writes  
-- No commit / push  
+- No real user data deleted
+- No Auth / Storage deletion
+- No destructive Admin SDK script run
+- No Cloud Function deploy
+- No Firestore rules deploy
+- No `assessment_sets` writes
+- No commit / push
 
 ---
 

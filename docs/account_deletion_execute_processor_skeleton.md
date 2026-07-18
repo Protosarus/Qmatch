@@ -118,7 +118,7 @@ Includes:
 
 - Human review of the execute plan JSON before any future mutation phase
 - Disposable-account-only testing when execute is later enabled
-- Ops monitoring of `support@qmatch.app` and pending request SLA (30 days)
+- Ops monitoring of `support@qmatch.site` and pending request SLA (30 days)
 - Index/IAM fixes if inventory queries fail
 - Legal retention decisions for reports / blocks
 

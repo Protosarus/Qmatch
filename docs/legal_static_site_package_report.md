@@ -2,7 +2,7 @@
 
 Date: 2026-07-18
 Package root: `docs/legal_static_site/`
-Mode: Static package. **Hosting live** on Cloudflare Pages (`qmatch.site`, operator-reported). **3P-A22B:** public HTML cleaned of launch-draft / NEEDS CONFIRMATION wording locally — **re-upload to Cloudflare not done in that phase**.
+Mode: Static package. **Hosting live** on Cloudflare Pages (`qmatch.site`). **3P-A24:** public URLs + store-facing copy manually verified; mailbox receive confirmed.
 
 ---
 
@@ -22,7 +22,7 @@ Mode: Static package. **Hosting live** on Cloudflare Pages (`qmatch.site`, opera
 | `docs/legal_static_site/tr/account-deletion/index.html` | Account deletion (TR) |
 | `docs/legal_static_site/assets/legal.css` | Local CSS (system fonts only) |
 
-Public pages no longer show mailbox “NEEDS CONFIRMATION” (store-facing). Internal docs still mark `support@qmatch.site` as **NEEDS CONFIRMATION** until ops verifies.
+Public pages are store-facing. Mailbox receive confirmed — see `docs/qmatch_site_support_mailbox_verification.md`.
 
 ---
 
@@ -84,19 +84,18 @@ Live on `qmatch.site` (Cloudflare Pages). Prefer trailing-slash URLs:
 
 ### Recommended simplest option
 
-**Cloudflare Pages** — chosen and live. Re-upload cleaned local package when approved (later phase).
+**Cloudflare Pages** — chosen and live; URLs verified 3P-A24.
 
 ---
 
 ## What remains
 
-1. ~~Wire hosting for `qmatch.site`~~ → live on Cloudflare Pages
-2. Confirm **`support@qmatch.site`** mailbox receive/send/monitor (**NEEDS CONFIRMATION**)
-3. Legal review of Privacy/Terms (recommended)
-4. **Re-upload** store-facing `docs/legal_static_site/` (3P-A22B cleanup)
-5. Re-verify URLs over HTTPS (incognito) — no internal draft wording
-6. Paste URLs into App Store Connect / Play Console (+ store privacy pack)
-7. Optional later: deep-link from in-app About/Help to hosted URLs
+1. ~~Wire hosting for `qmatch.site`~~ → live + verified
+2. ~~Confirm `support@qmatch.site` receive/monitor~~ → confirmed (3P-A24)
+3. Legal review of Privacy/Terms (optional / recommended)
+4. Paste URLs into App Store Connect / Play Console (+ finish questionnaire NEEDS CONFIRMATION items)
+5. Staff deletion fulfillment ops (manual)
+6. Optional: deep-link from in-app About/Help; Gmail send-as
 
 ---
 

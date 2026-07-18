@@ -1,41 +1,36 @@
-# qmatch.site Live Verification (Phase 3P-A22B)
+# qmatch.site Live Verification
 
 Date: 2026-07-18
-Mode: **Documentation + local static copy cleanup only**
-**This phase did not deploy, modify DNS, or write to Firebase.**
+Phases: 3P-A22B (local copy cleanup) · **3P-A24 (manual live + mailbox confirmation documented)**
+Mode: Documentation updates only in 3P-A24 — **no deploy / DNS / Firebase by this phase**
 
 ---
 
-## Deployment status (operator-reported)
+## Deployment status (manually verified)
 
 | Item | Status |
 |------|--------|
 | Host | **Cloudflare Pages** |
 | Live domain | **`qmatch.site`** |
-| Connected & opening publicly | **Yes** (per operator) |
-| Local package re-uploaded after store-facing copy cleanup | **No** — local HTML updated in this phase; **re-upload still required** |
+| Connected & opening publicly | **Yes** |
+| Store-facing copy on live site | **Yes** — no “NEEDS CONFIRMATION”, “Launch draft”, “not formal legal advice”, or “future hosting” on public pages |
+| Manual incognito URL check | **Passed** (see checklist below) |
 
 ---
 
-## URLs to manually verify (incognito / logged-out)
+## URL checklist (verified live)
 
-Prefer trailing-slash forms (matches `index.html` directories):
-
-| URL | Purpose |
-|-----|---------|
-| `https://qmatch.site/` | Hub |
-| `https://qmatch.site/privacy/` | Privacy Policy |
-| `https://qmatch.site/terms/` | Terms of Use |
-| `https://qmatch.site/support/` | Support / Contact |
-| `https://qmatch.site/account-deletion/` | Account deletion |
-| `https://qmatch.site/tr/privacy/` | Privacy (TR) |
-| `https://qmatch.site/tr/terms/` | Terms (TR) |
-| `https://qmatch.site/tr/support/` | Support (TR) |
-| `https://qmatch.site/tr/account-deletion/` | Account deletion (TR) |
-
-Also spot-check: HTTPS padlock, mobile layout, no mixed content, EN↔TR links.
-
-**Known issue at time of this phase:** live landing page still showed internal “launch draft” / **NEEDS CONFIRMATION** wording. Local `docs/legal_static_site/` was cleaned for store-facing copy; Cloudflare still serves the previous upload until re-deployed in a later phase.
+| URL | Status |
+|-----|--------|
+| `https://qmatch.site/` | Verified |
+| `https://qmatch.site/privacy/` | Verified |
+| `https://qmatch.site/terms/` | Verified |
+| `https://qmatch.site/support/` | Verified |
+| `https://qmatch.site/account-deletion/` | Verified |
+| `https://qmatch.site/tr/privacy/` | Verified |
+| `https://qmatch.site/tr/terms/` | Verified |
+| `https://qmatch.site/tr/support/` | Verified |
+| `https://qmatch.site/tr/account-deletion/` | Verified |
 
 ---
 
@@ -43,9 +38,13 @@ Also spot-check: HTTPS padlock, mobile layout, no mixed content, EN↔TR links.
 
 | Item | Status |
 |------|--------|
-| Address used publicly & in-app | `support@qmatch.site` |
-| Receive / send / monitor verified | **Still unconfirmed — NEEDS CONFIRMATION** |
-| Do not claim “verified” on public pages or in store forms until ops confirms | Yes |
+| Address | `support@qmatch.site` |
+| Routing | Cloudflare Email Routing → `sirinumit@gmail.com` |
+| Receive test | **Passed** |
+| Monitoring | Via `sirinumit@gmail.com` |
+| Send as `support@qmatch.site` from Gmail | Optional / future — **not** a launch blocker |
+
+Details: `docs/qmatch_site_support_mailbox_verification.md`
 
 ---
 
@@ -53,55 +52,39 @@ Also spot-check: HTTPS padlock, mobile layout, no mixed content, EN↔TR links.
 
 | Item | Status |
 |------|--------|
-| Formal counsel review of Privacy / Terms | **Still pending** |
-| Public pages cleaned of internal draft disclaimers (local only) | Done in this phase |
-| Public pages are product policies, not a substitute for counsel sign-off | Keep internal awareness |
+| Formal counsel review of Privacy / Terms | **Still optional / recommended** (not required to clear URL hosting) |
+| Public pages store-facing | Verified live |
 
 ---
 
 ## App Store / Play Store URL mapping
-
-Use these in App Store Connect / Play Console once live copy is re-uploaded and verified:
 
 | Store field | URL |
 |-------------|-----|
 | Privacy Policy | `https://qmatch.site/privacy/` |
 | Terms of Use (if asked) | `https://qmatch.site/terms/` |
 | Support / Contact | `https://qmatch.site/support/` |
-| Account deletion / data deletion help (if asked) | `https://qmatch.site/account-deletion/` |
+| Account deletion / data deletion help | `https://qmatch.site/account-deletion/` |
+| Support email | `support@qmatch.site` |
 
-Support email for store forms: `support@qmatch.site` — only after mailbox confirmation.
-
-Related draft answers: `docs/store_privacy_questionnaire_pack.md`.
+Related: `docs/store_privacy_questionnaire_pack.md`
 
 ---
 
 ## Remaining blockers before store submission
 
-1. **Re-upload** cleaned `docs/legal_static_site/` to Cloudflare Pages (later phase).
-2. **Manually verify** all public URLs after re-upload (no draft / NEEDS CONFIRMATION text).
-3. Confirm **`support@qmatch.site`** mailbox (receive, send, monitor) — still a **P0 blocker**.
-4. Complete / confirm store privacy questionnaire pack items still marked NEEDS CONFIRMATION.
-5. Account deletion **fulfillment** ops ready (manual runbook) — product request path exists; wipe is not automated.
-6. Optional but recommended: counsel review of Privacy/Terms before calling them final.
+1. Account deletion **fulfillment** ops staffed (manual runbook; automation still off).
+2. Complete founder/legal confirmation on store privacy questionnaire items still marked **NEEDS CONFIRMATION** (SDK/telemetry/etc.).
+3. Optional: counsel review of Privacy/Terms.
+4. Optional: Gmail “Send mail as support@qmatch.site”.
+
+**Cleared (ops):** hosted legal URLs · support mailbox receive/monitor.
 
 ---
 
-## Explicit non-actions (this phase)
+## Explicit non-actions (documentation phases)
 
-- No hosting deploy / re-upload
-- No DNS changes
-- No Firestore writes
-- No Admin SDK / rules / Functions
-- No assessment / scoring / weight changes
+- No hosting deploy / DNS / Cloudflare changes by the agent in 3P-A24
+- No Firestore writes / Admin SDK / rules / Functions
+- No assessment / scoring / weight / app behavior changes
 - No commit / push
-
----
-
-## Related docs
-
-- `docs/legal_static_site/` — store-facing local package (pending re-upload)
-- `docs/qmatch_site_hosting_plan.md`
-- `docs/support_and_legal_url_readiness.md`
-- `docs/legal_static_site_package_report.md`
-- `docs/qmatch_site_domain_launch_update.md`

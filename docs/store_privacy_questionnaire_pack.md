@@ -183,7 +183,7 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
   - In-app: Settings → Delete account (request)
   - Email: `support@qmatch.site`
   - Processing: within **30 days** (manual ops currently)
-- Account deletion URL (web): **NEEDS CONFIRMATION** / currently in-app + email
+- Account deletion URL (web): `https://qmatch.site/account-deletion/` (**verified live**, 3P-A24)
 
 ### Required vs optional (Play)
 
@@ -210,41 +210,44 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 | Developer communications | Possible via support email only |
 
 ### Open questions (Play) — NEEDS CONFIRMATION
-1. Independent privacy policy / terms **HTTPS URLs** for Play Console.
-2. Data deletion instructions URL vs “in-app only” declaration.
+1. ~~Independent privacy policy / terms HTTPS URLs~~ → `https://qmatch.site/privacy/` and `/terms/` verified live (3P-A24).
+2. ~~Data deletion instructions URL~~ → `https://qmatch.site/account-deletion/` verified live.
+3. Remaining founder/legal items below (analytics, diagnostics, Sign in with Apple/Google if shipped, etc.).
 3. Whether Firebase Analytics/Crashlytics are on for the Android app ID.
 4. Whether any Play families / ads declarations apply (draft: no ads).
 5. Data retention period beyond “account lifetime + safety exceptions”.
 
 ---
 
-## 5. Support / legal URL blockers
+## 5. Support / legal URL status (updated 3P-A24)
 
 | Item | Current state | Store impact |
 |------|---------------|--------------|
-| `support@qmatch.site` | Constant in app; mailbox **must be confirmed** | BLOCKER for support claims |
-| Privacy Policy URL | `https://qmatch.site/privacy/` (Cloudflare live; re-upload cleaned copy pending) | Use after verifying store-facing copy live |
-| Terms of Use URL | `https://qmatch.site/terms/` | Same |
-| Support URL | `https://qmatch.site/support/` | Same |
-| Account deletion URL | `https://qmatch.site/account-deletion/` | Same |
-| Account deletion instructions URL | `https://qmatch.site/account-deletion/` | Prefer for Play/Apple clarity |
-| Legal counsel sign-off | Still pending | HIGH before public marketing |
+| `support@qmatch.site` | **Receive confirmed** → `sirinumit@gmail.com`; monitored via Gmail | Ready for support field |
+| Privacy Policy URL | `https://qmatch.site/privacy/` **verified live** | Ready to paste |
+| Terms of Use URL | `https://qmatch.site/terms/` **verified live** | Ready to paste |
+| Support URL | `https://qmatch.site/support/` **verified live** | Ready to paste |
+| Account deletion URL | `https://qmatch.site/account-deletion/` **verified live** | Ready to paste |
+| Legal counsel sign-off | Still optional / recommended | HIGH before heavy marketing |
+| Gmail send-as support@ | Optional | Not a launch blocker |
+
+See: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_verification.md`
 
 ---
 
 ## 6. Pre-submit checklist
 
-- [ ] Confirm `support@qmatch.site` mailbox is live and monitored (**still NEEDS CONFIRMATION**)
-- [ ] Re-upload cleaned legal static site; verify no “launch draft” / NEEDS CONFIRMATION on public pages
-- [ ] Confirm store URLs: privacy / terms / support / account-deletion
-- [ ] Confirm **Privacy Policy** public HTTPS URL
-- [ ] Confirm **Terms of Use** public HTTPS URL
-- [ ] Confirm account deletion instructions (in-app path + support) match store answers
-- [ ] Confirm final **SDK list** for the binary under review (esp. Apple/Google Sign-In)
-- [ ] Confirm analytics / crash reporting status (Console + binary)
+- [x] Confirm `support@qmatch.site` mailbox receives and is monitored (3P-A24)
+- [x] Public legal/support URLs verified live (store-facing copy)
+- [x] Confirm store URLs: privacy / terms / support / account-deletion
+- [ ] Paste **Privacy Policy** HTTPS URL into store consoles
+- [ ] Paste **Terms of Use** HTTPS URL where required
+- [ ] Confirm account deletion instructions match store answers (in-app + web + email)
+- [ ] Confirm final **SDK list** for the binary under review (esp. Apple/Google Sign-In) — still NEEDS CONFIRMATION
+- [ ] Confirm analytics / crash reporting status (Console + binary) — still NEEDS CONFIRMATION
 - [ ] Confirm data retention / safety-report retention policy in writing
-- [ ] Confirm legal review of Privacy/Terms + this questionnaire pack
-- [ ] Confirm ops owner for 30-day deletion fulfillment
+- [ ] Confirm legal review of Privacy/Terms + this questionnaire pack (optional / recommended)
+- [ ] Confirm ops owner for 30-day deletion fulfillment (manual ops)
 - [ ] Confirm location precision declaration (coarse vs precise)
 - [ ] Confirm no advertising / ATT tracking before shipping
 - [ ] Align Play Data Safety + Apple App Privacy answers with the same inventory
