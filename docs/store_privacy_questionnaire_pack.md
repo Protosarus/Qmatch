@@ -223,16 +223,20 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 | Item | Current state | Store impact |
 |------|---------------|--------------|
 | `support@qmatch.site` | Constant in app; mailbox **must be confirmed** | BLOCKER for support claims |
-| Privacy Policy URL | In-app only — **no hosted URL in repo** | BLOCKER for typical Connect/Play fields |
-| Terms of Use URL | In-app only — **no hosted URL** | HIGH / often required |
-| Account deletion instructions URL | In-app + email; no dedicated web page | MEDIUM — in-app may suffice if declared clearly |
-| Legal counsel sign-off | Draft only | HIGH before public marketing |
+| Privacy Policy URL | `https://qmatch.site/privacy/` (Cloudflare live; re-upload cleaned copy pending) | Use after verifying store-facing copy live |
+| Terms of Use URL | `https://qmatch.site/terms/` | Same |
+| Support URL | `https://qmatch.site/support/` | Same |
+| Account deletion URL | `https://qmatch.site/account-deletion/` | Same |
+| Account deletion instructions URL | `https://qmatch.site/account-deletion/` | Prefer for Play/Apple clarity |
+| Legal counsel sign-off | Still pending | HIGH before public marketing |
 
 ---
 
 ## 6. Pre-submit checklist
 
-- [ ] Confirm `support@qmatch.site` mailbox is live and monitored
+- [ ] Confirm `support@qmatch.site` mailbox is live and monitored (**still NEEDS CONFIRMATION**)
+- [ ] Re-upload cleaned legal static site; verify no “launch draft” / NEEDS CONFIRMATION on public pages
+- [ ] Confirm store URLs: privacy / terms / support / account-deletion
 - [ ] Confirm **Privacy Policy** public HTTPS URL
 - [ ] Confirm **Terms of Use** public HTTPS URL
 - [ ] Confirm account deletion instructions (in-app path + support) match store answers

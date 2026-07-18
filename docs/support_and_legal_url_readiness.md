@@ -47,20 +47,21 @@ See also: `docs/account_deletion_manual_ops_runbook.md` (EN/TR reply templates).
 | Support / Contact | Store support URL; user help |
 | Account deletion instructions | Helpful for Play Data Safety / Apple deletion clarity; mirrors in-app flow |
 
-### Suggested final URLs (planned — hosting not live yet)
+### Public URLs (Cloudflare Pages — domain live)
 
-| Purpose | Planned URL |
-|---------|-------------|
-| Privacy | `https://qmatch.site/privacy` |
-| Terms | `https://qmatch.site/terms` |
-| Support | `https://qmatch.site/support` |
-| Account deletion | `https://qmatch.site/account-deletion` |
+| Purpose | Live URL |
+|---------|----------|
+| Privacy | `https://qmatch.site/privacy/` |
+| Terms | `https://qmatch.site/terms/` |
+| Support | `https://qmatch.site/support/` |
+| Account deletion | `https://qmatch.site/account-deletion/` |
 
-**Domain:** `qmatch.site` has been purchased (replacing earlier `qmatch.app` placeholders; `qmatch.com` was unavailable).
-**Hosting / public HTTPS pages:** still **pending** — not deployed. Bundle id `com.qmatch.app` is unrelated and unchanged.
+**Domain:** `qmatch.site` purchased and connected. Host: **Cloudflare Pages** (operator-reported live).
+**Store-facing copy:** local `docs/legal_static_site/` cleaned in 3P-A22B; **re-upload to Cloudflare still required** so live pages match. See `docs/qmatch_site_live_verification.md`.
 **Email DNS / mailbox:** `support@qmatch.site` still **NEEDS CONFIRMATION**.
+Bundle id `com.qmatch.app` is unrelated and unchanged.
 
-Locale note: EN/TR drafts both exist. Hosting may use one primary language per URL with language toggle, or paths like `/tr/privacy` later — NEEDS CONFIRMATION.
+Locale note: EN primary paths + TR under `/tr/…` are published in the static package.
 
 ---
 
@@ -84,43 +85,40 @@ Quality: **launch draft**. Not counsel-approved. `support@qmatch.site` marked **
 
 ---
 
-## 5. Hosting target (document only — not deployed)
+## 5. Hosting target
 
-| Option | Status in repo |
-|--------|----------------|
-| Firebase Hosting | **Not configured** — `firebase.json` is FlutterFire platforms only (no `hosting` block) |
-| Flutter `web/` | Default Flutter web shell only — not a marketing/legal site |
-| Custom domain `qmatch.site` | Referenced as brand intent; **not verified here** |
-| GitHub Pages / Cloudflare / other | Not present |
+| Option | Status |
+|--------|--------|
+| **Cloudflare Pages** | **Chosen & live** for `qmatch.site` (operator-reported) |
+| Firebase Hosting | Not configured in `firebase.json` (FlutterFire only) |
+| Flutter `web/` | Not used for legal site |
 
-**Recommendation (ops, later phase):** Firebase Hosting or static host serving the markdown→HTML pages at the suggested paths; wire custom domain; then paste URLs into store forms and optionally deep-link from the app.
-
-**This phase does not modify `firebase.json` or deploy hosting.**
+**Next ops step:** re-upload cleaned `docs/legal_static_site/` after 3P-A22B copy cleanup; then paste verified URLs into store forms.
 
 ---
 
 ## 6. Open questions (NEEDS CONFIRMATION)
 
-1. Is `qmatch.site` owned and DNS-controllable by the team?
+1. ~~Is `qmatch.site` owned / hosted?~~ → Live on Cloudflare Pages (still re-verify HTTPS after copy re-upload).
 2. Is `support@qmatch.site` provisioned and monitored?
-3. Preferred host (Firebase Hosting vs other)?
-4. Single URL language vs EN/TR path strategy?
+3. ~~Preferred host?~~ → Cloudflare Pages.
+4. ~~EN/TR path strategy?~~ → `/` EN + `/tr/…` TR in static package.
 5. Should the app later open hosted URLs instead of in-app `LegalDocumentScreen` only?
-6. Counsel review timeline before public URLs go live?
+6. Counsel review timeline for Privacy/Terms?
 7. Will Play/App Store use the same four URLs?
 
 ---
 
 ## 7. Final pre-submit checklist
 
-- [ ] Confirm domain ownership (`qmatch.site` or chosen domain)
+- [x] Domain `qmatch.site` live on Cloudflare Pages (operator-reported)
 - [ ] Confirm / monitor `support@qmatch.site` mailbox
-- [ ] Convert drafts to public HTML (or CMS) and **publish** legal pages
-- [ ] Verify URLs open publicly over HTTPS (incognito, no auth)
+- [ ] **Re-upload** store-facing `docs/legal_static_site/` (3P-A22B local cleanup)
+- [ ] Re-verify URLs over HTTPS (incognito) — no draft / NEEDS CONFIRMATION text
 - [ ] Update App Store / Play forms with final Privacy, Terms, Support URLs
 - [ ] Ensure account-deletion page matches in-app flow (Settings → Delete account, 30 days, support email)
 - [ ] Legal review of Privacy/Terms (and optionally deletion/support pages)
-- [ ] Update `docs/store_privacy_questionnaire_pack.md` checklist items once URLs are live
+- [ ] Update `docs/store_privacy_questionnaire_pack.md` checklist items once clean URLs are live
 - [ ] Optional: add hosted URLs to in-app About/Help as external links
 
 ---

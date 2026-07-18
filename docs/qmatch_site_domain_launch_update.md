@@ -33,10 +33,11 @@ iOS/Android bundle id **`com.qmatch.app`** and macOS product name **`qmatch.app`
 
 ## Hosted URL status
 
-Legal/support pages — **planned / pending hosting** (not live)
+Legal/support pages — **live on Cloudflare Pages** at `qmatch.site` (operator-reported, 2026-07-18).
 
-- Static package exists at `docs/legal_static_site/` with updated `qmatch.site` links.
-- Do **not** claim public HTTPS pages are live until deployed and verified.
+- Static package: `docs/legal_static_site/`
+- 3P-A22B: local store-facing copy cleanup done; **Cloudflare re-upload still required** so live pages drop launch-draft / NEEDS CONFIRMATION wording.
+- See `docs/qmatch_site_live_verification.md`.
 
 ---
 
@@ -55,10 +56,10 @@ Legal/support pages — **planned / pending hosting** (not live)
 
 ## Remaining steps
 
-1. Configure email for **`support@qmatch.site`** (DNS + mailbox + monitoring)
-2. Choose hosting (Firebase Hosting / Cloudflare Pages / other)
-3. Publish HTTPS legal pages from `docs/legal_static_site/`
-4. Verify URLs open publicly (incognito)
+1. Configure email for **`support@qmatch.site`** (DNS + mailbox + monitoring) — still **NEEDS CONFIRMATION**
+2. ~~Choose hosting~~ → Cloudflare Pages live
+3. **Re-upload** cleaned `docs/legal_static_site/` to Cloudflare
+4. Re-verify URLs (incognito) after re-upload
 5. Update App Store Connect / Play Console forms with final URLs
 6. Optional: counsel review before calling pages “final”
 

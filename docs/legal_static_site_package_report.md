@@ -2,7 +2,7 @@
 
 Date: 2026-07-18
 Package root: `docs/legal_static_site/`
-Mode: **Static files only — not deployed**
+Mode: Static package. **Hosting live** on Cloudflare Pages (`qmatch.site`, operator-reported). **3P-A22B:** public HTML cleaned of launch-draft / NEEDS CONFIRMATION wording locally — **re-upload to Cloudflare not done in that phase**.
 
 ---
 
@@ -22,7 +22,7 @@ Mode: **Static files only — not deployed**
 | `docs/legal_static_site/tr/account-deletion/index.html` | Account deletion (TR) |
 | `docs/legal_static_site/assets/legal.css` | Local CSS (system fonts only) |
 
-HTML comments note: `support@qmatch.site` mailbox **NEEDS CONFIRMATION**.
+Public pages no longer show mailbox “NEEDS CONFIRMATION” (store-facing). Internal docs still mark `support@qmatch.site` as **NEEDS CONFIRMATION** until ops verifies.
 
 ---
 
@@ -41,20 +41,20 @@ Content was converted to HTML without inventing new legal claims. Launch-draft d
 
 ## Proposed URL mapping
 
-When hosted at `qmatch.site` (**domain purchased**; hosting not live yet — planned URLs pending deploy):
+Live on `qmatch.site` (Cloudflare Pages). Prefer trailing-slash URLs:
 
-| Planned public URL | Static path |
+| Public URL | Static path |
 |------------|-------------|
 | `https://qmatch.site/` | `index.html` |
-| `https://qmatch.site/privacy` | `privacy/index.html` |
-| `https://qmatch.site/terms` | `terms/index.html` |
-| `https://qmatch.site/support` | `support/index.html` |
-| `https://qmatch.site/account-deletion` | `account-deletion/index.html` |
+| `https://qmatch.site/privacy/` | `privacy/index.html` |
+| `https://qmatch.site/terms/` | `terms/index.html` |
+| `https://qmatch.site/support/` | `support/index.html` |
+| `https://qmatch.site/account-deletion/` | `account-deletion/index.html` |
 | `https://qmatch.site/tr/` | `tr/index.html` |
-| `https://qmatch.site/tr/privacy` | `tr/privacy/index.html` |
-| `https://qmatch.site/tr/terms` | `tr/terms/index.html` |
-| `https://qmatch.site/tr/support` | `tr/support/index.html` |
-| `https://qmatch.site/tr/account-deletion` | `tr/account-deletion/index.html` |
+| `https://qmatch.site/tr/privacy/` | `tr/privacy/index.html` |
+| `https://qmatch.site/tr/terms/` | `tr/terms/index.html` |
+| `https://qmatch.site/tr/support/` | `tr/support/index.html` |
+| `https://qmatch.site/tr/account-deletion/` | `tr/account-deletion/index.html` |
 
 ---
 
@@ -84,20 +84,19 @@ When hosted at `qmatch.site` (**domain purchased**; hosting not live yet — pla
 
 ### Recommended simplest option
 
-**Firebase Hosting** (or Cloudflare Pages if Firebase Hosting is delayed): upload/`firebase deploy --only hosting` of `docs/legal_static_site` (or a copied `public/` folder) after domain + mailbox confirmation. Do **not** deploy in this phase.
+**Cloudflare Pages** — chosen and live. Re-upload cleaned local package when approved (later phase).
 
 ---
 
-## What remains before deploy
+## What remains
 
-1. Confirm DNS for **`qmatch.site`** (domain purchased; wire hosting + email)
+1. ~~Wire hosting for `qmatch.site`~~ → live on Cloudflare Pages
 2. Confirm **`support@qmatch.site`** mailbox receive/send/monitor (**NEEDS CONFIRMATION**)
-3. Legal review of Privacy/Terms drafts
-4. Choose hosting provider
-5. Deploy static package
-6. Verify URLs open publicly over HTTPS (incognito)
-7. Paste URLs into App Store Connect / Play Console (+ store privacy pack)
-8. Optional later: deep-link from in-app About/Help to hosted URLs
+3. Legal review of Privacy/Terms (recommended)
+4. **Re-upload** store-facing `docs/legal_static_site/` (3P-A22B cleanup)
+5. Re-verify URLs over HTTPS (incognito) — no internal draft wording
+6. Paste URLs into App Store Connect / Play Console (+ store privacy pack)
+7. Optional later: deep-link from in-app About/Help to hosted URLs
 
 ---
 
