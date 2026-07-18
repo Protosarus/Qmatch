@@ -1,6 +1,6 @@
 # Qmatch Monetization Strategy Report (Phase 4M-A)
 
-Date: 2026-07-18  
+Date: 2026-07-18
 Mode: **Strategy report only** — no payments, SDKs, paywalls, Firebase writes, deploys, or UI implementation in this phase.
 
 **Brand lock (from style docs):**
@@ -105,11 +105,11 @@ Boost, Spotlight, Super Resonance, later Orbit frame — temporary or intentiona
 
 Filters and explanations framed as:
 
-- thinking style alignment  
-- cognitive compatibility  
-- emotional depth  
-- frequency resonance  
-- expanded compatibility range  
+- thinking style alignment
+- cognitive compatibility
+- emotional depth
+- frequency resonance
+- expanded compatibility range
 
 Not: IQ scoreboards or gated castes.
 
@@ -201,24 +201,24 @@ Exact numeric quotas are **product decisions for later**; below are directional 
 
 **Explicit rules:**
 
-1. **Do not** sell access to “higher IQ people.”  
-2. **Do not** label users as low/high IQ in a humiliating or status-ranking way.  
-3. **Do not** imply clinical or official IQ diagnosis / medical assessment.  
-4. Treat Qmatch IQ as a **reasoning / thinking-style compatibility signal**, not a human worth score.  
-5. **Monetize range controls and insight depth**, not human ranking.  
+1. **Do not** sell access to “higher IQ people.”
+2. **Do not** label users as low/high IQ in a humiliating or status-ranking way.
+3. **Do not** imply clinical or official IQ diagnosis / medical assessment.
+4. Treat Qmatch IQ as a **reasoning / thinking-style compatibility signal**, not a human worth score.
+5. **Monetize range controls and insight depth**, not human ranking.
 6. Prefer language:
 
-   - thinking style alignment  
-   - cognitive compatibility  
-   - emotional depth  
-   - frequency resonance  
-   - expanded compatibility range  
-   - deep insight  
-   - connection map  
-   - resonance  
+   - thinking style alignment
+   - cognitive compatibility
+   - emotional depth
+   - frequency resonance
+   - expanded compatibility range
+   - deep insight
+   - connection map
+   - resonance
 
-7. EQ / Frequency must not become “emotional maturity shaming” either — same principle: **alignment**, not castes.  
-8. Free users keep assessment access and a basic score so the brand promise is not held hostage.  
+7. EQ / Frequency must not become “emotional maturity shaming” either — same principle: **alignment**, not castes.
+8. Free users keep assessment access and a basic score so the brand promise is not held hostage.
 9. Marketing and paywalls must never imply Qmatch is an IQ test vendor or Mensa-style gate.
 
 ---
@@ -262,10 +262,10 @@ Exact numeric quotas are **product decisions for later**; below are directional 
 
 ### Why not many tiers at first
 
-- Engineering: billing + entitlements + restore + server verify is already heavy  
-- Store ops: Apple not ready; Android SDK parked — minimize SKUs  
-- UX: Cosmic brand dies under a tier maze  
-- Learning: validate that **insight + see-who-aligned** convert before Plus/Orbit  
+- Engineering: billing + entitlements + restore + server verify is already heavy
+- Store ops: Apple not ready; Android SDK parked — minimize SKUs
+- UX: Cosmic brand dies under a tier maze
+- Learning: validate that **insight + see-who-aligned** convert before Plus/Orbit
 - Support: fewer refund/cancellation edge cases
 
 **Plus** and **Orbit** stay in the roadmap as named future tiers — not MVP SKUs.
@@ -295,8 +295,8 @@ Exact numeric quotas are **product decisions for later**; below are directional 
 
 ### Entitlement model
 
-- **Source of truth:** backend (Cloud Functions + Firestore), **not** client flags alone  
-- Client reads entitlements for UI; server grants after verified purchase  
+- **Source of truth:** backend (Cloud Functions + Firestore), **not** client flags alone
+- Client reads entitlements for UI; server grants after verified purchase
 - Features map: `see_who_aligned`, `advanced_filters`, `deep_reports`, `rewind`, credit balances, etc.
 
 ### Why client-only entitlement is insecure
@@ -330,8 +330,8 @@ entitlements/{uid}
 
 Security notes (later):
 
-- Clients must **not** write `premiumTier` / credits / entitlements arbitrarily (rules lock to admin/Functions)  
-- Purchase tokens are sensitive — minimize client exposure; prefer Functions-mediated verify  
+- Clients must **not** write `premiumTier` / credits / entitlements arbitrarily (rules lock to admin/Functions)
+- Purchase tokens are sensitive — minimize client exposure; prefer Functions-mediated verify
 
 ### Backend responsibilities
 
@@ -346,8 +346,8 @@ Security notes (later):
 
 ### Client libraries (later phases only)
 
-- Android: Google Play Billing  
-- iOS: StoreKit / `in_app_purchase` (or equivalent)  
+- Android: Google Play Billing
+- iOS: StoreKit / `in_app_purchase` (or equivalent)
 - **Not in this phase:** no package adds
 
 ---
@@ -387,13 +387,13 @@ Current launch stance (answer sheet): **no payments / financial info**; no ads/t
 
 **When monetization ships, update:**
 
-- App Store Privacy answers  
-- Google Play Data Safety  
-- Terms of Service (subscriptions, auto-renew, refunds)  
-- Privacy Policy (purchase data, retention)  
-- Support / FAQ (cancel, restore, billing help)  
-- Account deletion / retention docs (how purchases & entitlements are handled on delete)  
-- Store listing “in-app purchases” declarations  
+- App Store Privacy answers
+- Google Play Data Safety
+- Terms of Service (subscriptions, auto-renew, refunds)
+- Privacy Policy (purchase data, retention)
+- Support / FAQ (cancel, restore, billing help)
+- Account deletion / retention docs (how purchases & entitlements are handled on delete)
+- Store listing “in-app purchases” declarations
 
 **New possible data categories:**
 
@@ -412,15 +412,15 @@ Current launch stance (answer sheet): **no payments / financial info**; no ads/t
 
 ## 13. What NOT to add now
 
-- Ads / rewarded video  
-- Tracking / ATT SDKs  
-- Aggressive full-screen paywalls before redesign  
-- Hard IQ gates or “high IQ only” products  
-- Analytics / Crashlytics **just** for monetization funneling (separate privacy decision)  
-- Billing packages in `pubspec.yaml`  
-- Paywall UI implementation  
-- Firestore entitlement fields written “for later” without rules plan  
-- Payments before **Premium Cosmic Minimal** UI redesign improves perceived value  
+- Ads / rewarded video
+- Tracking / ATT SDKs
+- Aggressive full-screen paywalls before redesign
+- Hard IQ gates or “high IQ only” products
+- Analytics / Crashlytics **just** for monetization funneling (separate privacy decision)
+- Billing packages in `pubspec.yaml`
+- Paywall UI implementation
+- Firestore entitlement fields written “for later” without rules plan
+- Payments before **Premium Cosmic Minimal** UI redesign improves perceived value
 
 ---
 
@@ -468,10 +468,10 @@ No app behavior changes · no payment SDKs · no subscriptions in code · no pay
 
 ## 17. Sources consulted
 
-- `docs/qmatch_visual_style_direction.md`  
-- `docs/qmatch_design_system_implementation_plan.md`  
-- `docs/store_privacy_form_answer_sheet.md`  
-- `docs/store_submission_final_operations_checklist.md`  
-- `docs/launch_readiness_consolidated_audit.md`  
-- `pubspec.yaml` (no billing packages)  
+- `docs/qmatch_visual_style_direction.md`
+- `docs/qmatch_design_system_implementation_plan.md`
+- `docs/store_privacy_form_answer_sheet.md`
+- `docs/store_submission_final_operations_checklist.md`
+- `docs/launch_readiness_consolidated_audit.md`
+- `pubspec.yaml` (no billing packages)
 - Product context under `lib/` (auth, discover, assessment, messages, settings — no IAP flows)
