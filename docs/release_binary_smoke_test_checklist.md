@@ -1,17 +1,17 @@
 # Release Binary Smoke Test Checklist (Phase 3P-A30)
 
-Date: 2026-07-18  
-Project: Qmatch (`qmatch-53d62`)  
-App version in repo: `0.1.0` (`pubspec.yaml`) — confirm build number on the binary under test  
+Date: 2026-07-18
+Project: Qmatch (`qmatch-53d62`)
+App version in repo: `0.1.0` (`pubspec.yaml`) — confirm build number on the binary under test
 Mode: **Manual QA checklist only** — no app/Firebase/deploy changes in this phase
 
 Related: `docs/store_submission_final_operations_checklist.md`, `docs/store_privacy_form_answer_sheet.md`, `docs/firebase_console_store_submission_verification.md`, `docs/account_deletion_manual_ops_runbook.md`
 
 ### How to use
 
-1. Install the **release** (or TestFlight / Play internal) binary — not a random debug build unless noted.  
-2. Fill **Actual result** / **Pass/Fail** / **Notes** per row.  
-3. Apply go/no-go (§4).  
+1. Install the **release** (or TestFlight / Play internal) binary — not a random debug build unless noted.
+2. Fill **Actual result** / **Pass/Fail** / **Notes** per row.
+3. Apply go/no-go (§4).
 4. Complete store preflight (§5) before submit.
 
 ### Severity
@@ -24,9 +24,9 @@ Related: `docs/store_submission_final_operations_checklist.md`, `docs/store_priv
 
 ### Go / no-go rule
 
-- Any **P0 Fail** → **No-go** (do not submit).  
-- Any **P1 Fail** → founder written decision (fix / defer / accept risk).  
-- **P2 Fail** → may ship; track in backlog.  
+- Any **P0 Fail** → **No-go** (do not submit).
+- Any **P1 Fail** → founder written decision (fix / defer / accept risk).
+- **P2 Fail** → may ship; track in backlog.
 - All P0 Pass (+ P1 resolved) → **Go** for smoke dimension.
 
 ### Tester setup
@@ -89,7 +89,7 @@ Related: `docs/store_submission_final_operations_checklist.md`, `docs/store_priv
 | P1 | __ / __ | __ | |
 | P2 | __ / __ | __ | |
 
-**Smoke verdict:** ☐ Go ☐ No-go ☐ Go with founder-accepted P1 risks  
+**Smoke verdict:** ☐ Go ☐ No-go ☐ Go with founder-accepted P1 risks
 
 **Sign-off:** Tester _______________ Founder _______________ Date _______________
 
@@ -145,9 +145,9 @@ Complete alongside or after smoke Go.
 
 ## 5. Ops handoff after smoke (Ümit)
 
-1. If ST-21 created a real pending request on a disposable uid, schedule weekly discovery.  
-2. Do **not** run destructive execute without a separate approved phase.  
-3. Monitor `support@qmatch.site` → `sirinumit@gmail.com`.  
+1. If ST-21 created a real pending request on a disposable uid, schedule weekly discovery.
+2. Do **not** run destructive execute without a separate approved phase.
+3. Monitor `support@qmatch.site` → `sirinumit@gmail.com`.
 4. Use EN/TR reply templates in `docs/account_deletion_manual_ops_runbook.md`.
 
 ---
@@ -160,10 +160,10 @@ No app code changes · no Firebase writes · no deploy · no DNS/email · no SDK
 
 ## Related docs
 
-- `docs/store_submission_final_operations_checklist.md`  
-- `docs/firebase_console_store_submission_verification.md`  
-- `docs/store_privacy_form_answer_sheet.md`  
-- `docs/qmatch_site_live_verification.md`  
-- `docs/qmatch_site_support_mailbox_verification.md`  
-- `docs/account_deletion_manual_ops_runbook.md`  
-- `docs/launch_readiness_consolidated_audit.md`  
+- `docs/store_submission_final_operations_checklist.md`
+- `docs/firebase_console_store_submission_verification.md`
+- `docs/store_privacy_form_answer_sheet.md`
+- `docs/qmatch_site_live_verification.md`
+- `docs/qmatch_site_support_mailbox_verification.md`
+- `docs/account_deletion_manual_ops_runbook.md`
+- `docs/launch_readiness_consolidated_audit.md`
