@@ -1,12 +1,12 @@
 # Store Privacy Final Confirmation Matrix (Phase 3P-A25)
 
-Date: 2026-07-18  
-Project: Qmatch (`qmatch-53d62`)  
+Date: 2026-07-18
+Project: Qmatch (`qmatch-53d62`)
 Mode: **Founder-review matrix only** — not legal advice; no app/Firebase/deploy changes in this phase
 
-Sources: `pubspec.yaml`, `lib/`, `firebase.json`, Android/iOS manifests,  
-`docs/store_privacy_questionnaire_pack.md`, `docs/launch_readiness_consolidated_audit.md`,  
-`docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_verification.md`,  
+Sources: `pubspec.yaml`, `lib/`, `firebase.json`, Android/iOS manifests,
+`docs/store_privacy_questionnaire_pack.md`, `docs/launch_readiness_consolidated_audit.md`,
+`docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_verification.md`,
 `docs/account_deletion_manual_ops_runbook.md`, `docs/account_deletion_processor_plan.md`
 
 ### Confidence legend
@@ -83,41 +83,41 @@ Sources: `pubspec.yaml`, `lib/`, `firebase.json`, Android/iOS manifests,
 
 ### Confirmed store-ready (engineering evidence)
 
-- [x] Phone (+ optional email) contact info collected for auth  
-- [x] Profile fields (name, age, gender, bio, interests, preferences, lifestyle)  
-- [x] Photos, chat, reports/blocks  
-- [x] Assessment answers/results/compatibility  
-- [x] Coarse location **text** when user shares location  
-- [x] Firebase UID  
-- [x] Swipes / matches / chat / assessment usage data  
-- [x] No Analytics/Crashlytics/FCM packages in app deps  
-- [x] Google/Apple Sign-In **not wired** (stubs only)  
-- [x] No ads/ATT SDKs found  
-- [x] Deletion **request** path + public URLs + support email receive  
-- [x] Encryption in transit via Firebase/HTTPS  
+- [x] Phone (+ optional email) contact info collected for auth
+- [x] Profile fields (name, age, gender, bio, interests, preferences, lifestyle)
+- [x] Photos, chat, reports/blocks
+- [x] Assessment answers/results/compatibility
+- [x] Coarse location **text** when user shares location
+- [x] Firebase UID
+- [x] Swipes / matches / chat / assessment usage data
+- [x] No Analytics/Crashlytics/FCM packages in app deps
+- [x] Google/Apple Sign-In **not wired** (stubs only)
+- [x] No ads/ATT SDKs found
+- [x] Deletion **request** path + public URLs + support email receive
+- [x] Encryption in transit via Firebase/HTTPS
 
 ### Needs Founder Confirmation (block store form submit until answered)
 
-1. **Precise vs coarse location** — high-accuracy GPS + `GeoPoint` vs “approximate” marketing copy  
-2. **Firebase Console** Analytics / Crashlytics / Performance / Google diagnostics enabled?  
-3. **Device / advertising IDs** beyond Auth UID — none in app code; confirm Console/binary  
-4. **Camera** declaration vs gallery-only upload code + unused-looking camera permission strings  
-5. **Google Fonts** network behavior / whether to note third-party font fetch  
-6. **Subprocessor list** wording (Google Firebase, Cloudflare)  
-7. **Encryption at rest** form wording beyond Firebase defaults  
-8. **Retention** of reports/logs after deletion — align ops practice + policy  
-9. **Sensitive data** (religion, dating prefs, assessments) counsel classification  
-10. **Ship decision** on SocialLoginScreen Apple/Google stub buttons (hide vs implement)  
-11. **Deletion fulfillment staffing** (manual ops within 30 days) — launch blocker B1  
+1. **Precise vs coarse location** — high-accuracy GPS + `GeoPoint` vs “approximate” marketing copy
+2. **Firebase Console** Analytics / Crashlytics / Performance / Google diagnostics enabled?
+3. **Device / advertising IDs** beyond Auth UID — none in app code; confirm Console/binary
+4. **Camera** declaration vs gallery-only upload code + unused-looking camera permission strings
+5. **Google Fonts** network behavior / whether to note third-party font fetch
+6. **Subprocessor list** wording (Google Firebase, Cloudflare)
+7. **Encryption at rest** form wording beyond Firebase defaults
+8. **Retention** of reports/logs after deletion — align ops practice + policy
+9. **Sensitive data** (religion, dating prefs, assessments) counsel classification
+10. **Ship decision** on SocialLoginScreen Apple/Google stub buttons (hide vs implement)
+11. **Deletion fulfillment staffing** (manual ops within 30 days) — launch blocker B1
 
 ### Not Present / not used (do not over-declare)
 
-- Firebase Analytics / Crashlytics / Performance packages  
-- `firebase_messaging` / real push delivery  
-- Working Google Sign-In / Sign in with Apple collection  
-- Ads / ATT / advertising ID SDKs  
-- `shared_preferences`, `url_launcher`, standalone `http` packages  
-- Payments / address book  
+- Firebase Analytics / Crashlytics / Performance packages
+- `firebase_messaging` / real push delivery
+- Working Google Sign-In / Sign in with Apple collection
+- Ads / ATT / advertising ID SDKs
+- `shared_preferences`, `url_launcher`, standalone `http` packages
+- Payments / address book
 
 ---
 
@@ -136,18 +136,18 @@ Cleared earlier: hosted legal URLs · support mailbox receive/monitor.
 
 ## Explicit non-actions (this phase)
 
-- No app behavior changes  
-- No Firestore rules / Firebase writes  
-- No hosting deploy / DNS  
-- No Admin SDK  
-- No assessment JSON / scoring changes  
-- No commit / push  
+- No app behavior changes
+- No Firestore rules / Firebase writes
+- No hosting deploy / DNS
+- No Admin SDK
+- No assessment JSON / scoring changes
+- No commit / push
 
 ---
 
 ## Related
 
-- `docs/store_privacy_questionnaire_pack.md`  
-- `docs/launch_readiness_consolidated_audit.md`  
-- `docs/qmatch_site_live_verification.md`  
-- `docs/qmatch_site_support_mailbox_verification.md`  
+- `docs/store_privacy_questionnaire_pack.md`
+- `docs/launch_readiness_consolidated_audit.md`
+- `docs/qmatch_site_live_verification.md`
+- `docs/qmatch_site_support_mailbox_verification.md`
