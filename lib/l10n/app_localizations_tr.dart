@@ -546,23 +546,143 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aboutDescription =>
-      'Qmatch, insanları yalnızca görünüşe göre değil; düşünme, hissetme ve bağ kurma tarzlarına göre eşleştirir.';
+      'Qmatch; düşünme, hissetme ve bağ kurma tarzına göre uyumlu bağlantılar keşfetmene yardımcı olur—yalnızca görünüme göre değil. Uyumluluk içgörüleri keşfi desteklemek içindir; bir ilişkinin başarı garantisi değildir.';
 
   @override
   String get aboutLegal => 'Yasal';
 
   @override
-  String get privacyPolicyTodo => 'Gizlilik Politikası (TODO)';
+  String get privacyPolicyTitle => 'Gizlilik Politikası';
 
   @override
-  String get termsOfUseTodo => 'Kullanım Şartları (TODO)';
+  String get termsOfUseTitle => 'Kullanım Şartları';
+
+  @override
+  String get privacyPolicyBody =>
+      'Son güncelleme: Temmuz 2026\n\nBu Gizlilik Politikası, Qmatch’i kullanırken bilgilerinin nasıl işlenebileceğini açıklar. Ürün lansmanı için hazırlanmış bir taslaktır; güncellenebilir. Resmi hukuki tavsiye yerine geçmez.\n\nQmatch nedir?\nQmatch bir bağlantı ve uyumluluk keşif uygulamasıdır. IQ, EQ ve Frequency sonuçları eşleştirme için uygulama içi sinyallerdir—tıbbi/klinik veya resmi zekâ testleri değildir ve ilişki başarısı garantisi vermez.\n\nYaş\nQmatch yetişkinler içindir. Profillerde yaş en az 18’dir.\n\nİşleyebileceğimiz bilgiler\n• Hesap ve doğrulama verileri (ör. telefon veya e-posta ile giriş)\n• Sağladığın profil bilgileri (ad, yaş, fotoğraflar, bio, ilgi alanları, tercihler, etkinleştirdiysen yaklaşık konum)\n• Değerlendirme cevapları ve sonuçları (IQ, EQ, Frequency)\n• Keşfet, eşleşme ve sohbet kullanıyorsan eşleşme/mesajlaşma etkinliği\n• Şikayet ve engelleme gibi güvenlik aksiyonları\n• Hizmeti çalıştırmak için gereken temel cihaz/uygulama kullanım verileri\n\nNasıl kullanırız?\nHesabını oluşturmak, profilleri göstermek, uyumluluk önerileri sunmak, mesajlaşmayı sağlamak, güvenliği artırmak ve uygulamayı işletmek için kullanırız.\n\nPaylaşım\nKişisel bilgilerini satmayız. Uygulamayı çalıştırmamıza yardımcı olan hizmet sağlayıcılarla, yasal zorunluluk halinde veya kullanıcıları ve platformu korumak için paylaşım olabilir.\n\nSeçimlerin\nProfilini güncelleyebilir, bazı gizlilik ayarlarını değiştirebilir, engelleme/şikayet kullanabilir ve Ayarlar → Hesabı sil üzerinden (veya support@qmatch.app adresine yazarak) hesap silme talebi oluşturabilirsin. Silme taleplerini 30 gün içinde işlemeyi hedefleriz. Gerekli olduğunda bazı güvenlik veya yasal kayıtlar sınırlı süre saklanabilir.\n\nÇevrimdışı güvenlik\nBiriyle yüz yüze görüşürsen kamuya açık yerde buluş, birine haber ver ve iyi tanımadığın kişilere para veya hassas belge gönderme.\n\nİletişim\nGizlilik soruları: support@qmatch.app';
+
+  @override
+  String get termsOfUseBody =>
+      'Son güncelleme: Temmuz 2026\n\nQmatch’e hoş geldin. Bu Kullanım Şartları, uygulamayı kullanmak için ürün lansmanı taslağıdır; resmi hukuki incelemenin yerine geçmez.\n\nUygunluk\nQmatch’i kullanmak için en az 18 yaşında olmalı ve geçerli bir sözleşme yapabilmelisin.\n\nHizmet\nQmatch; değerlendirmeler (IQ, EQ, Frequency), profiller ve isteğe bağlı mesajlaşma ile uyumluluk odaklı keşif sunar. Sonuçlar uygulama içi uyumluluk sinyalleridir—tıbbi/klinik tanı veya resmi IQ/EQ sertifikası değildir ve bir eşleşmenin sonuç garantisi değildir.\n\nSorumlulukların\nDiğerleriyle nasıl etkileşim kurduğundan sen sorumlusun. Saygılı ol, doğru profil bilgisi ver ve yasalara uy. Taciz, dolandırıcılık, kimliğe bürünme veya zararlı içerik yasaktır.\n\nGüvenlik araçları\nKullanıcıları şikayet edebilir ve engelleyebilirsin. Şikayetleri inceleyebilir, kötüye kullanımda hesapları kısıtlayabilir veya sonlandırabiliriz.\n\nHesap\nGiriş yöntemin (ör. telefon doğrulama) senden sorumludur. Kalıcı hesap silme talebini Ayarlar → Hesabı sil üzerinden veya support@qmatch.app adresine yazarak oluşturabilirsin. Talepleri 30 gün içinde işlemeyi hedefleriz. Bu geçici deaktivasyon değildir.\n\nSorumluluk reddi\nQmatch “olduğu gibi” sunulur. Kesintisiz hizmet, kusursuz eşleşme veya herhangi bir bağlantının sonucunu garanti etmeyiz.\n\nDeğişiklikler\nBu Şartları güncelleyebiliriz. Güncellemeden sonra kullanmaya devam etmek, yeni şartları kabul ettiğin anlamına gelir.\n\nİletişim\nsupport@qmatch.app';
 
   @override
   String get helpSupportTitle => 'Yardım & Destek';
 
   @override
+  String get helpSupportContact =>
+      'Daha fazla yardıma mı ihtiyacın var?\n\nBize support@qmatch.app adresinden yaz.\n\nHer mesajı okuruz. Hesabı silmek için Ayarlar → Hesabı sil yolunu kullan (30 gün içinde işlenir) veya hesabına bağlı telefon/e-posta ile destekle iletişime geç.';
+
+  @override
+  String get supportEmailLabel => 'support@qmatch.app';
+
+  @override
+  String get openPrivacyPolicy => 'Gizlilik Politikasını oku';
+
+  @override
+  String get openTermsOfUse => 'Kullanım Şartlarını oku';
+
+  @override
+  String get settingsDeleteAccount => 'Hesabı sil';
+
+  @override
+  String get settingsDeleteAccountSubtitle =>
+      'Kalıcı hesap silme talebi oluştur';
+
+  @override
+  String get settingsDeleteAccountDialogTitle => 'Hesap silme talebi';
+
+  @override
+  String get settingsDeleteAccountDialogBody =>
+      'Ayarlar → Hesabı sil üzerinden uygulama içi talep gönderebilirsin. İstersen support@qmatch.app adresine de yazabilirsin.';
+
+  @override
+  String get settingsDeleteAccountDialogAction => 'Anladım';
+
+  @override
+  String get accountDeletionTitle => 'Hesabı sil';
+
+  @override
+  String get accountDeletionWarningTitle =>
+      'Bu işlem kalıcı silme talebi başlatır';
+
+  @override
+  String get accountDeletionIntro =>
+      'Qmatch hesabının kalıcı silinmesini uygulama içinden talep edebilirsin. Bu formu göndermek her şeyi anında silmez—işleyeceğimiz bir silme talebi oluşturur.';
+
+  @override
+  String get accountDeletionWillDeleteTitle => 'Silmeyi planladığımız veriler';
+
+  @override
+  String get accountDeletionWillDeleteBody =>
+      '• Profil bilgilerin\n• Fotoğraflar ve profil medya referansları\n• Değerlendirme cevapları ve sonuçları (IQ, EQ, Frequency)\n• Hesaba bağlı uyumluluk ve Keşfet görünürlük verileri\n• Bu hesaba bağlı eşleşme ve sohbet erişimin (hesap kapanmasının parçası olarak)';
+
+  @override
+  String get accountDeletionMayRetainTitle => 'Sınırlı süre saklanabilecekler';
+
+  @override
+  String get accountDeletionMayRetainBody =>
+      '• Güvenlik şikayetleri ve kötüye kullanım önleme kayıtları\n• Yasal veya uyum için gereken sınırlı loglar\nBunlar dating profilini aktif tutmak için kullanılmaz.';
+
+  @override
+  String get accountDeletionTimelineTitle => 'İşlem süresi';
+
+  @override
+  String get accountDeletionTimelineBody =>
+      'Talebini 30 gün içinde işleyeceğiz. Bu geçici deaktivasyon değildir—işlem tamamlandığında hedef kalıcı hesap silmedir.';
+
+  @override
+  String accountDeletionSupportHint(String email) {
+    return 'Soruların mı var? $email ile iletişime geç';
+  }
+
+  @override
+  String get accountDeletionAckIrreversible =>
+      'Bu talebin geçici deaktivasyon değil, kalıcı silme için olduğunu anlıyorum.';
+
+  @override
+  String get accountDeletionAckTimeline =>
+      'İşlemin 30 güne kadar sürebileceğini anlıyorum.';
+
+  @override
+  String accountDeletionTypeDeleteHint(String token) {
+    return 'Onaylamak için $token yaz';
+  }
+
+  @override
+  String get accountDeletionSubmit => 'Silme talebini gönder';
+
+  @override
+  String get accountDeletionNotImmediateNote =>
+      'Göndermek verilerini anında silmez. İşlem tamamlandığında bilgilendiririz.';
+
+  @override
+  String get accountDeletionAlreadyRequested =>
+      'Bekleyen bir silme talebin zaten var. Yardım için support@qmatch.app adresine yaz.';
+
+  @override
+  String get accountDeletionRequestError =>
+      'Talebin gönderilemedi. Bağlantını kontrol edip tekrar dene veya support@qmatch.app adresine yaz.';
+
+  @override
+  String get accountDeletionSuccessTitle => 'Talep alındı';
+
+  @override
+  String accountDeletionSuccessBody(String email) {
+    return 'Silme talebin alındı. 30 gün içinde işleyeceğiz. Soruların için $email ile iletişime geçebilirsin.';
+  }
+
+  @override
+  String get accountDeletionSuccessAction => 'Tamam';
+
+  @override
+  String get privacyPolicyTodo => 'Gizlilik Politikası';
+
+  @override
+  String get termsOfUseTodo => 'Kullanım Şartları';
+
+  @override
   String get helpSupportContactTodo =>
-      'Destek ile iletişim (MVP):\n\nTODO: Uygulama içi destek talebi veya e-posta bağlantısı ekle.';
+      'Daha fazla yardıma mı ihtiyacın var?\n\nBize support@qmatch.app adresinden yaz.\n\nHer mesajı okuruz. Hesabı silmek için Ayarlar → Hesabı sil yolunu kullan (30 gün içinde işlenir) veya hesabına bağlı telefon/e-posta ile destekle iletişime geç.';
 
   @override
   String get profileTitle => 'Profil';
@@ -675,42 +795,77 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get helpFaqHowWorksA =>
-      'Qmatch; düşünme (IQ), hissetme (EQ) ve bağ kurma tarzını (Frequency) temel alarak eşleşmeler önerir. Amaç, sadece görünüşe değil uyuma odaklanmaktır.';
+      'Qmatch; düşünme (IQ), hissetme (EQ), bağ kurma tarzı (Frequency) ve profiline göre kişi önerir. Amaç uyumlu bağlantılar keşfetmektir—herhangi bir ilişkinin başarı garantisi değildir.';
 
   @override
   String get helpFaqRankingQ => 'Eşleşmeler nasıl sıralanır?';
 
   @override
   String get helpFaqRankingA =>
-      'Keşfet ekranında öneriler; uyumluluk (IQ/EQ/Frequency), arketip ve ortak ilgi alanlarına göre sıralanır.';
+      'Keşfet önerileri Frequency kalıpları, arketip, ilgi alanları ve destekleyici IQ/EQ bantları gibi uyumluluk sinyallerini kullanır. Sıralama uygulama önerisidir; mutlak doğru değildir.';
 
   @override
   String get helpFaqFrequencyQ => 'Frequency ne anlama gelir?';
 
   @override
   String get helpFaqFrequencyA =>
-      'Frequency, birinin nasıl bağ kurduğunu ve iletişim ritmini anlatır. Derinlik, sosyal enerji ve güven hızı gibi boyutlardan oluşur.';
+      'Frequency; derinlik, sosyal enerji ve tempo gibi bağ kurma ritmini anlatır. Klinik bir etiket değil, uygulama içi bir stil sinyalidir.';
+
+  @override
+  String get helpFaqScoresQ => 'IQ ve EQ tıbbi veya resmi test midir?';
+
+  @override
+  String get helpFaqScoresA =>
+      'Hayır. Qmatch IQ, EQ ve Frequency skorları eşleştirme için uygulama içi uyumluluk sinyalleridir. Tıbbi/klinik veya resmi zekâ sertifikası değildir.';
 
   @override
   String get helpFaqPhotosQ => 'Qmatch’te fotoğraflar görünür mü?';
 
   @override
   String get helpFaqPhotosA =>
-      'Evet. Qmatch, uyumluluk katmanlarıyla daha anlamlı bağlantılar kurmayı hedefler; fotoğraflar normal şekilde görüntülenir.';
+      'Evet. Keşfedilebilir olduğunda eklediğin fotoğraflar ve profil bilgileri başkalarına görünebilir. Rahat ettiğin kadarını paylaş.';
 
   @override
   String get helpFaqBlockQ => 'Bir kullanıcıyı nasıl engellerim?';
 
   @override
   String get helpFaqBlockA =>
-      'Sohbet ekranındaki menüden engelleme seçeneğini kullanabilirsin. Engellenen kullanıcılar ayarlardaki “Engellenenler” bölümünde görünür.';
+      'Sohbet → menü → Engelle. Engellenenler Ayarlar → Engellenenler’de görünür. Engelleme, uygulamada daha fazla iletişimi kesmeye yardımcı olur.';
 
   @override
   String get helpFaqReportQ => 'Birini nasıl şikayet ederim?';
 
   @override
   String get helpFaqReportA =>
-      'Sohbet ekranındaki menüden şikayet seçeneğini kullanarak gerekçeni seçebilirsin. Şikayetler incelenmek üzere kaydedilir.';
+      'Sohbet → menü → Şikayet et ve bir gerekçe seç. Şikayetler incelenmek üzere kaydedilir.';
+
+  @override
+  String get helpFaqSafetyQ => 'Yüz yüze buluşma için ipuçları?';
+
+  @override
+  String get helpFaqSafetyA =>
+      'Kamuya açık yerde buluş, birine nerede olduğunu söyle, kendi ulaşımını ayarla ve yalnızca uygulamadan tanıdığın kişilere para veya hassas belge gönderme.';
+
+  @override
+  String get helpFaqAgeQ => 'Minimum yaş nedir?';
+
+  @override
+  String get helpFaqAgeA =>
+      'Qmatch yetişkinler içindir. Profillerde yaş en az 18’dir.';
+
+  @override
+  String get helpFaqDeleteAccountQ => 'Hesabımı nasıl silerim?';
+
+  @override
+  String get helpFaqDeleteAccountA =>
+      'Ayarlar → Hesabı sil’e git, uyarıları oku, iki onay kutusunu işaretle, DELETE yaz ve gönder. Talepleri 30 gün içinde işleriz. İstersen support@qmatch.app adresine de yazabilirsin.';
+
+  @override
+  String get helpFaqDataQ => 'Qmatch hangi verileri kullanır?';
+
+  @override
+  String get helpFaqDataA =>
+      'Kullanımına göre: giriş bilgileri, profil ve fotoğraflar, değerlendirme cevapları/sonuçları, eşleşme/mesajlar ve şikayet-engelleme gibi güvenlik aksiyonları. Ayrıntılar için Gizlilik Politikası’na bak.';
 
   @override
   String get profileFieldAge => 'Yaş';
@@ -1042,11 +1197,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsMvpPrivacyNote =>
-      'Gizlilik ayarları MVP sürümünde yerel olarak tutulur.\n\nTODO: Bu tercihleri Firestore veya cihaz depolamasına kaydet.';
+      'Bu ekrandaki bazı gizlilik anahtarları şimdilik bu cihazda tutulur. Profil, değerlendirmeler, eşleşmeler ve mesajlar hesabınla senkronize olur. Ayrıntılar için Hakkında → Gizlilik Politikası’na bak.';
 
   @override
   String get settingsMvpNotificationsNote =>
-      'TODO: Bildirim tercihlerini Firestore veya cihaz depolamasına kaydet.';
+      'Bu ekrandaki bildirim tercihleri şimdilik bu cihazda tutulur. Anlık bildirimler ayrıca telefon ayarlarına da bağlıdır.';
 
   @override
   String blockedUsersError(String message) {

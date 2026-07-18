@@ -6,6 +6,7 @@ import '../../../core/services/auth_service.dart';
 import '../../../core/navigation/auth_wrapper.dart';
 import '../../debug/debug_home_screen.dart';
 import 'about_screen.dart';
+import 'account_deletion_request_screen.dart';
 import 'blocked_users_screen.dart';
 import 'help_support_screen.dart';
 import 'notifications_settings_screen.dart';
@@ -152,6 +153,19 @@ class SettingsScreen extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => const AboutScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buildSettingItem(
+                    icon: Icons.delete_forever_outlined,
+                    title: l10n.settingsDeleteAccount,
+                    subtitle: l10n.settingsDeleteAccountSubtitle,
+                    isDestructive: true,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const AccountDeletionRequestScreen(),
                         ),
                       );
                     },

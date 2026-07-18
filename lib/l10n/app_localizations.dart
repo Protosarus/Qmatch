@@ -1115,7 +1115,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutDescription.
   ///
   /// In en, this message translates to:
-  /// **'Qmatch matches people not only on looks, but on how they think, feel, and connect.'**
+  /// **'Qmatch helps people discover compatible connections based on how they think, feel, and connect—not looks alone. Compatibility insights are meant to support discovery; they do not guarantee a relationship.'**
   String get aboutDescription;
 
   /// No description provided for @aboutLegal.
@@ -1124,17 +1124,29 @@ abstract class AppLocalizations {
   /// **'Legal'**
   String get aboutLegal;
 
-  /// No description provided for @privacyPolicyTodo.
+  /// No description provided for @privacyPolicyTitle.
   ///
   /// In en, this message translates to:
-  /// **'Privacy Policy (TODO)'**
-  String get privacyPolicyTodo;
+  /// **'Privacy Policy'**
+  String get privacyPolicyTitle;
 
-  /// No description provided for @termsOfUseTodo.
+  /// No description provided for @termsOfUseTitle.
   ///
   /// In en, this message translates to:
-  /// **'Terms of Use (TODO)'**
-  String get termsOfUseTodo;
+  /// **'Terms of Use'**
+  String get termsOfUseTitle;
+
+  /// No description provided for @privacyPolicyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: July 2026\n\nThis Privacy Policy explains how Qmatch (“we”) handles information when you use the app. It is a product launch draft and may be updated. It is not formal legal advice.\n\nWhat Qmatch is\nQmatch is a connection and compatibility discovery app. IQ, EQ, and Frequency results are app-specific signals used for matching—not medical, clinical, or official intelligence tests, and not a guarantee of relationship success.\n\nAge\nQmatch is intended for adults. Profiles use an age of at least 18.\n\nInformation we may process\n• Account and authentication data (for example phone number or email when you sign in)\n• Profile details you provide (name, age, photos, bio, interests, preferences, approximate location if you enable it)\n• Assessment answers and results (IQ, EQ, Frequency) used for compatibility\n• Matching and messaging activity if you use Discover, Matches, or chat\n• Safety actions such as reports and blocks\n• Basic device and app usage data needed to run and improve the service\n\nHow we use information\nWe use this information to create your account, show profiles, calculate compatibility suggestions, enable messaging, improve safety, and operate the app.\n\nSharing\nWe do not sell your personal information. We may share data with service providers that help us run the app (for example authentication, hosting, or analytics), when required by law, or to protect users and the platform.\n\nYour choices\nYou can update profile information in the app, adjust some privacy toggles in Settings, block or report other users, and request account deletion in Settings → Delete account (or email support@qmatch.app). We aim to process deletion requests within 30 days. Some safety or legal records may be retained for a limited time when required.\n\nSafety offline\nIf you meet someone offline, meet in public, tell a friend, and never share financial information with people you do not know well.\n\nContact\nQuestions about privacy: support@qmatch.app'**
+  String get privacyPolicyBody;
+
+  /// No description provided for @termsOfUseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: July 2026\n\nWelcome to Qmatch. These Terms of Use are a product launch draft for using the app. They are not a substitute for formal legal review.\n\nEligibility\nYou must be at least 18 years old and able to form a binding agreement to use Qmatch.\n\nThe service\nQmatch offers compatibility-oriented discovery using assessments (IQ, EQ, Frequency), profiles, and optional messaging. Results are app-specific compatibility signals—not medical or clinical diagnoses, not official IQ/EQ certifications, and not a promise that any match will succeed.\n\nYour responsibilities\nYou are responsible for how you interact with others. Be respectful, provide accurate profile information, and follow applicable laws. Do not harass, scam, impersonate others, or post harmful content.\n\nSafety tools\nYou can report and block users. We may review reports and take action, including limiting or ending accounts that misuse the service.\n\nAccount\nYou are responsible for your sign-in method (such as phone verification). You can request permanent account deletion in Settings → Delete account, or by emailing support@qmatch.app. We aim to process requests within 30 days. This is not temporary deactivation.\n\nDisclaimer\nQmatch is provided “as is.” We do not guarantee uninterrupted service, perfect matching, or outcomes of any connection.\n\nChanges\nWe may update these Terms. Continued use after updates means you accept the revised Terms.\n\nContact\nsupport@qmatch.app'**
+  String get termsOfUseBody;
 
   /// No description provided for @helpSupportTitle.
   ///
@@ -1142,10 +1154,196 @@ abstract class AppLocalizations {
   /// **'Help & Support'**
   String get helpSupportTitle;
 
+  /// No description provided for @helpSupportContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Need more help?\n\nEmail us at support@qmatch.app\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
+  String get helpSupportContact;
+
+  /// No description provided for @supportEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'support@qmatch.app'**
+  String get supportEmailLabel;
+
+  /// No description provided for @openPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Privacy Policy'**
+  String get openPrivacyPolicy;
+
+  /// No description provided for @openTermsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Terms of Use'**
+  String get openTermsOfUse;
+
+  /// No description provided for @settingsDeleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get settingsDeleteAccount;
+
+  /// No description provided for @settingsDeleteAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request permanent account deletion'**
+  String get settingsDeleteAccountSubtitle;
+
+  /// No description provided for @settingsDeleteAccountDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request account deletion'**
+  String get settingsDeleteAccountDialogTitle;
+
+  /// No description provided for @settingsDeleteAccountDialogBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.app.'**
+  String get settingsDeleteAccountDialogBody;
+
+  /// No description provided for @settingsDeleteAccountDialogAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get settingsDeleteAccountDialogAction;
+
+  /// No description provided for @accountDeletionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get accountDeletionTitle;
+
+  /// No description provided for @accountDeletionWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This starts a permanent deletion request'**
+  String get accountDeletionWarningTitle;
+
+  /// No description provided for @accountDeletionIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'You can request permanent deletion of your Qmatch account from inside the app. Submitting this form does not delete everything instantly—it creates a deletion request that we process.'**
+  String get accountDeletionIntro;
+
+  /// No description provided for @accountDeletionWillDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What we plan to delete'**
+  String get accountDeletionWillDeleteTitle;
+
+  /// No description provided for @accountDeletionWillDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'• Your profile information\n• Photos and profile media references\n• Assessment answers and results (IQ, EQ, Frequency)\n• Account-linked compatibility and Discover visibility data\n• Your access to matches and chats tied to this account (as part of account closure)'**
+  String get accountDeletionWillDeleteBody;
+
+  /// No description provided for @accountDeletionMayRetainTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What may be kept for a limited time'**
+  String get accountDeletionMayRetainTitle;
+
+  /// No description provided for @accountDeletionMayRetainBody.
+  ///
+  /// In en, this message translates to:
+  /// **'• Safety reports and abuse-prevention records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.'**
+  String get accountDeletionMayRetainBody;
+
+  /// No description provided for @accountDeletionTimelineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing timeline'**
+  String get accountDeletionTimelineTitle;
+
+  /// No description provided for @accountDeletionTimelineBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We will process your request within 30 days. This is not temporary deactivation—the goal is permanent account deletion once processing is complete.'**
+  String get accountDeletionTimelineBody;
+
+  /// No description provided for @accountDeletionSupportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions? Contact {email}'**
+  String accountDeletionSupportHint(String email);
+
+  /// No description provided for @accountDeletionAckIrreversible.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this request is for permanent deletion, not temporary deactivation.'**
+  String get accountDeletionAckIrreversible;
+
+  /// No description provided for @accountDeletionAckTimeline.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand processing can take up to 30 days.'**
+  String get accountDeletionAckTimeline;
+
+  /// No description provided for @accountDeletionTypeDeleteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type {token} to confirm'**
+  String accountDeletionTypeDeleteHint(String token);
+
+  /// No description provided for @accountDeletionSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit deletion request'**
+  String get accountDeletionSubmit;
+
+  /// No description provided for @accountDeletionNotImmediateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting does not immediately erase your data. We confirm when processing is complete.'**
+  String get accountDeletionNotImmediateNote;
+
+  /// No description provided for @accountDeletionAlreadyRequested.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have a pending deletion request. If you need help, email support@qmatch.app.'**
+  String get accountDeletionAlreadyRequested;
+
+  /// No description provided for @accountDeletionRequestError.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not submit your request. Check your connection and try again, or email support@qmatch.app.'**
+  String get accountDeletionRequestError;
+
+  /// No description provided for @accountDeletionSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request received'**
+  String get accountDeletionSuccessTitle;
+
+  /// No description provided for @accountDeletionSuccessBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your deletion request has been received. We will process it within 30 days. You can contact {email} if you have questions.'**
+  String accountDeletionSuccessBody(String email);
+
+  /// No description provided for @accountDeletionSuccessAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get accountDeletionSuccessAction;
+
+  /// No description provided for @privacyPolicyTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicyTodo;
+
+  /// No description provided for @termsOfUseTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUseTodo;
+
   /// No description provided for @helpSupportContactTodo.
   ///
   /// In en, this message translates to:
-  /// **'Contact support (MVP):\n\nTODO: Add in-app support request or email link.'**
+  /// **'Need more help?\n\nEmail us at support@qmatch.app\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
   String get helpSupportContactTodo;
 
   /// No description provided for @profileTitle.
@@ -1361,7 +1559,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqHowWorksA.
   ///
   /// In en, this message translates to:
-  /// **'Qmatch suggests matches based on how you think (IQ), feel (EQ), and connect (Frequency). The goal is compatibility—not looks alone.'**
+  /// **'Qmatch suggests people based on how you think (IQ), feel (EQ), and connect (Frequency), plus your profile. It is for discovering compatible connections—not a guarantee that any relationship will work out.'**
   String get helpFaqHowWorksA;
 
   /// No description provided for @helpFaqRankingQ.
@@ -1373,7 +1571,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqRankingA.
   ///
   /// In en, this message translates to:
-  /// **'Discover suggestions are ranked by compatibility (IQ/EQ/Frequency), archetype, and shared interests.'**
+  /// **'Discover suggestions use compatibility signals (including Frequency patterns, archetype, interests, and supporting IQ/EQ bands). Rankings are app suggestions, not absolute truth.'**
   String get helpFaqRankingA;
 
   /// No description provided for @helpFaqFrequencyQ.
@@ -1385,8 +1583,20 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqFrequencyA.
   ///
   /// In en, this message translates to:
-  /// **'Frequency describes how someone builds connection and communication rhythm—depth, social energy, and how quickly trust forms.'**
+  /// **'Frequency describes how someone builds connection and communication rhythm—things like depth, social energy, and pace. It is an in-app style signal, not a clinical label.'**
   String get helpFaqFrequencyA;
+
+  /// No description provided for @helpFaqScoresQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Are IQ and EQ real medical or official tests?'**
+  String get helpFaqScoresQ;
+
+  /// No description provided for @helpFaqScoresA.
+  ///
+  /// In en, this message translates to:
+  /// **'No. Qmatch IQ, EQ, and Frequency scores are app-specific compatibility signals for matching. They are not medical, clinical, or official intelligence certifications.'**
+  String get helpFaqScoresA;
 
   /// No description provided for @helpFaqPhotosQ.
   ///
@@ -1397,7 +1607,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqPhotosA.
   ///
   /// In en, this message translates to:
-  /// **'Yes. Qmatch aims for more meaningful connections through compatibility layers; photos are shown normally.'**
+  /// **'Yes. Photos and profile details you add can appear to others when you are discoverable. Only share what you are comfortable showing.'**
   String get helpFaqPhotosA;
 
   /// No description provided for @helpFaqBlockQ.
@@ -1409,7 +1619,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqBlockA.
   ///
   /// In en, this message translates to:
-  /// **'Use Block in the chat menu. Blocked users appear under Settings → Blocked users.'**
+  /// **'Open a chat → menu → Block. Blocked people appear under Settings → Blocked users. Blocking helps stop further contact in the app.'**
   String get helpFaqBlockA;
 
   /// No description provided for @helpFaqReportQ.
@@ -1421,8 +1631,56 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqReportA.
   ///
   /// In en, this message translates to:
-  /// **'Use Report in the chat menu and choose a reason. Reports are saved for review.'**
+  /// **'Open a chat → menu → Report and choose a reason. Reports are saved for review so we can help keep the community safer.'**
   String get helpFaqReportA;
+
+  /// No description provided for @helpFaqSafetyQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Any tips for meeting offline?'**
+  String get helpFaqSafetyQ;
+
+  /// No description provided for @helpFaqSafetyA.
+  ///
+  /// In en, this message translates to:
+  /// **'Meet in a public place, tell a friend where you are, arrange your own transport, and never send money or sensitive documents to someone you only know through the app.'**
+  String get helpFaqSafetyA;
+
+  /// No description provided for @helpFaqAgeQ.
+  ///
+  /// In en, this message translates to:
+  /// **'What is the minimum age?'**
+  String get helpFaqAgeQ;
+
+  /// No description provided for @helpFaqAgeA.
+  ///
+  /// In en, this message translates to:
+  /// **'Qmatch is for adults. Profiles use an age of at least 18.'**
+  String get helpFaqAgeA;
+
+  /// No description provided for @helpFaqDeleteAccountQ.
+  ///
+  /// In en, this message translates to:
+  /// **'How do I delete my account?'**
+  String get helpFaqDeleteAccountQ;
+
+  /// No description provided for @helpFaqDeleteAccountA.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.app.'**
+  String get helpFaqDeleteAccountA;
+
+  /// No description provided for @helpFaqDataQ.
+  ///
+  /// In en, this message translates to:
+  /// **'What data does Qmatch use?'**
+  String get helpFaqDataQ;
+
+  /// No description provided for @helpFaqDataA.
+  ///
+  /// In en, this message translates to:
+  /// **'Depending on what you use: sign-in details, profile and photos, assessment answers and results, matches/messages, and safety actions like reports and blocks. See the Privacy Policy for more detail.'**
+  String get helpFaqDataA;
 
   /// No description provided for @profileFieldAge.
   ///
@@ -2045,13 +2303,13 @@ abstract class AppLocalizations {
   /// No description provided for @settingsMvpPrivacyNote.
   ///
   /// In en, this message translates to:
-  /// **'Privacy settings are stored locally in this MVP.\n\nTODO: Persist these preferences to Firestore or device storage.'**
+  /// **'Some privacy toggles on this screen are stored on this device for now. Core profile, assessments, matches, and messages sync with your account. For full details, read the Privacy Policy in About.'**
   String get settingsMvpPrivacyNote;
 
   /// No description provided for @settingsMvpNotificationsNote.
   ///
   /// In en, this message translates to:
-  /// **'TODO: Persist notification preferences to Firestore or device storage.'**
+  /// **'Notification preferences on this screen are stored on this device for now. Push delivery also depends on your phone settings.'**
   String get settingsMvpNotificationsNote;
 
   /// No description provided for @blockedUsersError.

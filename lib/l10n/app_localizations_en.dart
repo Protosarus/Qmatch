@@ -550,23 +550,144 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutDescription =>
-      'Qmatch matches people not only on looks, but on how they think, feel, and connect.';
+      'Qmatch helps people discover compatible connections based on how they think, feel, and connect—not looks alone. Compatibility insights are meant to support discovery; they do not guarantee a relationship.';
 
   @override
   String get aboutLegal => 'Legal';
 
   @override
-  String get privacyPolicyTodo => 'Privacy Policy (TODO)';
+  String get privacyPolicyTitle => 'Privacy Policy';
 
   @override
-  String get termsOfUseTodo => 'Terms of Use (TODO)';
+  String get termsOfUseTitle => 'Terms of Use';
+
+  @override
+  String get privacyPolicyBody =>
+      'Last updated: July 2026\n\nThis Privacy Policy explains how Qmatch (“we”) handles information when you use the app. It is a product launch draft and may be updated. It is not formal legal advice.\n\nWhat Qmatch is\nQmatch is a connection and compatibility discovery app. IQ, EQ, and Frequency results are app-specific signals used for matching—not medical, clinical, or official intelligence tests, and not a guarantee of relationship success.\n\nAge\nQmatch is intended for adults. Profiles use an age of at least 18.\n\nInformation we may process\n• Account and authentication data (for example phone number or email when you sign in)\n• Profile details you provide (name, age, photos, bio, interests, preferences, approximate location if you enable it)\n• Assessment answers and results (IQ, EQ, Frequency) used for compatibility\n• Matching and messaging activity if you use Discover, Matches, or chat\n• Safety actions such as reports and blocks\n• Basic device and app usage data needed to run and improve the service\n\nHow we use information\nWe use this information to create your account, show profiles, calculate compatibility suggestions, enable messaging, improve safety, and operate the app.\n\nSharing\nWe do not sell your personal information. We may share data with service providers that help us run the app (for example authentication, hosting, or analytics), when required by law, or to protect users and the platform.\n\nYour choices\nYou can update profile information in the app, adjust some privacy toggles in Settings, block or report other users, and request account deletion in Settings → Delete account (or email support@qmatch.app). We aim to process deletion requests within 30 days. Some safety or legal records may be retained for a limited time when required.\n\nSafety offline\nIf you meet someone offline, meet in public, tell a friend, and never share financial information with people you do not know well.\n\nContact\nQuestions about privacy: support@qmatch.app';
+
+  @override
+  String get termsOfUseBody =>
+      'Last updated: July 2026\n\nWelcome to Qmatch. These Terms of Use are a product launch draft for using the app. They are not a substitute for formal legal review.\n\nEligibility\nYou must be at least 18 years old and able to form a binding agreement to use Qmatch.\n\nThe service\nQmatch offers compatibility-oriented discovery using assessments (IQ, EQ, Frequency), profiles, and optional messaging. Results are app-specific compatibility signals—not medical or clinical diagnoses, not official IQ/EQ certifications, and not a promise that any match will succeed.\n\nYour responsibilities\nYou are responsible for how you interact with others. Be respectful, provide accurate profile information, and follow applicable laws. Do not harass, scam, impersonate others, or post harmful content.\n\nSafety tools\nYou can report and block users. We may review reports and take action, including limiting or ending accounts that misuse the service.\n\nAccount\nYou are responsible for your sign-in method (such as phone verification). You can request permanent account deletion in Settings → Delete account, or by emailing support@qmatch.app. We aim to process requests within 30 days. This is not temporary deactivation.\n\nDisclaimer\nQmatch is provided “as is.” We do not guarantee uninterrupted service, perfect matching, or outcomes of any connection.\n\nChanges\nWe may update these Terms. Continued use after updates means you accept the revised Terms.\n\nContact\nsupport@qmatch.app';
 
   @override
   String get helpSupportTitle => 'Help & Support';
 
   @override
+  String get helpSupportContact =>
+      'Need more help?\n\nEmail us at support@qmatch.app\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.';
+
+  @override
+  String get supportEmailLabel => 'support@qmatch.app';
+
+  @override
+  String get openPrivacyPolicy => 'Read Privacy Policy';
+
+  @override
+  String get openTermsOfUse => 'Read Terms of Use';
+
+  @override
+  String get settingsDeleteAccount => 'Delete account';
+
+  @override
+  String get settingsDeleteAccountSubtitle =>
+      'Request permanent account deletion';
+
+  @override
+  String get settingsDeleteAccountDialogTitle => 'Request account deletion';
+
+  @override
+  String get settingsDeleteAccountDialogBody =>
+      'Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.app.';
+
+  @override
+  String get settingsDeleteAccountDialogAction => 'Got it';
+
+  @override
+  String get accountDeletionTitle => 'Delete account';
+
+  @override
+  String get accountDeletionWarningTitle =>
+      'This starts a permanent deletion request';
+
+  @override
+  String get accountDeletionIntro =>
+      'You can request permanent deletion of your Qmatch account from inside the app. Submitting this form does not delete everything instantly—it creates a deletion request that we process.';
+
+  @override
+  String get accountDeletionWillDeleteTitle => 'What we plan to delete';
+
+  @override
+  String get accountDeletionWillDeleteBody =>
+      '• Your profile information\n• Photos and profile media references\n• Assessment answers and results (IQ, EQ, Frequency)\n• Account-linked compatibility and Discover visibility data\n• Your access to matches and chats tied to this account (as part of account closure)';
+
+  @override
+  String get accountDeletionMayRetainTitle =>
+      'What may be kept for a limited time';
+
+  @override
+  String get accountDeletionMayRetainBody =>
+      '• Safety reports and abuse-prevention records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.';
+
+  @override
+  String get accountDeletionTimelineTitle => 'Processing timeline';
+
+  @override
+  String get accountDeletionTimelineBody =>
+      'We will process your request within 30 days. This is not temporary deactivation—the goal is permanent account deletion once processing is complete.';
+
+  @override
+  String accountDeletionSupportHint(String email) {
+    return 'Questions? Contact $email';
+  }
+
+  @override
+  String get accountDeletionAckIrreversible =>
+      'I understand this request is for permanent deletion, not temporary deactivation.';
+
+  @override
+  String get accountDeletionAckTimeline =>
+      'I understand processing can take up to 30 days.';
+
+  @override
+  String accountDeletionTypeDeleteHint(String token) {
+    return 'Type $token to confirm';
+  }
+
+  @override
+  String get accountDeletionSubmit => 'Submit deletion request';
+
+  @override
+  String get accountDeletionNotImmediateNote =>
+      'Submitting does not immediately erase your data. We confirm when processing is complete.';
+
+  @override
+  String get accountDeletionAlreadyRequested =>
+      'You already have a pending deletion request. If you need help, email support@qmatch.app.';
+
+  @override
+  String get accountDeletionRequestError =>
+      'We could not submit your request. Check your connection and try again, or email support@qmatch.app.';
+
+  @override
+  String get accountDeletionSuccessTitle => 'Request received';
+
+  @override
+  String accountDeletionSuccessBody(String email) {
+    return 'Your deletion request has been received. We will process it within 30 days. You can contact $email if you have questions.';
+  }
+
+  @override
+  String get accountDeletionSuccessAction => 'Done';
+
+  @override
+  String get privacyPolicyTodo => 'Privacy Policy';
+
+  @override
+  String get termsOfUseTodo => 'Terms of Use';
+
+  @override
   String get helpSupportContactTodo =>
-      'Contact support (MVP):\n\nTODO: Add in-app support request or email link.';
+      'Need more help?\n\nEmail us at support@qmatch.app\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.';
 
   @override
   String get profileTitle => 'Profile';
@@ -682,42 +803,77 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpFaqHowWorksA =>
-      'Qmatch suggests matches based on how you think (IQ), feel (EQ), and connect (Frequency). The goal is compatibility—not looks alone.';
+      'Qmatch suggests people based on how you think (IQ), feel (EQ), and connect (Frequency), plus your profile. It is for discovering compatible connections—not a guarantee that any relationship will work out.';
 
   @override
   String get helpFaqRankingQ => 'How are matches ranked?';
 
   @override
   String get helpFaqRankingA =>
-      'Discover suggestions are ranked by compatibility (IQ/EQ/Frequency), archetype, and shared interests.';
+      'Discover suggestions use compatibility signals (including Frequency patterns, archetype, interests, and supporting IQ/EQ bands). Rankings are app suggestions, not absolute truth.';
 
   @override
   String get helpFaqFrequencyQ => 'What does Frequency mean?';
 
   @override
   String get helpFaqFrequencyA =>
-      'Frequency describes how someone builds connection and communication rhythm—depth, social energy, and how quickly trust forms.';
+      'Frequency describes how someone builds connection and communication rhythm—things like depth, social energy, and pace. It is an in-app style signal, not a clinical label.';
+
+  @override
+  String get helpFaqScoresQ => 'Are IQ and EQ real medical or official tests?';
+
+  @override
+  String get helpFaqScoresA =>
+      'No. Qmatch IQ, EQ, and Frequency scores are app-specific compatibility signals for matching. They are not medical, clinical, or official intelligence certifications.';
 
   @override
   String get helpFaqPhotosQ => 'Are photos visible on Qmatch?';
 
   @override
   String get helpFaqPhotosA =>
-      'Yes. Qmatch aims for more meaningful connections through compatibility layers; photos are shown normally.';
+      'Yes. Photos and profile details you add can appear to others when you are discoverable. Only share what you are comfortable showing.';
 
   @override
   String get helpFaqBlockQ => 'How do I block someone?';
 
   @override
   String get helpFaqBlockA =>
-      'Use Block in the chat menu. Blocked users appear under Settings → Blocked users.';
+      'Open a chat → menu → Block. Blocked people appear under Settings → Blocked users. Blocking helps stop further contact in the app.';
 
   @override
   String get helpFaqReportQ => 'How do I report someone?';
 
   @override
   String get helpFaqReportA =>
-      'Use Report in the chat menu and choose a reason. Reports are saved for review.';
+      'Open a chat → menu → Report and choose a reason. Reports are saved for review so we can help keep the community safer.';
+
+  @override
+  String get helpFaqSafetyQ => 'Any tips for meeting offline?';
+
+  @override
+  String get helpFaqSafetyA =>
+      'Meet in a public place, tell a friend where you are, arrange your own transport, and never send money or sensitive documents to someone you only know through the app.';
+
+  @override
+  String get helpFaqAgeQ => 'What is the minimum age?';
+
+  @override
+  String get helpFaqAgeA =>
+      'Qmatch is for adults. Profiles use an age of at least 18.';
+
+  @override
+  String get helpFaqDeleteAccountQ => 'How do I delete my account?';
+
+  @override
+  String get helpFaqDeleteAccountA =>
+      'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.app.';
+
+  @override
+  String get helpFaqDataQ => 'What data does Qmatch use?';
+
+  @override
+  String get helpFaqDataA =>
+      'Depending on what you use: sign-in details, profile and photos, assessment answers and results, matches/messages, and safety actions like reports and blocks. See the Privacy Policy for more detail.';
 
   @override
   String get profileFieldAge => 'Age';
@@ -1049,11 +1205,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsMvpPrivacyNote =>
-      'Privacy settings are stored locally in this MVP.\n\nTODO: Persist these preferences to Firestore or device storage.';
+      'Some privacy toggles on this screen are stored on this device for now. Core profile, assessments, matches, and messages sync with your account. For full details, read the Privacy Policy in About.';
 
   @override
   String get settingsMvpNotificationsNote =>
-      'TODO: Persist notification preferences to Firestore or device storage.';
+      'Notification preferences on this screen are stored on this device for now. Push delivery also depends on your phone settings.';
 
   @override
   String blockedUsersError(String message) {
