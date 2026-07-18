@@ -7,6 +7,7 @@ Mode: **Operations checklist** — no app/Firebase/deploy/DNS changes in doc pha
 
 Related:
 
+- `docs/release_binary_smoke_test_checklist.md` (**3P-A30** — release binary smoke + store preflight)
 - `docs/firebase_console_store_submission_verification.md` (**3P-A29**)
 - `docs/store_privacy_form_answer_sheet.md`
 - `docs/store_privacy_nfc_resolution_checklist.md`
@@ -184,6 +185,7 @@ Details: `docs/firebase_console_store_submission_verification.md`
 
 ### Complete at submit time
 
+- [ ] Release binary smoke test completed — `docs/release_binary_smoke_test_checklist.md` (P0 Go)
 - [ ] App Store Connect App Privacy filled from answer sheet
 - [ ] Play Console Data Safety filled from answer sheet
 - [ ] Privacy / Terms / Support / Account-deletion URLs pasted
@@ -232,6 +234,7 @@ Remaining items are **optional** or founder/legal judgment (counsel, stubs, came
 |------|-----|
 | Console verification | `docs/firebase_console_store_submission_verification.md` |
 | Fill store privacy forms | `docs/store_privacy_form_answer_sheet.md` |
+| Release binary smoke | `docs/release_binary_smoke_test_checklist.md` |
 | Repo NFC locks | `docs/store_privacy_nfc_resolution_checklist.md` |
 | Deletion how-to | `docs/account_deletion_manual_ops_runbook.md` |
 | Mailbox proof | `docs/qmatch_site_support_mailbox_verification.md` |
