@@ -12,6 +12,15 @@ class FirestorePaths {
   static CollectionReference<Map<String, dynamic>> threads() => _db.collection('threads');
   static CollectionReference<Map<String, dynamic>> reports() => _db.collection('reports');
 
+  /// Per-user account deletion requests (ops processes these; app does not wipe data).
+  static CollectionReference<Map<String, dynamic>> accountDeletionRequests() =>
+      _db.collection('account_deletion_requests');
+
+  static DocumentReference<Map<String, dynamic>> accountDeletionRequestDoc(
+    String uid,
+  ) =>
+      accountDeletionRequests().doc(uid);
+
   /// Global assessment set definitions (IQ / EQ / frequency variants).
   static CollectionReference<Map<String, dynamic>> assessmentSets() =>
       _db.collection('assessment_sets');
