@@ -256,6 +256,7 @@ See: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_
 
 ## 7. Related product docs
 
+- `docs/store_privacy_nfc_resolution_checklist.md` (**3P-A27** — NFC resolution from repo + remaining human checklist)
 - `docs/store_privacy_form_answer_sheet.md` (**3P-A26** — App Store / Play form answer sheet)
 - `docs/store_privacy_final_confirmation_matrix.md` (**3P-A25** — founder confirmation matrix)
 - `docs/launch_readiness_consolidated_audit.md`

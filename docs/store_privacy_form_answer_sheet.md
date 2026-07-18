@@ -4,7 +4,7 @@ Date: 2026-07-18
 Project: Qmatch (`qmatch-53d62`)  
 Mode: **Practical form fill-in sheet** — not legal advice; no app/Firebase/deploy changes in this phase
 
-**Source of truth:** `docs/store_privacy_final_confirmation_matrix.md` (+ pack, launch audit, live site/mailbox docs, `pubspec.yaml`, `lib/`)
+**Update (3P-A27):** Repo evidence pass — see `docs/store_privacy_nfc_resolution_checklist.md`. Several NFC items locked for the current binary; Console/legal/ops items remain.
 
 ### Paste into store consoles (verified)
 
@@ -59,15 +59,15 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 | Data type | Collected? | Linked? | Tracking? | Purpose(s) | Confidence | Notes |
 |-----------|------------|---------|-----------|------------|------------|-------|
 | User ID | **Yes** | Yes | No | App Functionality, Account Management | Confirmed | Firebase Auth UID |
-| Device ID | **No** (draft) | — | — | — | NFC | No device_info/ads ID in app; confirm Console/binary |
-| Advertising Data / ID | **No** | — | — | — | Not Present / NFC | No ads SDKs found |
+| Device ID | **No** | — | — | — | Confirmed (app) | No device_info in deps/`lib`. Spot-check Console before submit (3P-A27) |
+| Advertising Data / ID | **No** | — | — | — | Confirmed (app) | No ads/ATT SDKs |
 
 ### 1.4 Location
 
 | Data type | Collected? | Linked? | Tracking? | Purpose(s) | Confidence | Notes |
 |-----------|------------|---------|-----------|------------|------------|-------|
 | Coarse Location | **Yes** (if user enables) | Yes | No | App Functionality | Confirmed | City/region `location_text` |
-| Precise Location | **Yes — conservative** until founder decides | Yes | No | App Functionality | NFC | Code: `LocationAccuracy.high` + stores `GeoPoint`. Conservative form answer: **declare Precise** if shipping as-is; or lower accuracy / stop storing lat/lng then declare Coarse only |
+| Precise Location | **Yes** (if user enables) | Yes | No | App Functionality | Confirmed (shipping binary) | `LocationAccuracy.high` + stored `GeoPoint` (3P-A27). Optional later: change code to coarse-only |
 
 ### 1.5 Usage Data
 
@@ -81,11 +81,9 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 
 | Data type | Collected? | Linked? | Tracking? | Purpose(s) | Confidence | Notes |
 |-----------|------------|---------|-----------|------------|------------|-------|
-| Crash Data | **No** via app Crashlytics package | — | — | — | Confirmed (deps) | NFC: Console-only Crashlytics? |
-| Performance Data | **No** via app package | — | — | — | Confirmed (deps) | NFC: Console Performance? |
-| Other Diagnostic Data | **Unknown** | — | — | — | NFC | Confirm Firebase Console |
-
-**Recommended draft until Console check:** Do **not** declare Crash/Performance unless Console shows them enabled for this app.
+| Crash Data | **No** (no Crashlytics package) | — | — | — | Confirmed (deps) | NFC: Console-only? |
+| Performance Data | **No** (no Performance package) | — | — | — | Confirmed (deps) | NFC: Console? |
+| Other Diagnostic Data | **No** unless Console proves otherwise | — | — | — | NFC (Console only) | |
 
 ### 1.7 Sensitive Info
 
@@ -145,7 +143,7 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 
 | Data type | Collected? | Shared? | Required / optional | Purpose | Ephemeral? | Deletion? | Confidence | Notes |
 |-----------|------------|---------|---------------------|---------|------------|-----------|------------|-------|
-| Photos | Yes | Yes (Firebase Storage; other users) | Optional upload (encouraged) | App functionality | No | Yes | Confirmed | Gallery path confirmed; camera NFC |
+| Photos | Yes | Yes (Firebase Storage; other users) | Optional upload (encouraged) | App functionality | No | Yes | Confirmed | Gallery / `pickMultipleMedia` only — no `ImageSource.camera` in code. Camera permission strings exist but unused (product cleanup optional) |
 
 ### 2.3 Messages
 
@@ -161,15 +159,15 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 | App interactions | Yes | Yes (Firebase) | Required to use Discover/assessments | App functionality | No | Yes | Confirmed | Swipes, assessments, matches |
 | In-app search history | No | — | — | — | — | — | Not Present | |
 | Installed apps | No | — | — | — | — | — | Not Present | |
-| Other user-generated content | Yes | Yes | Various | App functionality / safety | No | Yes (reports may retain) | Confirmed / NFC retention | Reports, blocks |
+| Other user-generated content | Yes | Yes | Various | App functionality / safety | No | Yes (reports may retain per runbook) | Confirmed | Retention of reports documented in ops runbook |
 
 ### 2.5 App info and performance
 
 | Data type | Collected? | Shared? | Purpose | Ephemeral? | Deletion? | Confidence | Notes |
 |-----------|------------|---------|---------|------------|-----------|------------|-------|
-| Crash logs | No (no Crashlytics package) | — | — | — | — | Confirmed deps / NFC Console | Confirm Console |
-| Diagnostics | Unknown | — | — | — | — | NFC | |
-| Other app performance | No (no Performance package) | — | — | — | — | Confirmed deps / NFC Console | |
+| Crash logs | No (no Crashlytics package) | — | — | — | — | Confirmed deps | Console check remaining |
+| Diagnostics | No unless Console proves otherwise | — | — | — | — | NFC Console | |
+| Other app performance | No (no Performance package) | — | — | — | — | Confirmed deps | Console check remaining |
 
 **Draft:** Answer **No** for crash/diagnostics unless Firebase Console proves otherwise.
 
@@ -177,14 +175,14 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 
 | Data type | Collected? | Shared? | Purpose | Ephemeral? | Deletion? | Confidence | Notes |
 |-----------|------------|---------|---------|------------|-----------|------------|-------|
-| Device or other IDs | **UID yes; advertising/device ID no in app** | UID via Firebase | Account / functionality | No | Yes | Confirmed UID / NFC device | Do not declare Ads ID |
+| Device or other IDs | **User ID (Firebase UID) yes; advertising/device ID no in app** | UID via Firebase | Account / functionality | No | Yes | Confirmed (app) | Do not declare Ads ID. Console spot-check optional |
 
 ### 2.7 Location
 
 | Data type | Collected? | Shared? | Required / optional | Purpose | Ephemeral? | Deletion? | Confidence | Notes |
 |-----------|------------|---------|---------------------|---------|------------|-----------|------------|-------|
 | Approximate location | Yes | Yes (Firebase; may show approx to others) | Optional | App functionality | No | Yes | Confirmed | `location_text` |
-| Precise location | **Conservative Yes** | Yes (GeoPoint in Firestore) | Optional | App functionality | No | Yes | NFC | High accuracy GPS + GeoPoint — declare Precise until code/product change |
+| Precise location | **Yes** | Yes (GeoPoint in Firestore) | Optional | App functionality | No | Yes | Confirmed (shipping binary) | High accuracy GPS + GeoPoint (3P-A27) |
 
 ### 2.8 Financial info
 
@@ -232,20 +230,22 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 
 ## 3. Founder Decision Checklist
 
-Complete before submitting store forms:
+Items still needing human action after 3P-A27 repo pass:
 
-| # | Decision | Options / conservative default | Status |
-|---|----------|--------------------------------|--------|
-| 1 | Precise vs approximate location | **Conservative:** declare Precise Location (code stores high-accuracy GeoPoint). Or change code to coarse-only then declare Approximate only | ☐ |
-| 2 | Console Analytics / Crashlytics / Performance | If off → leave Diagnostics **No**. If on → declare and match Console | ☐ |
-| 3 | Camera vs gallery permissions | Gallery confirmed; camera permission strings present — declare camera only if usable, else remove unused permission | ☐ |
-| 4 | Sensitive info classification | Counsel: religion / dating prefs / gender / looking-for under Apple Sensitive / Play sensitive | ☐ |
-| 5 | Retention after deletion | Align policy + ops: wipe profile/media/assessments; retain/anonymize safety reports as needed | ☐ |
-| 6 | Subprocessors wording | Google/Firebase (+ Cloudflare for site/email). Not sold | ☐ |
-| 7 | Encryption at rest wording | Confirm if Play/Apple asks beyond “in transit” | ☐ |
-| 8 | Deletion ops staffing | Named owner + weekly pending review (B1) within 30-day SLA | ☐ |
-| 9 | Gmail send-as `support@qmatch.site` | Optional — **not** a launch blocker | ☐ |
-| 10 | Apple/Google stub buttons | Hide stubs or implement before marketing Continue with Google/Apple | ☐ |
+| # | Decision | Status after 3P-A27 | Action |
+|---|----------|---------------------|--------|
+| 1 | Precise vs approximate location | **Form answer locked:** declare Precise + Coarse | Optional later code change to coarse-only |
+| 2 | Console Analytics / Crashlytics / Performance | **Still open** | Check Firebase Console `qmatch-53d62` |
+| 3 | Camera vs gallery permissions | **Data path locked:** gallery only | Remove unused camera permission/strings or implement camera |
+| 4 | Sensitive info classification | **Still open (legal)** | Counsel on religion / dating prefs / gender |
+| 5 | Retention after deletion | **Policy intent locked** via runbook | Ensure ops practice matches; staff owner |
+| 6 | Subprocessors wording | **Still open (legal)** | Finalize Google/Firebase + Cloudflare list |
+| 7 | Encryption at rest wording | **Still open (form wording)** | Confirm if asked beyond in-transit Yes |
+| 8 | Deletion ops staffing | **Still open (P0)** | Named owner + weekly pending review |
+| 9 | Gmail send-as `support@qmatch.site` | **Optional — not blocker** | Optional |
+| 10 | Apple/Google stub buttons | **Collection locked: none** | Hide stubs or implement before marketing |
+
+Full evidence: `docs/store_privacy_nfc_resolution_checklist.md`
 
 ---
 
