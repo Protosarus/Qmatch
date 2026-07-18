@@ -7,6 +7,7 @@ Mode: **Operations checklist** — no app/Firebase/deploy/DNS changes in doc pha
 
 Related:
 
+- `docs/release_binary_smoke_test_run_android.md` (**3P-A31** — Android APK build attempt + smoke run sheet)
 - `docs/release_binary_smoke_test_checklist.md` (**3P-A30** — release binary smoke + store preflight)
 - `docs/firebase_console_store_submission_verification.md` (**3P-A29**)
 - `docs/store_privacy_form_answer_sheet.md`
