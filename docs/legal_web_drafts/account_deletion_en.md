@@ -1,16 +1,16 @@
 # Account deletion
 
-> **Launch draft — not final legal advice.**  
-> This page mirrors in-app Qmatch copy for future hosting.  
-> Formal legal review is recommended before public launch.  
-> Support email `support@qmatch.app` — **NEEDS CONFIRMATION** (mailbox must be verified/monitored).
+> **Launch draft — not final legal advice.**
+> This page mirrors in-app Qmatch copy for future hosting.
+> Formal legal review is recommended before public launch.
+> Support email `support@qmatch.site` — **NEEDS CONFIRMATION** (mailbox must be verified/monitored).
 
 
-**Suggested URL:** `https://qmatch.app/account-deletion` (placeholder)
+**Suggested URL:** `https://qmatch.site/account-deletion` (placeholder)
 
 ## How to delete your Qmatch account
 
-Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.app.
+Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.site.
 
 ## Processing timeline
 
@@ -18,7 +18,7 @@ We will process your request within 30 days. This is not temporary deactivation�
 
 ## While your request is pending
 
-Your deletion request has been received and is pending. We will process it within 30 days. You can contact support@qmatch.app (**NEEDS CONFIRMATION**) if you have questions.
+Your deletion request has been received and is pending. We will process it within 30 days. You can contact support@qmatch.site (**NEEDS CONFIRMATION**) if you have questions.
 
 ## What we plan to delete
 
@@ -30,6 +30,6 @@ Safety reports and abuse-prevention records; limited logs needed for legal or co
 
 ## Support
 
-Email: **support@qmatch.app** (**NEEDS CONFIRMATION**)
+Email: **support@qmatch.site** (**NEEDS CONFIRMATION**)
 
-See also: [Privacy Policy](https://qmatch.app/privacy) · [Support](https://qmatch.app/support)
+See also: [Privacy Policy](https://qmatch.site/privacy) · [Support](https://qmatch.site/support)

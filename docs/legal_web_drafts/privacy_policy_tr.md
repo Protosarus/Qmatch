@@ -1,13 +1,13 @@
 # Gizlilik Politikası
 
-> **Lansman taslağı — resmi hukuki tavsiye değildir.**  
-> Bu sayfa, gelecekteki barındırma için uygulama içi Qmatch metnini yansıtır.  
-> Kamuya açık lansmandan önce resmi hukuki inceleme önerilir.  
-> Destek e-postası `support@qmatch.app` — **NEEDS CONFIRMATION** (posta kutusu doğrulanmalı ve izlenmelidir).
+> **Lansman taslağı — resmi hukuki tavsiye değildir.**
+> Bu sayfa, gelecekteki barındırma için uygulama içi Qmatch metnini yansıtır.
+> Kamuya açık lansmandan önce resmi hukuki inceleme önerilir.
+> Destek e-postası `support@qmatch.site` — **NEEDS CONFIRMATION** (posta kutusu doğrulanmalı ve izlenmelidir).
 
-**Önerilen URL:** `https://qmatch.app/privacy` (yer tutucu — alan adı sahipliği NEEDS CONFIRMATION)
+**Önerilen URL:** `https://qmatch.site/privacy` (yer tutucu — alan adı sahipliği NEEDS CONFIRMATION)
 
-**İletişim:** support@qmatch.app (**NEEDS CONFIRMATION**)
+**İletişim:** support@qmatch.site (**NEEDS CONFIRMATION**)
 
 ---
 
@@ -43,7 +43,7 @@ Kişisel bilgilerini satmayız. Uygulamayı çalıştırmamıza yardımcı olan 
 
 ## Seçimlerin
 
-Profilini güncelleyebilir, bazı gizlilik ayarlarını değiştirebilir, engelleme/şikayet kullanabilir ve Ayarlar → Hesabı sil üzerinden (veya support@qmatch.app adresine yazarak) hesap silme talebi oluşturabilirsin. Silme taleplerini 30 gün içinde işlemeyi hedefleriz. Gerekli olduğunda bazı güvenlik veya yasal kayıtlar sınırlı süre saklanabilir.
+Profilini güncelleyebilir, bazı gizlilik ayarlarını değiştirebilir, engelleme/şikayet kullanabilir ve Ayarlar → Hesabı sil üzerinden (veya support@qmatch.site adresine yazarak) hesap silme talebi oluşturabilirsin. Silme taleplerini 30 gün içinde işlemeyi hedefleriz. Gerekli olduğunda bazı güvenlik veya yasal kayıtlar sınırlı süre saklanabilir.
 
 ## Çevrimdışı güvenlik
 
@@ -51,4 +51,4 @@ Biriyle yüz yüze görüşürsen kamuya açık yerde buluş, birine haber ver v
 
 ## İletişim
 
-Gizlilik soruları: support@qmatch.app
+Gizlilik soruları: support@qmatch.site

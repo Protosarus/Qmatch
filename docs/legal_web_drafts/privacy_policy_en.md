@@ -1,13 +1,13 @@
 # Privacy Policy
 
-> **Launch draft — not final legal advice.**  
-> This page mirrors in-app Qmatch copy for future hosting.  
-> Formal legal review is recommended before public launch.  
-> Support email `support@qmatch.app` — **NEEDS CONFIRMATION** (mailbox must be verified/monitored).
+> **Launch draft — not final legal advice.**
+> This page mirrors in-app Qmatch copy for future hosting.
+> Formal legal review is recommended before public launch.
+> Support email `support@qmatch.site` — **NEEDS CONFIRMATION** (mailbox must be verified/monitored).
 
-**Suggested URL:** `https://qmatch.app/privacy` (placeholder — domain ownership NEEDS CONFIRMATION)
+**Suggested URL:** `https://qmatch.site/privacy` (placeholder — domain ownership NEEDS CONFIRMATION)
 
-**Contact:** support@qmatch.app (**NEEDS CONFIRMATION**)
+**Contact:** support@qmatch.site (**NEEDS CONFIRMATION**)
 
 ---
 
@@ -43,7 +43,7 @@ We do not sell your personal information. We may share data with service provide
 
 ## Your choices
 
-You can update profile information in the app, adjust some privacy toggles in Settings, block or report other users, and request account deletion in Settings → Delete account (or email support@qmatch.app). We aim to process deletion requests within 30 days. Some safety or legal records may be retained for a limited time when required.
+You can update profile information in the app, adjust some privacy toggles in Settings, block or report other users, and request account deletion in Settings → Delete account (or email support@qmatch.site). We aim to process deletion requests within 30 days. Some safety or legal records may be retained for a limited time when required.
 
 ## Safety offline
 
@@ -51,4 +51,4 @@ If you meet someone offline, meet in public, tell a friend, and never share fina
 
 ## Contact
 
-Questions about privacy: support@qmatch.app
+Questions about privacy: support@qmatch.site

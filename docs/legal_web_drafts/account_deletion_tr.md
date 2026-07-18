@@ -1,16 +1,16 @@
 # Hesap silme
 
-> **Lansman taslağı — resmi hukuki tavsiye değildir.**  
-> Bu sayfa, gelecekteki barındırma için uygulama içi Qmatch metnini yansıtır.  
-> Kamuya açık lansmandan önce resmi hukuki inceleme önerilir.  
-> Destek e-postası `support@qmatch.app` — **NEEDS CONFIRMATION** (posta kutusu doğrulanmalı ve izlenmelidir).
+> **Lansman taslağı — resmi hukuki tavsiye değildir.**
+> Bu sayfa, gelecekteki barındırma için uygulama içi Qmatch metnini yansıtır.
+> Kamuya açık lansmandan önce resmi hukuki inceleme önerilir.
+> Destek e-postası `support@qmatch.site` — **NEEDS CONFIRMATION** (posta kutusu doğrulanmalı ve izlenmelidir).
 
 
-**Önerilen URL:** `https://qmatch.app/account-deletion` (yer tutucu)
+**Önerilen URL:** `https://qmatch.site/account-deletion` (yer tutucu)
 
 ## Qmatch hesabını nasıl silersin?
 
-Ayarlar → Hesabı sil’e git, uyarıları oku, iki onay kutusunu işaretle, DELETE yaz ve gönder. Talepleri 30 gün içinde işleriz. İstersen support@qmatch.app adresine de yazabilirsin.
+Ayarlar → Hesabı sil’e git, uyarıları oku, iki onay kutusunu işaretle, DELETE yaz ve gönder. Talepleri 30 gün içinde işleriz. İstersen support@qmatch.site adresine de yazabilirsin.
 
 ## İşlem süresi
 
@@ -18,7 +18,7 @@ Talebini 30 gün içinde işleyeceğiz. Bu geçici deaktivasyon değildir—işl
 
 ## Talebin beklemedeyken
 
-Silme talebin alındı ve beklemede. 30 gün içinde işleyeceğiz. Soruların için support@qmatch.app (**NEEDS CONFIRMATION**) ile iletişime geçebilirsin.
+Silme talebin alındı ve beklemede. 30 gün içinde işleyeceğiz. Soruların için support@qmatch.site (**NEEDS CONFIRMATION**) ile iletişime geçebilirsin.
 
 ## Silmeyi planladığımız veriler
 
@@ -30,6 +30,6 @@ Güvenlik şikayetleri ve kötüye kullanım önleme kayıtları; yasal veya uyu
 
 ## Destek
 
-E-posta: **support@qmatch.app** (**NEEDS CONFIRMATION**)
+E-posta: **support@qmatch.site** (**NEEDS CONFIRMATION**)
 
-Ayrıca: [Gizlilik Politikası](https://qmatch.app/privacy) · [Destek](https://qmatch.app/support)
+Ayrıca: [Gizlilik Politikası](https://qmatch.site/privacy) · [Destek](https://qmatch.site/support)

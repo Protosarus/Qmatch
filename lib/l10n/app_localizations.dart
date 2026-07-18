@@ -1139,13 +1139,13 @@ abstract class AppLocalizations {
   /// No description provided for @privacyPolicyBody.
   ///
   /// In en, this message translates to:
-  /// **'Last updated: July 2026\n\nThis Privacy Policy explains how Qmatch (“we”) handles information when you use the app. It is a product launch draft and may be updated. It is not formal legal advice.\n\nWhat Qmatch is\nQmatch is a connection and compatibility discovery app. IQ, EQ, and Frequency results are app-specific signals used for matching—not medical, clinical, or official intelligence tests, and not a guarantee of relationship success.\n\nAge\nQmatch is intended for adults. Profiles use an age of at least 18.\n\nInformation we may process\n• Account and authentication data (for example phone number or email when you sign in)\n• Profile details you provide (name, age, photos, bio, interests, preferences, approximate location if you enable it)\n• Assessment answers and results (IQ, EQ, Frequency) used for compatibility\n• Matching and messaging activity if you use Discover, Matches, or chat\n• Safety actions such as reports and blocks\n• Basic device and app usage data needed to run and improve the service\n\nHow we use information\nWe use this information to create your account, show profiles, calculate compatibility suggestions, enable messaging, improve safety, and operate the app.\n\nSharing\nWe do not sell your personal information. We may share data with service providers that help us run the app (for example authentication, hosting, or analytics), when required by law, or to protect users and the platform.\n\nYour choices\nYou can update profile information in the app, adjust some privacy toggles in Settings, block or report other users, and request account deletion in Settings → Delete account (or email support@qmatch.app). We aim to process deletion requests within 30 days. Some safety or legal records may be retained for a limited time when required.\n\nSafety offline\nIf you meet someone offline, meet in public, tell a friend, and never share financial information with people you do not know well.\n\nContact\nQuestions about privacy: support@qmatch.app'**
+  /// **'Last updated: July 2026\n\nThis Privacy Policy explains how Qmatch (“we”) handles information when you use the app. It is a product launch draft and may be updated. It is not formal legal advice.\n\nWhat Qmatch is\nQmatch is a connection and compatibility discovery app. IQ, EQ, and Frequency results are app-specific signals used for matching—not medical, clinical, or official intelligence tests, and not a guarantee of relationship success.\n\nAge\nQmatch is intended for adults. Profiles use an age of at least 18.\n\nInformation we may process\n• Account and authentication data (for example phone number or email when you sign in)\n• Profile details you provide (name, age, photos, bio, interests, preferences, approximate location if you enable it)\n• Assessment answers and results (IQ, EQ, Frequency) used for compatibility\n• Matching and messaging activity if you use Discover, Matches, or chat\n• Safety actions such as reports and blocks\n• Basic device and app usage data needed to run and improve the service\n\nHow we use information\nWe use this information to create your account, show profiles, calculate compatibility suggestions, enable messaging, improve safety, and operate the app.\n\nSharing\nWe do not sell your personal information. We may share data with service providers that help us run the app (for example authentication, hosting, or analytics), when required by law, or to protect users and the platform.\n\nYour choices\nYou can update profile information in the app, adjust some privacy toggles in Settings, block or report other users, and request account deletion in Settings → Delete account (or email support@qmatch.site). We aim to process deletion requests within 30 days. Some safety or legal records may be retained for a limited time when required.\n\nSafety offline\nIf you meet someone offline, meet in public, tell a friend, and never share financial information with people you do not know well.\n\nContact\nQuestions about privacy: support@qmatch.site'**
   String get privacyPolicyBody;
 
   /// No description provided for @termsOfUseBody.
   ///
   /// In en, this message translates to:
-  /// **'Last updated: July 2026\n\nWelcome to Qmatch. These Terms of Use are a product launch draft for using the app. They are not a substitute for formal legal review.\n\nEligibility\nYou must be at least 18 years old and able to form a binding agreement to use Qmatch.\n\nThe service\nQmatch offers compatibility-oriented discovery using assessments (IQ, EQ, Frequency), profiles, and optional messaging. Results are app-specific compatibility signals—not medical or clinical diagnoses, not official IQ/EQ certifications, and not a promise that any match will succeed.\n\nYour responsibilities\nYou are responsible for how you interact with others. Be respectful, provide accurate profile information, and follow applicable laws. Do not harass, scam, impersonate others, or post harmful content.\n\nSafety tools\nYou can report and block users. We may review reports and take action, including limiting or ending accounts that misuse the service.\n\nAccount\nYou are responsible for your sign-in method (such as phone verification). You can request permanent account deletion in Settings → Delete account, or by emailing support@qmatch.app. We aim to process requests within 30 days. This is not temporary deactivation.\n\nDisclaimer\nQmatch is provided “as is.” We do not guarantee uninterrupted service, perfect matching, or outcomes of any connection.\n\nChanges\nWe may update these Terms. Continued use after updates means you accept the revised Terms.\n\nContact\nsupport@qmatch.app'**
+  /// **'Last updated: July 2026\n\nWelcome to Qmatch. These Terms of Use are a product launch draft for using the app. They are not a substitute for formal legal review.\n\nEligibility\nYou must be at least 18 years old and able to form a binding agreement to use Qmatch.\n\nThe service\nQmatch offers compatibility-oriented discovery using assessments (IQ, EQ, Frequency), profiles, and optional messaging. Results are app-specific compatibility signals—not medical or clinical diagnoses, not official IQ/EQ certifications, and not a promise that any match will succeed.\n\nYour responsibilities\nYou are responsible for how you interact with others. Be respectful, provide accurate profile information, and follow applicable laws. Do not harass, scam, impersonate others, or post harmful content.\n\nSafety tools\nYou can report and block users. We may review reports and take action, including limiting or ending accounts that misuse the service.\n\nAccount\nYou are responsible for your sign-in method (such as phone verification). You can request permanent account deletion in Settings → Delete account, or by emailing support@qmatch.site. We aim to process requests within 30 days. This is not temporary deactivation.\n\nDisclaimer\nQmatch is provided “as is.” We do not guarantee uninterrupted service, perfect matching, or outcomes of any connection.\n\nChanges\nWe may update these Terms. Continued use after updates means you accept the revised Terms.\n\nContact\nsupport@qmatch.site'**
   String get termsOfUseBody;
 
   /// No description provided for @helpSupportTitle.
@@ -1157,13 +1157,13 @@ abstract class AppLocalizations {
   /// No description provided for @helpSupportContact.
   ///
   /// In en, this message translates to:
-  /// **'Need more help?\n\nEmail us at support@qmatch.app\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
+  /// **'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
   String get helpSupportContact;
 
   /// No description provided for @supportEmailLabel.
   ///
   /// In en, this message translates to:
-  /// **'support@qmatch.app'**
+  /// **'support@qmatch.site'**
   String get supportEmailLabel;
 
   /// No description provided for @openPrivacyPolicy.
@@ -1205,7 +1205,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsDeleteAccountPendingBanner.
   ///
   /// In en, this message translates to:
-  /// **'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.app if you need help.'**
+  /// **'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.site if you need help.'**
   String get settingsDeleteAccountPendingBanner;
 
   /// No description provided for @settingsDeleteAccountDialogTitle.
@@ -1217,7 +1217,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsDeleteAccountDialogBody.
   ///
   /// In en, this message translates to:
-  /// **'Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.app.'**
+  /// **'Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.site.'**
   String get settingsDeleteAccountDialogBody;
 
   /// No description provided for @settingsDeleteAccountDialogAction.
@@ -1319,7 +1319,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionAlreadyRequested.
   ///
   /// In en, this message translates to:
-  /// **'You already have a pending deletion request. If you need help, email support@qmatch.app.'**
+  /// **'You already have a pending deletion request. If you need help, email support@qmatch.site.'**
   String get accountDeletionAlreadyRequested;
 
   /// No description provided for @accountDeletionPendingTitle.
@@ -1343,7 +1343,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionRequestError.
   ///
   /// In en, this message translates to:
-  /// **'We could not submit your request. Check your connection and try again, or email support@qmatch.app.'**
+  /// **'We could not submit your request. Check your connection and try again, or email support@qmatch.site.'**
   String get accountDeletionRequestError;
 
   /// No description provided for @discoverAccountDeletionPendingBanner.
@@ -1385,7 +1385,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpSupportContactTodo.
   ///
   /// In en, this message translates to:
-  /// **'Need more help?\n\nEmail us at support@qmatch.app\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
+  /// **'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
   String get helpSupportContactTodo;
 
   /// No description provided for @profileTitle.
@@ -1709,7 +1709,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqDeleteAccountA.
   ///
   /// In en, this message translates to:
-  /// **'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.app.'**
+  /// **'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.site.'**
   String get helpFaqDeleteAccountA;
 
   /// No description provided for @helpFaqDataQ.

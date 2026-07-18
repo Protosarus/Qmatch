@@ -1,13 +1,13 @@
 # Kullanım Şartları
 
-> **Lansman taslağı — resmi hukuki tavsiye değildir.**  
-> Bu sayfa, gelecekteki barındırma için uygulama içi Qmatch metnini yansıtır.  
-> Kamuya açık lansmandan önce resmi hukuki inceleme önerilir.  
-> Destek e-postası `support@qmatch.app` — **NEEDS CONFIRMATION** (posta kutusu doğrulanmalı ve izlenmelidir).
+> **Lansman taslağı — resmi hukuki tavsiye değildir.**
+> Bu sayfa, gelecekteki barındırma için uygulama içi Qmatch metnini yansıtır.
+> Kamuya açık lansmandan önce resmi hukuki inceleme önerilir.
+> Destek e-postası `support@qmatch.site` — **NEEDS CONFIRMATION** (posta kutusu doğrulanmalı ve izlenmelidir).
 
-**Önerilen URL:** `https://qmatch.app/terms` (yer tutucu — alan adı sahipliği NEEDS CONFIRMATION)
+**Önerilen URL:** `https://qmatch.site/terms` (yer tutucu — alan adı sahipliği NEEDS CONFIRMATION)
 
-**İletişim:** support@qmatch.app (**NEEDS CONFIRMATION**)
+**İletişim:** support@qmatch.site (**NEEDS CONFIRMATION**)
 
 ---
 
@@ -34,7 +34,7 @@ Kullanıcıları şikayet edebilir ve engelleyebilirsin. Şikayetleri inceleyebi
 
 ## Hesap
 
-Giriş yöntemin (ör. telefon doğrulama) senden sorumludur. Kalıcı hesap silme talebini Ayarlar → Hesabı sil üzerinden veya support@qmatch.app adresine yazarak oluşturabilirsin. Talepleri 30 gün içinde işlemeyi hedefleriz. Bu geçici deaktivasyon değildir.
+Giriş yöntemin (ör. telefon doğrulama) senden sorumludur. Kalıcı hesap silme talebini Ayarlar → Hesabı sil üzerinden veya support@qmatch.site adresine yazarak oluşturabilirsin. Talepleri 30 gün içinde işlemeyi hedefleriz. Bu geçici deaktivasyon değildir.
 
 ## Sorumluluk reddi
 
@@ -46,4 +46,4 @@ Bu Şartları güncelleyebiliriz. Güncellemeden sonra kullanmaya devam etmek, y
 
 ## İletişim
 
-support@qmatch.app
+support@qmatch.site

@@ -1,13 +1,13 @@
 # Terms of Use
 
-> **Launch draft — not final legal advice.**  
-> This page mirrors in-app Qmatch copy for future hosting.  
-> Formal legal review is recommended before public launch.  
-> Support email `support@qmatch.app` — **NEEDS CONFIRMATION** (mailbox must be verified/monitored).
+> **Launch draft — not final legal advice.**
+> This page mirrors in-app Qmatch copy for future hosting.
+> Formal legal review is recommended before public launch.
+> Support email `support@qmatch.site` — **NEEDS CONFIRMATION** (mailbox must be verified/monitored).
 
-**Suggested URL:** `https://qmatch.app/terms` (placeholder — domain ownership NEEDS CONFIRMATION)
+**Suggested URL:** `https://qmatch.site/terms` (placeholder — domain ownership NEEDS CONFIRMATION)
 
-**Contact:** support@qmatch.app (**NEEDS CONFIRMATION**)
+**Contact:** support@qmatch.site (**NEEDS CONFIRMATION**)
 
 ---
 
@@ -34,7 +34,7 @@ You can report and block users. We may review reports and take action, including
 
 ## Account
 
-You are responsible for your sign-in method (such as phone verification). You can request permanent account deletion in Settings → Delete account, or by emailing support@qmatch.app. We aim to process requests within 30 days. This is not temporary deactivation.
+You are responsible for your sign-in method (such as phone verification). You can request permanent account deletion in Settings → Delete account, or by emailing support@qmatch.site. We aim to process requests within 30 days. This is not temporary deactivation.
 
 ## Disclaimer
 
@@ -46,4 +46,4 @@ We may update these Terms. Continued use after updates means you accept the revi
 
 ## Contact
 
-support@qmatch.app
+support@qmatch.site

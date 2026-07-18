@@ -1,9 +1,9 @@
 # Store Privacy Questionnaire Pack (Phase 3P-A19)
 
-Date: 2026-07-18  
-Project: Qmatch (`qmatch-53d62`)  
-Mode: **Draft for App Store App Privacy + Google Play Data Safety**  
-Status: Engineering-derived draft — **not legal advice**; confirm with founder/legal before store submit  
+Date: 2026-07-18
+Project: Qmatch (`qmatch-53d62`)
+Mode: **Draft for App Store App Privacy + Google Play Data Safety**
+Status: Engineering-derived draft — **not legal advice**; confirm with founder/legal before store submit
 
 Sources inspected: `pubspec.yaml`, Auth/Profile/Assessment/Discover/Chat/Safety/Settings/Deletion services, Firebase usage, in-app Privacy draft, launch audit.
 
@@ -11,9 +11,9 @@ Sources inspected: `pubspec.yaml`, Auth/Profile/Assessment/Discover/Chat/Safety/
 
 ## Disclaimer
 
-- Do **not** overclaim. Items marked **NEEDS CONFIRMATION** must be resolved before submitting store forms.  
-- In-app Privacy/Terms are product drafts.  
-- Account deletion **request** is in-app; fulfillment is currently **manual ops** within ~30 days.  
+- Do **not** overclaim. Items marked **NEEDS CONFIRMATION** must be resolved before submitting store forms.
+- In-app Privacy/Terms are product drafts.
+- Account deletion **request** is in-app; fulfillment is currently **manual ops** within ~30 days.
 - No dedicated analytics/crash SDK was found in `pubspec.yaml` (Firebase Analytics / Crashlytics / Sentry **not** listed).
 
 ---
@@ -122,35 +122,35 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 | Sensitive Info | **Generally No** for medical/health categories | IQ/EQ/Frequency are **app compatibility signals**, not clinical diagnoses — do **not** claim Health Research / clinical Health unless legal says otherwise. Dating preferences may still be sensitive under some regimes — **NEEDS CONFIRMATION** with counsel |
 
 ### Photos / media
-- Collected: **Yes** when user uploads  
-- Linked: **Yes**  
-- Tracking: **No** (draft)  
-- Purpose: App Functionality  
+- Collected: **Yes** when user uploads
+- Linked: **Yes**
+- Tracking: **No** (draft)
+- Purpose: App Functionality
 
 ### Messages
-- Collected: **Yes** if user chats  
-- Linked: **Yes**  
-- Tracking: **No**  
-- Purpose: App Functionality  
+- Collected: **Yes** if user chats
+- Linked: **Yes**
+- Tracking: **No**
+- Purpose: App Functionality
 
 ### Assessment answers / results
-- Declare under **User Content** and/or **Other Data** as product questionnaire/results used for matching  
-- Linked: **Yes**  
-- Tracking: **No**  
-- Purpose: App Functionality, Product Personalization (matching)  
+- Declare under **User Content** and/or **Other Data** as product questionnaire/results used for matching
+- Linked: **Yes**
+- Tracking: **No**
+- Purpose: App Functionality, Product Personalization (matching)
 
 ### Tracking
-- Draft assumption: **App does not track** users across apps/websites for ads (no ATT tracking SDK found).  
-- If Google Fonts or Firebase telemetry is interpreted as tracking under Apple’s definition — **NEEDS CONFIRMATION** with legal.  
+- Draft assumption: **App does not track** users across apps/websites for ads (no ATT tracking SDK found).
+- If Google Fonts or Firebase telemetry is interpreted as tracking under Apple’s definition — **NEEDS CONFIRMATION** with legal.
 - Recommend: do not enable advertising networks without updating this pack.
 
 ### Open questions (Apple) — NEEDS CONFIRMATION
-1. Is Sign in with Apple / Google Sign-In shipping in the binary under review?  
-2. Exact location precision collected (coarse vs precise)?  
-3. Any Crashlytics / Analytics enabled only in Firebase Console?  
-4. Privacy Policy **public URL** for App Store Connect field?  
-5. Account deletion: in-app path sufficient for listing, plus support email?  
-6. Counsel classification of assessment/preference data as “sensitive”?  
+1. Is Sign in with Apple / Google Sign-In shipping in the binary under review?
+2. Exact location precision collected (coarse vs precise)?
+3. Any Crashlytics / Analytics enabled only in Firebase Console?
+4. Privacy Policy **public URL** for App Store Connect field?
+5. Account deletion: in-app path sufficient for listing, plus support email?
+6. Counsel classification of assessment/preference data as “sensitive”?
 
 ---
 
@@ -158,32 +158,32 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 
 ### Data collected (yes)
 
-- Personal info: name, email (if used), phone, user IDs  
-- Photos  
-- Messages (chat)  
-- App activity: swipes, matches, in-app assessment interactions (server-side)  
-- Location: approximate if user opts in  
-- Other: assessment results / compatibility signals; reports/blocks; deletion request records  
+- Personal info: name, email (if used), phone, user IDs
+- Photos
+- Messages (chat)
+- App activity: swipes, matches, in-app assessment interactions (server-side)
+- Location: approximate if user opts in
+- Other: assessment results / compatibility signals; reports/blocks; deletion request records
 
 ### Data shared
 
-- Draft: **Data is shared with service providers** (Google Firebase) to operate the app.  
-- Draft: **Not sold**.  
-- Draft: **Shared with other users** as part of product (profile, photos, chat with matches) — declare appropriately under “sharing” / “visible to others” per Play form wording.  
-- Ads sharing: **No** (not found).  
+- Draft: **Data is shared with service providers** (Google Firebase) to operate the app.
+- Draft: **Not sold**.
+- Draft: **Shared with other users** as part of product (profile, photos, chat with matches) — declare appropriately under “sharing” / “visible to others” per Play form wording.
+- Ads sharing: **No** (not found).
 
 ### Encryption in transit
 
-- Draft: **Yes** — Firebase/HTTPS for Auth, Firestore, Storage (standard).  
+- Draft: **Yes** — Firebase/HTTPS for Auth, Firestore, Storage (standard).
 - Encryption at rest: Firebase defaults — **NEEDS CONFIRMATION** for form wording.
 
 ### User can request deletion
 
-- Draft: **Yes**  
-  - In-app: Settings → Delete account (request)  
-  - Email: `support@qmatch.app`  
-  - Processing: within **30 days** (manual ops currently)  
-- Account deletion URL (web): **NEEDS CONFIRMATION** / currently in-app + email  
+- Draft: **Yes**
+  - In-app: Settings → Delete account (request)
+  - Email: `support@qmatch.site`
+  - Processing: within **30 days** (manual ops currently)
+- Account deletion URL (web): **NEEDS CONFIRMATION** / currently in-app + email
 
 ### Required vs optional (Play)
 
@@ -210,11 +210,11 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 | Developer communications | Possible via support email only |
 
 ### Open questions (Play) — NEEDS CONFIRMATION
-1. Independent privacy policy / terms **HTTPS URLs** for Play Console.  
-2. Data deletion instructions URL vs “in-app only” declaration.  
-3. Whether Firebase Analytics/Crashlytics are on for the Android app ID.  
-4. Whether any Play families / ads declarations apply (draft: no ads).  
-5. Data retention period beyond “account lifetime + safety exceptions”.  
+1. Independent privacy policy / terms **HTTPS URLs** for Play Console.
+2. Data deletion instructions URL vs “in-app only” declaration.
+3. Whether Firebase Analytics/Crashlytics are on for the Android app ID.
+4. Whether any Play families / ads declarations apply (draft: no ads).
+5. Data retention period beyond “account lifetime + safety exceptions”.
 
 ---
 
@@ -222,7 +222,7 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 
 | Item | Current state | Store impact |
 |------|---------------|--------------|
-| `support@qmatch.app` | Constant in app; mailbox **must be confirmed** | BLOCKER for support claims |
+| `support@qmatch.site` | Constant in app; mailbox **must be confirmed** | BLOCKER for support claims |
 | Privacy Policy URL | In-app only — **no hosted URL in repo** | BLOCKER for typical Connect/Play fields |
 | Terms of Use URL | In-app only — **no hosted URL** | HIGH / often required |
 | Account deletion instructions URL | In-app + email; no dedicated web page | MEDIUM — in-app may suffice if declared clearly |
@@ -232,27 +232,27 @@ Use as a starting checklist in App Privacy. Adjust after NEEDS CONFIRMATION item
 
 ## 6. Pre-submit checklist
 
-- [ ] Confirm `support@qmatch.app` mailbox is live and monitored  
-- [ ] Confirm **Privacy Policy** public HTTPS URL  
-- [ ] Confirm **Terms of Use** public HTTPS URL  
-- [ ] Confirm account deletion instructions (in-app path + support) match store answers  
-- [ ] Confirm final **SDK list** for the binary under review (esp. Apple/Google Sign-In)  
-- [ ] Confirm analytics / crash reporting status (Console + binary)  
-- [ ] Confirm data retention / safety-report retention policy in writing  
-- [ ] Confirm legal review of Privacy/Terms + this questionnaire pack  
-- [ ] Confirm ops owner for 30-day deletion fulfillment  
-- [ ] Confirm location precision declaration (coarse vs precise)  
-- [ ] Confirm no advertising / ATT tracking before shipping  
-- [ ] Align Play Data Safety + Apple App Privacy answers with the same inventory  
+- [ ] Confirm `support@qmatch.site` mailbox is live and monitored
+- [ ] Confirm **Privacy Policy** public HTTPS URL
+- [ ] Confirm **Terms of Use** public HTTPS URL
+- [ ] Confirm account deletion instructions (in-app path + support) match store answers
+- [ ] Confirm final **SDK list** for the binary under review (esp. Apple/Google Sign-In)
+- [ ] Confirm analytics / crash reporting status (Console + binary)
+- [ ] Confirm data retention / safety-report retention policy in writing
+- [ ] Confirm legal review of Privacy/Terms + this questionnaire pack
+- [ ] Confirm ops owner for 30-day deletion fulfillment
+- [ ] Confirm location precision declaration (coarse vs precise)
+- [ ] Confirm no advertising / ATT tracking before shipping
+- [ ] Align Play Data Safety + Apple App Privacy answers with the same inventory
 
 ---
 
 ## 7. Related product docs
 
-- `docs/launch_readiness_consolidated_audit.md`  
-- `docs/legal_help_privacy_launch_content_audit.md`  
-- `docs/account_deletion_manual_ops_runbook.md`  
-- `docs/account_deletion_pending_ux.md`  
+- `docs/launch_readiness_consolidated_audit.md`
+- `docs/legal_help_privacy_launch_content_audit.md`
+- `docs/account_deletion_manual_ops_runbook.md`
+- `docs/account_deletion_pending_ux.md`
 
 ---
 
