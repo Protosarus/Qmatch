@@ -1,8 +1,8 @@
 # Store Submission Final Operations Checklist
 
-Date: 2026-07-18  
-Origin: Phase 3P-A28 · **Updated 3P-A29** (Console verification + ops staffing recorded)  
-Project: Qmatch (`qmatch-53d62`)  
+Date: 2026-07-18
+Origin: Phase 3P-A28 · **Updated 3P-A29** (Console verification + ops staffing recorded)
+Project: Qmatch (`qmatch-53d62`)
 Mode: **Operations checklist** — no app/Firebase/deploy/DNS changes in doc phases
 
 Related:
@@ -91,7 +91,7 @@ Full tables: `docs/store_privacy_form_answer_sheet.md`
 | 6 | Gmail send-as | Optional | No |
 | 7 | Optional font bundling | Eng (optional) | No |
 
-~~Firebase Console Analytics/Crashlytics/FCM~~ — **verified 3P-A29**  
+~~Firebase Console Analytics/Crashlytics/FCM~~ — **verified 3P-A29**
 ~~Deletion ops owner~~ — **Ümit (staffed, manual)**
 
 ---
@@ -125,15 +125,15 @@ Details: `docs/firebase_console_store_submission_verification.md`
 
 ### Weekly deletion request check procedure
 
-1. Owner: **Ümit**.  
+1. Owner: **Ümit**.
 2. **Weekly**:
    ```bash
    python3 tool/discover_account_deletion_requests_readonly.py --list-pending
    ```
-   (Admin credentials per runbook — **read-only** discovery.)  
-3. Check `support@qmatch.site` / `sirinumit@gmail.com` for email deletion requests.  
-4. For each pending request: verify → dry-run plan → manual fulfill per runbook → reply.  
-5. Escalate if approaching **~25 days**.  
+   (Admin credentials per runbook — **read-only** discovery.)
+3. Check `support@qmatch.site` / `sirinumit@gmail.com` for email deletion requests.
+4. For each pending request: verify → dry-run plan → manual fulfill per runbook → reply.
+5. Escalate if approaching **~25 days**.
 6. Do **not** enable automated execute without a separate approved phase.
 
 ---
@@ -175,30 +175,30 @@ Details: `docs/firebase_console_store_submission_verification.md`
 
 ### Cleared (ops/docs)
 
-- [x] `qmatch.site` live + URLs verified  
-- [x] `support@qmatch.site` receive confirmed; owner **Ümit**  
-- [x] Privacy answer sheet + NFC resolution ready  
-- [x] Firebase Console Analytics/Crashlytics/Performance/Messaging verified (3P-A29)  
-- [x] Deletion ops owner **Ümit** + weekly cadence + 30-day manual SLA  
-- [x] Account deletion **request** path live  
+- [x] `qmatch.site` live + URLs verified
+- [x] `support@qmatch.site` receive confirmed; owner **Ümit**
+- [x] Privacy answer sheet + NFC resolution ready
+- [x] Firebase Console Analytics/Crashlytics/Performance/Messaging verified (3P-A29)
+- [x] Deletion ops owner **Ümit** + weekly cadence + 30-day manual SLA
+- [x] Account deletion **request** path live
 
 ### Complete at submit time
 
-- [ ] App Store Connect App Privacy filled from answer sheet  
-- [ ] Play Console Data Safety filled from answer sheet  
-- [ ] Privacy / Terms / Support / Account-deletion URLs pasted  
-- [ ] Support email `support@qmatch.site` on store listings  
-- [ ] Age rating / 18+ metadata aligned  
-- [ ] Release binary smoke-tested (auth, assessments, Discover, chat, deletion request)  
-- [ ] Sensitive info / subprocessor wording decided (or founder accepts default from answer sheet)  
+- [ ] App Store Connect App Privacy filled from answer sheet
+- [ ] Play Console Data Safety filled from answer sheet
+- [ ] Privacy / Terms / Support / Account-deletion URLs pasted
+- [ ] Support email `support@qmatch.site` on store listings
+- [ ] Age rating / 18+ metadata aligned
+- [ ] Release binary smoke-tested (auth, assessments, Discover, chat, deletion request)
+- [ ] Sensitive info / subprocessor wording decided (or founder accepts default from answer sheet)
 
 ### Optional before review
 
-- [ ] Remove unused camera permission/strings **or** implement camera  
-- [ ] Hide Google/Apple stub buttons  
-- [ ] Counsel pass on Privacy/Terms  
-- [ ] Gmail send-as  
-- [ ] Offline-bundle Google Fonts  
+- [ ] Remove unused camera permission/strings **or** implement camera
+- [ ] Hide Google/Apple stub buttons
+- [ ] Counsel pass on Privacy/Terms
+- [ ] Gmail send-as
+- [ ] Offline-bundle Google Fonts
 
 ---
 
@@ -219,10 +219,10 @@ Remaining items are **optional** or founder/legal judgment (counsel, stubs, came
 
 ## Explicit non-actions (doc phases)
 
-- No app behavior / legal HTML changes  
-- No Firebase writes / Admin SDK / rules / Functions / SDK adds  
-- No hosting deploy / DNS / email changes  
-- No commit / push  
+- No app behavior / legal HTML changes
+- No Firebase writes / Admin SDK / rules / Functions / SDK adds
+- No hosting deploy / DNS / email changes
+- No commit / push
 
 ---
 

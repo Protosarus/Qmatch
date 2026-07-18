@@ -1,7 +1,7 @@
 # Store Privacy Form Answer Sheet (Phase 3P-A26)
 
-Date: 2026-07-18  
-Project: Qmatch (`qmatch-53d62`)  
+Date: 2026-07-18
+Project: Qmatch (`qmatch-53d62`)
 Mode: **Practical form fill-in sheet** — not legal advice; no app/Firebase/deploy changes in this phase
 
 **Update (3P-A29):** Firebase Console verified — Analytics no events; Crashlytics/Performance Add SDK; Messaging not configured. Ops staffed (Ümit). See `docs/firebase_console_store_submission_verification.md`.
@@ -117,11 +117,11 @@ Mode: **Practical form fill-in sheet** — not legal advice; no app/Firebase/dep
 
 ## 2. Google Play — Data Safety
 
-**Privacy policy:** `https://qmatch.site/privacy/`  
-**Account deletion:** In-app + `https://qmatch.site/account-deletion/` + `support@qmatch.site`  
-**Data collected?** → **Yes**  
-**Data shared with third parties?** → **Yes — service providers / processors** (Firebase/Google to run backend). **Not sold.** Exact checklist wording → NFC.  
-**Data encrypted in transit?** → **Yes** (Confirmed)  
+**Privacy policy:** `https://qmatch.site/privacy/`
+**Account deletion:** In-app + `https://qmatch.site/account-deletion/` + `support@qmatch.site`
+**Data collected?** → **Yes**
+**Data shared with third parties?** → **Yes — service providers / processors** (Firebase/Google to run backend). **Not sold.** Exact checklist wording → NFC.
+**Data encrypted in transit?** → **Yes** (Confirmed)
 **Users can request deletion?** → **Yes** (Confirmed; fulfillment manual within ~30 days)
 
 ### 2.1 Personal info
@@ -250,14 +250,14 @@ Full evidence: `docs/store_privacy_nfc_resolution_checklist.md`
 
 ## 4. Quick “do not declare” list
 
-- Advertising / ATT tracking  
-- Payments / financial info  
-- Contacts / address book  
-- Health & fitness (clinical)  
-- FCM / working push notifications  
-- Working Google Sign-In / Sign in with Apple account collection  
-- Analytics/Crashlytics/Performance/FCM **not configured for launch** (3P-A29 Console + no packages)  
-- Device advertising ID  
+- Advertising / ATT tracking
+- Payments / financial info
+- Contacts / address book
+- Health & fitness (clinical)
+- FCM / working push notifications
+- Working Google Sign-In / Sign in with Apple account collection
+- Analytics/Crashlytics/Performance/FCM **not configured for launch** (3P-A29 Console + no packages)
+- Device advertising ID
 
 ---
 

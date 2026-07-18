@@ -1,8 +1,8 @@
 # Qmatch Launch Readiness Consolidated Audit (Phase 3P-A18)
 
-Date: 2026-07-18  
-**Update:** 3P-A29 — Firebase Console privacy checks verified; deletion/support ops staffed (**Ümit**)  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+**Update:** 3P-A29 — Firebase Console privacy checks verified; deletion/support ops staffed (**Ümit**)
+Project: `qmatch-53d62`
 Mode: **Audit / doc updates only** — no Firestore writes, no deploys, no destructive ops, no code behavior changes
 
 Classification key: **BLOCKER** · **HIGH** · **MEDIUM** · **LOW** · **DONE**
@@ -186,14 +186,14 @@ Overall: **not blocked on mailbox or Console telemetry** — proceed to form fil
 
 ## 12. Recommended next phases (priority order)
 
-1. **Store forms (P0):** Paste `qmatch.site` URLs + fill App Privacy / Data Safety from answer sheet.  
-2. **Ops maintain (P0):** Ümit weekly deletion discovery + support inbox. Automation remains off.  
-3. **Legal harden (P1):** Optional counsel pass (H2); sensitive-info / subprocessor wording.  
-4. **Storage rules audit (P1):** Confirm Console Storage rules for `profile_photos/{uid}/`.  
-5. **Disposable destructive deletion test (P2):** Explicit phase — gated execute for **test uid only** after approval.  
-6. **Pending Discover soft-disable (P2):** Optional product choice (M1).  
-7. **Moderation lite (P2):** Ops view of `reports` + response templates (H4).  
-8. **Repo rules versioning (P3):** Add `firestore.rules` + firebase.json wiring without blind overwrite (H7).  
+1. **Store forms (P0):** Paste `qmatch.site` URLs + fill App Privacy / Data Safety from answer sheet.
+2. **Ops maintain (P0):** Ümit weekly deletion discovery + support inbox. Automation remains off.
+3. **Legal harden (P1):** Optional counsel pass (H2); sensitive-info / subprocessor wording.
+4. **Storage rules audit (P1):** Confirm Console Storage rules for `profile_photos/{uid}/`.
+5. **Disposable destructive deletion test (P2):** Explicit phase — gated execute for **test uid only** after approval.
+6. **Pending Discover soft-disable (P2):** Optional product choice (M1).
+7. **Moderation lite (P2):** Ops view of `reports` + response templates (H4).
+8. **Repo rules versioning (P3):** Add `firestore.rules` + firebase.json wiring without blind overwrite (H7).
 9. **Optional polish:** Hide Google/Apple stubs; camera permission cleanup; Gmail send-as; font bundling.
 
 ---

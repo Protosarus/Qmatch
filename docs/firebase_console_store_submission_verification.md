@@ -1,7 +1,7 @@
 # Firebase Console Store Submission Verification (Phase 3P-A29)
 
-Date: 2026-07-18  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+Project: `qmatch-53d62`
 Mode: **Documentation of manual Console inspection only**
 
 **This phase did not:** add SDKs · enable Analytics/Crashlytics/Performance/Messaging/FCM · write to Firebase · deploy anything
@@ -10,7 +10,7 @@ Mode: **Documentation of manual Console inspection only**
 
 ## Evidence sources
 
-1. **Manual Firebase Console check** (operator-reported, 2026-07-18)  
+1. **Manual Firebase Console check** (operator-reported, 2026-07-18)
 2. **Repository packages** — `pubspec.yaml` / `pubspec.lock` lack `firebase_analytics`, `firebase_crashlytics`, `firebase_performance`, `firebase_messaging`
 
 ---
@@ -42,10 +42,10 @@ Mode: **Documentation of manual Console inspection only**
 
 ## Explicit non-actions (this phase)
 
-- No SDKs added  
-- No Firebase services enabled by this agent/phase  
-- No Firebase writes / Admin SDK / rules / Functions  
-- No hosting / DNS / email changes  
-- No commit / push  
+- No SDKs added
+- No Firebase services enabled by this agent/phase
+- No Firebase writes / Admin SDK / rules / Functions
+- No hosting / DNS / email changes
+- No commit / push
 
 Related: `docs/store_submission_final_operations_checklist.md`, `docs/store_privacy_form_answer_sheet.md`

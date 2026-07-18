@@ -1,7 +1,7 @@
 # Store Privacy NFC Resolution Checklist (Phase 3P-A27)
 
-Date: 2026-07-18  
-Mode: **Repo evidence pass** — no app/Firebase/deploy changes  
+Date: 2026-07-18
+Mode: **Repo evidence pass** — no app/Firebase/deploy changes
 Sources: `pubspec.yaml`, `pubspec.lock`, `ios/Runner/Info.plist`, `android/app/src/main/AndroidManifest.xml`, `firebase.json`, `lib/`, answer sheet + matrix
 
 ### How to use
@@ -37,15 +37,15 @@ Sources: `pubspec.yaml`, `pubspec.lock`, `ios/Runner/Info.plist`, `android/app/s
 
 ### Resolved from repository (lock these form answers)
 
-1. **Precise + Coarse location** — declare both for current binary  
-2. **Photos** — yes, via gallery/media picker  
-3. **Camera capture pipeline** — not used in code (permission strings still present)  
-4. **No Analytics/Crashlytics/FCM packages**  
-5. **No wired Google/Apple Sign-In collection**  
-6. **No ads/ATT / advertising ID in app**  
-7. **Google Fonts in use** (network dependency; not ATT tracking by engineering view)  
-8. **Deletion request available**; retention of reports documented in runbook  
-9. **Gmail send-as** optional  
+1. **Precise + Coarse location** — declare both for current binary
+2. **Photos** — yes, via gallery/media picker
+3. **Camera capture pipeline** — not used in code (permission strings still present)
+4. **No Analytics/Crashlytics/FCM packages**
+5. **No wired Google/Apple Sign-In collection**
+6. **No ads/ATT / advertising ID in app**
+7. **Google Fonts in use** (network dependency; not ATT tracking by engineering view)
+8. **Deletion request available**; retention of reports documented in runbook
+9. **Gmail send-as** optional
 
 ### Still requires founder / legal (optional for submit)
 
@@ -57,7 +57,7 @@ Sources: `pubspec.yaml`, `pubspec.lock`, `ios/Runner/Info.plist`, `android/app/s
 | P2 | Product: hide Google/Apple stub buttons |
 | P2 | Optional: Gmail send-as; offline-bundle fonts |
 
-~~Console Analytics/Crashlytics/FCM~~ — verified **No** (3P-A29)  
+~~Console Analytics/Crashlytics/FCM~~ — verified **No** (3P-A29)
 ~~Deletion ops owner~~ — **Ümit**
 
 ---
