@@ -34,7 +34,8 @@ class AssessmentSetModel {
       id: (data['id'] as String?)?.trim().isNotEmpty == true ? data['id'] as String : docId,
       type: (data['type'] as String?) ?? '',
       setNumber: (data['set_number'] as num?)?.toInt() ?? 0,
-      version: (data['version'] as String?) ?? '',
+      // RC1 v2 docs store integer version (2); legacy may use string soft versions.
+      version: _coerceVersionString(data['version']),
       active: data['active'] as bool? ?? false,
       questionCount: (data['question_count'] as num?)?.toInt() ??
           questions.length,
@@ -55,7 +56,7 @@ class AssessmentSetModel {
       id: json['id'] as String? ?? '',
       type: json['type'] as String? ?? '',
       setNumber: (json['set_number'] as num?)?.toInt() ?? 0,
-      version: json['version'] as String? ?? '',
+      version: _coerceVersionString(json['version']),
       active: json['active'] as bool? ?? true,
       questionCount:
           (json['question_count'] as num?)?.toInt() ?? questions.length,
@@ -79,7 +80,9 @@ class AssessmentSetModel {
       id: docId,
       type: (data['type'] as String?) ?? '',
       setNumber: (data['set_number'] as num?)?.toInt() ?? 0,
-      version: (data['version'] as String?) ?? 'legacy',
+      version: _coerceVersionString(data['version']).isEmpty
+          ? 'legacy'
+          : _coerceVersionString(data['version']),
       active: data['active'] as bool? ?? true,
       questionCount: (data['question_count'] as num?)?.toInt() ??
           questions.length,
@@ -106,6 +109,14 @@ class AssessmentSetModel {
   static DateTime? _tsToDate(dynamic v) {
     if (v is Timestamp) return v.toDate();
     return null;
+  }
+
+  /// Accepts RC1 integer `version: 2` and legacy soft string versions.
+  static String _coerceVersionString(dynamic v) {
+    if (v == null) return '';
+    if (v is String) return v;
+    if (v is num) return v.toInt().toString();
+    return v.toString();
   }
 }
 
