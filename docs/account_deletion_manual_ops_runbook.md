@@ -25,7 +25,7 @@ Related:
 | Soft marker `users/{uid}.account_deletion_requested` | **Written by app** |
 | Destructive automation (`EXECUTE_IMPLEMENTED`) | **Not enabled** |
 | Fulfillment method for launch | **Manual ops required** |
-| Support mailbox | **`support@qmatch.site` must be monitored** |
+| Support mailbox | **`support@qmatch.site`** monitored by **Ümit** → `sirinumit@gmail.com` |
 | User-facing SLA | Process within **30 days** |
 
 Do **not** run `--dry-run=false` or enable automated wipe until a later, explicitly approved destructive phase.

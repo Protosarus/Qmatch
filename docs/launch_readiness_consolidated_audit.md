@@ -1,8 +1,8 @@
 # Qmatch Launch Readiness Consolidated Audit (Phase 3P-A18)
 
-Date: 2026-07-18
-**Update:** 3P-A24 — documented verified legal URLs + `support@qmatch.site` mailbox receive
-Project: `qmatch-53d62`
+Date: 2026-07-18  
+**Update:** 3P-A29 — Firebase Console privacy checks verified; deletion/support ops staffed (**Ümit**)  
+Project: `qmatch-53d62`  
 Mode: **Audit / doc updates only** — no Firestore writes, no deploys, no destructive ops, no code behavior changes
 
 Classification key: **BLOCKER** · **HIGH** · **MEDIUM** · **LOW** · **DONE**
@@ -13,9 +13,9 @@ Classification key: **BLOCKER** · **HIGH** · **MEDIUM** · **LOW** · **DONE**
 
 Qmatch has a **coherent product loop** for launch candidates: phone auth → assessments (Firestore RC1) → profile → Discover → match/chat → report/block → Settings with legal drafts and in-app account deletion **requests**.
 
-**Launch readiness is Conditional.** Hosted legal URLs and `support@qmatch.site` receive/monitor are **cleared (3P-A24)**. Store submission still needs deletion fulfillment ops capacity and founder/legal confirmation of remaining store privacy questionnaire items. Automated account wipe and formal legal counsel sign-off remain open / optional.
+**Launch readiness is Conditional → near store-ready on ops/privacy.** Hosted legal URLs and `support@qmatch.site` are cleared. Firebase Console Analytics/Crashlytics/Performance/Messaging verified as **not collecting / not configured** for launch (3P-A29). Deletion fulfillment is **staffed manual** (Ümit, weekly, ≤30 days); automation still off. Remaining: fill store forms, optional counsel, optional product cleanups.
 
-Overall: **not “blocked on product missing deletion UI”** — blocked on **ops/legal/store hygiene** if those are not staffed.
+Overall: **not blocked on mailbox or Console telemetry** — proceed to form fill if founder accepts manual deletion responsibility.
 
 ---
 
@@ -35,7 +35,9 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 | Legal/help in-app drafts (EN/TR) | DONE | Privacy, Terms, FAQ, About |
 | Support email constant | DONE | `support@qmatch.site` in app + copy |
 | Hosted legal/support URLs | DONE | Cloudflare Pages; manually verified 3P-A24 |
-| Support mailbox receive/monitor | DONE | Routes to `sirinumit@gmail.com`; test received (3P-A24) |
+| Support mailbox receive/monitor | DONE | Routes to `sirinumit@gmail.com`; owner **Ümit** |
+| Firebase Console telemetry check | DONE | Analytics no events; Crashlytics/Performance Add SDK; Messaging not configured (3P-A29) |
+| Deletion ops staffing (manual) | DONE | Owner **Ümit**; weekly check; ≤30-day SLA — automation still off |
 | Account deletion **request** UX | DONE | Settings → Delete account; DELETE confirm |
 | Deletion Firestore rules (owner request) | DONE | Manually published; post-deploy QA `ok=true` |
 | Soft marker + pending UX | DONE | Settings / Delete screen / Discover banner |
@@ -49,11 +51,11 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 
 | ID | Item | Why blocker | Mitigation |
 |----|------|-------------|------------|
-| B1 | **Deletion fulfillment capacity** | Users are promised processing within **30 days**; automation is off (`EXECUTE_IMPLEMENTED=false`). Unstaffed ops → App Store / GDPR / trust failure | Assign owner; weekly pending discovery; use runbook; monitor SLA (~25-day alert) |
-| B2 | ~~`support@qmatch.site` mailbox~~ | **Cleared 3P-A24** — receive confirmed → `sirinumit@gmail.com`; monitored via Gmail. Send-as optional | See `docs/qmatch_site_support_mailbox_verification.md` |
-| B3 | **Store privacy questionnaire founder/legal gaps** | Pack exists (`docs/store_privacy_questionnaire_pack.md`) but many SDK/telemetry rows still **NEEDS CONFIRMATION** | Resolve before submitting App Privacy / Data Safety forms |
+| B1 | ~~Deletion fulfillment capacity~~ | **Cleared 3P-A29 (ops)** — owner **Ümit**; weekly pending discovery; manual ≤30 days. Automation still **off** (`EXECUTE_IMPLEMENTED=false`) | Keep runbook cadence; do not claim automated wipe |
+| B2 | ~~`support@qmatch.site` mailbox~~ | **Cleared 3P-A24** — receive confirmed; owner **Ümit** | See mailbox verification doc |
+| B3 | ~~Store privacy Console/SDK gaps~~ | **Mostly cleared 3P-A27–A29** — answer sheet + NFC + Console verification. Remaining: founder/counsel **sensitive-info / subprocessor wording** when filling forms | Use `docs/store_privacy_form_answer_sheet.md` |
 
-*Hosted Privacy/Terms/Support/Account-deletion URLs verified live (3P-A24) — former H3 cleared.*
+*No remaining P0 engineering blockers for ops/privacy readiness. Store form paste + release QA remain process steps.*
 
 ---
 
@@ -61,9 +63,9 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 
 | ID | Item | Notes |
 |----|------|-------|
-| H1 | No automated privileged deletion processor | Plan + dry-run + gated skeleton exist; execute disabled — correct for safety, HIGH until disposable destructive rehearsal succeeds |
+| H1 | No automated privileged deletion processor | Still true — manual ops staffed; execute disabled — correct for safety |
 | H2 | Legal drafts not counsel-reviewed | Privacy/Terms live on web; formal counsel review still **optional / recommended** |
-| H3 | ~~No public hosted Privacy/Terms URLs~~ | **DONE (3P-A24)** — `https://qmatch.site/privacy/` etc. verified |
+| H3 | ~~No public hosted Privacy/Terms URLs~~ | **DONE (3P-A24)** |
 | H4 | Messaging moderation is thin | Report create-only; no in-app moderation queue / CS tooling documented |
 | H5 | Users readable widely (MVP rules) | Production snapshot: signed-in users can read other user docs — intentional for Discover; privacy/overshare risk |
 | H6 | Photos not gated in core setup wizard | Photos via profile edit; empty-photo Discover quality risk |
@@ -122,7 +124,7 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 | Dry-run inventory / execute plan | Available; no wipe | DONE |
 | Automated destructive execute | Disabled | HIGH (until later phase) |
 | Manual fulfillment runbook | Written | DONE |
-| 30-day SLA ops staffing | Must confirm | **BLOCKER** (ops) |
+| 30-day SLA ops staffing | **Ümit** assigned; weekly (3P-A29) | DONE (ops) |
 
 **App Store 5.1.1(v):** Initiation risk **low/medium-low**. Fulfillment risk = ops capacity.
 
@@ -138,8 +140,8 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 | Counsel-approved legal | Not claimed | HIGH (optional / recommended) |
 | Hosted web legal URLs | `qmatch.site` verified live | DONE |
 | `support@qmatch.site` in product | Wired | DONE |
-| Mailbox operational | Receive/monitor confirmed (3P-A24) | DONE |
-| Store privacy questionnaire pack | Draft exists; rows still NEEDS CONFIRMATION | **BLOCKER** until founder/legal confirm |
+| Mailbox operational | Receive/monitor confirmed; owner **Ümit** | DONE |
+| Store privacy questionnaire / Console | Answer sheet + Console verified (3P-A29); sensitive-info wording optional counsel | DONE (ops) / optional legal |
 
 ---
 
@@ -184,15 +186,15 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 
 ## 12. Recommended next phases (priority order)
 
-1. **Ops confirm (P0):** Staff weekly deletion pending discovery (runbook). Clear **B1**. ~~Mailbox B2~~ cleared 3P-A24.
-2. **Store privacy pack (P0):** Resolve remaining **NEEDS CONFIRMATION** rows; paste verified `qmatch.site` URLs into consoles. Clear **B3**.
-3. **Legal harden (P1):** Optional counsel pass (H2). Hosted URLs done (H3).
-4. **Storage rules audit (P1):** Confirm Console Storage rules for `profile_photos/{uid}/` (H-related).
-5. **Disposable destructive deletion test (P2):** Explicit phase — enable gated execute for **test uid only** after approval.
-6. **Pending Discover soft-disable (P2):** Optional product choice (M1).
-7. **Moderation lite (P2):** Ops view of `reports` + response templates (H4).
-8. **Repo rules versioning (P3):** Add `firestore.rules` + firebase.json wiring without blind overwrite (H7).
-9. **Optional email:** Gmail “Send mail as support@qmatch.site”.
+1. **Store forms (P0):** Paste `qmatch.site` URLs + fill App Privacy / Data Safety from answer sheet.  
+2. **Ops maintain (P0):** Ümit weekly deletion discovery + support inbox. Automation remains off.  
+3. **Legal harden (P1):** Optional counsel pass (H2); sensitive-info / subprocessor wording.  
+4. **Storage rules audit (P1):** Confirm Console Storage rules for `profile_photos/{uid}/`.  
+5. **Disposable destructive deletion test (P2):** Explicit phase — gated execute for **test uid only** after approval.  
+6. **Pending Discover soft-disable (P2):** Optional product choice (M1).  
+7. **Moderation lite (P2):** Ops view of `reports` + response templates (H4).  
+8. **Repo rules versioning (P3):** Add `firestore.rules` + firebase.json wiring without blind overwrite (H7).  
+9. **Optional polish:** Hide Google/Apple stubs; camera permission cleanup; Gmail send-as; font bundling.
 
 ---
 
@@ -204,10 +206,10 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 | Assessment Firestore | **Ready** |
 | Legal/help drafts | **Live on web** + in-app (counsel review optional) |
 | Account deletion initiation | **Ready** |
-| Account deletion fulfillment | **Conditional on manual ops** |
-| Support | **Ready** (receive/monitor confirmed 3P-A24) |
-| Store listing paperwork | **URLs ready**; questionnaire still has NEEDS CONFIRMATION rows |
-| **Ship decision** | **Conditional go** — clear **B1** + remaining **B3** confirmations before store submit |
+| Account deletion fulfillment | **Staffed manual** (Ümit; automation off) |
+| Support | **Ready** (Ümit; mailbox confirmed) |
+| Store listing paperwork | **Ready to fill** (answer sheet + Console verified) |
+| **Ship decision** | **Go (ops/privacy)** — fill store forms + release QA; accept manual deletion responsibility |
 
 ---
 
@@ -223,5 +225,5 @@ Overall: **not “blocked on product missing deletion UI”** — blocked on **o
 ## Related docs (index)
 
 - Assessment: `docs/firestore_assessment_runtime_qa.md`, `docs/firestore_publish_rc1_report.md`
-- Legal / site: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_verification.md`, `docs/support_and_legal_url_readiness.md`, `docs/store_privacy_questionnaire_pack.md`
+- Legal / site: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_verification.md`, `docs/firebase_console_store_submission_verification.md`, `docs/store_submission_final_operations_checklist.md`, `docs/store_privacy_form_answer_sheet.md`
 - Deletion: `docs/account_deletion_*`, `docs/firestore_rules_*`, `docs/account_deletion_manual_ops_runbook.md`, `docs/account_deletion_pending_ux.md`

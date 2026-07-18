@@ -4,7 +4,7 @@ Date: 2026-07-18
 Project: Qmatch (`qmatch-53d62`)  
 Mode: **Practical form fill-in sheet** — not legal advice; no app/Firebase/deploy changes in this phase
 
-**Update (3P-A27):** Repo evidence pass — see `docs/store_privacy_nfc_resolution_checklist.md`. Several NFC items locked for the current binary; Console/legal/ops items remain.
+**Update (3P-A29):** Firebase Console verified — Analytics no events; Crashlytics/Performance Add SDK; Messaging not configured. Ops staffed (Ümit). See `docs/firebase_console_store_submission_verification.md`.
 
 ### Paste into store consoles (verified)
 
@@ -30,8 +30,7 @@ Mode: **Practical form fill-in sheet** — not legal advice; no app/Firebase/dep
 
 **Do you collect data?** → **Yes**
 
-**Do you or your third-party partners use data for tracking?** → **No** (no ads/ATT SDKs in app; Confirmed).  
-NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT tracking** unless counsel says otherwise.
+**Do you or your third-party partners use data for tracking?** → **No** (no ads/ATT SDKs; no Analytics event collection for launch — 3P-A29).
 
 **Privacy Policy URL:** `https://qmatch.site/privacy/`
 
@@ -59,8 +58,8 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 | Data type | Collected? | Linked? | Tracking? | Purpose(s) | Confidence | Notes |
 |-----------|------------|---------|-----------|------------|------------|-------|
 | User ID | **Yes** | Yes | No | App Functionality, Account Management | Confirmed | Firebase Auth UID |
-| Device ID | **No** | — | — | — | Confirmed (app) | No device_info in deps/`lib`. Spot-check Console before submit (3P-A27) |
-| Advertising Data / ID | **No** | — | — | — | Confirmed (app) | No ads/ATT SDKs |
+| Device ID | **No** | — | — | — | Confirmed | No device_info; Console check 3P-A29 — no analytics/crash SDK collecting device IDs via those products |
+| Advertising Data / ID | **No** | — | — | — | Confirmed | No ads/ATT SDKs |
 
 ### 1.4 Location
 
@@ -75,15 +74,15 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 |-----------|------------|---------|-----------|------------|------------|-------|
 | Product Interaction | **Yes** | Yes | No | App Functionality | Confirmed | Swipes, matches, assessment progress, chat activity |
 | Advertising Data | No | — | — | — | Not Present | |
-| Other Usage Data | **Possible** | Yes | No | App Functionality | NFC | Firebase infrastructure logs — confirm Console |
+| Other Usage Data | **No** for Analytics SDK events | — | — | — | Confirmed (3P-A29) | Console Analytics shows 0 events; no analytics package. Firestore product data is separate (swipes etc. under Product Interaction) |
 
 ### 1.6 Diagnostics
 
 | Data type | Collected? | Linked? | Tracking? | Purpose(s) | Confidence | Notes |
 |-----------|------------|---------|-----------|------------|------------|-------|
-| Crash Data | **No** (no Crashlytics package) | — | — | — | Confirmed (deps) | NFC: Console-only? |
-| Performance Data | **No** (no Performance package) | — | — | — | Confirmed (deps) | NFC: Console? |
-| Other Diagnostic Data | **No** unless Console proves otherwise | — | — | — | NFC (Console only) | |
+| Crash Data | **No** | — | — | — | Confirmed (3P-A29) | Console Add SDK + no Crashlytics package |
+| Performance Data | **No** | — | — | — | Confirmed (3P-A29) | Console Add SDK + no Performance package |
+| Other Diagnostic Data | **No** | — | — | — | Confirmed (3P-A29) | No diagnostic SDKs configured for launch |
 
 ### 1.7 Sensitive Info
 
@@ -165,11 +164,11 @@ NFC: Google Fonts network fetch / Console Analytics — still treat as **not ATT
 
 | Data type | Collected? | Shared? | Purpose | Ephemeral? | Deletion? | Confidence | Notes |
 |-----------|------------|---------|---------|------------|-----------|------------|-------|
-| Crash logs | No (no Crashlytics package) | — | — | — | — | Confirmed deps | Console check remaining |
-| Diagnostics | No unless Console proves otherwise | — | — | — | — | NFC Console | |
-| Other app performance | No (no Performance package) | — | — | — | — | Confirmed deps | Console check remaining |
+| Crash logs | **No** | — | — | — | — | Confirmed (3P-A29) | Add SDK + no package |
+| Diagnostics | **No** | — | — | — | — | Confirmed (3P-A29) | |
+| Other app performance | **No** | — | — | — | — | Confirmed (3P-A29) | Add SDK + no package |
 
-**Draft:** Answer **No** for crash/diagnostics unless Firebase Console proves otherwise.
+**Store answer:** Diagnostics / crash / performance = **No**. Analytics SDK events = **No**. Push = **No**.
 
 ### 2.6 Device or other IDs
 
@@ -235,15 +234,15 @@ Items still needing human action after 3P-A27 repo pass:
 | # | Decision | Status after 3P-A27 | Action |
 |---|----------|---------------------|--------|
 | 1 | Precise vs approximate location | **Form answer locked:** declare Precise + Coarse | Optional later code change to coarse-only |
-| 2 | Console Analytics / Crashlytics / Performance | **Still open** | Check Firebase Console `qmatch-53d62` |
-| 3 | Camera vs gallery permissions | **Data path locked:** gallery only | Remove unused camera permission/strings or implement camera |
-| 4 | Sensitive info classification | **Still open (legal)** | Counsel on religion / dating prefs / gender |
-| 5 | Retention after deletion | **Policy intent locked** via runbook | Ensure ops practice matches; staff owner |
+| 2 | Console Analytics / Crashlytics / Performance | **Verified 3P-A29: No** | None for launch forms |
+| 3 | Camera vs gallery permissions | **Data path locked:** gallery only | Optional: remove unused camera permission |
+| 4 | Sensitive info classification | **Still open (legal)** | Counsel optional |
+| 5 | Retention after deletion | **Policy intent locked** via runbook | Ops owner **Ümit** |
 | 6 | Subprocessors wording | **Still open (legal)** | Finalize Google/Firebase + Cloudflare list |
 | 7 | Encryption at rest wording | **Still open (form wording)** | Confirm if asked beyond in-transit Yes |
-| 8 | Deletion ops staffing | **Still open (P0)** | Named owner + weekly pending review |
+| 8 | Deletion ops staffing | **Staffed — Ümit** (weekly, manual ≤30 days) | Maintain cadence |
 | 9 | Gmail send-as `support@qmatch.site` | **Optional — not blocker** | Optional |
-| 10 | Apple/Google stub buttons | **Collection locked: none** | Hide stubs or implement before marketing |
+| 10 | Apple/Google stub buttons | **Collection locked: none** | Optional: hide stubs |
 
 Full evidence: `docs/store_privacy_nfc_resolution_checklist.md`
 
@@ -257,8 +256,8 @@ Full evidence: `docs/store_privacy_nfc_resolution_checklist.md`
 - Health & fitness (clinical)  
 - FCM / working push notifications  
 - Working Google Sign-In / Sign in with Apple account collection  
-- Analytics/Crashlytics **packages** (unless Console proves otherwise)  
-- Device advertising ID (unless Console/binary proves otherwise)  
+- Analytics/Crashlytics/Performance/FCM **not configured for launch** (3P-A29 Console + no packages)  
+- Device advertising ID  
 
 ---
 
@@ -266,10 +265,10 @@ Full evidence: `docs/store_privacy_nfc_resolution_checklist.md`
 
 | Item | Status |
 |------|--------|
-| Manual deletion fulfillment ops (B1) | Open |
-| Founder NFC decisions above (B3) | Open — use this sheet |
-| Hosted legal URLs + support mailbox | Cleared (3P-A24) |
-| Optional counsel / Gmail send-as | Optional |
+| Manual deletion fulfillment ops | **Staffed — Ümit** (automation still off) |
+| Founder NFC (sensitive info / subprocessors) | Optional counsel when filling forms |
+| Hosted legal URLs + support mailbox | Cleared |
+| Console telemetry | Cleared 3P-A29 |
 
 ---
 
@@ -277,4 +276,4 @@ Full evidence: `docs/store_privacy_nfc_resolution_checklist.md`
 
 No app behavior changes · no Firebase writes · no deploy · no DNS · no commit/push
 
-Related: `docs/store_privacy_final_confirmation_matrix.md`, `docs/store_privacy_questionnaire_pack.md`
+Related: `docs/store_privacy_final_confirmation_matrix.md`, `docs/firebase_console_store_submission_verification.md`, `docs/store_submission_final_operations_checklist.md`
