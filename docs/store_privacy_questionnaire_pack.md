@@ -250,12 +250,13 @@ See: `docs/qmatch_site_live_verification.md`, `docs/qmatch_site_support_mailbox_
 - [ ] Confirm ops owner for 30-day deletion fulfillment (manual ops)
 - [ ] Confirm location precision declaration (coarse vs precise) — code uses high accuracy + GeoPoint
 - [ ] Confirm no advertising / ATT tracking before shipping
-- [ ] Align Play Data Safety + Apple App Privacy answers with `docs/store_privacy_final_confirmation_matrix.md`
+- [ ] Align Play Data Safety + Apple App Privacy answers with `docs/store_privacy_final_confirmation_matrix.md` and **`docs/store_privacy_form_answer_sheet.md` (3P-A26)**
 
 ---
 
 ## 7. Related product docs
 
+- `docs/store_privacy_form_answer_sheet.md` (**3P-A26** — App Store / Play form answer sheet)
 - `docs/store_privacy_final_confirmation_matrix.md` (**3P-A25** — founder confirmation matrix)
 - `docs/launch_readiness_consolidated_audit.md`
 - `docs/qmatch_site_live_verification.md`
