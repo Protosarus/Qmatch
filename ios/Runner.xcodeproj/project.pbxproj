@@ -495,12 +495,12 @@
 				DEVELOPMENT_TEAM = 5V5NP5ATH2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OurSecrets;
+				INFOPLIST_KEY_CFBundleDisplayName = Qmatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.OurSecrets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qmatch.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -679,7 +679,7 @@
 				DEVELOPMENT_TEAM = 5V5NP5ATH2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OurSecrets;
+				INFOPLIST_KEY_CFBundleDisplayName = Qmatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -703,7 +703,7 @@
 				DEVELOPMENT_TEAM = 5V5NP5ATH2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OurSecrets;
+				INFOPLIST_KEY_CFBundleDisplayName = Qmatch;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
