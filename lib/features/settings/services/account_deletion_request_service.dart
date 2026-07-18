@@ -50,6 +50,14 @@ class AccountDeletionRequestService {
       final already =
           existing.exists && (existing.data()?['status'] as String?) == 'requested';
 
+      // Do not create/update another request while one is already pending.
+      if (already) {
+        return const AccountDeletionRequestResult(
+          ok: true,
+          alreadyRequested: true,
+        );
+      }
+
       final payload = <String, dynamic>{
         'uid': uid,
         'email_or_phone_masked': _maskContact(user),
@@ -76,9 +84,9 @@ class AccountDeletionRequestService {
         SetOptions(merge: true),
       );
 
-      return AccountDeletionRequestResult(
+      return const AccountDeletionRequestResult(
         ok: true,
-        alreadyRequested: already,
+        alreadyRequested: false,
       );
     } on FirebaseException catch (e) {
       debugPrint('AccountDeletionRequestService failed: ${e.code} ${e.message}');
@@ -92,6 +100,22 @@ class AccountDeletionRequestService {
         ok: false,
         errorMessage: 'unknown',
       );
+    }
+  }
+
+  /// True if the signed-in user has a pending deletion (soft marker and/or request).
+  ///
+  /// Read-only. Prefer soft marker; fall back to request doc `status == requested`.
+  Future<bool> isAccountDeletionPending() async {
+    final user = _auth.currentUser;
+    if (user == null) return false;
+    try {
+      final userSnap = await FirestorePaths.userDoc(user.uid).get();
+      final marker = userSnap.data()?['account_deletion_requested'] == true;
+      if (marker) return true;
+      return hasPendingRequest();
+    } catch (_) {
+      return hasPendingRequest();
     }
   }
 

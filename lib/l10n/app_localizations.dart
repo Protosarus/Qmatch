@@ -1190,6 +1190,24 @@ abstract class AppLocalizations {
   /// **'Request permanent account deletion'**
   String get settingsDeleteAccountSubtitle;
 
+  /// No description provided for @settingsDeleteAccountPendingStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deletion requested'**
+  String get settingsDeleteAccountPendingStatus;
+
+  /// No description provided for @settingsDeleteAccountPendingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View request status and timeline'**
+  String get settingsDeleteAccountPendingSubtitle;
+
+  /// No description provided for @settingsDeleteAccountPendingBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.app if you need help.'**
+  String get settingsDeleteAccountPendingBanner;
+
   /// No description provided for @settingsDeleteAccountDialogTitle.
   ///
   /// In en, this message translates to:
@@ -1304,11 +1322,35 @@ abstract class AppLocalizations {
   /// **'You already have a pending deletion request. If you need help, email support@qmatch.app.'**
   String get accountDeletionAlreadyRequested;
 
+  /// No description provided for @accountDeletionPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request already received'**
+  String get accountDeletionPendingTitle;
+
+  /// No description provided for @accountDeletionPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your deletion request has been received and is pending. We will process it within 30 days. You can contact {email} if you have questions.'**
+  String accountDeletionPendingBody(String email);
+
+  /// No description provided for @accountDeletionPendingNoResubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not need to submit another request. Duplicate submissions are disabled while this request is pending.'**
+  String get accountDeletionPendingNoResubmit;
+
   /// No description provided for @accountDeletionRequestError.
   ///
   /// In en, this message translates to:
   /// **'We could not submit your request. Check your connection and try again, or email support@qmatch.app.'**
   String get accountDeletionRequestError;
+
+  /// No description provided for @discoverAccountDeletionPendingBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account deletion request is pending.'**
+  String get discoverAccountDeletionPendingBanner;
 
   /// No description provided for @accountDeletionSuccessTitle.
   ///

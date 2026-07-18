@@ -207,6 +207,9 @@
   "openTermsOfUse": "Kullanım Şartlarını oku",
   "settingsDeleteAccount": "Hesabı sil",
   "settingsDeleteAccountSubtitle": "Kalıcı hesap silme talebi oluştur",
+  "settingsDeleteAccountPendingStatus": "Hesap silme talep edildi",
+  "settingsDeleteAccountPendingSubtitle": "Talep durumunu ve süreyi görüntüle",
+  "settingsDeleteAccountPendingBanner": "Hesap silme talebin beklemede. 30 gün içinde işleyeceğiz. Yardım için support@qmatch.app adresine yaz.",
   "settingsDeleteAccountDialogTitle": "Hesap silme talebi",
   "settingsDeleteAccountDialogBody": "Ayarlar → Hesabı sil üzerinden uygulama içi talep gönderebilirsin. İstersen support@qmatch.app adresine de yazabilirsin.",
   "settingsDeleteAccountDialogAction": "Anladım",
@@ -236,7 +239,16 @@
   "accountDeletionSubmit": "Silme talebini gönder",
   "accountDeletionNotImmediateNote": "Göndermek verilerini anında silmez. İşlem tamamlandığında bilgilendiririz.",
   "accountDeletionAlreadyRequested": "Bekleyen bir silme talebin zaten var. Yardım için support@qmatch.app adresine yaz.",
+  "accountDeletionPendingTitle": "Talep zaten alındı",
+  "accountDeletionPendingBody": "Silme talebin alındı ve beklemede. 30 gün içinde işleyeceğiz. Soruların için {email} ile iletişime geçebilirsin.",
+  "@accountDeletionPendingBody": {
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "accountDeletionPendingNoResubmit": "Yeniden talep göndermene gerek yok. Bu talep beklerken tekrar gönderim kapalıdır.",
   "accountDeletionRequestError": "Talebin gönderilemedi. Bağlantını kontrol edip tekrar dene veya support@qmatch.app adresine yaz.",
+  "discoverAccountDeletionPendingBanner": "Hesap silme talebin beklemede.",
   "accountDeletionSuccessTitle": "Talep alındı",
   "accountDeletionSuccessBody": "Silme talebin alındı. 30 gün içinde işleyeceğiz. Soruların için {email} ile iletişime geçebilirsin.",
   "@accountDeletionSuccessBody": {

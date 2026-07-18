@@ -24,6 +24,7 @@ class _AccountDeletionRequestScreenState
   bool _ackTimeline = false;
   bool _submitting = false;
   bool _alreadyPending = false;
+  bool _pendingLoaded = false;
   String? _inlineError;
 
   @override
@@ -34,9 +35,12 @@ class _AccountDeletionRequestScreenState
   }
 
   Future<void> _loadPending() async {
-    final pending = await _service.hasPendingRequest();
+    final pending = await _service.isAccountDeletionPending();
     if (!mounted) return;
-    setState(() => _alreadyPending = pending);
+    setState(() {
+      _alreadyPending = pending;
+      _pendingLoaded = true;
+    });
   }
 
   @override
@@ -46,7 +50,7 @@ class _AccountDeletionRequestScreenState
   }
 
   bool get _canSubmit {
-    if (_submitting || _alreadyPending) return false;
+    if (_submitting || _alreadyPending || !_pendingLoaded) return false;
     if (!_ackIrreversible || !_ackTimeline) return false;
     return _confirmController.text.trim().toUpperCase() ==
         AccountDeletionRequestService.confirmationToken;
@@ -76,6 +80,13 @@ class _AccountDeletionRequestScreenState
       });
       return;
     }
+
+    if (result.alreadyRequested) {
+      setState(() => _alreadyPending = true);
+      return;
+    }
+
+    setState(() => _alreadyPending = true);
 
     await showDialog<void>(
       context: context,
@@ -131,170 +142,205 @@ class _AccountDeletionRequestScreenState
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
-        children: [
-          Text(
-            l10n.accountDeletionWarningTitle,
-            style: GoogleFonts.inter(
-              color: Colors.redAccent,
-              fontWeight: FontWeight.w700,
-              fontSize: 16,
+      body: !_pendingLoaded
+          ? const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+              ),
+            )
+          : (_alreadyPending ? _buildPendingBody(l10n) : _buildRequestBody(l10n)),
+    );
+  }
+
+  Widget _buildPendingBody(AppLocalizations l10n) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+      children: [
+        Text(
+          l10n.accountDeletionPendingTitle,
+          style: GoogleFonts.inter(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          l10n.accountDeletionPendingBody(AppSupport.email),
+          style: GoogleFonts.inter(
+            color: Colors.white,
+            fontSize: 14,
+            height: 1.5,
+          ),
+        ),
+        const SizedBox(height: 18),
+        _card(
+          title: l10n.accountDeletionTimelineTitle,
+          body: l10n.accountDeletionTimelineBody,
+        ),
+        const SizedBox(height: 12),
+        Text(
+          l10n.accountDeletionSupportHint(AppSupport.email),
+          style: GoogleFonts.inter(
+            color: AppColors.textSecondary,
+            fontSize: 13,
+            height: 1.45,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(
+          l10n.accountDeletionPendingNoResubmit,
+          style: GoogleFonts.inter(
+            color: AppColors.textSecondary,
+            fontSize: 12,
+            height: 1.4,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRequestBody(AppLocalizations l10n) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+      children: [
+        Text(
+          l10n.accountDeletionWarningTitle,
+          style: GoogleFonts.inter(
+            color: Colors.redAccent,
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          l10n.accountDeletionIntro,
+          style: GoogleFonts.inter(
+            color: Colors.white,
+            fontSize: 14,
+            height: 1.5,
+          ),
+        ),
+        const SizedBox(height: 18),
+        _card(
+          title: l10n.accountDeletionWillDeleteTitle,
+          body: l10n.accountDeletionWillDeleteBody,
+        ),
+        const SizedBox(height: 12),
+        _card(
+          title: l10n.accountDeletionMayRetainTitle,
+          body: l10n.accountDeletionMayRetainBody,
+        ),
+        const SizedBox(height: 12),
+        _card(
+          title: l10n.accountDeletionTimelineTitle,
+          body: l10n.accountDeletionTimelineBody,
+        ),
+        const SizedBox(height: 12),
+        Text(
+          l10n.accountDeletionSupportHint(AppSupport.email),
+          style: GoogleFonts.inter(
+            color: AppColors.textSecondary,
+            fontSize: 13,
+            height: 1.45,
+          ),
+        ),
+        const SizedBox(height: 18),
+        CheckboxListTile(
+          value: _ackIrreversible,
+          onChanged: (v) => setState(() => _ackIrreversible = v ?? false),
+          activeColor: AppColors.primary,
+          controlAffinity: ListTileControlAffinity.leading,
+          contentPadding: EdgeInsets.zero,
+          title: Text(
+            l10n.accountDeletionAckIrreversible,
+            style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
+          ),
+        ),
+        CheckboxListTile(
+          value: _ackTimeline,
+          onChanged: (v) => setState(() => _ackTimeline = v ?? false),
+          activeColor: AppColors.primary,
+          controlAffinity: ListTileControlAffinity.leading,
+          contentPadding: EdgeInsets.zero,
+          title: Text(
+            l10n.accountDeletionAckTimeline,
+            style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          l10n.accountDeletionTypeDeleteHint(
+            AccountDeletionRequestService.confirmationToken,
+          ),
+          style: GoogleFonts.inter(
+            color: AppColors.textSecondary,
+            fontSize: 13,
+          ),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: _confirmController,
+          enabled: !_submitting,
+          autocorrect: false,
+          textCapitalization: TextCapitalization.characters,
+          style: GoogleFonts.inter(color: Colors.white),
+          decoration: InputDecoration(
+            hintText: AccountDeletionRequestService.confirmationToken,
+            hintStyle: GoogleFonts.inter(color: AppColors.textSecondary),
+            filled: true,
+            fillColor: AppColors.surface,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: AppColors.primary.withValues(alpha: 0.25),
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: AppColors.primary.withValues(alpha: 0.25),
+              ),
             ),
           ),
+        ),
+        if (_inlineError != null) ...[
           const SizedBox(height: 12),
           Text(
-            l10n.accountDeletionIntro,
-            style: GoogleFonts.inter(
-              color: Colors.white,
-              fontSize: 14,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 18),
-          _card(
-            title: l10n.accountDeletionWillDeleteTitle,
-            body: l10n.accountDeletionWillDeleteBody,
-          ),
-          const SizedBox(height: 12),
-          _card(
-            title: l10n.accountDeletionMayRetainTitle,
-            body: l10n.accountDeletionMayRetainBody,
-          ),
-          const SizedBox(height: 12),
-          _card(
-            title: l10n.accountDeletionTimelineTitle,
-            body: l10n.accountDeletionTimelineBody,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            l10n.accountDeletionSupportHint(AppSupport.email),
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 13,
-              height: 1.45,
-            ),
-          ),
-          if (_alreadyPending) ...[
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-              ),
-              child: Text(
-                l10n.accountDeletionAlreadyRequested,
-                style: GoogleFonts.inter(
-                  color: AppColors.primary,
-                  fontSize: 13,
-                  height: 1.45,
-                ),
-              ),
-            ),
-          ],
-          const SizedBox(height: 18),
-          CheckboxListTile(
-            value: _ackIrreversible,
-            onChanged: _alreadyPending
-                ? null
-                : (v) => setState(() => _ackIrreversible = v ?? false),
-            activeColor: AppColors.primary,
-            controlAffinity: ListTileControlAffinity.leading,
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              l10n.accountDeletionAckIrreversible,
-              style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
-            ),
-          ),
-          CheckboxListTile(
-            value: _ackTimeline,
-            onChanged: _alreadyPending
-                ? null
-                : (v) => setState(() => _ackTimeline = v ?? false),
-            activeColor: AppColors.primary,
-            controlAffinity: ListTileControlAffinity.leading,
-            contentPadding: EdgeInsets.zero,
-            title: Text(
-              l10n.accountDeletionAckTimeline,
-              style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.accountDeletionTypeDeleteHint(
-              AccountDeletionRequestService.confirmationToken,
-            ),
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 13,
-            ),
-          ),
-          const SizedBox(height: 8),
-          TextField(
-            controller: _confirmController,
-            enabled: !_alreadyPending && !_submitting,
-            autocorrect: false,
-            textCapitalization: TextCapitalization.characters,
-            style: GoogleFonts.inter(color: Colors.white),
-            decoration: InputDecoration(
-              hintText: AccountDeletionRequestService.confirmationToken,
-              hintStyle: GoogleFonts.inter(color: AppColors.textSecondary),
-              filled: true,
-              fillColor: AppColors.surface,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: AppColors.primary.withValues(alpha: 0.25),
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(
-                  color: AppColors.primary.withValues(alpha: 0.25),
-                ),
-              ),
-            ),
-          ),
-          if (_inlineError != null) ...[
-            const SizedBox(height: 12),
-            Text(
-              _inlineError!,
-              style: GoogleFonts.inter(color: Colors.redAccent, fontSize: 13),
-            ),
-          ],
-          const SizedBox(height: 20),
-          FilledButton(
-            onPressed: _canSubmit ? () => _submit(l10n) : null,
-            style: FilledButton.styleFrom(
-              backgroundColor: Colors.red,
-              disabledBackgroundColor: Colors.red.withValues(alpha: 0.25),
-              foregroundColor: Colors.white,
-              minimumSize: const Size(double.infinity, 48),
-            ),
-            child: _submitting
-                ? const SizedBox(
-                    width: 22,
-                    height: 22,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : Text(
-                    l10n.accountDeletionSubmit,
-                    style: GoogleFonts.inter(fontWeight: FontWeight.w700),
-                  ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            l10n.accountDeletionNotImmediateNote,
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            _inlineError!,
+            style: GoogleFonts.inter(color: Colors.redAccent, fontSize: 13),
           ),
         ],
-      ),
+        const SizedBox(height: 20),
+        FilledButton(
+          onPressed: _canSubmit ? () => _submit(l10n) : null,
+          style: FilledButton.styleFrom(
+            backgroundColor: Colors.red,
+            disabledBackgroundColor: Colors.red.withValues(alpha: 0.25),
+            foregroundColor: Colors.white,
+            minimumSize: const Size(double.infinity, 48),
+          ),
+          child: _submitting
+              ? const SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : Text(
+                  l10n.accountDeletionSubmit,
+                  style: GoogleFonts.inter(fontWeight: FontWeight.w700),
+                ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          l10n.accountDeletionNotImmediateNote,
+          style: GoogleFonts.inter(
+            color: AppColors.textSecondary,
+            fontSize: 12,
+            height: 1.4,
+          ),
+        ),
+      ],
     );
   }
 

@@ -9,6 +9,7 @@ import '../services/discover_service.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../profile/utils/profile_option_labels.dart';
+import '../../settings/services/account_deletion_request_service.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -20,9 +21,12 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final DiscoverService _discoverService = DiscoverService();
   final SwipeService _swipeService = SwipeService();
+  final AccountDeletionRequestService _deletionService =
+      AccountDeletionRequestService();
 
   bool _isLoading = true;
   bool _isActionLoading = false;
+  bool _deletionPending = false;
   String? _errorMessage;
   List<DiscoverUserModel> _candidates = [];
   int _currentIndex = 0;
@@ -37,7 +41,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   void initState() {
     super.initState();
+    _loadDeletionPending();
     _loadCandidates();
+  }
+
+  Future<void> _loadDeletionPending() async {
+    final pending = await _deletionService.isAccountDeletionPending();
+    if (!mounted) return;
+    setState(() => _deletionPending = pending);
   }
 
   Future<void> _loadCandidates() async {
@@ -146,7 +157,38 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: _buildBody(),
+        child: Column(
+          children: [
+            if (_deletionPending) _buildDeletionPendingBanner(context),
+            Expanded(child: _buildBody()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeletionPendingBanner(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Material(
+      color: AppColors.surface,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.primary.withValues(alpha: 0.25),
+            ),
+          ),
+        ),
+        child: Text(
+          l10n.discoverAccountDeletionPendingBanner,
+          style: GoogleFonts.inter(
+            color: AppColors.primary,
+            fontSize: 13,
+            height: 1.35,
+          ),
+        ),
       ),
     );
   }

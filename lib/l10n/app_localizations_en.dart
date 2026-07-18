@@ -593,6 +593,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'Request permanent account deletion';
 
   @override
+  String get settingsDeleteAccountPendingStatus => 'Account deletion requested';
+
+  @override
+  String get settingsDeleteAccountPendingSubtitle =>
+      'View request status and timeline';
+
+  @override
+  String get settingsDeleteAccountPendingBanner =>
+      'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.app if you need help.';
+
+  @override
   String get settingsDeleteAccountDialogTitle => 'Request account deletion';
 
   @override
@@ -665,8 +676,24 @@ class AppLocalizationsEn extends AppLocalizations {
       'You already have a pending deletion request. If you need help, email support@qmatch.app.';
 
   @override
+  String get accountDeletionPendingTitle => 'Request already received';
+
+  @override
+  String accountDeletionPendingBody(String email) {
+    return 'Your deletion request has been received and is pending. We will process it within 30 days. You can contact $email if you have questions.';
+  }
+
+  @override
+  String get accountDeletionPendingNoResubmit =>
+      'You do not need to submit another request. Duplicate submissions are disabled while this request is pending.';
+
+  @override
   String get accountDeletionRequestError =>
       'We could not submit your request. Check your connection and try again, or email support@qmatch.app.';
+
+  @override
+  String get discoverAccountDeletionPendingBanner =>
+      'Your account deletion request is pending.';
 
   @override
   String get accountDeletionSuccessTitle => 'Request received';

@@ -11,10 +11,45 @@ import 'blocked_users_screen.dart';
 import 'help_support_screen.dart';
 import 'notifications_settings_screen.dart';
 import 'privacy_settings_screen.dart';
+import '../services/account_deletion_request_service.dart';
 import '../../../l10n/app_localizations.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  final _deletionService = AccountDeletionRequestService();
+  bool _deletionPending = false;
+  bool _deletionPendingLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDeletionPending();
+  }
+
+  Future<void> _loadDeletionPending() async {
+    final pending = await _deletionService.isAccountDeletionPending();
+    if (!mounted) return;
+    setState(() {
+      _deletionPending = pending;
+      _deletionPendingLoaded = true;
+    });
+  }
+
+  Future<void> _openDeleteAccount() async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const AccountDeletionRequestScreen(),
+      ),
+    );
+    // Refresh status after returning (e.g. user just submitted).
+    if (mounted) await _loadDeletionPending();
+  }
 
   Future<void> _confirmLogout(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
@@ -70,12 +105,20 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final deleteTitle = _deletionPending
+        ? l10n.settingsDeleteAccountPendingStatus
+        : l10n.settingsDeleteAccount;
+    final deleteSubtitle = !_deletionPendingLoaded
+        ? l10n.settingsDeleteAccountSubtitle
+        : (_deletionPending
+            ? l10n.settingsDeleteAccountPendingSubtitle
+            : l10n.settingsDeleteAccountSubtitle);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Column(
           children: [
-            // Header
             Padding(
               padding: const EdgeInsets.all(24),
               child: Row(
@@ -91,12 +134,32 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Settings List
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 children: [
+                  if (_deletionPending) ...[
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: AppColors.surface,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.primary.withValues(alpha: 0.35),
+                        ),
+                      ),
+                      child: Text(
+                        l10n.settingsDeleteAccountPendingBanner,
+                        style: GoogleFonts.inter(
+                          color: AppColors.primary,
+                          fontSize: 13,
+                          height: 1.45,
+                        ),
+                      ),
+                    ),
+                  ],
                   _buildSettingItem(
                     icon: Icons.notifications,
                     title: l10n.settingsNotifications,
@@ -159,18 +222,11 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   _buildSettingItem(
                     icon: Icons.delete_forever_outlined,
-                    title: l10n.settingsDeleteAccount,
-                    subtitle: l10n.settingsDeleteAccountSubtitle,
+                    title: deleteTitle,
+                    subtitle: deleteSubtitle,
                     isDestructive: true,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const AccountDeletionRequestScreen(),
-                        ),
-                      );
-                    },
+                    onTap: _openDeleteAccount,
                   ),
-                  // Hidden entirely outside debug builds (tree-shaken from release UI).
                   if (kDebugMode)
                     _buildSettingItem(
                       icon: Icons.bug_report_outlined,

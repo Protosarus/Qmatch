@@ -207,6 +207,9 @@
   "openTermsOfUse": "Read Terms of Use",
   "settingsDeleteAccount": "Delete account",
   "settingsDeleteAccountSubtitle": "Request permanent account deletion",
+  "settingsDeleteAccountPendingStatus": "Account deletion requested",
+  "settingsDeleteAccountPendingSubtitle": "View request status and timeline",
+  "settingsDeleteAccountPendingBanner": "Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.app if you need help.",
   "settingsDeleteAccountDialogTitle": "Request account deletion",
   "settingsDeleteAccountDialogBody": "Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.app.",
   "settingsDeleteAccountDialogAction": "Got it",
@@ -236,7 +239,16 @@
   "accountDeletionSubmit": "Submit deletion request",
   "accountDeletionNotImmediateNote": "Submitting does not immediately erase your data. We confirm when processing is complete.",
   "accountDeletionAlreadyRequested": "You already have a pending deletion request. If you need help, email support@qmatch.app.",
+  "accountDeletionPendingTitle": "Request already received",
+  "accountDeletionPendingBody": "Your deletion request has been received and is pending. We will process it within 30 days. You can contact {email} if you have questions.",
+  "@accountDeletionPendingBody": {
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "accountDeletionPendingNoResubmit": "You do not need to submit another request. Duplicate submissions are disabled while this request is pending.",
   "accountDeletionRequestError": "We could not submit your request. Check your connection and try again, or email support@qmatch.app.",
+  "discoverAccountDeletionPendingBanner": "Your account deletion request is pending.",
   "accountDeletionSuccessTitle": "Request received",
   "accountDeletionSuccessBody": "Your deletion request has been received. We will process it within 30 days. You can contact {email} if you have questions.",
   "@accountDeletionSuccessBody": {

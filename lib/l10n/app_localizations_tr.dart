@@ -589,6 +589,17 @@ class AppLocalizationsTr extends AppLocalizations {
       'Kalıcı hesap silme talebi oluştur';
 
   @override
+  String get settingsDeleteAccountPendingStatus => 'Hesap silme talep edildi';
+
+  @override
+  String get settingsDeleteAccountPendingSubtitle =>
+      'Talep durumunu ve süreyi görüntüle';
+
+  @override
+  String get settingsDeleteAccountPendingBanner =>
+      'Hesap silme talebin beklemede. 30 gün içinde işleyeceğiz. Yardım için support@qmatch.app adresine yaz.';
+
+  @override
   String get settingsDeleteAccountDialogTitle => 'Hesap silme talebi';
 
   @override
@@ -660,8 +671,24 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bekleyen bir silme talebin zaten var. Yardım için support@qmatch.app adresine yaz.';
 
   @override
+  String get accountDeletionPendingTitle => 'Talep zaten alındı';
+
+  @override
+  String accountDeletionPendingBody(String email) {
+    return 'Silme talebin alındı ve beklemede. 30 gün içinde işleyeceğiz. Soruların için $email ile iletişime geçebilirsin.';
+  }
+
+  @override
+  String get accountDeletionPendingNoResubmit =>
+      'Yeniden talep göndermene gerek yok. Bu talep beklerken tekrar gönderim kapalıdır.';
+
+  @override
   String get accountDeletionRequestError =>
       'Talebin gönderilemedi. Bağlantını kontrol edip tekrar dene veya support@qmatch.app adresine yaz.';
+
+  @override
+  String get discoverAccountDeletionPendingBanner =>
+      'Hesap silme talebin beklemede.';
 
   @override
   String get accountDeletionSuccessTitle => 'Talep alındı';
