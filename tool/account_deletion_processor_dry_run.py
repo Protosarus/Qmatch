@@ -6,15 +6,17 @@ Does **not** delete, update, or set any Firestore / Auth / Storage data.
 
 Usage:
   export QMATCH_FIRESTORE_ADMIN_CREDENTIALS=/absolute/path/OUTSIDE/repo/sa.json
+  export QMATCH_FIREBASE_STORAGE_BUCKET="qmatch-53d62.firebasestorage.app"  # optional
   python3 tool/account_deletion_processor_dry_run.py --uid=<FIREBASE_UID>
 
 Safety:
   - Requires --uid (refuses otherwise)
   - Dry-run only; refuses --dry-run=false
   - Never calls delete/update/set/batch.commit
-  - Never deletes Auth users or Storage objects
+  - Never deletes Auth users or Storage objects (no blob.delete)
   - Never writes assessment_sets or questions
   - Never prints service account key contents
+  - Storage inventory requires QMATCH_FIREBASE_STORAGE_BUCKET; if missing, dry-run continues with a warning
   - May write only a local JSON report under build/
 
 See docs/account_deletion_processor_plan.md
@@ -36,6 +38,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 BUILD_DIR = ROOT / "build"
 CREDENTIALS_ENV = "QMATCH_FIRESTORE_ADMIN_CREDENTIALS"
+STORAGE_BUCKET_ENV = "QMATCH_FIREBASE_STORAGE_BUCKET"
 THIS_FILE = Path(__file__).resolve()
 
 # Forbidden method names on Firestore/Auth/Storage mutation paths.
@@ -62,6 +65,18 @@ def mask_uid(uid: str) -> str:
     if len(uid) <= 6:
         return "***"
     return f"{uid[:6]}…"
+
+
+def mask_storage_object_name(name: str, uid: str) -> str:
+    """Replace full uid segments in object paths for report safety."""
+    if not name:
+        return name
+    return name.replace(uid, mask_uid(uid))
+
+
+def storage_bucket_from_env() -> str | None:
+    raw = os.environ.get(STORAGE_BUCKET_ENV, "").strip()
+    return raw or None
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -208,15 +223,22 @@ def inventory_uid(uid: str) -> dict[str, Any]:
             "pip install firebase-admin (ops machine only)."
         ) from e
 
-    # Import storage only for read/list; never delete.
+    # Import storage only for read/list; never delete / never blob.delete().
     try:
         from firebase_admin import storage as fb_storage
     except Exception:
         fb_storage = None  # type: ignore
 
+    bucket_name = storage_bucket_from_env()
     if not firebase_admin._apps:
         # Certificate path only — never print file contents.
-        firebase_admin.initialize_app(credentials.Certificate(str(cred_path)))
+        init_options: dict[str, Any] = {}
+        if bucket_name:
+            init_options["storageBucket"] = bucket_name
+        firebase_admin.initialize_app(
+            credentials.Certificate(str(cred_path)),
+            options=init_options or None,
+        )
 
     db = firestore.client()
     warnings: list[str] = []
@@ -383,27 +405,42 @@ def inventory_uid(uid: str) -> dict[str, Any]:
     }
 
     # --- Storage prefix listing (read-only) ---
+    # Requires QMATCH_FIREBASE_STORAGE_BUCKET. Missing env → skip, do not fail dry-run.
+    storage_prefix_masked = f"profile_photos/{mask_uid(uid)}/"
     storage_info: dict[str, Any] = {
-        "prefix": storage_prefix,
+        "prefix_masked": storage_prefix_masked,
         "profile_url_refs_count": len(photo_urls),
         "listed_object_count": None,
         "list_attempted": False,
+        "storage_bucket_env": STORAGE_BUCKET_ENV,
+        "storage_bucket_configured": bool(bucket_name),
+        "read_only": True,
     }
-    if fb_storage is not None:
+    if not bucket_name:
+        storage_info["skipped"] = True
+        storage_info["skip_reason"] = f"{STORAGE_BUCKET_ENV} not set"
+        unresolved.append(
+            "Storage bucket env missing; storage inventory skipped."
+        )
+    elif fb_storage is None:
+        storage_info["skipped"] = True
+        unresolved.append("firebase_admin.storage unavailable for prefix list.")
+    else:
         try:
-            # Bucket may be configured on the project; listing is read-only.
-            bucket = fb_storage.bucket()
+            # Explicit bucket name — avoids ValueError when default bucket unset.
+            bucket = fb_storage.bucket(bucket_name)
             storage_info["list_attempted"] = True
             blobs = list(bucket.list_blobs(prefix=storage_prefix, max_results=100))
             storage_info["listed_object_count"] = len(blobs)
-            storage_info["sample_names"] = [b.name for b in blobs[:10]]
+            storage_info["sample_names_masked"] = [
+                mask_storage_object_name(b.name, uid) for b in blobs[:10]
+            ]
+            # Never call blob.delete() — inventory only.
         except Exception as e:
             storage_info["list_error"] = type(e).__name__
             unresolved.append(
-                f"Storage list for {storage_prefix} failed: {type(e).__name__}"
+                f"Storage list for {storage_prefix_masked} failed: {type(e).__name__}"
             )
-    else:
-        unresolved.append("firebase_admin.storage unavailable for prefix list.")
     collections["storage_profile_photos"] = storage_info
 
     # --- Auth existence (read-only get_user) ---
