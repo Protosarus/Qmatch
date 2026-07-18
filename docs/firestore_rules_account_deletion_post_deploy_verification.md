@@ -1,7 +1,7 @@
 # Firestore Rules Post-Deploy Verification — Account Deletion (Phase 3P-A10)
 
-Date: 2026-07-18  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+Project: `qmatch-53d62`
 Mode: Verify **manually published** rules; **no re-deploy**
 
 ---
@@ -92,11 +92,11 @@ No other users, matches, threads, reports, or `assessment_sets` written by this 
 
 Recommended Playground (Console, no publish):
 
-1. Auth `A` → create `account_deletion_requests/B` → Deny  
-2. Auth `A` → get `account_deletion_requests/B` → Deny  
-3. Auth `A` → create with `final_deletion_status` → Deny  
-4. Auth `A` → delete `account_deletion_requests/A` → Deny  
-5. Auth signed-in → write `assessment_sets/{id}` → Deny  
+1. Auth `A` → create `account_deletion_requests/B` → Deny
+2. Auth `A` → get `account_deletion_requests/B` → Deny
+3. Auth `A` → create with `final_deletion_status` → Deny
+4. Auth `A` → delete `account_deletion_requests/A` → Deny
+5. Auth signed-in → write `assessment_sets/{id}` → Deny
 
 ---
 
@@ -131,9 +131,9 @@ If a later regression appears, roll back Console rules to:
 
 ## Explicit non-actions (this phase)
 
-- No rules re-deploy / re-publish  
-- No `firebase deploy`  
-- No Admin SDK  
-- No Auth / Storage / profile wipe  
-- No `assessment_sets` writes  
-- No commit / push  
+- No rules re-deploy / re-publish
+- No `firebase deploy`
+- No Admin SDK
+- No Auth / Storage / profile wipe
+- No `assessment_sets` writes
+- No commit / push

@@ -1,14 +1,14 @@
 # Account Deletion Firestore Rules Plan (Phase 3P-A6)
 
-Date: 2026-07-18  
-Status: **Proposal only — not deployed**  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+Status: **Proposal only — not deployed**
+Project: `qmatch-53d62`
 Related: `docs/account_deletion_launch_readiness.md`
 
 ## Important warning
 
-**These rules are not deployed from this repository.**  
-There is **no** `firestore.rules` file and `firebase.json` has **no** `firestore.rules` config.  
+**These rules are not deployed from this repository.**
+There is **no** `firestore.rules` file and `firebase.json` has **no** `firestore.rules` config.
 Do **not** treat this document as a full production ruleset. It is a **least-privilege patch proposal** for the account deletion request flow only.
 
 Do not deploy until explicitly approved.
@@ -22,8 +22,8 @@ Do not deploy until explicitly approved.
 | `account_deletion_requests/{uid}` | `get` + `set(..., merge: true)` | Create/update deletion **request** for signed-in user |
 | `users/{uid}` | `set(..., merge: true)` soft fields only | Marker: `account_deletion_requested`, `account_deletion_requested_at`, `updated_at` |
 
-Implementation: `AccountDeletionRequestService`  
-Path helpers: `FirestorePaths.accountDeletionRequestDoc(uid)`, `FirestorePaths.userDoc(uid)`  
+Implementation: `AccountDeletionRequestService`
+Path helpers: `FirestorePaths.accountDeletionRequestDoc(uid)`, `FirestorePaths.userDoc(uid)`
 Identity: `uid` always comes from `FirebaseAuth.instance.currentUser.uid` (never from free-form UI input).
 
 ### Paths intentionally **not** written by this flow

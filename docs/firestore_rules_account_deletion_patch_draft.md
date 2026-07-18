@@ -1,7 +1,7 @@
 # Firestore Rules — Account Deletion Patch Draft (Phase 3P-A7)
 
-Date: 2026-07-18  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+Project: `qmatch-53d62`
 Status: **PATCH DRAFT ONLY — NOT DEPLOYED — NOT A FULL RULESET**
 
 Related:
@@ -43,7 +43,7 @@ Related:
 | `account_deletion_requests/{uid}` | `get`, `set(merge: true)` | Deletion **request** for signed-in user only |
 | `users/{uid}` | `set(merge: true)` soft fields | Markers only (no wipe) |
 
-Service: `AccountDeletionRequestService`  
+Service: `AccountDeletionRequestService`
 `uid` always = `FirebaseAuth.currentUser.uid`.
 
 Soft marker fields written on `users/{uid}`:
@@ -56,7 +56,7 @@ Soft marker fields written on `users/{uid}`:
 
 ## 4. Least-privilege rule snippets (merge into existing rules)
 
-**WARNING:** Paste these into the **existing** production rules document after capture.  
+**WARNING:** Paste these into the **existing** production rules document after capture.
 **Do not** replace the entire production ruleset with only this block.
 
 ### 4.1 `account_deletion_requests/{uid}`
@@ -126,7 +126,7 @@ Effects:
 
 ### 4.2 `users/{uid}` soft marker (additive constraint)
 
-Production already (presumably) allows some self-updates on `users/{uid}` for profile.  
+Production already (presumably) allows some self-updates on `users/{uid}` for profile.
 **Do not** replace existing `match /users/{uid}` with a marker-only rule.
 
 Instead, when reviewing production rules after capture:

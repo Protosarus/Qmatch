@@ -1,9 +1,9 @@
 # Account Deletion Runtime QA (Phase 3P-A6)
 
-Date: 2026-07-18  
-Mode: Flutter **client** debug one-shot  
-Entry: `tool/runtime_qa_account_deletion_request.dart`  
-Simulator: **iPhone 16e** (`7D75D798-8F24-42D0-A7E0-E7D8D0DE97B2`)  
+Date: 2026-07-18
+Mode: Flutter **client** debug one-shot
+Entry: `tool/runtime_qa_account_deletion_request.dart`
+Simulator: **iPhone 16e** (`7D75D798-8F24-42D0-A7E0-E7D8D0DE97B2`)
 Constraints: No Auth/Storage/data wipe · no `assessment_sets` writes · no Admin SDK · no rules deploy · no commit/push
 
 Related: `docs/account_deletion_firestore_rules_plan.md`, `docs/account_deletion_launch_readiness.md`

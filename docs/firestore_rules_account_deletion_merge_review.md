@@ -1,14 +1,14 @@
 # Firestore Rules Merge Review — Account Deletion (Phase 3P-A8)
 
-Date: 2026-07-18  
-Project: `qmatch-53d62`  
+Date: 2026-07-18
+Project: `qmatch-53d62`
 Status: **LOCAL MERGE ONLY — NOT DEPLOYED**
 
 ---
 
 ## Explicit statement
 
-**These candidate rules were NOT deployed.**  
+**These candidate rules were NOT deployed.**
 No `firebase deploy`, no Console publish, no Firestore writes, no user data deletion in this phase.
 
 ---
@@ -125,45 +125,45 @@ No deploy dry-run was executed (would still be a deploy-path command / risk touc
 
 In Firebase Console → Firestore → Rules → load/paste **candidate** in the editor **without publishing**, then Playground:
 
-1. **Allow create own request**  
-   - Auth: uid `USER_A`  
-   - Op: `create` → `account_deletion_requests/USER_A`  
-   - Data: allowed fields only, `status: "requested"`, `source: "in_app"`, both acks `true`, `uid: "USER_A"`  
+1. **Allow create own request**
+   - Auth: uid `USER_A`
+   - Op: `create` → `account_deletion_requests/USER_A`
+   - Data: allowed fields only, `status: "requested"`, `source: "in_app"`, both acks `true`, `uid: "USER_A"`
    - Expect: **Allow**
 
-2. **Deny create other user’s request**  
-   - Auth: uid `USER_A`  
-   - Op: `create` → `account_deletion_requests/USER_B`  
+2. **Deny create other user’s request**
+   - Auth: uid `USER_A`
+   - Op: `create` → `account_deletion_requests/USER_B`
    - Expect: **Deny**
 
-3. **Deny read other user’s request**  
-   - Auth: uid `USER_A`  
-   - Op: `get` → `account_deletion_requests/USER_B`  
+3. **Deny read other user’s request**
+   - Auth: uid `USER_A`
+   - Op: `get` → `account_deletion_requests/USER_B`
    - Expect: **Deny**
 
-4. **Allow read own request**  
-   - Auth: uid `USER_A`  
-   - Op: `get` → `account_deletion_requests/USER_A`  
+4. **Allow read own request**
+   - Auth: uid `USER_A`
+   - Op: `get` → `account_deletion_requests/USER_A`
    - Expect: **Allow**
 
-5. **Deny ops fields from client**  
-   - Auth: uid `USER_A`  
-   - Op: `create`/`update` including `processed_at` or `final_deletion_status`  
+5. **Deny ops fields from client**
+   - Auth: uid `USER_A`
+   - Op: `create`/`update` including `processed_at` or `final_deletion_status`
    - Expect: **Deny**
 
-6. **Deny client delete**  
-   - Auth: uid `USER_A`  
-   - Op: `delete` → `account_deletion_requests/USER_A`  
+6. **Deny client delete**
+   - Auth: uid `USER_A`
+   - Op: `delete` → `account_deletion_requests/USER_A`
    - Expect: **Deny**
 
-7. **Soft marker still allowed (unchanged users rule)**  
-   - Auth: uid `USER_A`  
-   - Op: `update` → `users/USER_A` with `account_deletion_requested: true` (+ timestamps)  
+7. **Soft marker still allowed (unchanged users rule)**
+   - Auth: uid `USER_A`
+   - Op: `update` → `users/USER_A` with `account_deletion_requested: true` (+ timestamps)
    - Expect: **Allow** (existing owner update)
 
-8. **Regression smoke (optional)**  
-   - Signed-in read `assessment_sets/{id}` → Allow  
-   - Client write `assessment_sets/{id}` → Deny  
+8. **Regression smoke (optional)**
+   - Signed-in read `assessment_sets/{id}` → Allow
+   - Client write `assessment_sets/{id}` → Deny
 
 Then **discard / do not Publish** until an explicitly approved deploy phase.
 
@@ -177,8 +177,8 @@ Then **discard / do not Publish** until an explicitly approved deploy phase.
 
 ## Explicit non-actions (this phase)
 
-- No deploy  
-- No Firestore writes  
-- No Admin SDK  
-- No commit / push  
-- No narrowing of `users/{uid}` production allows  
+- No deploy
+- No Firestore writes
+- No Admin SDK
+- No commit / push
+- No narrowing of `users/{uid}` production allows
