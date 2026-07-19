@@ -125,14 +125,11 @@ class _IQTestScreenState extends State<IQTestScreen> {
     showGeneralDialog<void>(
       context: context,
       barrierDismissible: false,
+      barrierLabel: 'iq-to-eq-transition',
       barrierColor: Colors.black.withValues(alpha: 0.55),
       transitionDuration: const Duration(milliseconds: 280),
       pageBuilder: (context, animation, secondaryAnimation) {
         return IqToEqTransitionScreen(
-          onClose: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).maybePop();
-          },
           onStartEq: () {
             Navigator.of(context).pop();
             Navigator.of(context).pushReplacement(

@@ -10,15 +10,15 @@ import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 
 /// Full-screen IQ → EQ handoff — presentation only; host owns navigation.
+///
+/// Non-dismissible: no close control; system back / barrier tap must not exit.
 class IqToEqTransitionScreen extends StatelessWidget {
   const IqToEqTransitionScreen({
     super.key,
     required this.onStartEq,
-    required this.onClose,
   });
 
   final VoidCallback onStartEq;
-  final VoidCallback onClose;
 
   @override
   Widget build(BuildContext context) {
@@ -26,113 +26,89 @@ class IqToEqTransitionScreen extends StatelessWidget {
     final h = MediaQuery.sizeOf(context).height;
     final brainH = (h * 0.32).clamp(200.0, 268.0);
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
-      ),
-      child: Scaffold(
-        backgroundColor: const Color(0xFF0A0618),
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            const _TransitionBackdrop(),
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 8, 24, 18),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: onClose,
-                          customBorder: const CircleBorder(),
-                          child: Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: const Color(0x44101828),
-                              border: Border.all(
-                                color: const Color(0x558A90B8),
-                                width: 1,
-                              ),
+    return PopScope(
+      canPop: false,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light.copyWith(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          backgroundColor: const Color(0xFF0A0618),
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              const _TransitionBackdrop(),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 18),
+                  child: Column(
+                    children: [
+                      const Spacer(flex: 2),
+                      SizedBox(
+                        height: brainH,
+                        width: double.infinity,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CustomPaint(
+                              size: Size(brainH * 1.12, brainH * 1.12),
+                              painter: const _RadarRingsPainter(),
                             ),
-                            child: Icon(
-                              Icons.close_rounded,
-                              size: 18,
-                              color: Colors.white.withValues(alpha: 0.72),
+                            Image.asset(
+                              'assets/images/iq_complete_neural_core.png',
+                              height: brainH * 0.88,
+                              fit: BoxFit.contain,
+                              filterQuality: FilterQuality.high,
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    ),
-                    const Spacer(flex: 2),
-                    SizedBox(
-                      height: brainH,
-                      width: double.infinity,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          CustomPaint(
-                            size: Size(brainH * 1.12, brainH * 1.12),
-                            painter: const _RadarRingsPainter(),
-                          ),
-                          Image.asset(
-                            'assets/images/iq_complete_neural_core.png',
-                            height: brainH * 0.88,
-                            fit: BoxFit.contain,
-                            filterQuality: FilterQuality.high,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      l10n.iqTestCompleted,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.playfairDisplay(
-                        color: Colors.white.withValues(alpha: 0.96),
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
-                        height: 1.22,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        l10n.iqToEqMessage,
+                      const SizedBox(height: 20),
+                      Text(
+                        l10n.iqTestCompleted,
                         textAlign: TextAlign.center,
-                        softWrap: true,
-                        style: GoogleFonts.inter(
-                          color: const Color(0xFFB8B0CC),
-                          fontSize: 14.5,
-                          fontWeight: FontWeight.w400,
-                          height: 1.42,
-                          letterSpacing: 0.1,
+                        style: GoogleFonts.playfairDisplay(
+                          color: Colors.white.withValues(alpha: 0.96),
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                          height: 1.22,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 22),
-                    _AssessmentStageRail(
-                      iqLabel: l10n.assessmentStageIq,
-                      eqLabel: l10n.assessmentStageEq,
-                      frequencyLabel: l10n.assessmentStageFrequency,
-                    ),
-                    const Spacer(flex: 3),
-                    _EqStartCta(
-                      label: l10n.continueToEqAssessment,
-                      onPressed: onStartEq,
-                    ),
-                  ],
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          l10n.iqToEqMessage,
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                          style: GoogleFonts.inter(
+                            color: const Color(0xFFB8B0CC),
+                            fontSize: 14.5,
+                            fontWeight: FontWeight.w400,
+                            height: 1.42,
+                            letterSpacing: 0.1,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      _AssessmentStageRail(
+                        iqLabel: l10n.assessmentStageIq,
+                        eqLabel: l10n.assessmentStageEq,
+                        frequencyLabel: l10n.assessmentStageFrequency,
+                      ),
+                      const Spacer(flex: 3),
+                      _EqStartCta(
+                        label: l10n.continueToEqAssessment,
+                        onPressed: onStartEq,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
