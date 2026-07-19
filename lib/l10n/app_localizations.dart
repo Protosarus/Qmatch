@@ -515,7 +515,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeContinueWithPhone.
   ///
   /// In en, this message translates to:
-  /// **'Continue with phone'**
+  /// **'Continue with Phone'**
   String get welcomeContinueWithPhone;
 
   /// No description provided for @welcomeSecureSignInHint.
@@ -536,10 +536,118 @@ abstract class AppLocalizations {
   /// **'Log in'**
   String get welcomeLogIn;
 
+  /// No description provided for @welcomeLogInWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in with email'**
+  String get welcomeLogInWithEmail;
+
+  /// No description provided for @welcomeTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'INTELLIGENCE. EMOTION. FREQUENCY.'**
+  String get welcomeTagline;
+
+  /// No description provided for @welcomeHeadlinePrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Find your'**
+  String get welcomeHeadlinePrefix;
+
+  /// No description provided for @welcomeHeadlineEmphasis.
+  ///
+  /// In en, this message translates to:
+  /// **'frequency'**
+  String get welcomeHeadlineEmphasis;
+
+  /// No description provided for @welcomeCueIntelligent.
+  ///
+  /// In en, this message translates to:
+  /// **'Intelligent\nmatching'**
+  String get welcomeCueIntelligent;
+
+  /// No description provided for @welcomeCueEmotional.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional\nconnection'**
+  String get welcomeCueEmotional;
+
+  /// No description provided for @welcomeCueVibrational.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrational\nalignment'**
+  String get welcomeCueVibrational;
+
+  /// No description provided for @welcomeTrustPrivateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private by design'**
+  String get welcomeTrustPrivateTitle;
+
+  /// No description provided for @welcomeTrustPrivateBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data stays protected.'**
+  String get welcomeTrustPrivateBody;
+
+  /// No description provided for @welcomeTrustScienceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Science-backed'**
+  String get welcomeTrustScienceTitle;
+
+  /// No description provided for @welcomeTrustScienceBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Built on psychology and data.'**
+  String get welcomeTrustScienceBody;
+
+  /// No description provided for @welcomeTrustMatchesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaningful matches'**
+  String get welcomeTrustMatchesTitle;
+
+  /// No description provided for @welcomeTrustMatchesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Quality over quantity.'**
+  String get welcomeTrustMatchesBody;
+
+  /// No description provided for @welcomeTermsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get welcomeTermsOfService;
+
+  /// No description provided for @welcomePrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get welcomePrivacyPolicy;
+
+  /// No description provided for @welcomeLegalPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you agree to our '**
+  String get welcomeLegalPrefix;
+
+  /// No description provided for @welcomeLegalAnd.
+  ///
+  /// In en, this message translates to:
+  /// **' and '**
+  String get welcomeLegalAnd;
+
+  /// No description provided for @welcomeLegalSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'.'**
+  String get welcomeLegalSuffix;
+
   /// No description provided for @welcomeTermsPrivacy.
   ///
   /// In en, this message translates to:
-  /// **'By continuing, you agree to Qmatch\'s Terms and Privacy Policy.'**
+  /// **'By continuing, you agree to our Terms of Service and Privacy Policy.'**
   String get welcomeTermsPrivacy;
 
   /// No description provided for @phoneSignupTitleAskNumber.

@@ -227,7 +227,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Meet people through personality, emotion, and real compatibility.';
 
   @override
-  String get welcomeContinueWithPhone => 'Continue with phone';
+  String get welcomeContinueWithPhone => 'Continue with Phone';
 
   @override
   String get welcomeSecureSignInHint => 'Secure sign-in. No email required.';
@@ -239,8 +239,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeLogIn => 'Log in';
 
   @override
+  String get welcomeLogInWithEmail => 'Log in with email';
+
+  @override
+  String get welcomeTagline => 'INTELLIGENCE. EMOTION. FREQUENCY.';
+
+  @override
+  String get welcomeHeadlinePrefix => 'Find your';
+
+  @override
+  String get welcomeHeadlineEmphasis => 'frequency';
+
+  @override
+  String get welcomeCueIntelligent => 'Intelligent\nmatching';
+
+  @override
+  String get welcomeCueEmotional => 'Emotional\nconnection';
+
+  @override
+  String get welcomeCueVibrational => 'Vibrational\nalignment';
+
+  @override
+  String get welcomeTrustPrivateTitle => 'Private by design';
+
+  @override
+  String get welcomeTrustPrivateBody => 'Your data stays protected.';
+
+  @override
+  String get welcomeTrustScienceTitle => 'Science-backed';
+
+  @override
+  String get welcomeTrustScienceBody => 'Built on psychology and data.';
+
+  @override
+  String get welcomeTrustMatchesTitle => 'Meaningful matches';
+
+  @override
+  String get welcomeTrustMatchesBody => 'Quality over quantity.';
+
+  @override
+  String get welcomeTermsOfService => 'Terms of Service';
+
+  @override
+  String get welcomePrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get welcomeLegalPrefix => 'By continuing, you agree to our ';
+
+  @override
+  String get welcomeLegalAnd => ' and ';
+
+  @override
+  String get welcomeLegalSuffix => '.';
+
+  @override
   String get welcomeTermsPrivacy =>
-      'By continuing, you agree to Qmatch\'s Terms and Privacy Policy.';
+      'By continuing, you agree to our Terms of Service and Privacy Policy.';
 
   @override
   String get phoneSignupTitleAskNumber => 'What\'s your number?';

@@ -38,6 +38,30 @@ class AppGradients {
     ],
   );
 
+  /// Premium welcome CTA — violet → soft gold (concept-spec).
+  static const LinearGradient cosmicCtaGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      Color(0xFF5B2CFF),
+      AppColors.resonanceViolet,
+      Color(0xFFB8944A),
+      AppColors.softGold,
+    ],
+    stops: [0.0, 0.38, 0.72, 1.0],
+  );
+
+  /// Violet gradient for the word “frequency”.
+  static const LinearGradient frequencyWordGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      Color(0xFF9B7CFF),
+      AppColors.resonanceViolet,
+      Color(0xFFC4B5FF),
+    ],
+  );
+
   /// Soft glass wash for cards (pair with [AppColors.glassSurface]).
   static const LinearGradient glassCardGradient = LinearGradient(
     begin: Alignment.topLeft,

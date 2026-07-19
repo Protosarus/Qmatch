@@ -14,6 +14,9 @@ enum QCosmicButtonVariant {
   /// Soft → warm gold fill.
   gold,
 
+  /// Violet → soft gold (premium welcome / concept CTA).
+  cosmic,
+
   /// Transparent with gold outline.
   ghost,
 }
@@ -27,6 +30,8 @@ class QCosmicButton extends StatelessWidget {
     this.icon,
     this.variant = QCosmicButtonVariant.primary,
     this.expanded = true,
+    this.pill = false,
+    this.height,
   });
 
   final String label;
@@ -35,22 +40,32 @@ class QCosmicButton extends StatelessWidget {
   final QCosmicButtonVariant variant;
   final bool expanded;
 
+  /// Large pill radius (concept launch CTAs).
+  final bool pill;
+
+  /// Optional fixed height for oversized premium CTAs.
+  final double? height;
+
   bool get _enabled => onPressed != null;
 
   @override
   Widget build(BuildContext context) {
+    final radius = pill ? AppRadii.pillBorder : AppRadii.buttonBorder;
+
     final child = _ButtonFace(
       label: label,
       icon: icon,
       variant: variant,
       enabled: _enabled,
+      borderRadius: radius,
+      height: height,
     );
 
     final button = Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onPressed,
-        borderRadius: AppRadii.buttonBorder,
+        borderRadius: radius,
         splashColor: AppColors.softGold.withValues(alpha: 0.15),
         child: child,
       ),
@@ -72,12 +87,16 @@ class _ButtonFace extends StatelessWidget {
     required this.icon,
     required this.variant,
     required this.enabled,
+    required this.borderRadius,
+    required this.height,
   });
 
   final String label;
   final IconData? icon;
   final QCosmicButtonVariant variant;
   final bool enabled;
+  final BorderRadius borderRadius;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +104,7 @@ class _ButtonFace extends StatelessWidget {
     final gradient = switch (variant) {
       QCosmicButtonVariant.primary => AppGradients.primaryActionGradient,
       QCosmicButtonVariant.gold => AppGradients.goldActionGradient,
+      QCosmicButtonVariant.cosmic => AppGradients.cosmicCtaGradient,
       QCosmicButtonVariant.ghost => null,
     };
 
@@ -94,22 +114,45 @@ class _ButtonFace extends StatelessWidget {
             ? AppColors.cosmicBlack
             : AppColors.textPrimary);
 
+    final bloom = !isGhost && enabled
+        ? (variant == QCosmicButtonVariant.cosmic
+            ? [
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.45),
+                  blurRadius: 28,
+                  offset: const Offset(0, 10),
+                ),
+                BoxShadow(
+                  color: AppColors.softGold.withValues(alpha: 0.22),
+                  blurRadius: 20,
+                  offset: Offset.zero,
+                ),
+              ]
+            : (variant == QCosmicButtonVariant.gold
+                ? AppShadows.goldGlow
+                : null))
+        : null;
+
     return Container(
-      padding: const EdgeInsets.symmetric(
+      height: height,
+      alignment: height != null ? Alignment.center : null,
+      padding: EdgeInsets.symmetric(
         horizontal: AppSpacing.buttonHorizontal,
-        vertical: AppSpacing.buttonVertical,
+        vertical: height != null ? 0 : AppSpacing.buttonVertical + 2,
       ),
       decoration: BoxDecoration(
         gradient: isGhost ? null : gradient,
         color: isGhost ? Colors.transparent : null,
-        borderRadius: AppRadii.buttonBorder,
+        borderRadius: borderRadius,
         border: Border.all(
-          color: isGhost ? AppColors.buttonOutline : AppColors.borderSubtle,
+          color: isGhost
+              ? AppColors.buttonOutline
+              : (variant == QCosmicButtonVariant.cosmic
+                  ? AppColors.softGold.withValues(alpha: 0.35)
+                  : AppColors.borderSubtle),
           width: isGhost ? 2 : 1,
         ),
-        boxShadow: !isGhost && enabled && variant == QCosmicButtonVariant.gold
-            ? AppShadows.goldGlow
-            : null,
+        boxShadow: bloom,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -127,9 +170,10 @@ class _ButtonFace extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: foreground,
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: FontWeight.w600,
-                letterSpacing: 0.2,
+                letterSpacing: 0.35,
+                height: 1.1,
               ),
             ),
           ),

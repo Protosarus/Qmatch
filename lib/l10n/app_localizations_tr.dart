@@ -239,6 +239,60 @@ class AppLocalizationsTr extends AppLocalizations {
   String get welcomeLogIn => 'Giriş yap';
 
   @override
+  String get welcomeLogInWithEmail => 'E-posta ile giriş yap';
+
+  @override
+  String get welcomeTagline => 'ZEKA. DUYGU. FREKANS.';
+
+  @override
+  String get welcomeHeadlinePrefix => 'Frekansını';
+
+  @override
+  String get welcomeHeadlineEmphasis => 'bul';
+
+  @override
+  String get welcomeCueIntelligent => 'Akıllı\neşleşme';
+
+  @override
+  String get welcomeCueEmotional => 'Duygusal\nbağ';
+
+  @override
+  String get welcomeCueVibrational => 'Frekans\nuyumu';
+
+  @override
+  String get welcomeTrustPrivateTitle => 'Tasarım gereği gizli';
+
+  @override
+  String get welcomeTrustPrivateBody => 'Verilerin korunur.';
+
+  @override
+  String get welcomeTrustScienceTitle => 'Bilim temelli';
+
+  @override
+  String get welcomeTrustScienceBody => 'Psikoloji ve veri bilimiyle.';
+
+  @override
+  String get welcomeTrustMatchesTitle => 'Anlamlı eşleşmeler';
+
+  @override
+  String get welcomeTrustMatchesBody => 'Nicelikten çok nitelik.';
+
+  @override
+  String get welcomeTermsOfService => 'Kullanım Şartları';
+
+  @override
+  String get welcomePrivacyPolicy => 'Gizlilik Politikası';
+
+  @override
+  String get welcomeLegalPrefix => 'Devam ederek ';
+
+  @override
+  String get welcomeLegalAnd => ' ve ';
+
+  @override
+  String get welcomeLegalSuffix => '\'nı kabul etmiş olursun.';
+
+  @override
   String get welcomeTermsPrivacy =>
       'Devam ederek Qmatch Kullanım Şartları ve Gizlilik Politikası\'nı kabul etmiş olursun.';
 
