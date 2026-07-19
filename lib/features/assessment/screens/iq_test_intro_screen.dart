@@ -66,22 +66,9 @@ class IQTestIntroScreen extends StatelessWidget {
                           ),
                           // Center copy in the gap between brain and CTA.
                           const Spacer(flex: 2),
-                          ConstrainedBox(
-                            constraints: BoxConstraints(maxWidth: headlineMaxW),
-                            child: Text(
-                              l10n.iqIntroHeadline,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              softWrap: true,
-                              overflow: TextOverflow.visible,
-                              style: GoogleFonts.playfairDisplay(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w600,
-                                height: 1.12,
-                                letterSpacing: 0.2,
-                              ),
-                            ),
+                          _IqIntroHeadline(
+                            text: l10n.iqIntroHeadline,
+                            maxWidth: headlineMaxW,
                           ),
                           const SizedBox(height: 12),
                           ShaderMask(
@@ -147,7 +134,106 @@ class IQTestIntroScreen extends StatelessWidget {
   }
 }
 
-/// Neural head art + soft breathing constellation lights (image unchanged).
+/// Lead (warm white) + emphasis word (violet→lavender→gold), no hard line breaks.
+class _IqIntroHeadline extends StatelessWidget {
+  const _IqIntroHeadline({
+    required this.text,
+    required this.maxWidth,
+  });
+
+  final String text;
+  final double maxWidth;
+
+  static const _leadSize = 28.0;
+  static const _emphasisSize = 28.0 * 1.10; // ~10% larger
+
+  @override
+  Widget build(BuildContext context) {
+    final parts = text.trim().split(RegExp(r'\s+'));
+    final emphasis = parts.isNotEmpty ? parts.last : text;
+    final lead = parts.length > 1 ? parts.sublist(0, parts.length - 1).join(' ') : '';
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: maxWidth),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (lead.isNotEmpty)
+            Text(
+              lead,
+              textAlign: TextAlign.center,
+              softWrap: true,
+              style: GoogleFonts.playfairDisplay(
+                color: const Color(0xFFF4F1EA), // warm white
+                fontSize: _leadSize,
+                fontWeight: FontWeight.w600,
+                height: 1.08,
+                letterSpacing: 0.2,
+              ),
+            ),
+          if (lead.isNotEmpty) const SizedBox(height: 2),
+          Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none,
+            children: [
+              // Soft violet bloom behind emphasis — no hard neon.
+              Text(
+                emphasis,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.playfairDisplay(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.22),
+                  fontSize: _emphasisSize,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.italic,
+                  height: 1.05,
+                  letterSpacing: 0.15,
+                  shadows: [
+                    Shadow(
+                      color: AppColors.resonanceViolet.withValues(alpha: 0.35),
+                      blurRadius: 18,
+                    ),
+                    Shadow(
+                      color: const Color(0xFFC4B0FF).withValues(alpha: 0.22),
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+              ),
+              ShaderMask(
+                blendMode: BlendMode.srcIn,
+                shaderCallback: (bounds) {
+                  return const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      AppColors.resonanceViolet,
+                      Color(0xFFC4B0FF),
+                      Color(0xFFE8D4A8), // very soft gold
+                    ],
+                    stops: [0.0, 0.55, 1.0],
+                  ).createShader(bounds);
+                },
+                child: Text(
+                  emphasis,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.playfairDisplay(
+                    color: Colors.white,
+                    fontSize: _emphasisSize,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.italic,
+                    height: 1.05,
+                    letterSpacing: 0.15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _BreathingNeuralHero extends StatefulWidget {
   const _BreathingNeuralHero({required this.height});
 
