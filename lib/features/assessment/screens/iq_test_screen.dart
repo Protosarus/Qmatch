@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/widgets/elegant_warning.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/question_model.dart';
 import '../services/assessment_set_service.dart';
 import '../services/question_service.dart';
+import '../widgets/assessment_widgets.dart';
 import 'eq_test_screen.dart';
 
 class IQTestScreen extends StatefulWidget {
@@ -235,20 +237,18 @@ class _IQTestScreenState extends State<IQTestScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     if (_isLoading) {
-      return Scaffold(
-        backgroundColor: AppColors.background,
-        body: const Center(
+      return QAssessmentScaffold(
+        child: const Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.vizIq),
           ),
         ),
       );
     }
 
     if (_questions.isEmpty) {
-      return Scaffold(
-        backgroundColor: AppColors.background,
-        body: Center(
+      return QAssessmentScaffold(
+        child: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
@@ -262,162 +262,85 @@ class _IQTestScreenState extends State<IQTestScreen> {
     }
 
     final currentQuestion = _questions[_currentQuestionIndex];
+    final progress = (_currentQuestionIndex + 1) / _questions.length;
+    final isLast = _currentQuestionIndex >= _questions.length - 1;
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade900,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: FractionallySizedBox(
-                        alignment: Alignment.centerLeft,
-                        widthFactor:
-                            (_currentQuestionIndex + 1) / _questions.length,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    '${_currentQuestionIndex + 1}/${_questions.length}',
-                    style: GoogleFonts.inter(
-                      color: AppColors.primary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+    return QAssessmentScaffold(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          QAssessmentHeader(
+            title: l10n.iqTestTitle,
+            currentIndex: _currentQuestionIndex + 1,
+            total: _questions.length,
+            leading: IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
+              onPressed: () => Navigator.of(context).maybePop(),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                size: 18,
+                color: AppColors.softGold.withValues(alpha: 0.95),
               ),
-              const SizedBox(height: 40),
-              Text(
-                currentQuestion.question,
-                style: GoogleFonts.inter(
-                  color: AppColors.primary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  height: 1.5,
-                ),
-              ),
-              const SizedBox(height: 40),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: currentQuestion.options.length,
-                  itemBuilder: (context, index) {
-                    final isSelected = _selectedAnswer == index;
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedAnswer = index;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColors.primary
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(16),
-                            border: isSelected
-                                ? null
-                                : Border.all(
-                                    color: AppColors.primary,
-                                    width: 2,
-                                  ),
-                          ),
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 32,
-                                height: 32,
-                                decoration: BoxDecoration(
-                                  color: isSelected
-                                      ? Colors.black
-                                      : Colors.transparent,
-                                  shape: BoxShape.circle,
-                                  border: isSelected
-                                      ? null
-                                      : Border.all(
-                                          color: AppColors.primary,
-                                          width: 2,
-                                        ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    String.fromCharCode(65 + index),
-                                    style: GoogleFonts.inter(
-                                      color: AppColors.primary,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  currentQuestion.options[index],
-                                  style: GoogleFonts.inter(
-                                    color: isSelected
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ElevatedButton(
-                  onPressed: () => _nextQuestion(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: Text(
-                    (_currentQuestionIndex < _questions.length - 1
-                            ? l10n.assessmentNext
-                            : l10n.assessmentFinish)
-                        .toUpperCase(),
-                    style: GoogleFonts.inter(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const SizedBox(height: 10),
+          QAssessmentProgress(value: progress),
+          const SizedBox(height: 12),
+          Expanded(
+            child: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Center(
+                    child: SizedBox(
+                      height: 112,
+                      child: Image.asset(
+                        'assets/images/iq_neural_head.png',
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.high,
+                      ),
+                    ),
+                  ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 10)),
+                SliverToBoxAdapter(
+                  child: QQuestionCard(
+                    text: currentQuestion.question,
+                    eyebrow: 'IQ',
+                  ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 14)),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: QAnswerOptionCard(
+                          index: index,
+                          label: currentQuestion.options[index],
+                          selected: _selectedAnswer == index,
+                          onTap: () {
+                            setState(() {
+                              _selectedAnswer = index;
+                            });
+                          },
+                        ),
+                      );
+                    },
+                    childCount: currentQuestion.options.length,
+                  ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 8)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          QAssessmentNavigation(
+            label: isLast ? l10n.assessmentFinish : l10n.assessmentNext,
+            onPressed: _nextQuestion,
+          ),
+        ],
       ),
     );
   }

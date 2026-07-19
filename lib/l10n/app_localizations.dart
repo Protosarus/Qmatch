@@ -224,6 +224,30 @@ abstract class AppLocalizations {
   /// **'Start IQ Test'**
   String get startIqTest;
 
+  /// No description provided for @iqIntroHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Build your cognitive profile'**
+  String get iqIntroHeadline;
+
+  /// No description provided for @iqIntroLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ Assessment'**
+  String get iqIntroLabel;
+
+  /// No description provided for @iqIntroMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'10 questions · About 3 minutes'**
+  String get iqIntroMeta;
+
+  /// No description provided for @iqIntroStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin assessment'**
+  String get iqIntroStart;
+
   /// No description provided for @iqTestCompleted.
   ///
   /// In en, this message translates to:

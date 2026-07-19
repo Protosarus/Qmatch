@@ -78,6 +78,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get startIqTest => 'Start IQ Test';
 
   @override
+  String get iqIntroHeadline => 'Build your cognitive profile';
+
+  @override
+  String get iqIntroLabel => 'IQ Assessment';
+
+  @override
+  String get iqIntroMeta => '10 questions · About 3 minutes';
+
+  @override
+  String get iqIntroStart => 'Begin assessment';
+
+  @override
   String get iqTestCompleted => 'IQ Test Completed!';
 
   @override

@@ -79,6 +79,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get startIqTest => 'IQ Testine Başla';
 
   @override
+  String get iqIntroHeadline => 'Zihinsel profilini oluştur';
+
+  @override
+  String get iqIntroLabel => 'IQ Değerlendirmesi';
+
+  @override
+  String get iqIntroMeta => '10 soru · Yaklaşık 3 dakika';
+
+  @override
+  String get iqIntroStart => 'Değerlendirmeye Başla';
+
+  @override
   String get iqTestCompleted => 'IQ testi tamamlandı!';
 
   @override
