@@ -91,7 +91,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String iqQuestionProgress(int current, int total) {
-    return 'IQ · Question $current of $total';
+    return 'IQ · $current / $total';
   }
 
   @override

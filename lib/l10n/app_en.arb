@@ -50,7 +50,7 @@
   "iqIntroLabel": "IQ Assessment",
   "iqIntroMeta": "10 questions · About 3 minutes",
   "iqIntroStart": "Begin assessment",
-  "iqQuestionProgress": "IQ · Question {current} of {total}",
+  "iqQuestionProgress": "IQ · {current} / {total}",
   "@iqQuestionProgress": {
     "placeholders": {
       "current": {"type": "int"},

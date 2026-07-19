@@ -251,7 +251,7 @@ abstract class AppLocalizations {
   /// No description provided for @iqQuestionProgress.
   ///
   /// In en, this message translates to:
-  /// **'IQ · Question {current} of {total}'**
+  /// **'IQ · {current} / {total}'**
   String iqQuestionProgress(int current, int total);
 
   /// No description provided for @iqQuestionLabel.

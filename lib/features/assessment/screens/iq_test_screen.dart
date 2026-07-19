@@ -331,7 +331,6 @@ class _IQTestScreenState extends State<IQTestScreen> {
                     ),
                   ),
                   IqInsightQuestionCard(
-                    eyebrow: l10n.iqQuestionLabel,
                     text: currentQuestion.question,
                     compact: compact,
                   ),
@@ -362,6 +361,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                     label: isLast
                         ? l10n.assessmentFinish
                         : l10n.assessmentContinue,
+                    active: _selectedAnswer != null,
                     onPressed: _nextQuestion,
                   ),
                 ],

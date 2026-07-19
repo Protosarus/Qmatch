@@ -50,7 +50,7 @@
   "iqIntroLabel": "IQ Değerlendirmesi",
   "iqIntroMeta": "10 soru · Yaklaşık 3 dakika",
   "iqIntroStart": "Değerlendirmeye Başla",
-  "iqQuestionProgress": "IQ · Soru {current} / {total}",
+  "iqQuestionProgress": "IQ · {current} / {total}",
   "@iqQuestionProgress": {
     "placeholders": {
       "current": {"type": "int"},

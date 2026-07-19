@@ -15,7 +15,7 @@ class IqQuestionTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 52,
+      height: 44,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -31,44 +31,29 @@ class IqQuestionTopBar extends StatelessWidget {
                   height: 36,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0x33101828),
+                    color: const Color(0x66101828),
                     border: Border.all(
-                      color: AppColors.softGold.withValues(alpha: 0.55),
+                      color: const Color(0x779B8CFF),
                       width: 1,
                     ),
                   ),
                   child: Icon(
                     Icons.arrow_back_ios_new_rounded,
                     size: 15,
-                    color: AppColors.softGold.withValues(alpha: 0.95),
+                    color: Colors.white.withValues(alpha: 0.88),
                   ),
                 ),
               ),
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 34,
-                height: 34,
-                child: Image.asset(
-                  'assets/images/welcome_q_glow.png',
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.high,
-                ),
-              ),
-              Text(
-                'Qmatch',
-                style: GoogleFonts.playfairDisplay(
-                  color: Colors.white.withValues(alpha: 0.96),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  height: 1.05,
-                  letterSpacing: 0.3,
-                ),
-              ),
-            ],
+          SizedBox(
+            width: 38,
+            height: 38,
+            child: Image.asset(
+              'assets/images/welcome_q_glow.png',
+              fit: BoxFit.contain,
+              filterQuality: FilterQuality.high,
+            ),
           ),
         ],
       ),
@@ -91,28 +76,17 @@ class IqQuestionProgressHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            Icon(
-              Icons.psychology_alt_rounded,
-              size: 16,
-              color: AppColors.softGold.withValues(alpha: 0.9),
-            ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                label,
-                style: GoogleFonts.playfairDisplay(
-                  color: Colors.white.withValues(alpha: 0.92),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  height: 1.2,
-                ),
-              ),
-            ),
-          ],
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.playfairDisplay(
+            color: Colors.white.withValues(alpha: 0.88),
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            height: 1.2,
+          ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 8),
         IqSparkProgressBar(value: progress),
       ],
     );
@@ -216,19 +190,20 @@ class IqSparkProgressBar extends StatelessWidget {
 class IqInsightQuestionCard extends StatelessWidget {
   const IqInsightQuestionCard({
     super.key,
-    required this.eyebrow,
     required this.text,
     this.compact = false,
   });
 
-  final String eyebrow;
   final String text;
   final bool compact;
 
   @override
   Widget build(BuildContext context) {
-    final pad = compact ? 12.0 : 16.0;
-    final qSize = compact ? 15.0 : 18.0;
+    final padH = compact ? 14.0 : 16.0;
+    final padV = compact ? 12.0 : 14.0;
+    // Readable sans size — scales lightly with width, floors for small phones.
+    final screenW = MediaQuery.sizeOf(context).width;
+    final qSize = (screenW * 0.040).clamp(14.5, compact ? 15.5 : 16.5);
 
     return ClipRRect(
       borderRadius: AppRadii.cardBorder,
@@ -236,7 +211,7 @@ class IqInsightQuestionCard extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.fromLTRB(pad, pad, pad, compact ? 12 : 18),
+          padding: EdgeInsets.fromLTRB(padH, padV, padH, padV),
           decoration: BoxDecoration(
             borderRadius: AppRadii.cardBorder,
             gradient: LinearGradient(
@@ -249,68 +224,28 @@ class IqInsightQuestionCard extends StatelessWidget {
               ],
             ),
             border: Border.all(
-              color: const Color(0x88E8C878),
+              color: const Color(0x66C4B0FF),
               width: 0.9,
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.resonanceViolet.withValues(alpha: 0.18),
-                blurRadius: 22,
-                offset: const Offset(0, 8),
-              ),
-              BoxShadow(
-                color: AppColors.softGold.withValues(alpha: 0.1),
-                blurRadius: 16,
-                offset: const Offset(0, 4),
+                color: AppColors.resonanceViolet.withValues(alpha: 0.16),
+                blurRadius: 18,
+                offset: const Offset(0, 6),
               ),
             ],
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: compact ? 24 : 28,
-                    height: compact ? 24 : 28,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: const Color(0x44281858),
-                      border: Border.all(
-                        color: AppColors.softGold.withValues(alpha: 0.55),
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.psychology_alt_rounded,
-                      size: compact ? 14 : 16,
-                      color: AppColors.softGold.withValues(alpha: 0.95),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    eyebrow,
-                    style: GoogleFonts.playfairDisplay(
-                      color: AppColors.softGold.withValues(alpha: 0.95),
-                      fontSize: compact ? 13 : 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: compact ? 8 : 12),
-              Text(
-                text,
-                maxLines: compact ? 4 : 6,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.playfairDisplay(
-                  color: Colors.white.withValues(alpha: 0.96),
-                  fontSize: qSize,
-                  fontWeight: FontWeight.w500,
-                  height: 1.35,
-                ),
-              ),
-            ],
+          child: Text(
+            text,
+            textAlign: TextAlign.start,
+            softWrap: true,
+            style: GoogleFonts.inter(
+              color: const Color(0xFFE8E6F0),
+              fontSize: qSize,
+              fontWeight: FontWeight.w500,
+              height: 1.34,
+              letterSpacing: 0.05,
+            ),
           ),
         ),
       ),
@@ -469,98 +404,106 @@ class IqContinueButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.active = true,
   });
 
   final String label;
   final VoidCallback onPressed;
+  /// Visual emphasis when an answer is selected (logic still owned by host).
+  final bool active;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: AppRadii.pillBorder,
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFF4B1FE0).withValues(alpha: 0.35),
-                blurRadius: 20,
-                offset: const Offset(0, 8),
-              ),
-              BoxShadow(
-                color: const Color(0xFFF0C65A).withValues(alpha: 0.22),
-                blurRadius: 16,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: AppRadii.pillBorder,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-              child: Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  onTap: onPressed,
-                  borderRadius: AppRadii.pillBorder,
-                  splashColor: Colors.white.withValues(alpha: 0.12),
-                  highlightColor: Colors.white.withValues(alpha: 0.06),
-                  child: Ink(
-                    height: 54,
-                    decoration: BoxDecoration(
-                      borderRadius: AppRadii.pillBorder,
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          const Color(0xFF4B1FE0).withValues(alpha: 0.52),
-                          const Color(0xFF7A3CF0).withValues(alpha: 0.42),
-                          const Color(0xFFD4A03A).withValues(alpha: 0.48),
-                          const Color(0xFFF0C65A).withValues(alpha: 0.55),
-                        ],
-                        stops: const [0.0, 0.40, 0.72, 1.0],
-                      ),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.28),
-                        width: 1,
-                      ),
+    final glowV = active ? 0.38 : 0.14;
+    final glowG = active ? 0.22 : 0.08;
+    final tint = active ? 1.0 : 0.52;
+
+    return AnimatedOpacity(
+      duration: const Duration(milliseconds: 180),
+      opacity: active ? 1.0 : 0.72,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: AppRadii.pillBorder,
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF4B1FE0).withValues(alpha: glowV),
+              blurRadius: active ? 20 : 10,
+              offset: const Offset(0, 8),
+            ),
+            BoxShadow(
+              color: const Color(0xFFF0C65A).withValues(alpha: glowG),
+              blurRadius: active ? 16 : 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: AppRadii.pillBorder,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+            child: Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                onTap: onPressed,
+                borderRadius: AppRadii.pillBorder,
+                splashColor: Colors.white.withValues(alpha: 0.12),
+                highlightColor: Colors.white.withValues(alpha: 0.06),
+                child: Ink(
+                  height: 54,
+                  decoration: BoxDecoration(
+                    borderRadius: AppRadii.pillBorder,
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Color.fromRGBO(75, 31, 224, 0.52 * tint),
+                        Color.fromRGBO(122, 60, 240, 0.42 * tint),
+                        Color.fromRGBO(212, 160, 58, 0.48 * tint),
+                        Color.fromRGBO(240, 198, 90, 0.55 * tint),
+                      ],
+                      stops: const [0.0, 0.40, 0.72, 1.0],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 38,
-                            height: 38,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white.withValues(alpha: 0.12),
-                              border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.35),
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.arrow_forward_rounded,
-                              size: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              label,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.playfairDisplay(
-                                color: Colors.white.withValues(alpha: 0.96),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.3,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 38),
-                        ],
+                    border: Border.all(
+                      color: Colors.white.withValues(
+                        alpha: active ? 0.28 : 0.16,
                       ),
+                      width: 1,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 38,
+                          height: 38,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white.withValues(alpha: 0.12),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.35),
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.arrow_forward_rounded,
+                            size: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            label,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.playfairDisplay(
+                              color: Colors.white.withValues(alpha: 0.96),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.3,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 38),
+                      ],
                     ),
                   ),
                 ),
@@ -568,30 +511,7 @@ class IqContinueButton extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 4),
-        IgnorePointer(
-          child: Container(
-            height: 8,
-            margin: const EdgeInsets.symmetric(horizontal: 36),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: LinearGradient(
-                colors: [
-                  Colors.transparent,
-                  const Color(0xFFF0C65A).withValues(alpha: 0.45),
-                  Colors.transparent,
-                ],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0xFFF0C65A).withValues(alpha: 0.35),
-                  blurRadius: 12,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
