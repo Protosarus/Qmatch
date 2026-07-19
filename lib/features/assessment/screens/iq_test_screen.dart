@@ -122,30 +122,34 @@ class _IQTestScreenState extends State<IQTestScreen> {
   }
 
   void _showTransitionDialog() {
-    showGeneralDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      barrierLabel: 'iq-to-eq-transition',
-      barrierColor: Colors.black.withValues(alpha: 0.55),
-      transitionDuration: const Duration(milliseconds: 280),
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return IqToEqTransitionScreen(
-          onStartEq: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => EQTestScreen(iqScore: _correctAnswers),
-              ),
-            );
-          },
-        );
-      },
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
-          child: child,
-        );
-      },
+    final nav = Navigator.of(context);
+    final score = _correctAnswers;
+
+    // Replace IQ question route so system back cannot reopen the finished MCQ.
+    nav.pushReplacement(
+      PageRouteBuilder<void>(
+        opaque: true,
+        barrierDismissible: false,
+        transitionDuration: const Duration(milliseconds: 280),
+        reverseTransitionDuration: const Duration(milliseconds: 220),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return IqToEqTransitionScreen(
+            onStartEq: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => EQTestScreen(iqScore: score),
+                ),
+              );
+            },
+          );
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+            child: child,
+          );
+        },
+      ),
     );
   }
 

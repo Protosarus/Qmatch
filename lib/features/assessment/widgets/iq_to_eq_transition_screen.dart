@@ -28,6 +28,9 @@ class IqToEqTransitionScreen extends StatelessWidget {
 
     return PopScope(
       canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        // Swallow system back / predictive-back — EQ CTA is the only exit.
+      },
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light.copyWith(
           statusBarColor: Colors.transparent,
@@ -42,10 +45,11 @@ class IqToEqTransitionScreen extends StatelessWidget {
               const _TransitionBackdrop(),
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 12, 24, 18),
+                  padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
                   child: Column(
                     children: [
-                      const Spacer(flex: 2),
+                      // Smaller top spacer (~40–50px lift vs previous flex:2).
+                      const Spacer(flex: 1),
                       SizedBox(
                         height: brainH,
                         width: double.infinity,
@@ -98,7 +102,8 @@ class IqToEqTransitionScreen extends StatelessWidget {
                         eqLabel: l10n.assessmentStageEq,
                         frequencyLabel: l10n.assessmentStageFrequency,
                       ),
-                      const Spacer(flex: 3),
+                      // Keep CTA near content — avoid a lonely bottom island.
+                      const Spacer(flex: 2),
                       _EqStartCta(
                         label: l10n.continueToEqAssessment,
                         onPressed: onStartEq,
@@ -136,12 +141,12 @@ class _AssessmentStageRail extends StatelessWidget {
           label: iqLabel,
           state: _StageVisualState.done,
         ),
-        const _StageConnector(active: true),
+        const _StageConnector(tone: _ConnectorTone.completed),
         _StageChip(
           label: eqLabel,
           state: _StageVisualState.current,
         ),
-        const _StageConnector(active: false),
+        const _StageConnector(tone: _ConnectorTone.upcoming),
         _StageChip(
           label: frequencyLabel,
           state: _StageVisualState.upcoming,
@@ -153,20 +158,24 @@ class _AssessmentStageRail extends StatelessWidget {
 
 enum _StageVisualState { done, current, upcoming }
 
-class _StageConnector extends StatelessWidget {
-  const _StageConnector({required this.active});
+enum _ConnectorTone { completed, upcoming }
 
-  final bool active;
+class _StageConnector extends StatelessWidget {
+  const _StageConnector({required this.tone});
+
+  final _ConnectorTone tone;
 
   @override
   Widget build(BuildContext context) {
+    final color = tone == _ConnectorTone.completed
+        ? AppColors.resonanceViolet.withValues(alpha: 0.55)
+        : const Color(0x808A90B8); // ~50% — visible but quiet
+
     return Container(
       width: 22,
       height: 1,
       margin: const EdgeInsets.symmetric(horizontal: 6),
-      color: active
-          ? AppColors.resonanceViolet.withValues(alpha: 0.55)
-          : const Color(0x448A90B8),
+      color: color,
     );
   }
 }
@@ -194,7 +203,8 @@ class _StageChip extends StatelessWidget {
       labelColor = Colors.white.withValues(alpha: 0.96);
       weight = FontWeight.w700;
     } else {
-      labelColor = const Color(0x668A90B8);
+      // Passiveive but readable (~50% opacity).
+      labelColor = const Color(0x808A90B8);
       weight = FontWeight.w500;
     }
 
@@ -249,8 +259,9 @@ class _StageChip extends StatelessWidget {
             height: 6,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
+              color: const Color(0x808A90B8),
               border: Border.all(
-                color: const Color(0x558A90B8),
+                color: const Color(0x998A90B8),
                 width: 1,
               ),
             ),
