@@ -1,3 +1,6 @@
+import 'dart:math' as math;
+import 'dart:ui' show ImageFilter;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +13,8 @@ import 'package:intl_phone_field/phone_number.dart';
 import '../../../core/navigation/auth_wrapper.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_gradients.dart';
+import '../../../core/theme/app_radii.dart';
 import '../../../core/widgets/elegant_warning.dart';
 import '../../../l10n/app_localizations.dart';
 
@@ -23,6 +28,8 @@ class PhoneSignupScreen extends StatefulWidget {
 class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   final _phoneController = TextEditingController();
   final _codeController = TextEditingController();
+  final _phoneFocus = FocusNode();
+  final _codeFocus = FocusNode();
   final _authService = AuthService();
 
   String? _verificationId;
@@ -34,6 +41,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   bool _isLoading = false;
   bool _didTimeout = false;
   bool _sendInFlight = false;
+  bool _phoneFocused = false;
+  bool _codeFocused = false;
   String? _error;
 
   late final String _initialIsoCode;
@@ -43,6 +52,14 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
     super.initState();
     _initialIsoCode = _detectDefaultIsoCode();
     _dialCode = _dialCodeForIso(_initialIsoCode);
+    _phoneFocus.addListener(() {
+      if (!mounted) return;
+      setState(() => _phoneFocused = _phoneFocus.hasFocus);
+    });
+    _codeFocus.addListener(() {
+      if (!mounted) return;
+      setState(() => _codeFocused = _codeFocus.hasFocus);
+    });
   }
 
   /// Prefer device locale country; fall back to TR (then allow change).
@@ -119,39 +136,55 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   InputDecoration _fieldDecoration({
     required String label,
     String? hint,
+    required bool focused,
   }) {
+    // Idle: soft violet. Focused: violet → gold glow edge.
+    final idleBorder = const Color(0x77A890D8);
+    final focusBorder = focused
+        ? AppColors.softGold
+        : idleBorder;
     return InputDecoration(
       labelText: label,
       hintText: hint,
-      labelStyle: GoogleFonts.inter(color: AppColors.textSecondary),
+      // Floating label idle = muted violet-gray (not gold).
+      labelStyle: GoogleFonts.inter(
+        color: const Color(0xFF9A90B8),
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
+      ),
+      floatingLabelStyle: GoogleFonts.inter(
+        color: focused ? AppColors.softGold : const Color(0xFFB8AED8),
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+      // Placeholder: gray-purple (never gold).
       hintStyle: GoogleFonts.inter(
-        color: AppColors.textSecondary.withValues(alpha: 0.55),
+        color: const Color(0xFF8A82A8),
+        fontSize: 15,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-        borderSide: BorderSide(
-          color: AppColors.primary.withValues(alpha: 0.35),
-        ),
+        borderRadius: AppRadii.cardBorder,
+        borderSide: BorderSide(color: idleBorder, width: 1.0),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        borderRadius: AppRadii.cardBorder,
+        borderSide: BorderSide(color: focusBorder, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: AppRadii.cardBorder,
         borderSide: BorderSide(
           color: AppColors.error.withValues(alpha: 0.7),
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: AppRadii.cardBorder,
         borderSide: BorderSide(
           color: AppColors.error.withValues(alpha: 0.9),
           width: 1.5,
         ),
       ),
       filled: true,
-      fillColor: AppColors.surface,
+      fillColor: const Color(0xAA141A2E),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       counterText: '',
     );
@@ -187,6 +220,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
 
   @override
   void dispose() {
+    _phoneFocus.dispose();
+    _codeFocus.dispose();
     _phoneController.dispose();
     _codeController.dispose();
     super.dispose();
@@ -345,315 +380,759 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    const gold = AppColors.primary;
+    const accent = AppColors.softGold;
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
     final displayedPhone = _e164Phone ?? '';
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back_ios, color: gold, size: 22),
-        ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
       ),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              padding: EdgeInsets.only(
-                left: 32,
-                right: 32,
-                bottom: bottomInset + 16,
-              ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight - bottomInset,
-                ),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 12),
-                      Text(
-                        _codeSent
-                            ? l10n.phoneSignupTitleEnterCode
-                            : l10n.phoneSignupTitleAskNumber,
-                        style: GoogleFonts.playfairDisplay(
-                          color: gold,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2,
-                        ),
+      child: Scaffold(
+        backgroundColor: AppColors.midnightNavy,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            const _PhoneCosmicBackdrop(),
+            SafeArea(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: accent.withValues(alpha: 0.95),
+                        size: 20,
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        _codeSent
-                            ? l10n.phoneSignupSubtitleCodeSent
-                            : l10n.phoneSignupSubtitleSendCode,
-                        style: GoogleFonts.inter(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                          height: 1.45,
-                        ),
-                      ),
-                      if (_codeSent && displayedPhone.isNotEmpty) ...[
-                        const SizedBox(height: 6),
-                        Text(
-                          displayedPhone,
-                          style: GoogleFonts.inter(
-                            color: gold.withValues(alpha: 0.9),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.2,
+                    ),
+                  ),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final padH =
+                            (constraints.maxWidth * 0.06).clamp(20.0, 28.0);
+                        return SingleChildScrollView(
+                          padding: EdgeInsets.only(
+                            left: padH,
+                            right: padH,
+                            bottom: bottomInset + 16,
                           ),
-                        ),
-                      ],
-                      const SizedBox(height: 28),
-
-                      if (_error != null) ...[
-                        Text(
-                          _error!,
-                          style: GoogleFonts.inter(
-                            color: AppColors.error.withValues(alpha: 0.9),
-                            fontSize: 13,
-                            height: 1.35,
-                          ),
-                        ),
-                        const SizedBox(height: 14),
-                      ],
-
-                      if (!_codeSent) ...[
-                        IntlPhoneField(
-                          controller: _phoneController,
-                          initialCountryCode: _initialIsoCode,
-                          keyboardType: TextInputType.phone,
-                          textInputAction: TextInputAction.done,
-                          onSubmitted: (_) => _sendCode(),
-                          onChanged: _onPhoneChanged,
-                          onCountryChanged: (country) {
-                            _dialCode = '+${country.dialCode}';
-                            _e164Phone = _buildE164(
-                              dialCode: _dialCode,
-                              nationalNumber: _nationalNumber.isNotEmpty
-                                  ? _nationalNumber
-                                  : _phoneController.text,
-                            );
-                            if (mounted) setState(() {});
-                          },
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 16,
-                            letterSpacing: 0.3,
-                          ),
-                          dropdownTextStyle: GoogleFonts.inter(
-                            color: gold,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          flagsButtonPadding:
-                              const EdgeInsets.only(left: 12, right: 4),
-                          dropdownIcon: const Icon(
-                            Icons.arrow_drop_down,
-                            color: gold,
-                          ),
-                          disableLengthCheck: true,
-                          showDropdownIcon: true,
-                          decoration: _fieldDecoration(
-                            label: l10n.phoneNumber,
-                            hint: l10n.mobileNumberHint,
-                          ),
-                          pickerDialogStyle: PickerDialogStyle(
-                            backgroundColor: AppColors.surface,
-                            countryCodeStyle: GoogleFonts.inter(
-                              color: gold,
-                              fontWeight: FontWeight.w600,
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: math.max(
+                                0.0,
+                                constraints.maxHeight - bottomInset,
+                              ),
+                              maxWidth: 430,
                             ),
-                            countryNameStyle: GoogleFonts.inter(
-                              color: Colors.white,
-                            ),
-                            searchFieldInputDecoration: InputDecoration(
-                              hintText: l10n.searchCountry,
-                              hintStyle: GoogleFonts.inter(
-                                color: AppColors.textSecondary,
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.search,
-                                color: AppColors.textSecondary,
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color:
-                                      AppColors.primary.withValues(alpha: 0.3),
-                                ),
-                              ),
-                              focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(color: gold),
-                              ),
-                            ),
-                          ),
-                          autovalidateMode: AutovalidateMode.disabled,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          l10n.phoneSignupCountryHint,
-                          style: GoogleFonts.inter(
-                            color: AppColors.textSecondary
-                                .withValues(alpha: 0.7),
-                            fontSize: 12,
-                            height: 1.35,
-                          ),
-                        ),
-                      ] else ...[
-                        TextFormField(
-                          controller: _codeController,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
-                          onFieldSubmitted: (_) => _verifyCode(),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(6),
-                          ],
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                            letterSpacing: 6,
-                          ),
-                          decoration: _fieldDecoration(
-                            label: l10n.verificationCode,
-                            hint: '••••••',
-                          ),
-                          maxLength: 6,
-                          onChanged: (_) {
-                            if (_error != null && mounted) {
-                              setState(() => _error = null);
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            TextButton(
-                              onPressed: _isLoading
-                                  ? null
-                                  : () {
-                                      if (!mounted) return;
-                                      setState(() {
-                                        _codeSent = false;
-                                        _error = null;
-                                        _verificationId = null;
-                                        _codeController.clear();
-                                      });
-                                    },
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                  vertical: 8,
-                                ),
-                                minimumSize: Size.zero,
-                                tapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                              ),
-                              child: Text(
-                                l10n.changeNumber,
-                                style: GoogleFonts.inter(
-                                  color: gold,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            const Spacer(),
-                            TextButton(
-                              onPressed: _isLoading ? null : _sendCode,
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                  vertical: 8,
-                                ),
-                                minimumSize: Size.zero,
-                                tapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                              ),
-                              child: Text(
-                                l10n.resendCode,
-                                style: GoogleFonts.inter(
-                                  color: _didTimeout
-                                      ? gold
-                                      : gold.withValues(alpha: 0.75),
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-
-                      const Spacer(),
-                      const SizedBox(height: 24),
-
-                      SizedBox(
-                        width: double.infinity,
-                        height: 52,
-                        child: ElevatedButton(
-                          onPressed: _isLoading
-                              ? null
-                              : (_codeSent ? _verifyCode : _sendCode),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: gold,
-                            foregroundColor: AppColors.background,
-                            disabledBackgroundColor:
-                                gold.withValues(alpha: 0.5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: _isLoading
-                              ? const SizedBox(
-                                  width: 22,
-                                  height: 22,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppColors.background,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                  const SizedBox(height: 4),
+                                  SizedBox(
+                                    width: 44,
+                                    height: 44,
+                                    child: Image.asset(
+                                      'assets/images/welcome_q_glow.png',
+                                      fit: BoxFit.contain,
+                                      filterQuality: FilterQuality.high,
                                     ),
                                   ),
-                                )
-                              : Text(
-                                  _codeSent ? l10n.verify : l10n.sendCode,
-                                  maxLines: 1,
-                                  softWrap: false,
-                                  style: GoogleFonts.inter(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
+                                  const SizedBox(height: 12),
+                                  Text(
+                                    _codeSent
+                                        ? l10n.phoneSignupTitleEnterCode
+                                        : l10n.phoneSignupTitleAskNumber,
+                                    style: GoogleFonts.playfairDisplay(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.15,
+                                    ),
                                   ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    _codeSent
+                                        ? l10n.phoneSignupSubtitleCodeSent
+                                        : l10n.phoneSignupSubtitleSendCode,
+                                    style: GoogleFonts.inter(
+                                      color: const Color(0xFFC8C0E0),
+                                      fontSize: 14,
+                                      height: 1.45,
+                                    ),
+                                  ),
+                                  if (_codeSent &&
+                                      displayedPhone.isNotEmpty) ...[
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      displayedPhone,
+                                      style: GoogleFonts.inter(
+                                        color: AppColors.resonanceViolet
+                                            .withValues(alpha: 0.95),
+                                        fontSize: 13.5,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 0.2,
+                                      ),
+                                    ),
+                                  ],
+                                  const SizedBox(height: 28),
+                                  if (_error != null) ...[
+                                    Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 10,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: AppRadii.buttonBorder,
+                                        color: AppColors.error
+                                            .withValues(alpha: 0.12),
+                                        border: Border.all(
+                                          color: AppColors.error
+                                              .withValues(alpha: 0.45),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        _error!,
+                                        style: GoogleFonts.inter(
+                                          color: AppColors.error
+                                              .withValues(alpha: 0.95),
+                                          fontSize: 13,
+                                          height: 1.35,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 14),
+                                  ],
+                                  if (!_codeSent) ...[
+                                    AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 180),
+                                      decoration: BoxDecoration(
+                                        borderRadius: AppRadii.cardBorder,
+                                        boxShadow: _phoneFocused
+                                            ? [
+                                                BoxShadow(
+                                                  color: AppColors
+                                                      .resonanceViolet
+                                                      .withValues(alpha: 0.45),
+                                                  blurRadius: 16,
+                                                ),
+                                                BoxShadow(
+                                                  color: AppColors.softGold
+                                                      .withValues(alpha: 0.28),
+                                                  blurRadius: 14,
+                                                  offset: const Offset(2, 2),
+                                                ),
+                                              ]
+                                            : null,
+                                      ),
+                                      child: IntlPhoneField(
+                                        controller: _phoneController,
+                                        focusNode: _phoneFocus,
+                                        initialCountryCode: _initialIsoCode,
+                                        keyboardType: TextInputType.phone,
+                                        textInputAction: TextInputAction.done,
+                                        onSubmitted: (_) => _sendCode(),
+                                        onChanged: _onPhoneChanged,
+                                        onCountryChanged: (country) {
+                                          _dialCode = '+${country.dialCode}';
+                                          _e164Phone = _buildE164(
+                                            dialCode: _dialCode,
+                                            nationalNumber:
+                                                _nationalNumber.isNotEmpty
+                                                    ? _nationalNumber
+                                                    : _phoneController.text,
+                                          );
+                                          if (mounted) setState(() {});
+                                        },
+                                        style: GoogleFonts.inter(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          letterSpacing: 0.3,
+                                        ),
+                                        dropdownTextStyle: GoogleFonts.inter(
+                                          color: accent,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        flagsButtonPadding:
+                                            const EdgeInsets.only(
+                                          left: 12,
+                                          right: 4,
+                                        ),
+                                        dropdownIcon: Icon(
+                                          Icons.arrow_drop_down,
+                                          color:
+                                              accent.withValues(alpha: 0.95),
+                                        ),
+                                        disableLengthCheck: true,
+                                        showDropdownIcon: true,
+                                        decoration: _fieldDecoration(
+                                          label: l10n.phoneNumber,
+                                          hint: l10n.mobileNumberHint,
+                                          focused: _phoneFocused,
+                                        ),
+                                        pickerDialogStyle: PickerDialogStyle(
+                                          backgroundColor:
+                                              AppColors.midnightNavy,
+                                          countryCodeStyle: GoogleFonts.inter(
+                                            color: accent,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          countryNameStyle: GoogleFonts.inter(
+                                            color: Colors.white,
+                                          ),
+                                          searchFieldInputDecoration:
+                                              InputDecoration(
+                                            hintText: l10n.searchCountry,
+                                            hintStyle: GoogleFonts.inter(
+                                              color: const Color(0xFF9A90B8),
+                                            ),
+                                            prefixIcon: const Icon(
+                                              Icons.search,
+                                              color: Color(0xFF9A90B8),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: AppColors
+                                                    .resonanceViolet
+                                                    .withValues(alpha: 0.35),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: AppColors.softGold
+                                                    .withValues(alpha: 0.9),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        autovalidateMode:
+                                            AutovalidateMode.disabled,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      l10n.phoneSignupCountryHint,
+                                      style: GoogleFonts.inter(
+                                        color: const Color(0xFFB0A8C8),
+                                        fontSize: 12.5,
+                                        height: 1.35,
+                                      ),
+                                    ),
+                                  ] else ...[
+                                    AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 180),
+                                      decoration: BoxDecoration(
+                                        borderRadius: AppRadii.cardBorder,
+                                        boxShadow: _codeFocused
+                                            ? [
+                                                BoxShadow(
+                                                  color: AppColors
+                                                      .resonanceViolet
+                                                      .withValues(alpha: 0.45),
+                                                  blurRadius: 16,
+                                                ),
+                                                BoxShadow(
+                                                  color: AppColors.softGold
+                                                      .withValues(alpha: 0.28),
+                                                  blurRadius: 14,
+                                                ),
+                                              ]
+                                            : null,
+                                      ),
+                                      child: TextFormField(
+                                        controller: _codeController,
+                                        focusNode: _codeFocus,
+                                        keyboardType: TextInputType.number,
+                                        textInputAction: TextInputAction.done,
+                                        onFieldSubmitted: (_) => _verifyCode(),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                          LengthLimitingTextInputFormatter(6),
+                                        ],
+                                        style: GoogleFonts.inter(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20,
+                                          letterSpacing: 6,
+                                        ),
+                                        decoration: _fieldDecoration(
+                                          label: l10n.verificationCode,
+                                          hint: '••••••',
+                                          focused: _codeFocused,
+                                        ),
+                                        maxLength: 6,
+                                        onChanged: (_) {
+                                          if (_error != null && mounted) {
+                                            setState(() => _error = null);
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        TextButton(
+                                          onPressed: _isLoading
+                                              ? null
+                                              : () {
+                                                  if (!mounted) return;
+                                                  setState(() {
+                                                    _codeSent = false;
+                                                    _error = null;
+                                                    _verificationId = null;
+                                                    _codeController.clear();
+                                                  });
+                                                },
+                                          style: TextButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 4,
+                                              vertical: 8,
+                                            ),
+                                            minimumSize: Size.zero,
+                                            tapTargetSize: MaterialTapTargetSize
+                                                .shrinkWrap,
+                                          ),
+                                          child: Text(
+                                            l10n.changeNumber,
+                                            style: GoogleFonts.inter(
+                                              color: const Color(0xFFC4B0FF),
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              decorationColor: const Color(
+                                                0x99C4B0FF,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        TextButton(
+                                          onPressed:
+                                              _isLoading ? null : _sendCode,
+                                          style: TextButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 4,
+                                              vertical: 8,
+                                            ),
+                                            minimumSize: Size.zero,
+                                            tapTargetSize: MaterialTapTargetSize
+                                                .shrinkWrap,
+                                          ),
+                                          child: Text(
+                                            l10n.resendCode,
+                                            style: GoogleFonts.inter(
+                                              color: _didTimeout
+                                                  ? accent
+                                                  : accent.withValues(
+                                                      alpha: 0.75,
+                                                    ),
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                  ],
                                 ),
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      Text(
-                        l10n.phoneSignupSmsDisclaimer,
-                        style: GoogleFonts.inter(
-                          color:
-                              AppColors.textSecondary.withValues(alpha: 0.55),
-                          fontSize: 11,
-                          height: 1.4,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                    ],
+                                IgnorePointer(
+                                  child: _MidCosmicAccent(),
+                                ),
+                                Column(
+                                  children: [
+                                  _CosmicCtaButton(
+                                    loading: _isLoading,
+                                    label: _codeSent
+                                        ? l10n.verify
+                                        : l10n.sendCode,
+                                    onPressed: _isLoading
+                                        ? null
+                                        : (_codeSent
+                                            ? _verifyCode
+                                            : _sendCode),
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Text(
+                                    l10n.phoneSignupSmsDisclaimer,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.inter(
+                                      color: const Color(0xFFA8A0C0),
+                                      fontSize: 11.5,
+                                      height: 1.4,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 12),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
+                ],
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
+class _PhoneCosmicBackdrop extends StatelessWidget {
+  const _PhoneCosmicBackdrop();
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: AppGradients.cosmicBackgroundGradient,
+            ),
+          ),
+          // Soft nebula washes (calmer Welcome cousin).
+          Positioned(
+            top: -40,
+            left: -30,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+              child: Container(
+                width: 240,
+                height: 240,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.electricBlue.withValues(alpha: 0.14),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: -70,
+            right: -50,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 55, sigmaY: 55),
+              child: Container(
+                width: 230,
+                height: 230,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.32),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 60,
+            left: -40,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 70, sigmaY: 70),
+              child: Container(
+                width: 210,
+                height: 210,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.secondary.withValues(alpha: 0.12),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 140,
+            right: -20,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 45, sigmaY: 45),
+              child: Container(
+                width: 140,
+                height: 140,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.softGold.withValues(alpha: 0.08),
+                ),
+              ),
+            ),
+          ),
+          const CustomPaint(painter: _StarFieldPainter()),
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x440A0F1C),
+                  Color(0x180A0F1C),
+                  Color(0x880C0C0C),
+                ],
+                stops: [0.0, 0.5, 1.0],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Clear world map (transparent plate) + breathing city hub lights.
+class _MidCosmicAccent extends StatefulWidget {
+  const _MidCosmicAccent();
+
+  @override
+  State<_MidCosmicAccent> createState() => _MidCosmicAccentState();
+}
+
+class _MidCosmicAccentState extends State<_MidCosmicAccent>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _breath;
+
+  @override
+  void initState() {
+    super.initState();
+    // Continuous cycle — city hubs inhale/exhale, map stays still.
+    _breath = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2800),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _breath.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenW = MediaQuery.sizeOf(context).width;
+    // Height from full screen width; map bleeds past column padding L/R equally.
+    final mapH = (screenW * 0.58).clamp(230.0, 290.0);
+
+    return SizedBox(
+      height: mapH,
+      width: double.infinity,
+      child: OverflowBox(
+        minWidth: screenW,
+        maxWidth: screenW,
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: screenW,
+          height: mapH,
+          child: ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: (bounds) {
+              // Soft edge only at the very screen sides — map yaslanır L/R.
+              return LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  const Color(0x00FFFFFF),
+                  Colors.white.withValues(alpha: 0.7),
+                  Colors.white,
+                  Colors.white,
+                  Colors.white.withValues(alpha: 0.7),
+                  const Color(0x00FFFFFF),
+                ],
+                stops: const [0.0, 0.03, 0.08, 0.92, 0.97, 1.0],
+              ).createShader(bounds);
+            },
+            child: ShaderMask(
+              blendMode: BlendMode.dstIn,
+              shaderCallback: (bounds) {
+                return LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    const Color(0x00FFFFFF),
+                    Colors.white.withValues(alpha: 0.45),
+                    Colors.white,
+                    Colors.white,
+                    Colors.white.withValues(alpha: 0.45),
+                    const Color(0x00FFFFFF),
+                  ],
+                  stops: const [0.0, 0.10, 0.22, 0.78, 0.90, 1.0],
+                ).createShader(bounds);
+              },
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    'assets/images/phone_signup_world_map.png',
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.center,
+                    filterQuality: FilterQuality.high,
+                  ),
+                  AnimatedBuilder(
+                    animation: _breath,
+                    builder: (context, _) {
+                      return CustomPaint(
+                        painter: _BreathingCityLightsPainter(_breath.value),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BreathingCityLightsPainter extends CustomPainter {
+  const _BreathingCityLightsPainter(this.t);
+
+  final double t;
+
+  /// Normalized hubs on the equirectangular art (nx, ny, phase, gold?).
+  static const _hubs = <(double, double, double, bool)>[
+    (0.22, 0.36, 0.00, false), // NYC
+    (0.14, 0.40, 0.18, true), // LA
+    (0.28, 0.70, 0.35, false), // Sao Paulo
+    (0.48, 0.30, 0.52, false), // London
+    (0.56, 0.36, 0.12, true), // Istanbul
+    (0.50, 0.54, 0.68, false), // Lagos
+    (0.68, 0.40, 0.28, false), // Delhi
+    (0.84, 0.36, 0.45, true), // Tokyo
+    (0.84, 0.68, 0.72, false), // Sydney
+    (0.36, 0.42, 0.88, false), // Mexico City-ish
+  ];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (final (nx, ny, phase, gold) in _hubs) {
+      final breath =
+          0.5 + 0.5 * math.sin((t + phase) * math.pi * 2); // 0..1
+      final c = Offset(nx * size.width, ny * size.height);
+      final core = gold ? AppColors.softGold : const Color(0xFFE8E4FF);
+      final halo = gold
+          ? AppColors.softGold.withValues(alpha: 0.22 + breath * 0.38)
+          : AppColors.resonanceViolet.withValues(alpha: 0.18 + breath * 0.32);
+      final r = 2.0 + breath * 2.4;
+
+      canvas.drawCircle(
+        c,
+        r + 5.5,
+        Paint()
+          ..color = halo
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+      );
+      canvas.drawCircle(
+        c,
+        r,
+        Paint()..color = core.withValues(alpha: 0.55 + breath * 0.45),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _BreathingCityLightsPainter oldDelegate) =>
+      oldDelegate.t != t;
+}
+
+class _StarFieldPainter extends CustomPainter {
+  const _StarFieldPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rnd = math.Random(42);
+    final paint = Paint()..style = PaintingStyle.fill;
+    for (var i = 0; i < 48; i++) {
+      final x = rnd.nextDouble() * size.width;
+      final y = rnd.nextDouble() * size.height;
+      final r = rnd.nextDouble() * 1.15 + 0.35;
+      final a = 0.18 + rnd.nextDouble() * 0.45;
+      paint.color = Color.fromRGBO(230, 225, 255, a);
+      canvas.drawCircle(Offset(x, y), r, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _CosmicCtaButton extends StatelessWidget {
+  const _CosmicCtaButton({
+    required this.label,
+    required this.onPressed,
+    required this.loading,
+  });
+
+  final String label;
+  final VoidCallback? onPressed;
+  final bool loading;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: AppRadii.pillBorder,
+        gradient: AppGradients.cosmicCtaGradient,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.softGold.withValues(alpha: 0.28),
+            blurRadius: 18,
+            offset: const Offset(4, 5),
+          ),
+          BoxShadow(
+            color: AppColors.resonanceViolet.withValues(alpha: 0.28),
+            blurRadius: 16,
+            offset: const Offset(-3, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: AppRadii.pillBorder,
+          child: SizedBox(
+            width: double.infinity,
+            height: 54,
+            child: Center(
+              child: loading
+                  ? const SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
