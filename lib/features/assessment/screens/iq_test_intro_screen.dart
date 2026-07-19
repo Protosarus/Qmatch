@@ -63,7 +63,8 @@ class IQTestIntroScreen extends StatelessWidget {
                             width: double.infinity,
                             child: _BreathingNeuralHero(height: heroH),
                           ),
-                          const SizedBox(height: 12),
+                          // Center copy in the gap between brain and CTA.
+                          const Spacer(flex: 2),
                           ConstrainedBox(
                             constraints: BoxConstraints(maxWidth: headlineMaxW),
                             child: Text(
@@ -118,7 +119,7 @@ class IQTestIntroScreen extends StatelessWidget {
                               height: 1.35,
                             ),
                           ),
-                          const Spacer(),
+                          const Spacer(flex: 2),
                         ],
                       ),
                     ),
@@ -337,7 +338,7 @@ class _NeuralBreathPainter extends CustomPainter {
       oldDelegate.t != t;
 }
 
-class _CosmicStartButton extends StatelessWidget {
+class _CosmicStartButton extends StatefulWidget {
   const _CosmicStartButton({
     required this.label,
     required this.onPressed,
@@ -347,35 +348,76 @@ class _CosmicStartButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   @override
+  State<_CosmicStartButton> createState() => _CosmicStartButtonState();
+}
+
+class _CosmicStartButtonState extends State<_CosmicStartButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _breath;
+
+  @override
+  void initState() {
+    super.initState();
+    _breath = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2800),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _breath.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: AppRadii.pillBorder,
-        gradient: AppGradients.cosmicCtaGradient,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.softGold.withValues(alpha: 0.26),
-            blurRadius: 18,
-            offset: const Offset(4, 5),
+    return AnimatedBuilder(
+      animation: _breath,
+      builder: (context, child) {
+        final t = Curves.easeInOut.transform(_breath.value);
+        // Noticeable but contained — stronger pulse, tighter blur.
+        final glow = 0.28 + (t * 0.18);
+        final blur = 10.0 + (t * 5.0);
+        final opacity = 0.90 + (t * 0.10);
+        final spread = t * 0.4;
+
+        return Opacity(
+          opacity: opacity,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: AppRadii.pillBorder,
+              gradient: AppGradients.cosmicCtaGradient,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.softGold.withValues(alpha: glow * 0.9),
+                  blurRadius: blur,
+                  spreadRadius: spread,
+                  offset: const Offset(2, 3),
+                ),
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: glow),
+                  blurRadius: blur + 1,
+                  spreadRadius: spread * 0.6,
+                  offset: const Offset(-1, 2),
+                ),
+              ],
+            ),
+            child: child,
           ),
-          BoxShadow(
-            color: AppColors.resonanceViolet.withValues(alpha: 0.28),
-            blurRadius: 16,
-            offset: const Offset(-3, 4),
-          ),
-        ],
-      ),
+        );
+      },
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          onTap: onPressed,
+          onTap: widget.onPressed,
           borderRadius: AppRadii.pillBorder,
           child: SizedBox(
             width: double.infinity,
             height: 56,
             child: Center(
               child: Text(
-                label,
+                widget.label,
                 style: GoogleFonts.inter(
                   color: Colors.white,
                   fontSize: 16,
