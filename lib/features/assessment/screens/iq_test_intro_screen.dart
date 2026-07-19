@@ -163,9 +163,10 @@ class _BreathingNeuralHeroState extends State<_BreathingNeuralHero>
   @override
   void initState() {
     super.initState();
+    // Longer cycle: slow drift; breath uses a faster harmonic of [t].
     _breath = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3200),
+      duration: const Duration(milliseconds: 7000),
     )..repeat();
   }
 
@@ -245,7 +246,7 @@ class _NeuralBreathPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Cranial oval — a touch wider so spread nodes stay clipped to brain.
+    // Cranial oval — clip so nothing leaves the brain.
     final brainRect = Rect.fromLTRB(
       size.width * 0.38,
       size.height * 0.22,
@@ -257,14 +258,16 @@ class _NeuralBreathPainter extends CustomPainter {
       Path()..addOval(brainRect),
     );
 
-    Offset p(double nx, double ny) =>
-        Offset(nx * size.width, ny * size.height);
+    final positions = <Offset>[
+      for (var i = 0; i < _nodes.length; i++)
+        _clampToBrain(_drifted(i, size), brainRect),
+    ];
 
-    // Soft synaptic filaments + traveling signal dots.
+    // Soft synaptic filaments + traveling signal dots (follow drifted nodes).
     for (var e = 0; e < _edges.length; e++) {
       final (ia, ib) = _edges[e];
-      final a = p(_nodes[ia].$1, _nodes[ia].$2);
-      final b = p(_nodes[ib].$1, _nodes[ib].$2);
+      final a = positions[ia];
+      final b = positions[ib];
 
       canvas.drawLine(
         a,
@@ -276,17 +279,18 @@ class _NeuralBreathPainter extends CustomPainter {
           ..strokeCap = StrokeCap.round,
       );
 
-      // Pulse travels a→b, then a second phase the other way.
       final u = (t * 1.15 + e * 0.07) % 1.0;
       final v = (t * 1.15 + e * 0.07 + 0.5) % 1.0;
       _signal(canvas, a, b, u, gold: e.isEven);
       _signal(canvas, b, a, v, gold: !e.isEven);
     }
 
-    // Breathing hubs — only on brain nodes.
-    for (final (nx, ny, phase, gold) in _nodes) {
-      final breath = 0.5 + 0.5 * math.sin((t + phase) * math.pi * 2);
-      final c = p(nx, ny);
+    // Breathing + gently drifting hubs.
+    for (var i = 0; i < _nodes.length; i++) {
+      final (_, _, phase, gold) = _nodes[i];
+      final breath =
+          0.5 + 0.5 * math.sin((t * 2.2 + phase) * math.pi * 2);
+      final c = positions[i];
       final core = gold ? AppColors.softGold : const Color(0xFFE8E4FF);
       final halo = gold
           ? AppColors.softGold.withValues(alpha: 0.20 + breath * 0.45)
@@ -308,6 +312,47 @@ class _NeuralBreathPainter extends CustomPainter {
     }
 
     canvas.restore();
+  }
+
+  /// Tiny unique drift per node — slow, soft, stays near home.
+  Offset _drifted(int i, Size size) {
+    final (nx, ny, phase, _) = _nodes[i];
+    final tau = t * math.pi * 2;
+    // Different direction / speed families; amplitudes stay very small.
+    final ax = 0.010 + (i % 3) * 0.0025;
+    final ay = 0.008 + (i % 4) * 0.0020;
+    final fx = 0.42 + (i % 5) * 0.07;
+    final fy = 0.36 + (i % 4) * 0.09;
+    late final double dx;
+    late final double dy;
+    switch (i % 4) {
+      case 1: // mostly horizontal
+        dx = ax * math.sin(tau * fx + phase * 6);
+        dy = ay * 0.35 * math.sin(tau * fy + phase * 4);
+      case 2: // mostly vertical
+        dx = ax * 0.35 * math.sin(tau * fx + phase * 5);
+        dy = ay * math.sin(tau * fy + phase * 7);
+      case 3: // soft curve
+        dx = ax * math.sin(tau * fx + phase * 3);
+        dy = ay * math.sin(tau * fy + phase * 5 + 0.9);
+      default: // ellipse
+        dx = ax * math.sin(tau * fx + phase * 4);
+        dy = ay * math.cos(tau * fy + phase * 6);
+    }
+    return Offset((nx + dx) * size.width, (ny + dy) * size.height);
+  }
+
+  Offset _clampToBrain(Offset o, Rect r) {
+    final c = r.center;
+    final nx = (o.dx - c.dx) / (r.width * 0.5);
+    final ny = (o.dy - c.dy) / (r.height * 0.5);
+    final d = math.sqrt(nx * nx + ny * ny);
+    if (d <= 0.88 || d == 0) return o;
+    final s = 0.88 / d;
+    return Offset(
+      c.dx + nx * s * r.width * 0.5,
+      c.dy + ny * s * r.height * 0.5,
+    );
   }
 
   void _signal(
