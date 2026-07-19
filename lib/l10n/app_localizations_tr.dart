@@ -260,22 +260,22 @@ class AppLocalizationsTr extends AppLocalizations {
   String get welcomeCueVibrational => 'Frekans\nuyumu';
 
   @override
-  String get welcomeTrustPrivateTitle => 'Tasarım gereği gizli';
+  String get welcomeTrustPrivateTitle => 'Sana göre';
 
   @override
-  String get welcomeTrustPrivateBody => 'Verilerin korunur.';
+  String get welcomeTrustPrivateBody => 'Seni gerçekten anlayan eşleşmeler.';
 
   @override
-  String get welcomeTrustScienceTitle => 'Bilim temelli';
+  String get welcomeTrustScienceTitle => 'Derin uyum';
 
   @override
-  String get welcomeTrustScienceBody => 'Psikoloji ve veri bilimiyle.';
+  String get welcomeTrustScienceBody => 'Zihin, duygu ve frekans birlikte.';
 
   @override
-  String get welcomeTrustMatchesTitle => 'Anlamlı eşleşmeler';
+  String get welcomeTrustMatchesTitle => 'Daha az, daha doğru';
 
   @override
-  String get welcomeTrustMatchesBody => 'Nicelikten çok nitelik.';
+  String get welcomeTrustMatchesBody => 'Nicelikten çok gerçek bağlantı.';
 
   @override
   String get welcomeTermsOfService => 'Kullanım Şartları';

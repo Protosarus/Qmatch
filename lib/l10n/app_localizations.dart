@@ -581,37 +581,37 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeTrustPrivateTitle.
   ///
   /// In en, this message translates to:
-  /// **'Private by design'**
+  /// **'Made for you'**
   String get welcomeTrustPrivateTitle;
 
   /// No description provided for @welcomeTrustPrivateBody.
   ///
   /// In en, this message translates to:
-  /// **'Your data stays protected.'**
+  /// **'Matches that truly understand you.'**
   String get welcomeTrustPrivateBody;
 
   /// No description provided for @welcomeTrustScienceTitle.
   ///
   /// In en, this message translates to:
-  /// **'Science-backed'**
+  /// **'Deeper compatibility'**
   String get welcomeTrustScienceTitle;
 
   /// No description provided for @welcomeTrustScienceBody.
   ///
   /// In en, this message translates to:
-  /// **'Built on psychology and data.'**
+  /// **'Mind, emotion, and frequency.'**
   String get welcomeTrustScienceBody;
 
   /// No description provided for @welcomeTrustMatchesTitle.
   ///
   /// In en, this message translates to:
-  /// **'Meaningful matches'**
+  /// **'Fewer, better'**
   String get welcomeTrustMatchesTitle;
 
   /// No description provided for @welcomeTrustMatchesBody.
   ///
   /// In en, this message translates to:
-  /// **'Quality over quantity.'**
+  /// **'Real connection over quantity.'**
   String get welcomeTrustMatchesBody;
 
   /// No description provided for @welcomeTermsOfService.

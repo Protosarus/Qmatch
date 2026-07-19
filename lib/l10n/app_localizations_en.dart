@@ -260,22 +260,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeCueVibrational => 'Vibrational\nalignment';
 
   @override
-  String get welcomeTrustPrivateTitle => 'Private by design';
+  String get welcomeTrustPrivateTitle => 'Made for you';
 
   @override
-  String get welcomeTrustPrivateBody => 'Your data stays protected.';
+  String get welcomeTrustPrivateBody => 'Matches that truly understand you.';
 
   @override
-  String get welcomeTrustScienceTitle => 'Science-backed';
+  String get welcomeTrustScienceTitle => 'Deeper compatibility';
 
   @override
-  String get welcomeTrustScienceBody => 'Built on psychology and data.';
+  String get welcomeTrustScienceBody => 'Mind, emotion, and frequency.';
 
   @override
-  String get welcomeTrustMatchesTitle => 'Meaningful matches';
+  String get welcomeTrustMatchesTitle => 'Fewer, better';
 
   @override
-  String get welcomeTrustMatchesBody => 'Quality over quantity.';
+  String get welcomeTrustMatchesBody => 'Real connection over quantity.';
 
   @override
   String get welcomeTermsOfService => 'Terms of Service';
