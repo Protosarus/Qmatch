@@ -237,8 +237,10 @@ class _IQTestScreenState extends State<IQTestScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     if (_isLoading) {
-      return QAssessmentScaffold(
-        child: const Center(
+      return const QAssessmentScaffold(
+        richBackdrop: true,
+        backgroundImageAsset: 'assets/images/iq_question_cosmic_bg.png',
+        child: Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(AppColors.vizIq),
           ),
@@ -248,6 +250,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
     if (_questions.isEmpty) {
       return QAssessmentScaffold(
+        richBackdrop: true,
+        backgroundImageAsset: 'assets/images/iq_question_cosmic_bg.png',
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -266,81 +270,105 @@ class _IQTestScreenState extends State<IQTestScreen> {
     final isLast = _currentQuestionIndex >= _questions.length - 1;
 
     return QAssessmentScaffold(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          QAssessmentHeader(
-            title: l10n.iqTestTitle,
-            currentIndex: _currentQuestionIndex + 1,
-            total: _questions.length,
-            leading: IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
-              onPressed: () => Navigator.of(context).maybePop(),
-              icon: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 18,
-                color: AppColors.softGold.withValues(alpha: 0.95),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          QAssessmentProgress(value: progress),
-          const SizedBox(height: 12),
-          Expanded(
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Center(
-                    child: SizedBox(
-                      height: 112,
-                      child: Image.asset(
-                        'assets/images/iq_neural_head.png',
-                        fit: BoxFit.contain,
-                        filterQuality: FilterQuality.high,
+      richBackdrop: true,
+      backgroundImageAsset: 'assets/images/iq_question_cosmic_bg.png',
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final h = constraints.maxHeight;
+          final compact = h < 760;
+          final heroH = (h * (compact ? 0.18 : 0.20)).clamp(110.0, 168.0);
+
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              // Soft dark wash behind question + options for readability.
+              IgnorePointer(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FractionallySizedBox(
+                    heightFactor: 0.58,
+                    widthFactor: 1,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            const Color(0x33060A14),
+                            const Color(0x77050A12),
+                            const Color(0x99040A10),
+                          ],
+                          stops: const [0.0, 0.28, 0.62, 1.0],
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 10)),
-                SliverToBoxAdapter(
-                  child: QQuestionCard(
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  IqQuestionTopBar(
+                    onBack: () => Navigator.of(context).maybePop(),
+                  ),
+                  const SizedBox(height: 2),
+                  IqQuestionProgressHeader(
+                    label: l10n.iqQuestionProgress(
+                      _currentQuestionIndex + 1,
+                      _questions.length,
+                    ),
+                    progress: progress,
+                  ),
+                  SizedBox(
+                    height: heroH,
+                    width: double.infinity,
+                    child: Image.asset(
+                      'assets/images/iq_question_neural_hero.png',
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.high,
+                      gaplessPlayback: true,
+                    ),
+                  ),
+                  IqInsightQuestionCard(
+                    eyebrow: l10n.iqQuestionLabel,
                     text: currentQuestion.question,
-                    eyebrow: 'IQ',
+                    compact: compact,
                   ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 14)),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: QAnswerOptionCard(
-                          index: index,
-                          label: currentQuestion.options[index],
-                          selected: _selectedAnswer == index,
-                          onTap: () {
-                            setState(() {
-                              _selectedAnswer = index;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                    childCount: currentQuestion.options.length,
+                  SizedBox(height: compact ? 6.0 : 8.0),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (var index = 0;
+                            index < currentQuestion.options.length;
+                            index++)
+                          IqAnswerOptionRow(
+                            index: index,
+                            label: currentQuestion.options[index],
+                            selected: _selectedAnswer == index,
+                            compact: true,
+                            onTap: () {
+                              setState(() {
+                                _selectedAnswer = index;
+                              });
+                            },
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 8)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          QAssessmentNavigation(
-            label: isLast ? l10n.assessmentFinish : l10n.assessmentNext,
-            onPressed: _nextQuestion,
-          ),
-        ],
+                  const SizedBox(height: 8),
+                  IqContinueButton(
+                    label: isLast
+                        ? l10n.assessmentFinish
+                        : l10n.assessmentContinue,
+                    onPressed: _nextQuestion,
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

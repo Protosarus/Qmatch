@@ -51,6 +51,19 @@ class AppGradients {
     stops: [0.0, 0.38, 0.72, 1.0],
   );
 
+  /// IQ question Continue — deep violet left → warm gold right (mock match).
+  static const LinearGradient iqQuestionCtaGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      Color(0xFF4B1FE0),
+      Color(0xFF7A3CF0),
+      Color(0xFFD4A03A),
+      Color(0xFFF0C65A),
+    ],
+    stops: [0.0, 0.40, 0.72, 1.0],
+  );
+
   /// Violet gradient for the word “frequency”.
   static const LinearGradient frequencyWordGradient = LinearGradient(
     begin: Alignment.centerLeft,

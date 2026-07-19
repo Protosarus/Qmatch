@@ -91,6 +91,14 @@ class AppLocalizationsTr extends AppLocalizations {
   String get iqIntroStart => 'Değerlendirmeye Başla';
 
   @override
+  String iqQuestionProgress(int current, int total) {
+    return 'IQ · Soru $current / $total';
+  }
+
+  @override
+  String get iqQuestionLabel => 'IQ Sorusu';
+
+  @override
   String get iqTestCompleted => 'IQ testi tamamlandı!';
 
   @override

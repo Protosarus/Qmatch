@@ -50,6 +50,14 @@
   "iqIntroLabel": "IQ Değerlendirmesi",
   "iqIntroMeta": "10 soru · Yaklaşık 3 dakika",
   "iqIntroStart": "Değerlendirmeye Başla",
+  "iqQuestionProgress": "IQ · Soru {current} / {total}",
+  "@iqQuestionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "iqQuestionLabel": "IQ Sorusu",
   "iqTestCompleted": "IQ testi tamamlandı!",
   "iqToEqMessage": "Harika! Şimdi duygusal zekanı test edelim.",
   "eqTestTitle": "EQ Testi",

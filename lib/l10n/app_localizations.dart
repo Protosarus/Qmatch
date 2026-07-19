@@ -248,6 +248,18 @@ abstract class AppLocalizations {
   /// **'Begin assessment'**
   String get iqIntroStart;
 
+  /// No description provided for @iqQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ · Question {current} of {total}'**
+  String iqQuestionProgress(int current, int total);
+
+  /// No description provided for @iqQuestionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ Question'**
+  String get iqQuestionLabel;
+
   /// No description provided for @iqTestCompleted.
   ///
   /// In en, this message translates to:

@@ -50,6 +50,14 @@
   "iqIntroLabel": "IQ Assessment",
   "iqIntroMeta": "10 questions · About 3 minutes",
   "iqIntroStart": "Begin assessment",
+  "iqQuestionProgress": "IQ · Question {current} of {total}",
+  "@iqQuestionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "iqQuestionLabel": "IQ Question",
   "iqTestCompleted": "IQ Test Completed!",
   "iqToEqMessage": "Great! Now let's test your emotional intelligence.",
   "eqTestTitle": "EQ Test",

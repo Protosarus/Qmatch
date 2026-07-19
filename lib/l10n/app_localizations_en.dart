@@ -90,6 +90,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iqIntroStart => 'Begin assessment';
 
   @override
+  String iqQuestionProgress(int current, int total) {
+    return 'IQ · Question $current of $total';
+  }
+
+  @override
+  String get iqQuestionLabel => 'IQ Question';
+
+  @override
   String get iqTestCompleted => 'IQ Test Completed!';
 
   @override
