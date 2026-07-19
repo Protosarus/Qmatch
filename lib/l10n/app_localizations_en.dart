@@ -272,10 +272,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeTrustScienceBody => 'Mind, emotion, and frequency.';
 
   @override
-  String get welcomeTrustMatchesTitle => 'Fewer, better';
+  String get welcomeTrustMatchesTitle => 'Real connections';
 
   @override
-  String get welcomeTrustMatchesBody => 'Real connection over quantity.';
+  String get welcomeTrustMatchesBody => 'Meaningful, not random.';
 
   @override
   String get welcomeTermsOfService => 'Terms of Service';

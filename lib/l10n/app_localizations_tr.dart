@@ -272,10 +272,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get welcomeTrustScienceBody => 'Zihin, duygu ve frekans birlikte.';
 
   @override
-  String get welcomeTrustMatchesTitle => 'Daha az, daha doğru';
+  String get welcomeTrustMatchesTitle => 'Gerçek bağlantılar';
 
   @override
-  String get welcomeTrustMatchesBody => 'Nicelikten çok gerçek bağlantı.';
+  String get welcomeTrustMatchesBody => 'Rastgele değil, anlamlı.';
 
   @override
   String get welcomeTermsOfService => 'Kullanım Şartları';

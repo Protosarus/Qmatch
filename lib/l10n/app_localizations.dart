@@ -605,13 +605,13 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeTrustMatchesTitle.
   ///
   /// In en, this message translates to:
-  /// **'Fewer, better'**
+  /// **'Real connections'**
   String get welcomeTrustMatchesTitle;
 
   /// No description provided for @welcomeTrustMatchesBody.
   ///
   /// In en, this message translates to:
-  /// **'Real connection over quantity.'**
+  /// **'Meaningful, not random.'**
   String get welcomeTrustMatchesBody;
 
   /// No description provided for @welcomeTermsOfService.

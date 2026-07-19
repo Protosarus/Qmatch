@@ -537,39 +537,61 @@ class _TrustRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: _Card(
-            Icons.verified_user_outlined,
-            t1,
-            b1,
-            const Color(0xFFE8C878),
-            compact,
-          ),
-        ),
-        SizedBox(width: compact ? 6.0 : 8.0),
-        Expanded(
-          child: _Card(
-            Icons.hub_outlined,
-            t2,
-            b2,
-            const Color(0xFFB07CFF),
-            compact,
-          ),
-        ),
-        SizedBox(width: compact ? 6.0 : 8.0),
-        Expanded(
-          child: _Card(
-            Icons.favorite_border_rounded,
-            t3,
-            b3,
-            const Color(0xFF7EB6FF),
-            compact,
-          ),
-        ),
-      ],
+    final gap = compact ? 6.0 : 8.0;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final rowW = constraints.maxWidth;
+        final cardW = ((rowW - gap * 2) / 3).clamp(72.0, 160.0);
+        // Bounded shared height from card width — never stretch to viewport height.
+        final cardH = (cardW * (compact ? 1.05 : 1.00)).clamp(78.0, 112.0);
+
+        Widget cell({
+          required IconData icon,
+          required String title,
+          required String body,
+          required Color color,
+        }) {
+          return Expanded(
+            child: SizedBox(
+              height: cardH,
+              child: _Card(
+                icon,
+                title,
+                body,
+                color,
+                compact,
+              ),
+            ),
+          );
+        }
+
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            cell(
+              icon: Icons.verified_user_outlined,
+              title: t1,
+              body: b1,
+              color: const Color(0xFFE8C878),
+            ),
+            SizedBox(width: gap),
+            cell(
+              icon: Icons.hub_outlined,
+              title: t2,
+              body: b2,
+              color: const Color(0xFFB07CFF),
+            ),
+            SizedBox(width: gap),
+            cell(
+              icon: Icons.favorite_border_rounded,
+              title: t3,
+              body: b3,
+              color: const Color(0xFF7EB6FF),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -585,11 +607,16 @@ class _Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pad = compact ? 7.0 : 9.0;
+    final titleSize = compact ? 9.5 : 10.0;
+    final bodySize = compact ? 7.5 : 8.0;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
         child: Container(
+          width: double.infinity,
+          height: double.infinity,
           padding: EdgeInsets.fromLTRB(6, pad, 6, pad),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -597,32 +624,44 @@ class _Card extends StatelessWidget {
             border: Border.all(color: const Color(0x99B07CFF), width: 0.9),
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(icon, size: compact ? 15 : 17, color: color),
               SizedBox(height: compact ? 4 : 5),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: compact ? 9.5 : 10,
-                  fontWeight: FontWeight.w600,
-                  height: 1.15,
+              Expanded(
+                flex: 5,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontSize: titleSize,
+                      fontWeight: FontWeight.w600,
+                      height: 1.15,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: compact ? 2 : 3),
-              Text(
-                body,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  color: const Color(0xFFA8A0C0),
-                  fontSize: compact ? 7.5 : 8,
-                  height: 1.2,
+              Expanded(
+                flex: 5,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    body,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFFA8A0C0),
+                      fontSize: bodySize,
+                      height: 1.2,
+                    ),
+                  ),
                 ),
               ),
             ],
