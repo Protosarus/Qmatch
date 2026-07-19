@@ -542,8 +542,8 @@ class _TrustRow extends StatelessWidget {
       builder: (context, constraints) {
         final rowW = constraints.maxWidth;
         final cardW = ((rowW - gap * 2) / 3).clamp(72.0, 160.0);
-        // Bounded shared height from card width — never stretch to viewport height.
-        final cardH = (cardW * (compact ? 1.05 : 1.00)).clamp(78.0, 112.0);
+        // ~15% shorter than prior 1.00/1.05 bands (78–112 → ~66–96).
+        final cardH = (cardW * (compact ? 0.88 : 0.85)).clamp(66.0, 96.0);
 
         Widget cell({
           required IconData icon,
@@ -606,7 +606,7 @@ class _Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pad = compact ? 7.0 : 9.0;
+    final padV = compact ? 6.0 : 7.0;
     final titleSize = compact ? 9.5 : 10.0;
     final bodySize = compact ? 7.5 : 8.0;
 
@@ -617,51 +617,43 @@ class _Card extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          padding: EdgeInsets.fromLTRB(6, pad, 6, pad),
+          padding: EdgeInsets.fromLTRB(6, padV, 6, padV),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: const Color(0x55101828),
             border: Border.all(color: const Color(0x99B07CFF), width: 0.9),
           ),
+          // Compact centered stack — no oversized reserved title/body bands.
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Icon(icon, size: compact ? 15 : 17, color: color),
-              SizedBox(height: compact ? 4 : 5),
-              Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontSize: titleSize,
-                      fontWeight: FontWeight.w600,
-                      height: 1.15,
-                    ),
-                  ),
+              Icon(icon, size: compact ? 14 : 16, color: color),
+              SizedBox(height: compact ? 3 : 4),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontSize: titleSize,
+                  fontWeight: FontWeight.w600,
+                  height: 1.12,
                 ),
               ),
               SizedBox(height: compact ? 2 : 3),
-              Expanded(
-                flex: 5,
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    body,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFA8A0C0),
-                      fontSize: bodySize,
-                      height: 1.2,
-                    ),
-                  ),
+              Text(
+                body,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.inter(
+                  color: const Color(0xFFA8A0C0),
+                  fontSize: bodySize,
+                  height: 1.15,
                 ),
               ),
             ],
