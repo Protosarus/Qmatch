@@ -18,9 +18,13 @@ class IQTestIntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final h = MediaQuery.sizeOf(context).height;
-    // Slightly larger hero; still secondary to reading hierarchy below.
+    final size = MediaQuery.sizeOf(context);
+    final h = size.height;
+    // Keep current hero scale — do not enlarge.
     final heroH = (h * 0.36).clamp(210.0, 295.0);
+    // Narrow centered band so the headline wraps to ≤2 lines without
+    // hard-coded TR/EN line breaks or shrinking the type.
+    final headlineMaxW = (size.width * 0.58).clamp(228.0, 268.0);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
@@ -39,7 +43,7 @@ class IQTestIntroScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 28),
                 child: Column(
                   children: [
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     SizedBox(
                       width: 56,
                       height: 56,
@@ -49,25 +53,32 @@ class IQTestIntroScreen extends StatelessWidget {
                         filterQuality: FilterQuality.high,
                       ),
                     ),
+                    // Tighter Q → brain breath; still not collapsed.
+                    const SizedBox(height: 10),
                     Expanded(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
                             height: heroH,
                             width: double.infinity,
                             child: _BreathingNeuralHero(height: heroH),
                           ),
-                          const SizedBox(height: 14),
-                          Text(
-                            l10n.iqIntroHeadline,
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.playfairDisplay(
-                              color: Colors.white,
-                              fontSize: 28,
-                              fontWeight: FontWeight.w600,
-                              height: 1.25,
-                              letterSpacing: 0.2,
+                          const SizedBox(height: 12),
+                          ConstrainedBox(
+                            constraints: BoxConstraints(maxWidth: headlineMaxW),
+                            child: Text(
+                              l10n.iqIntroHeadline,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.visible,
+                              style: GoogleFonts.playfairDisplay(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600,
+                                height: 1.12,
+                                letterSpacing: 0.2,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -107,6 +118,7 @@ class IQTestIntroScreen extends StatelessWidget {
                               height: 1.35,
                             ),
                           ),
+                          const Spacer(),
                         ],
                       ),
                     ),
@@ -196,20 +208,18 @@ class _NeuralBreathPainter extends CustomPainter {
 
   final double t;
 
-  /// Brain-cavity only (right-facing profile). Stay inside skull, never face/neck.
+  /// Brain-cavity only (right-facing profile). Spread nodes — still inside skull.
   static const _nodes = <(double, double, double, bool)>[
-    (0.46, 0.30, 0.00, false),
-    (0.52, 0.28, 0.08, true),
-    (0.58, 0.31, 0.16, false),
-    (0.50, 0.34, 0.24, false),
-    (0.55, 0.36, 0.32, true),
-    (0.44, 0.36, 0.40, false),
-    (0.60, 0.37, 0.48, false),
-    (0.48, 0.40, 0.56, false),
-    (0.54, 0.41, 0.64, true),
-    (0.57, 0.44, 0.72, false),
-    (0.50, 0.45, 0.80, false),
-    (0.53, 0.32, 0.88, false),
+    (0.42, 0.27, 0.00, false),
+    (0.52, 0.25, 0.10, true),
+    (0.61, 0.28, 0.20, false),
+    (0.45, 0.34, 0.30, false),
+    (0.55, 0.33, 0.40, true),
+    (0.63, 0.36, 0.50, false),
+    (0.41, 0.41, 0.60, false),
+    (0.50, 0.42, 0.70, false),
+    (0.58, 0.44, 0.80, true),
+    (0.48, 0.48, 0.90, false),
   ];
 
   /// Synapse edges between brain nodes (index pairs).
@@ -217,30 +227,29 @@ class _NeuralBreathPainter extends CustomPainter {
     (0, 1),
     (1, 2),
     (0, 3),
-    (1, 3),
-    (2, 4),
+    (1, 4),
+    (2, 5),
     (3, 4),
-    (3, 5),
-    (4, 6),
-    (4, 8),
-    (5, 7),
+    (4, 5),
+    (3, 6),
+    (4, 7),
+    (5, 8),
+    (6, 7),
     (7, 8),
+    (7, 9),
     (8, 9),
-    (8, 10),
-    (7, 10),
-    (1, 11),
-    (11, 4),
-    (2, 6),
+    (1, 7),
+    (2, 4),
   ];
 
   @override
   void paint(Canvas canvas, Size size) {
-    // Hard clip: only the cranial / brain oval — no face, jaw, or neck flares.
+    // Cranial oval — a touch wider so spread nodes stay clipped to brain.
     final brainRect = Rect.fromLTRB(
-      size.width * 0.40,
-      size.height * 0.24,
-      size.width * 0.64,
-      size.height * 0.50,
+      size.width * 0.38,
+      size.height * 0.22,
+      size.width * 0.66,
+      size.height * 0.52,
     );
     canvas.save();
     canvas.clipPath(
