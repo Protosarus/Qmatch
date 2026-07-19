@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -158,57 +159,55 @@ class _BreathingNeuralHero extends StatefulWidget {
 
 class _BreathingNeuralHeroState extends State<_BreathingNeuralHero>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _breath;
+  late final Ticker _ticker;
+  double _seconds = 0;
 
   @override
   void initState() {
     super.initState();
-    // Longer cycle: slow drift; breath uses a faster harmonic of [t].
-    _breath = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 7000),
-    )..repeat();
+    // Continuous elapsed time — never resets 0→1, so motion stays seamless.
+    _ticker = createTicker((elapsed) {
+      setState(() {
+        _seconds = elapsed.inMicroseconds / 1e6;
+      });
+    })..start();
   }
 
   @override
   void dispose() {
-    _breath.dispose();
+    _ticker.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _breath,
-      builder: (context, _) {
-        return Center(
-          child: SizedBox(
-            height: widget.height,
-            width: widget.height,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.asset(
-                  'assets/images/iq_neural_head.png',
-                  fit: BoxFit.contain,
-                  filterQuality: FilterQuality.high,
-                ),
-                CustomPaint(
-                  painter: _NeuralBreathPainter(_breath.value),
-                ),
-              ],
+    return Center(
+      child: SizedBox(
+        height: widget.height,
+        width: widget.height,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              'assets/images/iq_neural_head.png',
+              fit: BoxFit.contain,
+              filterQuality: FilterQuality.high,
             ),
-          ),
-        );
-      },
+            CustomPaint(
+              painter: _NeuralBreathPainter(_seconds),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
 class _NeuralBreathPainter extends CustomPainter {
-  const _NeuralBreathPainter(this.t);
+  const _NeuralBreathPainter(this.seconds);
 
-  final double t;
+  /// Monotonic seconds since hero started (no loop discontinuity).
+  final double seconds;
 
   /// Brain-cavity only (right-facing profile). Spread nodes — still inside skull.
   static const _nodes = <(double, double, double, bool)>[
@@ -279,8 +278,9 @@ class _NeuralBreathPainter extends CustomPainter {
           ..strokeCap = StrokeCap.round,
       );
 
-      final u = (t * 1.15 + e * 0.07) % 1.0;
-      final v = (t * 1.15 + e * 0.07 + 0.5) % 1.0;
+      // Period-based phase — continuous under growing [seconds].
+      final u = (seconds / 3.4 + e * 0.07) % 1.0;
+      final v = (seconds / 3.4 + e * 0.07 + 0.5) % 1.0;
       _signal(canvas, a, b, u, gold: e.isEven);
       _signal(canvas, b, a, v, gold: !e.isEven);
     }
@@ -288,8 +288,12 @@ class _NeuralBreathPainter extends CustomPainter {
     // Breathing + gently drifting hubs.
     for (var i = 0; i < _nodes.length; i++) {
       final (_, _, phase, gold) = _nodes[i];
-      final breath =
-          0.5 + 0.5 * math.sin((t * 2.2 + phase) * math.pi * 2);
+      // ~2.9s breath period; phase keeps nodes out of sync.
+      final breath = 0.5 +
+          0.5 *
+              math.sin(
+                seconds * (math.pi * 2 / 2.9) + phase * math.pi * 2,
+              );
       final c = positions[i];
       final core = gold ? AppColors.softGold : const Color(0xFFE8E4FF);
       final halo = gold
@@ -317,27 +321,29 @@ class _NeuralBreathPainter extends CustomPainter {
   /// Tiny unique drift per node — slow, soft, stays near home.
   Offset _drifted(int i, Size size) {
     final (nx, ny, phase, _) = _nodes[i];
-    final tau = t * math.pi * 2;
-    // Different direction / speed families; amplitudes stay very small.
+    // Periods in seconds (continuous under [seconds]).
     final ax = 0.010 + (i % 3) * 0.0025;
     final ay = 0.008 + (i % 4) * 0.0020;
-    final fx = 0.42 + (i % 5) * 0.07;
-    final fy = 0.36 + (i % 4) * 0.09;
+    final periodX = 5.5 + (i % 5) * 0.55;
+    final periodY = 6.2 + (i % 4) * 0.65;
+    final wx = math.pi * 2 / periodX;
+    final wy = math.pi * 2 / periodY;
+    final ph = phase * math.pi * 2;
     late final double dx;
     late final double dy;
     switch (i % 4) {
       case 1: // mostly horizontal
-        dx = ax * math.sin(tau * fx + phase * 6);
-        dy = ay * 0.35 * math.sin(tau * fy + phase * 4);
+        dx = ax * math.sin(seconds * wx + ph);
+        dy = ay * 0.35 * math.sin(seconds * wy + ph * 0.7);
       case 2: // mostly vertical
-        dx = ax * 0.35 * math.sin(tau * fx + phase * 5);
-        dy = ay * math.sin(tau * fy + phase * 7);
+        dx = ax * 0.35 * math.sin(seconds * wx + ph * 0.8);
+        dy = ay * math.sin(seconds * wy + ph);
       case 3: // soft curve
-        dx = ax * math.sin(tau * fx + phase * 3);
-        dy = ay * math.sin(tau * fy + phase * 5 + 0.9);
+        dx = ax * math.sin(seconds * wx + ph);
+        dy = ay * math.sin(seconds * wy + ph + 0.9);
       default: // ellipse
-        dx = ax * math.sin(tau * fx + phase * 4);
-        dy = ay * math.cos(tau * fy + phase * 6);
+        dx = ax * math.sin(seconds * wx + ph);
+        dy = ay * math.cos(seconds * wy + ph * 1.1);
     }
     return Offset((nx + dx) * size.width, (ny + dy) * size.height);
   }
@@ -380,7 +386,7 @@ class _NeuralBreathPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _NeuralBreathPainter oldDelegate) =>
-      oldDelegate.t != t;
+      oldDelegate.seconds != seconds;
 }
 
 class _CosmicStartButton extends StatefulWidget {
