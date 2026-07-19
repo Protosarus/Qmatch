@@ -24,7 +24,7 @@ class IqToEqTransitionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final h = MediaQuery.sizeOf(context).height;
-    final brainH = (h * 0.34).clamp(200.0, 280.0);
+    final brainH = (h * 0.32).clamp(200.0, 268.0);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
@@ -40,7 +40,7 @@ class IqToEqTransitionScreen extends StatelessWidget {
             const _TransitionBackdrop(),
             SafeArea(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
+                padding: const EdgeInsets.fromLTRB(24, 8, 24, 18),
                 child: Column(
                   children: [
                     Align(
@@ -55,15 +55,16 @@ class IqToEqTransitionScreen extends StatelessWidget {
                             height: 36,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.white.withValues(alpha: 0.06),
+                              color: const Color(0x44101828),
                               border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.28),
+                                color: const Color(0x558A90B8),
+                                width: 1,
                               ),
                             ),
                             child: Icon(
                               Icons.close_rounded,
                               size: 18,
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.white.withValues(alpha: 0.72),
                             ),
                           ),
                         ),
@@ -77,7 +78,7 @@ class IqToEqTransitionScreen extends StatelessWidget {
                         alignment: Alignment.center,
                         children: [
                           CustomPaint(
-                            size: Size(brainH * 1.15, brainH * 1.15),
+                            size: Size(brainH * 1.12, brainH * 1.12),
                             painter: const _RadarRingsPainter(),
                           ),
                           Image.asset(
@@ -89,31 +90,42 @@ class IqToEqTransitionScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 20),
                     Text(
                       l10n.iqTestCompleted,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.playfairDisplay(
                         color: Colors.white.withValues(alpha: 0.96),
-                        fontSize: 28,
+                        fontSize: 26,
                         fontWeight: FontWeight.w600,
-                        height: 1.2,
+                        height: 1.22,
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    Text(
-                      l10n.iqToEqMessage,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: const Color(0xFFC8C2D8),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        height: 1.4,
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Text(
+                        l10n.iqToEqMessage,
+                        textAlign: TextAlign.center,
+                        softWrap: true,
+                        style: GoogleFonts.inter(
+                          color: const Color(0xFFB8B0CC),
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w400,
+                          height: 1.42,
+                          letterSpacing: 0.1,
+                        ),
                       ),
+                    ),
+                    const SizedBox(height: 22),
+                    _AssessmentStageRail(
+                      iqLabel: l10n.assessmentStageIq,
+                      eqLabel: l10n.assessmentStageEq,
+                      frequencyLabel: l10n.assessmentStageFrequency,
                     ),
                     const Spacer(flex: 3),
                     _EqStartCta(
-                      label: l10n.startEqTest.toUpperCase(),
+                      label: l10n.continueToEqAssessment,
                       onPressed: onStartEq,
                     ),
                   ],
@@ -123,6 +135,162 @@ class IqToEqTransitionScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Visual-only IQ → EQ → Frequency stage strip (no navigation).
+class _AssessmentStageRail extends StatelessWidget {
+  const _AssessmentStageRail({
+    required this.iqLabel,
+    required this.eqLabel,
+    required this.frequencyLabel,
+  });
+
+  final String iqLabel;
+  final String eqLabel;
+  final String frequencyLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _StageChip(
+          label: iqLabel,
+          state: _StageVisualState.done,
+        ),
+        const _StageConnector(active: true),
+        _StageChip(
+          label: eqLabel,
+          state: _StageVisualState.current,
+        ),
+        const _StageConnector(active: false),
+        _StageChip(
+          label: frequencyLabel,
+          state: _StageVisualState.upcoming,
+        ),
+      ],
+    );
+  }
+}
+
+enum _StageVisualState { done, current, upcoming }
+
+class _StageConnector extends StatelessWidget {
+  const _StageConnector({required this.active});
+
+  final bool active;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 22,
+      height: 1,
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      color: active
+          ? AppColors.resonanceViolet.withValues(alpha: 0.55)
+          : const Color(0x448A90B8),
+    );
+  }
+}
+
+class _StageChip extends StatelessWidget {
+  const _StageChip({
+    required this.label,
+    required this.state,
+  });
+
+  final String label;
+  final _StageVisualState state;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDone = state == _StageVisualState.done;
+    final isCurrent = state == _StageVisualState.current;
+
+    final Color labelColor;
+    final FontWeight weight;
+    if (isDone) {
+      labelColor = const Color(0xFFE8D9A8);
+      weight = FontWeight.w600;
+    } else if (isCurrent) {
+      labelColor = Colors.white.withValues(alpha: 0.96);
+      weight = FontWeight.w700;
+    } else {
+      labelColor = const Color(0x668A90B8);
+      weight = FontWeight.w500;
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (isDone) ...[
+          Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: const LinearGradient(
+                colors: [
+                  AppColors.resonanceViolet,
+                  AppColors.softGold,
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.35),
+                  blurRadius: 6,
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.check_rounded,
+              size: 11,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 5),
+        ] else if (isCurrent) ...[
+          Container(
+            width: 7,
+            height: 7,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.resonanceViolet,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.55),
+                  blurRadius: 8,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 6),
+        ] else ...[
+          Container(
+            width: 6,
+            height: 6,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0x558A90B8),
+                width: 1,
+              ),
+            ),
+          ),
+          const SizedBox(width: 6),
+        ],
+        Text(
+          label,
+          style: GoogleFonts.inter(
+            color: labelColor,
+            fontSize: isCurrent ? 12.5 : 12,
+            fontWeight: weight,
+            letterSpacing: 0.4,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -138,6 +306,8 @@ class _EqStartCta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const iconColor = Color(0xF2FFFFFF);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: AppRadii.pillBorder,
@@ -197,28 +367,30 @@ class _EqStartCta extends StatelessWidget {
                             color: AppColors.softGold.withValues(alpha: 0.55),
                           ),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.favorite_rounded,
                           size: 18,
-                          color: Colors.white.withValues(alpha: 0.95),
+                          color: iconColor,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           label,
                           textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.inter(
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize: 14.5,
                             fontWeight: FontWeight.w600,
-                            letterSpacing: 1.1,
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_rounded,
                         size: 20,
-                        color: Colors.white.withValues(alpha: 0.95),
+                        color: iconColor,
                       ),
                       const SizedBox(width: 8),
                     ],
@@ -271,14 +443,13 @@ class _TransitionBackdrop extends StatelessWidget {
             ),
           ),
           const CustomPaint(painter: _StarFieldPainter()),
-          // Soft vertical beam behind brain
           Align(
-            alignment: const Alignment(0, -0.15),
+            alignment: const Alignment(0, -0.12),
             child: ImageFiltered(
               imageFilter: ImageFilter.blur(sigmaX: 28, sigmaY: 40),
               child: Container(
                 width: 90,
-                height: 320,
+                height: 300,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
@@ -346,7 +517,6 @@ class _RadarRingsPainter extends CustomPainter {
       canvas.drawCircle(center, maxR * (0.42 + t * 0.52), paint);
     }
 
-    // Dotted outer ring
     paint.strokeWidth = 1.2;
     paint.color = const Color.fromRGBO(200, 180, 255, 0.22);
     final outer = maxR * 0.96;

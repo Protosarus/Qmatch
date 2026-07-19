@@ -263,14 +263,20 @@ abstract class AppLocalizations {
   /// No description provided for @iqTestCompleted.
   ///
   /// In en, this message translates to:
-  /// **'IQ Test Completed!'**
+  /// **'IQ assessment complete'**
   String get iqTestCompleted;
 
   /// No description provided for @iqToEqMessage.
   ///
   /// In en, this message translates to:
-  /// **'Great! Now let\'s test your emotional intelligence.'**
+  /// **'The first part of your cognitive profile is ready. Now let\'s continue with your emotional profile.'**
   String get iqToEqMessage;
+
+  /// No description provided for @continueToEqAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to EQ assessment'**
+  String get continueToEqAssessment;
 
   /// No description provided for @eqTestTitle.
   ///
@@ -319,6 +325,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'EQ Test Completed!'**
   String get eqTestCompleted;
+
+  /// No description provided for @assessmentStageIq.
+  ///
+  /// In en, this message translates to:
+  /// **'IQ'**
+  String get assessmentStageIq;
+
+  /// No description provided for @assessmentStageEq.
+  ///
+  /// In en, this message translates to:
+  /// **'EQ'**
+  String get assessmentStageEq;
+
+  /// No description provided for @assessmentStageFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequency'**
+  String get assessmentStageFrequency;
 
   /// No description provided for @frequencyIntroTitle.
   ///

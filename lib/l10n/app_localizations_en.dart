@@ -98,11 +98,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iqQuestionLabel => 'IQ Question';
 
   @override
-  String get iqTestCompleted => 'IQ Test Completed!';
+  String get iqTestCompleted => 'IQ assessment complete';
 
   @override
   String get iqToEqMessage =>
-      'Great! Now let\'s test your emotional intelligence.';
+      'The first part of your cognitive profile is ready. Now let\'s continue with your emotional profile.';
+
+  @override
+  String get continueToEqAssessment => 'Continue to EQ assessment';
 
   @override
   String get eqTestTitle => 'EQ Test';
@@ -128,6 +131,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eqTestCompleted => 'EQ Test Completed!';
+
+  @override
+  String get assessmentStageIq => 'IQ';
+
+  @override
+  String get assessmentStageEq => 'EQ';
+
+  @override
+  String get assessmentStageFrequency => 'Frequency';
 
   @override
   String get frequencyIntroTitle => 'Discover your frequency';
