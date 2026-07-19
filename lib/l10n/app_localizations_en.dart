@@ -297,14 +297,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'By continuing, you agree to our Terms of Service and Privacy Policy.';
 
   @override
-  String get phoneSignupTitleAskNumber => 'What\'s your number?';
+  String get phoneSignupTitleAskNumber => 'Connect to your world';
 
   @override
   String get phoneSignupTitleEnterCode => 'Enter the code';
 
   @override
   String get phoneSignupSubtitleSendCode =>
-      'We\'ll send a verification code to confirm it\'s you.';
+      'Verify your phone number for secure access.';
 
   @override
   String get phoneSignupSubtitleCodeSent =>

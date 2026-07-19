@@ -297,14 +297,14 @@ class AppLocalizationsTr extends AppLocalizations {
       'Devam ederek Qmatch Kullanım Şartları ve Gizlilik Politikası\'nı kabul etmiş olursun.';
 
   @override
-  String get phoneSignupTitleAskNumber => 'Numaran nedir?';
+  String get phoneSignupTitleAskNumber => 'Dünyana bağlan';
 
   @override
   String get phoneSignupTitleEnterCode => 'Kodu gir';
 
   @override
   String get phoneSignupSubtitleSendCode =>
-      'Seni doğrulamak için bir doğrulama kodu göndereceğiz.';
+      'Güvenli erişim için telefon numaranı doğrula.';
 
   @override
   String get phoneSignupSubtitleCodeSent =>

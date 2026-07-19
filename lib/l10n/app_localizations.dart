@@ -653,7 +653,7 @@ abstract class AppLocalizations {
   /// No description provided for @phoneSignupTitleAskNumber.
   ///
   /// In en, this message translates to:
-  /// **'What\'s your number?'**
+  /// **'Connect to your world'**
   String get phoneSignupTitleAskNumber;
 
   /// No description provided for @phoneSignupTitleEnterCode.
@@ -665,7 +665,7 @@ abstract class AppLocalizations {
   /// No description provided for @phoneSignupSubtitleSendCode.
   ///
   /// In en, this message translates to:
-  /// **'We\'ll send a verification code to confirm it\'s you.'**
+  /// **'Verify your phone number for secure access.'**
   String get phoneSignupSubtitleSendCode;
 
   /// No description provided for @phoneSignupSubtitleCodeSent.
