@@ -287,9 +287,7 @@ class IqAnswerOptionRow extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         splashColor: AppColors.resonanceViolet.withValues(alpha: 0.16),
         highlightColor: AppColors.resonanceViolet.withValues(alpha: 0.06),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
-          curve: Curves.easeOut,
+        child: Container(
           width: double.infinity,
           // 1px frame always — selected uses gradient, idle uses muted edge.
           padding: const EdgeInsets.all(1),

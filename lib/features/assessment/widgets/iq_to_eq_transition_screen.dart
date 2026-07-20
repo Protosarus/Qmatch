@@ -169,7 +169,7 @@ class _StageConnector extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = tone == _ConnectorTone.completed
         ? AppColors.resonanceViolet.withValues(alpha: 0.55)
-        : const Color(0x808A90B8); // ~50% — visible but quiet
+        : const Color(0x8A8A90B8); // ~54% — quiet bridge to Frequency
 
     return Container(
       width: 22,
@@ -203,8 +203,8 @@ class _StageChip extends StatelessWidget {
       labelColor = Colors.white.withValues(alpha: 0.96);
       weight = FontWeight.w700;
     } else {
-      // Passiveive but readable (~50% opacity).
-      labelColor = const Color(0x808A90B8);
+      // Passiveive but readable — slightly clearer than EQ-active, still muted.
+      labelColor = const Color(0xA38A90B8); // ~64%
       weight = FontWeight.w500;
     }
 
@@ -259,9 +259,9 @@ class _StageChip extends StatelessWidget {
             height: 6,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0x808A90B8),
+              color: const Color(0xA38A90B8),
               border: Border.all(
-                color: const Color(0x998A90B8),
+                color: const Color(0xB38A90B8),
                 width: 1,
               ),
             ),
