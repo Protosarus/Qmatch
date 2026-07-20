@@ -70,16 +70,7 @@ class IqToEqTransitionScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Text(
-                        l10n.iqTestCompleted,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.playfairDisplay(
-                          color: Colors.white.withValues(alpha: 0.96),
-                          fontSize: 26,
-                          fontWeight: FontWeight.w600,
-                          height: 1.22,
-                        ),
-                      ),
+                      _IqCompletedSweepTitle(text: l10n.iqTestCompleted),
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -574,6 +565,131 @@ class _BreathingNeuralCoreState extends State<_BreathingNeuralCore>
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Headline: dim stage → follow-spot sweeps left→right → stays lit.
+class _IqCompletedSweepTitle extends StatefulWidget {
+  const _IqCompletedSweepTitle({required this.text});
+
+  final String text;
+
+  @override
+  State<_IqCompletedSweepTitle> createState() => _IqCompletedSweepTitleState();
+}
+
+class _IqCompletedSweepTitleState extends State<_IqCompletedSweepTitle>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+
+  // Stage dark vs follow-spot (theatrical wash).
+  static const _dark = Color(0xFF2A243C);
+  static const _lit = Color(0xFFF8F4FF);
+  static const _spotRim = Color(0xFFB8A0FF);
+  static const _spotCore = Color(0xFFFFF6E0);
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      // A touch slower than before — still present, not draggy.
+      duration: const Duration(milliseconds: 3400),
+    );
+    Future<void>.delayed(const Duration(milliseconds: 320), () {
+      if (mounted) _ctrl.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final baseStyle = GoogleFonts.playfairDisplay(
+      color: Colors.white,
+      fontSize: 26,
+      fontWeight: FontWeight.w600,
+      height: 1.22,
+    );
+
+    return AnimatedBuilder(
+      animation: _ctrl,
+      builder: (context, child) {
+        // Ease that eases in/out like a slow follow-spot pan.
+        final u = Curves.easeInOut.transform(_ctrl.value);
+
+        return ShaderMask(
+          blendMode: BlendMode.srcIn,
+          shaderCallback: (bounds) {
+            if (u >= 0.999) {
+              return const LinearGradient(
+                colors: [_lit, _lit],
+              ).createShader(bounds);
+            }
+            if (u <= 0.001) {
+              return const LinearGradient(
+                colors: [_dark, _dark],
+              ).createShader(bounds);
+            }
+
+            // Spot center travels left → right (reading direction).
+            // 0 = sentence start, 1 = sentence end.
+            final spot = u;
+            // Soft theatrical beam width (~28% of title).
+            const half = 0.14;
+
+            final sLitL = (spot - half - 0.05).clamp(0.0, 1.0);
+            final sRimL = (spot - half).clamp(0.0, 1.0);
+            final sCoreL = (spot - half * 0.35).clamp(0.0, 1.0);
+            final sCore = spot.clamp(0.0, 1.0);
+            final sCoreR = (spot + half * 0.35).clamp(0.0, 1.0);
+            final sRimR = (spot + half).clamp(0.0, 1.0);
+            final sDarkR = (spot + half + 0.06).clamp(0.0, 1.0);
+
+            final stops = <double>[0.0];
+            final colors = <Color>[_lit];
+            void push(double s, Color c) {
+              if (s <= stops.last + 0.0005) {
+                colors[colors.length - 1] = c;
+                return;
+              }
+              stops.add(s);
+              colors.add(c);
+            }
+
+            // Left of spot: already revealed — stays lit.
+            push(sLitL, _lit);
+            // Entering the beam.
+            push(sRimL, _spotRim);
+            push(sCoreL, _spotCore);
+            // Hot center of the follow-spot.
+            push(sCore, Colors.white);
+            push(sCoreR, _spotCore);
+            push(sRimR, _spotRim);
+            // Right of spot: still in shadow (not yet read).
+            push(sDarkR, _dark);
+            push(1.0, _dark);
+
+            return LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: colors,
+              stops: stops,
+            ).createShader(bounds);
+          },
+          child: child,
+        );
+      },
+      child: Text(
+        widget.text,
+        textAlign: TextAlign.center,
+        style: baseStyle,
+      ),
     );
   }
 }
