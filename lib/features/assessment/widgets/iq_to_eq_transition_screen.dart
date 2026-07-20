@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -60,11 +61,10 @@ class IqToEqTransitionScreen extends StatelessWidget {
                               size: Size(brainH * 1.12, brainH * 1.12),
                               painter: const _RadarRingsPainter(),
                             ),
-                            Image.asset(
-                              'assets/images/iq_complete_neural_core.png',
+                            SizedBox(
                               height: brainH * 0.88,
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.high,
+                              width: brainH * 0.88,
+                              child: const _BreathingNeuralCore(),
                             ),
                           ],
                         ),
@@ -524,4 +524,137 @@ class _RadarRingsPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+/// Soft gleam on existing brain-mesh nodes — no extra field of lights.
+class _BreathingNeuralCore extends StatefulWidget {
+  const _BreathingNeuralCore();
+
+  @override
+  State<_BreathingNeuralCore> createState() => _BreathingNeuralCoreState();
+}
+
+class _BreathingNeuralCoreState extends State<_BreathingNeuralCore>
+    with SingleTickerProviderStateMixin {
+  late final Ticker _ticker;
+  double _seconds = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _ticker = createTicker((elapsed) {
+      setState(() {
+        _seconds = elapsed.inMicroseconds / 1e6;
+      });
+    })..start();
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          'assets/images/iq_complete_neural_core.png',
+          fit: BoxFit.contain,
+          filterQuality: FilterQuality.high,
+          gaplessPlayback: true,
+        ),
+        // Explicit fill — CustomPaint alone can collapse to Size.zero
+        // under some Stack constraint paths, killing the overlay.
+        Positioned.fill(
+          child: CustomPaint(
+            painter: _NeuralCoreNodeGleamPainter(_seconds),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Opacity + halo pulse locked to sampled bright nodes in the brain mesh.
+class _NeuralCoreNodeGleamPainter extends CustomPainter {
+  const _NeuralCoreNodeGleamPainter(this.seconds);
+
+  final double seconds;
+
+  /// Calibrated to existing interior starburst nodes (nx, ny, phase).
+  static const _nodes = <(double, double, double)>[
+    (0.504, 0.259, 0.00),
+    (0.317, 0.454, 0.17),
+    (0.685, 0.454, 0.34),
+    (0.507, 0.348, 0.50),
+    (0.417, 0.527, 0.67),
+    (0.582, 0.524, 0.84),
+  ];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
+    final side = size.shortestSide;
+    final brainRect = Rect.fromLTRB(
+      size.width * 0.26,
+      size.height * 0.18,
+      size.width * 0.74,
+      size.height * 0.72,
+    );
+
+    canvas.save();
+    canvas.clipPath(Path()..addOval(brainRect));
+
+    for (var i = 0; i < _nodes.length; i++) {
+      final (nx, ny, phase) = _nodes[i];
+      // Clear inhale/exhale — previously ~1–2px dots were invisible on flares.
+      final breath = 0.5 +
+          0.5 *
+              math.sin(
+                seconds * (math.pi * 2 / 2.8) + phase * math.pi * 2,
+              );
+      final c = Offset(nx * size.width, ny * size.height);
+
+      final outerR = side * (0.028 + breath * 0.022);
+      final midR = side * (0.014 + breath * 0.010);
+      final coreR = side * (0.006 + breath * 0.004);
+
+      // Soft violet bloom — readable against already-bright baked nodes.
+      canvas.drawCircle(
+        c,
+        outerR,
+        Paint()
+          ..color = AppColors.vizIq.withValues(alpha: 0.18 + breath * 0.42)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.028)
+          ..blendMode = BlendMode.plus,
+      );
+      canvas.drawCircle(
+        c,
+        midR,
+        Paint()
+          ..color = const Color(0xFFC8B8FF).withValues(
+            alpha: 0.22 + breath * 0.48,
+          )
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.012)
+          ..blendMode = BlendMode.plus,
+      );
+      canvas.drawCircle(
+        c,
+        coreR,
+        Paint()
+          ..color = Colors.white.withValues(alpha: 0.35 + breath * 0.55)
+          ..blendMode = BlendMode.plus,
+      );
+    }
+
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(covariant _NeuralCoreNodeGleamPainter oldDelegate) =>
+      oldDelegate.seconds != seconds;
 }
