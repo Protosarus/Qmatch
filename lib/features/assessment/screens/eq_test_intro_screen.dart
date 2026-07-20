@@ -6,6 +6,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_gradients.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
+import '../widgets/eq_question_chrome.dart';
 import 'eq_test_screen.dart';
 
 /// Cosmic EQ intro — presentation only; navigation unchanged.
@@ -63,7 +64,7 @@ class EQTestIntroScreen extends StatelessWidget {
           SizedBox(
             height: heroH,
             width: double.infinity,
-            child: const _EqIntroHeroImage(),
+            child: const EqMindHeartFigure(),
           ),
           SizedBox(height: tiny ? 8 : 12),
           _EqIntroCopyBlock(
@@ -129,33 +130,6 @@ class EQTestIntroScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-/// Transparent reference-style EQ hero — figure / brain / heart / orbits only.
-class _EqIntroHeroImage extends StatelessWidget {
-  const _EqIntroHeroImage();
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final side = constraints.biggest.shortestSide;
-        return Center(
-          child: SizedBox(
-            width: side,
-            height: side,
-            child: Image.asset(
-              'assets/images/eq_intro_figure.png',
-              fit: BoxFit.contain,
-              alignment: Alignment.center,
-              filterQuality: FilterQuality.high,
-              gaplessPlayback: true,
-            ),
-          ),
-        );
-      },
     );
   }
 }

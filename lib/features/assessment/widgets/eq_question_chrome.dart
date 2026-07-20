@@ -1,6 +1,8 @@
+import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -173,9 +175,9 @@ class EqSparkProgressBar extends StatelessWidget {
                     ],
                   ),
                   child: Icon(
-                    Icons.favorite_rounded,
-                    size: 8,
-                    color: AppColors.resonanceViolet.withValues(alpha: 0.85),
+                    Icons.psychology_rounded,
+                    size: 9,
+                    color: AppColors.resonanceViolet.withValues(alpha: 0.9),
                   ),
                 ),
               ),
@@ -243,23 +245,24 @@ class EqInsightQuestionCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.favorite_rounded,
-                    size: compact ? 14 : 15,
-                    color: AppColors.vizEq.withValues(alpha: 0.95),
+                    Icons.psychology_rounded,
+                    size: compact ? 11 : 12,
+                    color: AppColors.vizEq.withValues(alpha: 0.88),
                   ),
-                  const SizedBox(width: 6),
+                  const SizedBox(width: 5),
                   Text(
                     insightLabel,
-                    style: GoogleFonts.playfairDisplay(
-                      color: AppColors.vizEq.withValues(alpha: 0.92),
-                      fontSize: compact ? 12.5 : 13.5,
+                    style: GoogleFonts.inter(
+                      color: AppColors.vizEq.withValues(alpha: 0.88),
+                      fontSize: compact ? 10.5 : 11,
                       fontWeight: FontWeight.w600,
+                      letterSpacing: 0.8,
                       height: 1.1,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: compact ? 8 : 10),
+              SizedBox(height: compact ? 6 : 8),
               Text(
                 text,
                 textAlign: TextAlign.start,
@@ -290,27 +293,26 @@ class EqAnswerOptionRow extends StatelessWidget {
     this.compact = false,
   });
 
+  /// Display order index (0–3) → visual labels A–D only.
   final int index;
   final String label;
   final bool selected;
   final VoidCallback onTap;
   final bool compact;
 
-  static IconData _iconForIndex(int index) {
-    switch (index % 4) {
-      case 0:
-        return Icons.hearing_rounded;
-      case 1:
-        return Icons.chat_bubble_outline_rounded;
-      case 2:
-        return Icons.person_outline_rounded;
-      default:
-        return Icons.emoji_emotions_outlined;
-    }
+  /// Presentation-only shorten — scoring still uses the original option index.
+  static String displayLabel(String raw, {int maxChars = 64}) {
+    final t = raw.trim().replaceAll(RegExp(r'\s+'), ' ');
+    if (t.length <= maxChars) return t;
+    final cut = t.substring(0, maxChars);
+    final sp = cut.lastIndexOf(' ');
+    final base = (sp > maxChars ~/ 2 ? cut.substring(0, sp) : cut).trimRight();
+    return '$base…';
   }
 
   @override
   Widget build(BuildContext context) {
+    final letter = String.fromCharCode(65 + index);
     final minH = compact ? 44.0 : 54.0;
     final vPad = compact ? 10.0 : 14.0;
     final badge = compact ? 26.0 : 28.0;
@@ -381,12 +383,16 @@ class EqAnswerOptionRow extends StatelessWidget {
                     width: 1,
                   ),
                 ),
-                child: Icon(
-                  _iconForIndex(index),
-                  size: compact ? 14 : 15,
-                  color: selected
-                      ? Colors.white
-                      : AppColors.vizEq.withValues(alpha: 0.82),
+                child: Text(
+                  letter,
+                  style: GoogleFonts.inter(
+                    color: selected
+                        ? Colors.white
+                        : AppColors.vizEq.withValues(alpha: 0.9),
+                    fontSize: compact ? 12.5 : 13,
+                    fontWeight: FontWeight.w700,
+                    height: 1,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -399,9 +405,9 @@ class EqAnswerOptionRow extends StatelessWidget {
                     color: Colors.white.withValues(
                       alpha: selected ? 1.0 : 0.82,
                     ),
-                    fontSize: compact ? 13.5 : 14.5,
+                    fontSize: compact ? 13 : 14,
                     fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                    height: 1.25,
+                    height: 1.22,
                   ),
                 ),
               ),
@@ -512,8 +518,8 @@ class EqContinueButton extends StatelessWidget {
                             ),
                           ),
                           child: const Icon(
-                            Icons.favorite_rounded,
-                            size: 17,
+                            Icons.psychology_rounded,
+                            size: 18,
                             color: Colors.white,
                           ),
                         ),
@@ -541,4 +547,126 @@ class EqContinueButton extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Universal EQ figure with a soft pulse traveling brain ↔ heart.
+class EqMindHeartFigure extends StatefulWidget {
+  const EqMindHeartFigure({super.key});
+
+  @override
+  State<EqMindHeartFigure> createState() => _EqMindHeartFigureState();
+}
+
+class _EqMindHeartFigureState extends State<EqMindHeartFigure>
+    with SingleTickerProviderStateMixin {
+  late final Ticker _ticker;
+  double _seconds = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _ticker = createTicker((elapsed) {
+      setState(() {
+        _seconds = elapsed.inMicroseconds / 1e6;
+      });
+    })..start();
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final side = math.min(constraints.maxWidth, constraints.maxHeight);
+        return Center(
+          child: SizedBox(
+            width: side,
+            height: side,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Image.asset(
+                  'assets/images/eq_intro_figure.png',
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
+                  filterQuality: FilterQuality.high,
+                  gaplessPlayback: true,
+                ),
+                Positioned.fill(
+                  child: CustomPaint(
+                    painter: _BrainHeartLinkPainter(_seconds),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// Soft traveler along the baked brain–heart axis (normalized to asset).
+class _BrainHeartLinkPainter extends CustomPainter {
+  const _BrainHeartLinkPainter(this.seconds);
+
+  final double seconds;
+
+  // Calibrated to eq_intro_figure.png (1024²).
+  static const _x = 0.502;
+  static const _yBrain = 0.30;
+  static const _yHeart = 0.64;
+  static const _period = 2.8; // seconds for one full up+down cycle
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (size.isEmpty) return;
+
+    final side = size.shortestSide;
+    // Triangle wave 0→1→0 for seamless brain→heart→brain.
+    final cycle = (seconds / _period) % 1.0;
+    final t = cycle < 0.5 ? cycle * 2.0 : 2.0 - cycle * 2.0;
+    final eased = Curves.easeInOut.transform(t);
+
+    final x = size.width * _x;
+    final y = size.height * (_yBrain + (_yHeart - _yBrain) * eased);
+    final c = Offset(x, y);
+
+    final breath = 0.55 + 0.45 * math.sin(seconds * math.pi * 2 / 1.6);
+    final outerR = side * (0.022 + breath * 0.010);
+    final coreR = side * (0.007 + breath * 0.003);
+
+    canvas.drawCircle(
+      c,
+      outerR,
+      Paint()
+        ..color = AppColors.softGold.withValues(alpha: 0.22 + breath * 0.28)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.018)
+        ..blendMode = BlendMode.plus,
+    );
+    canvas.drawCircle(
+      c,
+      outerR * 0.55,
+      Paint()
+        ..color = const Color(0xFFFFF2C8).withValues(alpha: 0.35 + breath * 0.40)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.008)
+        ..blendMode = BlendMode.plus,
+    );
+    canvas.drawCircle(
+      c,
+      coreR,
+      Paint()
+        ..color = Colors.white.withValues(alpha: 0.75 + breath * 0.25)
+        ..blendMode = BlendMode.plus,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _BrainHeartLinkPainter oldDelegate) =>
+      oldDelegate.seconds != seconds;
 }

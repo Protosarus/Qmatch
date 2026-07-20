@@ -72,14 +72,14 @@
   "eqPillarEmpathy": "Empathy",
   "eqPillarBalance": "Emotional Balance",
   "eqPillarHarmony": "Inner Harmony",
-  "eqQuestionProgress": "EQ · Question {current} of {total}",
+  "eqQuestionProgress": "EQ · {current} / {total}",
   "@eqQuestionProgress": {
     "placeholders": {
       "current": {"type": "int"},
       "total": {"type": "int"}
     }
   },
-  "eqQuestionInsightLabel": "Emotional Depth",
+  "eqQuestionInsightLabel": "EQ",
   "eqIntroHeadline": "Emotional Intelligence",
   "eqIntroDescription": "Your emotional quotient (EQ) measures your ability to understand and manage emotions - both yours and others'.",
   "eqBulletQuestions": "10 scenario-based questions",

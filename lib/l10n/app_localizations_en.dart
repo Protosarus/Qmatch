@@ -142,11 +142,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String eqQuestionProgress(int current, int total) {
-    return 'EQ · Question $current of $total';
+    return 'EQ · $current / $total';
   }
 
   @override
-  String get eqQuestionInsightLabel => 'Emotional Depth';
+  String get eqQuestionInsightLabel => 'EQ';
 
   @override
   String get eqIntroHeadline => 'Emotional Intelligence';

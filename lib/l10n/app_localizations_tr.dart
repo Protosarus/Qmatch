@@ -143,11 +143,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String eqQuestionProgress(int current, int total) {
-    return 'EQ · Soru $current / $total';
+    return 'EQ · $current / $total';
   }
 
   @override
-  String get eqQuestionInsightLabel => 'Duygusal Derinlik';
+  String get eqQuestionInsightLabel => 'EQ';
 
   @override
   String get eqIntroHeadline => 'Duygusal zekâ';

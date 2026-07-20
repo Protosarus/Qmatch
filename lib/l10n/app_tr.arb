@@ -72,14 +72,14 @@
   "eqPillarEmpathy": "Empati",
   "eqPillarBalance": "Duygusal Denge",
   "eqPillarHarmony": "İçsel Uyum",
-  "eqQuestionProgress": "EQ · Soru {current} / {total}",
+  "eqQuestionProgress": "EQ · {current} / {total}",
   "@eqQuestionProgress": {
     "placeholders": {
       "current": {"type": "int"},
       "total": {"type": "int"}
     }
   },
-  "eqQuestionInsightLabel": "Duygusal Derinlik",
+  "eqQuestionInsightLabel": "EQ",
   "eqIntroHeadline": "Duygusal zekâ",
   "eqIntroDescription": "Duygusal zeka (EQ), hem kendi duygularını hem de başkalarınınkini anlama ve yönetme becerini ölçer.",
   "eqBulletQuestions": "10 senaryo tabanlı soru",

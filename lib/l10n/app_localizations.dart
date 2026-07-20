@@ -347,13 +347,13 @@ abstract class AppLocalizations {
   /// No description provided for @eqQuestionProgress.
   ///
   /// In en, this message translates to:
-  /// **'EQ · Question {current} of {total}'**
+  /// **'EQ · {current} / {total}'**
   String eqQuestionProgress(int current, int total);
 
   /// No description provided for @eqQuestionInsightLabel.
   ///
   /// In en, this message translates to:
-  /// **'Emotional Depth'**
+  /// **'EQ'**
   String get eqQuestionInsightLabel;
 
   /// No description provided for @eqIntroHeadline.
