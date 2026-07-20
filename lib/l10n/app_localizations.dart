@@ -200,6 +200,12 @@ abstract class AppLocalizations {
   /// **'Please select an answer'**
   String get assessmentPleaseSelectAnswer;
 
+  /// No description provided for @iqPleaseSelectAnswerToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an answer to continue'**
+  String get iqPleaseSelectAnswerToContinue;
+
   /// No description provided for @assessmentStart.
   ///
   /// In en, this message translates to:

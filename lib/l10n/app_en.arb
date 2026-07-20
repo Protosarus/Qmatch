@@ -42,6 +42,7 @@
   "assessmentFinish": "Finish",
   "assessmentComplete": "Assessment Complete!",
   "assessmentPleaseSelectAnswer": "Please select an answer",
+  "iqPleaseSelectAnswerToContinue": "Select an answer to continue",
   "assessmentStart": "Start",
   "assessmentNoQuestionsAvailable": "No questions available",
   "iqTestTitle": "IQ Test",

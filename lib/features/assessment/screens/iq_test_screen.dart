@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'dart:ui' show ImageFilter;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/widgets/elegant_warning.dart';
+import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/question_model.dart';
 import '../services/assessment_set_service.dart';
@@ -26,6 +29,11 @@ class _IQTestScreenState extends State<IQTestScreen> {
   bool _isLoading = true;
   bool _didStartLoading = false;
   int _correctAnswers = 0;
+  bool _showSelectAnswerWarning = false;
+  Timer? _selectAnswerWarningTimer;
+
+  static const _continueButtonHeight = 54.0;
+  static const _warningAboveContinueGap = 12.0;
 
   @override
   void initState() {
@@ -43,6 +51,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
   @override
   void dispose() {
+    _selectAnswerWarningTimer?.cancel();
     _enableScreenshots();
     super.dispose();
   }
@@ -61,6 +70,32 @@ class _IQTestScreenState extends State<IQTestScreen> {
     } catch (e) {
       // Sessizce devam et
     }
+  }
+
+  void _dismissSelectAnswerWarning() {
+    _selectAnswerWarningTimer?.cancel();
+    _selectAnswerWarningTimer = null;
+    if (!_showSelectAnswerWarning || !mounted) return;
+    setState(() {
+      _showSelectAnswerWarning = false;
+    });
+  }
+
+  void _showSelectAnswerWarningBanner() {
+    // One banner only — repeated Continue taps refresh the timer, no stacks.
+    _selectAnswerWarningTimer?.cancel();
+    if (!_showSelectAnswerWarning) {
+      setState(() {
+        _showSelectAnswerWarning = true;
+      });
+    }
+    _selectAnswerWarningTimer = Timer(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      setState(() {
+        _showSelectAnswerWarning = false;
+      });
+      _selectAnswerWarningTimer = null;
+    });
   }
 
   Future<void> _loadQuestions() async {
@@ -89,10 +124,11 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
   Future<void> _nextQuestion() async {
     if (_selectedAnswer == null) {
-      final l10n = AppLocalizations.of(context)!;
-      showElegantWarning(context, l10n.assessmentPleaseSelectAnswer);
+      _showSelectAnswerWarningBanner();
       return;
     }
+
+    _dismissSelectAnswerWarning();
 
     if (_selectedAnswer == _questions[_currentQuestionIndex].correctAnswer) {
       _correctAnswers++;
@@ -269,6 +305,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                             selected: _selectedAnswer == index,
                             compact: true,
                             onTap: () {
+                              _dismissSelectAnswerWarning();
                               setState(() {
                                 _selectedAnswer = index;
                               });
@@ -287,9 +324,90 @@ class _IQTestScreenState extends State<IQTestScreen> {
                   ),
                 ],
               ),
+              // Floating validation — overlays only; does not shift Column layout.
+              if (_showSelectAnswerWarning)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom:
+                      _continueButtonHeight + _warningAboveContinueGap,
+                  child: IgnorePointer(
+                    child: _IqSelectAnswerWarningBanner(
+                      message: l10n.iqPleaseSelectAnswerToContinue,
+                    ),
+                  ),
+                ),
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+/// Compact secondary validation chip — not a CTA.
+class _IqSelectAnswerWarningBanner extends StatelessWidget {
+  const _IqSelectAnswerWarningBanner({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: AppRadii.pillBorder,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+        child: Container(
+          height: 52,
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          decoration: BoxDecoration(
+            borderRadius: AppRadii.pillBorder,
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                AppColors.resonanceViolet.withValues(alpha: 0.55),
+                const Color(0xCC1A2240),
+                AppColors.softGold.withValues(alpha: 0.28),
+              ],
+              stops: const [0.0, 0.55, 1.0],
+            ),
+            border: Border.all(
+              color: AppColors.resonanceViolet.withValues(alpha: 0.72),
+              width: 1.1,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.resonanceViolet.withValues(alpha: 0.32),
+                blurRadius: 14,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.info_outline_rounded,
+                size: 15,
+                color: AppColors.softGold.withValues(alpha: 0.98),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  message,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    color: Colors.white.withValues(alpha: 0.98),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    height: 1.2,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -42,6 +42,7 @@
   "assessmentFinish": "Bitir",
   "assessmentComplete": "Değerlendirme tamamlandı!",
   "assessmentPleaseSelectAnswer": "Lütfen bir cevap seçin",
+  "iqPleaseSelectAnswerToContinue": "Devam etmek için bir cevap seç",
   "assessmentStart": "Başla",
   "assessmentNoQuestionsAvailable": "Soru bulunamadı",
   "iqTestTitle": "IQ Testi",

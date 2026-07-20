@@ -66,6 +66,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assessmentPleaseSelectAnswer => 'Please select an answer';
 
   @override
+  String get iqPleaseSelectAnswerToContinue => 'Select an answer to continue';
+
+  @override
   String get assessmentStart => 'Start';
 
   @override

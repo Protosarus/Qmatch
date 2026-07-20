@@ -67,6 +67,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get assessmentPleaseSelectAnswer => 'Lütfen bir cevap seçin';
 
   @override
+  String get iqPleaseSelectAnswerToContinue => 'Devam etmek için bir cevap seç';
+
+  @override
   String get assessmentStart => 'Başla';
 
   @override
