@@ -273,12 +273,22 @@ class IqAnswerOptionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final letter = String.fromCharCode(65 + index);
-    final fill = selected
-        ? const Color(0x55401A78)
-        : const Color(0x59101828);
     final minH = compact ? 44.0 : 54.0;
     final vPad = compact ? 10.0 : 14.0;
     final badge = compact ? 26.0 : 28.0;
+
+    // Match IqContinueButton active gradient brightness.
+    const selectedFill = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color.fromRGBO(75, 31, 224, 0.52),
+        Color.fromRGBO(122, 60, 240, 0.42),
+        Color.fromRGBO(212, 160, 58, 0.48),
+        Color.fromRGBO(240, 198, 90, 0.55),
+      ],
+      stops: [0.0, 0.40, 0.72, 1.0],
+    );
 
     return Material(
       color: Colors.transparent,
@@ -289,107 +299,96 @@ class IqAnswerOptionRow extends StatelessWidget {
         highlightColor: AppColors.resonanceViolet.withValues(alpha: 0.06),
         child: Container(
           width: double.infinity,
-          // 1px frame always — selected uses gradient, idle uses muted edge.
-          padding: const EdgeInsets.all(1),
+          constraints: BoxConstraints(minHeight: minH),
+          padding: EdgeInsets.fromLTRB(12, vPad, 10, vPad),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            gradient: selected
-                ? const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      AppColors.resonanceViolet,
-                      AppColors.electricBlue,
-                      Color(0xFFE3C565),
-                    ],
-                  )
-                : null,
-            color: selected ? null : const Color(0x448A90B8),
+            gradient: selected ? selectedFill : null,
+            color: selected ? null : const Color(0x59101828),
+            border: Border.all(
+              color: selected
+                  ? Colors.white.withValues(alpha: 0.28)
+                  : const Color(0x448A90B8),
+              width: 1,
+            ),
             boxShadow: selected
                 ? [
                     BoxShadow(
-                      color: AppColors.resonanceViolet.withValues(alpha: 0.28),
-                      blurRadius: 12,
-                      offset: const Offset(0, 3),
+                      color: const Color(0xFF4B1FE0).withValues(alpha: 0.38),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
                     ),
                     BoxShadow(
-                      color: AppColors.softGold.withValues(alpha: 0.14),
-                      blurRadius: 10,
+                      color: const Color(0xFFF0C65A).withValues(alpha: 0.22),
+                      blurRadius: 16,
+                      offset: const Offset(0, 4),
                     ),
                   ]
                 : null,
           ),
-          child: Container(
-            constraints: BoxConstraints(minHeight: minH - 2),
-            padding: EdgeInsets.fromLTRB(11, vPad - 0.5, 9, vPad - 0.5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: fill,
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: badge,
-                  height: badge,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+          child: Row(
+            children: [
+              Container(
+                width: badge,
+                height: badge,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: selected
+                      ? Colors.white.withValues(alpha: 0.12)
+                      : const Color(0x33101828),
+                  border: Border.all(
                     color: selected
-                        ? AppColors.resonanceViolet.withValues(alpha: 0.72)
-                        : const Color(0x33101828),
-                    border: Border.all(
-                      color: selected
-                          ? AppColors.softGold.withValues(alpha: 0.55)
-                          : const Color(0x558A90B8),
-                      width: 1,
-                    ),
-                  ),
-                  child: Text(
-                    letter,
-                    style: GoogleFonts.inter(
-                      color: selected
-                          ? Colors.white
-                          : const Color(0xFFB8C0D8),
-                      fontSize: compact ? 12.5 : 13,
-                      fontWeight: FontWeight.w700,
-                      height: 1,
-                    ),
+                        ? Colors.white.withValues(alpha: 0.35)
+                        : const Color(0x558A90B8),
+                    width: 1,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    label,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      color: Colors.white.withValues(
-                        alpha: selected ? 1.0 : 0.82,
+                child: Text(
+                  letter,
+                  style: GoogleFonts.inter(
+                    color: selected
+                        ? Colors.white
+                        : const Color(0xFFB8C0D8),
+                    fontSize: compact ? 12.5 : 13,
+                    fontWeight: FontWeight.w700,
+                    height: 1,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  label,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    color: Colors.white.withValues(
+                      alpha: selected ? 1.0 : 0.82,
+                    ),
+                    fontSize: compact ? 13.5 : 14.5,
+                    fontWeight:
+                        selected ? FontWeight.w600 : FontWeight.w400,
+                    height: 1.25,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: compact ? 20 : 22,
+                height: compact ? 20 : 22,
+                child: selected
+                    ? Icon(
+                        Icons.check_circle_rounded,
+                        size: compact ? 20 : 22,
+                        color: AppColors.softGold.withValues(alpha: 0.95),
+                      )
+                    : Icon(
+                        Icons.circle_outlined,
+                        size: compact ? 16 : 18,
+                        color: const Color(0x448A90B8),
                       ),
-                      fontSize: compact ? 13.5 : 14.5,
-                      fontWeight:
-                          selected ? FontWeight.w600 : FontWeight.w400,
-                      height: 1.25,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: compact ? 20 : 22,
-                  height: compact ? 20 : 22,
-                  child: selected
-                      ? Icon(
-                          Icons.check_circle_rounded,
-                          size: compact ? 20 : 22,
-                          color: AppColors.softGold.withValues(alpha: 0.95),
-                        )
-                      : Icon(
-                          Icons.circle_outlined,
-                          size: compact ? 16 : 18,
-                          color: const Color(0x448A90B8),
-                        ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -416,8 +415,7 @@ class IqContinueButton extends StatelessWidget {
     final glowG = active ? 0.22 : 0.08;
     final tint = active ? 1.0 : 0.52;
 
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 180),
+    return Opacity(
       opacity: active ? 1.0 : 0.72,
       child: Container(
         decoration: BoxDecoration(
