@@ -280,12 +280,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                   SizedBox(
                     height: heroH,
                     width: double.infinity,
-                    child: Image.asset(
-                      'assets/images/iq_question_neural_hero.png',
-                      fit: BoxFit.contain,
-                      filterQuality: FilterQuality.high,
-                      gaplessPlayback: true,
-                    ),
+                    child: const IqQuestionBreathingHero(),
                   ),
                   IqInsightQuestionCard(
                     text: currentQuestion.question,
