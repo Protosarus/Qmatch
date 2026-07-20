@@ -9,7 +9,7 @@ import '../models/question_model.dart';
 import '../services/assessment_set_service.dart';
 import '../services/question_service.dart';
 import '../widgets/assessment_widgets.dart';
-import 'eq_test_screen.dart';
+import 'eq_test_intro_screen.dart';
 
 class IQTestScreen extends StatefulWidget {
   const IQTestScreen({super.key});
@@ -137,7 +137,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
             onStartEq: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => EQTestScreen(iqScore: score),
+                  builder: (context) => EQTestIntroScreen(iqScore: score),
                 ),
               );
             },

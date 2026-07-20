@@ -112,7 +112,42 @@ class AppLocalizationsTr extends AppLocalizations {
   String get eqTestTitle => 'EQ Testi';
 
   @override
-  String get eqIntroHeadline => 'Duygusal Zeka';
+  String get eqIntroLabel => 'EQ Değerlendirmesi';
+
+  @override
+  String get eqIntroMeta => '10 soru · Yaklaşık 5 dakika';
+
+  @override
+  String get eqIntroStart => 'EQ değerlendirmesine başla';
+
+  @override
+  String get eqIntroHeadlineLead => 'Duygusal';
+
+  @override
+  String get eqIntroHeadlineEmphasis => 'zekâ';
+
+  @override
+  String get eqPillarSelfAwareness => 'Öz farkındalık';
+
+  @override
+  String get eqPillarEmpathy => 'Empati';
+
+  @override
+  String get eqPillarBalance => 'Duygusal Denge';
+
+  @override
+  String get eqPillarHarmony => 'İçsel Uyum';
+
+  @override
+  String eqQuestionProgress(int current, int total) {
+    return 'EQ · Soru $current / $total';
+  }
+
+  @override
+  String get eqQuestionInsightLabel => 'Duygusal Derinlik';
+
+  @override
+  String get eqIntroHeadline => 'Duygusal zekâ';
 
   @override
   String get eqIntroDescription =>

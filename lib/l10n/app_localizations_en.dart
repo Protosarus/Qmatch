@@ -111,6 +111,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eqTestTitle => 'EQ Test';
 
   @override
+  String get eqIntroLabel => 'EQ Assessment';
+
+  @override
+  String get eqIntroMeta => '10 questions · About 5 minutes';
+
+  @override
+  String get eqIntroStart => 'Begin EQ assessment';
+
+  @override
+  String get eqIntroHeadlineLead => 'Emotional';
+
+  @override
+  String get eqIntroHeadlineEmphasis => 'Intelligence';
+
+  @override
+  String get eqPillarSelfAwareness => 'Self-awareness';
+
+  @override
+  String get eqPillarEmpathy => 'Empathy';
+
+  @override
+  String get eqPillarBalance => 'Emotional Balance';
+
+  @override
+  String get eqPillarHarmony => 'Inner Harmony';
+
+  @override
+  String eqQuestionProgress(int current, int total) {
+    return 'EQ · Question $current of $total';
+  }
+
+  @override
+  String get eqQuestionInsightLabel => 'Emotional Depth';
+
+  @override
   String get eqIntroHeadline => 'Emotional Intelligence';
 
   @override

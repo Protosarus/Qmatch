@@ -62,7 +62,24 @@
   "iqToEqMessage": "Zihinsel profilinin ilk bölümü hazır. Şimdi duygusal profiline geçelim.",
   "continueToEqAssessment": "EQ değerlendirmesine geç",
   "eqTestTitle": "EQ Testi",
-  "eqIntroHeadline": "Duygusal Zeka",
+  "eqIntroLabel": "EQ Değerlendirmesi",
+  "eqIntroMeta": "10 soru · Yaklaşık 5 dakika",
+  "eqIntroStart": "EQ değerlendirmesine başla",
+  "eqIntroHeadlineLead": "Duygusal",
+  "eqIntroHeadlineEmphasis": "zekâ",
+  "eqPillarSelfAwareness": "Öz farkındalık",
+  "eqPillarEmpathy": "Empati",
+  "eqPillarBalance": "Duygusal Denge",
+  "eqPillarHarmony": "İçsel Uyum",
+  "eqQuestionProgress": "EQ · Soru {current} / {total}",
+  "@eqQuestionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "eqQuestionInsightLabel": "Duygusal Derinlik",
+  "eqIntroHeadline": "Duygusal zekâ",
   "eqIntroDescription": "Duygusal zeka (EQ), hem kendi duygularını hem de başkalarınınkini anlama ve yönetme becerini ölçer.",
   "eqBulletQuestions": "10 senaryo tabanlı soru",
   "eqBulletEmpathy": "Empati ve öz farkındalığı ölçer",

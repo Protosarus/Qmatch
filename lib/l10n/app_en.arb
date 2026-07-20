@@ -62,6 +62,23 @@
   "iqToEqMessage": "The first part of your cognitive profile is ready. Now let's continue with your emotional profile.",
   "continueToEqAssessment": "Continue to EQ assessment",
   "eqTestTitle": "EQ Test",
+  "eqIntroLabel": "EQ Assessment",
+  "eqIntroMeta": "10 questions · About 5 minutes",
+  "eqIntroStart": "Begin EQ assessment",
+  "eqIntroHeadlineLead": "Emotional",
+  "eqIntroHeadlineEmphasis": "Intelligence",
+  "eqPillarSelfAwareness": "Self-awareness",
+  "eqPillarEmpathy": "Empathy",
+  "eqPillarBalance": "Emotional Balance",
+  "eqPillarHarmony": "Inner Harmony",
+  "eqQuestionProgress": "EQ · Question {current} of {total}",
+  "@eqQuestionProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "eqQuestionInsightLabel": "Emotional Depth",
   "eqIntroHeadline": "Emotional Intelligence",
   "eqIntroDescription": "Your emotional quotient (EQ) measures your ability to understand and manage emotions - both yours and others'.",
   "eqBulletQuestions": "10 scenario-based questions",

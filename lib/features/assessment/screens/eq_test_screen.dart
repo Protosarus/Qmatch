@@ -261,8 +261,10 @@ class _EQTestScreenState extends State<EQTestScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     if (_isLoading) {
-      return QAssessmentScaffold(
-        child: const Center(
+      return const QAssessmentScaffold(
+        richBackdrop: true,
+        backgroundImageAsset: 'assets/images/eq_question_cosmic_bg.png',
+        child: Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(AppColors.vizEq),
           ),
@@ -272,11 +274,16 @@ class _EQTestScreenState extends State<EQTestScreen> {
 
     if (_questions.isEmpty) {
       return QAssessmentScaffold(
+        richBackdrop: true,
+        backgroundImageAsset: 'assets/images/eq_question_cosmic_bg.png',
         child: Center(
-          child: Text(
-            l10n.assessmentNoQuestionsAvailable,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(color: Colors.white),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Text(
+              l10n.assessmentNoQuestionsAvailable,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.inter(color: Colors.white),
+            ),
           ),
         ),
       );
@@ -288,55 +295,105 @@ class _EQTestScreenState extends State<EQTestScreen> {
     final isLast = _currentQuestionIndex >= _questions.length - 1;
 
     return QAssessmentScaffold(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          QAssessmentHeader(
-            title: l10n.eqTestTitle,
-            currentIndex: _currentQuestionIndex + 1,
-            total: _questions.length,
-          ),
-          const SizedBox(height: 12),
-          QAssessmentProgress(value: progress),
-          const SizedBox(height: 16),
-          Expanded(
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                SliverToBoxAdapter(
-                  child: QQuestionCard(text: currentQuestion.question),
-                ),
-                const SliverToBoxAdapter(child: SizedBox(height: 14)),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: QAnswerOptionCard(
-                          index: index,
-                          label: currentQuestion.options[index],
-                          selected: _selectedAnswer == index,
-                          onTap: () {
-                            setState(() {
-                              _selectedAnswer = index;
-                            });
-                          },
+      richBackdrop: true,
+      backgroundImageAsset: 'assets/images/eq_question_cosmic_bg.png',
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final h = constraints.maxHeight;
+          final compact = h < 760;
+          final heroH = (h * (compact ? 0.18 : 0.20)).clamp(110.0, 168.0);
+
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              IgnorePointer(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FractionallySizedBox(
+                    heightFactor: 0.58,
+                    widthFactor: 1,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            const Color(0x33060A14),
+                            const Color(0x77050A12),
+                            const Color(0x99040A10),
+                          ],
+                          stops: const [0.0, 0.28, 0.62, 1.0],
                         ),
-                      );
-                    },
-                    childCount: currentQuestion.options.length,
+                      ),
+                    ),
                   ),
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 8)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          QAssessmentNavigation(
-            label: isLast ? l10n.assessmentFinish : l10n.assessmentNext,
-            onPressed: _nextQuestion,
-          ),
-        ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  EqQuestionTopBar(
+                    onBack: () => Navigator.of(context).maybePop(),
+                  ),
+                  const SizedBox(height: 2),
+                  EqQuestionProgressHeader(
+                    label: l10n.eqQuestionProgress(
+                      _currentQuestionIndex + 1,
+                      _questions.length,
+                    ),
+                    progress: progress,
+                  ),
+                  SizedBox(
+                    height: heroH,
+                    width: double.infinity,
+                    child: Image.asset(
+                      'assets/images/eq_question_couple_hero.png',
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.high,
+                      gaplessPlayback: true,
+                    ),
+                  ),
+                  EqInsightQuestionCard(
+                    insightLabel: l10n.eqQuestionInsightLabel,
+                    text: currentQuestion.question,
+                    compact: compact,
+                  ),
+                  SizedBox(height: compact ? 6.0 : 8.0),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        for (var index = 0;
+                            index < currentQuestion.options.length;
+                            index++)
+                          EqAnswerOptionRow(
+                            index: index,
+                            label: currentQuestion.options[index],
+                            selected: _selectedAnswer == index,
+                            compact: true,
+                            onTap: () {
+                              setState(() {
+                                _selectedAnswer = index;
+                              });
+                            },
+                          ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  EqContinueButton(
+                    label: isLast
+                        ? l10n.assessmentFinish
+                        : l10n.assessmentContinue,
+                    active: _selectedAnswer != null,
+                    onPressed: _nextQuestion,
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

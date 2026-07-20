@@ -284,6 +284,72 @@ abstract class AppLocalizations {
   /// **'EQ Test'**
   String get eqTestTitle;
 
+  /// No description provided for @eqIntroLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'EQ Assessment'**
+  String get eqIntroLabel;
+
+  /// No description provided for @eqIntroMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'10 questions · About 5 minutes'**
+  String get eqIntroMeta;
+
+  /// No description provided for @eqIntroStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Begin EQ assessment'**
+  String get eqIntroStart;
+
+  /// No description provided for @eqIntroHeadlineLead.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional'**
+  String get eqIntroHeadlineLead;
+
+  /// No description provided for @eqIntroHeadlineEmphasis.
+  ///
+  /// In en, this message translates to:
+  /// **'Intelligence'**
+  String get eqIntroHeadlineEmphasis;
+
+  /// No description provided for @eqPillarSelfAwareness.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-awareness'**
+  String get eqPillarSelfAwareness;
+
+  /// No description provided for @eqPillarEmpathy.
+  ///
+  /// In en, this message translates to:
+  /// **'Empathy'**
+  String get eqPillarEmpathy;
+
+  /// No description provided for @eqPillarBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Balance'**
+  String get eqPillarBalance;
+
+  /// No description provided for @eqPillarHarmony.
+  ///
+  /// In en, this message translates to:
+  /// **'Inner Harmony'**
+  String get eqPillarHarmony;
+
+  /// No description provided for @eqQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'EQ · Question {current} of {total}'**
+  String eqQuestionProgress(int current, int total);
+
+  /// No description provided for @eqQuestionInsightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Depth'**
+  String get eqQuestionInsightLabel;
+
   /// No description provided for @eqIntroHeadline.
   ///
   /// In en, this message translates to:
