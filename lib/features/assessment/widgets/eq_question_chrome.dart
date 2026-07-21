@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
+import 'frequency_question_chrome.dart';
 
 /// EQ question-screen chrome — presentation only; host owns selection / next.
 class EqQuestionTopBar extends StatelessWidget {
@@ -374,12 +375,14 @@ class EqAnswerOptionRow extends StatelessWidget {
                 boxShadow: selected
                     ? [
                         BoxShadow(
-                          color: const Color(0xFF4B1FE0).withValues(alpha: 0.38),
+                          color:
+                              const Color(0xFF4B1FE0).withValues(alpha: 0.38),
                           blurRadius: 20,
                           offset: const Offset(0, 8),
                         ),
                         BoxShadow(
-                          color: const Color(0xFFF0C65A).withValues(alpha: 0.22),
+                          color:
+                              const Color(0xFFF0C65A).withValues(alpha: 0.22),
                           blurRadius: 16,
                           offset: const Offset(0, 4),
                         ),
@@ -474,104 +477,10 @@ class EqContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final glowV = active ? 0.38 : 0.14;
-    final glowG = active ? 0.22 : 0.08;
-    final tint = active ? 1.0 : 0.52;
-
-    // Instant active glow — no tween (matches IQ Continue).
-    return Opacity(
-      opacity: active ? 1.0 : 0.72,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: AppRadii.pillBorder,
-          boxShadow: [
-            BoxShadow(
-              color: const Color(0xFF4B1FE0).withValues(alpha: glowV),
-              blurRadius: active ? 20 : 10,
-              offset: const Offset(0, 8),
-            ),
-            BoxShadow(
-              color: const Color(0xFFF0C65A).withValues(alpha: glowG),
-              blurRadius: active ? 16 : 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: AppRadii.pillBorder,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-            child: Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                onTap: onPressed,
-                borderRadius: AppRadii.pillBorder,
-                splashColor: Colors.white.withValues(alpha: 0.12),
-                highlightColor: Colors.white.withValues(alpha: 0.06),
-                child: Ink(
-                  height: 54,
-                  decoration: BoxDecoration(
-                    borderRadius: AppRadii.pillBorder,
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        Color.fromRGBO(75, 31, 224, 0.52 * tint),
-                        Color.fromRGBO(122, 60, 240, 0.42 * tint),
-                        Color.fromRGBO(212, 160, 58, 0.48 * tint),
-                        Color.fromRGBO(240, 198, 90, 0.55 * tint),
-                      ],
-                      stops: const [0.0, 0.40, 0.72, 1.0],
-                    ),
-                    border: Border.all(
-                      color: Colors.white.withValues(
-                        alpha: active ? 0.28 : 0.16,
-                      ),
-                      width: 1,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white.withValues(alpha: 0.12),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.35),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.psychology_rounded,
-                            size: 15,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            label,
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.playfairDisplay(
-                              color: Colors.white.withValues(alpha: 0.96),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.3,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 32),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+    return FrequencyContinueButton(
+      label: label,
+      onPressed: onPressed,
+      active: active,
     );
   }
 }
@@ -596,7 +505,8 @@ class _EqMindHeartFigureState extends State<EqMindHeartFigure>
       setState(() {
         _seconds = elapsed.inMicroseconds / 1e6;
       });
-    })..start();
+    })
+      ..start();
   }
 
   @override
@@ -697,7 +607,8 @@ class _BrainHeartLinkPainter extends CustomPainter {
       c,
       outerR * 0.55,
       Paint()
-        ..color = const Color(0xFFFFF2C8).withValues(alpha: 0.22 + breath * 0.28)
+        ..color =
+            const Color(0xFFFFF2C8).withValues(alpha: 0.22 + breath * 0.28)
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.007)
         ..blendMode = BlendMode.plus,
     );
