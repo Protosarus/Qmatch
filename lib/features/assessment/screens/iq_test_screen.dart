@@ -100,9 +100,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
   Future<void> _loadQuestions() async {
     try {
-      final languageCode =
-          Localizations.maybeLocaleOf(context)?.languageCode ??
-              WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
       final questions = await _questionService.getRandomIQQuestions(
         count: 10,
         languageCode: languageCode,
@@ -196,7 +195,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
     if (_isLoading) {
       return const QAssessmentScaffold(
         richBackdrop: true,
-        backgroundImageAsset: 'assets/images/iq_question_cosmic_bg.png',
+        backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
         child: Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(AppColors.vizIq),
@@ -208,7 +207,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
     if (_questions.isEmpty) {
       return QAssessmentScaffold(
         richBackdrop: true,
-        backgroundImageAsset: 'assets/images/iq_question_cosmic_bg.png',
+        backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -228,7 +227,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
     return QAssessmentScaffold(
       richBackdrop: true,
-      backgroundImageAsset: 'assets/images/iq_question_cosmic_bg.png',
+      backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
       child: LayoutBuilder(
         builder: (context, constraints) {
           final h = constraints.maxHeight;
@@ -324,8 +323,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom:
-                      _continueButtonHeight + _warningAboveContinueGap,
+                  bottom: _continueButtonHeight + _warningAboveContinueGap,
                   child: IgnorePointer(
                     child: _IqSelectAnswerWarningBanner(
                       message: l10n.iqPleaseSelectAnswerToContinue,
