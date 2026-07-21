@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/navigation/auth_wrapper.dart';
+import '../assessment/screens/frequency_test_screen.dart';
 import 'screens/assessment_admin_screen.dart';
 import 'screens/persona_result_preview_screen.dart';
 
@@ -96,6 +97,29 @@ class DebugHomeScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Persona Result Preview',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const FrequencyTestScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.black,
+                      minimumSize: const Size(double.infinity, 48),
+                    ),
+                    child: Text(
+                      'Frequency Question Preview',
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
