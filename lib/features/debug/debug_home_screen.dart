@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/navigation/auth_wrapper.dart';
 import 'screens/assessment_admin_screen.dart';
+import 'screens/persona_result_preview_screen.dart';
 
 /// Debug hub. Not for production — refuses when [kDebugMode] is false.
 class DebugHomeScreen extends StatelessWidget {
@@ -72,6 +73,29 @@ class DebugHomeScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Assessment Admin',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const PersonaResultPreviewScreen(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: Colors.black,
+                      minimumSize: const Size(double.infinity, 48),
+                    ),
+                    child: Text(
+                      'Persona Result Preview',
                       style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

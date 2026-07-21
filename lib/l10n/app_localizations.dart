@@ -194,6 +194,18 @@ abstract class AppLocalizations {
   /// **'Assessment Complete!'**
   String get assessmentComplete;
 
+  /// No description provided for @assessmentProfileCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your mental profile is ready.'**
+  String get assessmentProfileCreated;
+
+  /// No description provided for @assessmentViewProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'View My Profile'**
+  String get assessmentViewProfile;
+
   /// No description provided for @assessmentPleaseSelectAnswer.
   ///
   /// In en, this message translates to:
@@ -355,6 +367,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'EQ'**
   String get eqQuestionInsightLabel;
+
+  /// No description provided for @eqCategoryEmpathy.
+  ///
+  /// In en, this message translates to:
+  /// **'Empathy'**
+  String get eqCategoryEmpathy;
+
+  /// No description provided for @eqCategorySelfAwareness.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-Awareness'**
+  String get eqCategorySelfAwareness;
+
+  /// No description provided for @eqCategoryEmotionalBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Balance'**
+  String get eqCategoryEmotionalBalance;
+
+  /// No description provided for @eqCategorySocialAwareness.
+  ///
+  /// In en, this message translates to:
+  /// **'Social Awareness'**
+  String get eqCategorySocialAwareness;
+
+  /// No description provided for @eqCategoryRelationshipManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship Management'**
+  String get eqCategoryRelationshipManagement;
 
   /// No description provided for @eqIntroHeadline.
   ///

@@ -13,7 +13,6 @@ import '../models/question_model.dart';
 import '../models/archetype_model.dart';
 import '../services/assessment_set_service.dart';
 import '../services/question_service.dart';
-import '../utils/assessment_language.dart';
 import '../utils/assessment_result_display_resolver.dart';
 import '../widgets/assessment_widgets.dart';
 import 'frequency_intro_screen.dart';
@@ -47,6 +46,17 @@ class _EQTestScreenState extends State<EQTestScreen> {
 
   static const _continueButtonHeight = 54.0;
   static const _warningAboveContinueGap = 12.0;
+  static const _personaAssetsByCategory = <String, String>{
+    'HH': 'assets/images/assessment_persona_mastermind_brain.png',
+    'HM': 'assets/images/assessment_persona_strategist_knight_medallion.png',
+    'HL': 'assets/images/assessment_persona_architect_compass.png',
+    'MH': 'assets/images/assessment_persona_diplomat_handshake.png',
+    'MM': 'assets/images/assessment_persona_realist_scales.png',
+    'ML': 'assets/images/assessment_persona_technician_wrench.png',
+    'LH': 'assets/images/assessment_persona_healer_reward_sparse.png',
+    'LM': 'assets/images/assessment_persona_observer_eye.png',
+    'LL': 'assets/images/assessment_persona_executor_reward_sparse.png',
+  };
 
   @override
   void initState() {
@@ -113,9 +123,8 @@ class _EQTestScreenState extends State<EQTestScreen> {
 
   Future<void> _loadQuestions() async {
     try {
-      final languageCode =
-          Localizations.maybeLocaleOf(context)?.languageCode ??
-              WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
       final questions = await _questionService.getRandomEQQuestions(
         count: 10,
         languageCode: languageCode,
@@ -165,9 +174,8 @@ class _EQTestScreenState extends State<EQTestScreen> {
     );
 
     try {
-      final languageCode =
-          Localizations.maybeLocaleOf(context)?.languageCode ??
-              WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
       await _authService.updateTestCompletion(
         archetype: archetype.name,
         category: archetype.category,
@@ -190,104 +198,41 @@ class _EQTestScreenState extends State<EQTestScreen> {
     if (!mounted) return;
 
     final l10n = AppLocalizations.of(context)!;
-    final languageCode = AssessmentLanguage.languageUsed(
-      languageCode: Localizations.maybeLocaleOf(context)?.languageCode,
-    );
+    final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
     final display = AssessmentResultDisplayResolver.resolveIqEqLevel(
       archetype.category,
       languageCode: languageCode,
     );
-    final emoji = display.emoji ?? archetype.emoji;
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.background,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        title: Column(
-          children: [
-            Text(
-              emoji,
-              style: const TextStyle(fontSize: 64),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              display.title,
-              style: GoogleFonts.playfairDisplay(
-                color: AppColors.primary,
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            if (display.tags.isNotEmpty) ...[
-              const SizedBox(height: 8),
-              Text(
-                display.tags.take(2).join(' · '),
-                style: GoogleFonts.inter(
-                  color: AppColors.primary.withValues(alpha: 0.7),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+    // Full-screen result stage — replaces the EQ question route (no Dialog).
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder<void>(
+        opaque: true,
+        barrierDismissible: false,
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return AssessmentResultFrame(
+            title: display.title,
+            tags: display.tags,
+            description: display.description,
+            personaAsset: _personaAssetsByCategory[archetype.category] ??
+                _personaAssetsByCategory['LL']!,
+            statusLabel: l10n.assessmentProfileCreated,
+            ctaLabel: l10n.assessmentViewProfile,
+            onCta: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const FrequencyIntroScreen(),
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              display.description,
-              style: GoogleFonts.inter(
-                color: AppColors.textSecondary,
-                fontSize: 14,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              l10n.assessmentComplete,
-              style: GoogleFonts.inter(
-                color: AppColors.textSecondary,
-                fontSize: 12,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-        actions: [
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(
-                    builder: (context) => const FrequencyIntroScreen(),
-                  ),
-                  (route) => false,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(
-                l10n.assessmentContinue,
-                style: GoogleFonts.inter(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-        ],
+                (route) => false,
+              );
+            },
+          );
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        transitionDuration: const Duration(milliseconds: 280),
       ),
     );
   }
@@ -326,8 +271,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
     }
 
     final currentQuestion = _questions[_currentQuestionIndex];
-    final progress =
-        (_currentQuestionIndex + 1) / _questions.length;
+    final progress = (_currentQuestionIndex + 1) / _questions.length;
     final isLast = _currentQuestionIndex >= _questions.length - 1;
 
     return QAssessmentScaffold(
@@ -337,7 +281,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
         builder: (context, constraints) {
           final h = constraints.maxHeight;
           final compact = h < 760;
-          final heroH = (h * (compact ? 0.18 : 0.20)).clamp(110.0, 168.0);
+          final heroH = (h * (compact ? 0.205 : 0.228)).clamp(126.0, 192.0);
 
           return Stack(
             fit: StackFit.expand,
@@ -386,7 +330,10 @@ class _EQTestScreenState extends State<EQTestScreen> {
                     child: const EqMindHeartFigure(),
                   ),
                   EqInsightQuestionCard(
-                    insightLabel: l10n.eqQuestionInsightLabel,
+                    insightLabel: EqInsightQuestionCard.categoryLabelFor(
+                      currentQuestion.id,
+                      l10n,
+                    ),
                     text: currentQuestion.question,
                     compact: compact,
                   ),
@@ -430,8 +377,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
                 Positioned(
                   left: 0,
                   right: 0,
-                  bottom:
-                      _continueButtonHeight + _warningAboveContinueGap,
+                  bottom: _continueButtonHeight + _warningAboveContinueGap,
                   child: IgnorePointer(
                     child: _EqSelectAnswerWarningBanner(
                       message: l10n.iqPleaseSelectAnswerToContinue,

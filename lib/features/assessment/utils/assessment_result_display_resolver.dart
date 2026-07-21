@@ -195,9 +195,9 @@ class AssessmentResultDisplayResolver {
       titleEn: 'The Strategist',
       titleTr: 'Stratejist',
       descEn:
-          'High analytical ability with balanced social skills. You think several moves ahead.',
+          'The power that sees and plans every move ahead.',
       descTr:
-          'Yüksek analitik güç ve dengeli sosyal beceri. Birkaç hamle ötesini düşünürsün.',
+          'Hamlelerini önceden gören, planlayan güç.',
       tagsEn: ['Analytical', 'Balanced social'],
       tagsTr: ['Analitik', 'Dengeli sosyal'],
       emoji: '♟️',
@@ -250,9 +250,9 @@ class AssessmentResultDisplayResolver {
       titleEn: 'The Healer',
       titleTr: 'Şifacı',
       descEn:
-          'High emotional depth with softer analytical drive. Empathy leads your presence.',
+          'The power that heals, restores balance, and transforms through compassion.',
       descTr:
-          'Yüksek duygusal derinlik, daha yumuşak analitik tempo. Empati senin varoluşunu yönetir.',
+          'İyileştiren, dengeleyen ve şefkatiyle dönüştüren güç.',
       tagsEn: ['Empathic', 'Caring'],
       tagsTr: ['Empatik', 'Şefkatli'],
       emoji: '💚',
@@ -272,11 +272,11 @@ class AssessmentResultDisplayResolver {
       titleEn: 'The Executor',
       titleTr: 'Uygulayıcı',
       descEn:
-          'Practical implementer. You get things done through persistence and presence.',
+          'The power that plans, takes action, and focuses on results.',
       descTr:
-          'Pratik bir uygulayıcısın. Direnç ve varlıkla işleri ileri taşırsın.',
-      tagsEn: ['Persistent', 'Hands-on'],
-      tagsTr: ['Dirençli', 'Pratik'],
+          'Plan yapan, harekete geçen ve sonuca odaklanan güç.',
+      tagsEn: ['Practical', 'Reliable', 'Determined'],
+      tagsTr: ['Pratik', 'Güvenilir', 'Kararlı'],
       emoji: '⚙️',
     ),
   };

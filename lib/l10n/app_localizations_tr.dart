@@ -64,6 +64,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get assessmentComplete => 'Değerlendirme tamamlandı!';
 
   @override
+  String get assessmentProfileCreated => 'Zihinsel profilin oluşturuldu.';
+
+  @override
+  String get assessmentViewProfile => 'Profilimi Gör';
+
+  @override
   String get assessmentPleaseSelectAnswer => 'Lütfen bir cevap seçin';
 
   @override
@@ -148,6 +154,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get eqQuestionInsightLabel => 'EQ';
+
+  @override
+  String get eqCategoryEmpathy => 'Empati';
+
+  @override
+  String get eqCategorySelfAwareness => 'Öz Farkındalık';
+
+  @override
+  String get eqCategoryEmotionalBalance => 'Duygusal Denge';
+
+  @override
+  String get eqCategorySocialAwareness => 'Sosyal Farkındalık';
+
+  @override
+  String get eqCategoryRelationshipManagement => 'İlişki Yönetimi';
 
   @override
   String get eqIntroHeadline => 'Duygusal zekâ';

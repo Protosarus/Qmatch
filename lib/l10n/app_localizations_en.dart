@@ -63,6 +63,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assessmentComplete => 'Assessment Complete!';
 
   @override
+  String get assessmentProfileCreated => 'Your mental profile is ready.';
+
+  @override
+  String get assessmentViewProfile => 'View My Profile';
+
+  @override
   String get assessmentPleaseSelectAnswer => 'Please select an answer';
 
   @override
@@ -147,6 +153,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eqQuestionInsightLabel => 'EQ';
+
+  @override
+  String get eqCategoryEmpathy => 'Empathy';
+
+  @override
+  String get eqCategorySelfAwareness => 'Self-Awareness';
+
+  @override
+  String get eqCategoryEmotionalBalance => 'Emotional Balance';
+
+  @override
+  String get eqCategorySocialAwareness => 'Social Awareness';
+
+  @override
+  String get eqCategoryRelationshipManagement => 'Relationship Management';
 
   @override
   String get eqIntroHeadline => 'Emotional Intelligence';

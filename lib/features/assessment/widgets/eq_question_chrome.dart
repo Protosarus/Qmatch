@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// EQ question-screen chrome — presentation only; host owns selection / next.
 class EqQuestionTopBar extends StatelessWidget {
@@ -99,7 +100,7 @@ class EqSparkProgressBar extends StatelessWidget {
   const EqSparkProgressBar({
     super.key,
     required this.value,
-    this.height = 7,
+    this.height = 9,
   });
 
   final double value;
@@ -112,10 +113,10 @@ class EqSparkProgressBar extends StatelessWidget {
       builder: (context, constraints) {
         final trackW = constraints.maxWidth;
         final fillW = trackW * clamped;
-        final tipX = (fillW - 7).clamp(0.0, trackW - 14);
+        final tipX = (fillW - 8).clamp(0.0, trackW - 16);
 
         return SizedBox(
-          height: height + 10,
+          height: height + 12,
           child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.centerLeft,
@@ -125,7 +126,9 @@ class EqSparkProgressBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0x33101828),
                   borderRadius: BorderRadius.circular(height),
-                  border: Border.all(color: AppColors.vizEq.withValues(alpha: 0.22)),
+                  border: Border.all(
+                    color: AppColors.vizEq.withValues(alpha: 0.28),
+                  ),
                 ),
               ),
               AnimatedContainer(
@@ -145,8 +148,8 @@ class EqSparkProgressBar extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.vizEq.withValues(alpha: 0.4),
-                      blurRadius: 10,
+                      color: AppColors.vizEq.withValues(alpha: 0.48),
+                      blurRadius: 12,
                     ),
                   ],
                 ),
@@ -154,8 +157,8 @@ class EqSparkProgressBar extends StatelessWidget {
               Positioned(
                 left: tipX,
                 child: Container(
-                  width: 14,
-                  height: 14,
+                  width: 16,
+                  height: 16,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: const RadialGradient(
@@ -168,9 +171,9 @@ class EqSparkProgressBar extends StatelessWidget {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.softGold.withValues(alpha: 0.7),
-                        blurRadius: 10,
-                        spreadRadius: 1,
+                        color: AppColors.softGold.withValues(alpha: 0.82),
+                        blurRadius: 14,
+                        spreadRadius: 1.5,
                       ),
                     ],
                   ),
@@ -201,6 +204,19 @@ class EqInsightQuestionCard extends StatelessWidget {
   final String text;
   final bool compact;
 
+  /// Presentation-only EQ facet label from stable question id.
+  static String categoryLabelFor(String questionId, AppLocalizations l10n) {
+    final labels = <String>[
+      l10n.eqCategoryEmpathy,
+      l10n.eqCategorySelfAwareness,
+      l10n.eqCategoryEmotionalBalance,
+      l10n.eqCategorySocialAwareness,
+      l10n.eqCategoryRelationshipManagement,
+    ];
+    final i = questionId.hashCode.abs() % labels.length;
+    return labels[i];
+  }
+
   @override
   Widget build(BuildContext context) {
     final padH = compact ? 14.0 : 16.0;
@@ -211,7 +227,7 @@ class EqInsightQuestionCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: AppRadii.cardBorder,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+        filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.fromLTRB(padH, padV, padH, padV),
@@ -256,7 +272,7 @@ class EqInsightQuestionCard extends StatelessWidget {
                       color: AppColors.vizEq.withValues(alpha: 0.88),
                       fontSize: compact ? 10.5 : 11,
                       fontWeight: FontWeight.w600,
-                      letterSpacing: 0.8,
+                      letterSpacing: 0.6,
                       height: 1.1,
                     ),
                   ),
@@ -336,97 +352,107 @@ class EqAnswerOptionRow extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         splashColor: AppColors.vizEq.withValues(alpha: 0.16),
         highlightColor: AppColors.vizEq.withValues(alpha: 0.06),
-        child: Container(
-          width: double.infinity,
-          constraints: BoxConstraints(minHeight: minH),
-          padding: EdgeInsets.fromLTRB(12, vPad, 10, vPad),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            gradient: selected ? selectedFill : null,
-            color: selected ? null : const Color(0x59101828),
-            border: Border.all(
-              color: selected
-                  ? Colors.white.withValues(alpha: 0.28)
-                  : const Color(0x448A90B8),
-              width: 1,
-            ),
-            boxShadow: selected
-                ? [
-                    BoxShadow(
-                      color: const Color(0xFF4B1FE0).withValues(alpha: 0.38),
-                      blurRadius: 20,
-                      offset: const Offset(0, 8),
-                    ),
-                    BoxShadow(
-                      color: const Color(0xFFF0C65A).withValues(alpha: 0.22),
-                      blurRadius: 16,
-                      offset: const Offset(0, 4),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: badge,
-                height: badge,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            // Instant selected glow — no tween (avoids two-step feel).
+            child: Container(
+              width: double.infinity,
+              constraints: BoxConstraints(minHeight: minH),
+              padding: EdgeInsets.fromLTRB(12, vPad, 10, vPad),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: selected ? selectedFill : null,
+                color: selected ? null : const Color(0x66101828),
+                border: Border.all(
                   color: selected
-                      ? Colors.white.withValues(alpha: 0.12)
-                      : const Color(0x33101828),
-                  border: Border.all(
-                    color: selected
-                        ? Colors.white.withValues(alpha: 0.35)
-                        : AppColors.vizEq.withValues(alpha: 0.35),
-                    width: 1,
-                  ),
+                      ? Colors.white.withValues(alpha: 0.28)
+                      : const Color(0x448A90B8),
+                  width: 1,
                 ),
-                child: Text(
-                  letter,
-                  style: GoogleFonts.inter(
-                    color: selected
-                        ? Colors.white
-                        : AppColors.vizEq.withValues(alpha: 0.9),
-                    fontSize: compact ? 12.5 : 13,
-                    fontWeight: FontWeight.w700,
-                    height: 1,
-                  ),
-                ),
+                boxShadow: selected
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFF4B1FE0).withValues(alpha: 0.38),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: const Color(0xFFF0C65A).withValues(alpha: 0.22),
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : null,
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  label,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.inter(
-                    color: Colors.white.withValues(
-                      alpha: selected ? 1.0 : 0.82,
-                    ),
-                    fontSize: compact ? 13 : 14,
-                    fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                    height: 1.22,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: compact ? 20 : 22,
-                height: compact ? 20 : 22,
-                child: selected
-                    ? Icon(
-                        Icons.check_circle_rounded,
-                        size: compact ? 20 : 22,
-                        color: AppColors.softGold.withValues(alpha: 0.95),
-                      )
-                    : Icon(
-                        Icons.circle_outlined,
-                        size: compact ? 16 : 18,
-                        color: const Color(0x448A90B8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: badge,
+                    height: badge,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: selected
+                          ? Colors.white.withValues(alpha: 0.12)
+                          : const Color(0x33101828),
+                      border: Border.all(
+                        color: selected
+                            ? Colors.white.withValues(alpha: 0.35)
+                            : AppColors.vizEq.withValues(alpha: 0.35),
+                        width: 1,
                       ),
+                    ),
+                    child: Text(
+                      letter,
+                      style: GoogleFonts.inter(
+                        color: selected
+                            ? Colors.white
+                            : AppColors.vizEq.withValues(alpha: 0.9),
+                        fontSize: compact ? 12.5 : 13,
+                        fontWeight: FontWeight.w700,
+                        height: 1,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      label,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.inter(
+                        color: Colors.white.withValues(
+                          alpha: selected ? 1.0 : 0.82,
+                        ),
+                        fontSize: compact ? 13 : 14,
+                        fontWeight:
+                            selected ? FontWeight.w600 : FontWeight.w400,
+                        height: 1.28,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: compact ? 20 : 22,
+                    height: compact ? 20 : 22,
+                    child: selected
+                        ? Icon(
+                            Icons.check_circle_rounded,
+                            size: compact ? 20 : 22,
+                            color: AppColors.softGold.withValues(alpha: 0.95),
+                          )
+                        : Icon(
+                            Icons.circle_outlined,
+                            size: compact ? 16 : 18,
+                            color: const Color(0x448A90B8),
+                          ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -452,6 +478,7 @@ class EqContinueButton extends StatelessWidget {
     final glowG = active ? 0.22 : 0.08;
     final tint = active ? 1.0 : 0.52;
 
+    // Instant active glow — no tween (matches IQ Continue).
     return Opacity(
       opacity: active ? 1.0 : 0.72,
       child: Container(
@@ -508,8 +535,8 @@ class EqContinueButton extends StatelessWidget {
                     child: Row(
                       children: [
                         Container(
-                          width: 38,
-                          height: 38,
+                          width: 32,
+                          height: 32,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white.withValues(alpha: 0.12),
@@ -519,7 +546,7 @@ class EqContinueButton extends StatelessWidget {
                           ),
                           child: const Icon(
                             Icons.psychology_rounded,
-                            size: 18,
+                            size: 15,
                             color: Colors.white,
                           ),
                         ),
@@ -535,7 +562,7 @@ class EqContinueButton extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 38),
+                        const SizedBox(width: 32),
                       ],
                     ),
                   ),
@@ -611,7 +638,7 @@ class _EqMindHeartFigureState extends State<EqMindHeartFigure>
   }
 }
 
-/// Soft traveler along the baked brain–heart axis (normalized to asset).
+/// Soft traveler + faint organ pulse along the brain–heart axis.
 class _BrainHeartLinkPainter extends CustomPainter {
   const _BrainHeartLinkPainter(this.seconds);
 
@@ -621,13 +648,30 @@ class _BrainHeartLinkPainter extends CustomPainter {
   static const _x = 0.502;
   static const _yBrain = 0.30;
   static const _yHeart = 0.64;
-  static const _period = 2.8; // seconds for one full up+down cycle
+  static const _period = 3.4; // slower full up+down cycle
 
   @override
   void paint(Canvas canvas, Size size) {
     if (size.isEmpty) return;
 
     final side = size.shortestSide;
+
+    // Nearly imperceptible breath on brain + heart hubs.
+    _organPulse(
+      canvas,
+      Offset(size.width * 0.508, size.height * 0.242),
+      side,
+      phase: 0.0,
+      gold: true,
+    );
+    _organPulse(
+      canvas,
+      Offset(size.width * 0.506, size.height * 0.690),
+      side,
+      phase: 0.55,
+      gold: true,
+    );
+
     // Triangle wave 0→1→0 for seamless brain→heart→brain.
     final cycle = (seconds / _period) % 1.0;
     final t = cycle < 0.5 ? cycle * 2.0 : 2.0 - cycle * 2.0;
@@ -637,31 +681,52 @@ class _BrainHeartLinkPainter extends CustomPainter {
     final y = size.height * (_yBrain + (_yHeart - _yBrain) * eased);
     final c = Offset(x, y);
 
-    final breath = 0.55 + 0.45 * math.sin(seconds * math.pi * 2 / 1.6);
-    final outerR = side * (0.022 + breath * 0.010);
-    final coreR = side * (0.007 + breath * 0.003);
+    final breath = 0.55 + 0.45 * math.sin(seconds * math.pi * 2 / 2.4);
+    final outerR = side * (0.018 + breath * 0.007);
+    final coreR = side * (0.0055 + breath * 0.002);
 
     canvas.drawCircle(
       c,
       outerR,
       Paint()
-        ..color = AppColors.softGold.withValues(alpha: 0.22 + breath * 0.28)
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.018)
+        ..color = AppColors.softGold.withValues(alpha: 0.14 + breath * 0.18)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.016)
         ..blendMode = BlendMode.plus,
     );
     canvas.drawCircle(
       c,
       outerR * 0.55,
       Paint()
-        ..color = const Color(0xFFFFF2C8).withValues(alpha: 0.35 + breath * 0.40)
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.008)
+        ..color = const Color(0xFFFFF2C8).withValues(alpha: 0.22 + breath * 0.28)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.007)
         ..blendMode = BlendMode.plus,
     );
     canvas.drawCircle(
       c,
       coreR,
       Paint()
-        ..color = Colors.white.withValues(alpha: 0.75 + breath * 0.25)
+        ..color = Colors.white.withValues(alpha: 0.55 + breath * 0.25)
+        ..blendMode = BlendMode.plus,
+    );
+  }
+
+  void _organPulse(
+    Canvas canvas,
+    Offset c,
+    double side, {
+    required double phase,
+    required bool gold,
+  }) {
+    final breath = 0.5 +
+        0.5 * math.sin(seconds * (math.pi * 2 / 4.8) + phase * math.pi * 2);
+    final r = side * (0.034 + breath * 0.010);
+    final col = gold ? AppColors.softGold : AppColors.vizEq;
+    canvas.drawCircle(
+      c,
+      r,
+      Paint()
+        ..color = col.withValues(alpha: 0.05 + breath * 0.08)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, side * 0.028)
         ..blendMode = BlendMode.plus,
     );
   }

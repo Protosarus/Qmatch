@@ -1,0 +1,192 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isMatchMember() {
+      return isSignedIn()
+        && resource.data.keys().hasAny(['users'])
+        && request.auth.uid in resource.data.users;
+    }
+
+    function isMatchMemberOnCreate() {
+      return isSignedIn()
+        && request.resource.data.keys().hasAny(['users'])
+        && request.auth.uid in request.resource.data.users
+        && request.resource.data.users.size() == 2;
+    }
+
+    function isThreadParticipant() {
+      return isSignedIn()
+        && resource.data.keys().hasAny(['participants'])
+        && request.auth.uid in resource.data.participants;
+    }
+
+    function isThreadParticipantOnCreate() {
+      return isSignedIn()
+        && request.resource.data.keys().hasAny(['participants'])
+        && request.auth.uid in request.resource.data.participants
+        && request.resource.data.participants.size() == 2;
+    }
+
+    function threadData(threadId) {
+      return get(/databases/$(database)/documents/threads/$(threadId)).data;
+    }
+
+    function isParticipantOfThread(threadId) {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/threads/$(threadId))
+        && request.auth.uid in threadData(threadId).participants;
+    }
+
+    // Default deny for anything not matched below.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // users/{uid}
+    // MVP tradeoff: authenticated users can read other user docs because
+    // Discover, chat previews, and matching store public+private fields together.
+    // Soft deletion markers (account_deletion_requested,
+    // account_deletion_requested_at, updated_at) are already covered by
+    // owner create/update below — no users/{uid} rule widening in this merge.
+    match /users/{uid} {
+      allow read: if isSignedIn();
+      allow create, update: if isOwner(uid);
+      allow delete: if false;
+
+      // users/{uid}/assessment_assignments/{type}
+      match /assessment_assignments/{type} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // users/{uid}/assessments/{docId} (frequency)
+      match /assessments/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // users/{uid}/swipes/{targetUid}
+      // Owner writes own swipes. Target user may read reverse swipe for mutual-like checks.
+      match /swipes/{targetUid} {
+        allow read: if isSignedIn()
+          && (request.auth.uid == uid || request.auth.uid == targetUid);
+        allow create, update: if isOwner(uid);
+        allow delete: if false;
+      }
+
+      // users/{uid}/blocks/{blockedUid}
+      match /blocks/{blockedUid} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // assessment_sets/{setId} — client seed/uplo helpers are intentionally denied.
+    match /assessment_sets/{setId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // questions/{docId} — legacy fallback read only.
+    match /questions/{docId} {
+      allow read: if isSignedIn();
+      allow write: if false;   }
+
+    // matches/{matchId}
+    match /matches/{matchId} {
+      allow read: if isMatchMember();
+      allow create: if isMatchMemberOnCreate();
+      allow update: if isMatchMember();
+      allow delete: if false;
+    }
+
+    // threads/{threadId}
+    match /threads/{threadId} {
+      allow read: if isThreadParticipant();
+      allow create: if isThreadParticipantOnCreate();
+      allow update: if isThreadParticipant();
+      allow delete: if false;
+
+      // threads/{threadId}/messages/{messageId}
+      // sender_id must be auth uid for normal messages.
+      // Match creation also writes a system message (sender_id == 'system').
+      match /messages/{messageId} {
+        allow read: if isParticipantOfThread(threadId);
+        allow create: if isParticipantOfThread(threadId)
+          && (
+            request.resource.data.sender_id == request.auth.uid
+            || (
+              request.resource.data.sender_id == 'system'
+              && request.resource.data.type == 'system'
+            )
+          );
+        allow update, delete: if false;
+      }
+    }
+
+    // reports/{reportId} — create only; not client-readable.
+    match /reports/{reportId} {
+      allow create: if isSignedIn()
+        && request.resource.data.reporter_uid == request.auth.uid;
+      allow read, update, delete: if false;
+    }
+
+    // BEGIN account deletion request patch
+    // Local merge candidate only — NOT DEPLOYED from this repo phase.
+    // Source: docs/firestore_rules_account_deletion_patch_draft.md + production snapshot.
+    match /account_deletion_requests/{uid} {
+      function deletionRequestPayloadOk() {
+        return request.resource.data.uid == uid
+          && request.resource.data.status == 'requested'
+          && request.resource.data.source == 'in_app'
+          && request.resource.data.user_acknowledged_irreversible == true
+          && request.resource.data.user_acknowledged_timeline == true
+          && request.resource.data.keys().hasOnly([
+            'uid',
+            'email_or_phone_masked',
+            'status',
+            'requested_at',
+            'source',
+            'app_version',
+            'platform',
+            'locale',
+            'user_acknowledged_irreversible',
+            'user_acknowledged_timeline',
+            'updated_at'
+          ]);
+      }
+
+      // Signed-in owner only; other users denied by isOwner(uid).
+      allow read: if isOwner(uid);
+
+      allow create: if isOwner(uid) && deletionRequestPayloadOk();
+
+      // Re-submit pending request metadata only; ops/completion fields forbidden.
+      allow update: if isOwner(uid)
+                    && deletionRequestPayloadOk()
+                    && !request.resource.data.keys().hasAny([
+                      'processed_at',
+                      'processed_by',
+                      'deleted_at',
+                      'admin_notes',
+                      'final_deletion_status'
+                    ])
+                    && !request.resource.data.diff(resource.data).affectedKeys()
+                        .hasAny([
+                          'processed_at',
+                          'processed_by',
+                          'deleted_at',
+                          'admin_notes',
+                          'final_deletion_status'
+                        ]);
+
+      allow delete: if false;
+    }
+    // END account deletion request patch
+  }
+}
