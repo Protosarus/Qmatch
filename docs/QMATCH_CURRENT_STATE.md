@@ -109,7 +109,7 @@ Psychometric calibration = NOT_STARTED
 | Continuity tip before Persona shadow | `d212d8414bfef55164cdc136b60e851206636377` |
 | P2C-3A-2 Persona shadow distance engine | `dd3ebdcd99c7cc2a2d6f7781060f35a426bfcf7e` |
 | P2C-3A-3 Persona large-scale shadow stress | `014825b8b342a0dfdcb28c2ef2ab1f6e8c4d2738` |
-| HOTFIX completion persistence (this) | _(fill after commit)_ |
+| HOTFIX completion persistence (this) | `5ff7e9d36a86ba39db5f891bc270f225a0cb9a7a` |
 
 ---
 
