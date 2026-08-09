@@ -95,7 +95,7 @@ social_awareness
 |-------|--------|
 | P2C-2A-6 IQ→20D adapter | `7ef5312f7c2e36556fbcb3c679ff083cd6f6d8ef` |
 | Continuity tip before P2C-2A-7 | `35b81c05fca108b12f95266b99b0da541694f969` |
-| P2C-2A-7 EQ migration | **BLOCKED** — audit continuity commit *(filled after push)* |
+| P2C-2A-7 EQ migration BLOCKED audit | `e04f251be30146ccb7d1871a6af45b19783fe8be` |
 
 ---
 
