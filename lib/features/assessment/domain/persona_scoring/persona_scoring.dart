@@ -1,3 +1,4 @@
+export 'canonical_persona_shadow_scorer.dart';
 export 'persona_candidate_score.dart';
 export 'persona_dimension_profile.dart';
 export 'persona_prototype.dart';
@@ -7,3 +8,8 @@ export 'persona_scoring_parsers.dart';
 export 'persona_scoring_result.dart';
 export 'persona_scoring_service.dart';
 export 'persona_scoring_status.dart';
+export 'persona_shadow_config_parser.dart';
+export 'persona_shadow_contract.dart';
+export 'persona_shadow_input.dart';
+export 'persona_shadow_result.dart';
+export 'persona_shadow_scoring_config.dart';

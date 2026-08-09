@@ -10,7 +10,7 @@ project continuity across ChatGPT/Cursor sessions.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Last completed phase | **P2C-3A-1 — Canonical Persona Prototype + Scoring Contract Audit** |
+| Last completed phase | **P2C-3A-2 — Canonical Persona Shadow Input Policy + Distance Engine** |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -19,34 +19,38 @@ project continuity across ChatGPT/Cursor sessions.
 ## Status
 
 ```text
-P2C-2A-8R2 = COMPLETE
-P2C-2A-8 = COMPLETE
-P2C-3A-1 = COMPLETE (docs/audit only)
+P2C-3A-1 = COMPLETE
+P2C-3A-2 = COMPLETE
 
-Canonical IQ = COMPLETE (4)
-Canonical EQ = COMPLETE (10)
-Canonical Frequency = COMPLETE (6)
-
-measured profile = 20 / 20
-missing dimensions = 0
-profile_status = complete
+canonical measured profile = 20 / 20
 canonical_profile_ready = true
 
-Canonical Persona runtime = NOT_STARTED
+canonical 18 Persona prototypes = PROVISIONAL / STRUCTURALLY_READY
+canonical Persona distance scorer = IMPLEMENTED_OFFLINE_SHADOW
+
+scoring_version = persona_20d_shadow_distance_v1
+quality_policy = persona_shadow_evidence_only_v1
+group_weights = 0.15 / 0.30 / 0.55
+alpha = 0.65 (provisional)
+gamma_A = 0.10
+gamma_Omega = 0.05
+
+Persona input reliability policy = RESOLVED_FOR_SHADOW_ONLY (q_j = E_j)
+Persona evidence sufficiency policy = RESOLVED_FOR_SHADOW_ONLY
+distance coefficient conflict = RESOLVED
+
+temperature = UNRESOLVED / NOT_REQUIRED_FOR_DISTANCE_SHADOW
+Top-2 thresholds = UNRESOLVED / NOT_REQUIRED_FOR_RAW_MARGIN
+confidence = NOT_CALIBRATED / NOT_COMPUTED
+
+production Persona reveal = NOT_STARTED
+live Persona persistence = NOT_STARTED
 PERSONA_RUNTIME_READY = false
 
-Persona structural 20D prototypes (v2) = PRESENT_PROVISIONAL
-Persona group weights (canonical) = 0.15 / 0.30 / 0.55
-Persona reliability policy = BLOCKED_PERSONA_RELIABILITY_POLICY
-Persona minimum-evidence handoff = BLOCKED_PERSONA_MINIMUM_EVIDENCE_POLICY
-Persona temperature T = BLOCKED_PERSONA_TEMPERATURE_CONFIG
-Persona Top-2 thresholds = BLOCKED_PERSONA_TOP2_THRESHOLD_POLICY
-Persona confidence = NOT_READY_FOR_PRODUCTION
-
-Psychometric calibration = NOT_STARTED
+Matching/QRCF = NOT_STARTED
+Quantum = NOT_STARTED
 RVI runtime = NOT_ACTIVE
-Matching/QRCF runtime = NOT_STARTED
-Quantum-inspired runtime = NOT_STARTED
+Psychometric calibration = NOT_STARTED
 ```
 
 ---
@@ -55,10 +59,10 @@ Quantum-inspired runtime = NOT_STARTED
 
 | Module | Live | Notes |
 |--------|------|-------|
-| **IQ** | Canonical 25-session + 4D + profile adapter | Live |
-| **EQ** | Canonical 30-session + 10D + profile merge | Live |
-| **Frequency** | Canonical 50-session + 6D + Frequency→20D | Live; no Persona |
-| **Persona** | Offline v2 prototypes + scoring library only | **Not** live; audit blockers open |
+| **IQ** | Canonical live | |
+| **EQ** | Canonical live | |
+| **Frequency** | Canonical live | no Persona |
+| **Persona** | Offline shadow distance only | no reveal / no Firestore |
 
 ---
 
@@ -66,19 +70,17 @@ Quantum-inspired runtime = NOT_STARTED
 
 | Phase | Commit |
 |-------|--------|
-| P2C-2A-8R1A Frequency banks complete | `6424956e726107d580d0f002623db8de864fdcff` |
-| Continuity tip before Frequency R2 | `2366ac37fc2124391011d751288edc9cc64e6dbc` |
 | P2C-2A-8R2 live Frequency + Frequency→20D | `025e573c8ad3b84fb91070c4568e3b3994dc1fbd` |
-| Continuity tip before Persona audit | `8e7317d2266d4c6ca7865b8012fc88e246556897` |
 | P2C-3A-1 Persona prototype contract audit | `7c7ccc4bffd816ac783b92f4f164f1225b7b3e40` |
+| Continuity tip before Persona shadow | `d212d8414bfef55164cdc136b60e851206636377` |
 
 ---
 
 ## Next Exact Phase
 
-Resolve Persona **input policies** (reliability, E_j/`n_j_min` handoff, temperature, Top-2), then shadow-mode — **not** automatic production Persona reveal.
-
-Do **not** auto-start Matching / QRCF / quantum.
+Persona policy completion for **production reveal readiness** (temperature /
+affinity / Top-2 / confidence) **or** product-prioritized Matching — without
+auto-starting reveal.
 
 ---
 
