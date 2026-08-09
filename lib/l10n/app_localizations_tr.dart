@@ -166,7 +166,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get eqIntroLabel => 'EQ Değerlendirmesi';
 
   @override
-  String get eqIntroMeta => '10 soru · Yaklaşık 5 dakika';
+  String get eqIntroMeta => '30 soru · Yaklaşık 15 dakika';
 
   @override
   String get eqIntroStart => 'EQ değerlendirmesine başla';
@@ -220,13 +220,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Duygusal zeka (EQ), hem kendi duygularını hem de başkalarınınkini anlama ve yönetme becerini ölçer.';
 
   @override
-  String get eqBulletQuestions => '10 senaryo tabanlı soru';
+  String get eqBulletQuestions => '30 senaryo tabanlı soru';
 
   @override
   String get eqBulletEmpathy => 'Empati ve öz farkındalığı ölçer';
 
   @override
-  String get eqBulletDuration => 'Yaklaşık 5 dakika sürer';
+  String get eqBulletDuration => 'Yaklaşık 15 dakika sürer';
 
   @override
   String get startEqTest => 'EQ Testine Başla';

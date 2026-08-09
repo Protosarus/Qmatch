@@ -165,7 +165,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eqIntroLabel => 'EQ Assessment';
 
   @override
-  String get eqIntroMeta => '10 questions · About 5 minutes';
+  String get eqIntroMeta => '30 questions · About 15 minutes';
 
   @override
   String get eqIntroStart => 'Begin EQ assessment';
@@ -219,13 +219,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your emotional quotient (EQ) measures your ability to understand and manage emotions - both yours and others\'.';
 
   @override
-  String get eqBulletQuestions => '10 scenario-based questions';
+  String get eqBulletQuestions => '30 scenario-based questions';
 
   @override
   String get eqBulletEmpathy => 'Measures empathy & self-awareness';
 
   @override
-  String get eqBulletDuration => 'Takes about 5 minutes';
+  String get eqBulletDuration => 'Takes about 15 minutes';
 
   @override
   String get startEqTest => 'Start EQ Test';

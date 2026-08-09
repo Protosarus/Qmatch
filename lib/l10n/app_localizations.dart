@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @eqIntroMeta.
   ///
   /// In en, this message translates to:
-  /// **'10 questions · About 5 minutes'**
+  /// **'30 questions · About 15 minutes'**
   String get eqIntroMeta;
 
   /// No description provided for @eqIntroStart.
@@ -485,7 +485,7 @@ abstract class AppLocalizations {
   /// No description provided for @eqBulletQuestions.
   ///
   /// In en, this message translates to:
-  /// **'10 scenario-based questions'**
+  /// **'30 scenario-based questions'**
   String get eqBulletQuestions;
 
   /// No description provided for @eqBulletEmpathy.
