@@ -1,0 +1,261 @@
+{
+  "ok": true,
+  "sessions": 10000,
+  "failures": 0,
+  "bank_path": "assets/data/assessment_v3/iq/iq_bank_tr_v1.json",
+  "bank_version": "tr_v2_340",
+  "bank_fnv1a32_hex": "2a186e15",
+  "selection_policy_version": "iq_session_selection_v1",
+  "bank_immutable": true,
+  "item_exposure": {
+    "min": 632,
+    "median": 740.0,
+    "max": 828,
+    "mean": 735.2941,
+    "cv": 0.0468,
+    "never_selected": 0
+  },
+  "family_exposure": {
+    "min": 1283,
+    "median": 1484.0,
+    "max": 1585,
+    "mean": 1470.5882,
+    "cv": 0.0395,
+    "never_selected": 0
+  },
+  "per_dimension_item_exposure": {
+    "logical_reasoning": {
+      "min": 632,
+      "median": 696.5,
+      "max": 772,
+      "mean": 700.0,
+      "cv": 0.0378,
+      "never_selected": 0
+    },
+    "pattern_reasoning": {
+      "min": 681,
+      "median": 756.5,
+      "max": 797,
+      "mean": 750.0,
+      "cv": 0.0376,
+      "never_selected": 0
+    },
+    "verbal_reasoning": {
+      "min": 698,
+      "median": 752.0,
+      "max": 828,
+      "mean": 750.0,
+      "cv": 0.0306,
+      "never_selected": 0
+    },
+    "spatial_reasoning": {
+      "min": 702,
+      "median": 748.5,
+      "max": 802,
+      "mean": 750.0,
+      "cv": 0.0337,
+      "never_selected": 0
+    }
+  },
+  "per_dimension_family_exposure": {
+    "logical_reasoning": {
+      "min": 1283,
+      "median": 1393.5,
+      "max": 1494,
+      "mean": 1400.0,
+      "cv": 0.0299,
+      "never_selected": 0
+    },
+    "pattern_reasoning": {
+      "min": 1433,
+      "median": 1499.0,
+      "max": 1555,
+      "mean": 1500.0,
+      "cv": 0.0226,
+      "never_selected": 0
+    },
+    "verbal_reasoning": {
+      "min": 1440,
+      "median": 1501.0,
+      "max": 1585,
+      "mean": 1500.0,
+      "cv": 0.0211,
+      "never_selected": 0
+    },
+    "spatial_reasoning": {
+      "min": 1420,
+      "median": 1497.0,
+      "max": 1583,
+      "mean": 1500.0,
+      "cv": 0.0229,
+      "never_selected": 0
+    }
+  },
+  "items_never_selected": [],
+  "families_never_selected": [],
+  "correct_answer_displayed_position_counts": {
+    "0": 62484,
+    "1": 62463,
+    "2": 62525,
+    "3": 62528
+  },
+  "dimension_by_session_slot": {
+    "0": {
+      "logical_reasoning": 10000,
+      "pattern_reasoning": 0,
+      "verbal_reasoning": 0,
+      "spatial_reasoning": 0
+    },
+    "1": {
+      "logical_reasoning": 2491,
+      "pattern_reasoning": 2479,
+      "verbal_reasoning": 2451,
+      "spatial_reasoning": 2579
+    },
+    "2": {
+      "logical_reasoning": 2558,
+      "pattern_reasoning": 2480,
+      "verbal_reasoning": 2446,
+      "spatial_reasoning": 2516
+    },
+    "3": {
+      "logical_reasoning": 2445,
+      "pattern_reasoning": 2617,
+      "verbal_reasoning": 2462,
+      "spatial_reasoning": 2476
+    },
+    "4": {
+      "logical_reasoning": 2506,
+      "pattern_reasoning": 2424,
+      "verbal_reasoning": 2641,
+      "spatial_reasoning": 2429
+    },
+    "5": {
+      "logical_reasoning": 2577,
+      "pattern_reasoning": 2487,
+      "verbal_reasoning": 2442,
+      "spatial_reasoning": 2494
+    },
+    "6": {
+      "logical_reasoning": 2520,
+      "pattern_reasoning": 2524,
+      "verbal_reasoning": 2485,
+      "spatial_reasoning": 2471
+    },
+    "7": {
+      "logical_reasoning": 2430,
+      "pattern_reasoning": 2528,
+      "verbal_reasoning": 2476,
+      "spatial_reasoning": 2566
+    },
+    "8": {
+      "logical_reasoning": 2473,
+      "pattern_reasoning": 2461,
+      "verbal_reasoning": 2597,
+      "spatial_reasoning": 2469
+    },
+    "9": {
+      "logical_reasoning": 2502,
+      "pattern_reasoning": 2515,
+      "verbal_reasoning": 2443,
+      "spatial_reasoning": 2540
+    },
+    "10": {
+      "logical_reasoning": 2548,
+      "pattern_reasoning": 2431,
+      "verbal_reasoning": 2553,
+      "spatial_reasoning": 2468
+    },
+    "11": {
+      "logical_reasoning": 2523,
+      "pattern_reasoning": 2482,
+      "verbal_reasoning": 2495,
+      "spatial_reasoning": 2500
+    },
+    "12": {
+      "logical_reasoning": 2427,
+      "pattern_reasoning": 2572,
+      "verbal_reasoning": 2509,
+      "spatial_reasoning": 2492
+    },
+    "13": {
+      "logical_reasoning": 2491,
+      "pattern_reasoning": 2507,
+      "verbal_reasoning": 2508,
+      "spatial_reasoning": 2494
+    },
+    "14": {
+      "logical_reasoning": 2508,
+      "pattern_reasoning": 2553,
+      "verbal_reasoning": 2490,
+      "spatial_reasoning": 2449
+    },
+    "15": {
+      "logical_reasoning": 2481,
+      "pattern_reasoning": 2524,
+      "verbal_reasoning": 2453,
+      "spatial_reasoning": 2542
+    },
+    "16": {
+      "logical_reasoning": 2520,
+      "pattern_reasoning": 2416,
+      "verbal_reasoning": 2549,
+      "spatial_reasoning": 2515
+    },
+    "17": {
+      "logical_reasoning": 2480,
+      "pattern_reasoning": 2535,
+      "verbal_reasoning": 2487,
+      "spatial_reasoning": 2498
+    },
+    "18": {
+      "logical_reasoning": 2556,
+      "pattern_reasoning": 2449,
+      "verbal_reasoning": 2489,
+      "spatial_reasoning": 2506
+    },
+    "19": {
+      "logical_reasoning": 2468,
+      "pattern_reasoning": 2578,
+      "verbal_reasoning": 2537,
+      "spatial_reasoning": 2417
+    },
+    "20": {
+      "logical_reasoning": 2496,
+      "pattern_reasoning": 2438,
+      "verbal_reasoning": 2487,
+      "spatial_reasoning": 2579
+    },
+    "21": {
+      "logical_reasoning": 2446,
+      "pattern_reasoning": 2518,
+      "verbal_reasoning": 2480,
+      "spatial_reasoning": 2556
+    },
+    "22": {
+      "logical_reasoning": 2566,
+      "pattern_reasoning": 2458,
+      "verbal_reasoning": 2483,
+      "spatial_reasoning": 2493
+    },
+    "23": {
+      "logical_reasoning": 2458,
+      "pattern_reasoning": 2439,
+      "verbal_reasoning": 2502,
+      "spatial_reasoning": 2601
+    },
+    "24": {
+      "logical_reasoning": 2530,
+      "pattern_reasoning": 2585,
+      "verbal_reasoning": 2535,
+      "spatial_reasoning": 2350
+    }
+  },
+  "hard_failure_conditions": {
+    "any_valid_item_never_selected": false,
+    "any_family_structurally_unreachable": false,
+    "quota_or_family_invariant_failures": false,
+    "bank_mutated": false
+  },
+  "disclaimer": "Algorithmic fairness/exposure testing only — not psychometric calibration."
+}
