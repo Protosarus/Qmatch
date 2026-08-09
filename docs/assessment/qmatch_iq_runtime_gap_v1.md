@@ -1,6 +1,6 @@
 # QMatch IQ Runtime Gap v1
 
-**Phase:** P2C-2A-3 (updated)
+**Phase:** P2C-2A-4 (updated)
 **Constraint:** Current production IQ selection/scoring was **not** modified.
 
 ---
@@ -13,7 +13,7 @@ iq_test_intro_screen
     → QuestionService.loadIQAssessment
       → AssessmentSetService.getOrAssignSet(type: 'iq')
     → QuestionModel MCQ UI (10 items)
-    → correct-count score
+    → correct-count score (list index)
     → CanonicalAssessmentPersistence (legacy total; empty dimension_scores)
 ```
 
@@ -24,10 +24,11 @@ iq_test_intro_screen
 | v3 bank reachable at runtime | **no** |
 | Session composer wired | **no** |
 | Session persistence wired to UI | **no** |
+| Canonical 4D scorer wired | **no** |
 
 ---
 
-## Offline status after P2C-2A-3
+## Offline status after P2C-2A-4
 
 | Capability | Status |
 |------------|--------|
@@ -35,10 +36,11 @@ iq_test_intro_screen
 | 25-question session composer | **IMPLEMENTED_OFFLINE** |
 | Session persistence/resume | **IMPLEMENTED_OFFLINE** |
 | Answer-state persistence | **IMPLEMENTED_OFFLINE** |
+| Canonical 4D IQ scorer | **IMPLEMENTED_OFFLINE** |
+| Psychometric calibration | **NOT_STARTED** |
+| 20D runtime adapter | **NOT_STARTED** |
 | Runtime IQ screen integration | **NOT_STARTED** |
-| Canonical 4D IQ scoring | **NOT_STARTED** |
 | Cloud session sync | **NOT_STARTED / DEFERRED** |
-| Expert review/calibration | **open** |
 
 ---
 
@@ -46,20 +48,18 @@ iq_test_intro_screen
 
 | Gap | Needed change (later) |
 |-----|------------------------|
-| Pubspec assets | Register `assessment_v3/iq/iq_bank_tr_v1.json` intentionally when wiring |
-| Runtime wire | IQTestScreen → `IqSessionManager` → option-ID UI |
-| Scoring | P2C-2A-4 TraitScoring / 4D scores |
-| Cloud sync | Explicit Firestore schema + rules + migration (not this phase) |
-| Logout wipe | Optional `clearOwnerSessions` on sign-out if product requires |
-| Migration | Move users off 10-item legacy sets |
-| Review gates | Promote beyond `desk_reviewed_candidate` |
+| Runtime wire | IQTestScreen → session manager → option-ID UI → 4D scorer |
+| Persistence of results | Explicit schema for 4D provisional scores (not fake IQ) |
+| Calibration | Pilot evidence per calibration plan |
+| 20D adapter | Map four dimensions only; versioned |
+| Migration | Move users off 10-item legacy sets / index scoring |
 
 ---
 
 ## Explicit non-goals of this phase
 
-- No change to `QuestionService` / `AssessmentSetService` load order
-- No change to `IQTestScreen` item count
-- No Firestore schema changes for session drafts
-- No scoring changes
-- No EQ / Frequency / Core Method changes
+- No change to live IQ flow
+- No overall IQ / percentile fabrication
+- No TraitScoring / Core Method / EQ / Frequency changes
+- No Firestore schema for canonical 4D results
+- IQ assessment is **not** release-ready
