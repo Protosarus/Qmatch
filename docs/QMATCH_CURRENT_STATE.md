@@ -60,7 +60,7 @@ Psychometric calibration = NOT_STARTED
 |-------|--------|
 | P2C-2A-7R1 | `705a532011933ca78a5885480a240eb84b937122` |
 | Continuity tip before R2 | `1b4ee9da01337de390dd5e749ef4113cafe163a3` |
-| P2C-2A-7R2 | *(filled after push)* |
+| P2C-2A-7R2 live EQ + Eq→20D | `0698b83d016ed3b284a02b53e2b36d18df66e7b8` |
 
 ---
 
