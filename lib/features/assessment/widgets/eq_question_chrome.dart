@@ -319,14 +319,10 @@ class EqAnswerOptionRow extends StatelessWidget {
   final VoidCallback onTap;
   final bool compact;
 
-  /// Presentation-only shorten — scoring still uses the original option index.
-  static String displayLabel(String raw, {int maxChars = 64}) {
-    final t = raw.trim().replaceAll(RegExp(r'\s+'), ' ');
-    if (t.length <= maxChars) return t;
-    final cut = t.substring(0, maxChars);
-    final sp = cut.lastIndexOf(' ');
-    final base = (sp > maxChars ~/ 2 ? cut.substring(0, sp) : cut).trimRight();
-    return '$base…';
+  /// Presentation-only whitespace normalize — never truncates option text.
+  /// Scoring still uses the original option id / full bank text.
+  static String displayLabel(String raw) {
+    return raw.trim().replaceAll(RegExp(r'\s+'), ' ');
   }
 
   @override
@@ -392,7 +388,7 @@ class EqAnswerOptionRow extends StatelessWidget {
                     : null,
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     width: badge,
@@ -426,8 +422,7 @@ class EqAnswerOptionRow extends StatelessWidget {
                   Expanded(
                     child: Text(
                       label,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
                       textAlign: TextAlign.start,
                       style: GoogleFonts.inter(
                         color: Colors.white.withValues(
@@ -442,18 +437,22 @@ class EqAnswerOptionRow extends StatelessWidget {
                   ),
                   SizedBox(
                     width: compact ? 20 : 22,
-                    height: compact ? 20 : 22,
-                    child: selected
-                        ? Icon(
-                            Icons.check_circle_rounded,
-                            size: compact ? 20 : 22,
-                            color: AppColors.softGold.withValues(alpha: 0.95),
-                          )
-                        : Icon(
-                            Icons.circle_outlined,
-                            size: compact ? 16 : 18,
-                            color: const Color(0x448A90B8),
-                          ),
+                    // Keep trailing icon aligned with the first text line.
+                    height: badge,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: selected
+                          ? Icon(
+                              Icons.check_circle_rounded,
+                              size: compact ? 20 : 22,
+                              color: AppColors.softGold.withValues(alpha: 0.95),
+                            )
+                          : Icon(
+                              Icons.circle_outlined,
+                              size: compact ? 16 : 18,
+                              color: const Color(0x448A90B8),
+                            ),
+                    ),
                   ),
                 ],
               ),

@@ -465,26 +465,29 @@ class _IQTestScreenState extends State<IQTestScreen> {
                     ),
                     SizedBox(height: compact ? 6.0 : 8.0),
                     Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          for (var i = 0; i < options.length; i++)
-                            IqAnswerOptionRow(
-                              index: i,
-                              label: options[i].text,
-                              selected:
-                                  _selectedOptionId == options[i].optionId,
-                              compact: true,
-                              onTap: (_busy || pendingFinalize)
-                                  ? () {}
-                                  : () {
-                                      _dismissSelectAnswerWarning();
-                                      setState(() {
-                                        _selectedOptionId = options[i].optionId;
-                                      });
-                                    },
-                            ),
-                        ],
+                      child: ListView.separated(
+                        padding: EdgeInsets.zero,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: options.length,
+                        separatorBuilder: (_, __) =>
+                            SizedBox(height: compact ? 6.0 : 8.0),
+                        itemBuilder: (context, i) {
+                          return IqAnswerOptionRow(
+                            index: i,
+                            label: options[i].text,
+                            selected:
+                                _selectedOptionId == options[i].optionId,
+                            compact: true,
+                            onTap: (_busy || pendingFinalize)
+                                ? () {}
+                                : () {
+                                    _dismissSelectAnswerWarning();
+                                    setState(() {
+                                      _selectedOptionId = options[i].optionId;
+                                    });
+                                  },
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(height: 8),

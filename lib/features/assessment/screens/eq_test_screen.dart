@@ -461,29 +461,32 @@ class _EQTestScreenState extends State<EQTestScreen> {
                   ),
                   SizedBox(height: compact ? 6.0 : 8.0),
                   Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        for (var index = 0; index < options.length; index++)
-                          EqAnswerOptionRow(
-                            index: index,
-                            label: EqAnswerOptionRow.displayLabel(
-                              options[index].text,
-                            ),
-                            selected:
-                                _selectedOptionId == options[index].optionId,
-                            compact: true,
-                            onTap: (_isFinishing || pendingFinalize)
-                                ? () {}
-                                : () {
-                                    _dismissSelectAnswerWarning();
-                                    setState(() {
-                                      _selectedOptionId =
-                                          options[index].optionId;
-                                    });
-                                  },
+                    child: ListView.separated(
+                      padding: EdgeInsets.zero,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: options.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(height: compact ? 6.0 : 8.0),
+                      itemBuilder: (context, index) {
+                        return EqAnswerOptionRow(
+                          index: index,
+                          label: EqAnswerOptionRow.displayLabel(
+                            options[index].text,
                           ),
-                      ],
+                          selected:
+                              _selectedOptionId == options[index].optionId,
+                          compact: true,
+                          onTap: (_isFinishing || pendingFinalize)
+                              ? () {}
+                              : () {
+                                  _dismissSelectAnswerWarning();
+                                  setState(() {
+                                    _selectedOptionId =
+                                        options[index].optionId;
+                                  });
+                                },
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(height: 8),

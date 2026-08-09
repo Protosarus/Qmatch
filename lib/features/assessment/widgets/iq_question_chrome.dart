@@ -332,6 +332,7 @@ class IqAnswerOptionRow extends StatelessWidget {
                 : null,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: badge,
@@ -363,8 +364,7 @@ class IqAnswerOptionRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
                   style: GoogleFonts.inter(
                     color: Colors.white.withValues(
                       alpha: selected ? 1.0 : 0.82,
@@ -377,18 +377,21 @@ class IqAnswerOptionRow extends StatelessWidget {
               ),
               SizedBox(
                 width: compact ? 20 : 22,
-                height: compact ? 20 : 22,
-                child: selected
-                    ? Icon(
-                        Icons.check_circle_rounded,
-                        size: compact ? 20 : 22,
-                        color: AppColors.softGold.withValues(alpha: 0.95),
-                      )
-                    : Icon(
-                        Icons.circle_outlined,
-                        size: compact ? 16 : 18,
-                        color: const Color(0x448A90B8),
-                      ),
+                height: badge,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: selected
+                      ? Icon(
+                          Icons.check_circle_rounded,
+                          size: compact ? 20 : 22,
+                          color: AppColors.softGold.withValues(alpha: 0.95),
+                        )
+                      : Icon(
+                          Icons.circle_outlined,
+                          size: compact ? 16 : 18,
+                          color: const Color(0x448A90B8),
+                        ),
+                ),
               ),
             ],
           ),

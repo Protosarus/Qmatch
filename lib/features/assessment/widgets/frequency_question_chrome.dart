@@ -351,7 +351,7 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
                 : null,
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 width: compact ? 27 : 31,
@@ -376,6 +376,7 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
               Expanded(
                 child: Text(
                   label,
+                  softWrap: true,
                   style: GoogleFonts.inter(
                     color: Colors.white.withValues(
                       alpha: selected ? 1 : 0.92,
@@ -387,12 +388,15 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 6),
-              Icon(
-                selected ? Icons.check_circle_rounded : Icons.circle_outlined,
-                size: compact ? 19 : 21,
-                color: selected
-                    ? const Color(0xFFFFD68B)
-                    : const Color(0x777D7597),
+              SizedBox(
+                height: compact ? 27 : 31,
+                child: Icon(
+                  selected ? Icons.check_circle_rounded : Icons.circle_outlined,
+                  size: compact ? 19 : 21,
+                  color: selected
+                      ? const Color(0xFFFFD68B)
+                      : const Color(0x777D7597),
+                ),
               ),
             ],
           ),
