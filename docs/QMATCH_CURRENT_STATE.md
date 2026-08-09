@@ -81,7 +81,7 @@ Psychometric calibration = NOT_STARTED
 | P2C-3A-1 Persona prototype contract audit | `7c7ccc4bffd816ac783b92f4f164f1225b7b3e40` |
 | Continuity tip before Persona shadow | `d212d8414bfef55164cdc136b60e851206636377` |
 | P2C-3A-2 Persona shadow distance engine | `dd3ebdcd99c7cc2a2d6f7781060f35a426bfcf7e` |
-| P2C-3A-3 Persona large-scale shadow stress docs | **PENDING** |
+| P2C-3A-3 Persona large-scale shadow stress | `014825b8b342a0dfdcb28c2ef2ab1f6e8c4d2738` |
 
 ---
 
