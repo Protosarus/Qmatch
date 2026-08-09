@@ -372,10 +372,16 @@ void main() {
       expect(resumed.state!.sessionId, isNot(stuck2.sessionId));
     });
 
-    test('successful finalization opens Reasoning Profile path (wired)', () {
+    test('successful finalization opens EQ Intro path (wired)', () {
       expect(IQTestScreen, isNotNull);
       expect(IqPersistedSessionStatus.completedPendingPersistence.wireValue,
           'completed_pending_persistence');
+      final screen = File('lib/features/assessment/screens/iq_test_screen.dart')
+          .readAsStringSync();
+      expect(screen.contains('EQTestIntroScreen'), isTrue);
+      expect(screen.contains('_openEqIntro'), isTrue);
+      expect(screen.contains('IqReasoningProfileScreen'), isFalse);
+      expect(screen.contains('IqToEqTransitionScreen'), isFalse);
     });
   });
 }

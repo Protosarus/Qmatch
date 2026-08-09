@@ -8,7 +8,6 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/iq_bank/iq_bank.dart';
-import '../domain/iq_scoring/iq_scoring.dart';
 import '../domain/iq_session/iq_session.dart';
 import '../domain/profile/profile.dart';
 import '../services/assessment_progress_service.dart';
@@ -17,7 +16,6 @@ import '../services/iq_canonical_runtime_service.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/assessment_widgets.dart';
 import 'eq_test_intro_screen.dart';
-import 'iq_reasoning_profile_screen.dart';
 
 /// Live IQ assessment — canonical 25-question session (P2C-2A-5).
 ///
@@ -231,7 +229,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
     }
   }
 
-  /// Score → remote persist → mark finalized → Reasoning Profile.
+  /// Score → remote persist → mark finalized → EQ Intro.
   /// Safe to retry; does not call [answer].
   Future<void> _scorePersistFinalizeAndNavigate({
     required IqPersistedSessionState session,
@@ -297,7 +295,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
         _session = finalized.state;
         _busy = false;
       });
-      _openReasoningProfile(scored.result!);
+      _openEqIntro();
     } catch (e) {
       debugPrint('Canonical IQ finalize failed: $e');
       if (!mounted) return;
@@ -306,46 +304,13 @@ class _IQTestScreenState extends State<IQTestScreen> {
     }
   }
 
-  void _openReasoningProfile(IqCanonicalScoringResult result) {
-    final nav = Navigator.of(context);
-    nav.pushReplacement(
+  /// Onboarding: IQ finalize → EQ Intro (no intermediate reasoning profile).
+  void _openEqIntro() {
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(
-        builder: (context) => IqReasoningProfileScreen(
-          result: result,
-          onContinue: () {
-            Navigator.of(context).pushReplacement(
-              PageRouteBuilder<void>(
-                opaque: true,
-                barrierDismissible: false,
-                transitionDuration: const Duration(milliseconds: 280),
-                reverseTransitionDuration: const Duration(milliseconds: 220),
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return IqToEqTransitionScreen(
-                    onStartEq: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          // Legacy ctor retained; score unused for calibration.
-                          builder: (context) => const EQTestIntroScreen(
-                            iqScore: 0,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return FadeTransition(
-                    opacity: CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeOut,
-                    ),
-                    child: child,
-                  );
-                },
-              ),
-            );
-          },
+        // Legacy ctor retained; score unused for calibration.
+        builder: (context) => const EQTestIntroScreen(
+          iqScore: 0,
         ),
       ),
     );

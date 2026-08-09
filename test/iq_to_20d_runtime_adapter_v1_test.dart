@@ -327,6 +327,9 @@ void main() {
           .readAsStringSync();
       expect(screen.contains('IqTo20dRuntimeAdapter'), isTrue);
       expect(screen.contains('EQTestIntroScreen'), isTrue);
+      expect(screen.contains('_openEqIntro'), isTrue);
+      expect(screen.contains('IqReasoningProfileScreen'), isFalse);
+      expect(screen.contains('IqToEqTransitionScreen'), isFalse);
       expect(screen.contains('upsertCanonicalProfileFragment'), isTrue);
       expect(screen.contains('PersonaReveal'), isFalse);
       expect(screen.contains('DiscoverService'), isFalse);
