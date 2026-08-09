@@ -133,6 +133,17 @@ class AppLocalizationsTr extends AppLocalizations {
       'Değerlendirme oturumu yüklenemedi. Lütfen tekrar dene.';
 
   @override
+  String get iqCanonicalAnswerError =>
+      'Yanıtın kaydedilemedi. Lütfen tekrar dene.';
+
+  @override
+  String get iqCanonicalPersistError =>
+      'Sonucun kaydedilemedi. Yanıtların güvende; tekrar deneyebilirsin.';
+
+  @override
+  String get iqCanonicalFinalizeRetry => 'Sonucu kaydet';
+
+  @override
   String get iqDimLogicalReasoning => 'Mantıksal Muhakeme';
 
   @override

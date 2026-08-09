@@ -10,9 +10,36 @@ project continuity across ChatGPT/Cursor sessions.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Last completed phase | **P2C-3A-3 — Persona Large-Scale Shadow Stress + Distance Reveal Policy** |
+| Last completed phase | **HOTFIX — Canonical assessment completion persistence + safe retry** |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
+
+---
+
+## HOTFIX (IQ completion)
+
+```text
+ROOT CAUSE (proven):
+  IQ/EQ/Frequency write users/{uid}/profiles/canonical_v1
+  but Firestore rules lacked owner allow → permission-denied
+  → misleading iqCanonicalSessionError snack
+
+REPO FIXES (this commit):
+  - firestore.rules: owner read/create/update on profiles/canonical_v1
+    (delete still denied)
+  - IQ local lifecycle: in_progress
+      → completed_pending_persistence (active pointer retained)
+      → completed + remote_finalized (pointer cleared only after remote OK)
+  - Same-screen + app-restart resume of pending finalization (no re-answer)
+  - Conservative unique stuck-session recovery for pre-hotfix completed blobs
+  - Distinct l10n for session vs answer vs persist errors
+
+PRODUCTION FIRESTORE RULES DEPLOYMENT = STILL REQUIRED
+  Do not claim live Firebase rules are fixed until deploy runs.
+  Manual IQ completion retest against production Firebase = BLOCKED until deploy.
+
+Persona = UNCHANGED (no scoring/prototype/simulation edits)
+```
 
 ---
 
@@ -66,9 +93,9 @@ Psychometric calibration = NOT_STARTED
 
 | Module | Live | Notes |
 |--------|------|-------|
-| **IQ** | Canonical live | |
-| **EQ** | Canonical live | |
-| **Frequency** | Canonical live | no Persona |
+| **IQ** | Canonical live | completion hotfix pending **rules deploy** |
+| **EQ** | Canonical live | shares `profiles/canonical_v1` |
+| **Frequency** | Canonical live | shares `profiles/canonical_v1`; no Persona |
 | **Persona** | Offline shadow distance + stress validated | no reveal / no Firestore |
 
 ---
@@ -82,14 +109,16 @@ Psychometric calibration = NOT_STARTED
 | Continuity tip before Persona shadow | `d212d8414bfef55164cdc136b60e851206636377` |
 | P2C-3A-2 Persona shadow distance engine | `dd3ebdcd99c7cc2a2d6f7781060f35a426bfcf7e` |
 | P2C-3A-3 Persona large-scale shadow stress | `014825b8b342a0dfdcb28c2ef2ab1f6e8c4d2738` |
+| HOTFIX completion persistence (this) | _(fill after commit)_ |
 
 ---
 
 ## Next Exact Phase
 
-Product + explainability review for any distance-only Persona reveal candidate
-(`DISTANCE_ONLY_REVEAL_READY_FOR_PRODUCT_REVIEW` remains false), **or**
-product-prioritized Matching — without auto-starting reveal.
+1. **Deploy** updated `firestore.rules` to Firebase project `qmatch-53d62`
+   (explicit approval required; not auto-deployed).
+2. Manual retest: IQ 25/25 → Reasoning Profile → EQ.
+3. Then product/explainability Persona review or Matching — Persona unchanged.
 
 ---
 

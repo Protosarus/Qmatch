@@ -141,6 +141,8 @@ class IqSessionStorageKeys {
 
   static String session(String ownerUid, String sessionId) =>
       '$prefix.session.$ownerUid.$sessionId';
+
+  static String sessionPrefix(String ownerUid) => '$prefix.session.$ownerUid.';
 }
 
 /// Abstract durable store for IQ session drafts.
@@ -154,6 +156,9 @@ abstract class IqSessionPersistenceRepository {
   Future<void> deleteSession(String ownerUid, String sessionId);
 
   Future<void> clearOwnerSessions(String ownerUid);
+
+  /// Lists durable session blobs for [ownerUid] (UID-scoped only).
+  Future<List<IqPersistedSessionState>> listOwnerSessions(String ownerUid);
 }
 
 /// In-memory repository for tests / CLI (no Flutter binding).
@@ -171,10 +176,10 @@ class IqSessionMemoryRepository implements IqSessionPersistenceRepository {
   Future<void> saveSession(IqPersistedSessionState state) async {
     final json = jsonEncode(state.toJson());
     _kv[IqSessionStorageKeys.session(state.ownerUid, state.sessionId)] = json;
-    if (state.status == IqPersistedSessionStatus.inProgress) {
-      _kv[IqSessionStorageKeys.activePointer(state.ownerUid)] = state.sessionId;
+    final activeKey = IqSessionStorageKeys.activePointer(state.ownerUid);
+    if (state.status.keepsActivePointer) {
+      _kv[activeKey] = state.sessionId;
     } else {
-      final activeKey = IqSessionStorageKeys.activePointer(state.ownerUid);
       if (_kv[activeKey] == state.sessionId) {
         _kv.remove(activeKey);
       }
@@ -222,7 +227,7 @@ class IqSessionMemoryRepository implements IqSessionPersistenceRepository {
       }
       return IqSessionLoadResult(code: IqSessionLoadCode.loaded, state: state);
     } catch (e) {
-      return IqSessionLoadResult(
+      return const IqSessionLoadResult(
         code: IqSessionLoadCode.corrupt,
         message: 'Malformed persisted session',
       );
@@ -240,7 +245,7 @@ class IqSessionMemoryRepository implements IqSessionPersistenceRepository {
 
   @override
   Future<void> clearOwnerSessions(String ownerUid) async {
-    final prefixSession = '${IqSessionStorageKeys.prefix}.session.$ownerUid.';
+    final prefixSession = IqSessionStorageKeys.sessionPrefix(ownerUid);
     final keys = _kv.keys
         .where(
           (k) =>
@@ -251,5 +256,26 @@ class IqSessionMemoryRepository implements IqSessionPersistenceRepository {
     for (final k in keys) {
       _kv.remove(k);
     }
+  }
+
+  @override
+  Future<List<IqPersistedSessionState>> listOwnerSessions(
+    String ownerUid,
+  ) async {
+    if (ownerUid.trim().isEmpty) return const [];
+    final prefix = IqSessionStorageKeys.sessionPrefix(ownerUid);
+    final out = <IqPersistedSessionState>[];
+    for (final e in _kv.entries) {
+      if (!e.key.startsWith(prefix)) continue;
+      try {
+        final state = IqPersistedSessionState.fromJson(
+          jsonDecode(e.value) as Map<String, dynamic>,
+        );
+        if (state.ownerUid == ownerUid) out.add(state);
+      } catch (_) {
+        // Skip corrupt blobs during listing.
+      }
+    }
+    return out;
   }
 }

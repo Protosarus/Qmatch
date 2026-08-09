@@ -148,18 +148,30 @@ class _IQTestScreenState extends State<IQTestScreen> {
     final bank = _bank;
     if (session == null || bank == null) return;
 
-    if (_selectedOptionId == null) {
-      _showSelectAnswerWarningBanner();
-      return;
-    }
-    _dismissSelectAnswerWarning();
-
     final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
         WidgetsBinding.instance.platformDispatcher.locale.languageCode;
     final language = AssessmentLanguage.languageUsed(
       languageCode: languageCode,
     );
     final locale = AssessmentLanguage.localeUsed(locale: Locale(language));
+
+    // Pending remote finalization: score + persist only (no re-answer).
+    if (session.status ==
+        IqPersistedSessionStatus.completedPendingPersistence) {
+      setState(() => _busy = true);
+      await _scorePersistFinalizeAndNavigate(
+        session: session,
+        locale: locale,
+        language: language,
+      );
+      return;
+    }
+
+    if (_selectedOptionId == null) {
+      _showSelectAnswerWarningBanner();
+      return;
+    }
+    _dismissSelectAnswerWarning();
 
     final idx = session.currentQuestionIndex;
     final plan = session.itemPlans[idx];
@@ -205,7 +217,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
         return;
       }
 
-      // Complete → score → persist → reasoning profile → EQ.
+      // Lock answers as pending-finalization (active pointer retained).
       final completed = await _runtime.completeSession(
         sessionId: session.sessionId,
       );
@@ -219,7 +231,31 @@ class _IQTestScreenState extends State<IQTestScreen> {
         return;
       }
 
-      final scored = await _runtime.scoreCompleted(completed.state!);
+      if (!mounted) return;
+      setState(() => _session = completed.state);
+
+      await _scorePersistFinalizeAndNavigate(
+        session: completed.state!,
+        locale: locale,
+        language: language,
+      );
+    } catch (e) {
+      debugPrint('Canonical IQ continue failed: $e');
+      if (!mounted) return;
+      _showErrorSnack('unexpected_error');
+      setState(() => _busy = false);
+    }
+  }
+
+  /// Score → remote persist → mark finalized → Reasoning Profile.
+  /// Safe to retry; does not call [answer].
+  Future<void> _scorePersistFinalizeAndNavigate({
+    required IqPersistedSessionState session,
+    required String locale,
+    required String language,
+  }) async {
+    try {
+      final scored = await _runtime.scoreCompleted(session);
       if (!scored.ok || scored.result == null) {
         if (!mounted) return;
         _showErrorSnack(scored.code?.name ?? 'score_failed');
@@ -237,10 +273,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
             startedAt: _startedAt,
           ),
         );
-        // Do not write legacy scalar iq_score (not a standardized IQ).
         await _progress.markIqCompleted(rawScore: null);
 
-        // P2C-2A-6: map 4D IQ into partial canonical 20D profile (no EQ/Freq).
         final uid = _runtime.currentUid;
         if (uid == null || uid.isEmpty) {
           throw StateError('Owner UID unavailable for profile adapter');
@@ -262,11 +296,24 @@ class _IQTestScreenState extends State<IQTestScreen> {
         return;
       }
 
+      final finalized = await _runtime.markRemoteFinalized(
+        sessionId: session.sessionId,
+      );
+      if (!finalized.ok || finalized.state == null) {
+        if (!mounted) return;
+        _showErrorSnack(finalized.code ?? 'finalize_failed');
+        setState(() => _busy = false);
+        return;
+      }
+
       if (!mounted) return;
-      setState(() => _busy = false);
+      setState(() {
+        _session = finalized.state;
+        _busy = false;
+      });
       _openReasoningProfile(scored.result!);
     } catch (e) {
-      debugPrint('Canonical IQ continue failed: $e');
+      debugPrint('Canonical IQ finalize failed: $e');
       if (!mounted) return;
       _showErrorSnack('unexpected_error');
       setState(() => _busy = false);
@@ -320,8 +367,27 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
   void _showErrorSnack(String code) {
     final l10n = AppLocalizations.of(context)!;
+    final message = switch (code) {
+      'persist_failed' ||
+      'finalize_failed' ||
+      'score_failed' ||
+      'ownerUnavailable' ||
+      'sessionIncomplete' ||
+      'sessionNotCompleted' ||
+      'resultInvalid' =>
+        l10n.iqCanonicalPersistError,
+      'answer_failed' ||
+      'invalid_option' ||
+      'invalid_item' ||
+      'index_failed' ||
+      'incomplete_answers' ||
+      'complete_failed' ||
+      'session_not_editable' =>
+        l10n.iqCanonicalAnswerError,
+      _ => l10n.iqCanonicalSessionError,
+    };
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.iqCanonicalSessionError)),
+      SnackBar(content: Text(message)),
     );
     debugPrint('IQ canonical error code=$code');
   }
@@ -383,6 +449,13 @@ class _IQTestScreenState extends State<IQTestScreen> {
     final options = _runtime.displayedOptions(bank: bank, plan: plan);
     final progress = (idx + 1) / session.itemPlans.length;
     final isLast = idx >= session.itemPlans.length - 1;
+    final pendingFinalize =
+        session.status == IqPersistedSessionStatus.completedPendingPersistence;
+    final continueLabel = pendingFinalize
+        ? l10n.iqCanonicalFinalizeRetry
+        : (isLast ? l10n.assessmentFinish : l10n.assessmentContinue);
+    final continueActive =
+        pendingFinalize ? !_busy : (_selectedOptionId != null && !_busy);
 
     return QAssessmentScaffold(
       richBackdrop: true,
@@ -454,7 +527,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                             label: options[i].text,
                             selected: _selectedOptionId == options[i].optionId,
                             compact: true,
-                            onTap: _busy
+                            onTap: (_busy || pendingFinalize)
                                 ? () {}
                                 : () {
                                     _dismissSelectAnswerWarning();
@@ -468,10 +541,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
                   ),
                   const SizedBox(height: 8),
                   IqContinueButton(
-                    label: isLast
-                        ? l10n.assessmentFinish
-                        : l10n.assessmentContinue,
-                    active: _selectedOptionId != null && !_busy,
+                    label: continueLabel,
+                    active: continueActive,
                     onPressed: _busy ? () {} : _onContinue,
                   ),
                 ],

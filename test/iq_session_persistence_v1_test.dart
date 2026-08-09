@@ -229,15 +229,28 @@ void main() {
       }
       final done = await manager.complete(ownerUid: 'uid_a', sessionId: sid);
       expect(done.ok, isTrue);
-      expect(done.state!.status, IqPersistedSessionStatus.completed);
+      expect(done.state!.status,
+          IqPersistedSessionStatus.completedPendingPersistence);
+      expect(done.state!.remoteFinalized, isFalse);
+      final active = await repo.loadActiveSession('uid_a');
+      expect(active.isLoaded, isTrue);
+      expect(active.state!.sessionId, sid);
+
+      final finalized =
+          await manager.markRemoteFinalized(ownerUid: 'uid_a', sessionId: sid);
+      expect(finalized.ok, isTrue);
+      expect(finalized.state!.status, IqPersistedSessionStatus.completed);
+      expect(finalized.state!.remoteFinalized, isTrue);
+      final after = await repo.loadActiveSession('uid_a');
+      expect(after.code, IqSessionLoadCode.notFound);
       expect(done.state!.completedAt, isNotNull);
 
-      final active = await manager.getOrCreateActiveSession(
+      final fresh = await manager.getOrCreateActiveSession(
         ownerUid: 'uid_a',
         sessionSeed: 'new-after-complete',
       );
       expect(manager.lastOperationComposed, isTrue);
-      expect(active.state!.sessionId, isNot(sid));
+      expect(fresh.state!.sessionId, isNot(sid));
 
       expect(
         (await manager.answer(

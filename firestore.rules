@@ -142,6 +142,13 @@ service cloud.firestore {
         allow read, write: if isOwner(uid);
       }
 
+      // Canonical 20D profile fragment (IQ/EQ/Frequency merge target).
+      // Owner-only; not public. Delete denied (retain audit trail).
+      match /profiles/canonical_v1 {
+        allow read, create, update: if isOwner(uid);
+        allow delete: if false;
+      }
+
       // Owner writes own swipes; target may read reverse swipe for mutual-like checks.
       match /swipes/{targetUid} {
         allow read: if isSignedIn()

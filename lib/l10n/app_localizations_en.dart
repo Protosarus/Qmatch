@@ -132,6 +132,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'We couldn\'t load your assessment session. Please try again.';
 
   @override
+  String get iqCanonicalAnswerError =>
+      'We couldn\'t save your answer. Please try again.';
+
+  @override
+  String get iqCanonicalPersistError =>
+      'We couldn\'t save your result. Your answers are safe; you can try again.';
+
+  @override
+  String get iqCanonicalFinalizeRetry => 'Save result';
+
+  @override
   String get iqDimLogicalReasoning => 'Logical Reasoning';
 
   @override

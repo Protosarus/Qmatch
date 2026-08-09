@@ -7,7 +7,8 @@ import 'iq_session_persistence_repository.dart';
 
 /// Runtime-neutral orchestration for compose + durable resume (P2C-2A-3).
 ///
-/// Not wired to Flutter widgets / Firebase / live IQTestScreen.
+/// HOTFIX: answer-complete locks answers as [completedPendingPersistence]
+/// while keeping the active pointer until remote finalization succeeds.
 class IqSessionManager {
   IqSessionManager({
     required IqRecoveredBankDocument bank,
@@ -32,7 +33,7 @@ class IqSessionManager {
 
   String _nowIso() => _clock().toUtc().toIso8601String();
 
-  /// Resume valid in-progress draft, else compose+persist a new session.
+  /// Resume valid in-progress / pending-finalization draft, else compose new.
   Future<IqSessionWriteResult> getOrCreateActiveSession({
     required String ownerUid,
     required String sessionSeed,
@@ -54,9 +55,12 @@ class IqSessionManager {
         bank: _bank,
         ownerUid: ownerUid,
       );
-      if (validated.isLoaded &&
-          validated.state!.status == IqPersistedSessionStatus.inProgress) {
-        return IqSessionWriteResult(ok: true, state: validated.state);
+      if (validated.isLoaded) {
+        final status = validated.state!.status;
+        if (status == IqPersistedSessionStatus.inProgress ||
+            status == IqPersistedSessionStatus.completedPendingPersistence) {
+          return IqSessionWriteResult(ok: true, state: validated.state);
+        }
       }
       if (validated.code == IqSessionLoadCode.incompatibleBank ||
           validated.code == IqSessionLoadCode.incompatiblePolicy ||
@@ -78,6 +82,13 @@ class IqSessionManager {
         code: existing.code.name,
         message: existing.message,
       );
+    }
+
+    // Conservative recovery for pre-hotfix stuck sessions:
+    // exactly one non-finalized completed 25-answer blob for this UID+bank.
+    final recovered = await _recoverUniqueStuckCompleted(ownerUid);
+    if (recovered != null) {
+      return recovered;
     }
 
     final config = composeConfig ??
@@ -133,12 +144,56 @@ class IqSessionManager {
     return IqSessionWriteResult(ok: true, state: state);
   }
 
+  /// Promote a unique stuck pre-hotfix `completed` session into pending.
+  Future<IqSessionWriteResult?> _recoverUniqueStuckCompleted(
+    String ownerUid,
+  ) async {
+    final listed = await _repository.listOwnerSessions(ownerUid);
+    final candidates = <IqPersistedSessionState>[];
+    for (final raw in listed) {
+      if (raw.ownerUid != ownerUid) continue;
+      if (raw.remoteFinalized) continue;
+      if (raw.status != IqPersistedSessionStatus.completed &&
+          raw.status != IqPersistedSessionStatus.completedPendingPersistence) {
+        continue;
+      }
+      if (raw.answers.length != IqSessionContract.sessionItemCount) continue;
+      final validated = IqPersistedSessionValidator.validate(
+        state: raw,
+        bank: _bank,
+        ownerUid: ownerUid,
+      );
+      if (!validated.isLoaded) continue;
+      candidates.add(validated.state!);
+    }
+    if (candidates.length != 1) {
+      // 0 → compose new; >1 → unsafe, do not guess.
+      return null;
+    }
+    final only = candidates.single;
+    if (only.status == IqPersistedSessionStatus.completedPendingPersistence &&
+        only.remoteFinalized == false) {
+      // Re-attach active pointer if missing.
+      await _repository.saveSession(only);
+      return IqSessionWriteResult(ok: true, state: only);
+    }
+    final now = _nowIso();
+    final pending = only.copyWith(
+      status: IqPersistedSessionStatus.completedPendingPersistence,
+      remoteFinalized: false,
+      updatedAt: now,
+      completedAt: only.completedAt ?? now,
+    );
+    await _repository.saveSession(pending);
+    return IqSessionWriteResult(ok: true, state: pending);
+  }
+
   Future<IqSessionWriteResult> moveToIndex({
     required String ownerUid,
     required String sessionId,
     required int index,
   }) async {
-    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    final loaded = await _loadValidatedEditable(ownerUid, sessionId);
     if (!loaded.ok) return loaded;
     final state = loaded.state!;
     if (index < 0 || index >= state.itemPlans.length) {
@@ -162,10 +217,10 @@ class IqSessionManager {
     required String itemId,
     required String selectedOptionId,
   }) async {
-    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    final loaded = await _loadValidatedEditable(ownerUid, sessionId);
     if (!loaded.ok) return loaded;
     final state = loaded.state!;
-    if (state.status != IqPersistedSessionStatus.inProgress) {
+    if (!state.status.isAnswerEditable) {
       return const IqSessionWriteResult(
         ok: false,
         code: 'session_not_editable',
@@ -211,11 +266,16 @@ class IqSessionManager {
     return IqSessionWriteResult(ok: true, state: next);
   }
 
+  /// Lock the 25-answer set for scoring while keeping resume/finalization.
+  ///
+  /// Status becomes [IqPersistedSessionStatus.completedPendingPersistence]
+  /// (active pointer retained). Call [markRemoteFinalized] only after remote
+  /// assessments/iq + progress + canonical_v1 succeed.
   Future<IqSessionWriteResult> complete({
     required String ownerUid,
     required String sessionId,
   }) async {
-    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    final loaded = await _loadValidatedEditable(ownerUid, sessionId);
     if (!loaded.ok) return loaded;
     final state = loaded.state!;
     if (state.itemPlans.length != IqSessionContract.sessionItemCount) {
@@ -244,9 +304,64 @@ class IqSessionManager {
     }
     final now = _nowIso();
     final next = state.copyWith(
-      status: IqPersistedSessionStatus.completed,
+      status: IqPersistedSessionStatus.completedPendingPersistence,
       completedAt: now,
       updatedAt: now,
+      remoteFinalized: false,
+    );
+    await _repository.saveSession(next);
+    return IqSessionWriteResult(ok: true, state: next);
+  }
+
+  /// Marks remote pipeline success: scientific `completed` + clear active.
+  Future<IqSessionWriteResult> markRemoteFinalized({
+    required String ownerUid,
+    required String sessionId,
+  }) async {
+    final loaded = await _repository.loadSession(ownerUid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final validated = IqPersistedSessionValidator.validate(
+      state: loaded.state!,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+        state: loaded.state,
+      );
+    }
+    final state = validated.state!;
+    if (!state.status.isScoreable &&
+        state.status != IqPersistedSessionStatus.completed) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: 'session_not_finalizable',
+        message: 'Session is ${state.status.wireValue}',
+        state: state,
+      );
+    }
+    if (state.answers.length != IqSessionContract.sessionItemCount) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'incomplete_answers',
+        message: 'Cannot finalize incomplete session',
+      );
+    }
+    final now = _nowIso();
+    final next = state.copyWith(
+      status: IqPersistedSessionStatus.completed,
+      remoteFinalized: true,
+      updatedAt: now,
+      completedAt: state.completedAt ?? now,
     );
     await _repository.saveSession(next);
     return IqSessionWriteResult(ok: true, state: next);
@@ -285,7 +400,7 @@ class IqSessionManager {
     return IqSessionWriteResult(ok: true, state: next);
   }
 
-  Future<IqSessionWriteResult> _loadValidatedInProgress(
+  Future<IqSessionWriteResult> _loadValidatedEditable(
     String ownerUid,
     String sessionId,
   ) async {
@@ -310,7 +425,7 @@ class IqSessionManager {
         state: loaded.state,
       );
     }
-    if (validated.state!.status != IqPersistedSessionStatus.inProgress) {
+    if (!validated.state!.status.isAnswerEditable) {
       return IqSessionWriteResult(
         ok: false,
         code: 'session_not_editable',

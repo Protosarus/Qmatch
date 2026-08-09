@@ -1,14 +1,36 @@
 import 'iq_session_contract.dart';
 import 'iq_session_models.dart';
 
-/// Persisted session lifecycle (wire values: in_progress / completed / abandoned).
+/// Persisted session lifecycle.
+///
+/// Wire values:
+/// - `in_progress` — answering still open
+/// - `completed_pending_persistence` — 25 answers locked; remote finalize pending
+/// - `completed` — answers + remote canonical completion finalized
+/// - `abandoned`
+///
+/// Scientific scoring treats pending + completed as complete answer sets.
 enum IqPersistedSessionStatus {
   inProgress('in_progress'),
+  completedPendingPersistence('completed_pending_persistence'),
   completed('completed'),
   abandoned('abandoned');
 
   const IqPersistedSessionStatus(this.wireValue);
   final String wireValue;
+
+  /// Answers may still be written.
+  bool get isAnswerEditable => this == IqPersistedSessionStatus.inProgress;
+
+  /// Canonical scorer may run (25-answer set locked).
+  bool get isScoreable =>
+      this == IqPersistedSessionStatus.completed ||
+      this == IqPersistedSessionStatus.completedPendingPersistence;
+
+  /// Keep UID active pointer so restart can resume answering or finalization.
+  bool get keepsActivePointer =>
+      this == IqPersistedSessionStatus.inProgress ||
+      this == IqPersistedSessionStatus.completedPendingPersistence;
 
   static IqPersistedSessionStatus fromWire(String? raw) {
     final v = raw ?? 'in_progress';
@@ -65,6 +87,7 @@ class IqPersistedSessionState {
     required this.updatedAt,
     required this.status,
     this.completedAt,
+    this.remoteFinalized = false,
     this.eligibilityMode =
         IqSessionEligibilityMode.offlineDeskReviewedCandidate,
     this.freshnessMode = IqSessionFreshnessMode.strictUnseenFamilies,
@@ -91,6 +114,10 @@ class IqPersistedSessionState {
   final String updatedAt;
   final String? completedAt;
   final IqPersistedSessionStatus status;
+
+  /// True only after remote assessments/iq + progress + canonical_v1 succeed.
+  final bool remoteFinalized;
+
   final IqSessionEligibilityMode eligibilityMode;
   final IqSessionFreshnessMode freshnessMode;
   final bool balanceDisplayedCorrectPositions;
@@ -131,6 +158,7 @@ class IqPersistedSessionState {
     String? updatedAt,
     String? completedAt,
     IqPersistedSessionStatus? status,
+    bool? remoteFinalized,
   }) {
     return IqPersistedSessionState(
       schemaVersion: schemaVersion,
@@ -147,6 +175,7 @@ class IqPersistedSessionState {
       updatedAt: updatedAt ?? this.updatedAt,
       completedAt: completedAt ?? this.completedAt,
       status: status ?? this.status,
+      remoteFinalized: remoteFinalized ?? this.remoteFinalized,
       eligibilityMode: eligibilityMode,
       freshnessMode: freshnessMode,
       balanceDisplayedCorrectPositions: balanceDisplayedCorrectPositions,
@@ -211,6 +240,7 @@ class IqPersistedSessionState {
       'updated_at': updatedAt,
       'completed_at': completedAt,
       'status': status.wireValue,
+      'remote_finalized': remoteFinalized,
       'eligibility_mode': eligibilityMode.name,
       'freshness_mode': freshnessMode.name,
       'balance_displayed_correct_positions': balanceDisplayedCorrectPositions,
@@ -255,6 +285,7 @@ class IqPersistedSessionState {
       updatedAt: json['updated_at'] as String,
       completedAt: json['completed_at'] as String?,
       status: status,
+      remoteFinalized: json['remote_finalized'] as bool? ?? false,
       eligibilityMode: IqSessionEligibilityMode.values.firstWhere(
         (e) => e.name == eligName,
         orElse: () => IqSessionEligibilityMode.offlineDeskReviewedCandidate,

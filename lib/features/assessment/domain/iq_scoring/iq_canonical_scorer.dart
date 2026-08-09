@@ -28,7 +28,7 @@ class IqCanonicalScorer {
       );
     }
 
-    if (session.status != IqPersistedSessionStatus.completed) {
+    if (!session.status.isScoreable) {
       if (session.status == IqPersistedSessionStatus.inProgress &&
           session.answers.length < IqSessionContract.sessionItemCount) {
         return const IqScoringOutcome.fail(

@@ -427,3 +427,108 @@ describe('Storage rules', () => {
     await assertFails(getBytes(ref(unauthStorage(), path)));
   });
 });
+
+describe('HOTFIX canonical_v1 profile rules', () => {
+  const profilePath = (uid) => `users/${uid}/profiles/canonical_v1`;
+  const sampleProfile = {
+    schema_version: 'qmatch_canonical_profile_v1',
+    owner_uid: 'userA',
+    measured_dimension_count: 4,
+    profile_status: 'partial',
+  };
+
+  it('owner can create own canonical_v1', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), profilePath('userA')), {
+        ...sampleProfile,
+        owner_uid: 'userA',
+      }),
+    );
+  });
+
+  it('owner can read own canonical_v1', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), profilePath('userA')), {
+        ...sampleProfile,
+        owner_uid: 'userA',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), profilePath('userA'))),
+    );
+  });
+
+  it('owner can update own canonical_v1', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), profilePath('userA')), {
+        ...sampleProfile,
+        owner_uid: 'userA',
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), profilePath('userA')), {
+        measured_dimension_count: 14,
+      }),
+    );
+  });
+
+  it('cross-UID read of canonical_v1 denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), profilePath('userB')), {
+        ...sampleProfile,
+        owner_uid: 'userB',
+      });
+    });
+    await assertFails(
+      getDoc(doc(authedFirestore('userA'), profilePath('userB'))),
+    );
+  });
+
+  it('cross-UID create/update of canonical_v1 denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), profilePath('userB')), {
+        ...sampleProfile,
+        owner_uid: 'userB',
+      }),
+    );
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), profilePath('userB')), {
+        ...sampleProfile,
+        owner_uid: 'userB',
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), profilePath('userB')), {
+        measured_dimension_count: 20,
+      }),
+    );
+  });
+
+  it('unauthenticated read/write of canonical_v1 denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), profilePath('userA')), {
+        ...sampleProfile,
+        owner_uid: 'userA',
+      });
+    });
+    await assertFails(
+      getDoc(doc(unauthFirestore(), profilePath('userA'))),
+    );
+    await assertFails(
+      setDoc(doc(unauthFirestore(), profilePath('userA')), sampleProfile),
+    );
+  });
+
+  it('owner delete of canonical_v1 denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), profilePath('userA')), {
+        ...sampleProfile,
+        owner_uid: 'userA',
+      });
+    });
+    const { deleteDoc } = require('firebase/firestore');
+    await assertFails(
+      deleteDoc(doc(authedFirestore('userA'), profilePath('userA'))),
+    );
+  });
+});

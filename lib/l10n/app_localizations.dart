@@ -320,6 +320,24 @@ abstract class AppLocalizations {
   /// **'We couldn\'t load your assessment session. Please try again.'**
   String get iqCanonicalSessionError;
 
+  /// No description provided for @iqCanonicalAnswerError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t save your answer. Please try again.'**
+  String get iqCanonicalAnswerError;
+
+  /// No description provided for @iqCanonicalPersistError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t save your result. Your answers are safe; you can try again.'**
+  String get iqCanonicalPersistError;
+
+  /// No description provided for @iqCanonicalFinalizeRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Save result'**
+  String get iqCanonicalFinalizeRetry;
+
   /// No description provided for @iqDimLogicalReasoning.
   ///
   /// In en, this message translates to:

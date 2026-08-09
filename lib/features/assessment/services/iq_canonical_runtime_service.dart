@@ -116,10 +116,10 @@ class IqCanonicalRuntimeService {
     return 'live_${uid}_$hex';
   }
 
-  /// Resume valid in-progress draft or create a new canonical session.
+  /// Resume valid in-progress / pending-finalization draft, or create new.
   ///
   /// [preferredLanguageCode] only applies when composing a **new** session.
-  /// An existing active session always resumes against its persisted
+  /// An existing active/pending session always resumes against its persisted
   /// `bank_locale` / `bank_version` (no mid-session language swap).
   Future<IqSessionWriteResult> getOrCreateActiveSession({
     String? preferredLanguageCode,
@@ -134,8 +134,7 @@ class IqCanonicalRuntimeService {
     }
 
     final peek = await _repo.loadActiveSession(uid);
-    if (peek.isLoaded &&
-        peek.state!.status == IqPersistedSessionStatus.inProgress) {
+    if (peek.isLoaded && peek.state!.status.keepsActivePointer) {
       final sessionLocale = peek.state!.bankLocale;
       final bank = await loadBankForLocale(sessionLocale);
       final manager = await _bindManager(bank);
@@ -150,6 +149,26 @@ class IqCanonicalRuntimeService {
         ok: false,
         code: peek.code.name,
         message: peek.message,
+      );
+    }
+
+    // Stuck pre-hotfix / cleared-pointer recovery: bind the candidate's bank.
+    final listed = await _repo.listOwnerSessions(uid);
+    final stuck = <IqPersistedSessionState>[
+      for (final s in listed)
+        if (!s.remoteFinalized &&
+            s.answers.length == IqSessionContract.sessionItemCount &&
+            (s.status == IqPersistedSessionStatus.completed ||
+                s.status ==
+                    IqPersistedSessionStatus.completedPendingPersistence))
+          s,
+    ];
+    if (stuck.length == 1) {
+      final bank = await loadBankForLocale(stuck.single.bankLocale);
+      final manager = await _bindManager(bank);
+      return manager.getOrCreateActiveSession(
+        ownerUid: uid,
+        sessionSeed: _newSessionSeed(uid),
       );
     }
 
@@ -248,6 +267,30 @@ class IqCanonicalRuntimeService {
     }
     final manager = await _managerForSession(loaded.state!);
     return manager.complete(ownerUid: uid, sessionId: sessionId);
+  }
+
+  /// After remote assessments/iq + progress + canonical_v1 succeed.
+  Future<IqSessionWriteResult> markRemoteFinalized({
+    required String sessionId,
+  }) async {
+    final uid = currentUid;
+    if (uid == null || uid.isEmpty) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'owner_unavailable',
+        message: 'Owner UID unavailable',
+      );
+    }
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
+    return manager.markRemoteFinalized(ownerUid: uid, sessionId: sessionId);
   }
 
   Future<IqScoringOutcome> scoreCompleted(
