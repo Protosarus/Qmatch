@@ -58,11 +58,18 @@ class FrequencyCanonicalItem {
     this.reverseScored,
     this.sourcePilotQuestionId,
     this.responseFormat = 'scenario_mcq_behavioral_tendency',
+    this.separatorType,
+    this.separatorDimensions = const [],
+    this.separatorPersonaTargets = const [],
+    this.traitScoring = true,
+    this.qualityType,
+    this.expectedProtocolOptionId,
+    this.rviRuntimeGate = false,
   });
 
   final String itemId;
 
-  /// One of: core | behavioral_equivalence | separator | quality
+  /// One of: core | behavioral_equivalence | separator | response_quality
   final String itemRole;
   final String? primaryDimension;
   final List<String> secondaryDimensions;
@@ -75,6 +82,17 @@ class FrequencyCanonicalItem {
   final bool? reverseScored;
   final String? sourcePilotQuestionId;
   final String responseFormat;
+
+  /// Separator contract (R1A): dimension_boundary; persona targets may be empty.
+  final String? separatorType;
+  final List<String> separatorDimensions;
+  final List<String> separatorPersonaTargets;
+
+  /// Quality-only items must set [traitScoring] false with empty deltas.
+  final bool traitScoring;
+  final String? qualityType;
+  final String? expectedProtocolOptionId;
+  final bool rviRuntimeGate;
 
   FrequencyCanonicalOption? optionById(String optionId) {
     for (final o in options) {
@@ -90,6 +108,12 @@ class FrequencyCanonicalItem {
             ))
         .toList();
     final secs = (json['secondary_dimensions'] as List? ?? const [])
+        .map((e) => e.toString())
+        .toList();
+    final sepDims = (json['separator_dimensions'] as List? ?? const [])
+        .map((e) => e.toString())
+        .toList();
+    final sepPersona = (json['separator_persona_targets'] as List? ?? const [])
         .map((e) => e.toString())
         .toList();
     return FrequencyCanonicalItem(
@@ -108,6 +132,13 @@ class FrequencyCanonicalItem {
       sourcePilotQuestionId: json['source_pilot_question_id'] as String?,
       responseFormat: (json['response_format'] as String?) ??
           'scenario_mcq_behavioral_tendency',
+      separatorType: json['separator_type'] as String?,
+      separatorDimensions: sepDims,
+      separatorPersonaTargets: sepPersona,
+      traitScoring: (json['trait_scoring'] as bool?) ?? true,
+      qualityType: json['quality_type'] as String?,
+      expectedProtocolOptionId: json['expected_protocol_option_id'] as String?,
+      rviRuntimeGate: (json['rvi_runtime_gate'] as bool?) ?? false,
     );
   }
 
@@ -126,6 +157,13 @@ class FrequencyCanonicalItem {
         if (sourcePilotQuestionId != null)
           'source_pilot_question_id': sourcePilotQuestionId,
         'response_format': responseFormat,
+        'separator_type': separatorType,
+        'separator_dimensions': separatorDimensions,
+        'separator_persona_targets': separatorPersonaTargets,
+        'trait_scoring': traitScoring,
+        'quality_type': qualityType,
+        'expected_protocol_option_id': expectedProtocolOptionId,
+        'rvi_runtime_gate': rviRuntimeGate,
       };
 }
 
@@ -233,6 +271,7 @@ List<FrequencyDimensionCoverage> frequencyBankDimensionCoverage(
         related[primary] = related[primary]! + 1;
       }
     }
+    if (!item.traitScoring) continue;
     for (final o in item.options) {
       for (final d in o.dimensionDeltas.keys) {
         if (FrequencyCanonicalDimensions.isCanonical(d)) {

@@ -1,43 +1,40 @@
 # QMatch Frequency Bank TR/EN Parity v1
 
-**Phase:** P2C-2A-8R1  
+**Phase:** P2C-2A-8R1A
 **Date:** 2026-08-09
 
 ## Status
 
 ```text
-TR runtime candidate = NOT_CREATED
-EN runtime candidate = NOT_CREATED
-structural_parity = N/A (no candidate pair)
-translation_semantic_review = candidate/review_required (blocked upstream)
+TR runtime candidate = CREATED_AND_VALIDATED
+EN runtime candidate = CREATED_AND_STRUCTURALLY_VALIDATED
+
+structural_parity = validated
+internal_translation_status = authored_candidate
+translation_semantic_review = candidate/review_required
 psychometric_cross_language_validation = not_calibrated
 ```
 
-## Evidence from repository
+## Enforced identical fields
 
-Pilot TR (`frequency_pilot_tr_v1.json`) embeds EN prompt/option stubs:
-
-```text
-EN equivalent pending (tr-TR pilot reference; not a translation).
-```
-
-Notes in the pilot form mark EN fields as schema-required stubs only — **not** authored translations and **not** human semantic review.
-
-There is **no** approved EN Frequency runtime-candidate bank to claim structural parity against.
-
-## Parity contract (ready for future banks)
-
-When TR/EN candidates exist, `FrequencyCanonicalBankParity` must enforce identical:
+`FrequencyCanonicalBankParity` requires TR/EN identity for:
 
 * item IDs / roles
 * primary / secondary dimensions
 * option IDs
 * dimension-delta maps
 * relationship / isomorph / reverse metadata
+* separator_type / separator_dimensions / separator_persona_targets
+* trait_scoring / quality_type / expected_protocol_option_id
 * scoring policy / schema versions
 
-Only user-visible language may differ. Deltas must not change because English “sounds” stronger/weaker.
+Only user-visible language differs.
 
-## Non-claim
+## EN content provenance
 
-Do not claim psychometric cross-language equivalence or completed EN semantic review without repository proof.
+| Segment | EN source |
+|---------|-----------|
+| 30 core + 12 isomorph | Pilot EN stubs (pending full semantic review) |
+| 6 separators + 2 quality | QMatch-authored EN supplied in P2C-2A-8R1A |
+
+Do not claim psychometric cross-language equivalence.

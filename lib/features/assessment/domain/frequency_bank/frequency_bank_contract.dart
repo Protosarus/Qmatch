@@ -1,7 +1,4 @@
-/// Offline Frequency bank contracts (P2C-2A-8R1).
-///
-/// Runtime-candidate 50-item banks are **not** shipped in this phase when
-/// separator / quality-only coverage is blocked.
+/// Offline Frequency bank contracts (P2C-2A-8R1 / R1A).
 class FrequencyBankContract {
   FrequencyBankContract._();
 
@@ -32,6 +29,7 @@ class FrequencyBankContract {
   static const int primaryCoreItemsPerDimension = 5;
   static const int relatedItemsPerDimension = 2;
   static const int optionsPerItem = 4;
+  static const int minSeparatorDimensions = 2;
 
   static const String statusRuntimeCandidate = 'runtime_candidate';
   static const String statusMathFixture = 'math_fixture';
@@ -42,5 +40,21 @@ class FrequencyBankContract {
   static const String itemRoleCore = 'core';
   static const String itemRoleBehavioralEquivalence = 'behavioral_equivalence';
   static const String itemRoleSeparator = 'separator';
-  static const String itemRoleQuality = 'quality';
+  static const String itemRoleQuality = 'response_quality';
+
+  static const String separatorTypeDimensionBoundary = 'dimension_boundary';
+
+  static const List<String> authoredSeparatorIds = [
+    'freq_separator_depth_comm_v1',
+    'freq_separator_social_stability_v1',
+    'freq_separator_spontaneity_stability_v1',
+    'freq_separator_disclosure_depth_v1',
+    'freq_separator_comm_stability_v1',
+    'freq_separator_social_disclosure_v1',
+  ];
+
+  static const List<String> authoredQualityIds = [
+    'freq_quality_instruction_v1',
+    'freq_quality_protocol_v1',
+  ];
 }

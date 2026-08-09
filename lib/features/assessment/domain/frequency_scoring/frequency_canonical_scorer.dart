@@ -86,6 +86,11 @@ class CanonicalFrequencyScorer {
           message: 'Option ${r.optionId} not in ${r.itemId}',
         );
       }
+      // Quality / non-trait protocol items never contribute Frequency evidence.
+      if (!item.traitScoring ||
+          item.itemRole == FrequencyBankContract.itemRoleQuality) {
+        continue;
+      }
       for (final e in option.dimensionDeltas.entries) {
         if (!FrequencyCanonicalDimensions.isCanonical(e.key)) {
           return FrequencyScoringOutcome.fail(

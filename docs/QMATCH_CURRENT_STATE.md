@@ -10,8 +10,7 @@ project continuity across ChatGPT/Cursor sessions.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Last completed phase | **P2C-2A-7R2 — Live Canonical EQ Runtime + EQ→20D** |
-| Last Frequency attempt | **P2C-2A-8R1 — BLOCKED** (separator + quality coverage) |
+| Last completed phase | **P2C-2A-8R1A — Frequency separator/quality authoring + offline 50-item banks** |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -24,7 +23,8 @@ P2C-2A-7R1 = COMPLETE
 P2C-2A-7R2 = COMPLETE
 P2C-2A-7 = COMPLETE
 
-P2C-2A-8R1 = BLOCKED
+P2C-2A-8R1A = COMPLETE
+P2C-2A-8R1 = COMPLETE
 P2C-2A-8 = BLOCKED_PENDING_RUNTIME_INTEGRATION
 
 Canonical IQ dimensions = 4 measured
@@ -37,10 +37,8 @@ IQ = COMPLETE
 EQ = COMPLETE
 Frequency taxonomy = FROZEN
 Frequency scoring math / CanonicalFrequencyScorer = IMPLEMENTED_OFFLINE
-Frequency TR/EN 50-item runtime candidates = NOT_CREATED
-  blockers:
-    BLOCKED_FREQUENCY_SEPARATOR_ITEM_COVERAGE
-    BLOCKED_FREQUENCY_QUALITY_ITEM_COVERAGE
+Frequency TR/EN 50-item runtime candidates = CREATED_AND_VALIDATED
+EN full semantic review = PENDING_R2
 Frequency live canonical = NOT_STARTED
 Frequency → 20D adapter = NOT_WIRED
 
@@ -61,7 +59,7 @@ Psychometric calibration = NOT_STARTED
 |--------|------|-------|
 | **IQ** | Canonical 25-session + 4D + profile adapter | Live |
 | **EQ** | Canonical 30-session + 10D + profile merge | Live |
-| **Frequency** | Legacy Frequency path | Offline 6D math ready; banks blocked; profile not started |
+| **Frequency** | Legacy Frequency path | Offline 6D math + 50-item banks ready; not wired |
 
 ---
 
@@ -74,13 +72,13 @@ Psychometric calibration = NOT_STARTED
 | P2C-2A-7R2 live EQ + Eq→20D | `0698b83d016ed3b284a02b53e2b36d18df66e7b8` |
 | Continuity tip before Frequency R1 | `47458b1dc0ada4f7444ee1fb4bd15f62c1c76fc5` |
 | P2C-2A-8R1 Frequency math freeze (banks blocked) | `71a82ad1ee4e63f4a654eabefa168e0af0c22d8b` |
+| Continuity tip before Frequency R1A | `9145a67132d244a037ba5584d856c0de1653748b` |
 
 ---
 
 ## Next Exact Phase
 
-Do **not** begin live Frequency R2 until separator + quality-only item coverage exists
-from scientifically compatible authored content (no invented deltas).
+**P2C-2A-8R2** — live canonical Frequency runtime + Frequency→20D (only after explicit start).
 
 Do not auto-start Persona / Matching / quantum.
 

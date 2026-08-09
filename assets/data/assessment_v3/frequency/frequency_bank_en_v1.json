@@ -1,0 +1,3140 @@
+{
+  "schema_version": "qmatch_frequency_bank_v1",
+  "bank_version": "frequency_bank_en_v1",
+  "content_version": "frequency-runtime-candidate-en-v1",
+  "locale": "en-US",
+  "module": "frequency",
+  "status": "runtime_candidate",
+  "calibration_status": "uncalibrated",
+  "reliability_status": "not_calibrated",
+  "psychometric_validation_status": "not_calibrated",
+  "scoring_policy_version": "frequency_6d_uncalibrated_signed_evidence_v1",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "source_pilot": {
+    "form_id": "frequency_tr_pilot_v1",
+    "content_version": "frequency-tr-pilot-v1",
+    "path": "assets/data/assessment_v3/frequency/frequency_pilot_tr_v1.json",
+    "selection_policy": "deterministic_sort_item_id_first_5_non_isomorph_core_plus_all_6_isomorph_groups",
+    "authored_separator_quality": "P2C-2A-8R1A_qmatch_provisional"
+  },
+  "question_count": 50,
+  "blueprint": {
+    "core": 30,
+    "behavioral_equivalence": 12,
+    "separator": 6,
+    "response_quality": 2
+  },
+  "canonical_dimensions": [
+    "depth_preference",
+    "social_energy",
+    "spontaneity",
+    "stability",
+    "disclosure_pace",
+    "communication_pace"
+  ],
+  "primary_core_items_per_dimension": 5,
+  "related_items_per_dimension": 2,
+  "response_instruction": {
+    "concept": "Which response is closest to what you would actually tend to do?",
+    "not": "Which is the correct/best/most mature response?"
+  },
+  "rvi_runtime_gate": "NOT_CALIBRATED / NOT_ACTIVE",
+  "scientific_status": "uncalibrated_multidimensional_relational_rhythm_behavioral_preference_profile",
+  "not_claims": [
+    "clinical_diagnosis",
+    "psychological_certification",
+    "population_percentile_test",
+    "validated_medical_instrument"
+  ],
+  "localization": {
+    "structural_parity": "validated",
+    "internal_translation_status": "authored_candidate",
+    "translation_semantic_review": "candidate_review_required",
+    "psychometric_cross_language_validation": "not_calibrated",
+    "pilot_derived_en_fields": "stubs_pending_full_semantic_review",
+    "authored_separator_quality_en": "supplied_in_P2C-2A-8R1A"
+  },
+  "pair_registry": {
+    "semantic_pairs": [
+      {
+        "pair_id": "frequency_tr_v1_sem_01",
+        "item_ids": [
+          "frequency_tr_v1_depth_preference_002",
+          "frequency_tr_v1_depth_preference_003"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_02",
+        "item_ids": [
+          "frequency_tr_v1_communication_pace_001",
+          "frequency_tr_v1_communication_pace_002"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_03",
+        "item_ids": [
+          "frequency_tr_v1_social_energy_001",
+          "frequency_tr_v1_social_energy_003"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_04",
+        "item_ids": [
+          "frequency_tr_v1_spontaneity_001",
+          "frequency_tr_v1_spontaneity_003"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_05",
+        "item_ids": [
+          "frequency_tr_v1_stability_001",
+          "frequency_tr_v1_stability_004"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_06",
+        "item_ids": [
+          "frequency_tr_v1_disclosure_pace_001",
+          "frequency_tr_v1_disclosure_pace_002"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_08",
+        "item_ids": [
+          "frequency_tr_v1_communication_pace_005",
+          "frequency_tr_v1_communication_pace_007"
+        ]
+      }
+    ],
+    "reverse_pairs": [
+      {
+        "pair_id": "frequency_tr_v1_rev_03",
+        "consistency_mode": "behavioral_correspondence",
+        "item_ids": [
+          "frequency_tr_v1_social_energy_002",
+          "frequency_tr_v1_social_energy_007"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_rev_05",
+        "consistency_mode": "behavioral_correspondence",
+        "item_ids": [
+          "frequency_tr_v1_stability_002",
+          "frequency_tr_v1_stability_006"
+        ]
+      }
+    ],
+    "behavioral_isomorph_groups": [
+      {
+        "group_id": "frequency_tr_v1_iso_01",
+        "item_ids": [
+          "frequency_tr_v1_depth_preference_007",
+          "frequency_tr_v1_depth_preference_008"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_02",
+        "item_ids": [
+          "frequency_tr_v1_communication_pace_004",
+          "frequency_tr_v1_communication_pace_006"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_03",
+        "item_ids": [
+          "frequency_tr_v1_social_energy_004",
+          "frequency_tr_v1_social_energy_006"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_04",
+        "item_ids": [
+          "frequency_tr_v1_spontaneity_004",
+          "frequency_tr_v1_spontaneity_005"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_05",
+        "item_ids": [
+          "frequency_tr_v1_stability_003",
+          "frequency_tr_v1_stability_007"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_06",
+        "item_ids": [
+          "frequency_tr_v1_disclosure_pace_004",
+          "frequency_tr_v1_disclosure_pace_008"
+        ]
+      }
+    ]
+  },
+  "selection_core_by_dimension": {
+    "depth_preference": [
+      "frequency_tr_v1_depth_preference_001",
+      "frequency_tr_v1_depth_preference_002",
+      "frequency_tr_v1_depth_preference_003",
+      "frequency_tr_v1_depth_preference_004",
+      "frequency_tr_v1_depth_preference_005"
+    ],
+    "social_energy": [
+      "frequency_tr_v1_social_energy_001",
+      "frequency_tr_v1_social_energy_002",
+      "frequency_tr_v1_social_energy_003",
+      "frequency_tr_v1_social_energy_005",
+      "frequency_tr_v1_social_energy_007"
+    ],
+    "spontaneity": [
+      "frequency_tr_v1_spontaneity_001",
+      "frequency_tr_v1_spontaneity_002",
+      "frequency_tr_v1_spontaneity_003",
+      "frequency_tr_v1_spontaneity_006",
+      "frequency_tr_v1_spontaneity_007"
+    ],
+    "stability": [
+      "frequency_tr_v1_stability_001",
+      "frequency_tr_v1_stability_002",
+      "frequency_tr_v1_stability_004",
+      "frequency_tr_v1_stability_005",
+      "frequency_tr_v1_stability_006"
+    ],
+    "disclosure_pace": [
+      "frequency_tr_v1_disclosure_pace_001",
+      "frequency_tr_v1_disclosure_pace_002",
+      "frequency_tr_v1_disclosure_pace_003",
+      "frequency_tr_v1_disclosure_pace_005",
+      "frequency_tr_v1_disclosure_pace_006"
+    ],
+    "communication_pace": [
+      "frequency_tr_v1_communication_pace_001",
+      "frequency_tr_v1_communication_pace_002",
+      "frequency_tr_v1_communication_pace_003",
+      "frequency_tr_v1_communication_pace_005",
+      "frequency_tr_v1_communication_pace_007"
+    ]
+  },
+  "selection_behavioral_equivalence_ids": [
+    "frequency_tr_v1_depth_preference_007",
+    "frequency_tr_v1_depth_preference_008",
+    "frequency_tr_v1_communication_pace_004",
+    "frequency_tr_v1_communication_pace_006",
+    "frequency_tr_v1_social_energy_004",
+    "frequency_tr_v1_social_energy_006",
+    "frequency_tr_v1_spontaneity_004",
+    "frequency_tr_v1_spontaneity_005",
+    "frequency_tr_v1_stability_003",
+    "frequency_tr_v1_stability_007",
+    "frequency_tr_v1_disclosure_pace_004",
+    "frequency_tr_v1_disclosure_pace_008"
+  ],
+  "items": [
+    {
+      "item_id": "frequency_tr_v1_depth_preference_001",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.6,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.3,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "social_energy": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_07",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_002",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.2,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_01",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_003",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "stability": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_01",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_004",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.2,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_01",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_005",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.6,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.3,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "social_energy": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "stability": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_001",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_03",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_002",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_03",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_003",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_03",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_005",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "disclosure_pace": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_007",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_03",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_001",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_04",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_002",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_04",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_003",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_04",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_006",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_007",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_001",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_05",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_002",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_05",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_004",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_05",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_005",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "disclosure_pace",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_006",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_05",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_001",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_06",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_002",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_06",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_003",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_06",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_005",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_006",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_001",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_02",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_002",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "social_energy",
+        "spontaneity",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "stability": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_02",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_003",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_02",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_005",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_08",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_007",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "stability": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_08",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_007",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.6,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.3,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "stability": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_01",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_008",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "spontaneity",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.2,
+            "stability": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_01",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_008",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_02",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_006",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_02",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_03",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_006",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_03",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_04",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_005",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_04",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_003",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_05",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_007",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_05",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_06",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_008",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_06",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_008",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_depth_comm_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "You have recently met someone you like. Which communication pattern would feel most natural to you over the next week?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "I would exchange frequent short messages during the day and leave deeper conversations for later.",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "communication_pace": 0.7
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "I would communicate less often, but when we talk I would prefer longer and deeper conversations.",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "communication_pace": -0.45
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "I would balance brief daily contact with an occasional longer conversation.",
+          "dimension_deltas": {
+            "depth_preference": 0.35,
+            "communication_pace": 0.25
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "I would keep communication light and occasional until we know each other better.",
+          "dimension_deltas": {
+            "depth_preference": -0.55,
+            "communication_pace": -0.35
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "depth_preference",
+        "communication_pace"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_social_stability_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "When you have a free weekend, how do you usually prefer to arrange your social plans?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Having several different plans one after another tends to energize me.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.15
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "One planned get-together and keeping the rest of the time for myself suits me better.",
+          "dimension_deltas": {
+            "social_energy": 0.1,
+            "stability": 0.65
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "I prefer deciding who to see and what to do based on how I feel that day.",
+          "dimension_deltas": {
+            "social_energy": 0.2,
+            "stability": -0.55
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "I mostly prefer my own space and may add a short social plan if I feel like it.",
+          "dimension_deltas": {
+            "social_energy": -0.7,
+            "stability": 0.15
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "social_energy",
+        "stability"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_spontaneity_stability_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "When planning a day together, which approach feels most natural to you?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "I prefer settling the plan in advance and sticking to it as much as possible.",
+          "dimension_deltas": {
+            "spontaneity": -0.75,
+            "stability": 0.75
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "I like having a clear main plan while leaving room for small changes.",
+          "dimension_deltas": {
+            "spontaneity": -0.25,
+            "stability": 0.45
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "A rough idea is enough; I enjoy deciding the details during the day.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "stability": -0.25
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "It feels more natural to decide most things at the last minute based on what we feel like doing.",
+          "dimension_deltas": {
+            "spontaneity": 0.8,
+            "stability": -0.65
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "spontaneity",
+        "stability"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_disclosure_depth_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Someone you have recently started getting close to asks you a personal question early on. Which response is closest to you?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "If I feel comfortable, I answer openly and in detail.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": 0.45
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "I share part of it and leave the more personal parts until trust develops.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.25,
+            "depth_preference": 0.55
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "I can talk about it, but I prefer more time before sharing personal details.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.55,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "I prefer keeping the conversation lighter and building closeness through shared experiences first.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.75,
+            "depth_preference": -0.45
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "disclosure_pace",
+        "depth_preference"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_comm_stability_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "When your messaging rhythm with someone close to you has been different from usual for a few days, what do you generally do?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "I keep my usual communication rhythm and do not immediately read too much into the change.",
+          "dimension_deltas": {
+            "communication_pace": 0.35,
+            "stability": 0.65
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "I adjust how often I message to match their new rhythm.",
+          "dimension_deltas": {
+            "communication_pace": -0.1,
+            "stability": -0.25
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "At an appropriate time, I directly ask whether our communication rhythm is working for both of us.",
+          "dimension_deltas": {
+            "communication_pace": 0.55,
+            "stability": 0.45
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "I give the interaction some space to find its rhythm naturally again.",
+          "dimension_deltas": {
+            "communication_pace": -0.65,
+            "stability": 0.1
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "communication_pace",
+        "stability"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_social_disclosure_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "In a social setting where you feel comfortable, which pattern is usually closest to you?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "I talk with many people but mostly keep the topics light.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "disclosure_pace": -0.45
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "I have longer conversations with fewer people and open up gradually.",
+          "dimension_deltas": {
+            "social_energy": -0.15,
+            "disclosure_pace": 0.35
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "I move between different people and may discuss personal topics when trust develops.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": 0.25
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "I observe the setting first and join one or two conversations once I feel comfortable.",
+          "dimension_deltas": {
+            "social_energy": -0.55,
+            "disclosure_pace": -0.15
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "social_energy",
+        "disclosure_pace"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_quality_instruction_v1",
+      "item_role": "response_quality",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "This item only checks whether the instruction was read and does not affect your profile. Please select “I read the instruction.”",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "I can continue",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_b",
+          "text": "I read the instruction",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_c",
+          "text": "I am unsure",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_d",
+          "text": "I will answer later",
+          "dimension_deltas": {}
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": false,
+      "quality_type": "instruction_attention",
+      "expected_protocol_option_id": "opt_b",
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_quality_protocol_v1",
+      "item_role": "response_quality",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "This is another short check that does not contribute to your profile score. For this item, please select “Continue.”",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Wait a moment",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Skip",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Continue",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Go back",
+          "dimension_deltas": {}
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": false,
+      "quality_type": "protocol_attention",
+      "expected_protocol_option_id": "opt_c",
+      "rvi_runtime_gate": false
+    }
+  ]
+}

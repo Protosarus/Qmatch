@@ -1,7 +1,7 @@
 # QMatch Frequency 6D Scoring Mathematics v1
 
-**Phase:** P2C-2A-8R1  
-**Policy:** `frequency_6d_uncalibrated_signed_evidence_v1`  
+**Phase:** P2C-2A-8R1
+**Policy:** `frequency_6d_uncalibrated_signed_evidence_v1`
 **Status:** Uncalibrated launch contract (not psychometrically validated)
 
 ---
@@ -187,5 +187,19 @@ Evidence count \(\neq\) reliability.
 * Scorer: `CanonicalFrequencyScorer`
 * Math helper: `FrequencySignedEvidenceMath`
 * Policy: `frequency_6d_uncalibrated_signed_evidence_v1`
-* Runtime-candidate banks: **blocked** pending separator + quality-only coverage
+* Runtime-candidate banks (offline, not pubspec):
+  * `assets/data/assessment_v3/frequency/frequency_bank_tr_v1.json`
+  * `assets/data/assessment_v3/frequency/frequency_bank_en_v1.json`
+* Authored separators/quality: `docs/assessment/qmatch_frequency_authored_separator_quality_v1.md`
 * Math fixture (tests only): `test/fixtures/frequency/frequency_math_fixture_v1.json`
+
+### Separator scoring
+
+The six separator items contribute ordinary equal-weight trait evidence (\(a_{ij}=1\)).
+No special separator multiplier, Persona weight, or confidence bonus.
+
+### Quality non-scoring
+
+`response_quality` items with `trait_scoring=false` and empty `dimension_deltas`
+are ignored by the scorer for all six Frequency dimensions. Protocol pass/fail
+must not change \(z_j\), \(x_j\), or `evidence_count`.

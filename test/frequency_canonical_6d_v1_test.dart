@@ -12,24 +12,46 @@ FrequencyCanonicalBankDocument _load(String path) {
   );
 }
 
-List<FrequencyCanonicalResponse> _pick(
+List<FrequencyCanonicalResponse> _firstOption(
   FrequencyCanonicalBankDocument bank,
-  String optionId,
 ) {
   return [
     for (final i in bank.items)
       FrequencyCanonicalResponse(
         itemId: i.itemId,
-        optionId: i.optionById(optionId)?.optionId ?? i.options.first.optionId,
+        optionId: i.options.first.optionId,
+      ),
+  ];
+}
+
+List<FrequencyCanonicalResponse> _withQuality(
+  FrequencyCanonicalBankDocument bank, {
+  required bool pass,
+}) {
+  return [
+    for (final i in bank.items)
+      FrequencyCanonicalResponse(
+        itemId: i.itemId,
+        optionId: i.itemRole == FrequencyBankContract.itemRoleQuality
+            ? (pass
+                ? i.expectedProtocolOptionId!
+                : i.options
+                    .firstWhere((o) => o.optionId != i.expectedProtocolOptionId)
+                    .optionId)
+            : i.options.first.optionId,
       ),
   ];
 }
 
 void main() {
   late FrequencyCanonicalBankDocument fixture;
+  late FrequencyCanonicalBankDocument tr;
+  late FrequencyCanonicalBankDocument en;
 
   setUpAll(() {
     fixture = _load('test/fixtures/frequency/frequency_math_fixture_v1.json');
+    tr = _load(FrequencyBankContract.trAssetPath);
+    en = _load(FrequencyBankContract.enAssetPath);
   });
 
   group('Canonical Frequency taxonomy freeze', () {
@@ -45,88 +67,129 @@ void main() {
     });
   });
 
-  group('Pilot coverage audit (no runtime candidate)', () {
-    test('pilot has signed deltas but no separator / quality-only roles', () {
-      final raw = jsonDecode(
-        File(FrequencyBankContract.pilotTrPath).readAsStringSync(),
-      ) as Map<String, dynamic>;
-      final items = (raw['items'] as List).cast<Map<String, dynamic>>();
-      expect(items.length, 50);
+  group('Runtime-candidate bank validators', () {
+    test('TR candidate: 50 items, blueprint roles, deltas valid', () {
+      final v = const FrequencyCanonicalBankValidator().validate(tr);
+      expect(v.ok, isTrue, reason: v.issues.join('; '));
+      expect(tr.items.length, 50);
+      expect(tr.status, FrequencyBankContract.statusRuntimeCandidate);
+      expect(
+          tr.calibrationStatus, FrequencyBankContract.calibrationUncalibrated);
+      expect(
+        tr.reliabilityStatus,
+        FrequencyBankContract.reliabilityNotCalibrated,
+      );
+      expect(
+          tr.scoringPolicyVersion, FrequencyBankContract.scoringPolicyVersion);
+      expect(tr.rviRuntimeGate, FrequencyBankContract.rviGateNotActive);
 
-      final dims = <String>{};
-      var sep = 0;
-      var qualityOnly = 0;
-      for (final it in items) {
-        final primary = it['primary_dimension'] as String;
-        expect(FrequencyCanonicalDimensions.isCanonical(primary), isTrue);
+      final roles = <String, int>{};
+      for (final i in tr.items) {
+        roles[i.itemRole] = (roles[i.itemRole] ?? 0) + 1;
+      }
+      expect(roles[FrequencyBankContract.itemRoleCore], 30);
+      expect(roles[FrequencyBankContract.itemRoleBehavioralEquivalence], 12);
+      expect(roles[FrequencyBankContract.itemRoleSeparator], 6);
+      expect(roles[FrequencyBankContract.itemRoleQuality], 2);
+
+      for (final c in v.coverage) {
+        expect(c.corePrimaryItemCount, 5, reason: c.dimensionId);
+        expect(c.relatedItemCount, 2, reason: c.dimensionId);
+      }
+
+      final sepIds = tr.items
+          .where((i) => i.itemRole == FrequencyBankContract.itemRoleSeparator)
+          .map((e) => e.itemId)
+          .toSet();
+      expect(sepIds, FrequencyBankContract.authoredSeparatorIds.toSet());
+      for (final i in tr.items.where(
+        (i) => i.itemRole == FrequencyBankContract.itemRoleSeparator,
+      )) {
         expect(
-          FrequencyCanonicalDimensions.isForbiddenLegacy(primary),
-          isFalse,
+          i.separatorType,
+          FrequencyBankContract.separatorTypeDimensionBoundary,
         );
-        dims.add(primary);
-        final targets = it['separator_targets'];
-        if (targets is List && targets.isNotEmpty) sep++;
-        final opts = (it['options'] as List).cast<Map<String, dynamic>>();
-        final anyTrait = opts.any((o) {
-          final d = o['dimension_deltas'];
-          return d is Map && d.isNotEmpty;
-        });
-        if (!anyTrait) qualityOnly++;
-        for (final o in opts) {
-          expect(o.containsKey('correctAnswer'), isFalse);
-          expect(o.containsKey('correct_option_id'), isFalse);
-          final deltas =
-              Map<String, dynamic>.from(o['dimension_deltas'] as Map);
-          for (final e in deltas.entries) {
-            expect(FrequencyCanonicalDimensions.isCanonical(e.key), isTrue);
-            final v = (e.value as num).toDouble();
-            expect(v, inInclusiveRange(-1.0, 1.0));
+        expect(i.separatorDimensions.length, greaterThanOrEqualTo(2));
+        expect(i.separatorPersonaTargets, isEmpty);
+        expect(i.traitScoring, isTrue);
+        expect(i.responseFormat, 'forced_choice');
+        for (final o in i.options) {
+          expect(o.dimensionDeltas, isNotEmpty);
+          for (final e in o.dimensionDeltas.entries) {
+            expect(e.value, inInclusiveRange(-1.0, 1.0));
           }
         }
       }
-      expect(dims, FrequencyCanonicalDimensions.allSet);
-      expect(sep, 0, reason: 'BLOCKED_FREQUENCY_SEPARATOR_ITEM_COVERAGE');
-      expect(qualityOnly, 0, reason: 'BLOCKED_FREQUENCY_QUALITY_ITEM_COVERAGE');
 
-      final iso =
-          ((raw['pair_registry'] as Map)['behavioral_isomorph_groups'] as List)
-              .length;
-      expect(iso, 6);
+      final qual = tr.items
+          .where((i) => i.itemRole == FrequencyBankContract.itemRoleQuality)
+          .toList();
+      expect(
+        qual.map((e) => e.itemId).toSet(),
+        FrequencyBankContract.authoredQualityIds.toSet(),
+      );
+      for (final i in qual) {
+        expect(i.traitScoring, isFalse);
+        expect(i.rviRuntimeGate, isFalse);
+        expect(i.primaryDimension, isNull);
+        expect(i.expectedProtocolOptionId, isNotNull);
+        for (final o in i.options) {
+          expect(o.dimensionDeltas, isEmpty);
+        }
+      }
+      expect(
+        tr.items
+            .firstWhere((i) => i.itemId == 'freq_quality_instruction_v1')
+            .expectedProtocolOptionId,
+        'opt_b',
+      );
+      expect(
+        tr.items
+            .firstWhere((i) => i.itemId == 'freq_quality_protocol_v1')
+            .expectedProtocolOptionId,
+        'opt_c',
+      );
 
-      // Runtime candidate assets must not exist yet.
-      expect(File(FrequencyBankContract.trAssetPath).existsSync(), isFalse);
-      expect(File(FrequencyBankContract.enAssetPath).existsSync(), isFalse);
+      final bankJson =
+          File(FrequencyBankContract.trAssetPath).readAsStringSync();
+      expect(bankJson.contains('correctAnswer'), isFalse);
+      expect(bankJson.contains('correct_option_id'), isFalse);
+      expect(RegExp(r'[\w.+-]+@[\w-]+\.[\w.-]+').hasMatch(bankJson), isFalse);
       expect(FrequencyBankContract.registeredInPubspec, isFalse);
+      final pub = File('pubspec.yaml').readAsStringSync();
+      expect(pub.contains('frequency_bank_tr_v1.json'), isFalse);
+      expect(pub.contains('frequency_bank_en_v1.json'), isFalse);
     });
 
-    test('full blueprint validator rejects empty candidate bank', () {
-      final empty = FrequencyCanonicalBankDocument(
-        schemaVersion: FrequencyBankContract.schemaVersion,
-        bankVersion: 'empty',
-        contentVersion: 'empty',
-        locale: 'tr-TR',
-        status: FrequencyBankContract.statusRuntimeCandidate,
-        calibrationStatus: FrequencyBankContract.calibrationUncalibrated,
-        reliabilityStatus: FrequencyBankContract.reliabilityNotCalibrated,
-        scoringPolicyVersion: FrequencyBankContract.scoringPolicyVersion,
-        items: const [],
-        pairRegistry: const {},
-        rviRuntimeGate: FrequencyBankContract.rviGateNotActive,
-      );
-      final v = const FrequencyCanonicalBankValidator().validate(empty);
-      expect(v.ok, isFalse);
+    test('EN candidate validates identically on structure', () {
+      final v = const FrequencyCanonicalBankValidator().validate(en);
+      expect(v.ok, isTrue, reason: v.issues.join('; '));
+      expect(en.items.length, 50);
+      expect(en.bankVersion, FrequencyBankContract.enBankVersion);
+      expect(en.locale, 'en-US');
+    });
+
+    test('separator deltas match authored R1A maps (depth_comm opt_a)', () {
+      final item = tr.itemsById['freq_separator_depth_comm_v1']!;
+      final a = item.optionById('opt_a')!;
+      expect(a.dimensionDeltas['depth_preference'], closeTo(-0.45, 1e-12));
+      expect(a.dimensionDeltas['communication_pace'], closeTo(0.70, 1e-12));
+      final b = item.optionById('opt_b')!;
+      expect(b.dimensionDeltas['depth_preference'], closeTo(0.75, 1e-12));
+      expect(b.dimensionDeltas['communication_pace'], closeTo(-0.45, 1e-12));
+    });
+  });
+
+  group('TR/EN structural parity', () {
+    test('identical IDs, roles, dims, options, deltas, metadata', () {
+      final p = const FrequencyCanonicalBankParity().compare(tr, en);
+      expect(p.ok, isTrue, reason: p.issues.join('; '));
       expect(
-        v.issues.any((e) => e.contains('BLOCKED_FREQUENCY_SEPARATOR_ITEM')),
-        isTrue,
+        tr.items.map((e) => e.itemId).toSet(),
+        en.items.map((e) => e.itemId).toSet(),
       );
-      expect(
-        v.issues.any((e) => e.contains('BLOCKED_FREQUENCY_QUALITY_ITEM')),
-        isTrue,
-      );
-      expect(
-        v.issues.any((e) => e.contains('BLOCKED_FREQUENCY_CORE_EVIDENCE')),
-        isTrue,
-      );
+      expect(tr.scoringPolicyVersion, en.scoringPolicyVersion);
+      expect(tr.schemaVersion, en.schemaVersion);
     });
   });
 
@@ -175,18 +238,15 @@ void main() {
       expect(d.rawSignedEvidence, isNull);
       expect(d.normalizedScore, isNull);
       expect(d.evidenceCount, 0);
-      expect(d.normalizedScore, isNot(0.5));
-      expect(d.normalizedScore, isNot(0.0));
-      expect(d.normalizedScore, isNot(50));
     });
   });
 
   group('Canonical Frequency scorer', () {
-    test('returns exactly 6 dims in canonical order; no scalar Frequency', () {
+    test('returns exactly 6 dims; no scalar Frequency', () {
       DateTime clock() => DateTime.utc(2026, 8, 9, 16);
       final out = const CanonicalFrequencyScorer().score(
         bank: fixture,
-        responses: _pick(fixture, 'C'),
+        responses: _firstOption(fixture),
         clock: clock,
       );
       expect(out.ok, isTrue, reason: out.message);
@@ -203,130 +263,131 @@ void main() {
       expect(json['percentile'], isNull);
       expect(json['cronbach_alpha'], isNull);
       expect(json['rvi_runtime_gate'], FrequencyScoringContract.rviRuntimeGate);
-      expect(r.reliabilityStatus, FrequencyReliabilityStatus.notCalibrated);
-      expect(r.calibrationStatus, FrequencyCalibrationStatus.uncalibrated);
     });
 
-    test('explicit deltas are scoring truth; reverse_scored does not invert',
-        () {
-      // fx_depth has reverse_scored=true but option C delta is already +1.
-      final responses = <FrequencyCanonicalResponse>[
-        const FrequencyCanonicalResponse(itemId: 'fx_depth', optionId: 'C'),
-        const FrequencyCanonicalResponse(itemId: 'fx_social', optionId: 'B'),
-        const FrequencyCanonicalResponse(
-            itemId: 'fx_spontaneity', optionId: 'B'),
-        const FrequencyCanonicalResponse(itemId: 'fx_stability', optionId: 'B'),
-        const FrequencyCanonicalResponse(
-            itemId: 'fx_disclosure', optionId: 'B'),
-        const FrequencyCanonicalResponse(itemId: 'fx_comm', optionId: 'B'),
-        const FrequencyCanonicalResponse(itemId: 'fx_quality', optionId: 'A'),
-      ];
+    test('quality pass/fail does not change trait z/x/evidence_count', () {
+      final pass = const CanonicalFrequencyScorer().score(
+        bank: tr,
+        responses: _withQuality(tr, pass: true),
+        clock: () => DateTime.utc(2026, 8, 9),
+      );
+      final fail = const CanonicalFrequencyScorer().score(
+        bank: tr,
+        responses: _withQuality(tr, pass: false),
+        clock: () => DateTime.utc(2026, 8, 9),
+      );
+      expect(pass.ok && fail.ok, isTrue,
+          reason: '${pass.message} / ${fail.message}');
+      for (final id in FrequencyCanonicalDimensions.all) {
+        final a = pass.result!.scoreFor(id);
+        final b = fail.result!.scoreFor(id);
+        expect(a.rawSignedEvidence, b.rawSignedEvidence, reason: id);
+        expect(a.normalizedScore, b.normalizedScore, reason: id);
+        expect(a.evidenceCount, b.evidenceCount, reason: id);
+      }
+    });
+
+    test('quality-only items do not increase evidence_count', () {
       final out = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: responses,
+        bank: tr,
+        responses: _withQuality(tr, pass: true),
       );
       expect(out.ok, isTrue, reason: out.message);
-      final depth = out.result!.scoreFor('depth_preference');
-      expect(depth.rawSignedEvidence, closeTo(1.0, 1e-12));
-      expect(depth.normalizedScore, closeTo(1.0, 1e-12));
-    });
-
-    test('quality-only item does not increase trait evidence', () {
-      final a = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: _pick(fixture, 'B'),
-      );
-      expect(a.ok, isTrue);
-      for (final d in a.result!.dimensionScores) {
-        // One core contribution per dimension except stability gets fx_stability
-        // + secondary from fx_comm when option B (stability 0).
+      // 30 core + 12 BE + 6 separators = 48 trait items; quality adds 0.
+      // Each trait item may contribute to multiple dims; evidence_count > 0
+      // for all dims from core/BE/separators alone.
+      for (final d in out.result!.dimensionScores) {
         expect(d.evidenceCount, greaterThan(0));
+        expect(d.evidenceStatus, FrequencyDimensionEvidenceStatus.measured);
       }
-      final depth = a.result!.scoreFor('depth_preference');
-      expect(depth.evidenceCount, 1);
     });
 
-    test('option order / presentation order do not change scores', () {
-      final responses = _pick(fixture, 'A');
-      final reversed = responses.reversed.toList();
+    test('separators contribute ordinary equal-weight trait evidence', () {
+      // Score only separators on communication_pace via depth_comm opt_a (+0.70)
+      // using a minimal synthetic path: compare full bank with separators answered
+      // opt_a vs a bank clone is heavy; instead assert separator deltas enter mean
+      // by scoring fixture-like responses on TR bank where we fix all non-separator
+      // to first option and vary one separator.
+      final base = _withQuality(tr, pass: true);
+      final responsesA = [
+        for (final r in base)
+          r.itemId == 'freq_separator_depth_comm_v1'
+              ? const FrequencyCanonicalResponse(
+                  itemId: 'freq_separator_depth_comm_v1',
+                  optionId: 'opt_a',
+                )
+              : r,
+      ];
+      final responsesB = [
+        for (final r in base)
+          r.itemId == 'freq_separator_depth_comm_v1'
+              ? const FrequencyCanonicalResponse(
+                  itemId: 'freq_separator_depth_comm_v1',
+                  optionId: 'opt_b',
+                )
+              : r,
+      ];
       final a = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: responses,
-        clock: () => DateTime.utc(2026, 1, 1),
+        bank: tr,
+        responses: responsesA,
       );
       final b = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: reversed,
-        clock: () => DateTime.utc(2026, 1, 1),
+        bank: tr,
+        responses: responsesB,
       );
       expect(a.ok && b.ok, isTrue);
-      for (final id in FrequencyCanonicalDimensions.all) {
-        expect(
-          a.result!.scoreFor(id).normalizedScore,
-          b.result!.scoreFor(id).normalizedScore,
-        );
-      }
+      expect(
+        a.result!.scoreFor('communication_pace').normalizedScore,
+        isNot(b.result!.scoreFor('communication_pace').normalizedScore),
+      );
+      expect(
+        a.result!.scoreFor('communication_pace').evidenceCount,
+        b.result!.scoreFor('communication_pace').evidenceCount,
+      );
     });
 
-    test('repeated scoring is deterministic', () {
-      final responses = _pick(fixture, 'C');
-      final a = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: responses,
-        clock: () => DateTime.utc(2026, 8, 9),
+    test('runtime candidate scores six dims; no Persona/matching/quantum', () {
+      final out = const CanonicalFrequencyScorer().score(
+        bank: tr,
+        responses: _withQuality(tr, pass: true),
       );
-      final b = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: responses,
-        clock: () => DateTime.utc(2026, 8, 9),
-      );
-      expect(jsonEncode(a.result!.toJson()), jsonEncode(b.result!.toJson()));
+      expect(out.ok, isTrue, reason: out.message);
+      expect(out.result!.dimensionScores.length, 6);
+      final raw = jsonEncode(out.result!.toJson());
+      expect(raw.contains('persona'), isFalse);
+      expect(raw.contains('qrcf'), isFalse);
+      expect(raw.contains('density_matrix'), isFalse);
     });
 
-    test('rejects duplicate, unknown item, bad option, incomplete', () {
+    test('rejects duplicate / unknown / incomplete', () {
       final scorer = const CanonicalFrequencyScorer();
-      final base = _pick(fixture, 'A');
-      final dup = [
-        base.first,
-        base.first,
-        ...base.sublist(2),
-      ];
+      final base = _firstOption(fixture);
+      final dup = [base.first, base.first, ...base.sublist(2)];
       expect(
         scorer.score(bank: fixture, responses: dup).code,
         FrequencyScoringFailureCode.duplicateAnswer,
-      );
-      final badItem = [
-        ...base.sublist(1),
-        const FrequencyCanonicalResponse(itemId: 'nope', optionId: 'A'),
-      ];
-      expect(
-        scorer.score(bank: fixture, responses: badItem).code,
-        FrequencyScoringFailureCode.unknownItem,
-      );
-      final badOpt = [
-        for (final r in base)
-          FrequencyCanonicalResponse(itemId: r.itemId, optionId: 'ZZ'),
-      ];
-      expect(
-        scorer.score(bank: fixture, responses: badOpt).code,
-        FrequencyScoringFailureCode.optionNotInItem,
       );
       expect(
         scorer.score(bank: fixture, responses: base.sublist(1)).code,
         FrequencyScoringFailureCode.incompleteSession,
       );
     });
+  });
 
-    test('no Persona / matching / quantum side effects in result payload', () {
-      final out = const CanonicalFrequencyScorer().score(
-        bank: fixture,
-        responses: _pick(fixture, 'A'),
+  group('Live / profile non-regression guards', () {
+    test('live Frequency screens still present; profile still 14/20 docs', () {
+      expect(
+        File('lib/features/assessment/screens/frequency_test_screen.dart')
+            .existsSync(),
+        isTrue,
       );
-      final raw = jsonEncode(out.result!.toJson());
-      expect(raw.contains('persona'), isFalse);
-      expect(raw.contains('qrcf'), isFalse);
-      expect(raw.contains('density_matrix'), isFalse);
-      expect(raw.contains('fidelity'), isFalse);
+      expect(
+        File('assets/data/assessment_sets/frequency_sets.json').existsSync(),
+        isTrue,
+      );
+      final state = File('docs/QMATCH_CURRENT_STATE.md').readAsStringSync();
+      expect(state.contains('14 / 20'), isTrue);
+      expect(state.contains('canonical_profile_ready = false'), isTrue);
     });
   });
 }

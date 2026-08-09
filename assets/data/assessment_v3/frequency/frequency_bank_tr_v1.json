@@ -1,0 +1,3140 @@
+{
+  "schema_version": "qmatch_frequency_bank_v1",
+  "bank_version": "frequency_bank_tr_v1",
+  "content_version": "frequency-runtime-candidate-tr-v1",
+  "locale": "tr-TR",
+  "module": "frequency",
+  "status": "runtime_candidate",
+  "calibration_status": "uncalibrated",
+  "reliability_status": "not_calibrated",
+  "psychometric_validation_status": "not_calibrated",
+  "scoring_policy_version": "frequency_6d_uncalibrated_signed_evidence_v1",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "source_pilot": {
+    "form_id": "frequency_tr_pilot_v1",
+    "content_version": "frequency-tr-pilot-v1",
+    "path": "assets/data/assessment_v3/frequency/frequency_pilot_tr_v1.json",
+    "selection_policy": "deterministic_sort_item_id_first_5_non_isomorph_core_plus_all_6_isomorph_groups",
+    "authored_separator_quality": "P2C-2A-8R1A_qmatch_provisional"
+  },
+  "question_count": 50,
+  "blueprint": {
+    "core": 30,
+    "behavioral_equivalence": 12,
+    "separator": 6,
+    "response_quality": 2
+  },
+  "canonical_dimensions": [
+    "depth_preference",
+    "social_energy",
+    "spontaneity",
+    "stability",
+    "disclosure_pace",
+    "communication_pace"
+  ],
+  "primary_core_items_per_dimension": 5,
+  "related_items_per_dimension": 2,
+  "response_instruction": {
+    "concept": "Which response is closest to what you would actually tend to do?",
+    "not": "Which is the correct/best/most mature response?"
+  },
+  "rvi_runtime_gate": "NOT_CALIBRATED / NOT_ACTIVE",
+  "scientific_status": "uncalibrated_multidimensional_relational_rhythm_behavioral_preference_profile",
+  "not_claims": [
+    "clinical_diagnosis",
+    "psychological_certification",
+    "population_percentile_test",
+    "validated_medical_instrument"
+  ],
+  "localization": {
+    "structural_parity": "n/a_source",
+    "internal_translation_status": "source_tr",
+    "translation_semantic_review": "candidate_review_required",
+    "psychometric_cross_language_validation": "not_calibrated",
+    "pilot_derived_en_fields": "n/a",
+    "authored_separator_quality_en": "n/a"
+  },
+  "pair_registry": {
+    "semantic_pairs": [
+      {
+        "pair_id": "frequency_tr_v1_sem_01",
+        "item_ids": [
+          "frequency_tr_v1_depth_preference_002",
+          "frequency_tr_v1_depth_preference_003"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_02",
+        "item_ids": [
+          "frequency_tr_v1_communication_pace_001",
+          "frequency_tr_v1_communication_pace_002"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_03",
+        "item_ids": [
+          "frequency_tr_v1_social_energy_001",
+          "frequency_tr_v1_social_energy_003"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_04",
+        "item_ids": [
+          "frequency_tr_v1_spontaneity_001",
+          "frequency_tr_v1_spontaneity_003"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_05",
+        "item_ids": [
+          "frequency_tr_v1_stability_001",
+          "frequency_tr_v1_stability_004"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_06",
+        "item_ids": [
+          "frequency_tr_v1_disclosure_pace_001",
+          "frequency_tr_v1_disclosure_pace_002"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_sem_08",
+        "item_ids": [
+          "frequency_tr_v1_communication_pace_005",
+          "frequency_tr_v1_communication_pace_007"
+        ]
+      }
+    ],
+    "reverse_pairs": [
+      {
+        "pair_id": "frequency_tr_v1_rev_03",
+        "consistency_mode": "behavioral_correspondence",
+        "item_ids": [
+          "frequency_tr_v1_social_energy_002",
+          "frequency_tr_v1_social_energy_007"
+        ]
+      },
+      {
+        "pair_id": "frequency_tr_v1_rev_05",
+        "consistency_mode": "behavioral_correspondence",
+        "item_ids": [
+          "frequency_tr_v1_stability_002",
+          "frequency_tr_v1_stability_006"
+        ]
+      }
+    ],
+    "behavioral_isomorph_groups": [
+      {
+        "group_id": "frequency_tr_v1_iso_01",
+        "item_ids": [
+          "frequency_tr_v1_depth_preference_007",
+          "frequency_tr_v1_depth_preference_008"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_02",
+        "item_ids": [
+          "frequency_tr_v1_communication_pace_004",
+          "frequency_tr_v1_communication_pace_006"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_03",
+        "item_ids": [
+          "frequency_tr_v1_social_energy_004",
+          "frequency_tr_v1_social_energy_006"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_04",
+        "item_ids": [
+          "frequency_tr_v1_spontaneity_004",
+          "frequency_tr_v1_spontaneity_005"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_05",
+        "item_ids": [
+          "frequency_tr_v1_stability_003",
+          "frequency_tr_v1_stability_007"
+        ]
+      },
+      {
+        "group_id": "frequency_tr_v1_iso_06",
+        "item_ids": [
+          "frequency_tr_v1_disclosure_pace_004",
+          "frequency_tr_v1_disclosure_pace_008"
+        ]
+      }
+    ]
+  },
+  "selection_core_by_dimension": {
+    "depth_preference": [
+      "frequency_tr_v1_depth_preference_001",
+      "frequency_tr_v1_depth_preference_002",
+      "frequency_tr_v1_depth_preference_003",
+      "frequency_tr_v1_depth_preference_004",
+      "frequency_tr_v1_depth_preference_005"
+    ],
+    "social_energy": [
+      "frequency_tr_v1_social_energy_001",
+      "frequency_tr_v1_social_energy_002",
+      "frequency_tr_v1_social_energy_003",
+      "frequency_tr_v1_social_energy_005",
+      "frequency_tr_v1_social_energy_007"
+    ],
+    "spontaneity": [
+      "frequency_tr_v1_spontaneity_001",
+      "frequency_tr_v1_spontaneity_002",
+      "frequency_tr_v1_spontaneity_003",
+      "frequency_tr_v1_spontaneity_006",
+      "frequency_tr_v1_spontaneity_007"
+    ],
+    "stability": [
+      "frequency_tr_v1_stability_001",
+      "frequency_tr_v1_stability_002",
+      "frequency_tr_v1_stability_004",
+      "frequency_tr_v1_stability_005",
+      "frequency_tr_v1_stability_006"
+    ],
+    "disclosure_pace": [
+      "frequency_tr_v1_disclosure_pace_001",
+      "frequency_tr_v1_disclosure_pace_002",
+      "frequency_tr_v1_disclosure_pace_003",
+      "frequency_tr_v1_disclosure_pace_005",
+      "frequency_tr_v1_disclosure_pace_006"
+    ],
+    "communication_pace": [
+      "frequency_tr_v1_communication_pace_001",
+      "frequency_tr_v1_communication_pace_002",
+      "frequency_tr_v1_communication_pace_003",
+      "frequency_tr_v1_communication_pace_005",
+      "frequency_tr_v1_communication_pace_007"
+    ]
+  },
+  "selection_behavioral_equivalence_ids": [
+    "frequency_tr_v1_depth_preference_007",
+    "frequency_tr_v1_depth_preference_008",
+    "frequency_tr_v1_communication_pace_004",
+    "frequency_tr_v1_communication_pace_006",
+    "frequency_tr_v1_social_energy_004",
+    "frequency_tr_v1_social_energy_006",
+    "frequency_tr_v1_spontaneity_004",
+    "frequency_tr_v1_spontaneity_005",
+    "frequency_tr_v1_stability_003",
+    "frequency_tr_v1_stability_007",
+    "frequency_tr_v1_disclosure_pace_004",
+    "frequency_tr_v1_disclosure_pace_008"
+  ],
+  "items": [
+    {
+      "item_id": "frequency_tr_v1_depth_preference_001",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy"
+      ],
+      "prompt": "Yeni eşleşmede ilk mesajlaşmada ne tür bir ton seni daha rahat eder?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hafif bir selamdan sonra merak ettiğin bir konuya geçmeyi denerim.",
+          "dimension_deltas": {
+            "depth_preference": 0.6,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Gündelik bir soru sorar, karşılıklı cevaba göre derinleşirim.",
+          "dimension_deltas": {
+            "depth_preference": 0.3,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Esprili ve yüzeysel bir giriş yaparım.",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "social_energy": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kısa tutar, uygun zamanı beklerim.",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_07",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_002",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Sohbet günlük işlerde takılı kaldı; sen konuyu nasıl yönlendirirsin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Bu konudan neden önemli olduğuna dair bir soru sorarım.",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Biraz daha detay ister, hâlâ pratik kalırım.",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Gündemi korur, konu değiştirmem.",
+          "dimension_deltas": {
+            "depth_preference": -0.2,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sohbeti kısa keserim.",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_01",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_003",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Partnerin sürekli kısa cevaplar veriyor; sen nasıl devam edersin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Açık uçlu bir soru sorarak konuyu derinleştiririm.",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Tempoyu korur, bir kez daha farklı bir açı denerim.",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Onun temposuna uyarım, kısa kalırım.",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "stability": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Konuyu bırakır, başka zaman konuşuruz derim.",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_01",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_004",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Bir süredir mesajlaşıyorsunuz; ortam sakin. Konuşmayı nasıl sürdürmeyi tercih edersin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Günün nasıl geçtiğinden öte, seni etkileyen düşüncelere geçmeyi teklif edersin.",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Hafif sohbet eder, uygun olduğunda biraz daha kişisel bir konuya yavaşça kayarsın.",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Pratik konularda kalır, derinleşmeden akışı sürdürürsün.",
+          "dimension_deltas": {
+            "depth_preference": -0.2,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kısa tutup sonra tekrar yazmayı planlarsın.",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_01",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_005",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Grup sohbetinde bire bir tanışma fırsatı doğdu; konu seçimin ne olur?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Ortak bir değer veya motivasyon hakkında soru sorarım.",
+          "dimension_deltas": {
+            "depth_preference": 0.6,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Hobiler üzerinden hafif ama kişisel bir bağ kurarım.",
+          "dimension_deltas": {
+            "depth_preference": 0.3,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Grup temasını koruyarak genel konuşurum.",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "social_energy": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Bire bir ayrılmadan grup akışında kalırım.",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "stability": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_001",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Hafta sonu arkadaşların küçük bir buluşma organize ediyor; tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Enerjik hissediyorsam tüm buluşmaya katılırım.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa süre gelir, keyifli kısmı yakalarım.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Bu hafta pas geçip dinlenmeyi tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kalabalık ortam yerine bire bir plan öneririm.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_03",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_002",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "Yakın çevrenle küçük bir buluşma planlanıyor; sen yorgunsun ama davetlisin. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Enerjini toparlayıp buluşmaya katılırsın.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa süreli gelir, sonra ayrılmayı planlarsın.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Bu kez pas geçip dinlenmeyi seçersin.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kalabalıktan kaçınır, bire bir görüşmeyi ertelersin.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_03",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_003",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Arkadaş grubun yeni bir mekâna gitmeyi teklif ediyor; sen?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hemen katılır, yeni ortamı keşfetmekten keyif alırım.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Giderim ama erken ayrılmayı planlayabilirim.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Evde kalmayı tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kalabalık mekân yerine sakin bir alternatif öneririm.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_03",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_005",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Yeni eşleşmede buluşma teklifi geldi; ortam seçimi konusunda tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Canlı bir kafe veya kalabalık bir mekân öneririm.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Orta tempolu, rahat bir mekân öneririm.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Sessiz bir yürüyüş veya park tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Evde veya tenha bir yerde görüşmeyi tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "disclosure_pace": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_007",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "Yoğun bir haftadan sonra partnerin sessizlik istiyor; sen dinlenmiş hissediyorsun. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Onun ihtiyacına saygı duysan da hafif sosyal bir öneri sunarsın.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa bir sesli mesaj atıp sonra alan bırakırsın.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Sessizliği kabul eder, kendi başına vakit geçirirsin.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Tamamen çekilir, bir süre iletişimi minimumda tutarsın.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_03",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_001",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Cuma akşamı için plan yok; biri aniden buluşma teklif ediyor. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hemen kabul eder, planı o an oluştururum.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa düşünüp uygunsa evet derim.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Önceden plan yapmayı tercih eder, ertelerim.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Ani teklifleri genelde reddederim.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_04",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_002",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Ortak bir aktivite için plan yapılmıştı; gün içinde yeni bir fikir çıktı. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Planı esnetip yeni fikri hemen deneriz dersin.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa bir değerlendirme sonrası yön değiştirirsin.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Önceki plana sadık kalırsın.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Son dakika değişikliklerinden kaçınır, programı korursun.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_04",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_003",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Hafta sonu için net plan yok; arkadaşın farklı bir aktivite öneriyor. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hemen yeni plana geçer, denemekten keyif alırım.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa değerlendirme sonrası uygunsa kabul ederim.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Mevcut düşünceme sadık kalırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Son dakika değişikliklerinden kaçınırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_04",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_006",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Hafta içi akşam planı net; biri son dakika farklı bir şey öneriyor. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Planı bırakıp yeni öneriyi kabul ederim.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Uygunsa küçük bir değişiklik yapabilirim.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Önceden kararlaştırılan plana sadık kalırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Son dakika değişikliklerini genelde reddederim.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_007",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Yeni eşleşmede biri aniden farklı bir buluşma saati öneriyor. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hemen uyum sağlar, yeni saati kabul ederim.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Müsaitlik durumuma göre kısa sürede yanıt veririm.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Önceden belirlenen saate sadık kalmayı tercih ederim.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Ani saat değişikliklerinden kaçınırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_001",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Yeni tanıştığın biriyle haftalık görüşme alışkanlığı kurmak konusunda tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Her hafta aynı gün/saat için düzenli bir ritim öneririm.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Genel bir çerçeve kurar, detayları birlikte netleştiririm.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Her hafta farklı tempoda ilerlemeye açık olurum.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sabit plan yapmadan akışa bırakırım.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_05",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_002",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Yeni tanıştığınız biriyle iletişim ritmi henüz oturmamış. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Haftalık tekrar eden bir görüşme/sohbet ritmi önerirsin.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Genel bir çerçeve kurar, detayları birlikte netleştirirsin.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Her hafta farklı tempoda ilerlemeye açık olursun.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sabit plan yapmadan akışa bırakırsın.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_05",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_004",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Günlük rutinin oturmuş; tanıştığın biri farklı bir tempo öneriyor. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Mevcut rutinimi korur, küçük uyumlar dışında değiştirmem.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Rutinime uygun küçük ayarlamalar yapabilirim.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Tempo değişikliğine açık olur, denemeye razıyım.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Rutinimi bozmak yerine kendi tempomda devam ederim.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_05",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_005",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "disclosure_pace",
+        "spontaneity"
+      ],
+      "prompt": "Uzun vadede iletişim ritminiz oturdu; beklenmedik bir değişiklik geldi. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Mümkün olan en kısa sürede önceki ritme dönmeye çalışırım.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Yeni koşullara göre güncellenmiş bir ritim öneririm.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Değişikliği kabul eder, yeni tempoya uyum sağlarım.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sabit ritim aramadan doğal akışa bırakırım.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_006",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "disclosure_pace",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Partnerin bir süre sessiz kaldı; yeniden bağlanma fırsatı doğdu. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Önceki düzenli temas ritmini yeniden kurmayı teklif edersin.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Hafif ama öngörülebilir bir check-in düzeni önerirsin.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Bu seferlik esnek kalır, yeni bir tempo deneriz dersin.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Ritim kurmadan doğal akışa güvenirsin.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "social_energy": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_05",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_001",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Yeni eşleşmede kişisel bilgi paylaşımı konusunda tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Erken dönemde bile temel beklentilerimi açıkça paylaşırım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Yavaş yavaş, karşılıklı güven oluştukça açarım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Genel kalır, kişisel detay vermem.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Güven oluşana kadar kişisel konuları açmam.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_06",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_002",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Güven oluşmaya başladı; geçmiş ilişkilerden bahsediliyor. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kendi deneyimlerimi açıkça ve erken paylaşırım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Temel çerçeveyi verir, ayrıntıları kademeli açarım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Genel kalır, somut örnek vermem.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kişisel geçmişi güven tam oluşana kadar saklarım.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_06",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_003",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Yeni eşleşmede sohbet ilerliyor; kişisel bir konu gündeme geliyor. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kendi deneyiminden kısa ama açık bir örnek paylaşırsın.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Konuyu açarsın ama detayları yavaş bırakırsın.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Genel kalır, kişisel örnek vermezsin.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Konuyu değiştirir, daha tanıdık olmayı beklersin.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_06",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_005",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Partnerin bir süre sessiz kaldı; yeniden bağlanırken kişisel paylaşım?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kendi durumumu açıkça paylaşarak sohbeti yeniden açarım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Hafif bir kişisel not paylaşır, tempoyu ölçerim.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Genel bir selamla devam eder, kişisel detay vermem.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sessizlik sonrası kişisel konuları ertelerim.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_006",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "Grup ortamında tanıştığın biriyle bire bir devam edeceksin; kişisel paylaşım?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Bire bir geçişte temel beklentilerimi erken paylaşırım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Hafif kişisel bilgi paylaşır, tempoyu ölçerim.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Genel konularda kalır, kişisel detay vermem.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Bire bir olsa da kişisel konuları ertelerim.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_001",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Yeni eşleşmede ilk günlerde mesajlaşma sıklığı konusunda tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Gün içinde birkaç kısa mesajla teması canlı tutarım.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Sabah-akşam olmak üzere düzenli ama ölçülü yazarım.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Karşı taraf yazana kadar genelde beklerim.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sadece uygun olduğumda kısa yanıt veririm.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_02",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_001",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_002",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "social_energy",
+        "spontaneity",
+        "stability"
+      ],
+      "prompt": "İlişki ilerledi; uzun vadeli mesajlaşma ritmi konusunda tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Gün içinde düzenli kısa temas kurmayı sürdürürüm.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Haftalık yoğunluğa göre esnek ama öngörülebilir kalırım.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Birkaç gün sessiz kalabilir, sonra toparlarım.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Uzun sessizlikler beni rahatsız etmez.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "stability": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_02",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_002",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_003",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Partnerin birkaç saat yazmadı; sen müsait değilsin ama merak ediyorsun. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kısa bir mesaj atıp akışın devam etmesini umarsın.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Gün sonunda toparlayıcı bir mesaj planlarsın.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "O yazana kadar bekler, acil değilse dokunmazsın.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Uzun sessizliğin normal olduğunu düşünüp mesaj atmazsın.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "frequency_tr_v1_rev_02",
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_005",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "spontaneity"
+      ],
+      "prompt": "Uzun süredir tanışıyorsunuz; günlük iletişim alışkanlığın nasıl?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Her gün en az bir kez mutlaka yazışırız.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Hafta içi düzenli, hafta sonu daha seyrek olabilir.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "İhtiyaç oldukça yazarım, sabit ritim aramam.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Uzun aralıklar beni endişelendirmez.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_08",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_007",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Cuma akşamı planı netleşmedi; son dakikada mesaj trafiği nasıl olsun?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Sık mesajlaşıp hızlıca karar vermeye çalışırım.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Birkaç net mesajla seçenekleri daraltırım.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Karar verilene kadar sessiz kalırım.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Plan belirsizse mesajlaşmayı minimumda tutarım.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "stability": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "frequency_tr_v1_sem_08",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_007",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Birlikte yeni bir aktivite deneyeceksiniz; sohbet tarafında tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Aktivite sırasında deneyimlerin anlamını konuşmayı severim.",
+          "dimension_deltas": {
+            "depth_preference": 0.6,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Ara ara hislerini sorar, çoğunlukla aktiviteye odaklanırım.",
+          "dimension_deltas": {
+            "depth_preference": 0.3,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Aktiviteye odaklanır, sohbeti hafif tutarım.",
+          "dimension_deltas": {
+            "depth_preference": -0.3,
+            "stability": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sessizce birlikte yapmayı tercih ederim.",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_01",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_depth_preference_008",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [
+        "disclosure_pace",
+        "spontaneity",
+        "stability"
+      ],
+      "prompt": "Güven oluşmaya başladı; kişisel bir konu açılıyor. Konuşma derinliği tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Konunun kökenine inmeyi ve bağlantılarını keşfetmeyi isterim.",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Ortada kalır, somut bir örnekle devam ederim.",
+          "dimension_deltas": {
+            "depth_preference": 0.45,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Konuyu pratik sonuçlara bağlarım.",
+          "dimension_deltas": {
+            "depth_preference": -0.2,
+            "stability": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Konuyu kapatıp daha sonra konuşuruz derim.",
+          "dimension_deltas": {
+            "depth_preference": -0.6,
+            "disclosure_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_01",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_depth_preference_008",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Birlikte yeni bir aktivite planlıyorsunuz; mesajla koordinasyon tarzın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Sık mesajlaşıp anlık güncellemeler paylaşırım.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Birkaç net mesajla planı oturtur, gerektiğinde yazarım.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Plan netleşince mesajlaşmayı azaltırım.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Telefon yerine yüz yüze konuşmayı tercih ederim.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_02",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_communication_pace_006",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Grup ortamında tanıştığın biriyle bire bir devam edeceksin; mesaj temposu?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Ayrıldıktan sonra aynı gün birkaç mesaj atarım.",
+          "dimension_deltas": {
+            "communication_pace": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Ertesi gün kısa bir mesajla devam ederim.",
+          "dimension_deltas": {
+            "communication_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "O yazana kadar genelde beklerim.",
+          "dimension_deltas": {
+            "communication_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Bir süre sessiz kalıp doğal fırsat beklerim.",
+          "dimension_deltas": {
+            "communication_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_02",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_communication_pace_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "Birlikte yeni bir aktivite deneyeceksiniz; ortam kalabalık olabilir. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kalabalık ortamda birlikte vakit geçirmekten keyif alırım.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Katılırım ama daha sakin bir köşede vakit geçirmeyi tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Kalabalık yerine daha tenha bir alternatif ararım.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Kalabalık ortamda yalnız kalmayı veya erken ayrılmayı tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_03",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_social_energy_006",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "spontaneity"
+      ],
+      "prompt": "Arkadaşlarınla hafta sonu planı var; enerji durumun orta. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Planın tamamına katılıp enerjimi toparlamaya çalışırım.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Planın bir kısmına katılır, sonra ayrılırım.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Bu sefer pas geçer, kendime zaman ayırırım.",
+          "dimension_deltas": {
+            "social_energy": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Grup yerine bire bir görüşmeyi teklif ederim.",
+          "dimension_deltas": {
+            "social_energy": -0.6,
+            "depth_preference": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_03",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_social_energy_006",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Grup buluşmasında biri farklı bir aktiviteye geçmeyi öneriyor. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hemen yeni öneriyi deneriz derim.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa tartışma sonrası uygunsa değiştiririz.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Başlangıç planına sadık kalırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Grup içi ani değişikliklerden kaçınırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_04",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_spontaneity_005",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "disclosure_pace",
+        "stability"
+      ],
+      "prompt": "Birlikte aktivite yaparken yeni bir fikir çıkıyor; tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Hemen yeni fikri dener, rotayı değiştiririz.",
+          "dimension_deltas": {
+            "spontaneity": 0.75,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Kısa değerlendirme sonrası uygunsa deneriz.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "disclosure_pace": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Başladığımız plana devam ederim.",
+          "dimension_deltas": {
+            "spontaneity": -0.3,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Aktivite ortasında plan değiştirmekten kaçınırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_04",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_spontaneity_005",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_003",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Hafta sonu planı birkaç kez değişti; sen nasıl yaklaşırsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Net bir plan çerçevesi önerir, değişiklikleri sınırlarım.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "spontaneity": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Esnek kalır ama ana çerçeveyi korumaya çalışırım.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Değişikliklere uyum sağlar, yeni plana geçerim.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Sürekli değişen planlardan kaçınır, netleşene kadar beklersin.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_05",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_003",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_stability_007",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "social_energy",
+        "spontaneity"
+      ],
+      "prompt": "Grup buluşması sonrası haftalık rutinin bozuldu; tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Ertesi gün rutinime dönmeye özen gösteririm.",
+          "dimension_deltas": {
+            "stability": 0.75,
+            "communication_pace": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Bir gün esneyip sonra rutine dönerim.",
+          "dimension_deltas": {
+            "stability": 0.45,
+            "social_energy": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Rutin bozulmuşsa bir süre esnek kalırım.",
+          "dimension_deltas": {
+            "stability": -0.3,
+            "spontaneity": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Rutin zorunluluğu hissetmem, akışa bırakırım.",
+          "dimension_deltas": {
+            "stability": -0.6,
+            "depth_preference": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_05",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_stability_007",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_004",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "communication_pace",
+        "depth_preference",
+        "stability"
+      ],
+      "prompt": "Güven artıyor; aile veya yakın çevre hakkında konu açılıyor. Ne yaparsın?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kendi aile/çevre deneyimlerimi açıkça paylaşırım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Genel bir çerçeve verir, detayları yavaş bırakırım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Konuyu yüzeysel tutar, kişisel detay vermem.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Bu konuları daha tanıdık olunca açmayı tercih ederim.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "communication_pace": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_06",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_004",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "frequency_tr_v1_disclosure_pace_008",
+      "item_role": "behavioral_equivalence",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "stability"
+      ],
+      "prompt": "Güven oluştu; gelecek planları ve beklentiler konuşuluyor. Tercihin?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Kendi beklentilerimi açıkça ve somut paylaşırım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Temel çerçeveyi verir, ayrıntıları kademeli açarım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.45,
+            "stability": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Genel kalır, somut beklenti paylaşmam.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.3,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Gelecek planlarını daha netleşince paylaşırım.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.6,
+            "social_energy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": "frequency_tr_v1_iso_06",
+      "relationship_type": "behavioral_isomorph",
+      "reverse_scored": null,
+      "source_pilot_question_id": "frequency_tr_v1_disclosure_pace_008",
+      "response_format": "scenario_mcq_behavioral_tendency",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_depth_comm_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Hoşlandığın biriyle yeni tanıştın. Önümüzdeki bir hafta boyunca iletişim biçimlerinden hangisi sana daha doğal gelir?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Gün içinde sık ve kısa mesajlaşırım; daha derin sohbeti zamanla bırakırım.",
+          "dimension_deltas": {
+            "depth_preference": -0.45,
+            "communication_pace": 0.7
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Daha seyrek iletişim kurarım ama konuştuğumuzda uzun ve derin sohbet etmeyi tercih ederim.",
+          "dimension_deltas": {
+            "depth_preference": 0.75,
+            "communication_pace": -0.45
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Kısa günlük temaslarla birlikte ara sıra daha uzun bir sohbeti dengelerim.",
+          "dimension_deltas": {
+            "depth_preference": 0.35,
+            "communication_pace": 0.25
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Birbirimizi daha iyi tanıyana kadar iletişimi hafif ve aralıklı tutarım.",
+          "dimension_deltas": {
+            "depth_preference": -0.55,
+            "communication_pace": -0.35
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "depth_preference",
+        "communication_pace"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_social_stability_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Boş bir hafta sonun olduğunda sosyal planlarını genellikle nasıl tercih edersin?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Arka arkaya birkaç farklı plan yapmak bana enerji verir.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "stability": -0.15
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Önceden belirlenmiş tek bir buluşma ve geri kalan zamanı kendime ayırmak bana daha uygundur.",
+          "dimension_deltas": {
+            "social_energy": 0.1,
+            "stability": 0.65
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "O günkü enerjime göre kiminle ve ne yapacağıma karar vermeyi tercih ederim.",
+          "dimension_deltas": {
+            "social_energy": 0.2,
+            "stability": -0.55
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Çoğunlukla kendi alanımda kalır, istersem kısa bir sosyal plan eklerim.",
+          "dimension_deltas": {
+            "social_energy": -0.7,
+            "stability": 0.15
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "social_energy",
+        "stability"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_spontaneity_stability_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Birlikte geçireceğiniz bir gün için plan yaparken hangisi sana daha yakındır?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Planı önceden netleştirir ve mümkün olduğunca ona sadık kalırım.",
+          "dimension_deltas": {
+            "spontaneity": -0.75,
+            "stability": 0.75
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Ana plan belli olsun isterim ama küçük değişikliklere açık olurum.",
+          "dimension_deltas": {
+            "spontaneity": -0.25,
+            "stability": 0.45
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Kabaca bir fikir olması yeterlidir; ayrıntıları gün içinde belirlemeyi severim.",
+          "dimension_deltas": {
+            "spontaneity": 0.45,
+            "stability": -0.25
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Çoğu şeyi son anda, o an ne istediğimize göre belirlemek bana daha doğal gelir.",
+          "dimension_deltas": {
+            "spontaneity": 0.8,
+            "stability": -0.65
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "spontaneity",
+        "stability"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_disclosure_depth_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Yeni yakınlaşmaya başladığın biri sana erken dönemde kişisel bir soru soruyor. Sana en yakın tepki hangisi?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Rahat hissediyorsam açık ve ayrıntılı biçimde cevap veririm.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.75,
+            "depth_preference": 0.45
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Bir kısmını paylaşırım; daha kişisel tarafları güven arttıkça açarım.",
+          "dimension_deltas": {
+            "disclosure_pace": 0.25,
+            "depth_preference": 0.55
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Konuşabilirim ama kişisel ayrıntıları paylaşmak için daha fazla zaman isterim.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.55,
+            "depth_preference": 0.2
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Konuyu daha hafif tutmayı ve önce ortak deneyimler üzerinden yakınlaşmayı tercih ederim.",
+          "dimension_deltas": {
+            "disclosure_pace": -0.75,
+            "depth_preference": -0.45
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "disclosure_pace",
+        "depth_preference"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_comm_stability_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Yakın olduğun biriyle birkaç gündür alıştığınızdan farklı bir mesajlaşma ritmi oluştuğunda genellikle ne yaparsın?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Kendi alıştığım iletişim ritmini sürdürür, hemen anlam yüklemem.",
+          "dimension_deltas": {
+            "communication_pace": 0.35,
+            "stability": 0.65
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Onun yeni ritmine uyacak şekilde mesajlaşma sıklığımı azaltır veya artırırım.",
+          "dimension_deltas": {
+            "communication_pace": -0.1,
+            "stability": -0.25
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Uygun bir zamanda iletişim ritmimizin ikimize de uyup uymadığını doğrudan sorarım.",
+          "dimension_deltas": {
+            "communication_pace": 0.55,
+            "stability": 0.45
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "İletişimin kendiliğinden yeniden bir ritim bulması için biraz alan bırakırım.",
+          "dimension_deltas": {
+            "communication_pace": -0.65,
+            "stability": 0.1
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "communication_pace",
+        "stability"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_separator_social_disclosure_v1",
+      "item_role": "separator",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Kendini rahat hissettiğin bir sosyal ortamda genellikle hangisine daha yakın olursun?",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Birçok kişiyle konuşurum ama konuları çoğunlukla hafif tutarım.",
+          "dimension_deltas": {
+            "social_energy": 0.75,
+            "disclosure_pace": -0.45
+          }
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Daha az kişiyle uzun konuşur, kişisel konuları yavaş yavaş açarım.",
+          "dimension_deltas": {
+            "social_energy": -0.15,
+            "disclosure_pace": 0.35
+          }
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Farklı kişiler arasında dolaşırım; güven oluşursa kişisel konulara da girerim.",
+          "dimension_deltas": {
+            "social_energy": 0.45,
+            "disclosure_pace": 0.25
+          }
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Önce ortamı gözlemler, rahat hissettiğimde bir veya iki sohbete katılırım.",
+          "dimension_deltas": {
+            "social_energy": -0.55,
+            "disclosure_pace": -0.15
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": "dimension_boundary",
+      "separator_dimensions": [
+        "social_energy",
+        "disclosure_pace"
+      ],
+      "separator_persona_targets": [],
+      "trait_scoring": true,
+      "quality_type": null,
+      "expected_protocol_option_id": null,
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_quality_instruction_v1",
+      "item_role": "response_quality",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Bu madde yalnızca yönergenin okunup okunmadığını kontrol eder ve kişilik profilini etkilemez. Lütfen “Yönergeyi okudum” seçeneğini seç.",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Devam edebilirim",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Yönergeyi okudum",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Kararsızım",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Daha sonra cevaplarım",
+          "dimension_deltas": {}
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": false,
+      "quality_type": "instruction_attention",
+      "expected_protocol_option_id": "opt_b",
+      "rvi_runtime_gate": false
+    },
+    {
+      "item_id": "freq_quality_protocol_v1",
+      "item_role": "response_quality",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Bu da profil skoruna katılmayan kısa bir kontrol maddesidir. Lütfen bu soruda “Devam” seçeneğini işaretle.",
+      "options": [
+        {
+          "option_id": "opt_a",
+          "text": "Biraz bekle",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_b",
+          "text": "Atla",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_c",
+          "text": "Devam",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "opt_d",
+          "text": "Geri dön",
+          "dimension_deltas": {}
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group_id": null,
+      "relationship_type": null,
+      "reverse_scored": null,
+      "response_format": "forced_choice",
+      "separator_type": null,
+      "separator_dimensions": [],
+      "separator_persona_targets": [],
+      "trait_scoring": false,
+      "quality_type": "protocol_attention",
+      "expected_protocol_option_id": "opt_c",
+      "rvi_runtime_gate": false
+    }
+  ]
+}

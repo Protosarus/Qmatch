@@ -65,6 +65,8 @@ class FrequencyCanonicalBankValidator {
     var relatedCount = 0;
     var separatorCount = 0;
     var qualityCount = 0;
+    final separatorIds = <String>{};
+    final qualityIds = <String>{};
 
     for (final item in bank.items) {
       if (item.itemId.trim().isEmpty) fail('empty_item_id');
@@ -84,9 +86,11 @@ class FrequencyCanonicalBankValidator {
           break;
         case FrequencyBankContract.itemRoleSeparator:
           separatorCount++;
+          separatorIds.add(item.itemId);
           break;
         case FrequencyBankContract.itemRoleQuality:
           qualityCount++;
+          qualityIds.add(item.itemId);
           break;
         default:
           fail('unknown_item_role', '${item.itemId}:${item.itemRole}');
@@ -94,14 +98,49 @@ class FrequencyCanonicalBankValidator {
 
       final primary = item.primaryDimension;
       if (item.itemRole == FrequencyBankContract.itemRoleQuality) {
-        // Quality-only items may omit primary / trait deltas.
+        if (item.traitScoring) {
+          fail('quality_must_not_trait_score', item.itemId);
+        }
+        if (item.rviRuntimeGate) {
+          fail('quality_rvi_gate_must_be_false', item.itemId);
+        }
+        if (item.qualityType == null || item.qualityType!.trim().isEmpty) {
+          fail('quality_type_missing', item.itemId);
+        }
+        if (item.expectedProtocolOptionId == null ||
+            item.expectedProtocolOptionId!.trim().isEmpty) {
+          fail('expected_protocol_option_missing', item.itemId);
+        } else if (item.optionById(item.expectedProtocolOptionId!) == null) {
+          fail('expected_protocol_option_unknown', item.itemId);
+        }
         if (primary != null) {
-          if (!FrequencyCanonicalDimensions.isCanonical(primary)) {
-            fail('unknown_primary_dimension', primary);
+          fail('quality_must_omit_primary', item.itemId);
+        }
+      } else if (item.itemRole == FrequencyBankContract.itemRoleSeparator) {
+        if (item.separatorType !=
+            FrequencyBankContract.separatorTypeDimensionBoundary) {
+          fail('separator_type', '${item.itemId}:${item.separatorType}');
+        }
+        if (item.separatorDimensions.length <
+            FrequencyBankContract.minSeparatorDimensions) {
+          fail('separator_dimensions_lt_2', item.itemId);
+        }
+        for (final d in item.separatorDimensions) {
+          if (!FrequencyCanonicalDimensions.isCanonical(d)) {
+            fail('unknown_separator_dimension', '$d@${item.itemId}');
           }
-          if (FrequencyCanonicalDimensions.isForbiddenLegacy(primary)) {
-            fail('legacy_primary_dimension', primary);
+          if (FrequencyCanonicalDimensions.isForbiddenLegacy(d)) {
+            fail('legacy_separator_dimension', '$d@${item.itemId}');
           }
+        }
+        // Persona targets optional / empty in R1A — do not invent.
+        for (final p in item.separatorPersonaTargets) {
+          if (p.trim().isEmpty) {
+            fail('empty_separator_persona_target', item.itemId);
+          }
+        }
+        if (!item.traitScoring) {
+          fail('separator_must_trait_score', item.itemId);
         }
       } else {
         if (primary == null || primary.isEmpty) {
@@ -113,6 +152,9 @@ class FrequencyCanonicalBankValidator {
           if (FrequencyCanonicalDimensions.isForbiddenLegacy(primary)) {
             fail('legacy_primary_dimension', primary);
           }
+        }
+        if (!item.traitScoring) {
+          fail('trait_role_must_score', item.itemId);
         }
       }
 
@@ -145,9 +187,12 @@ class FrequencyCanonicalBankValidator {
           fail('empty_option_text', '${item.itemId}:${o.optionId}');
         }
 
-        if (item.itemRole == FrequencyBankContract.itemRoleQuality) {
-          // Quality items must not silently inject trait evidence unless
-          // explicit deltas are present and valid (rare). Empty is OK.
+        if (item.itemRole == FrequencyBankContract.itemRoleQuality ||
+            !item.traitScoring) {
+          if (o.dimensionDeltas.isNotEmpty) {
+            fail(
+                'quality_deltas_must_be_empty', '${item.itemId}:${o.optionId}');
+          }
         } else if (o.dimensionDeltas.isEmpty) {
           fail('empty_deltas', '${item.itemId}:${o.optionId}');
         }
@@ -167,10 +212,12 @@ class FrequencyCanonicalBankValidator {
           }
         }
 
-        if (item.itemRole != FrequencyBankContract.itemRoleQuality &&
-            primary != null &&
-            !o.dimensionDeltas.containsKey(primary)) {
-          fail('primary_delta_missing_on_option', item.itemId);
+        if (item.itemRole == FrequencyBankContract.itemRoleCore ||
+            item.itemRole ==
+                FrequencyBankContract.itemRoleBehavioralEquivalence) {
+          if (primary != null && !o.dimensionDeltas.containsKey(primary)) {
+            fail('primary_delta_missing_on_option', item.itemId);
+          }
         }
       }
 
@@ -207,6 +254,24 @@ class FrequencyCanonicalBankValidator {
         fail(
           'BLOCKED_FREQUENCY_QUALITY_ITEM_COVERAGE',
           'quality=$qualityCount',
+        );
+      }
+
+      final expectedSep =
+          FrequencyBankContract.authoredSeparatorIds.toSet();
+      if (separatorIds.length != expectedSep.length ||
+          !separatorIds.containsAll(expectedSep)) {
+        fail(
+          'separator_ids_mismatch',
+          'got=${(separatorIds.toList()..sort())} expected=${(expectedSep.toList()..sort())}',
+        );
+      }
+      final expectedQual = FrequencyBankContract.authoredQualityIds.toSet();
+      if (qualityIds.length != expectedQual.length ||
+          !qualityIds.containsAll(expectedQual)) {
+        fail(
+          'quality_ids_mismatch',
+          'got=${(qualityIds.toList()..sort())} expected=${(expectedQual.toList()..sort())}',
         );
       }
 
@@ -292,6 +357,27 @@ class FrequencyCanonicalBankParity {
       }
       if (e.reverseScored != t.reverseScored) {
         fail('reverse_scored_mismatch:${t.itemId}');
+      }
+      if (e.separatorType != t.separatorType) {
+        fail('separator_type_mismatch:${t.itemId}');
+      }
+      if (!_listEq(e.separatorDimensions, t.separatorDimensions)) {
+        fail('separator_dimensions_mismatch:${t.itemId}');
+      }
+      if (!_listEq(e.separatorPersonaTargets, t.separatorPersonaTargets)) {
+        fail('separator_persona_mismatch:${t.itemId}');
+      }
+      if (e.traitScoring != t.traitScoring) {
+        fail('trait_scoring_mismatch:${t.itemId}');
+      }
+      if (e.qualityType != t.qualityType) {
+        fail('quality_type_mismatch:${t.itemId}');
+      }
+      if (e.expectedProtocolOptionId != t.expectedProtocolOptionId) {
+        fail('expected_protocol_mismatch:${t.itemId}');
+      }
+      if (e.rviRuntimeGate != t.rviRuntimeGate) {
+        fail('item_rvi_gate_mismatch:${t.itemId}');
       }
       if (e.options.length != t.options.length) {
         fail('option_count_mismatch:${t.itemId}');

@@ -166,10 +166,14 @@
     },
     {
       "item_id": "fx_quality",
-      "item_role": "quality",
+      "item_role": "response_quality",
       "primary_dimension": null,
       "secondary_dimensions": [],
       "prompt": "Fixture quality-only (no trait deltas)",
+      "trait_scoring": false,
+      "quality_type": "instruction_attention",
+      "expected_protocol_option_id": "A",
+      "rvi_runtime_gate": false,
       "options": [
         {
           "option_id": "A",

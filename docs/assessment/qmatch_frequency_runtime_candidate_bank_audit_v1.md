@@ -1,41 +1,42 @@
 # QMatch Frequency Runtime-Candidate Bank Audit v1
 
-**Phase:** P2C-2A-8R1  
+**Phase:** P2C-2A-8R1A
 **Date:** 2026-08-09
 
 ## Verdict
 
 ```text
-TR 50-item frequency_bank_tr_v1 = NOT_CREATED
-EN 50-item frequency_bank_en_v1 = NOT_CREATED
+TR 50-item frequency_bank_tr_v1 = CREATED_AND_VALIDATED
+EN 50-item frequency_bank_en_v1 = CREATED_AND_STRUCTURALLY_VALIDATED
 
-Reason:
-  BLOCKED_FREQUENCY_SEPARATOR_ITEM_COVERAGE
-  BLOCKED_FREQUENCY_QUALITY_ITEM_COVERAGE
+status = runtime_candidate
+calibration = uncalibrated
+pubspec registered = false (offline until R2)
 ```
-
-Existing offline pilot (`frequency_pilot_tr_v1.json`) is scientifically closer than legacy live sets, but it does **not** satisfy the frozen 30+12+6+2 role blueprint without inventing items.
 
 ## Blueprint checklist
 
 | Check | Result |
 |-------|--------|
-| Exactly 50 runtime-candidate items | FAIL (asset absent) |
-| Exactly six canonical Frequency IDs | PASS (registry + pilot taxonomy) |
-| No historical alias as canonical ID | PASS on pilot / registry |
-| 30 core / 5 per dim | SELECTABLE from pilot stock; not role-tagged |
-| 12 behavioral-equivalence / 2 per dim | PASS in pilot isomorph registry |
-| 6 separator items | **FAIL (0)** |
-| 2 quality-only items | **FAIL (0)** |
-| Explicit δ ∈ [-1,1] on trait options | PASS on pilot |
-| No active correctness fields | PASS on pilot |
-| Stable option IDs | PASS (`A`–`D`) |
-| Registered in pubspec | Intentionally **false** until R2 |
+| Exactly 50 items | PASS |
+| Six canonical Frequency IDs | PASS |
+| No historical alias as canonical ID | PASS |
+| 30 core / 5 per dim | PASS |
+| 12 behavioral-equivalence / 2 per dim | PASS |
+| 6 separator items (authored IDs) | PASS |
+| 2 response_quality items (authored IDs) | PASS |
+| Separator type = dimension_boundary | PASS |
+| separator_persona_targets empty | PASS |
+| Quality trait_scoring=false; empty deltas | PASS |
+| Explicit δ ∈ [-1,1] on trait options | PASS |
+| No active correctness fields | PASS |
+| Registered in pubspec | **false** (intentional) |
 
-## Validator readiness
+## Authored content
 
-`FrequencyCanonicalBankValidator` encodes the hard blueprint and will emit the blocker codes above until a complete candidate exists.
+See `qmatch_frequency_authored_separator_quality_v1.md`.
 
-## Math fixture (not a runtime candidate)
+## EN notes
 
-`test/fixtures/frequency/frequency_math_fixture_v1.json` exists only to exercise `CanonicalFrequencyScorer`. Status = `math_fixture`.
+Pilot-derived 42 items retain schema EN stubs where authored EN was not previously available.
+Eight R1A items have supplied EN. Full semantic review = **PENDING_R2**.
