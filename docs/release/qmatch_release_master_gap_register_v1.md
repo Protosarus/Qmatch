@@ -1,9 +1,9 @@
 # QMatch Release Master Gap Register v1
 
-Phase: **P2C-1A** (updates) · base HEAD `4bbd6cb`  
+Phase: **P2C-1A** (updates) · base HEAD `4bbd6cb`
 Companion: `qmatch_full_runtime_integration_audit_v1.md` · identity/rules docs in `docs/release/`
 
-Severity: `blocker` | `critical` | `high` | `medium` | `low`  
+Severity: `blocker` | `critical` | `high` | `medium` | `low`
 Release-blocking: yes/no
 
 ---
@@ -41,7 +41,7 @@ Release-blocking: yes/no
 | G-027 | discover | Photo not required to enter Discover tab | AuthWrapper→Main without photo; eligibility separate | RUNTIME_WIRED_UNVERIFIED | medium | G-009 | `auth_wrapper.dart`, eligibility | P2C-2 | Consistent gate or empty-state CTA | no |
 | G-028 | discover | Reverse-block not server-enforced | TODO in discover_service | RUNTIME_WIRED_UNVERIFIED | high | safety | `discover_service.dart` | P2C-2 | Blocked-by cannot appear | yes |
 | G-029 | match | `getMyMatchesStream` orphaned | defined; no UI caller | IMPLEMENTED_OFFLINE | medium | UX | `match_service.dart` | P2C-2 | Matches surface in UI or remove | no |
-| G-030 | persona | PersonaScoring not runtime; archetype still matching | **P2C-3A-2:** offline shadow distance engine `persona_20d_shadow_distance_v1` **IMPLEMENTED**; reliability/E_j policies resolved for shadow only; production reveal + Firestore persona write still **NOT_STARTED**. Discover still uses archetype | DUPLICATED / LEGACY_ACTIVE / SHADOW_READY | high | T/Top-2/confidence for production | persona shadow scorer; compatibility_scoring; `docs/persona/*` | P2C-3A+ | Persona explanation-only after production policies; not ranking input unless decided | yes |
+| G-030 | persona | PersonaScoring not runtime; archetype still matching | **P2C-3A-3:** offline large-scale shadow stress **COMPLETE** (seed 20260809, n=100000, aggregate `docs/persona/reports/persona_shadow_stress_v1_aggregate.json`); self_center_failures=0, overall unreachable=0, H_norm≈0.92. Distance-only reveal candidate noted (`TEMPERATURE_NOT_REQUIRED_FOR_DISTANCE_ONLY_REVEAL_V1`, `CONFIDENCE_NOT_REQUIRED_FOR_DISTANCE_ONLY_REVEAL_V1`) but `DISTANCE_ONLY_REVEAL_READY_FOR_PRODUCT_REVIEW=false`; explainability **BLOCKED_PERSONA_REASON_CODE_POLICY**; production reveal + Firestore persona write still **NOT_STARTED**. Discover still uses archetype | DUPLICATED / LEGACY_ACTIVE / SHADOW_STRESS_VALIDATED / REVEAL_BLOCKED | high | product + explainability for reveal; Top-2 bands if UI-gated | persona shadow scorer; stress reports; compatibility_scoring; `docs/persona/*` | P2C-3A+ | Persona explanation-only after production policies; not ranking input unless decided; no auto-reveal | yes |
 | G-031 | cm_v2 | Registry namespace mismatch aggregation/values | P2B-6 harness shim required | IMPLEMENTED_OFFLINE | critical | G-006 | aggregation + value registry versions | P2C-3 | Production resolves namespace without silent invalidation | yes |
 | G-032 | firebase | App Check absent | **P2C-1A:** plan only `docs/release/qmatch_app_check_integration_plan_v1.md`; SDK still absent | NOT_STARTED (plan written) | high | Console + SDK | plan doc | P2C-1 later | Providers + enforce on device | yes |
 | G-033 | subscriptions | No IAP | no billing packages | NOT_STARTED | medium | monetization | docs strategy only | P2C-5 or defer | Explicit v1 decision: ship free or implement | yes if paid v1 |
@@ -92,7 +92,7 @@ Release-blocking: yes/no
 | yes | 37 |
 | no / conditional | 9 |
 
-**Total release blockers (severity=blocker): 17**  
+**Total release blockers (severity=blocker): 17**
 **Total critical gaps: 6**
 
 Note: Some blockers are conditional on product claims (e.g. G-006 if CM v2 is required for v1 marketing). Treat as blocking unless product explicitly ships legacy-only matching with disclosed limitations.

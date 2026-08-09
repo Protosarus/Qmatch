@@ -10,7 +10,7 @@ project continuity across ChatGPT/Cursor sessions.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Last completed phase | **P2C-3A-2 — Canonical Persona Shadow Input Policy + Distance Engine** |
+| Last completed phase | **P2C-3A-3 — Persona Large-Scale Shadow Stress + Distance Reveal Policy** |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -21,12 +21,17 @@ project continuity across ChatGPT/Cursor sessions.
 ```text
 P2C-3A-1 = COMPLETE
 P2C-3A-2 = COMPLETE
+P2C-3A-3 = COMPLETE (offline)
 
 canonical measured profile = 20 / 20
 canonical_profile_ready = true
 
-canonical 18 Persona prototypes = PROVISIONAL / STRUCTURALLY_READY
+canonical 18 Persona prototypes = PROVISIONAL / STRUCTURALLY_READY / synthetic_validation_only
 canonical Persona distance scorer = IMPLEMENTED_OFFLINE_SHADOW
+large-scale shadow stress = COMPLETE (offline)
+  seed = 20260809
+  overall_n = 100000
+  aggregate = docs/persona/reports/persona_shadow_stress_v1_aggregate.json
 
 scoring_version = persona_20d_shadow_distance_v1
 quality_policy = persona_shadow_evidence_only_v1
@@ -39,11 +44,13 @@ Persona input reliability policy = RESOLVED_FOR_SHADOW_ONLY (q_j = E_j)
 Persona evidence sufficiency policy = RESOLVED_FOR_SHADOW_ONLY
 distance coefficient conflict = RESOLVED
 
-temperature = UNRESOLVED / NOT_REQUIRED_FOR_DISTANCE_SHADOW
+temperature = UNRESOLVED / TEMPERATURE_NOT_REQUIRED_FOR_DISTANCE_ONLY_REVEAL_V1
 Top-2 thresholds = UNRESOLVED / NOT_REQUIRED_FOR_RAW_MARGIN
-confidence = NOT_CALIBRATED / NOT_COMPUTED
+confidence = NOT_COMPUTED / CONFIDENCE_NOT_REQUIRED_FOR_DISTANCE_ONLY_REVEAL_V1
+explainability reason_code = BLOCKED_PERSONA_REASON_CODE_POLICY
+DISTANCE_ONLY_REVEAL_READY_FOR_PRODUCT_REVIEW = false
 
-production Persona reveal = NOT_STARTED
+production Persona reveal = NOT_STARTED / BLOCKED
 live Persona persistence = NOT_STARTED
 PERSONA_RUNTIME_READY = false
 
@@ -62,7 +69,7 @@ Psychometric calibration = NOT_STARTED
 | **IQ** | Canonical live | |
 | **EQ** | Canonical live | |
 | **Frequency** | Canonical live | no Persona |
-| **Persona** | Offline shadow distance only | no reveal / no Firestore |
+| **Persona** | Offline shadow distance + stress validated | no reveal / no Firestore |
 
 ---
 
@@ -74,14 +81,15 @@ Psychometric calibration = NOT_STARTED
 | P2C-3A-1 Persona prototype contract audit | `7c7ccc4bffd816ac783b92f4f164f1225b7b3e40` |
 | Continuity tip before Persona shadow | `d212d8414bfef55164cdc136b60e851206636377` |
 | P2C-3A-2 Persona shadow distance engine | `dd3ebdcd99c7cc2a2d6f7781060f35a426bfcf7e` |
+| P2C-3A-3 Persona large-scale shadow stress docs | **PENDING** |
 
 ---
 
 ## Next Exact Phase
 
-Persona policy completion for **production reveal readiness** (temperature /
-affinity / Top-2 / confidence) **or** product-prioritized Matching — without
-auto-starting reveal.
+Product + explainability review for any distance-only Persona reveal candidate
+(`DISTANCE_ONLY_REVEAL_READY_FOR_PRODUCT_REVIEW` remains false), **or**
+product-prioritized Matching — without auto-starting reveal.
 
 ---
 

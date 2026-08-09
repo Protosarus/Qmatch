@@ -13,3 +13,4 @@ export 'persona_shadow_contract.dart';
 export 'persona_shadow_input.dart';
 export 'persona_shadow_result.dart';
 export 'persona_shadow_scoring_config.dart';
+export 'persona_shadow_stress_simulator.dart';
