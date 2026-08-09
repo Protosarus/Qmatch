@@ -6,6 +6,10 @@ void main() {
   test('pilot bank is not in pubspec', () {
     final pub = File('pubspec.yaml').readAsStringSync();
     expect(pub.contains('eq_pilot_tr_v1'), isFalse);
+    expect(pub.contains('eq_pilot_tr_v1_review_candidate'), isFalse);
+    // Runtime-candidate banks also stay out of pubspec until live EQ migration.
+    expect(pub.contains('eq_bank_tr_v1'), isFalse);
+    expect(pub.contains('eq_bank_en_v1'), isFalse);
     expect(pub.contains('assessment_v3/eq'), isFalse);
   });
 
@@ -20,6 +24,13 @@ void main() {
                 f.path.contains('question')));
     for (final f in screens) {
       if (f.path.contains('/domain/trait_scoring/')) continue;
+      // Offline eq_bank / eq_scoring domain may reference candidate asset paths.
+      if (f.path.contains('/domain/eq_bank/') ||
+          f.path.contains('/domain/eq_scoring/')) {
+        expect(f.readAsStringSync().contains('eq_pilot_tr_v1'), isFalse,
+            reason: f.path);
+        continue;
+      }
       final text = f.readAsStringSync();
       expect(text.contains('eq_pilot_tr_v1'), isFalse, reason: f.path);
       expect(text.contains('assessment_v3/eq'), isFalse, reason: f.path);

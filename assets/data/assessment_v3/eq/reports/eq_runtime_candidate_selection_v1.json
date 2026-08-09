@@ -1,0 +1,1174 @@
+{
+  "selection": "all_30_pilot_items_primary_balanced",
+  "primary_counts": {
+    "empathy": 3,
+    "perspective_taking": 3,
+    "self_awareness": 3,
+    "emotion_regulation": 3,
+    "emotional_openness": 3,
+    "boundary_setting": 3,
+    "assertiveness": 3,
+    "conflict_approach": 3,
+    "repair_orientation": 3,
+    "social_awareness": 3
+  },
+  "items": [
+    {
+      "item_id": "eq_v1_assertiveness_001",
+      "source_pilot_question_id": "eq_tr_v1_assertiveness_001",
+      "primary_construct": "assertiveness",
+      "secondary_constructs": [
+        "emotion_regulation",
+        "repair_orientation"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "assertiveness": 0.72,
+          "emotion_regulation": -0.2
+        },
+        "B": {
+          "assertiveness": 0.45,
+          "repair_orientation": -0.18
+        },
+        "C": {
+          "assertiveness": 0.08,
+          "conflict_approach": -0.15
+        },
+        "D": {
+          "assertiveness": -0.52,
+          "boundary_setting": -0.22
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_assertiveness_002",
+      "source_pilot_question_id": "eq_tr_v1_assertiveness_002",
+      "primary_construct": "assertiveness",
+      "secondary_constructs": [
+        "boundary_setting",
+        "social_awareness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "boundary_setting": -0.22,
+          "assertiveness": 0.72
+        },
+        "B": {
+          "social_awareness": -0.15,
+          "assertiveness": 0.45
+        },
+        "C": {
+          "assertiveness": 0.08
+        },
+        "D": {
+          "assertiveness": -0.52
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_assertiveness_003",
+      "source_pilot_question_id": "eq_tr_v1_assertiveness_003",
+      "primary_construct": "assertiveness",
+      "secondary_constructs": [],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "boundary_setting": 0.22,
+          "assertiveness": -0.72
+        },
+        "B": {
+          "assertiveness": -0.45
+        },
+        "C": {
+          "repair_orientation": 0.15,
+          "assertiveness": -0.08
+        },
+        "D": {
+          "emotion_regulation": -0.15,
+          "assertiveness": 0.52
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_boundary_setting_001",
+      "source_pilot_question_id": "eq_tr_v1_boundary_setting_001",
+      "primary_construct": "boundary_setting",
+      "secondary_constructs": [
+        "assertiveness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "boundary_setting": 0.75,
+          "assertiveness": -0.22
+        },
+        "B": {
+          "boundary_setting": 0.48,
+          "assertiveness": -0.18
+        },
+        "C": {
+          "boundary_setting": 0.12,
+          "conflict_approach": -0.15
+        },
+        "D": {
+          "boundary_setting": -0.55,
+          "assertiveness": -0.2
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_boundary_setting_002",
+      "source_pilot_question_id": "eq_tr_v1_boundary_setting_002",
+      "primary_construct": "boundary_setting",
+      "secondary_constructs": [
+        "assertiveness",
+        "repair_orientation"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "assertiveness": -0.25,
+          "boundary_setting": 0.75
+        },
+        "B": {
+          "boundary_setting": 0.48
+        },
+        "C": {
+          "repair_orientation": -0.15,
+          "boundary_setting": 0.12
+        },
+        "D": {
+          "assertiveness": -0.22,
+          "boundary_setting": -0.55
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_boundary_setting_003",
+      "source_pilot_question_id": "eq_tr_v1_boundary_setting_003",
+      "primary_construct": "boundary_setting",
+      "secondary_constructs": [],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "assertiveness": 0.2,
+          "boundary_setting": -0.75
+        },
+        "B": {
+          "boundary_setting": -0.48
+        },
+        "C": {
+          "repair_orientation": 0.18,
+          "boundary_setting": -0.12
+        },
+        "D": {
+          "conflict_approach": -0.18,
+          "boundary_setting": 0.55
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_conflict_approach_001",
+      "source_pilot_question_id": "eq_tr_v1_conflict_approach_001",
+      "primary_construct": "conflict_approach",
+      "secondary_constructs": [
+        "perspective_taking",
+        "assertiveness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "conflict_approach": 0.72,
+          "perspective_taking": -0.22
+        },
+        "B": {
+          "conflict_approach": 0.46,
+          "assertiveness": -0.18
+        },
+        "C": {
+          "conflict_approach": 0.1,
+          "boundary_setting": -0.12
+        },
+        "D": {
+          "conflict_approach": -0.55,
+          "emotion_regulation": -0.2
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_conflict_approach_002",
+      "source_pilot_question_id": "eq_tr_v1_conflict_approach_002",
+      "primary_construct": "conflict_approach",
+      "secondary_constructs": [
+        "emotion_regulation",
+        "repair_orientation"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "conflict_approach": 0.68,
+          "emotion_regulation": -0.25
+        },
+        "B": {
+          "conflict_approach": 0.42,
+          "repair_orientation": -0.18
+        },
+        "C": {
+          "conflict_approach": 0.12,
+          "perspective_taking": -0.15
+        },
+        "D": {
+          "conflict_approach": -0.45,
+          "empathy": -0.15
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_conflict_approach_003",
+      "source_pilot_question_id": "eq_tr_v1_conflict_approach_003",
+      "primary_construct": "conflict_approach",
+      "secondary_constructs": [
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "boundary_setting": 0.2,
+          "conflict_approach": -0.72
+        },
+        "B": {
+          "perspective_taking": 0.18,
+          "conflict_approach": -0.46
+        },
+        "C": {
+          "conflict_approach": -0.1
+        },
+        "D": {
+          "emotion_regulation": -0.22,
+          "conflict_approach": 0.55
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_emotion_regulation_001",
+      "source_pilot_question_id": "eq_tr_v1_emotion_regulation_001",
+      "primary_construct": "emotion_regulation",
+      "secondary_constructs": [
+        "self_awareness",
+        "social_awareness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "emotion_regulation": 0.7,
+          "self_awareness": -0.22
+        },
+        "B": {
+          "emotion_regulation": 0.45,
+          "social_awareness": -0.18
+        },
+        "C": {
+          "emotion_regulation": 0.08,
+          "conflict_approach": -0.15
+        },
+        "D": {
+          "emotion_regulation": -0.48,
+          "empathy": -0.2
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_emotion_regulation_002",
+      "source_pilot_question_id": "eq_tr_v1_emotion_regulation_002",
+      "primary_construct": "emotion_regulation",
+      "secondary_constructs": [
+        "self_awareness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "self_awareness": -0.2,
+          "emotion_regulation": 0.7
+        },
+        "B": {
+          "emotion_regulation": 0.45
+        },
+        "C": {
+          "emotion_regulation": 0.08
+        },
+        "D": {
+          "emotional_openness": 0.22,
+          "emotion_regulation": -0.48
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_emotion_regulation_003",
+      "source_pilot_question_id": "eq_tr_v1_emotion_regulation_003",
+      "primary_construct": "emotion_regulation",
+      "secondary_constructs": [
+        "self_awareness",
+        "perspective_taking"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "emotion_regulation": 0.68,
+          "self_awareness": -0.18
+        },
+        "B": {
+          "emotion_regulation": 0.42,
+          "perspective_taking": -0.15
+        },
+        "C": {
+          "emotion_regulation": 0.15,
+          "emotional_openness": -0.2
+        },
+        "D": {
+          "emotion_regulation": -0.5
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_emotional_openness_001",
+      "source_pilot_question_id": "eq_tr_v1_emotional_openness_001",
+      "primary_construct": "emotional_openness",
+      "secondary_constructs": [
+        "self_awareness",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "emotional_openness": 0.78,
+          "self_awareness": -0.18
+        },
+        "B": {
+          "emotional_openness": 0.42,
+          "boundary_setting": -0.15
+        },
+        "C": {
+          "emotional_openness": 0.08,
+          "empathy": -0.22
+        },
+        "D": {
+          "emotional_openness": -0.48
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_emotional_openness_002",
+      "source_pilot_question_id": "eq_tr_v1_emotional_openness_002",
+      "primary_construct": "emotional_openness",
+      "secondary_constructs": [],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "empathy": 0.18,
+          "emotional_openness": -0.78
+        },
+        "B": {
+          "emotional_openness": -0.42
+        },
+        "C": {
+          "emotional_openness": -0.08
+        },
+        "D": {
+          "conflict_approach": -0.15,
+          "emotional_openness": 0.48
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_emotional_openness_003",
+      "source_pilot_question_id": "eq_tr_v1_emotional_openness_003",
+      "primary_construct": "emotional_openness",
+      "secondary_constructs": [
+        "empathy",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "emotional_openness": 0.65,
+          "empathy": -0.22
+        },
+        "B": {
+          "emotional_openness": 0.35,
+          "boundary_setting": -0.22
+        },
+        "C": {
+          "emotional_openness": 0.1,
+          "empathy": -0.18
+        },
+        "D": {
+          "emotional_openness": -0.42,
+          "social_awareness": -0.18
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_empathy_001",
+      "source_pilot_question_id": "eq_tr_v1_empathy_001",
+      "primary_construct": "empathy",
+      "secondary_constructs": [
+        "boundary_setting",
+        "assertiveness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "empathy": 0.72,
+          "boundary_setting": -0.22
+        },
+        "B": {
+          "empathy": 0.38,
+          "boundary_setting": -0.18
+        },
+        "C": {
+          "empathy": 0.12,
+          "assertiveness": -0.15
+        },
+        "D": {
+          "empathy": -0.45,
+          "emotion_regulation": 0.2
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_empathy_002",
+      "source_pilot_question_id": "eq_tr_v1_empathy_002",
+      "primary_construct": "empathy",
+      "secondary_constructs": [
+        "repair_orientation",
+        "conflict_approach"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "repair_orientation": -0.28,
+          "empathy": 0.72
+        },
+        "B": {
+          "repair_orientation": -0.22,
+          "empathy": 0.38
+        },
+        "C": {
+          "conflict_approach": -0.18,
+          "empathy": 0.12
+        },
+        "D": {
+          "assertiveness": 0.25,
+          "empathy": -0.45
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_empathy_003",
+      "source_pilot_question_id": "eq_tr_v1_empathy_003",
+      "primary_construct": "empathy",
+      "secondary_constructs": [
+        "emotional_openness",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "empathy": 0.7,
+          "emotional_openness": -0.22
+        },
+        "B": {
+          "empathy": 0.45,
+          "boundary_setting": -0.2
+        },
+        "C": {
+          "empathy": 0.18,
+          "boundary_setting": -0.28
+        },
+        "D": {
+          "empathy": -0.4,
+          "emotional_openness": -0.22
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_perspective_taking_001",
+      "source_pilot_question_id": "eq_tr_v1_perspective_taking_001",
+      "primary_construct": "perspective_taking",
+      "secondary_constructs": [
+        "social_awareness",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "perspective_taking": 0.75,
+          "social_awareness": -0.25
+        },
+        "B": {
+          "perspective_taking": 0.48,
+          "social_awareness": -0.15
+        },
+        "C": {
+          "perspective_taking": 0.1,
+          "boundary_setting": -0.28
+        },
+        "D": {
+          "perspective_taking": -0.42,
+          "conflict_approach": -0.18
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_perspective_taking_002",
+      "source_pilot_question_id": "eq_tr_v1_perspective_taking_002",
+      "primary_construct": "perspective_taking",
+      "secondary_constructs": [
+        "social_awareness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "social_awareness": -0.22,
+          "perspective_taking": 0.75
+        },
+        "B": {
+          "perspective_taking": 0.48
+        },
+        "C": {
+          "social_awareness": -0.18,
+          "perspective_taking": 0.1
+        },
+        "D": {
+          "perspective_taking": -0.42
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_perspective_taking_003",
+      "source_pilot_question_id": "eq_tr_v1_perspective_taking_003",
+      "primary_construct": "perspective_taking",
+      "secondary_constructs": [
+        "conflict_approach",
+        "social_awareness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "perspective_taking": 0.68,
+          "conflict_approach": -0.2
+        },
+        "B": {
+          "perspective_taking": 0.42
+        },
+        "C": {
+          "perspective_taking": 0.22,
+          "social_awareness": -0.18
+        },
+        "D": {
+          "perspective_taking": -0.45,
+          "social_awareness": -0.15
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_repair_orientation_001",
+      "source_pilot_question_id": "eq_tr_v1_repair_orientation_001",
+      "primary_construct": "repair_orientation",
+      "secondary_constructs": [
+        "empathy"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "repair_orientation": 0.75,
+          "empathy": -0.22
+        },
+        "B": {
+          "repair_orientation": 0.45,
+          "empathy": -0.15
+        },
+        "C": {
+          "repair_orientation": 0.08,
+          "conflict_approach": -0.12
+        },
+        "D": {
+          "repair_orientation": -0.52,
+          "assertiveness": 0.2
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_repair_orientation_002",
+      "source_pilot_question_id": "eq_tr_v1_repair_orientation_002",
+      "primary_construct": "repair_orientation",
+      "secondary_constructs": [
+        "emotional_openness",
+        "empathy"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "emotional_openness": -0.22,
+          "repair_orientation": 0.75
+        },
+        "B": {
+          "empathy": -0.18,
+          "repair_orientation": 0.45
+        },
+        "C": {
+          "repair_orientation": 0.08
+        },
+        "D": {
+          "conflict_approach": 0.15,
+          "repair_orientation": -0.52
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_repair_orientation_003",
+      "source_pilot_question_id": "eq_tr_v1_repair_orientation_003",
+      "primary_construct": "repair_orientation",
+      "secondary_constructs": [
+        "conflict_approach",
+        "assertiveness"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "repair_orientation": 0.68,
+          "conflict_approach": -0.22
+        },
+        "B": {
+          "repair_orientation": 0.42,
+          "assertiveness": -0.18
+        },
+        "C": {
+          "repair_orientation": 0.1
+        },
+        "D": {
+          "repair_orientation": -0.5,
+          "conflict_approach": -0.18
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_self_awareness_001",
+      "source_pilot_question_id": "eq_tr_v1_self_awareness_001",
+      "primary_construct": "self_awareness",
+      "secondary_constructs": [
+        "emotion_regulation"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "self_awareness": 0.72,
+          "emotion_regulation": -0.18
+        },
+        "B": {
+          "self_awareness": 0.48,
+          "emotion_regulation": -0.15
+        },
+        "C": {
+          "self_awareness": 0.22
+        },
+        "D": {
+          "self_awareness": -0.55
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_self_awareness_002",
+      "source_pilot_question_id": "eq_tr_v1_self_awareness_002",
+      "primary_construct": "self_awareness",
+      "secondary_constructs": [
+        "social_awareness",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "self_awareness": 0.7,
+          "social_awareness": -0.22
+        },
+        "B": {
+          "self_awareness": 0.44,
+          "boundary_setting": -0.18
+        },
+        "C": {
+          "self_awareness": 0.15
+        },
+        "D": {
+          "self_awareness": -0.4,
+          "social_awareness": 0.12
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_self_awareness_003",
+      "source_pilot_question_id": "eq_tr_v1_self_awareness_003",
+      "primary_construct": "self_awareness",
+      "secondary_constructs": [
+        "conflict_approach"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "emotion_regulation": 0.25,
+          "self_awareness": -0.72
+        },
+        "B": {
+          "self_awareness": -0.48
+        },
+        "C": {
+          "assertiveness": 0.2,
+          "self_awareness": -0.22
+        },
+        "D": {
+          "conflict_approach": -0.18,
+          "self_awareness": 0.55
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_social_awareness_001",
+      "source_pilot_question_id": "eq_tr_v1_social_awareness_001",
+      "primary_construct": "social_awareness",
+      "secondary_constructs": [
+        "empathy",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "social_awareness": 0.72,
+          "empathy": -0.22
+        },
+        "B": {
+          "social_awareness": 0.45,
+          "boundary_setting": -0.18
+        },
+        "C": {
+          "social_awareness": 0.12
+        },
+        "D": {
+          "social_awareness": -0.48
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_social_awareness_002",
+      "source_pilot_question_id": "eq_tr_v1_social_awareness_002",
+      "primary_construct": "social_awareness",
+      "secondary_constructs": [
+        "perspective_taking",
+        "boundary_setting"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "social_awareness": 0.7,
+          "perspective_taking": -0.22
+        },
+        "B": {
+          "social_awareness": 0.44,
+          "boundary_setting": -0.18
+        },
+        "C": {
+          "social_awareness": 0.15
+        },
+        "D": {
+          "social_awareness": -0.42
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    },
+    {
+      "item_id": "eq_v1_social_awareness_003",
+      "source_pilot_question_id": "eq_tr_v1_social_awareness_003",
+      "primary_construct": "social_awareness",
+      "secondary_constructs": [
+        "repair_orientation",
+        "perspective_taking"
+      ],
+      "response_format": "scenario_mcq",
+      "option_ids": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "dimension_deltas_by_option": {
+        "A": {
+          "social_awareness": 0.68,
+          "repair_orientation": -0.2
+        },
+        "B": {
+          "social_awareness": 0.42,
+          "perspective_taking": -0.15
+        },
+        "C": {
+          "social_awareness": 0.12
+        },
+        "D": {
+          "social_awareness": -0.45
+        }
+      },
+      "locale_source": "tr-TR",
+      "content_version": "eq-tr-pilot-v1",
+      "status": "pilot",
+      "review_state": "internal_review",
+      "selected_for_runtime_candidate": true,
+      "rejection_reasons": []
+    }
+  ]
+}

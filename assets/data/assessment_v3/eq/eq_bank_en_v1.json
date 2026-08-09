@@ -1,0 +1,1519 @@
+{
+  "schema_version": "qmatch_eq_bank_v1",
+  "bank_version": "eq_bank_en_v1",
+  "content_version": "eq-runtime-candidate-en-v1",
+  "locale": "en-US",
+  "module": "eq",
+  "status": "runtime_candidate",
+  "calibration_status": "uncalibrated",
+  "reliability_status": "not_calibrated",
+  "psychometric_validation_status": "not_calibrated",
+  "scoring_policy_version": "eq_10d_uncalibrated_signed_evidence_v1",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "source_pilot": {
+    "form_id": "eq_tr_pilot_v1",
+    "content_version": "eq-tr-pilot-v1",
+    "path": "assets/data/assessment_v3/eq/eq_pilot_tr_v1.json",
+    "selection_policy": "deterministic_all_30_primary_balanced"
+  },
+  "question_count": 30,
+  "canonical_dimensions": [
+    "empathy",
+    "perspective_taking",
+    "self_awareness",
+    "emotion_regulation",
+    "emotional_openness",
+    "boundary_setting",
+    "assertiveness",
+    "conflict_approach",
+    "repair_orientation",
+    "social_awareness"
+  ],
+  "primary_items_per_dimension": 3,
+  "response_instruction": {
+    "concept": "Which response is closest to what you would actually tend to do?",
+    "not": "Which is the correct/best/most mature response?"
+  },
+  "rvi_runtime_gate": "NOT_CALIBRATED / NOT_ACTIVE",
+  "scientific_status": "uncalibrated_multidimensional_emotional_relational_behavioral_profile",
+  "not_claims": [
+    "clinical_eq_diagnostic",
+    "standardized_emotional_intelligence_test",
+    "population_percentile_instrument",
+    "validated_psychological_diagnosis"
+  ],
+  "localization": {
+    "structural_parity": "validated",
+    "translation_semantic_review": "candidate_review_required",
+    "psychometric_cross_language_validation": "not_calibrated",
+    "human_expert_psych_review": "pending"
+  },
+  "pair_registry": {
+    "semantic_pairs": [
+      {
+        "pair_id": "eq_v1_sem_01",
+        "item_ids": [
+          "eq_v1_empathy_001",
+          "eq_v1_empathy_002"
+        ]
+      },
+      {
+        "pair_id": "eq_v1_sem_02",
+        "item_ids": [
+          "eq_v1_perspective_taking_001",
+          "eq_v1_perspective_taking_002"
+        ]
+      },
+      {
+        "pair_id": "eq_v1_sem_03",
+        "item_ids": [
+          "eq_v1_boundary_setting_001",
+          "eq_v1_boundary_setting_002"
+        ]
+      },
+      {
+        "pair_id": "eq_v1_sem_04",
+        "item_ids": [
+          "eq_v1_assertiveness_001",
+          "eq_v1_assertiveness_002"
+        ]
+      },
+      {
+        "pair_id": "eq_v1_sem_05",
+        "item_ids": [
+          "eq_v1_repair_orientation_001",
+          "eq_v1_repair_orientation_002"
+        ]
+      },
+      {
+        "pair_id": "eq_v1_sem_06",
+        "item_ids": [
+          "eq_v1_emotion_regulation_001",
+          "eq_v1_emotion_regulation_002"
+        ]
+      }
+    ],
+    "reverse_pairs": [
+      {
+        "pair_id": "eq_v1_rev_01",
+        "item_ids": [
+          "eq_v1_emotional_openness_001",
+          "eq_v1_emotional_openness_002"
+        ],
+        "consistency_mode": "behavioral_correspondence",
+        "note": "Prepared for future RVI; not used to alter trait scores in eq_10d_uncalibrated_signed_evidence_v1"
+      },
+      {
+        "pair_id": "eq_v1_rev_02",
+        "item_ids": [
+          "eq_v1_boundary_setting_001",
+          "eq_v1_boundary_setting_003"
+        ],
+        "consistency_mode": "behavioral_correspondence",
+        "note": "Prepared for future RVI; not used to alter trait scores in eq_10d_uncalibrated_signed_evidence_v1"
+      },
+      {
+        "pair_id": "eq_v1_rev_03",
+        "item_ids": [
+          "eq_v1_assertiveness_001",
+          "eq_v1_assertiveness_003"
+        ],
+        "consistency_mode": "behavioral_correspondence",
+        "note": "Prepared for future RVI; not used to alter trait scores in eq_10d_uncalibrated_signed_evidence_v1"
+      },
+      {
+        "pair_id": "eq_v1_rev_04",
+        "item_ids": [
+          "eq_v1_conflict_approach_001",
+          "eq_v1_conflict_approach_003"
+        ],
+        "consistency_mode": "behavioral_correspondence",
+        "note": "Prepared for future RVI; not used to alter trait scores in eq_10d_uncalibrated_signed_evidence_v1"
+      },
+      {
+        "pair_id": "eq_v1_rev_05",
+        "item_ids": [
+          "eq_v1_self_awareness_001",
+          "eq_v1_self_awareness_003"
+        ],
+        "consistency_mode": "behavioral_correspondence",
+        "note": "Prepared for future RVI; not used to alter trait scores in eq_10d_uncalibrated_signed_evidence_v1"
+      }
+    ]
+  },
+  "items": [
+    {
+      "item_id": "eq_v1_assertiveness_001",
+      "source_pilot_question_id": "eq_tr_v1_assertiveness_001",
+      "primary_dimension": "assertiveness",
+      "secondary_dimensions": [
+        "emotion_regulation",
+        "repair_orientation"
+      ],
+      "prompt": "A friend made plans on your behalf; you don't want to go, but saying no might hurt them. What do you say?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You thank them, say you can't join, and clearly explain why.",
+          "dimension_deltas": {
+            "assertiveness": 0.72,
+            "emotion_regulation": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You gently say you won't join and leave the reason mostly unsaid.",
+          "dimension_deltas": {
+            "assertiveness": 0.45,
+            "repair_orientation": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You suggest an alternative time; you keep your decision clear but soft.",
+          "dimension_deltas": {
+            "assertiveness": 0.08,
+            "conflict_approach": -0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You go along for now; later, alone, you note how you felt and clarify it for yourself.",
+          "dimension_deltas": {
+            "assertiveness": -0.52,
+            "boundary_setting": -0.22
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_04",
+      "reverse_pair_id": "eq_v1_rev_03",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_assertiveness_002",
+      "source_pilot_question_id": "eq_tr_v1_assertiveness_002",
+      "primary_dimension": "assertiveness",
+      "secondary_dimensions": [
+        "boundary_setting",
+        "social_awareness"
+      ],
+      "prompt": "In a meeting your idea was cut off; you want the floor again. The room is competitive. What do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You politely ask for the floor and finish your point.",
+          "dimension_deltas": {
+            "boundary_setting": -0.22,
+            "assertiveness": 0.72
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You type in chat that you'd like to continue, then take the floor.",
+          "dimension_deltas": {
+            "social_awareness": -0.15,
+            "assertiveness": 0.45
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You wait until the topic moves on, then add a short note.",
+          "dimension_deltas": {
+            "assertiveness": 0.08
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You stay silent and let the unfinished part go.",
+          "dimension_deltas": {
+            "assertiveness": -0.52
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_04",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_assertiveness_003",
+      "source_pilot_question_id": "eq_tr_v1_assertiveness_003",
+      "primary_dimension": "assertiveness",
+      "secondary_dimensions": [],
+      "prompt": "Your partner keeps changing plans at the last minute; you want to respond. Over time, what do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You say the changes are hard for you and ask for earlier notice. This may cost time or clarity.",
+          "dimension_deltas": {
+            "boundary_setting": 0.22,
+            "assertiveness": -0.72
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You explain with examples when you can be flexible and when you can't. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "assertiveness": -0.45
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You mention it once, then adapt again. This may cost time or clarity.",
+          "dimension_deltas": {
+            "repair_orientation": 0.15,
+            "assertiveness": -0.08
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You treat it as normal and don't complain. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "emotion_regulation": -0.15,
+            "assertiveness": 0.52
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_03",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_boundary_setting_001",
+      "source_pilot_question_id": "eq_tr_v1_boundary_setting_001",
+      "primary_dimension": "boundary_setting",
+      "secondary_dimensions": [
+        "assertiveness"
+      ],
+      "prompt": "At a family gathering, a topic that bothers you comes up again. It was always redirected before. What do you do this time?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You calmly but clearly say you don't want to discuss this topic.",
+          "dimension_deltas": {
+            "boundary_setting": 0.75,
+            "assertiveness": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You briefly explain why it bothers you and suggest another topic.",
+          "dimension_deltas": {
+            "boundary_setting": 0.48,
+            "assertiveness": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You try to change the subject again without saying it directly.",
+          "dimension_deltas": {
+            "boundary_setting": 0.12,
+            "conflict_approach": -0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You brush it off; to avoid tension, you keep your boundary quiet for now.",
+          "dimension_deltas": {
+            "boundary_setting": -0.55,
+            "assertiveness": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_03",
+      "reverse_pair_id": "eq_v1_rev_02",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_boundary_setting_002",
+      "source_pilot_question_id": "eq_tr_v1_boundary_setting_002",
+      "primary_dimension": "boundary_setting",
+      "secondary_dimensions": [
+        "assertiveness",
+        "repair_orientation"
+      ],
+      "prompt": "A coworker keeps messaging outside work hours. The pattern is wearing you down. How do you approach it?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You clarify that you won't reply after hours and define what counts as urgent.",
+          "dimension_deltas": {
+            "assertiveness": -0.25,
+            "boundary_setting": 0.75
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You say you're tired and that you'll reply the next day.",
+          "dimension_deltas": {
+            "boundary_setting": 0.48
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You still answer most messages, but with a delay.",
+          "dimension_deltas": {
+            "repair_orientation": -0.15,
+            "boundary_setting": 0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "To protect the relationship, you reply to every message immediately.",
+          "dimension_deltas": {
+            "assertiveness": -0.22,
+            "boundary_setting": -0.55
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_03",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_boundary_setting_003",
+      "source_pilot_question_id": "eq_tr_v1_boundary_setting_003",
+      "primary_dimension": "boundary_setting",
+      "secondary_dimensions": [],
+      "prompt": "Someone you're dating often wants to drop by unplanned; you want to keep your schedule. In the repeating pattern, what do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You propose a shared visit rhythm and clarify which days work.",
+          "dimension_deltas": {
+            "assertiveness": 0.2,
+            "boundary_setting": -0.75
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You name your flexible days and remind them you're busy on others.",
+          "dimension_deltas": {
+            "boundary_setting": -0.48
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You struggle to say no and often rearrange your schedule.",
+          "dimension_deltas": {
+            "repair_orientation": 0.18,
+            "boundary_setting": -0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You try to keep distance without saying it bothers you.",
+          "dimension_deltas": {
+            "conflict_approach": -0.18,
+            "boundary_setting": 0.55
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_02",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_conflict_approach_001",
+      "source_pilot_question_id": "eq_tr_v1_conflict_approach_001",
+      "primary_dimension": "conflict_approach",
+      "secondary_dimensions": [
+        "perspective_taking",
+        "assertiveness"
+      ],
+      "prompt": "Your roommate uses shared space differently and it bothers you. You haven't talked yet. What's your first move?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You set aside a good time to talk about shared rules.",
+          "dimension_deltas": {
+            "conflict_approach": 0.72,
+            "perspective_taking": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You send a short message naming the discomfort and suggest talking in person.",
+          "dimension_deltas": {
+            "conflict_approach": 0.46,
+            "assertiveness": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You suggest postponing; you'll talk more clearly once things cool down.",
+          "dimension_deltas": {
+            "conflict_approach": 0.1,
+            "boundary_setting": -0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You ask for a short break, gather yourself, then come back later.",
+          "dimension_deltas": {
+            "conflict_approach": -0.55,
+            "emotion_regulation": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_04",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_conflict_approach_002",
+      "source_pilot_question_id": "eq_tr_v1_conflict_approach_002",
+      "primary_dimension": "conflict_approach",
+      "secondary_dimensions": [
+        "emotion_regulation",
+        "repair_orientation"
+      ],
+      "prompt": "Two friends start arguing in front of you. Do you tend to mediate or stay neutral?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You try to help both feel heard and calm things down. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "conflict_approach": 0.68,
+            "emotion_regulation": -0.25
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Without taking sides, you suggest tabling it for later. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "conflict_approach": 0.42,
+            "repair_orientation": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You listen without intervening. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "conflict_approach": 0.12,
+            "perspective_taking": -0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You leave the room and let it run its course. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "conflict_approach": -0.45,
+            "empathy": -0.15
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_conflict_approach_003",
+      "source_pilot_question_id": "eq_tr_v1_conflict_approach_003",
+      "primary_dimension": "conflict_approach",
+      "secondary_dimensions": [
+        "boundary_setting"
+      ],
+      "prompt": "A team disagreement is growing at work; you see a different solution. How do you join the meeting?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You present your alternative with reasons and open dialogue.",
+          "dimension_deltas": {
+            "boundary_setting": 0.2,
+            "conflict_approach": -0.72
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You briefly name your concern and ask what others think.",
+          "dimension_deltas": {
+            "perspective_taking": 0.18,
+            "conflict_approach": -0.46
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You shorten the debate; before proposing a middle ground, you take the temperature.",
+          "dimension_deltas": {
+            "conflict_approach": -0.1
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You push back harshly in front of colleagues.",
+          "dimension_deltas": {
+            "emotion_regulation": -0.22,
+            "conflict_approach": 0.55
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_04",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_emotion_regulation_001",
+      "source_pilot_question_id": "eq_tr_v1_emotion_regulation_001",
+      "primary_dimension": "emotion_regulation",
+      "secondary_dimensions": [
+        "self_awareness",
+        "social_awareness"
+      ],
+      "prompt": "In a tense team meeting, a colleague can't hold back tears. What's your first impulse?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You suggest a short break to soften the room and keep your tone calm.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.7,
+            "self_awareness": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You steer the meeting toward picking the topic up later.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.45,
+            "social_awareness": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You continue the discussion, figuring feelings will settle with time.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.08,
+            "conflict_approach": -0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You find it uncomfortable, change the subject, and overlook the emotion.",
+          "dimension_deltas": {
+            "emotion_regulation": -0.48,
+            "empathy": -0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_06",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_emotion_regulation_002",
+      "source_pilot_question_id": "eq_tr_v1_emotion_regulation_002",
+      "primary_dimension": "emotion_regulation",
+      "secondary_dimensions": [
+        "self_awareness"
+      ],
+      "prompt": "While texting someone you're dating, you suddenly feel tension. How do you handle the feeling before you write?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You pause a few minutes, name what you feel, then reply. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "self_awareness": -0.2,
+            "emotion_regulation": 0.7
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You rewrite the message to soften the tone. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.45
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You reply quickly, then realize it wasn't needed. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.08
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You write exactly what you feel, accepting you may regret it. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "emotional_openness": 0.22,
+            "emotion_regulation": -0.48
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_06",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_emotion_regulation_003",
+      "source_pilot_question_id": "eq_tr_v1_emotion_regulation_003",
+      "primary_dimension": "emotion_regulation",
+      "secondary_dimensions": [
+        "self_awareness",
+        "perspective_taking"
+      ],
+      "prompt": "You got criticized at work; it's still sitting with you at lunch. Before the afternoon meeting, what do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You take a short walk or breathing exercise to settle the feeling.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.68,
+            "self_awareness": -0.18
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You find one useful takeaway from the feedback and focus there.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.42,
+            "perspective_taking": -0.15
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You push the feeling down and try to look professional.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.15,
+            "emotional_openness": -0.2
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You enter the meeting still replaying the criticism and struggle to focus.",
+          "dimension_deltas": {
+            "emotion_regulation": -0.5
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_emotional_openness_001",
+      "source_pilot_question_id": "eq_tr_v1_emotional_openness_001",
+      "primary_dimension": "emotional_openness",
+      "secondary_dimensions": [
+        "self_awareness",
+        "boundary_setting"
+      ],
+      "prompt": "Someone you just met starts sharing something personal. You're considering sharing a similar experience. What do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You tell your experience openly and share how you felt.",
+          "dimension_deltas": {
+            "emotional_openness": 0.78,
+            "self_awareness": -0.18
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You summarize your experience without giving every detail.",
+          "dimension_deltas": {
+            "emotional_openness": 0.42,
+            "boundary_setting": -0.15
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You listen supportively without sharing your own story.",
+          "dimension_deltas": {
+            "emotional_openness": 0.08,
+            "empathy": -0.22
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You keep the conversation more general and avoid personal detail.",
+          "dimension_deltas": {
+            "emotional_openness": -0.48
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_01",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_emotional_openness_002",
+      "source_pilot_question_id": "eq_tr_v1_emotional_openness_002",
+      "primary_dimension": "emotional_openness",
+      "secondary_dimensions": [],
+      "prompt": "Your partner wants you to share your feelings; you usually don't open up much. How do you act tonight?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You try to honestly describe what you felt today.",
+          "dimension_deltas": {
+            "empathy": 0.18,
+            "emotional_openness": -0.78
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You name one or two feelings, then move on without going deeper.",
+          "dimension_deltas": {
+            "emotional_openness": -0.42
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You say you're fine and don't go into detail.",
+          "dimension_deltas": {
+            "emotional_openness": -0.08
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You shift the conversation to another topic.",
+          "dimension_deltas": {
+            "conflict_approach": -0.15,
+            "emotional_openness": 0.48
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_01",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_emotional_openness_003",
+      "source_pilot_question_id": "eq_tr_v1_emotional_openness_003",
+      "primary_dimension": "emotional_openness",
+      "secondary_dimensions": [
+        "empathy",
+        "boundary_setting"
+      ],
+      "prompt": "In a friend group, someone describes a hard stretch. You've lived something similar but don't want to share it in front of everyone.",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You still briefly share your experience to support the group.",
+          "dimension_deltas": {
+            "emotional_openness": 0.65,
+            "empathy": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You offer to talk privately later and listen for now.",
+          "dimension_deltas": {
+            "emotional_openness": 0.35,
+            "boundary_setting": -0.22
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You stay supportive but don't share your own story.",
+          "dimension_deltas": {
+            "emotional_openness": 0.1,
+            "empathy": -0.18
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You lighten the topic and try to cheer the room up.",
+          "dimension_deltas": {
+            "emotional_openness": -0.42,
+            "social_awareness": -0.18
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_empathy_001",
+      "source_pilot_question_id": "eq_tr_v1_empathy_001",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [
+        "boundary_setting",
+        "assertiveness"
+      ],
+      "prompt": "A close friend is going through a hard breakup and texts about their feelings. You have other plans tonight but want to hear them. What do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You postpone your plans, listen on the phone for a long time, and try to reflect their feelings.",
+          "dimension_deltas": {
+            "empathy": 0.72,
+            "boundary_setting": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You send a short, warm message and offer to talk in person tomorrow.",
+          "dimension_deltas": {
+            "empathy": 0.38,
+            "boundary_setting": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You send a practical tip list and add an example from your own experience.",
+          "dimension_deltas": {
+            "empathy": 0.12,
+            "assertiveness": -0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You say you're busy and suggest an activity to distract them.",
+          "dimension_deltas": {
+            "empathy": -0.45,
+            "emotion_regulation": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_01",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_empathy_002",
+      "source_pilot_question_id": "eq_tr_v1_empathy_002",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [
+        "repair_orientation",
+        "conflict_approach"
+      ],
+      "prompt": "After an argument, a coworker is cold toward you; you want to make peace but still feel hurt. How do you take the first step?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You try to understand their view and ask directly how they feel. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "repair_orientation": -0.28,
+            "empathy": 0.72
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You wait a bit; once things cool, you offer a short apology and look for common ground. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "repair_orientation": -0.22,
+            "empathy": 0.38
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You keep things professional by tying talk back to work. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "conflict_approach": -0.18,
+            "empathy": 0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You protect being right and keep the distance. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "assertiveness": 0.25,
+            "empathy": -0.45
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_01",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_empathy_003",
+      "source_pilot_question_id": "eq_tr_v1_empathy_003",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [
+        "emotional_openness",
+        "boundary_setting"
+      ],
+      "prompt": "Someone you're dating wants to open an emotional topic, but you're tired. What they want to share might affect you too. How do you respond?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Even though you're tired, you say you're ready to listen and give your attention.",
+          "dimension_deltas": {
+            "empathy": 0.7,
+            "emotional_openness": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You say you want to listen but prefer to keep it short.",
+          "dimension_deltas": {
+            "empathy": 0.45,
+            "boundary_setting": -0.2
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You suggest a better time tomorrow and add a short supportive message.",
+          "dimension_deltas": {
+            "empathy": 0.18,
+            "boundary_setting": -0.28
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You downplay the topic and try to steer elsewhere.",
+          "dimension_deltas": {
+            "empathy": -0.4,
+            "emotional_openness": -0.22
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_perspective_taking_001",
+      "source_pilot_question_id": "eq_tr_v1_perspective_taking_001",
+      "primary_dimension": "perspective_taking",
+      "secondary_dimensions": [
+        "social_awareness",
+        "boundary_setting"
+      ],
+      "prompt": "A friend criticizes you about an invitation you already declined. You consider why they might feel hurt — what's your first inner reaction?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "Maybe they felt unimportant; you remember the invite mattered to them.",
+          "dimension_deltas": {
+            "perspective_taking": 0.75,
+            "social_awareness": -0.25
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You think both sides may have a point and there may have been a communication gap.",
+          "dimension_deltas": {
+            "perspective_taking": 0.48,
+            "social_awareness": -0.15
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You hear their reason but briefly state your priority too.",
+          "dimension_deltas": {
+            "perspective_taking": 0.1,
+            "boundary_setting": -0.28
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You summarize from your angle and ask about their context later.",
+          "dimension_deltas": {
+            "perspective_taking": -0.42,
+            "conflict_approach": -0.18
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_02",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_perspective_taking_002",
+      "source_pilot_question_id": "eq_tr_v1_perspective_taking_002",
+      "primary_dimension": "perspective_taking",
+      "secondary_dimensions": [
+        "social_awareness"
+      ],
+      "prompt": "In a team meeting a colleague stayed quiet. Later you notice their idea was overlooked. If you were in their place, what might you feel?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You think they may have felt invisible and disrespected.",
+          "dimension_deltas": {
+            "social_awareness": -0.22,
+            "perspective_taking": 0.75
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You assume they may not have wanted to speak, yet still felt left out.",
+          "dimension_deltas": {
+            "perspective_taking": 0.48
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You note in general that the meeting dynamic didn't invite everyone equally.",
+          "dimension_deltas": {
+            "social_awareness": -0.18,
+            "perspective_taking": 0.1
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You treat the silence as their choice and don't over-interpret.",
+          "dimension_deltas": {
+            "perspective_taking": -0.42
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_02",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_perspective_taking_003",
+      "source_pilot_question_id": "eq_tr_v1_perspective_taking_003",
+      "primary_dimension": "perspective_taking",
+      "secondary_dimensions": [
+        "conflict_approach",
+        "social_awareness"
+      ],
+      "prompt": "In a friend group someone joked; another person didn't laugh and the room tensed. What might be going on for the person who didn't laugh?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "They may have found the joke hurtful or felt targeted.",
+          "dimension_deltas": {
+            "perspective_taking": 0.68,
+            "conflict_approach": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "Their attention may have drifted, or their humor style may differ.",
+          "dimension_deltas": {
+            "perspective_taking": 0.42
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You briefly note they may have felt group pressure.",
+          "dimension_deltas": {
+            "perspective_taking": 0.22,
+            "social_awareness": -0.18
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You think they may be overreacting and close the topic.",
+          "dimension_deltas": {
+            "perspective_taking": -0.45,
+            "social_awareness": -0.15
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_repair_orientation_001",
+      "source_pilot_question_id": "eq_tr_v1_repair_orientation_001",
+      "primary_dimension": "repair_orientation",
+      "secondary_dimensions": [
+        "empathy"
+      ],
+      "prompt": "You realize you sent a harsh message to a friend; they haven't replied yet. What do you do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You apologize, explain your intent, and say you want to talk.",
+          "dimension_deltas": {
+            "repair_orientation": 0.75,
+            "empathy": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You send a short follow-up that softens the message.",
+          "dimension_deltas": {
+            "repair_orientation": 0.45,
+            "empathy": -0.15
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You wait, hoping time will fix it on its own.",
+          "dimension_deltas": {
+            "repair_orientation": 0.08,
+            "conflict_approach": -0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You leave the message alone, believing you were right.",
+          "dimension_deltas": {
+            "repair_orientation": -0.52,
+            "assertiveness": 0.2
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_05",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_repair_orientation_002",
+      "source_pilot_question_id": "eq_tr_v1_repair_orientation_002",
+      "primary_dimension": "repair_orientation",
+      "secondary_dimensions": [
+        "emotional_openness",
+        "empathy"
+      ],
+      "prompt": "You argued with your partner and didn't speak overnight. What do you do in the morning?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You reopen contact with a calm message or coffee invite. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "emotional_openness": -0.22,
+            "repair_orientation": 0.75
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You start with an apology or common-ground line. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "empathy": -0.18,
+            "repair_orientation": 0.45
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "Until they move first, you act normal and don't bring it up. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "repair_orientation": 0.08
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Still feeling right, you keep your distance. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "conflict_approach": 0.15,
+            "repair_orientation": -0.52
+          }
+        }
+      ],
+      "semantic_pair_id": "eq_v1_sem_05",
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_repair_orientation_003",
+      "source_pilot_question_id": "eq_tr_v1_repair_orientation_003",
+      "primary_dimension": "repair_orientation",
+      "secondary_dimensions": [
+        "conflict_approach",
+        "assertiveness"
+      ],
+      "prompt": "A misunderstanding left a coworker hurt with you. This has happened before. What do you usually do?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You clarify the misunderstanding and apologize or explain. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "repair_orientation": 0.68,
+            "conflict_approach": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You send a short check-in and plan to talk in person. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "repair_orientation": 0.42,
+            "assertiveness": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You don't intervene, figuring it will pass. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "repair_orientation": 0.1
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You leave all responsibility with the other person. You weigh short-term ease against longer-term balance.",
+          "dimension_deltas": {
+            "repair_orientation": -0.5,
+            "conflict_approach": -0.18
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_self_awareness_001",
+      "source_pilot_question_id": "eq_tr_v1_self_awareness_001",
+      "primary_dimension": "self_awareness",
+      "secondary_dimensions": [
+        "emotion_regulation"
+      ],
+      "prompt": "Your partner seems distant today; you're tense and don't fully know why. Looking inward, what do you notice first?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You notice you took their behavior personally and your anxiety rose.",
+          "dimension_deltas": {
+            "self_awareness": 0.72,
+            "emotion_regulation": -0.18
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You think fatigue and stress are amplifying your reaction.",
+          "dimension_deltas": {
+            "self_awareness": 0.48,
+            "emotion_regulation": -0.15
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You can't name a clear emotion yet, but you know you're uncomfortable.",
+          "dimension_deltas": {
+            "self_awareness": 0.22
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "Because the issue seems to be with your partner, you don't examine your own state.",
+          "dimension_deltas": {
+            "self_awareness": -0.55
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_05",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_self_awareness_002",
+      "source_pilot_question_id": "eq_tr_v1_self_awareness_002",
+      "primary_dimension": "self_awareness",
+      "secondary_dimensions": [
+        "social_awareness",
+        "boundary_setting"
+      ],
+      "prompt": "In a social setting you suddenly want to withdraw. How do you make sense of what might be underneath?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You notice social fatigue or a triggered memory may be involved.",
+          "dimension_deltas": {
+            "self_awareness": 0.7,
+            "social_awareness": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You think the room is loud and your limits are filling up.",
+          "dimension_deltas": {
+            "self_awareness": 0.44,
+            "boundary_setting": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You simply say your mood is low without going deeper.",
+          "dimension_deltas": {
+            "self_awareness": 0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You blame the setting and don't question yourself.",
+          "dimension_deltas": {
+            "self_awareness": -0.4,
+            "social_awareness": 0.12
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_self_awareness_003",
+      "source_pilot_question_id": "eq_tr_v1_self_awareness_003",
+      "primary_dimension": "self_awareness",
+      "secondary_dimensions": [
+        "conflict_approach"
+      ],
+      "prompt": "After a heavy day, a small comment made you disproportionately angry. What do you tell yourself about the size of that reaction?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You notice accumulated stress magnified the reaction.",
+          "dimension_deltas": {
+            "emotion_regulation": 0.25,
+            "self_awareness": -0.72
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You accept the topic may have hit a sensitive spot for you.",
+          "dimension_deltas": {
+            "self_awareness": -0.48
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You treat the anger as justified and don't examine your role.",
+          "dimension_deltas": {
+            "assertiveness": 0.2,
+            "self_awareness": -0.22
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You assume the other person was deliberately provoking you.",
+          "dimension_deltas": {
+            "conflict_approach": -0.18,
+            "self_awareness": 0.55
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_v1_rev_05",
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_social_awareness_001",
+      "source_pilot_question_id": "eq_tr_v1_social_awareness_001",
+      "primary_dimension": "social_awareness",
+      "secondary_dimensions": [
+        "empathy",
+        "boundary_setting"
+      ],
+      "prompt": "At a gathering you notice someone sitting alone while others chat in a group. How do you read the room?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You think they aren't being included and may feel left out.",
+          "dimension_deltas": {
+            "social_awareness": 0.72,
+            "empathy": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You assume they may be tired or looking for someone familiar, and you're not sure yet.",
+          "dimension_deltas": {
+            "social_awareness": 0.45,
+            "boundary_setting": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You stay focused on your own conversation without much interpretation. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "social_awareness": 0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You treat it as preference and don't pay attention. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "social_awareness": -0.48
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_social_awareness_002",
+      "source_pilot_question_id": "eq_tr_v1_social_awareness_002",
+      "primary_dimension": "social_awareness",
+      "secondary_dimensions": [
+        "perspective_taking",
+        "boundary_setting"
+      ],
+      "prompt": "In a friend group, after someone joked you feel the room tense. What do you notice?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You think someone may have misread or been hurt by the joke.",
+          "dimension_deltas": {
+            "social_awareness": 0.7,
+            "perspective_taking": -0.22
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You sense the humor didn't fit the moment. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "social_awareness": 0.44,
+            "boundary_setting": -0.18
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You assume it was just a brief silence and don't load much meaning onto it.",
+          "dimension_deltas": {
+            "social_awareness": 0.15
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You don't notice the tension and keep chatting. You also consider the relationship dynamic.",
+          "dimension_deltas": {
+            "social_awareness": -0.42
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    },
+    {
+      "item_id": "eq_v1_social_awareness_003",
+      "source_pilot_question_id": "eq_tr_v1_social_awareness_003",
+      "primary_dimension": "social_awareness",
+      "secondary_dimensions": [
+        "repair_orientation",
+        "perspective_taking"
+      ],
+      "prompt": "You joined a new work team and notice who speaks up and who stays in the background. What's your first impression?",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "You think formal hierarchy and informal groups shape who participates.",
+          "dimension_deltas": {
+            "social_awareness": 0.68,
+            "repair_orientation": -0.2
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "You note that some topics pull certain people in more.",
+          "dimension_deltas": {
+            "social_awareness": 0.42,
+            "perspective_taking": -0.15
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "You notice the room's tension but still proceed with your own plan.",
+          "dimension_deltas": {
+            "social_awareness": 0.12
+          }
+        },
+        {
+          "option_id": "D",
+          "text": "You note social cues but watch without intervening directly.",
+          "dimension_deltas": {
+            "social_awareness": -0.45
+          }
+        }
+      ],
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "response_format": "scenario_mcq_behavioral_tendency"
+    }
+  ],
+  "notes": {
+    "correctness_scoring": "forbidden_for_trait_scoring",
+    "weighting": "a_ij=1 uncalibrated launch policy; not empirically optimal",
+    "future_weighting": "a_ij = q_i * d_ij * e_ij after calibration",
+    "live_runtime": "not_wired_in_P2C-2A-7R1"
+  }
+}

@@ -4,18 +4,22 @@
 **Date:** 2026-08-09
 **Tip at audit:** `35b81c05fca108b12f95266b99b0da541694f969`
 
-**Decision:**
+**Decision (updated after P2C-2A-7R1):**
 
 ```text
-P2C-2A-7 = BLOCKED
+P2C-2A-7 = BLOCKED_PENDING_RUNTIME_INTEGRATION
+P2C-2A-7R1 = COMPLETE
 ```
 
-Primary blocker codes:
+R1 delivered offline math + TR/EN runtime-candidate banks + `CanonicalEqScorer`.
+Live keyed EQ path is still not migrated.
+
+Historical audit blocker codes (still true for **live** path):
 
 ```text
 BLOCKED_LEGACY_EQ_CANNOT_MAP_TO_CANONICAL_10D
-BLOCKED_CANONICAL_EQ_EN_BANK_ABSENT
-BLOCKED_CANONICAL_EQ_PILOT_NOT_RUNTIME_APPROVED
+BLOCKED_CANONICAL_EQ_EN_BANK_ABSENT   # superseded for candidates; EN candidate now exists (review_required)
+BLOCKED_CANONICAL_EQ_PILOT_NOT_RUNTIME_APPROVED  # candidates remain uncalibrated / not live
 ```
 
 No scientifically unsupported mapping was invented in this phase.
