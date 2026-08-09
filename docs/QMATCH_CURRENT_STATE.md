@@ -12,7 +12,7 @@ supporting context only when they conflict with the current repository.
 |-------|-------|
 | Branch | `main` |
 | Last completed implementation phase | **P2C-2A-6 — IQ → 20D Runtime Adapter** |
-| Implementation commit (P2C-2A-6) | *(filled after push)* |
+| Implementation commit (P2C-2A-6) | `7ef5312f7c2e36556fbcb3c679ff083cd6f6d8ef` |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -94,7 +94,7 @@ Missing 16 dimensions are listed as `not_measured` IDs only — never filled wit
 | P2C-2A-5 runtime integration | `8df90ec07463aaaddbc35a78aa22d7ab64087b78` |
 | P2C-2A-5 locale integrity | `28a8b4e48d4dafca256554a7d2dff12959677458` |
 | Continuity tip before P2C-2A-6 | `70f6ac7cbccb3d387bce0dfc14e4b1e711a991a4` |
-| P2C-2A-6 IQ→20D adapter | *(filled after push)* |
+| P2C-2A-6 IQ→20D adapter | `7ef5312f7c2e36556fbcb3c679ff083cd6f6d8ef` |
 
 ---
 
