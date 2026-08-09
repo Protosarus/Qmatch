@@ -12,7 +12,8 @@ supporting context only when they conflict with the current repository.
 |-------|-------|
 | Branch | `main` |
 | Last completed implementation phase | **P2C-2A-6 — IQ → 20D Runtime Adapter** |
-| Implementation commit (P2C-2A-6) | `7ef5312f7c2e36556fbcb3c679ff083cd6f6d8ef` |
+| Last attempted phase | **P2C-2A-7 — Canonical EQ Migration** |
+| P2C-2A-7 status | **BLOCKED** (audit only; no false COMPLETE) |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -32,58 +33,59 @@ Discover/matching surfaces.
 
 | Module | Live (user-facing) | Notes |
 |--------|---------------------|-------|
-| **IQ** | Canonical 25-session + 4D uncalibrated scorer | Live wired |
-| **EQ** | Unchanged live EQ path | Not modified in P2C-2A-6 |
-| **Frequency** | Unchanged live Frequency path | Not modified in P2C-2A-6 |
+| **IQ** | Canonical 25-session + 4D + profile adapter | Live wired |
+| **EQ** | Legacy keyed 10-item path | Canonical migration **BLOCKED** — see audit |
+| **Frequency** | Unchanged live Frequency path | Not started for canonical profile |
 
 ---
 
-## Canonical IQ Status
+## Canonical profile status
 
 | Capability | Status |
 |------------|--------|
-| Canonical bank TR + EN | **IMPLEMENTED** |
-| Composer / resume / 4D scorer / live runtime | **IMPLEMENTED** |
-| IQ → canonical profile adapter | **IMPLEMENTED** |
-| Measured canonical profile dimensions | **4** |
+| IQ bank TR/EN + live runtime + 4D scorer | **IMPLEMENTED** |
+| IQ → `qmatch_canonical_profile_v1` | **IMPLEMENTED** |
+| Measured dimensions | **4 / 20** |
 | IQ group | **COMPLETE** |
-| EQ group | **NOT_STARTED** (live EQ unchanged / noncanonical) |
-| Frequency group | **NOT_STARTED** (live Frequency unchanged / noncanonical) |
-| Full 20D profile | **INCOMPLETE** |
+| EQ group | **NOT_STARTED** (live noncanonical) |
+| Frequency group | **NOT_STARTED** |
 | `canonical_profile_ready` | **false** |
+| Canonical EQ runtime | **BLOCKED / NOT_STARTED** |
+| Persona / Matching / Quantum | **NOT_STARTED** |
 | Psychometric calibration | **NOT_STARTED** |
-| Persona from canonical profile | **NOT_STARTED** |
-| Matching / QRCF / quantum from profile | **NOT_STARTED** |
 
 ---
 
-## Live IQ → Profile Path (current)
+## P2C-2A-7 blocker summary
 
-```
-IQ completion
-  → IqCanonicalScorer (4D)
-  → users/{uid}/assessments/iq (qmatch_iq_live_result_v1)
-  → IqTo20dRuntimeAdapter
-  → users/{uid}/profiles/canonical_v1 (qmatch_canonical_profile_v1, partial)
-  → IqReasoningProfileScreen
-  → EQ
-```
+Audit: `docs/assessment/qmatch_eq_canonical_migration_audit_v1.md`
 
-Scientific label remains: **uncalibrated multidimensional reasoning performance**.
-Profile schema: `qmatch_canonical_profile_v1`. Registry:
-`canonical_dimension_registry_v1`.
+| Code | Meaning |
+|------|---------|
+| `BLOCKED_LEGACY_EQ_CANNOT_MAP_TO_CANONICAL_10D` | Live EQ is `correctAnswer` totals; no evidence maps to 10 registry dims |
+| `BLOCKED_CANONICAL_EQ_EN_BANK_ABSENT` | v3 pilot is TR-only; EN fields are explicit non-translations |
+| `BLOCKED_CANONICAL_EQ_PILOT_NOT_RUNTIME_APPROVED` | Pilot runtime-loaded=No; expert review pending |
 
-Missing 16 dimensions are listed as `not_measured` IDs only — never filled with
-0 / 0.5 / 50.
+Canonical 10 EQ IDs **exist** in the registry. Offline TraitScoring + TR pilot exist.
+They do **not** authorize inventing a live legacy→10D mapping or promoting the
+unapproved pilot without EN parity.
 
 ---
 
-## Frozen / Do Not Accidentally Modify
+## Exact canonical EQ dimension IDs (registry; not live-measured)
 
-- IQ scoring policy / banks without a dedicated phase
-- Fabricating EQ/Frequency profile values
-- Persona / matching / quantum from partial IQ-only profile
-- Group weights for Persona/matching
+```
+empathy
+perspective_taking
+self_awareness
+emotion_regulation
+emotional_openness
+boundary_setting
+assertiveness
+conflict_approach
+repair_orientation
+social_awareness
+```
 
 ---
 
@@ -91,51 +93,32 @@ Missing 16 dimensions are listed as `not_measured` IDs only — never filled wit
 
 | Phase | Commit |
 |-------|--------|
-| P2C-2A-5 runtime integration | `8df90ec07463aaaddbc35a78aa22d7ab64087b78` |
-| P2C-2A-5 locale integrity | `28a8b4e48d4dafca256554a7d2dff12959677458` |
-| Continuity tip before P2C-2A-6 | `70f6ac7cbccb3d387bce0dfc14e4b1e711a991a4` |
 | P2C-2A-6 IQ→20D adapter | `7ef5312f7c2e36556fbcb3c679ff083cd6f6d8ef` |
-
----
-
-## Current Validation State
-
-| Check | Result |
-|-------|--------|
-| `dart format` (changed Dart) | clean |
-| `flutter analyze` | No issues found |
-| adapter + IQ regression suites | PASS |
-| `flutter test` (full) | **878** passed |
-| `git diff --check` | clean |
-
----
-
-## Current Release Readiness
-
-**IQ assessment: NOT scientifically RELEASE READY**
-**Canonical 20D profile: INCOMPLETE (4/20 measured)**
+| Continuity tip before P2C-2A-7 | `35b81c05fca108b12f95266b99b0da541694f969` |
+| P2C-2A-7 EQ migration | **BLOCKED** — audit continuity commit *(filled after push)* |
 
 ---
 
 ## Next Exact Phase
 
-**P2C-2A-7 — EQ Canonical Migration** (or equivalent EQ→canonical profile phase)
+Do **not** start Frequency / Persona / Matching.
 
-Bring the 10 EQ dimensions into the same `qmatch_canonical_profile_v1`
-boundary without inventing placeholders. Confirm against repository gap
-register before starting.
+Next work must resolve EQ blockers, likely:
 
-Do not implement in this checkpoint.
+**P2C-2A-7R — Canonical EQ bank readiness** (runtime-approved TR+EN schema-v3 EQ
+content + live replacement of keyed path), **then** resume EQ→profile adapter.
+
+Confirm against the EQ audit before coding.
 
 ---
 
 ## Open Blockers / Risks
 
-1. EQ canonical profile contribution not started.
-2. Frequency canonical profile contribution not started.
-3. Psychometric IQ calibration not started.
-4. Persona / matching must not consume partial IQ-only profiles.
-5. Legacy 10-set cleanup debt remains.
+1. Live EQ cannot scientifically populate canonical 10D.
+2. Canonical EQ EN bank absent.
+3. EQ pilot not runtime-approved.
+4. Frequency canonical profile not started.
+5. Persona/matching must not consume incomplete profiles.
 
 ---
 
