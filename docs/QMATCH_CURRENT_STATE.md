@@ -82,7 +82,7 @@ Matching/QRCF = NOT_STARTED
 |-------|--------|
 | P2C-3A-3 Persona large-scale shadow stress | `014825b8b342a0dfdcb28c2ef2ab1f6e8c4d2738` |
 | HOTFIX 1 completion persistence | `5ff7e9d36a86ba39db5f891bc270f225a0cb9a7a` |
-| HOTFIX 2 (this) | _(fill after commit)_ |
+| HOTFIX 2 reconcile + EQ/Freq finalize | `95050993baecad19bfc693ee5a0c1cb334ef8a31` |
 
 ---
 
