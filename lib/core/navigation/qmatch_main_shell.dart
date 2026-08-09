@@ -245,7 +245,7 @@ class QMatchBottomNavigationItemWidget extends StatelessWidget {
                   width: selected ? 14 : 0,
                   height: selected ? 2 : 0,
                   decoration: BoxDecoration(
-                    color: AppColors.softGold.withValues(alpha: 0.9),
+                    color: AppColors.resonanceViolet.withValues(alpha: 0.95),
                     borderRadius: AppRadii.pillBorder,
                   ),
                 ),

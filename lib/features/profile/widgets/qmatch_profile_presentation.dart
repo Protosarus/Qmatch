@@ -40,10 +40,12 @@ class QMatchProfileHeader extends StatelessWidget {
             child: Text(
               title,
               style: GoogleFonts.playfairDisplay(
-                color: AppColors.textPrimary,
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
+                color: const Color(0xFFE8ECFA),
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+                fontStyle: FontStyle.italic,
                 height: 1.15,
+                letterSpacing: 0.4,
               ),
             ),
           ),
@@ -420,10 +422,12 @@ class QMatchProfileSectionCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.softGold,
-              fontSize: 18,
+            style: GoogleFonts.inter(
+              color: QMatchGlassIconButton.iconDefault,
+              fontSize: 13,
               fontWeight: FontWeight.w600,
+              letterSpacing: 0.8,
+              height: 1.2,
             ),
           ),
           const SizedBox(height: AppSpacing.sm),
