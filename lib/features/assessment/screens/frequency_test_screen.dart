@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -451,42 +452,88 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                     height: heroHeight,
                     child: const FrequencyWaveHero(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-                    child: Text(
-                      prompt,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: compact ? 15.5 : 16.5,
-                        fontWeight: FontWeight.w600,
-                        height: 1.35,
-                      ),
-                    ),
-                  ),
                   Expanded(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      itemCount: options.length,
-                      separatorBuilder: (_, __) =>
-                          SizedBox(height: compact ? 6 : 8),
-                      itemBuilder: (context, index) {
-                        final opt = options[index];
-                        return FrequencyAnswerOptionRow(
-                          value: index + 1,
-                          label: opt.text,
-                          selected: _selectedOptionId == opt.optionId,
-                          compact: true,
-                          onTap: (_isFinishing || pendingFinalize)
-                              ? () {}
-                              : () {
-                                  _dismissSelectAnswerWarning();
-                                  setState(
-                                    () => _selectedOptionId = opt.optionId,
-                                  );
-                                },
-                        );
-                      },
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 2, 12, 4),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  const Color(0xCC0E0C1C),
+                                  const Color(0xB8121024),
+                                  const Color(0xB00D0A18),
+                                ],
+                              ),
+                              border: Border.all(
+                                color: const Color(0x558F79B4),
+                                width: 0.9,
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                    14,
+                                    compact ? 10 : 12,
+                                    14,
+                                    compact ? 8 : 10,
+                                  ),
+                                  child: Text(
+                                    prompt,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.inter(
+                                      color: Colors.white,
+                                      fontSize: compact ? 15.5 : 16.5,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.35,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ListView.separated(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      10,
+                                      0,
+                                      10,
+                                      10,
+                                    ),
+                                    itemCount: options.length,
+                                    separatorBuilder: (_, __) =>
+                                        SizedBox(height: compact ? 6 : 8),
+                                    itemBuilder: (context, index) {
+                                      final opt = options[index];
+                                      return FrequencyAnswerOptionRow(
+                                        value: index + 1,
+                                        label: opt.text,
+                                        selected:
+                                            _selectedOptionId == opt.optionId,
+                                        compact: true,
+                                        onTap: (_isFinishing || pendingFinalize)
+                                            ? () {}
+                                            : () {
+                                                _dismissSelectAnswerWarning();
+                                                setState(
+                                                  () => _selectedOptionId =
+                                                      opt.optionId,
+                                                );
+                                              },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(height: compact ? 6 : 9),
