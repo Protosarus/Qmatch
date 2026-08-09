@@ -61,6 +61,6 @@ python3 tool/assessment/validate_iq_bank_v1.py --bank assets/data/assessment_v3/
 |------------|--------|
 | Canonical 340-item bank | IMPLEMENTED_OFFLINE |
 | 25-question session composer | IMPLEMENTED_OFFLINE |
-| Session persistence/resume | NOT_STARTED |
+| Session persistence/resume | IMPLEMENTED_OFFLINE |
 | Runtime IQ wiring | NOT_STARTED |
 | Canonical 4D IQ scoring | NOT_STARTED |

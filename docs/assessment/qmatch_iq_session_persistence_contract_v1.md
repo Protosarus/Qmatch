@@ -1,49 +1,119 @@
 # QMatch IQ Session Persistence Contract v1
 
-**Phase:** P2C-2A-2 (document only)
-**Status:** NOT_STARTED (implementation deferred to P2C-2A-3)
+**Phase:** P2C-2A-3
+**Status:** IMPLEMENTED_OFFLINE
 
 ---
 
 ## Purpose
 
-Define the minimum durable fields required to **resume an identical IQ session**
-after process death, without re-rolling selection.
-
-The composer itself does **not** persist anything in P2C-2A-2.
+Durable local resume of a canonical deterministic 25-question IQ session so that
+process death / relaunch never re-rolls selection for a valid in-progress draft.
 
 ---
 
-## Required persistence fields
+## Schema (`qmatch_iq_persisted_session_v1`)
 
-| Field | Why |
-|-------|-----|
-| `session_id` | Stable identity for resume / audit |
-| `bank_version` | Bind to exact bank revision (`tr_v2_340`) |
-| `selection_policy_version` | Bind to `iq_session_selection_v1` algorithm |
-| `session_seed` | Reproduce option order / interleave if needed |
-| `selected item IDs` **or** full `IqSessionPlan` JSON | Exact 25 items + order + displayed option IDs |
-| `displayed option order` (or reproducible seed contract) | Prefer storing plan’s `displayed_option_ids` explicitly |
-| `current_question_index` | Resume cursor |
-| `answers` | Map of item_id → selected_option_id (never index-only) |
-| `completion_state` | in_progress / completed / abandoned |
+| Field | Type | Notes |
+|-------|------|-------|
+| `schema_version` | string | `qmatch_iq_persisted_session_v1` |
+| `session_id` | string | Opaque `iq_sess_` + 32 hex; generated once |
+| `owner_uid` | string | Auth UID namespace (never shown as UI copy) |
+| `bank_version` | string | Must match active bank |
+| `bank_locale` | string | e.g. `tr` |
+| `selection_policy_version` | string | `iq_session_selection_v1` |
+| `session_seed` | string | Original compose seed |
+| `item_plans` | array | 25 slim plans (see below) |
+| `current_question_index` | int | Clamped / validated `0..24` |
+| `answers` | array | `IqSessionAnswer` in plan order |
+| `started_at` / `updated_at` / `completed_at` | ISO-8601 UTC | |
+| `status` | string | `in_progress` \| `completed` \| `abandoned` |
 
-Recommended: store the full `IqSessionPlan.toJson()` blob plus progress fields.
+### Item plan (persisted)
+
+| Field | Required |
+|-------|----------|
+| `item_id` | yes |
+| `dimension` | yes |
+| `template_family_id` | yes |
+| `displayed_option_ids` | yes (exact display permutation) |
+
+**Not persisted:** question prompt text, `correct_option_id`, `displayed_correct_position`
+(Position is rehydrated from the bank at validate time.)
+
+### Answer (`IqSessionAnswer`)
+
+| Field | Notes |
+|-------|-------|
+| `item_id` | Must be in session plan |
+| `selected_option_id` | Stable source option ID (never A/B/C/D index) |
+| `answered_at` | ISO-8601 UTC |
+
+One answer max per item; replace on re-answer. Unanswered items absent. No correctness flag.
 
 ---
 
-## Non-goals of P2C-2A-3 (called out early)
+## Session ID strategy
 
-- Do not re-compose on resume when a plan blob exists
-- Do not use list index as answer identity
-- Do not mutate the canonical bank file
-- Do not auto-activate seen-family relaxation
+- Generated once via `IqSessionIdFactory` when a **new** session is created.
+- Format: `iq_sess_` + 16 cryptographically random bytes as hex.
+- Persisted immediately with the session; reused on every resume.
+- Not derived from timestamp alone; contains no email/phone/name.
 
 ---
 
-## Storage targets (future)
+## Storage mechanism
 
-- Local durable store for offline resume candidate
-- Optional Firestore document keyed by `uid` + `session_id`
+- **Adapter:** `IqSessionPrefsRepository` → `shared_preferences`
+- **Test/CLI:** `IqSessionMemoryRepository`
+- **Keys:**
+  - `qmatch.iq_session.v1.active.{uid}` → session id pointer
+  - `qmatch.iq_session.v1.session.{uid}.{sessionId}` → JSON blob
+- Atomic full-state writes (state is small).
 
-Neither is implemented in this phase.
+---
+
+## Repository API (`IqSessionPersistenceRepository`)
+
+- `saveSession`
+- `loadActiveSession(ownerUid)`
+- `loadSession(ownerUid, sessionId)`
+- `deleteSession` (explicit only)
+- `clearOwnerSessions` (explicit only)
+
+Validation: `IqPersistedSessionValidator.validateStoredSession` path via
+`IqPersistedSessionValidator.validate`.
+
+---
+
+## Write-through / get-or-create
+
+**New session:** compose → validate → persist → return.
+**Answer / index:** validate → mutate → persist → return.
+**Resume:** if valid `in_progress` for UID → return stored plan; **do not** compose.
+**Incompatible bank/policy/schema or corrupt:** typed failure; **no** silent regenerate; **no** auto-delete.
+
+---
+
+## Completion
+
+`markCompleted` / `IqSessionManager.complete` requires exactly 25 valid answers, sets
+`status=completed` + `completedAt`, persists. No IQ score written in this phase.
+Completed sessions are not returned as active.
+
+---
+
+## Logout policy (documented)
+
+`AuthService.signOut` does **not** clear SharedPreferences today. Isolation is by
+UID key. Account B never loads A’s active pointer. Returning to A resumes A’s draft
+unless a later phase explicitly calls `clearOwnerSessions`.
+
+---
+
+## Non-goals (still)
+
+- No live `IQTestScreen` wiring
+- No canonical 4D scoring
+- No Firestore session collection
+- No Firebase imports in `domain/iq_session`

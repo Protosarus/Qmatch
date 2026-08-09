@@ -1,0 +1,323 @@
+import '../iq_bank/iq_recovered_bank_document.dart';
+import 'iq_persisted_session_state.dart';
+import 'iq_session_composer.dart';
+import 'iq_session_contract.dart';
+import 'iq_session_models.dart';
+import 'iq_session_persistence_repository.dart';
+
+/// Runtime-neutral orchestration for compose + durable resume (P2C-2A-3).
+///
+/// Not wired to Flutter widgets / Firebase / live IQTestScreen.
+class IqSessionManager {
+  IqSessionManager({
+    required IqRecoveredBankDocument bank,
+    required IqSessionPersistenceRepository repository,
+    IqSessionComposer composer = const IqSessionComposer(),
+    IqSessionIdFactory? idFactory,
+    DateTime Function()? clock,
+  })  : _bank = bank,
+        _repository = repository,
+        _composer = composer,
+        _idFactory = idFactory ?? IqSessionIdFactory(),
+        _clock = clock ?? DateTime.now;
+
+  final IqRecoveredBankDocument _bank;
+  final IqSessionPersistenceRepository _repository;
+  final IqSessionComposer _composer;
+  final IqSessionIdFactory _idFactory;
+  final DateTime Function() _clock;
+
+  /// Test/observability: set when a fresh compose ran.
+  bool lastOperationComposed = false;
+
+  String _nowIso() => _clock().toUtc().toIso8601String();
+
+  /// Resume valid in-progress draft, else compose+persist a new session.
+  Future<IqSessionWriteResult> getOrCreateActiveSession({
+    required String ownerUid,
+    required String sessionSeed,
+    IqSessionConfig? composeConfig,
+  }) async {
+    lastOperationComposed = false;
+    if (ownerUid.trim().isEmpty) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'owner_unavailable',
+        message: 'Owner UID unavailable',
+      );
+    }
+
+    final existing = await _repository.loadActiveSession(ownerUid);
+    if (existing.isLoaded) {
+      final validated = IqPersistedSessionValidator.validate(
+        state: existing.state!,
+        bank: _bank,
+        ownerUid: ownerUid,
+      );
+      if (validated.isLoaded &&
+          validated.state!.status == IqPersistedSessionStatus.inProgress) {
+        return IqSessionWriteResult(ok: true, state: validated.state);
+      }
+      if (validated.code == IqSessionLoadCode.incompatibleBank ||
+          validated.code == IqSessionLoadCode.incompatiblePolicy ||
+          validated.code == IqSessionLoadCode.incompatibleSchema ||
+          validated.code == IqSessionLoadCode.corrupt ||
+          validated.code == IqSessionLoadCode.ownerMismatch) {
+        // Do not silently regenerate or delete.
+        return IqSessionWriteResult(
+          ok: false,
+          code: validated.code.name,
+          message: validated.message,
+          state: existing.state,
+        );
+      }
+    } else if (existing.code == IqSessionLoadCode.corrupt ||
+        existing.code == IqSessionLoadCode.ownerMismatch) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: existing.code.name,
+        message: existing.message,
+      );
+    }
+
+    final config = composeConfig ??
+        IqSessionConfig(
+          sessionSeed: sessionSeed,
+        );
+    final composed = _composer.compose(bank: _bank, config: config);
+    if (composed is! IqSessionCompositionSuccess) {
+      final fail = composed as IqSessionCompositionFailure;
+      return IqSessionWriteResult(
+        ok: false,
+        code: fail.code,
+        message: fail.message,
+      );
+    }
+    final plan = composed.plan;
+    final now = _nowIso();
+    final state = IqPersistedSessionState(
+      schemaVersion: IqPersistedSessionState.schemaVersionValue,
+      sessionId: _idFactory.next(),
+      ownerUid: ownerUid,
+      bankVersion: plan.bankVersion,
+      bankLocale: plan.bankLocale,
+      selectionPolicyVersion: plan.selectionPolicyVersion,
+      sessionSeed: plan.sessionSeed,
+      itemPlans: plan.itemPlans,
+      currentQuestionIndex: 0,
+      answers: const [],
+      startedAt: now,
+      updatedAt: now,
+      status: IqPersistedSessionStatus.inProgress,
+      eligibilityMode: plan.eligibilityMode,
+      freshnessMode: plan.freshnessMode,
+      balanceDisplayedCorrectPositions: plan.balanceDisplayedCorrectPositions,
+      createdFromBankItemCount: plan.createdFromBankItemCount,
+    );
+
+    final validated = IqPersistedSessionValidator.validate(
+      state: state,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+      );
+    }
+
+    await _repository.saveSession(state);
+    lastOperationComposed = true;
+    return IqSessionWriteResult(ok: true, state: state);
+  }
+
+  Future<IqSessionWriteResult> moveToIndex({
+    required String ownerUid,
+    required String sessionId,
+    required int index,
+  }) async {
+    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    if (!loaded.ok) return loaded;
+    final state = loaded.state!;
+    if (index < 0 || index >= state.itemPlans.length) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'invalid_index',
+        message: 'Index outside 0..24',
+      );
+    }
+    final next = state.copyWith(
+      currentQuestionIndex: index,
+      updatedAt: _nowIso(),
+    );
+    await _repository.saveSession(next);
+    return IqSessionWriteResult(ok: true, state: next);
+  }
+
+  Future<IqSessionWriteResult> answer({
+    required String ownerUid,
+    required String sessionId,
+    required String itemId,
+    required String selectedOptionId,
+  }) async {
+    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    if (!loaded.ok) return loaded;
+    final state = loaded.state!;
+    if (state.status != IqPersistedSessionStatus.inProgress) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'session_not_editable',
+        message: 'Completed/abandoned sessions reject answers',
+      );
+    }
+
+    IqSessionItemPlan? planItem;
+    for (final p in state.itemPlans) {
+      if (p.itemId == itemId) {
+        planItem = p;
+        break;
+      }
+    }
+    if (planItem == null) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'invalid_item',
+        message: 'Item not in session',
+      );
+    }
+    if (!planItem.displayedOptionIds.contains(selectedOptionId)) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'invalid_option',
+        message: 'Option not in displayed options',
+      );
+    }
+
+    final byId = state.answersByItemId;
+    byId[itemId] = IqSessionAnswer(
+      itemId: itemId,
+      selectedOptionId: selectedOptionId,
+      answeredAt: _nowIso(),
+    );
+    // Rebuild answers in plan order.
+    final ordered = <IqSessionAnswer>[
+      for (final p in state.itemPlans)
+        if (byId.containsKey(p.itemId)) byId[p.itemId]!,
+    ];
+    final next = state.copyWith(answers: ordered, updatedAt: _nowIso());
+    await _repository.saveSession(next);
+    return IqSessionWriteResult(ok: true, state: next);
+  }
+
+  Future<IqSessionWriteResult> complete({
+    required String ownerUid,
+    required String sessionId,
+  }) async {
+    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    if (!loaded.ok) return loaded;
+    final state = loaded.state!;
+    if (state.itemPlans.length != IqSessionContract.sessionItemCount) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'invalid_plan',
+        message: 'Session must contain 25 items',
+      );
+    }
+    if (state.answers.length != IqSessionContract.sessionItemCount) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: 'incomplete_answers',
+        message:
+            'Need ${IqSessionContract.sessionItemCount} answers, have ${state.answers.length}',
+      );
+    }
+    for (final p in state.itemPlans) {
+      if (!state.answersByItemId.containsKey(p.itemId)) {
+        return const IqSessionWriteResult(
+          ok: false,
+          code: 'incomplete_answers',
+          message: 'Missing answer for an item',
+        );
+      }
+    }
+    final now = _nowIso();
+    final next = state.copyWith(
+      status: IqPersistedSessionStatus.completed,
+      completedAt: now,
+      updatedAt: now,
+    );
+    await _repository.saveSession(next);
+    return IqSessionWriteResult(ok: true, state: next);
+  }
+
+  Future<IqSessionWriteResult> abandon({
+    required String ownerUid,
+    required String sessionId,
+  }) async {
+    final loaded = await _repository.loadSession(ownerUid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final validated = IqPersistedSessionValidator.validate(
+      state: loaded.state!,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+      );
+    }
+    final now = _nowIso();
+    final next = validated.state!.copyWith(
+      status: IqPersistedSessionStatus.abandoned,
+      updatedAt: now,
+    );
+    await _repository.saveSession(next);
+    return IqSessionWriteResult(ok: true, state: next);
+  }
+
+  Future<IqSessionWriteResult> _loadValidatedInProgress(
+    String ownerUid,
+    String sessionId,
+  ) async {
+    final loaded = await _repository.loadSession(ownerUid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final validated = IqPersistedSessionValidator.validate(
+      state: loaded.state!,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+        state: loaded.state,
+      );
+    }
+    if (validated.state!.status != IqPersistedSessionStatus.inProgress) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: 'session_not_editable',
+        message: 'Session is ${validated.state!.status.name}',
+        state: validated.state,
+      );
+    }
+    return IqSessionWriteResult(ok: true, state: validated.state);
+  }
+}
