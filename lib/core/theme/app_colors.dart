@@ -25,9 +25,10 @@ class AppColors {
   static const Color warmGold = Color(0xFFC9A227);
 
   // ── Glass / surfaces ──────────────────────────────────────────────────────
-  /// Soft translucent panel over void (use with BackdropFilter later if needed).
-  static const Color glassSurface = Color(0x99141A2E);
-  static const Color glassSurfaceStrong = Color(0xCC1A2240);
+  /// Soft translucent panel over cosmic bg (~18% opacity).
+  static const Color glassSurface = Color(0x2E141A2E);
+  /// Same family as [glassSurface] for focal fills that should stay matched.
+  static const Color glassSurfaceStrong = Color(0x2E1A2240);
   static const Color surfaceElevated = Color(0xFF1A1A1A);
 
   // ── Borders ───────────────────────────────────────────────────────────────

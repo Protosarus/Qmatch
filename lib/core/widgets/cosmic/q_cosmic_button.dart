@@ -5,6 +5,7 @@ import '../../theme/app_gradients.dart';
 import '../../theme/app_radii.dart';
 import '../../theme/app_shadows.dart';
 import '../../theme/app_spacing.dart';
+import '../qmatch_glass_icon_button.dart';
 
 /// Visual style for [QCosmicButton].
 enum QCosmicButtonVariant {
@@ -19,6 +20,9 @@ enum QCosmicButtonVariant {
 
   /// Transparent with gold outline.
   ghost,
+
+  /// Translucent navy glass — matches Profile / empty-state cards.
+  glass,
 }
 
 /// Premium Cosmic CTA — static gradients only (no motion / paywall logic).
@@ -101,20 +105,24 @@ class _ButtonFace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isGhost = variant == QCosmicButtonVariant.ghost;
+    final isGlass = variant == QCosmicButtonVariant.glass;
     final gradient = switch (variant) {
       QCosmicButtonVariant.primary => AppGradients.primaryActionGradient,
       QCosmicButtonVariant.gold => AppGradients.goldActionGradient,
       QCosmicButtonVariant.cosmic => AppGradients.cosmicCtaGradient,
       QCosmicButtonVariant.ghost => null,
+      QCosmicButtonVariant.glass => null,
     };
 
     final foreground = isGhost
         ? AppColors.buttonText
-        : (variant == QCosmicButtonVariant.gold
-            ? AppColors.cosmicBlack
-            : AppColors.textPrimary);
+        : (isGlass
+            ? QMatchGlassIconButton.iconDefault
+            : (variant == QCosmicButtonVariant.gold
+                ? AppColors.cosmicBlack
+                : AppColors.textPrimary));
 
-    final bloom = !isGhost && enabled
+    final bloom = !isGhost && !isGlass && enabled
         ? (variant == QCosmicButtonVariant.cosmic
             ? [
                 BoxShadow(
@@ -131,7 +139,69 @@ class _ButtonFace extends StatelessWidget {
             : (variant == QCosmicButtonVariant.gold
                 ? AppShadows.goldGlow
                 : null))
-        : null;
+        : (isGlass && enabled
+            ? [
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.18),
+                  blurRadius: 16,
+                  offset: const Offset(0, 6),
+                ),
+              ]
+            : null);
+
+    if (isGlass) {
+      // Same surface language as Profile [QGlassCard] — no BackdropFilter.
+      return Container(
+        height: height,
+        alignment: height != null ? Alignment.center : null,
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.buttonHorizontal,
+          vertical: height != null ? 0 : AppSpacing.buttonVertical + 2,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          color: AppColors.glassSurface,
+          border: Border.all(
+            color: AppColors.borderSubtle,
+            width: 1,
+          ),
+          boxShadow: bloom,
+        ),
+        child: ClipRRect(
+          borderRadius: borderRadius,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              gradient: AppGradients.glassCardGradient,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null) ...[
+                  Icon(icon, size: 20, color: foreground),
+                  const SizedBox(width: AppSpacing.xs),
+                ],
+                Flexible(
+                  child: Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: foreground,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.35,
+                      height: 1.1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     return Container(
       height: height,
@@ -141,7 +211,7 @@ class _ButtonFace extends StatelessWidget {
         vertical: height != null ? 0 : AppSpacing.buttonVertical + 2,
       ),
       decoration: BoxDecoration(
-        gradient: isGhost ? null : gradient,
+        gradient: gradient,
         color: isGhost ? Colors.transparent : null,
         borderRadius: borderRadius,
         border: Border.all(

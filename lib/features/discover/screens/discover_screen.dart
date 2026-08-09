@@ -155,6 +155,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         seed: 21,
         starCount: 18,
         animate: widget.animateBackground,
+        showAccentHalos: false,
+        starfieldOpacity: 0.22,
         child: SafeArea(
           child: Column(
             children: [

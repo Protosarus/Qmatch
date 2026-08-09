@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -88,6 +90,8 @@ class QMatchMainBackground extends StatelessWidget {
         seed: 21,
         starCount: 18,
         animate: false,
+        showAccentHalos: false,
+        starfieldOpacity: 0.22,
         child: SizedBox.expand(),
       ),
     );
@@ -120,31 +124,46 @@ class QMatchBottomNavigation extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 360),
-          child: Container(
-            key: const Key('qmatch-bottom-navigation'),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.xs,
-              vertical: AppSpacing.xxs,
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.glassSurface.withValues(alpha: 0.72),
-              borderRadius: AppRadii.sheetBorder,
-              border: Border.all(
-                color: AppColors.borderSubtle.withValues(alpha: 0.45),
-              ),
-            ),
-            child: Row(
-              children: [
-                for (var i = 0; i < items.length; i++)
-                  Expanded(
-                    child: QMatchBottomNavigationItemWidget(
-                      item: items[i],
-                      index: i,
-                      selected: i == currentIndex,
-                      onTap: () => onTap(i),
-                    ),
+          child: ClipRRect(
+            borderRadius: AppRadii.sheetBorder,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
+              child: Container(
+                key: const Key('qmatch-bottom-navigation'),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.xs,
+                  vertical: AppSpacing.xxs,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: AppRadii.sheetBorder,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.white.withValues(alpha: 0.18),
+                      Colors.white.withValues(alpha: 0.08),
+                      const Color(0xFF141A2E).withValues(alpha: 0.35),
+                    ],
                   ),
-              ],
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.28),
+                    width: 0.8,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    for (var i = 0; i < items.length; i++)
+                      Expanded(
+                        child: QMatchBottomNavigationItemWidget(
+                          item: items[i],
+                          index: i,
+                          selected: i == currentIndex,
+                          onTap: () => onTap(i),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

@@ -48,6 +48,8 @@ class QMatchCosmicBackground extends StatefulWidget {
     this.starCount = 18,
     this.debugTimeSeconds,
     this.showStarfieldImage = true,
+    this.starfieldOpacity = 0.42,
+    this.showAccentHalos = true,
   });
 
   static const String starfieldAsset =
@@ -69,6 +71,12 @@ class QMatchCosmicBackground extends StatefulWidget {
 
   /// Soft painted starfield under the animated points.
   final bool showStarfieldImage;
+
+  /// Opacity for [starfieldAsset] when shown.
+  final double starfieldOpacity;
+
+  /// Large soft accent blooms (can read as bright white blobs).
+  final bool showAccentHalos;
 
   /// Builds the frozen star list for [seed] (testable).
   static List<CosmicStarSpec> starsFor({
@@ -236,7 +244,7 @@ class _QMatchCosmicBackgroundState extends State<QMatchCosmicBackground>
           Positioned.fill(
             child: IgnorePointer(
               child: Opacity(
-                opacity: 0.42,
+                opacity: widget.starfieldOpacity.clamp(0.0, 1.0),
                 child: Image.asset(
                   QMatchCosmicBackground.starfieldAsset,
                   fit: BoxFit.cover,
@@ -258,6 +266,7 @@ class _QMatchCosmicBackgroundState extends State<QMatchCosmicBackground>
                       stars: _stars,
                       timeSeconds: timeSeconds,
                       motion: motion,
+                      showAccentHalos: widget.showAccentHalos,
                     ),
                     size: Size.infinite,
                   );
@@ -309,11 +318,13 @@ class _CosmicStarsPainter extends CustomPainter {
     required this.stars,
     required this.timeSeconds,
     required this.motion,
+    required this.showAccentHalos,
   });
 
   final List<CosmicStarSpec> stars;
   final double timeSeconds;
   final bool motion;
+  final bool showAccentHalos;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -334,13 +345,13 @@ class _CosmicStarsPainter extends CustomPainter {
         breathing: motion,
       );
 
-      if (star.accent) {
-        paint.color = Color.fromRGBO(230, 234, 255, opacity * 0.32);
-        canvas.drawCircle(Offset(x, y), star.radius * 3.6, paint);
+      if (showAccentHalos && star.accent) {
+        paint.color = Color.fromRGBO(200, 210, 255, opacity * 0.08);
+        canvas.drawCircle(Offset(x, y), star.radius * 1.35, paint);
       }
 
-      paint.color = Color.fromRGBO(236, 240, 255, opacity);
-      canvas.drawCircle(Offset(x, y), star.radius, paint);
+      paint.color = Color.fromRGBO(214, 220, 242, opacity * 0.55);
+      canvas.drawCircle(Offset(x, y), star.radius * 0.7, paint);
     }
   }
 
@@ -348,6 +359,7 @@ class _CosmicStarsPainter extends CustomPainter {
   bool shouldRepaint(covariant _CosmicStarsPainter oldDelegate) {
     return oldDelegate.timeSeconds != timeSeconds ||
         oldDelegate.motion != motion ||
+        oldDelegate.showAccentHalos != showAccentHalos ||
         !identical(oldDelegate.stars, stars);
   }
 }

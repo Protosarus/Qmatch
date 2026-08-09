@@ -32,12 +32,14 @@ class QMatchMessagesEmptyState extends StatelessWidget {
                 height: 64,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.resonanceViolet.withValues(alpha: 0.18),
-                  border: Border.all(color: AppColors.borderSubtle),
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.22),
+                  border: Border.all(
+                    color: const Color(0x66A8B0D0),
+                  ),
                 ),
                 child: const Icon(
                   Icons.chat_bubble_outline_rounded,
-                  color: AppColors.softGold,
+                  color: Color(0xFFD7DCF2),
                   size: 28,
                 ),
               ),

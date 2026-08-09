@@ -5,6 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
+import '../../../core/widgets/qmatch_glass_icon_button.dart';
 
 /// Modern empty state when the Discover feed has no further candidates.
 class QMatchDiscoverEmptyState extends StatelessWidget {
@@ -36,14 +37,14 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
                 height: 64,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.resonanceViolet.withValues(alpha: 0.18),
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.22),
                   border: Border.all(
-                    color: AppColors.borderSubtle,
+                    color: QMatchGlassIconButton.coolBorder,
                   ),
                 ),
                 child: const Icon(
                   Icons.auto_awesome_outlined,
-                  color: AppColors.softGold,
+                  color: QMatchGlassIconButton.iconDefault,
                   size: 28,
                 ),
               ),
@@ -74,7 +75,7 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
                   key: const Key('qmatch-discover-empty-retry'),
                   label: retryLabel,
                   onPressed: onRetry,
-                  variant: QCosmicButtonVariant.ghost,
+                  variant: QCosmicButtonVariant.glass,
                   expanded: false,
                 ),
               ],

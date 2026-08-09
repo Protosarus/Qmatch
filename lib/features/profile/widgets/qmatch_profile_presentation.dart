@@ -91,7 +91,6 @@ class QMatchProfileIdentityCard extends StatelessWidget {
 
     return QGlassCard(
       key: const Key('qmatch-profile-identity-card'),
-      emphasized: true,
       padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         children: [
