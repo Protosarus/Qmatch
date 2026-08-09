@@ -73,6 +73,7 @@ Psychometric calibration = NOT_STARTED
 | Continuity tip before R2 | `1b4ee9da01337de390dd5e749ef4113cafe163a3` |
 | P2C-2A-7R2 live EQ + Eq→20D | `0698b83d016ed3b284a02b53e2b36d18df66e7b8` |
 | Continuity tip before Frequency R1 | `47458b1dc0ada4f7444ee1fb4bd15f62c1c76fc5` |
+| P2C-2A-8R1 Frequency math freeze (banks blocked) | `71a82ad1ee4e63f4a654eabefa168e0af0c22d8b` |
 
 ---
 
