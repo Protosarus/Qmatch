@@ -458,14 +458,22 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(14),
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
-                            color: const Color(0xB80C0A16),
+                            // Match unselected option glass fill (not solid opaque).
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0x8A17142D),
+                                Color(0x72101227),
+                              ],
+                            ),
                             border: Border.all(
-                              color: const Color(0x448F79B4),
-                              width: 0.8,
+                              color: const Color(0x554F4D79),
+                              width: 0.9,
                             ),
                           ),
                           child: Padding(
