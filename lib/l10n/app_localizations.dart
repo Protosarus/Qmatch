@@ -497,7 +497,7 @@ abstract class AppLocalizations {
   /// No description provided for @eqBulletDuration.
   ///
   /// In en, this message translates to:
-  /// **'Takes about 5 minutes'**
+  /// **'Takes about 15 minutes'**
   String get eqBulletDuration;
 
   /// No description provided for @startEqTest.
