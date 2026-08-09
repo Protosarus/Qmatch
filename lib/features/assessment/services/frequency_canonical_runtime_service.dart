@@ -234,6 +234,32 @@ class FrequencyCanonicalRuntimeService {
     );
   }
 
+  Future<FrequencySessionWriteResult> reconcileCursor({
+    required String sessionId,
+  }) async {
+    final uid = currentUid;
+    if (uid == null || uid.isEmpty) {
+      return const FrequencySessionWriteResult(
+        ok: false,
+        code: 'owner_unavailable',
+        message: 'Owner UID unavailable',
+      );
+    }
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return FrequencySessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
+    return manager.reconcileCursorToFirstUnanswered(
+      ownerUid: uid,
+      sessionId: sessionId,
+    );
+  }
+
   Future<FrequencySessionWriteResult> completeSession({
     required String sessionId,
   }) async {

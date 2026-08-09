@@ -100,6 +100,15 @@ class EqPersistedSessionState {
         for (final a in answers) a.itemId: a,
       };
 
+  /// First plan index without a committed answer, or [itemPlans.length] if complete.
+  int get firstUnansweredIndex {
+    final byId = answersByItemId;
+    for (var i = 0; i < itemPlans.length; i++) {
+      if (!byId.containsKey(itemPlans[i].itemId)) return i;
+    }
+    return itemPlans.length;
+  }
+
   EqPersistedSessionState copyWith({
     int? currentQuestionIndex,
     List<EqSessionAnswer>? answers,

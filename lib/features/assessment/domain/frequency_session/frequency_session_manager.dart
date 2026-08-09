@@ -87,6 +87,13 @@ class FrequencySessionManager {
         if (status == FrequencyPersistedSessionStatus.inProgress ||
             status ==
                 FrequencyPersistedSessionStatus.completedPendingPersistence) {
+          final reconciled = await reconcileCursorToFirstUnanswered(
+            ownerUid: ownerUid,
+            sessionId: validated.state!.sessionId,
+          );
+          if (reconciled.ok && reconciled.state != null) {
+            return reconciled;
+          }
           return FrequencySessionWriteResult(ok: true, state: validated.state);
         }
       }
@@ -264,6 +271,55 @@ class FrequencySessionManager {
       currentQuestionIndex: index,
       updatedAt: _nowIso(),
     );
+    await _repository.saveSession(next);
+    return FrequencySessionWriteResult(ok: true, state: next);
+  }
+
+  /// Recovery: if the cursor sits on an already-committed item, advance it to
+  /// the first unanswered index. Bypasses forward-only user navigation rules.
+  Future<FrequencySessionWriteResult> reconcileCursorToFirstUnanswered({
+    required String ownerUid,
+    required String sessionId,
+  }) async {
+    final loaded = await _repository.loadSession(ownerUid, sessionId);
+    if (!loaded.isLoaded) {
+      return FrequencySessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final state = loaded.state!;
+    if (state.status ==
+            FrequencyPersistedSessionStatus.completedPendingPersistence ||
+        state.status == FrequencyPersistedSessionStatus.completed) {
+      return FrequencySessionWriteResult(ok: true, state: state);
+    }
+    if (!state.status.isAnswerEditable) {
+      return FrequencySessionWriteResult(ok: true, state: state);
+    }
+    final raw = state.firstUnansweredIndex;
+    final target =
+        raw >= state.itemPlans.length ? state.itemPlans.length - 1 : raw;
+    if (target == state.currentQuestionIndex) {
+      return FrequencySessionWriteResult(ok: true, state: state);
+    }
+    final next = state.copyWith(
+      currentQuestionIndex: target,
+      updatedAt: _nowIso(),
+    );
+    final validated = FrequencyPersistedSessionValidator.validate(
+      state: next,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return FrequencySessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+      );
+    }
     await _repository.saveSession(next);
     return FrequencySessionWriteResult(ok: true, state: next);
   }

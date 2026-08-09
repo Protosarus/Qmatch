@@ -246,6 +246,32 @@ class IqCanonicalRuntimeService {
     );
   }
 
+  Future<IqSessionWriteResult> reconcileCursor({
+    required String sessionId,
+  }) async {
+    final uid = currentUid;
+    if (uid == null || uid.isEmpty) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'owner_unavailable',
+        message: 'Owner UID unavailable',
+      );
+    }
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
+    return manager.reconcileCursorToFirstUnanswered(
+      ownerUid: uid,
+      sessionId: sessionId,
+    );
+  }
+
   Future<IqSessionWriteResult> completeSession({
     required String sessionId,
   }) async {

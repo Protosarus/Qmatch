@@ -140,7 +140,6 @@ class _IQTestScreenState extends State<IQTestScreen> {
     );
     final locale = AssessmentLanguage.localeUsed(locale: Locale(language));
 
-    // Pending remote finalization: score + persist only (no re-answer).
     if (session.status ==
         IqPersistedSessionStatus.completedPendingPersistence) {
       setState(() => _busy = true);
@@ -158,67 +157,66 @@ class _IQTestScreenState extends State<IQTestScreen> {
     }
     _dismissSelectAnswerWarning();
 
-    final idx = session.currentQuestionIndex;
-    final plan = session.itemPlans[idx];
-    final isLast = idx >= session.itemPlans.length - 1;
-
     setState(() => _busy = true);
     try {
-      final answered = await _runtime.answer(
-        sessionId: session.sessionId,
-        itemId: plan.itemId,
-        selectedOptionId: _selectedOptionId!,
-      );
-      if (!answered.ok || answered.state == null) {
-        if (!mounted) return;
-        _showErrorSnack(answered.code ?? 'answer_failed');
-        setState(() => _busy = false);
-        return;
-      }
+      var state = session;
+      final curPlan = state.itemPlans[state.currentQuestionIndex];
+      final existing = state.answersByItemId[curPlan.itemId];
 
-      if (!isLast) {
-        final moved = await _runtime.moveToIndex(
-          sessionId: session.sessionId,
-          index: idx + 1,
+      if (existing == null) {
+        final answered = await _runtime.answer(
+          sessionId: state.sessionId,
+          itemId: curPlan.itemId,
+          selectedOptionId: _selectedOptionId!,
         );
-        if (!moved.ok || moved.state == null) {
+        if (!answered.ok || answered.state == null) {
           if (!mounted) return;
-          _showErrorSnack(moved.code ?? 'index_failed');
-          setState(() {
-            _session = answered.state;
-            _busy = false;
-          });
+          _showErrorSnack(answered.code ?? 'answer_failed');
           return;
         }
-        final next = moved.state!;
-        final nextPlan = next.itemPlans[next.currentQuestionIndex];
-        final existing = next.answersByItemId[nextPlan.itemId];
+        state = answered.state!;
+      }
+
+      final unanswered = state.firstUnansweredIndex;
+      final isComplete = unanswered >= state.itemPlans.length;
+      if (!isComplete) {
+        final moved = await _runtime.moveToIndex(
+          sessionId: state.sessionId,
+          index: unanswered,
+        );
+        var nextState = moved.state;
+        if (!moved.ok || nextState == null) {
+          final reconciled = await _runtime.reconcileCursor(
+            sessionId: state.sessionId,
+          );
+          if (!reconciled.ok || reconciled.state == null) {
+            if (!mounted) return;
+            _showErrorSnack(reconciled.code ?? 'index_failed');
+            return;
+          }
+          nextState = reconciled.state;
+        }
         if (!mounted) return;
+        final next = nextState!;
+        final nextPlan = next.itemPlans[next.currentQuestionIndex];
+        final existingNext = next.answersByItemId[nextPlan.itemId];
         setState(() {
           _session = next;
-          _selectedOptionId = existing?.selectedOptionId;
-          _busy = false;
+          _selectedOptionId = existingNext?.selectedOptionId;
         });
         return;
       }
 
-      // Lock answers as pending-finalization (active pointer retained).
       final completed = await _runtime.completeSession(
-        sessionId: session.sessionId,
+        sessionId: state.sessionId,
       );
       if (!completed.ok || completed.state == null) {
         if (!mounted) return;
         _showErrorSnack(completed.code ?? 'complete_failed');
-        setState(() {
-          _session = answered.state;
-          _busy = false;
-        });
         return;
       }
-
       if (!mounted) return;
       setState(() => _session = completed.state);
-
       await _scorePersistFinalizeAndNavigate(
         session: completed.state!,
         locale: locale,
@@ -228,7 +226,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
       debugPrint('Canonical IQ continue failed: $e');
       if (!mounted) return;
       _showErrorSnack('unexpected_error');
-      setState(() => _busy = false);
+    } finally {
+      if (mounted) setState(() => _busy = false);
     }
   }
 

@@ -43,6 +43,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
   bool _isLoading = true;
   bool _didStartLoading = false;
   bool _isFinishing = false;
+  bool _busy = false;
   String? _loadError;
   DateTime? _startedAt;
   bool _showSelectAnswerWarning = false;
@@ -138,7 +139,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
   Future<void> _onContinue() async {
     final session = _session;
     final bank = _bank;
-    if (session == null || bank == null || _isFinishing) return;
+    if (session == null || bank == null || _isFinishing || _busy) return;
 
     final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
         WidgetsBinding.instance.platformDispatcher.locale.languageCode;
@@ -163,43 +164,66 @@ class _EQTestScreenState extends State<EQTestScreen> {
     }
     _dismissSelectAnswerWarning();
 
-    final plan = session.itemPlans[session.currentQuestionIndex];
-    final answered = await _runtime.answer(
-      sessionId: session.sessionId,
-      itemId: plan.itemId,
-      selectedOptionId: _selectedOptionId!,
-    );
-    if (!answered.ok || answered.state == null) {
-      debugPrint('EQ answer failed: ${answered.message}');
-      if (!mounted) return;
-      final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
-      );
-      return;
-    }
-
-    final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
-    if (!isLast) {
-      final moved = await _runtime.moveToIndex(
-        sessionId: session.sessionId,
-        index: session.currentQuestionIndex + 1,
-      );
-      if (!moved.ok || moved.state == null || !mounted) return;
-      final next = moved.state!;
-      final existing = next
-          .answersByItemId[next.itemPlans[next.currentQuestionIndex].itemId];
-      setState(() {
-        _session = next;
-        _selectedOptionId = existing?.selectedOptionId;
-      });
-      return;
-    }
-
-    setState(() => _isFinishing = true);
+    setState(() => _busy = true);
     try {
+      var state = session;
+      final curPlan = state.itemPlans[state.currentQuestionIndex];
+      final existing = state.answersByItemId[curPlan.itemId];
+
+      if (existing == null) {
+        final answered = await _runtime.answer(
+          sessionId: state.sessionId,
+          itemId: curPlan.itemId,
+          selectedOptionId: _selectedOptionId!,
+        );
+        if (!answered.ok || answered.state == null) {
+          debugPrint('EQ answer failed: ${answered.message}');
+          if (!mounted) return;
+          final l10n = AppLocalizations.of(context)!;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+          );
+          return;
+        }
+        state = answered.state!;
+      }
+
+      final unanswered = state.firstUnansweredIndex;
+      final isComplete = unanswered >= state.itemPlans.length;
+      if (!isComplete) {
+        final moved = await _runtime.moveToIndex(
+          sessionId: state.sessionId,
+          index: unanswered,
+        );
+        var nextState = moved.state;
+        if (!moved.ok || nextState == null) {
+          final reconciled = await _runtime.reconcileCursor(
+            sessionId: state.sessionId,
+          );
+          if (!reconciled.ok || reconciled.state == null) {
+            if (!mounted) return;
+            final l10n = AppLocalizations.of(context)!;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+            );
+            return;
+          }
+          nextState = reconciled.state;
+        }
+        if (!mounted) return;
+        final next = nextState!;
+        final existingNext = next
+            .answersByItemId[next.itemPlans[next.currentQuestionIndex].itemId];
+        setState(() {
+          _session = next;
+          _selectedOptionId = existingNext?.selectedOptionId;
+        });
+        return;
+      }
+
+      setState(() => _isFinishing = true);
       final completed = await _runtime.completeSession(
-        sessionId: answered.state!.sessionId,
+        sessionId: state.sessionId,
       );
       if (!completed.ok || completed.state == null) {
         throw StateError(completed.message);
@@ -212,13 +236,14 @@ class _EQTestScreenState extends State<EQTestScreen> {
         language: language,
       );
     } catch (e) {
-      debugPrint('EQ complete failed: $e');
+      debugPrint('EQ continue failed: $e');
       if (!mounted) return;
-      setState(() => _isFinishing = false);
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l10n.iqCanonicalPersistError)),
       );
+    } finally {
+      if (mounted) setState(() => _busy = false);
     }
   }
 
@@ -470,8 +495,10 @@ class _EQTestScreenState extends State<EQTestScreen> {
                             : l10n.assessmentContinue),
                     active: pendingFinalize
                         ? !_isFinishing
-                        : (_selectedOptionId != null && !_isFinishing),
-                    onPressed: _isFinishing ? () {} : _onContinue,
+                        : (_selectedOptionId != null &&
+                            !_isFinishing &&
+                            !_busy),
+                    onPressed: (_isFinishing || _busy) ? () {} : _onContinue,
                   ),
                 ],
               ),

@@ -85,6 +85,13 @@ class EqSessionManager {
         final status = validated.state!.status;
         if (status == EqPersistedSessionStatus.inProgress ||
             status == EqPersistedSessionStatus.completedPendingPersistence) {
+          final reconciled = await reconcileCursorToFirstUnanswered(
+            ownerUid: ownerUid,
+            sessionId: validated.state!.sessionId,
+          );
+          if (reconciled.ok && reconciled.state != null) {
+            return reconciled;
+          }
           return EqSessionWriteResult(ok: true, state: validated.state);
         }
       }
@@ -258,6 +265,54 @@ class EqSessionManager {
       currentQuestionIndex: index,
       updatedAt: _nowIso(),
     );
+    await _repository.saveSession(next);
+    return EqSessionWriteResult(ok: true, state: next);
+  }
+
+  /// Recovery: if the cursor sits on an already-committed item, advance it to
+  /// the first unanswered index. Bypasses forward-only user navigation rules.
+  Future<EqSessionWriteResult> reconcileCursorToFirstUnanswered({
+    required String ownerUid,
+    required String sessionId,
+  }) async {
+    final loaded = await _repository.loadSession(ownerUid, sessionId);
+    if (!loaded.isLoaded) {
+      return EqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final state = loaded.state!;
+    if (state.status == EqPersistedSessionStatus.completedPendingPersistence ||
+        state.status == EqPersistedSessionStatus.completed) {
+      return EqSessionWriteResult(ok: true, state: state);
+    }
+    if (!state.status.isAnswerEditable) {
+      return EqSessionWriteResult(ok: true, state: state);
+    }
+    final raw = state.firstUnansweredIndex;
+    final target =
+        raw >= state.itemPlans.length ? state.itemPlans.length - 1 : raw;
+    if (target == state.currentQuestionIndex) {
+      return EqSessionWriteResult(ok: true, state: state);
+    }
+    final next = state.copyWith(
+      currentQuestionIndex: target,
+      updatedAt: _nowIso(),
+    );
+    final validated = EqPersistedSessionValidator.validate(
+      state: next,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return EqSessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+      );
+    }
     await _repository.saveSession(next);
     return EqSessionWriteResult(ok: true, state: next);
   }
