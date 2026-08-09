@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_radii.dart';
 import '../../l10n/app_localizations.dart';
 
 class SuccessDialog extends StatelessWidget {
@@ -21,103 +24,93 @@ class SuccessDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(32),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.background,
-              AppColors.background.withValues(alpha: 0.95),
-            ],
-          ),
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: AppColors.primary.withValues(alpha: 0.3),
-            width: 2,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primary.withValues(alpha: 0.2),
-              blurRadius: 30,
-              spreadRadius: 5,
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Icon with glow
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.primary.withValues(alpha: 0.1),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primary.withValues(alpha: 0.3),
-                    blurRadius: 20,
-                    spreadRadius: 5,
-                  ),
-                ],
+      child: ClipRRect(
+        borderRadius: AppRadii.sheetBorder,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Container(
+            padding: const EdgeInsets.all(28),
+            decoration: BoxDecoration(
+              borderRadius: AppRadii.sheetBorder,
+              color: const Color(0xFF141A2E).withValues(alpha: 0.72),
+              border: Border.all(
+                color: AppColors.borderGlow,
+                width: 1.2,
               ),
-              child: Text(
-                icon,
-                style: const TextStyle(fontSize: 64),
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Title
-            Text(
-              title,
-              style: GoogleFonts.playfairDisplay(
-                color: AppColors.primary,
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-
-            // Message
-            Text(
-              message,
-              style: GoogleFonts.inter(
-                color: AppColors.textSecondary,
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 32),
-
-            // Continue Button
-            SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                onPressed: onContinue ?? () => Navigator.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 8,
-                  shadowColor: AppColors.primary.withValues(alpha: 0.5),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.softGold.withValues(alpha: 0.18),
+                  blurRadius: 28,
+                  spreadRadius: 2,
                 ),
-                child: Text(
-                  AppLocalizations.of(context)!.continueAction.toUpperCase(),
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 16,
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.softGold.withValues(alpha: 0.12),
+                    border: Border.all(
+                      color: AppColors.softGold.withValues(alpha: 0.45),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.softGold.withValues(alpha: 0.28),
+                        blurRadius: 18,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    icon,
+                    style: const TextStyle(fontSize: 48),
+                  ),
+                ),
+                const SizedBox(height: 22),
+                Text(
+                  title,
+                  style: GoogleFonts.playfairDisplay(
+                    color: AppColors.textPrimary,
+                    fontSize: 26,
                     fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  message,
+                  style: GoogleFonts.inter(
+                    color: AppColors.textSecondary,
+                    fontSize: 15,
+                    height: 1.4,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 28),
+                FilledButton(
+                  onPressed: onContinue ?? () => Navigator.of(context).pop(),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.softGold,
+                    foregroundColor: AppColors.cosmicBlack,
+                    minimumSize: const Size(double.infinity, 52),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadii.buttonBorder,
+                    ),
+                    textStyle: GoogleFonts.inter(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.continueAction,
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

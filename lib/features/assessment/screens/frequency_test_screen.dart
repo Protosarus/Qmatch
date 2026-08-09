@@ -421,9 +421,16 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
         builder: (context, constraints) {
           final height = constraints.maxHeight;
           final compact = height < 700;
-          // Keep wave modest so question + options get vertical room.
+          // Modest wave; leave room so Q+options can sit lower without clipping CTA.
           final heroHeight =
-              (height * (compact ? 0.10 : 0.12)).clamp(56.0, 110.0);
+              (height * (compact ? 0.07 : 0.09)).clamp(44.0, 88.0);
+          // Longer prompts keep a tighter gap above Devam; short ones breathe more.
+          final promptLen = prompt.trim().length;
+          final bottomGap = promptLen > 110
+              ? (compact ? 8.0 : 10.0)
+              : promptLen > 70
+                  ? (compact ? 12.0 : 16.0)
+                  : (compact ? 16.0 : 22.0);
 
           return Stack(
             fit: StackFit.expand,
@@ -449,76 +456,103 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: heroHeight,
-                    child: const FrequencyWaveHero(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            // Match unselected option glass fill (not solid opaque).
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Color(0x8A17142D),
-                                Color(0x72101227),
-                              ],
-                            ),
-                            border: Border.all(
-                              color: const Color(0x554F4D79),
-                              width: 0.9,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: compact ? 12 : 14,
-                              vertical: compact ? 10 : 12,
-                            ),
-                            child: Text(
-                              prompt,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: compact ? 15.5 : 16.5,
-                                fontWeight: FontWeight.w600,
-                                height: 1.35,
+                  Expanded(
+                    child: CustomScrollView(
+                      physics: const ClampingScrollPhysics(),
+                      slivers: [
+                        // Fill viewport and pin Q+options low; overflow still scrolls.
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SizedBox(
+                                height: heroHeight,
+                                child: const FrequencyWaveHero(),
                               ),
-                            ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 6, 16, 8),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(14),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                      sigmaX: 10,
+                                      sigmaY: 10,
+                                    ),
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        gradient: const LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0x8A17142D),
+                                            Color(0x72101227),
+                                          ],
+                                        ),
+                                        border: Border.all(
+                                          color: const Color(0x554F4D79),
+                                          width: 0.9,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: compact ? 12 : 14,
+                                          vertical: compact ? 10 : 12,
+                                        ),
+                                        child: Text(
+                                          prompt,
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.inter(
+                                            color: Colors.white,
+                                            fontSize: compact ? 15.5 : 16.5,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.35,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                ),
+                                child: Column(
+                                  children: [
+                                    for (var index = 0;
+                                        index < options.length;
+                                        index++) ...[
+                                      if (index > 0)
+                                        SizedBox(height: compact ? 6 : 8),
+                                      FrequencyAnswerOptionRow(
+                                        value: index + 1,
+                                        label: options[index].text,
+                                        selected: _selectedOptionId ==
+                                            options[index].optionId,
+                                        compact: compact,
+                                        onTap: (_isFinishing || pendingFinalize)
+                                            ? () {}
+                                            : () {
+                                                _dismissSelectAnswerWarning();
+                                                setState(
+                                                  () => _selectedOptionId =
+                                                      options[index].optionId,
+                                                );
+                                              },
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: bottomGap),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      itemCount: options.length,
-                      separatorBuilder: (_, __) =>
-                          SizedBox(height: compact ? 6 : 8),
-                      itemBuilder: (context, index) {
-                        final opt = options[index];
-                        return FrequencyAnswerOptionRow(
-                          value: index + 1,
-                          label: opt.text,
-                          selected: _selectedOptionId == opt.optionId,
-                          compact: compact,
-                          onTap: (_isFinishing || pendingFinalize)
-                              ? () {}
-                              : () {
-                                  _dismissSelectAnswerWarning();
-                                  setState(
-                                    () => _selectedOptionId = opt.optionId,
-                                  );
-                                },
-                        );
-                      },
+                      ],
                     ),
                   ),
                   SizedBox(height: compact ? 6 : 9),

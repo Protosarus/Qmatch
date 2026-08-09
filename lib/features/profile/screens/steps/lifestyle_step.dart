@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../utils/profile_option_labels.dart';
+import '../../widgets/profile_setup_chrome.dart';
+import '../../widgets/profile_setup_select_field.dart';
 
 class LifestyleStep extends StatelessWidget {
   final String? occupation;
@@ -42,120 +43,106 @@ class LifestyleStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(4, 8, 4, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             l10n.profileLifestyleTitle,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.primary,
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-            ),
+            style: ProfileSetupChrome.stepTitleStyle(),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             l10n.profileLifestyleSubtitle,
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 16,
-            ),
+            style: ProfileSetupChrome.stepSubtitleStyle(),
           ),
-          const SizedBox(height: 32),
-          _buildLabel(l10n.profileOccupation),
+          const SizedBox(height: AppSpacing.xl),
+          ProfileSetupChrome.label(l10n.profileOccupation),
           TextField(
             onChanged: onOccupationChanged,
-            style: GoogleFonts.inter(color: Colors.white),
-            decoration: _buildInputDecoration(l10n.profileOccupationHint),
+            style: ProfileSetupChrome.fieldTextStyle(),
+            cursorColor: ProfileSetupChrome.accentLabel,
+            decoration: ProfileSetupChrome.fieldDecoration(
+              l10n.profileOccupationHint,
+            ),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileDrinking),
-          DropdownButtonFormField<String>(
-            initialValue: drinking,
-            decoration: _buildInputDecoration(l10n.profileSelectOption),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileDrinking),
+          ProfileSetupSelectField<String>(
+            value: drinking,
+            hint: l10n.profileSelectOption,
+            options: [
               for (final v in const [
                 'Kullanmıyorum',
                 'Sosyal',
                 'Sık sık',
                 'Özel Günlerde',
               ])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.label(l10n, v)),
+                  label: ProfileOptionLabels.label(l10n, v),
                 ),
             ],
-            onChanged: onDrinkingChanged,
+            onChanged: (v) => onDrinkingChanged(v),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileSmoking),
-          DropdownButtonFormField<String>(
-            initialValue: smoking,
-            decoration: _buildInputDecoration(l10n.profileSelectOption),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileSmoking),
+          ProfileSetupSelectField<String>(
+            value: smoking,
+            hint: l10n.profileSelectOption,
+            options: [
               for (final v in const [
                 'Kullanmıyorum',
                 'Bazen',
                 'Düzenli',
                 'Bırakmaya Çalışıyorum',
               ])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.label(l10n, v)),
+                  label: ProfileOptionLabels.label(l10n, v),
                 ),
             ],
-            onChanged: onSmokingChanged,
+            onChanged: (v) => onSmokingChanged(v),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profilePets),
-          DropdownButtonFormField<String>(
-            initialValue: pets,
-            decoration: _buildInputDecoration(l10n.profileSelectOption),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profilePets),
+          ProfileSetupSelectField<String>(
+            value: pets,
+            hint: l10n.profileSelectOption,
+            options: [
               for (final v in const ['Var', 'Yok', 'İstiyorum', 'Alerji'])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.petsLabel(l10n, v)),
+                  label: ProfileOptionLabels.petsLabel(l10n, v),
                 ),
             ],
-            onChanged: onPetsChanged,
+            onChanged: (v) => onPetsChanged(v),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileAnimalLove),
-          DropdownButtonFormField<String>(
-            initialValue: animalLove,
-            decoration: _buildInputDecoration(l10n.profileSelectOption),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileAnimalLove),
+          ProfileSetupSelectField<String>(
+            value: animalLove,
+            hint: l10n.profileSelectOption,
+            options: [
               for (final v in const [
                 'Çok Seviyorum',
                 'Seviyorum',
                 'Nötr',
                 'Pek Sevmem',
               ])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.label(l10n, v)),
+                  label: ProfileOptionLabels.label(l10n, v),
                 ),
             ],
-            onChanged: onAnimalLoveChanged,
+            onChanged: (v) => onAnimalLoveChanged(v),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileChildren),
-          DropdownButtonFormField<String>(
-            initialValue: children,
-            decoration: _buildInputDecoration(l10n.profileSelectOption),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileChildren),
+          ProfileSetupSelectField<String>(
+            value: children,
+            hint: l10n.profileSelectOption,
+            options: [
               for (final v in const [
                 'Var',
                 'Yok Ama İstiyorum',
@@ -163,21 +150,19 @@ class LifestyleStep extends StatelessWidget {
                 'Kararsızım',
                 'Belki İleride',
               ])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.childrenLabel(l10n, v)),
+                  label: ProfileOptionLabels.childrenLabel(l10n, v),
                 ),
             ],
-            onChanged: onChildrenChanged,
+            onChanged: (v) => onChildrenChanged(v),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileReligion),
-          DropdownButtonFormField<String>(
-            initialValue: religion,
-            decoration: _buildInputDecoration(l10n.profileSelectOption),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileReligion),
+          ProfileSetupSelectField<String>(
+            value: religion,
+            hint: l10n.profileSelectOption,
+            options: [
               for (final v in const [
                 'Müslüman',
                 'Hristiyan',
@@ -190,43 +175,15 @@ class LifestyleStep extends StatelessWidget {
                 'Diğer',
                 'Belirtmek İstemiyorum',
               ])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.label(l10n, v)),
+                  label: ProfileOptionLabels.label(l10n, v),
                 ),
             ],
-            onChanged: onReligionChanged,
+            onChanged: (v) => onReligionChanged(v),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLabel(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: GoogleFonts.inter(
-          color: AppColors.primary,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
-  InputDecoration _buildInputDecoration(String hint) {
-    return InputDecoration(
-      hintText: hint,
-      hintStyle: GoogleFonts.inter(color: Colors.grey.shade600),
-      filled: true,
-      fillColor: Colors.grey.shade900,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
     );
   }
 }

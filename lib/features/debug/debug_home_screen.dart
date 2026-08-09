@@ -11,6 +11,7 @@ import '../../core/widgets/qmatch_primary_action.dart';
 import '../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../l10n/app_localizations.dart';
 import '../assessment/screens/frequency_test_screen.dart';
+import '../profile/screens/profile_setup_screen.dart';
 import 'screens/assessment_admin_screen.dart';
 import 'screens/persona_result_preview_screen.dart';
 
@@ -129,6 +130,20 @@ class DebugHomeScreen extends StatelessWidget {
                           },
                         ),
                         const SizedBox(height: AppSpacing.sm),
+                        _toolCard(
+                          key: const Key('qmatch-debug-profile-setup'),
+                          label: l10n.debugProfileSetupPreview,
+                          icon: Icons.person_outline,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ProfileSetupScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
                         QMatchPrimaryAction(
                           key: const Key('qmatch-debug-auth-wrapper'),
                           label: l10n.debugGoToAuthWrapper,
@@ -155,11 +170,13 @@ class DebugHomeScreen extends StatelessWidget {
   }
 
   Widget _toolCard({
+    Key? key,
     required String label,
     required IconData icon,
     required VoidCallback onTap,
   }) {
     return QGlassCard(
+      key: key,
       onTap: onTap,
       child: Row(
         children: [

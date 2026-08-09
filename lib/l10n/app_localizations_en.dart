@@ -1679,6 +1679,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get debugFrequencyPreview => 'Frequency Question Preview';
 
   @override
+  String get debugProfileSetupPreview => 'Profile Setup Preview';
+
+  @override
   String get debugGoToAuthWrapper => 'Go to Auth Wrapper';
 
   @override

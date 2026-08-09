@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../widgets/profile_setup_chrome.dart';
 
 class BioStep extends StatelessWidget {
   final String bio;
@@ -17,46 +19,32 @@ class BioStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(4, 8, 4, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             l10n.profileBioTitle,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.primary,
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-            ),
+            style: ProfileSetupChrome.stepTitleStyle(),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             l10n.profileBioSubtitle,
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 16,
-            ),
+            style: ProfileSetupChrome.stepSubtitleStyle(),
           ),
-          const SizedBox(height: 32),
-
+          const SizedBox(height: AppSpacing.xl),
           TextField(
             maxLines: 8,
             maxLength: 500,
             onChanged: onBioChanged,
-            style: GoogleFonts.inter(color: Colors.white),
-            decoration: InputDecoration(
-              hintText: l10n.profileBioHint,
-              hintStyle: GoogleFonts.inter(
-                color: Colors.grey.shade600,
-                fontSize: 14,
+            style: ProfileSetupChrome.fieldTextStyle(),
+            cursorColor: ProfileSetupChrome.accentLabel,
+            decoration: ProfileSetupChrome.fieldDecoration(l10n.profileBioHint)
+                .copyWith(
+              counterStyle: GoogleFonts.inter(
+                color: AppColors.textSecondary,
+                fontSize: 12,
               ),
-              filled: true,
-              fillColor: Colors.grey.shade900,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              contentPadding: const EdgeInsets.all(16),
             ),
           ),
         ],

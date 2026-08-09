@@ -7,9 +7,11 @@ import '../../../core/navigation/auth_routing_refresh.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
-import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../assessment/widgets/frequency_question_chrome.dart';
+import '../../assessment/widgets/q_assessment_scaffold.dart';
 import '../services/display_name_service.dart';
+import '../widgets/profile_setup_chrome.dart';
 
 /// Gate screen: collect and persist canonical `users/{uid}.name`.
 class DisplayNameCompletionScreen extends StatefulWidget {
@@ -147,168 +149,132 @@ class _DisplayNameCompletionScreenState
         DisplayNameValidator.normalize(_controller.text).characters.length;
     final max = DisplayNameContract.maxGraphemes;
 
-    return Scaffold(
+    return QAssessmentScaffold(
       key: const Key('qmatch-display-name-completion'),
-      backgroundColor: AppColors.cosmicBlack,
-      body: SafeArea(
-        child: _loadingPrefill
-            ? const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
-                ),
-              )
-            : LayoutBuilder(
-                builder: (context, constraints) {
-                  return SingleChildScrollView(
-                    padding: EdgeInsets.only(
-                      left: AppSpacing.xl,
-                      right: AppSpacing.xl,
-                      top: AppSpacing.xl,
-                      bottom: MediaQuery.viewInsetsOf(context).bottom +
-                          AppSpacing.xl,
+      richBackdrop: true,
+      backgroundImageAsset: ProfileSetupChrome.cosmicBackgroundAsset,
+      child: _loadingPrefill
+          ? const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
+              ),
+            )
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  padding: EdgeInsets.only(
+                    bottom:
+                        MediaQuery.viewInsetsOf(context).bottom + AppSpacing.md,
+                  ),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: constraints.maxHeight - AppSpacing.md,
                     ),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        minHeight: constraints.maxHeight - AppSpacing.xl * 2,
-                      ),
-                      child: IntrinsicHeight(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const Spacer(flex: 2),
-                            Text(
-                              l10n.displayNameTitle,
-                              style: GoogleFonts.playfairDisplay(
-                                color: AppColors.textPrimary,
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600,
-                                height: 1.2,
-                              ),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const Spacer(flex: 2),
+                          Text(
+                            l10n.displayNameTitle,
+                            style: ProfileSetupChrome.stepTitleStyle(
+                              fontSize: 28,
                             ),
+                          ),
+                          const SizedBox(height: AppSpacing.sm),
+                          Text(
+                            l10n.displayNameSubtitle,
+                            style: ProfileSetupChrome.stepSubtitleStyle(),
+                          ),
+                          const SizedBox(height: AppSpacing.xl),
+                          ProfileSetupChrome.label(l10n.displayNameLabel),
+                          TextField(
+                            key: const Key('qmatch-display-name-field'),
+                            controller: _controller,
+                            focusNode: _focus,
+                            enabled: !_saving,
+                            textInputAction: TextInputAction.done,
+                            autofillHints: const [],
+                            enableSuggestions: false,
+                            autocorrect: false,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(
+                                RegExp(r'[\r\n\t]'),
+                              ),
+                            ],
+                            style: GoogleFonts.inter(
+                              color: AppColors.textPrimary,
+                              fontSize: 18,
+                            ),
+                            cursorColor: AppColors.softGold,
+                            decoration: ProfileSetupChrome.fieldDecoration(
+                              l10n.displayNameHint,
+                            ).copyWith(counterText: ''),
+                            onSubmitted: (_) => _continue(),
+                          ),
+                          const SizedBox(height: AppSpacing.xs),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  l10n.displayNamePublicExplanation,
+                                  style: GoogleFonts.inter(
+                                    color: AppColors.textMuted,
+                                    fontSize: 12,
+                                    height: 1.35,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                key: const Key('qmatch-display-name-count'),
+                                '$count / $max',
+                                style: GoogleFonts.inter(
+                                  color: count > max
+                                      ? AppColors.danger
+                                      : AppColors.textMuted,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (_error != null) ...[
                             const SizedBox(height: AppSpacing.sm),
                             Text(
-                              l10n.displayNameSubtitle,
+                              key: const Key('qmatch-display-name-error'),
+                              _messageFor(_error!, l10n),
                               style: GoogleFonts.inter(
-                                color: AppColors.textSecondary,
-                                fontSize: 15,
-                                height: 1.45,
-                              ),
-                            ),
-                            const SizedBox(height: AppSpacing.xl),
-                            Text(
-                              l10n.displayNameLabel,
-                              style: GoogleFonts.inter(
-                                color: AppColors.softGold,
+                                color: AppColors.danger,
                                 fontSize: 13,
-                                fontWeight: FontWeight.w500,
                               ),
-                            ),
-                            const SizedBox(height: AppSpacing.xs),
-                            TextField(
-                              key: const Key('qmatch-display-name-field'),
-                              controller: _controller,
-                              focusNode: _focus,
-                              enabled: !_saving,
-                              textInputAction: TextInputAction.done,
-                              autofillHints: const [],
-                              enableSuggestions: false,
-                              autocorrect: false,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.deny(
-                                  RegExp(r'[\r\n\t]'),
-                                ),
-                              ],
-                              style: GoogleFonts.inter(
-                                color: AppColors.textPrimary,
-                                fontSize: 18,
-                              ),
-                              decoration: InputDecoration(
-                                hintText: l10n.displayNameHint,
-                                hintStyle: GoogleFonts.inter(
-                                  color: AppColors.textMuted,
-                                ),
-                                filled: true,
-                                fillColor: AppColors.surfaceElevated,
-                                counterText: '',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide: BorderSide(
-                                    color: AppColors.borderSubtle,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.softGold,
-                                    width: 1.4,
-                                  ),
-                                ),
-                              ),
-                              onSubmitted: (_) => _continue(),
-                            ),
-                            const SizedBox(height: AppSpacing.xs),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    l10n.displayNamePublicExplanation,
-                                    style: GoogleFonts.inter(
-                                      color: AppColors.textMuted,
-                                      fontSize: 12,
-                                      height: 1.35,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  key: const Key('qmatch-display-name-count'),
-                                  '$count / $max',
-                                  style: GoogleFonts.inter(
-                                    color: count > max
-                                        ? AppColors.danger
-                                        : AppColors.textMuted,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            if (_error != null) ...[
-                              const SizedBox(height: AppSpacing.sm),
-                              Text(
-                                key: const Key('qmatch-display-name-error'),
-                                _messageFor(_error!, l10n),
-                                style: GoogleFonts.inter(
-                                  color: AppColors.danger,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                            if (_saveError != null) ...[
-                              const SizedBox(height: AppSpacing.sm),
-                              Text(
-                                _saveError!,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.danger,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                            const Spacer(flex: 3),
-                            QCosmicButton(
-                              key: const Key('qmatch-display-name-continue'),
-                              label: _saving
-                                  ? l10n.displayNameSaving
-                                  : l10n.displayNameContinue,
-                              onPressed: _saving ? null : _continue,
-                              variant: QCosmicButtonVariant.primary,
                             ),
                           ],
-                        ),
+                          if (_saveError != null) ...[
+                            const SizedBox(height: AppSpacing.sm),
+                            Text(
+                              _saveError!,
+                              style: GoogleFonts.inter(
+                                color: AppColors.danger,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                          const Spacer(flex: 3),
+                          FrequencyContinueButton(
+                            key: const Key('qmatch-display-name-continue'),
+                            label: _saving
+                                ? l10n.displayNameSaving
+                                : l10n.assessmentContinue,
+                            onPressed: _saving ? () {} : _continue,
+                            active: !_saving,
+                            saving: _saving,
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-              ),
-      ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }

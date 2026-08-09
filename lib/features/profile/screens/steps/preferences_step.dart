@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_radii.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../utils/profile_option_labels.dart';
+import '../../widgets/profile_setup_chrome.dart';
+import '../../widgets/profile_setup_select_field.dart';
 
 class PreferencesStep extends StatelessWidget {
   final String? lookingFor;
@@ -26,140 +30,121 @@ class PreferencesStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(4, 8, 4, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             l10n.profilePreferencesTitle,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.primary,
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-            ),
+            style: ProfileSetupChrome.stepTitleStyle(),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             l10n.profilePreferencesSubtitle,
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 16,
-            ),
+            style: ProfileSetupChrome.stepSubtitleStyle(),
           ),
-          const SizedBox(height: 32),
-          _buildLabel(l10n.profileFieldLookingForLabel),
-          DropdownButtonFormField<String>(
-            initialValue: lookingFor,
-            decoration: _buildInputDecoration(l10n.profileLookingForHint),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
-              DropdownMenuItem(
-                value: 'Ciddi İlişki',
-                child: Text(
-                  '💍 ${ProfileOptionLabels.label(l10n, 'Ciddi İlişki')}',
+          const SizedBox(height: AppSpacing.xl),
+          ProfileSetupChrome.label(l10n.profileFieldLookingForLabel),
+          ProfileSetupSelectField<String>(
+            value: lookingFor,
+            hint: l10n.profileLookingForHint,
+            options: [
+              for (final entry in const [
+                ('Ciddi İlişki', '💍'),
+                ('Uzun Vadeli İlişki', '❤️'),
+                ('Evlilik', '💒'),
+                ('Arkadaşlık', '🤝'),
+                ('Yakın Arkadaşlık', '👫'),
+                ('Tanışma', '☕'),
+                ('Henüz Emin Değilim', '🤔'),
+                ('Akışına Bırakıyorum', '🌊'),
+              ])
+                ProfileSetupSelectOption(
+                  value: entry.$1,
+                  label:
+                      '${entry.$2} ${ProfileOptionLabels.label(l10n, entry.$1)}',
                 ),
-              ),
-              DropdownMenuItem(
-                value: 'Uzun Vadeli İlişki',
-                child: Text(
-                  '❤️ ${ProfileOptionLabels.label(l10n, 'Uzun Vadeli İlişki')}',
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Evlilik',
-                child: Text(
-                  '💒 ${ProfileOptionLabels.label(l10n, 'Evlilik')}',
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Arkadaşlık',
-                child: Text(
-                  '🤝 ${ProfileOptionLabels.label(l10n, 'Arkadaşlık')}',
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Yakın Arkadaşlık',
-                child: Text(
-                  '👫 ${ProfileOptionLabels.label(l10n, 'Yakın Arkadaşlık')}',
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Tanışma',
-                child: Text(
-                  '☕ ${ProfileOptionLabels.label(l10n, 'Tanışma')}',
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Henüz Emin Değilim',
-                child: Text(
-                  '🤔 ${ProfileOptionLabels.label(l10n, 'Henüz Emin Değilim')}',
-                ),
-              ),
-              DropdownMenuItem(
-                value: 'Akışına Bırakıyorum',
-                child: Text(
-                  '🌊 ${ProfileOptionLabels.label(l10n, 'Akışına Bırakıyorum')}',
-                ),
-              ),
             ],
-            onChanged: onLookingForChanged,
+            onChanged: (v) => onLookingForChanged(v),
           ),
-          const SizedBox(height: 32),
-          _buildLabel(
+          const SizedBox(height: AppSpacing.xl),
+          ProfileSetupChrome.label(
             l10n.profileAgeRangeLabel(ageRange[0], ageRange[1]),
           ),
-          RangeSlider(
-            values: RangeValues(
-              ageRange[0].toDouble(),
-              ageRange[1].toDouble(),
-            ),
-            min: 18,
-            max: 80,
-            divisions: 62,
-            activeColor: AppColors.primary,
-            inactiveColor: Colors.grey.shade800,
-            labels: RangeLabels(
-              ageRange[0].toString(),
-              ageRange[1].toString(),
-            ),
-            onChanged: (RangeValues values) {
-              onAgeRangeChanged([
-                values.start.round(),
-                values.end.round(),
-              ]);
-            },
-          ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileMaxDistanceLabel(distancePreference)),
-          Slider(
-            value: distancePreference.toDouble(),
-            min: 5,
-            max: 100,
-            divisions: 19,
-            activeColor: AppColors.primary,
-            inactiveColor: Colors.grey.shade800,
-            label: '$distancePreference km',
-            onChanged: (double value) {
-              onDistanceChanged(value.round());
-            },
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppColors.primary.withValues(alpha: 0.3),
-                width: 1,
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              activeTrackColor: const Color(0xFF9B7CFF),
+              inactiveTrackColor: Colors.white.withValues(alpha: 0.18),
+              thumbColor: const Color(0xFFDAC8ED),
+              overlayColor: const Color(0x339B7CFF),
+              valueIndicatorColor: const Color(0xFF5B4B8A),
+              valueIndicatorTextStyle: GoogleFonts.inter(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w600,
               ),
+              rangeThumbShape:
+                  const RoundRangeSliderThumbShape(enabledThumbRadius: 10),
+            ),
+            child: RangeSlider(
+              values: RangeValues(
+                ageRange[0].toDouble(),
+                ageRange[1].toDouble(),
+              ),
+              min: 18,
+              max: 80,
+              divisions: 62,
+              labels: RangeLabels(
+                ageRange[0].toString(),
+                ageRange[1].toString(),
+              ),
+              onChanged: (RangeValues values) {
+                onAgeRangeChanged([
+                  values.start.round(),
+                  values.end.round(),
+                ]);
+              },
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(
+            l10n.profileMaxDistanceLabel(distancePreference),
+          ),
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              activeTrackColor: const Color(0xFF9B7CFF),
+              inactiveTrackColor: Colors.white.withValues(alpha: 0.18),
+              thumbColor: const Color(0xFFDAC8ED),
+              overlayColor: const Color(0x339B7CFF),
+              valueIndicatorColor: const Color(0xFF5B4B8A),
+              valueIndicatorTextStyle: GoogleFonts.inter(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            child: Slider(
+              value: distancePreference.toDouble(),
+              min: 5,
+              max: 100,
+              divisions: 19,
+              label: '$distancePreference km',
+              onChanged: (double value) {
+                onDistanceChanged(value.round());
+              },
+            ),
+          ),
+          const SizedBox(height: AppSpacing.md),
+          Container(
+            padding: const EdgeInsets.all(AppSpacing.md),
+            decoration: BoxDecoration(
+              color: ProfileSetupChrome.fieldFill,
+              borderRadius: AppRadii.buttonBorder,
+              border: Border.all(color: ProfileSetupChrome.borderIdle),
             ),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.info_outline,
-                  color: AppColors.primary,
+                  color: ProfileSetupChrome.accentIcon,
                   size: 20,
                 ),
                 const SizedBox(width: 12),
@@ -169,6 +154,7 @@ class PreferencesStep extends StatelessWidget {
                     style: GoogleFonts.inter(
                       color: AppColors.textSecondary,
                       fontSize: 13,
+                      height: 1.35,
                     ),
                   ),
                 ),
@@ -177,34 +163,6 @@ class PreferencesStep extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLabel(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: GoogleFonts.inter(
-          color: AppColors.primary,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
-  InputDecoration _buildInputDecoration(String hint) {
-    return InputDecoration(
-      hintText: hint,
-      hintStyle: GoogleFonts.inter(color: Colors.grey.shade600),
-      filled: true,
-      fillColor: Colors.grey.shade900,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
     );
   }
 }

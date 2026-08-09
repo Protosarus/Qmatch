@@ -193,7 +193,8 @@ class _NameSelectionScreenState extends State<NameSelectionScreen> {
                           height: 24,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.black),
                           ),
                         )
                       : Text(

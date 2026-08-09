@@ -3,13 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../core/widgets/success_dialog.dart';
 import '../../../core/widgets/elegant_warning.dart';
 import '../../../core/navigation/auth_wrapper.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../assessment/widgets/frequency_question_chrome.dart';
+import '../../assessment/widgets/q_assessment_scaffold.dart';
 import '../models/user_profile_model.dart';
 import '../services/display_name_service.dart';
 import '../services/profile_service.dart';
+import '../widgets/profile_setup_chrome.dart';
 import 'steps/basic_info_step.dart';
 import 'steps/bio_step.dart';
 import 'steps/interests_step.dart';
@@ -171,50 +175,48 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: _currentStep > 0
-            ? IconButton(
-                icon: const Icon(Icons.arrow_back, color: AppColors.primary),
-                onPressed: _previousStep,
-              )
-            : null,
-        title: Text(
-          l10n.profileSetupTitle,
-          style: GoogleFonts.playfairDisplay(
-            color: AppColors.primary,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
+    return QAssessmentScaffold(
+      richBackdrop: true,
+      backgroundImageAsset: ProfileSetupChrome.cosmicBackgroundAsset,
+      child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          SizedBox(
+            height: 48,
             child: Row(
-              children: List.generate(_totalSteps, (index) {
-                return Expanded(
-                  child: Container(
-                    height: 4,
-                    margin: EdgeInsets.only(
-                      right: index < _totalSteps - 1 ? 8 : 0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: index <= _currentStep
-                          ? AppColors.primary
-                          : Colors.grey.shade800,
-                      borderRadius: BorderRadius.circular(2),
+              children: [
+                if (_currentStep > 0)
+                  QMatchGlassIconButton(
+                    icon: Icons.arrow_back_ios_new_rounded,
+                    onPressed: _previousStep,
+                    size: 40,
+                    iconSize: 18,
+                    circular: true,
+                    semanticLabel:
+                        MaterialLocalizations.of(context).backButtonTooltip,
+                  )
+                else
+                  const SizedBox(width: 40),
+                Expanded(
+                  child: Text(
+                    l10n.profileSetupTitle,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.playfairDisplay(
+                      color: AppColors.textPrimary,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                );
-              }),
+                ),
+                const SizedBox(width: 40),
+              ],
             ),
           ),
+          FrequencyProgressHeader(
+            label:
+                '${l10n.profileSetupTitle} · ${_currentStep + 1} / $_totalSteps',
+            progress: (_currentStep + 1) / _totalSteps,
+          ),
+          const SizedBox(height: 8),
           Expanded(
             child: PageView(
               controller: _pageController,
@@ -280,30 +282,15 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                onPressed: _nextStep,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: Text(
-                  _currentStep < _totalSteps - 1
-                      ? l10n.profileSetupContinue
-                      : l10n.profileSetupComplete,
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ),
+            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+            child: FrequencyContinueButton(
+              key: const Key('qmatch-profile-setup-continue'),
+              // Same widget + resting glass look as Frequency question CTA.
+              label: _currentStep < _totalSteps - 1
+                  ? l10n.assessmentContinue
+                  : l10n.profileSetupComplete,
+              onPressed: _nextStep,
+              active: false,
             ),
           ),
         ],

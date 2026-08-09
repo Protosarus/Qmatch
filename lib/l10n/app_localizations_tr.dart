@@ -1673,6 +1673,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get debugFrequencyPreview => 'Frequency Soru Önizleme';
 
   @override
+  String get debugProfileSetupPreview => 'Profil Oluşturma Önizleme';
+
+  @override
   String get debugGoToAuthWrapper => 'Auth Wrapper\'a git';
 
   @override

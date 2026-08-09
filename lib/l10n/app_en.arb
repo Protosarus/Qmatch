@@ -654,6 +654,7 @@
   "debugAssessmentAdmin": "Assessment Admin",
   "debugPersonaPreview": "Persona Result Preview",
   "debugFrequencyPreview": "Frequency Question Preview",
+  "debugProfileSetupPreview": "Profile Setup Preview",
   "debugGoToAuthWrapper": "Go to Auth Wrapper",
   "mainAppWelcome": "Welcome to QMatch!",
   "mainAppComingSoon": "Main app coming soon…",

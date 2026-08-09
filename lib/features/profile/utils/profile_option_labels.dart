@@ -217,7 +217,8 @@ class ProfileOptionLabels {
     }
   }
 
-  static String interest(AppLocalizations l10n, String stored) => label(l10n, stored);
+  static String interest(AppLocalizations l10n, String stored) =>
+      label(l10n, stored);
 
   /// Context-aware pet option display (same stored keys as children).
   static String petsLabel(AppLocalizations l10n, String stored) {

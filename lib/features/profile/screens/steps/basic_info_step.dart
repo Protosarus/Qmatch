@@ -3,8 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_spacing.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../utils/profile_option_labels.dart';
+import '../../widgets/profile_setup_chrome.dart';
+import '../../widgets/profile_setup_select_field.dart';
 
 class BasicInfoStep extends StatefulWidget {
   final int? age;
@@ -75,7 +78,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.profileLocationSuccess(locationText)),
-              backgroundColor: Colors.green,
+              backgroundColor: AppColors.success,
             ),
           );
         }
@@ -88,7 +91,7 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
             content: Text(
               AppLocalizations.of(context)!.profileLocationError(msg),
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: AppColors.danger,
           ),
         );
       }
@@ -101,79 +104,52 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.fromLTRB(4, 8, 4, 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             l10n.profileBasicInfoTitle,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.primary,
-              fontSize: 28,
-              fontWeight: FontWeight.w600,
-            ),
+            style: ProfileSetupChrome.stepTitleStyle(),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             l10n.profileBasicInfoSubtitle,
-            style: GoogleFonts.inter(
-              color: AppColors.textSecondary,
-              fontSize: 16,
-            ),
+            style: ProfileSetupChrome.stepSubtitleStyle(),
           ),
-          const SizedBox(height: 32),
-          _buildLabel(l10n.profileFieldAgeLabel),
-          DropdownButtonFormField<int>(
-            initialValue: widget.age,
-            decoration: _buildInputDecoration(l10n.profileSelectAge),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: List.generate(63, (index) => index + 18)
-                .map((age) => DropdownMenuItem(
-                      value: age,
-                      child: Text('$age'),
-                    ))
-                .toList(),
-            onChanged: widget.onAgeChanged,
-          ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileFieldGenderLabel),
-          DropdownButtonFormField<String>(
-            initialValue: widget.gender,
-            decoration: _buildInputDecoration(l10n.profileSelectGender),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
-              DropdownMenuItem(
-                value: 'Erkek',
-                child: Text(ProfileOptionLabels.label(l10n, 'Erkek')),
-              ),
-              DropdownMenuItem(
-                value: 'Kadın',
-                child: Text(ProfileOptionLabels.label(l10n, 'Kadın')),
-              ),
-              DropdownMenuItem(
-                value: 'Diğer',
-                child: Text(ProfileOptionLabels.label(l10n, 'Diğer')),
-              ),
+          const SizedBox(height: AppSpacing.xl),
+          ProfileSetupChrome.label(l10n.profileFieldAgeLabel),
+          ProfileSetupSelectField<int>(
+            value: widget.age,
+            hint: l10n.profileSelectAge,
+            options: [
+              for (final age in List.generate(63, (i) => i + 18))
+                ProfileSetupSelectOption(value: age, label: '$age'),
             ],
-            onChanged: widget.onGenderChanged,
+            onChanged: (v) => widget.onAgeChanged(v),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileFieldLocationLabel),
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileFieldGenderLabel),
+          ProfileSetupSelectField<String>(
+            value: widget.gender,
+            hint: l10n.profileSelectGender,
+            options: [
+              for (final v in const ['Erkek', 'Kadın'])
+                ProfileSetupSelectOption(
+                  value: v,
+                  label: ProfileOptionLabels.label(l10n, v),
+                ),
+            ],
+            onChanged: (v) => widget.onGenderChanged(v),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileFieldLocationLabel),
           GestureDetector(
             onTap: _loadingLocation ? null : _getCurrentLocation,
             child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: widget.location != null
-                      ? AppColors.primary.withValues(alpha: 0.5)
-                      : Colors.transparent,
-                  width: 1,
-                ),
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: ProfileSetupChrome.glassFieldDecoration(
+                emphasized: widget.location != null,
               ),
               child: Row(
                 children: [
@@ -182,8 +158,8 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
                         ? Icons.location_on
                         : Icons.location_off,
                     color: widget.location != null
-                        ? AppColors.primary
-                        : Colors.grey.shade600,
+                        ? ProfileSetupChrome.accentIcon
+                        : AppColors.textSecondary,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -193,8 +169,8 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
                           : widget.locationText ?? l10n.profileShareLocation,
                       style: GoogleFonts.inter(
                         color: widget.location != null
-                            ? Colors.white
-                            : Colors.grey.shade600,
+                            ? AppColors.textPrimary
+                            : const Color(0xFFC4C4D4),
                         fontSize: 16,
                       ),
                     ),
@@ -205,30 +181,29 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
                       height: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(AppColors.primary),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          ProfileSetupChrome.accentLabel,
+                        ),
                       ),
                     ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpacing.xs),
           Text(
             l10n.profileLocationHint,
             style: GoogleFonts.inter(
-              color: Colors.grey.shade600,
+              color: AppColors.textSecondary,
               fontSize: 12,
             ),
           ),
-          const SizedBox(height: 24),
-          _buildLabel(l10n.profileFieldEducationLabel),
-          DropdownButtonFormField<String>(
-            initialValue: widget.education,
-            decoration: _buildInputDecoration(l10n.profileSelectEducation),
-            dropdownColor: Colors.grey.shade900,
-            style: GoogleFonts.inter(color: Colors.white),
-            items: [
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileFieldEducationLabel),
+          ProfileSetupSelectField<String>(
+            value: widget.education,
+            hint: l10n.profileSelectEducation,
+            options: [
               for (final v in const [
                 'Lise',
                 'Ön Lisans',
@@ -236,43 +211,15 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
                 'Yüksek Lisans',
                 'Doktora',
               ])
-                DropdownMenuItem(
+                ProfileSetupSelectOption(
                   value: v,
-                  child: Text(ProfileOptionLabels.label(l10n, v)),
+                  label: ProfileOptionLabels.label(l10n, v),
                 ),
             ],
-            onChanged: widget.onEducationChanged,
+            onChanged: (v) => widget.onEducationChanged(v),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLabel(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: GoogleFonts.inter(
-          color: AppColors.primary,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
-  InputDecoration _buildInputDecoration(String hint) {
-    return InputDecoration(
-      hintText: hint,
-      hintStyle: GoogleFonts.inter(color: Colors.grey.shade600),
-      filled: true,
-      fillColor: Colors.grey.shade900,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
     );
   }
 }

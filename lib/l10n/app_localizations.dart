@@ -3152,6 +3152,12 @@ abstract class AppLocalizations {
   /// **'Frequency Question Preview'**
   String get debugFrequencyPreview;
 
+  /// No description provided for @debugProfileSetupPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Setup Preview'**
+  String get debugProfileSetupPreview;
+
   /// No description provided for @debugGoToAuthWrapper.
   ///
   /// In en, this message translates to:

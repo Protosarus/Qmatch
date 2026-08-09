@@ -456,9 +456,9 @@ class FrequencyContinueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tint = active ? 1.0 : 0.5;
+    final tint = active ? 1.0 : 0.72;
     return Opacity(
-      opacity: active ? 1 : 0.7,
+      opacity: active ? 1 : 0.92,
       child: Container(
         height: 54,
         decoration: BoxDecoration(
