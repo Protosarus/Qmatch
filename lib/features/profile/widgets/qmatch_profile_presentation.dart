@@ -91,6 +91,7 @@ class QMatchProfileIdentityCard extends StatelessWidget {
 
     return QGlassCard(
       key: const Key('qmatch-profile-identity-card'),
+      starVisibleGlass: true,
       padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         children: [
@@ -201,8 +202,20 @@ class _ProfilePhotoPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: AppColors.surfaceElevated,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: QMatchGlassIconButton.coolBorder),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.resonanceViolet.withValues(alpha: 0.28),
+            AppColors.deepIndigo.withValues(alpha: 0.85),
+            const Color(0xFF0A0F1C).withValues(alpha: 0.9),
+          ],
+        ),
+      ),
       child: Center(
         child: showSpinner
             ? const SizedBox(
@@ -210,7 +223,7 @@ class _ProfilePhotoPlaceholder extends StatelessWidget {
                 height: 28,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  color: AppColors.softGold,
+                  color: QMatchGlassIconButton.iconDefault,
                 ),
               )
             : Column(
@@ -219,7 +232,7 @@ class _ProfilePhotoPlaceholder extends StatelessWidget {
                   const Icon(
                     Icons.person_outline,
                     size: 40,
-                    color: AppColors.textMuted,
+                    color: QMatchGlassIconButton.iconDefault,
                   ),
                   if (label != null && label!.isNotEmpty) ...[
                     const SizedBox(height: AppSpacing.xxs),
@@ -231,7 +244,7 @@ class _ProfilePhotoPlaceholder extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.inter(
-                          color: AppColors.textMuted,
+                          color: AppColors.textSecondary,
                           fontSize: 11,
                         ),
                       ),
@@ -400,6 +413,7 @@ class QMatchProfileSectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QGlassCard(
+      starVisibleGlass: true,
       padding: const EdgeInsets.all(AppSpacing.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -537,7 +551,7 @@ class _QMatchProfileLoadingViewState extends State<QMatchProfileLoadingView>
                   ),
                   children: [
                     QGlassCard(
-                      emphasized: true,
+                      starVisibleGlass: true,
                       child: Column(
                         children: [
                           Container(
@@ -557,6 +571,7 @@ class _QMatchProfileLoadingViewState extends State<QMatchProfileLoadingView>
                     ),
                     const SizedBox(height: AppSpacing.md),
                     QGlassCard(
+                      starVisibleGlass: true,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -636,6 +651,7 @@ class QMatchProfileErrorView extends StatelessWidget {
             padding: const EdgeInsets.all(AppSpacing.lg),
             child: Center(
               child: QGlassCard(
+                starVisibleGlass: true,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

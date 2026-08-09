@@ -161,6 +161,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         seed: 7,
         starCount: 18,
         animate: widget.animateBackground,
+        showAccentHalos: false,
+        starfieldOpacity: 0.38,
         child: SafeArea(
           bottom: false,
           child: body,

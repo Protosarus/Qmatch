@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,8 +11,8 @@ import '../../../core/widgets/qmatch_glass_icon_button.dart';
 
 /// Modern empty state when the Discover feed has no further candidates.
 ///
-/// Uses a lighter local glass fill (Discover empty only) so the cosmic
-/// background reads through the large panel without changing other screens.
+/// Light glass — stars must stay readable through the panel. Heavy blur is
+/// avoided because it flattens the cosmic field into an opaque slab.
 class QMatchDiscoverEmptyState extends StatelessWidget {
   const QMatchDiscoverEmptyState({
     super.key,
@@ -31,17 +33,20 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
       key: const Key('qmatch-discover-empty'),
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.xl),
-        child: Container(
-          decoration: BoxDecoration(
-            // Discover empty only — lighter than shared glassSurface so the
-            // cosmic bg reads through the large panel (Profile cards unchanged).
-            color: const Color(0x14141A2E),
-            borderRadius: AppRadii.cardBorder,
-            border: Border.all(color: AppColors.borderSubtle, width: 1),
-          ),
-          child: ClipRRect(
-            borderRadius: AppRadii.cardBorder,
-            child: Padding(
+        child: ClipRRect(
+          borderRadius: AppRadii.cardBorder,
+          child: BackdropFilter(
+            // Soft frost only — keep star points visible through the glass.
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: AppRadii.cardBorder,
+                color: const Color(0xFF141A2E).withValues(alpha: 0.22),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.22),
+                  width: 0.8,
+                ),
+              ),
               padding: const EdgeInsets.all(AppSpacing.cardPaddingComfortable),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -51,7 +56,7 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
                     height: 64,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.resonanceViolet.withValues(alpha: 0.22),
+                      color: AppColors.resonanceViolet.withValues(alpha: 0.16),
                       border: Border.all(
                         color: QMatchGlassIconButton.coolBorder,
                       ),
