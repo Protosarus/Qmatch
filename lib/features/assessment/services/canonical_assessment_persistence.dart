@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
+import '../domain/eq_bank/eq_bank_contract.dart';
+import '../domain/eq_scoring/eq_scoring.dart';
+import '../domain/eq_session/eq_session_contract.dart';
 import '../domain/iq_scoring/iq_scoring_models.dart';
 import '../domain/profile/profile.dart';
 import 'assessment_set_service.dart';
@@ -60,11 +63,14 @@ class CanonicalAssessmentVersions {
   static const traitScoringVersionLegacyTotal = 'trait_unscored_legacy_total';
   static const traitScoringVersionIq4dUncalibrated =
       'iq_4d_uncalibrated_accuracy_v1';
+  static const traitScoringVersionEq10dUncalibrated =
+      'eq_10d_uncalibrated_signed_evidence_v1';
   static const traitScoringVersionFrequencyPartial =
       'trait_frequency_legacy_partial_v1';
   static const normalizationVersion = 'norm_v0_missing_explicit';
   static const rviVersion = 'rvi_v0_unscored';
   static const iqLiveResultSchemaVersion = 'qmatch_iq_live_result_v1';
+  static const eqLiveResultSchemaVersion = 'qmatch_eq_10d_live_result_v1';
   static const canonicalProfileSchemaVersion =
       QmatchProfileContract.schemaVersion;
 }
@@ -398,6 +404,83 @@ class CanonicalAssessmentPersistence {
         'quality_band': 'unknown',
       },
       'structural_flags': result.structuralFlags.toJson(),
+    });
+  }
+
+  /// Versioned canonical 10D EQ live result (P2C-2A-7R2).
+  ///
+  /// Uncalibrated signed-evidence profile — no scalar EQ / percentiles /
+  /// answer keys / fabricated reliability.
+  Map<String, dynamic> buildCanonicalEq10dPayload({
+    required EqCanonicalScoringResult result,
+    required String sessionId,
+    required String locale,
+    required String languageUsed,
+    DateTime? startedAt,
+  }) {
+    final dimensionScores = <String, dynamic>{};
+    final evidenceCounts = <String, dynamic>{};
+    final rawSigned = <String, dynamic>{};
+    for (final d in result.dimensionScores) {
+      dimensionScores[d.dimensionId] = d.normalizedScore;
+      evidenceCounts[d.dimensionId] = d.evidenceCount;
+      rawSigned[d.dimensionId] = d.rawSignedEvidence;
+    }
+    return omitNulls({
+      'assessment_version': CanonicalAssessmentVersions.assessmentVersion,
+      'live_result_schema_version':
+          CanonicalAssessmentVersions.eqLiveResultSchemaVersion,
+      'question_schema_version': EqBankContract.schemaVersion,
+      'content_version': result.bankVersion,
+      'bank_version': result.bankVersion,
+      'bank_locale': result.bankLocale,
+      'selection_policy_version': EqSessionContract.selectionPolicyVersion,
+      'scoring_policy_version': result.scoringPolicyVersion,
+      'trait_scoring_version':
+          CanonicalAssessmentVersions.traitScoringVersionEq10dUncalibrated,
+      'normalization_version': CanonicalAssessmentVersions.normalizationVersion,
+      'locale': locale,
+      'language_used': languageUsed,
+      'session_id': sessionId,
+      'question_count': 30,
+      'answered_count': result.totalAnswered,
+      'status': 'completed',
+      if (startedAt != null) 'started_at': Timestamp.fromDate(startedAt),
+      'completed_at': FieldValue.serverTimestamp(),
+      'source': 'client_canonical_eq_v1',
+      'calibration_status': result.calibrationStatus.wireValue,
+      'reliability_status': result.reliabilityStatus.wireValue,
+      'dimension_scores': dimensionScores,
+      'dimension_raw_signed_evidence': rawSigned,
+      'dimension_evidence_counts': evidenceCounts,
+      'dimension_reliability': <String, dynamic>{},
+      'missing_dimensions': <String>[],
+      'canonical_profile_ready': false,
+      'eq_result_kind':
+          'uncalibrated_emotional_relational_behavioral_profile_v1',
+      'canonical_dimensions': [
+        for (final d in result.dimensionScores)
+          {
+            'dimension_id': d.dimensionId,
+            'evidence_status': d.evidenceStatus.wireValue,
+            'evidence_count': d.evidenceCount,
+            'raw_signed_evidence': d.rawSignedEvidence,
+            'normalized_score': d.normalizedScore,
+            'calibration_status': d.calibrationStatus.wireValue,
+            'reliability_status': d.reliabilityStatus.wireValue,
+          },
+      ],
+      'response_validity': {
+        'rvi_version': CanonicalAssessmentVersions.rviVersion,
+        'rvi_runtime_gate': result.rviRuntimeGate,
+        'completion_ratio': 1.0,
+        'quality_band': 'unknown',
+      },
+      'structural_flags': result.structuralFlags.toJson(),
+      // Explicit absences:
+      'overall_eq_score': null,
+      'percentile': null,
+      'correct_count': null,
     });
   }
 }

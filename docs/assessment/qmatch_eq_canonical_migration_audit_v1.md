@@ -4,40 +4,42 @@
 **Date:** 2026-08-09
 **Tip at audit:** `35b81c05fca108b12f95266b99b0da541694f969`
 
-**Decision (updated after P2C-2A-7R1):**
+**Decision (updated after P2C-2A-7R2):**
 
 ```text
-P2C-2A-7 = BLOCKED_PENDING_RUNTIME_INTEGRATION
+P2C-2A-7 = COMPLETE
 P2C-2A-7R1 = COMPLETE
+P2C-2A-7R2 = COMPLETE
 ```
 
-R1 delivered offline math + TR/EN runtime-candidate banks + `CanonicalEqScorer`.
-Live keyed EQ path is still not migrated.
+Live path now uses `EqCanonicalRuntimeService` + TR/EN banks + `CanonicalEqScorer`
++ `EqTo20dRuntimeAdapter`. Legacy keyed path is retired from active new sessions.
 
-Historical audit blocker codes (still true for **live** path):
+Historical blocker codes below document the pre-R2 state.
 
-```text
-BLOCKED_LEGACY_EQ_CANNOT_MAP_TO_CANONICAL_10D
-BLOCKED_CANONICAL_EQ_EN_BANK_ABSENT   # superseded for candidates; EN candidate now exists (review_required)
-BLOCKED_CANONICAL_EQ_PILOT_NOT_RUNTIME_APPROVED  # candidates remain uncalibrated / not live
-```
-
-No scientifically unsupported mapping was invented in this phase.
 
 ---
 
-## 1. Current live EQ path
+## 1. Live EQ path (post R2)
 
 ```
-AuthWrapper (destination == eq)
-  and/or IQ completion → IqToEqTransition → EQTestIntroScreen(iqScore: 0)
-    → EQTestScreen
-      → QuestionService.loadEQAssessment
-        → AssessmentSetService.getOrAssignSet(type: 'eq')
-      → keyed MCQ (selected index == correctAnswer)
-      → CanonicalAssessmentPersistence.upsertCompletedAssessment(eq)
-      → AssessmentProgressService.markEqCompleted(eqScore, eq_normalized)
-      → FrequencyIntroScreen
+AuthWrapper / IQ handoff → EQTestIntroScreen → EQTestScreen
+  → EqCanonicalRuntimeService (TR/EN bank, 30-item session)
+  → selectedOptionId answers (no correctAnswer)
+  → CanonicalEqScorer
+  → assessments/eq (qmatch_eq_10d_live_result_v1)
+  → EqTo20dRuntimeAdapter → profiles/canonical_v1 (14/20)
+  → FrequencyIntroScreen
+```
+
+### Pre-R2 legacy path (retired from new sessions)
+
+```
+EQTestScreen
+  → QuestionService.loadEQAssessment
+  → keyed MCQ (selected index == correctAnswer)
+  → buildLegacyIqEqPayload
+  → FrequencyIntroScreen
 ```
 
 Files:

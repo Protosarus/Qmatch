@@ -16,7 +16,7 @@ class EqBankContract {
 
   /// Not registered in pubspec until live EQ migration (R2+).
   /// Offline tests load these via filesystem paths.
-  static const bool registeredInPubspec = false;
+  static const bool registeredInPubspec = true;
 
   static const int sessionItemCount = 30;
   static const int primaryItemsPerDimension = 3;

@@ -457,7 +457,7 @@ void main(List<String> args) {
 
   final pubspec = File('$root/pubspec.yaml').readAsStringSync();
   if (pubspec.contains('eq_pilot_tr_v1') ||
-      pubspec.contains('assessment_v3/eq')) {
+      pubspec.contains('eq_pilot_tr_v1_review_candidate')) {
     err('pubspec_integration', 'pilot must not be listed in pubspec.yaml');
   }
 

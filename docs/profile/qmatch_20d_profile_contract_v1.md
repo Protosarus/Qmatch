@@ -33,11 +33,17 @@ Forbidden fillers for missing dims: `0`, `0.0`, `0.5`, `50`, midpoint, imputed.
 
 ## Profile readiness
 
-| Field | After IQ only |
-|-------|----------------|
-| `profile_status` | `partial` |
-| `canonical_profile_ready` | `false` |
-| `iq_group_status` | `complete` |
+| Field | After IQ only | After IQ+EQ (R2) |
+|-------|----------------|------------------|
+| `profile_status` | `partial` | `partial` |
+| `canonical_profile_ready` | `false` | `false` |
+| `iq_group_status` | `complete` | `complete` |
+| `eq_group_status` | `not_started` | `complete` |
+| `frequency_group_status` | `not_started` | `incomplete` |
+| measured / required | 4 / 20 | 14 / 20 |
+
+Adapters: `iq_to_20d_runtime_adapter_v1`, `eq_to_20d_runtime_adapter_v1`.
+
 | `eq_group_status` | `not_started` |
 | `frequency_group_status` | `not_started` |
 | `measured_dimension_count` | `4` |

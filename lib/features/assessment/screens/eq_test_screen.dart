@@ -8,20 +8,17 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
-import '../models/question_model.dart';
-import '../models/archetype_model.dart';
+import '../domain/eq_bank/eq_bank.dart';
+import '../domain/eq_session/eq_session.dart';
+import '../domain/profile/profile.dart';
 import '../services/assessment_progress_service.dart';
-import '../services/assessment_set_service.dart';
 import '../services/canonical_assessment_persistence.dart';
-import '../services/iq_recovery.dart';
-import '../services/question_service.dart';
+import '../services/eq_canonical_runtime_service.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/assessment_widgets.dart';
 import 'frequency_intro_screen.dart';
 
-/// EQ MCQ pilot — cosmic presentation shell.
-///
-/// Runtime behavior unchanged: load, select, score, advance, complete, navigate.
+/// Canonical 30-item EQ session — behavioral tendency, not correctness.
 class EQTestScreen extends StatefulWidget {
   final int iqScore;
 
@@ -35,22 +32,18 @@ class EQTestScreen extends StatefulWidget {
 }
 
 class _EQTestScreenState extends State<EQTestScreen> {
-  final _questionService = QuestionService();
+  final _runtime = EqCanonicalRuntimeService();
   final _persistence = CanonicalAssessmentPersistence();
   final _progress = AssessmentProgressService();
-  List<QuestionModel> _questions = [];
-  String _setId = '';
-  String _contentVersion = 'content_legacy_2026_01';
-  DateTime? _startedAt;
-  int _resolvedIqScore = 0;
-  int? _iqQuestionCount;
-  String? _iqRecoveryStatus;
-  String? _iqRecoveryReason;
-  int _currentQuestionIndex = 0;
-  int? _selectedAnswer;
+
+  EqPersistedSessionState? _session;
+  EqCanonicalBankDocument? _bank;
+  String? _selectedOptionId;
   bool _isLoading = true;
   bool _didStartLoading = false;
-  int _correctAnswers = 0;
+  bool _isFinishing = false;
+  String? _loadError;
+  DateTime? _startedAt;
   bool _showSelectAnswerWarning = false;
   Timer? _selectAnswerWarningTimer;
 
@@ -68,7 +61,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
     super.didChangeDependencies();
     if (_didStartLoading) return;
     _didStartLoading = true;
-    _loadQuestions();
+    _bootstrap();
   }
 
   @override
@@ -81,121 +74,127 @@ class _EQTestScreenState extends State<EQTestScreen> {
   Future<void> _disableScreenshots() async {
     try {
       await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    } catch (e) {
-      // Sessizce devam et
-    }
+    } catch (_) {}
   }
 
   Future<void> _enableScreenshots() async {
     try {
       await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-    } catch (e) {
-      // Sessizce devam et
-    }
+    } catch (_) {}
   }
 
   void _dismissSelectAnswerWarning() {
     _selectAnswerWarningTimer?.cancel();
     _selectAnswerWarningTimer = null;
     if (!_showSelectAnswerWarning || !mounted) return;
-    setState(() {
-      _showSelectAnswerWarning = false;
-    });
+    setState(() => _showSelectAnswerWarning = false);
   }
 
   void _showSelectAnswerWarningBanner() {
-    // One banner only — repeated Continue taps refresh the timer, no stacks.
     _selectAnswerWarningTimer?.cancel();
     if (!_showSelectAnswerWarning) {
-      setState(() {
-        _showSelectAnswerWarning = true;
-      });
+      setState(() => _showSelectAnswerWarning = true);
     }
     _selectAnswerWarningTimer = Timer(const Duration(seconds: 2), () {
       if (!mounted) return;
-      setState(() {
-        _showSelectAnswerWarning = false;
-      });
+      setState(() => _showSelectAnswerWarning = false);
       _selectAnswerWarningTimer = null;
     });
   }
 
-  Future<void> _loadQuestions() async {
+  String _tendencyInstruction(AppLocalizations l10n) {
+    final code = Localizations.localeOf(context).languageCode.toLowerCase();
+    if (code.startsWith('tr')) {
+      return 'Gerçekte yapma eğiliminde olduğunuz yanıta en yakın seçeneği seçin.';
+    }
+    return 'Choose the response closest to what you would actually tend to do.';
+  }
+
+  Future<void> _bootstrap() async {
     try {
       final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
           WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final loaded = await _questionService.loadEQAssessment(
-        languageCode: languageCode,
+      final created = await _runtime.getOrCreateActiveSession(
+        preferredLanguageCode: languageCode,
       );
-
-      // Prefer constructor score; recover from canonical IQ / assignment if needed.
-      final recoveredIq = await _persistence.recoverIqResult();
-      var iqScore = widget.iqScore;
-      if (iqScore <= 0 && recoveredIq.rawScore != null) {
-        iqScore = recoveredIq.rawScore!;
+      if (!created.ok || created.state == null) {
+        if (!mounted) return;
+        setState(() {
+          _loadError =
+              created.message.isNotEmpty ? created.message : created.code;
+          _isLoading = false;
+        });
+        return;
       }
-
-      // Module-specific IQ denominator — never fabricate; null stays unknown.
-      final iqQuestionCount =
-          recoveredIq.hasQuestionCount ? recoveredIq.questionCount : null;
-
+      final session = created.state!;
+      final bank = await _runtime.loadBankForLocale(session.bankLocale);
+      final existing = session.answersByItemId[
+          session.itemPlans[session.currentQuestionIndex].itemId];
       if (!mounted) return;
       setState(() {
-        _questions = loaded.questions;
-        _setId = loaded.set.id;
-        _contentVersion = loaded.set.version.isNotEmpty
-            ? loaded.set.version
-            : 'content_legacy_2026_01';
-        _startedAt = DateTime.now();
-        _resolvedIqScore = iqScore;
-        _iqQuestionCount = iqQuestionCount;
-        _iqRecoveryStatus = recoveredIq.status;
-        _iqRecoveryReason = recoveredIq.reasonCode;
+        _session = session;
+        _bank = bank;
+        _selectedOptionId = existing?.selectedOptionId;
+        _startedAt = DateTime.tryParse(session.startedAt) ?? DateTime.now();
         _isLoading = false;
       });
     } catch (e) {
-      debugPrint('EQ questions load failed: $e');
+      debugPrint('EQ canonical bootstrap failed: $e');
       if (!mounted) return;
       setState(() {
-        _questions = [];
+        _loadError = e.toString();
         _isLoading = false;
       });
     }
   }
 
-  void _nextQuestion() {
-    if (_selectedAnswer == null) {
+  Future<void> _onContinue() async {
+    final session = _session;
+    final bank = _bank;
+    if (session == null || bank == null || _isFinishing) return;
+    if (_selectedOptionId == null) {
       _showSelectAnswerWarningBanner();
       return;
     }
-
     _dismissSelectAnswerWarning();
 
-    if (_selectedAnswer == _questions[_currentQuestionIndex].correctAnswer) {
-      _correctAnswers++;
+    final plan = session.itemPlans[session.currentQuestionIndex];
+    final answered = await _runtime.answer(
+      sessionId: session.sessionId,
+      itemId: plan.itemId,
+      selectedOptionId: _selectedOptionId!,
+    );
+    if (!answered.ok || answered.state == null) {
+      debugPrint('EQ answer failed: ${answered.message}');
+      return;
     }
 
-    if (_currentQuestionIndex < _questions.length - 1) {
+    final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
+    if (!isLast) {
+      final moved = await _runtime.moveToIndex(
+        sessionId: session.sessionId,
+        index: session.currentQuestionIndex + 1,
+      );
+      if (!moved.ok || moved.state == null || !mounted) return;
+      final next = moved.state!;
+      final existing = next
+          .answersByItemId[next.itemPlans[next.currentQuestionIndex].itemId];
       setState(() {
-        _currentQuestionIndex++;
-        _selectedAnswer = null;
+        _session = next;
+        _selectedOptionId = existing?.selectedOptionId;
       });
-    } else {
-      _showResults();
+      return;
     }
+
+    await _completeAndNavigate(answered.state!);
   }
 
-  void _showResults() async {
-    // P1B-2A: EQ completion persists results and continues to Frequency.
-    // Do not run ArchetypeCalculator / write archetype / show persona reward.
-    final eqNormalized = ArchetypeCalculator.normalizeScore(
-      _correctAnswers,
-      _questions.length,
-    );
-
+  Future<void> _completeAndNavigate(EqPersistedSessionState answered) async {
+    setState(() => _isFinishing = true);
     try {
-      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
-          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final languageCode =
+          Localizations.maybeLocaleOf(context)?.languageCode ??
+              WidgetsBinding.instance.platformDispatcher.locale.languageCode;
       final language = AssessmentLanguage.languageUsed(
         languageCode: languageCode,
       );
@@ -203,45 +202,75 @@ class _EQTestScreenState extends State<EQTestScreen> {
         locale: Locale(language),
       );
 
-      await AssessmentSetService().markAssignmentCompleted(
-        type: 'eq',
-        score: _correctAnswers,
-        languageCode: languageCode,
+      final completed = await _runtime.completeSession(
+        sessionId: answered.sessionId,
       );
+      if (!completed.ok || completed.state == null) {
+        throw StateError(completed.message);
+      }
+      final scored = await _runtime.scoreCompleted(completed.state!);
+      if (!scored.ok || scored.result == null) {
+        throw StateError(scored.message ?? 'EQ scoring failed');
+      }
+      final result = scored.result!;
+
       await _persistence.upsertCompletedAssessment(
         assessmentType: 'eq',
-        fields: _persistence.buildLegacyIqEqPayload(
-          assessmentType: 'eq',
-          setId: _setId,
-          contentVersion: _contentVersion,
+        fields: _persistence.buildCanonicalEq10dPayload(
+          result: result,
+          sessionId: completed.state!.sessionId,
           locale: locale,
           languageUsed: language,
-          questionCount: _questions.length,
-          answeredCount: _questions.length,
-          rawScore: _correctAnswers,
-          missingDimensions: CanonicalDimensions.eq,
-          assignmentType: 'eq',
-          legacyScoringMode: 'correct_answer_total',
           startedAt: _startedAt,
         ),
       );
-      await _progress.markEqCompleted(
-        eqScore: _correctAnswers,
-        eqNormalized: eqNormalized,
-        iqScore: _resolvedIqScore > 0 ? _resolvedIqScore : null,
-      );
 
-      if (_iqQuestionCount == null || _iqQuestionCount! <= 0) {
-        debugPrint(
-          'IQ recovery ${_iqRecoveryStatus ?? IqRecoveryResult.statusInsufficientMetadata}'
-          ' reason=${_iqRecoveryReason ?? IqRecoveryResult.reasonMissingIqQuestionCount}'
-          ' — EQ saved without persona rewrite',
-        );
+      final uid = _runtime.currentUid;
+      if (uid == null || uid.isEmpty) {
+        throw StateError('Owner UID unavailable');
       }
 
-      debugPrint('✅ EQ completed (flow v2) — navigating to Frequency');
+      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
+      final existingIq = <QmatchProfileDimension>[];
+      if (existingProfile != null) {
+        final rows = existingProfile['measured_dimensions'];
+        if (rows is List) {
+          for (final row in rows) {
+            if (row is! Map) continue;
+            final d = QmatchProfileDimension.fromJson(
+              Map<String, dynamic>.from(row),
+            );
+            if (d.module == 'iq' &&
+                d.measurementState == QmatchMeasurementState.measured) {
+              existingIq.add(d);
+            }
+          }
+        }
+      }
+
+      final adapted = const EqTo20dRuntimeAdapter().adapt(
+        result: result,
+        ownerUid: uid,
+        sessionId: completed.state!.sessionId,
+        existingIqDimensions: existingIq,
+      );
+      if (!adapted.ok || adapted.fragment == null) {
+        throw StateError(adapted.message ?? 'EQ→20D adapt failed');
+      }
+      await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
+
+      await _progress.markEqCompleted();
+
+      debugPrint('✅ Canonical EQ completed — navigating to Frequency');
     } catch (e) {
-      debugPrint('❌ Error saving EQ results: $e');
+      debugPrint('❌ Error saving canonical EQ results: $e');
+      if (mounted) {
+        setState(() => _isFinishing = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('EQ completion failed: $e')),
+        );
+      }
+      return;
     }
 
     if (!mounted) return;
@@ -254,7 +283,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    if (_isLoading) {
+    if (_isLoading || _isFinishing) {
       return const QAssessmentScaffold(
         richBackdrop: true,
         backgroundImageAsset: 'assets/images/eq_question_cosmic_bg.png',
@@ -266,7 +295,9 @@ class _EQTestScreenState extends State<EQTestScreen> {
       );
     }
 
-    if (_questions.isEmpty) {
+    final session = _session;
+    final bank = _bank;
+    if (session == null || bank == null || _loadError != null) {
       return QAssessmentScaffold(
         richBackdrop: true,
         backgroundImageAsset: 'assets/images/eq_question_cosmic_bg.png',
@@ -274,7 +305,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              l10n.assessmentNoQuestionsAvailable,
+              _loadError ?? l10n.assessmentNoQuestionsAvailable,
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(color: Colors.white),
             ),
@@ -283,9 +314,12 @@ class _EQTestScreenState extends State<EQTestScreen> {
       );
     }
 
-    final currentQuestion = _questions[_currentQuestionIndex];
-    final progress = (_currentQuestionIndex + 1) / _questions.length;
-    final isLast = _currentQuestionIndex >= _questions.length - 1;
+    final plan = session.itemPlans[session.currentQuestionIndex];
+    final prompt = _runtime.promptFor(bank: bank, itemId: plan.itemId) ?? '';
+    final options = _runtime.displayedOptions(bank: bank, plan: plan);
+    final progress =
+        (session.currentQuestionIndex + 1) / session.itemPlans.length;
+    final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
 
     return QAssessmentScaffold(
       richBackdrop: true,
@@ -294,7 +328,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
         builder: (context, constraints) {
           final h = constraints.maxHeight;
           final compact = h < 760;
-          final heroH = (h * (compact ? 0.205 : 0.228)).clamp(126.0, 192.0);
+          final heroH = (h * (compact ? 0.175 : 0.198)).clamp(110.0, 170.0);
 
           return Stack(
             fit: StackFit.expand,
@@ -332,10 +366,22 @@ class _EQTestScreenState extends State<EQTestScreen> {
                   const SizedBox(height: 2),
                   EqQuestionProgressHeader(
                     label: l10n.eqQuestionProgress(
-                      _currentQuestionIndex + 1,
-                      _questions.length,
+                      session.currentQuestionIndex + 1,
+                      session.itemPlans.length,
                     ),
                     progress: progress,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      _tendencyInstruction(l10n),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: Colors.white.withValues(alpha: 0.78),
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: heroH,
@@ -344,10 +390,10 @@ class _EQTestScreenState extends State<EQTestScreen> {
                   ),
                   EqInsightQuestionCard(
                     insightLabel: EqInsightQuestionCard.categoryLabelFor(
-                      currentQuestion.id,
+                      plan.itemId,
                       l10n,
                     ),
-                    text: currentQuestion.question,
+                    text: prompt,
                     compact: compact,
                   ),
                   SizedBox(height: compact ? 6.0 : 8.0),
@@ -355,20 +401,19 @@ class _EQTestScreenState extends State<EQTestScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        for (var index = 0;
-                            index < currentQuestion.options.length;
-                            index++)
+                        for (var index = 0; index < options.length; index++)
                           EqAnswerOptionRow(
                             index: index,
                             label: EqAnswerOptionRow.displayLabel(
-                              currentQuestion.options[index],
+                              options[index].text,
                             ),
-                            selected: _selectedAnswer == index,
+                            selected:
+                                _selectedOptionId == options[index].optionId,
                             compact: true,
                             onTap: () {
                               _dismissSelectAnswerWarning();
                               setState(() {
-                                _selectedAnswer = index;
+                                _selectedOptionId = options[index].optionId;
                               });
                             },
                           ),
@@ -380,12 +425,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
                     label: isLast
                         ? l10n.assessmentFinish
                         : l10n.assessmentContinue,
-                    active: _selectedAnswer != null,
-                    onPressed: _nextQuestion,
+                    active: _selectedOptionId != null,
+                    onPressed: _onContinue,
                   ),
                 ],
               ),
-              // Floating validation — overlays only; does not shift Column layout.
               if (_showSelectAnswerWarning)
                 Positioned(
                   left: 0,
@@ -405,7 +449,6 @@ class _EQTestScreenState extends State<EQTestScreen> {
   }
 }
 
-/// Compact secondary validation chip — same chrome as IQ.
 class _EqSelectAnswerWarningBanner extends StatelessWidget {
   const _EqSelectAnswerWarningBanner({required this.message});
 
@@ -418,54 +461,23 @@ class _EqSelectAnswerWarningBanner extends StatelessWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Container(
-          height: 52,
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          margin: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             borderRadius: AppRadii.pillBorder,
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                AppColors.resonanceViolet.withValues(alpha: 0.55),
-                const Color(0xCC1A2240),
-                AppColors.softGold.withValues(alpha: 0.28),
-              ],
-              stops: const [0.0, 0.55, 1.0],
-            ),
+            color: const Color(0xCC1A1028),
             border: Border.all(
-              color: AppColors.resonanceViolet.withValues(alpha: 0.72),
-              width: 1.1,
+              color: AppColors.vizEq.withValues(alpha: 0.45),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.resonanceViolet.withValues(alpha: 0.32),
-                blurRadius: 14,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.info_outline_rounded,
-                size: 15,
-                color: AppColors.softGold.withValues(alpha: 0.98),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  message,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.inter(
-                    color: Colors.white.withValues(alpha: 0.98),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    height: 1.2,
-                  ),
-                ),
-              ),
-            ],
+          child: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.inter(
+              color: Colors.white,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),

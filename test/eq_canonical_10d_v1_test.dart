@@ -95,11 +95,11 @@ void main() {
         }
       }
     });
-    test('runtime candidates not registered in pubspec (R1 offline)', () {
+    test('runtime candidates registered in pubspec (R2 live)', () {
       final pub = File('pubspec.yaml').readAsStringSync();
-      expect(pub.contains('eq_bank_tr_v1'), isFalse);
-      expect(pub.contains('eq_bank_en_v1'), isFalse);
-      expect(EqBankContract.registeredInPubspec, isFalse);
+      expect(pub.contains('eq_bank_tr_v1.json'), isTrue);
+      expect(pub.contains('eq_bank_en_v1.json'), isTrue);
+      expect(EqBankContract.registeredInPubspec, isTrue);
     });
   });
 

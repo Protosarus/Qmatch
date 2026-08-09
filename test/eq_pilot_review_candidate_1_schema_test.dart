@@ -72,6 +72,6 @@ void main() {
   test('not in pubspec', () {
     final pub = File('pubspec.yaml').readAsStringSync();
     expect(pub.contains('review_candidate_1'), isFalse);
-    expect(pub.contains('assessment_v3/eq'), isFalse);
+    expect(pub.contains('eq_pilot_tr_v1_review_candidate'), isFalse);
   });
 }

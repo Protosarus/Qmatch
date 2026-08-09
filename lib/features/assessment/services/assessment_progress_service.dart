@@ -383,7 +383,7 @@ class AssessmentProgressService {
 
   /// EQ finished in flow v2: no persona / archetype / test_completed.
   Future<void> markEqCompleted({
-    required int eqScore,
+    int? eqScore,
     int? eqNormalized,
     int? iqScore,
   }) async {
@@ -393,7 +393,7 @@ class AssessmentProgressService {
       {
         'eq_completed': true,
         'assessment_flow_version': AssessmentProgressSnapshot.flowVersionV2,
-        'eq_score': eqScore,
+        if (eqScore != null) 'eq_score': eqScore,
         if (eqNormalized != null) 'eq_normalized': eqNormalized,
         if (iqScore != null) 'iq_score': iqScore,
         // Deliberately omit: test_completed, archetype, category, iq_normalized

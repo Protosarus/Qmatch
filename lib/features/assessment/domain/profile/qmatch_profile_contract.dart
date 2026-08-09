@@ -8,6 +8,7 @@ class QmatchProfileContract {
   static const String schemaVersion = 'qmatch_canonical_profile_v1';
   static const String registryVersion = 'canonical_dimension_registry_v1';
   static const String adapterVersion = 'iq_to_20d_runtime_adapter_v1';
+  static const String eqAdapterVersion = 'eq_to_20d_runtime_adapter_v1';
 
   static const int requiredDimensionCount = 20;
   static const int iqDimensionCount = 4;
@@ -19,8 +20,13 @@ class QmatchProfileContract {
     'iq_4d_uncalibrated_accuracy_v1',
   };
 
+  static const Set<String> acceptedEqScoringPolicies = {
+    'eq_10d_uncalibrated_signed_evidence_v1',
+  };
+
   static const String reliabilityStatusNotCalibrated = 'not_calibrated';
   static const String measurementSourceCanonicalIq = 'canonical_iq';
+  static const String measurementSourceCanonicalEq = 'canonical_eq';
 }
 
 enum QmatchProfileStatus {
