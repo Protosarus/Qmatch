@@ -28,10 +28,7 @@ class BioStep extends StatelessWidget {
             style: ProfileSetupChrome.stepTitleStyle(),
           ),
           const SizedBox(height: AppSpacing.xs),
-          Text(
-            l10n.profileBioSubtitle,
-            style: ProfileSetupChrome.stepSubtitleStyle(),
-          ),
+          ProfileSetupChrome.highlightedSubtitle(l10n.profileBioSubtitle),
           const SizedBox(height: AppSpacing.xl),
           TextField(
             maxLines: 8,

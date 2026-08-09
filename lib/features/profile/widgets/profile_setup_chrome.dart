@@ -45,6 +45,31 @@ class ProfileSetupChrome {
         height: 1.4,
       );
 
+  /// Stronger subtitle for lines that sit on busy nebula areas.
+  static TextStyle emphasizedSubtitleStyle() => GoogleFonts.inter(
+        color: AppColors.textPrimary,
+        fontSize: 15.5,
+        fontWeight: FontWeight.w600,
+        height: 1.4,
+      );
+
+  /// Soft opaque wash behind a single subtitle phrase only.
+  static Widget highlightedSubtitle(String text) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: const Color(0xFF0C0C14).withValues(alpha: 0.42),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Text(text, style: emphasizedSubtitleStyle()),
+        ),
+      ),
+    );
+  }
+
   static TextStyle labelStyle() => GoogleFonts.inter(
         color: accentLabel,
         fontSize: 13,
