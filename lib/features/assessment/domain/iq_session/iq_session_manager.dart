@@ -188,6 +188,7 @@ class IqSessionManager {
     return IqSessionWriteResult(ok: true, state: pending);
   }
 
+  /// Forward-only cursor: [index] must be >= currentQuestionIndex.
   Future<IqSessionWriteResult> moveToIndex({
     required String ownerUid,
     required String sessionId,
@@ -201,6 +202,13 @@ class IqSessionManager {
         ok: false,
         code: 'invalid_index',
         message: 'Index outside 0..24',
+      );
+    }
+    if (index < state.currentQuestionIndex) {
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'cursor_not_forward',
+        message: 'Assessment cursor is forward-only',
       );
     }
     final next = state.copyWith(
@@ -251,6 +259,17 @@ class IqSessionManager {
     }
 
     final byId = state.answersByItemId;
+    final existing = byId[itemId];
+    if (existing != null) {
+      if (existing.selectedOptionId == selectedOptionId) {
+        return IqSessionWriteResult(ok: true, state: state);
+      }
+      return const IqSessionWriteResult(
+        ok: false,
+        code: 'answer_already_committed',
+        message: 'Committed assessment responses are immutable',
+      );
+    }
     byId[itemId] = IqSessionAnswer(
       itemId: itemId,
       selectedOptionId: selectedOptionId,

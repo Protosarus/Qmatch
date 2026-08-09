@@ -10,40 +10,35 @@ project continuity across ChatGPT/Cursor sessions.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Last completed phase | **HOTFIX 2 — Canonical profile reconciliation + safe EQ/Frequency finalization** |
+| Last completed phase | **ASSESSMENT integrity lock + capture protection** |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
 ---
 
-## HOTFIX 2
+## Assessment integrity lock + capture protection
 
 ```text
-ROOT CAUSE:
-  Historical/pre-rules users can have assessments/iq + iq_completed
-  without canonical_v1 IQ4. Progress routed to EQ. EqTo20d correctly
-  refused incomplete IQ preservation. EQ local complete cleared active
-  → retry "Session is not in progress".
+FORWARD-ONLY:
+  - IQ/EQ/Frequency active question screens: no back chrome
+  - PopScope(canPop: false) via AssessmentCaptureGuard
+  - answer_already_committed + cursor_not_forward in session managers
+  - Frequency previous-question navigation removed
+  - Resume + HOTFIX pending-finalization preserved
 
-REPO FIXES:
-  - CanonicalAssessmentProfileReconciler: reconstruct IQ4/EQ10 from
-    versioned assessments/{iq|eq} only (never legacy scalars)
-  - AssessmentProgressService.resolveForUid: reconcile IQ4 / 14D before
-    EQ / Frequency destinations
-  - IQ finalization order: assessments/iq → profile IQ4 → markIqCompleted
-  - EQ + Frequency: completed_pending_persistence + remote_finalized
-    (mirror IQ hotfix); retry without re-answer; stuck recovery
-  - Adapter IQ4/EQ10 preconditions UNCHANGED (still correct)
+CAPTURE:
+  - AssessmentCaptureProtection (ref-counted)
+  - Android FLAG_SECURE on IQ + EQ + Frequency question screens
+  - iOS: screenshot blocking NOT guaranteed
+  - iOS: isCaptured + overlay; app-switcher privacy overlay
+  - No capture signal → scores / RVI / Persona
 
-CANONICAL PIPELINE INVARIANT:
-  IQ ready ⇔ canonical_v1 exact IQ4
-  EQ ready ⇔ exact IQ4+EQ10 (14/20)
-  Frequency ready ⇔ exact 20/20 + canonical_profile_ready
-
-Firestore rules for canonical_v1: already deployed (HOTFIX 1)
-No new rules deploy required for HOTFIX 2.
+Docs:
+  docs/assessment/qmatch_assessment_forward_only_policy_v1.md
+  docs/security/qmatch_assessment_capture_protection_v1.md
 
 Persona = UNCHANGED
+HOTFIX 2 reconciliation = UNCHANGED
 ```
 
 ---
@@ -55,10 +50,12 @@ P2C-3A-1 = COMPLETE
 P2C-3A-2 = COMPLETE
 P2C-3A-3 = COMPLETE (offline)
 
-HOTFIX 1 (IQ completion persistence + rules) = COMPLETE (repo + rules deployed)
-HOTFIX 2 (profile reconcile + EQ/Freq finalize) = COMPLETE (repo)
+HOTFIX 1 = COMPLETE
+HOTFIX 2 = COMPLETE
+ASSESSMENT integrity lock + capture protection = COMPLETE (repo)
 
 canonical measured profile = 20 / 20 (when Frequency finalized)
+canonical_profile_ready = true only after Frequency→20D merge
 PERSONA_RUNTIME_READY = false
 Matching/QRCF = NOT_STARTED
 ```
@@ -69,9 +66,9 @@ Matching/QRCF = NOT_STARTED
 
 | Module | Live | Notes |
 |--------|------|-------|
-| **IQ** | Canonical live | pending-finalization + profile-before-progress |
-| **EQ** | Canonical live | pending-finalization + IQ4 reconcile gate |
-| **Frequency** | Canonical live | pending-finalization + 14D reconcile gate |
+| **IQ** | Canonical live | forward-only + FLAG_SECURE + pending finalize |
+| **EQ** | Canonical live | forward-only + FLAG_SECURE + IQ4 reconcile |
+| **Frequency** | Canonical live | forward-only + FLAG_SECURE + 14D reconcile |
 | **Persona** | Offline shadow | untouched |
 
 ---
@@ -83,13 +80,14 @@ Matching/QRCF = NOT_STARTED
 | P2C-3A-3 Persona large-scale shadow stress | `014825b8b342a0dfdcb28c2ef2ab1f6e8c4d2738` |
 | HOTFIX 1 completion persistence | `5ff7e9d36a86ba39db5f891bc270f225a0cb9a7a` |
 | HOTFIX 2 reconcile + EQ/Freq finalize | `95050993baecad19bfc693ee5a0c1cb334ef8a31` |
+| ASSESSMENT integrity lock (this) | _(fill after commit)_ |
 
 ---
 
 ## Next Exact Phase
 
-1. Manual retest: stuck EQ user — open app → EQ should recover pending / repair IQ4 → 14/20 → Frequency.
-2. Fresh path: IQ → Reasoning Profile → EQ → Frequency → 20/20.
+1. Manual QA: Android FLAG_SECURE + iOS capture overlay on device.
+2. Manual navigation lock retest on IQ/EQ/Frequency.
 3. Persona / Matching only when product prioritizes — do not auto-start.
 
 ---

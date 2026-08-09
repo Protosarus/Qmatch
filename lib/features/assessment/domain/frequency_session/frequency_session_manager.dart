@@ -237,6 +237,7 @@ class FrequencySessionManager {
     return FrequencySessionWriteResult(ok: true, state: validated.state);
   }
 
+  /// Forward-only cursor: [index] must be >= currentQuestionIndex.
   Future<FrequencySessionWriteResult> moveToIndex({
     required String ownerUid,
     required String sessionId,
@@ -250,6 +251,13 @@ class FrequencySessionManager {
         ok: false,
         code: 'invalid_index',
         message: 'Index outside session range',
+      );
+    }
+    if (index < state.currentQuestionIndex) {
+      return const FrequencySessionWriteResult(
+        ok: false,
+        code: 'cursor_not_forward',
+        message: 'Assessment cursor is forward-only',
       );
     }
     final next = state.copyWith(
@@ -299,6 +307,17 @@ class FrequencySessionManager {
     }
     final byId =
         Map<String, FrequencySessionAnswer>.from(state.answersByItemId);
+    final existing = byId[itemId];
+    if (existing != null) {
+      if (existing.selectedOptionId == selectedOptionId) {
+        return FrequencySessionWriteResult(ok: true, state: state);
+      }
+      return const FrequencySessionWriteResult(
+        ok: false,
+        code: 'answer_already_committed',
+        message: 'Committed assessment responses are immutable',
+      );
+    }
     byId[itemId] = FrequencySessionAnswer(
       itemId: itemId,
       selectedOptionId: selectedOptionId,

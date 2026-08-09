@@ -3,7 +3,6 @@ import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
@@ -52,7 +51,6 @@ class _IQTestScreenState extends State<IQTestScreen> {
   @override
   void initState() {
     super.initState();
-    _disableScreenshots();
   }
 
   @override
@@ -66,20 +64,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
   @override
   void dispose() {
     _selectAnswerWarningTimer?.cancel();
-    _enableScreenshots();
     super.dispose();
-  }
-
-  Future<void> _disableScreenshots() async {
-    try {
-      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    } catch (_) {}
-  }
-
-  Future<void> _enableScreenshots() async {
-    try {
-      await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-    } catch (_) {}
   }
 
   void _dismissSelectAnswerWarning() {
@@ -398,8 +383,9 @@ class _IQTestScreenState extends State<IQTestScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
+    late final Widget body;
     if (_isLoading) {
-      return const QAssessmentScaffold(
+      body = const QAssessmentScaffold(
         richBackdrop: true,
         backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
         child: Center(
@@ -408,10 +394,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
           ),
         ),
       );
-    }
-
-    if (_loadErrorCode != null || _session == null || _bank == null) {
-      return QAssessmentScaffold(
+    } else if (_loadErrorCode != null || _session == null || _bank == null) {
+      body = QAssessmentScaffold(
         richBackdrop: true,
         backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
         child: Center(
@@ -441,130 +425,131 @@ class _IQTestScreenState extends State<IQTestScreen> {
           ),
         ),
       );
-    }
+    } else {
+      final session = _session!;
+      final bank = _bank!;
+      final idx = session.currentQuestionIndex;
+      final plan = session.itemPlans[idx];
+      final prompt = _runtime.promptFor(bank: bank, itemId: plan.itemId) ?? '';
+      final options = _runtime.displayedOptions(bank: bank, plan: plan);
+      final progress = (idx + 1) / session.itemPlans.length;
+      final isLast = idx >= session.itemPlans.length - 1;
+      final pendingFinalize = session.status ==
+          IqPersistedSessionStatus.completedPendingPersistence;
+      final continueLabel = pendingFinalize
+          ? l10n.iqCanonicalFinalizeRetry
+          : (isLast ? l10n.assessmentFinish : l10n.assessmentContinue);
+      final continueActive =
+          pendingFinalize ? !_busy : (_selectedOptionId != null && !_busy);
 
-    final session = _session!;
-    final bank = _bank!;
-    final idx = session.currentQuestionIndex;
-    final plan = session.itemPlans[idx];
-    final prompt = _runtime.promptFor(bank: bank, itemId: plan.itemId) ?? '';
-    final options = _runtime.displayedOptions(bank: bank, plan: plan);
-    final progress = (idx + 1) / session.itemPlans.length;
-    final isLast = idx >= session.itemPlans.length - 1;
-    final pendingFinalize =
-        session.status == IqPersistedSessionStatus.completedPendingPersistence;
-    final continueLabel = pendingFinalize
-        ? l10n.iqCanonicalFinalizeRetry
-        : (isLast ? l10n.assessmentFinish : l10n.assessmentContinue);
-    final continueActive =
-        pendingFinalize ? !_busy : (_selectedOptionId != null && !_busy);
+      body = QAssessmentScaffold(
+        richBackdrop: true,
+        backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final h = constraints.maxHeight;
+            final compact = h < 760;
+            final heroH = (h * (compact ? 0.18 : 0.20)).clamp(110.0, 168.0);
 
-    return QAssessmentScaffold(
-      richBackdrop: true,
-      backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final h = constraints.maxHeight;
-          final compact = h < 760;
-          final heroH = (h * (compact ? 0.18 : 0.20)).clamp(110.0, 168.0);
-
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              IgnorePointer(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FractionallySizedBox(
-                    heightFactor: 0.58,
-                    widthFactor: 1,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            const Color(0x33060A14),
-                            const Color(0x77050A12),
-                            const Color(0x99040A10),
-                          ],
-                          stops: const [0.0, 0.28, 0.62, 1.0],
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                IgnorePointer(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FractionallySizedBox(
+                      heightFactor: 0.58,
+                      widthFactor: 1,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              const Color(0x33060A14),
+                              const Color(0x77050A12),
+                              const Color(0x99040A10),
+                            ],
+                            stops: const [0.0, 0.28, 0.62, 1.0],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  IqQuestionTopBar(
-                    onBack: () => Navigator.of(context).maybePop(),
-                  ),
-                  const SizedBox(height: 2),
-                  IqQuestionProgressHeader(
-                    label: l10n.iqQuestionProgress(
-                      idx + 1,
-                      session.itemPlans.length,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const IqQuestionTopBar(),
+                    const SizedBox(height: 2),
+                    IqQuestionProgressHeader(
+                      label: l10n.iqQuestionProgress(
+                        idx + 1,
+                        session.itemPlans.length,
+                      ),
+                      progress: progress,
                     ),
-                    progress: progress,
-                  ),
-                  SizedBox(
-                    height: heroH,
-                    width: double.infinity,
-                    child: const IqQuestionBreathingHero(),
-                  ),
-                  IqInsightQuestionCard(
-                    text: prompt,
-                    compact: compact,
-                  ),
-                  SizedBox(height: compact ? 6.0 : 8.0),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        for (var i = 0; i < options.length; i++)
-                          IqAnswerOptionRow(
-                            index: i,
-                            label: options[i].text,
-                            selected: _selectedOptionId == options[i].optionId,
-                            compact: true,
-                            onTap: (_busy || pendingFinalize)
-                                ? () {}
-                                : () {
-                                    _dismissSelectAnswerWarning();
-                                    setState(() {
-                                      _selectedOptionId = options[i].optionId;
-                                    });
-                                  },
-                          ),
-                      ],
+                    SizedBox(
+                      height: heroH,
+                      width: double.infinity,
+                      child: const IqQuestionBreathingHero(),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  IqContinueButton(
-                    label: continueLabel,
-                    active: continueActive,
-                    onPressed: _busy ? () {} : _onContinue,
-                  ),
-                ],
-              ),
-              if (_showSelectAnswerWarning)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: _continueButtonHeight + _warningAboveContinueGap,
-                  child: IgnorePointer(
-                    child: _IqSelectAnswerWarningBanner(
-                      message: l10n.iqPleaseSelectAnswerToContinue,
+                    IqInsightQuestionCard(
+                      text: prompt,
+                      compact: compact,
                     ),
-                  ),
+                    SizedBox(height: compact ? 6.0 : 8.0),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          for (var i = 0; i < options.length; i++)
+                            IqAnswerOptionRow(
+                              index: i,
+                              label: options[i].text,
+                              selected:
+                                  _selectedOptionId == options[i].optionId,
+                              compact: true,
+                              onTap: (_busy || pendingFinalize)
+                                  ? () {}
+                                  : () {
+                                      _dismissSelectAnswerWarning();
+                                      setState(() {
+                                        _selectedOptionId = options[i].optionId;
+                                      });
+                                    },
+                            ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    IqContinueButton(
+                      label: continueLabel,
+                      active: continueActive,
+                      onPressed: _busy ? () {} : _onContinue,
+                    ),
+                  ],
                 ),
-            ],
-          );
-        },
-      ),
-    );
+                if (_showSelectAnswerWarning)
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: _continueButtonHeight + _warningAboveContinueGap,
+                    child: IgnorePointer(
+                      child: _IqSelectAnswerWarningBanner(
+                        message: l10n.iqPleaseSelectAnswerToContinue,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+        ),
+      );
+    }
+
+    return AssessmentCaptureGuard(child: body);
   }
 }
 

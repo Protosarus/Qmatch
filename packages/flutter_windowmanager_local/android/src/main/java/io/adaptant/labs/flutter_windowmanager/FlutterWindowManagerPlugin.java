@@ -109,10 +109,29 @@ public class FlutterWindowManagerPlugin implements MethodCallHandler, FlutterPlu
 
   @Override
   public void onMethodCall(MethodCall call, Result result) {
-    final int flags = call.argument("flags");
+    switch (call.method) {
+      case "isCaptured":
+        // Android uses FLAG_SECURE; capture-state query is iOS-oriented.
+        result.success(false);
+        return;
+      case "startCaptureMonitoring":
+      case "stopCaptureMonitoring":
+        result.success(true);
+        return;
+      default:
+        break;
+    }
+
+    final Integer flagsObj = call.argument("flags");
+    if (flagsObj == null) {
+      result.error("FlutterWindowManagerPlugin", "flags required", null);
+      return;
+    }
+    final int flags = flagsObj;
 
     if (activity == null) {
       result.error("FlutterWindowManagerPlugin", "FlutterWindowManagerPlugin: ignored flag state change, current activity is null", null);
+      return;
     }
 
     if (!validLayoutParams(result, flags)) {

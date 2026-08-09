@@ -134,7 +134,7 @@ void main() {
       );
     });
 
-    test('10-18 answers, replacement, index, one-per-item', () async {
+    test('10-18 answers immutable after commit; index forward-only', () async {
       final created = await manager.getOrCreateActiveSession(
         ownerUid: 'uid_a',
         sessionSeed: 'ans-seed',
@@ -153,13 +153,8 @@ void main() {
         itemId: item.itemId,
         selectedOptionId: item.displayedOptionIds[1],
       );
-      expect(replaced.state!.answers.length, 1);
-      expect(
-        replaced.state!.answers.single.selectedOptionId,
-        item.displayedOptionIds[1],
-      );
-      expect(replaced.state!.answers.length, lessThan(25));
-
+      expect(replaced.ok, isFalse);
+      expect(replaced.code, 'answer_already_committed');
       expect(
         (await manager.moveToIndex(
           ownerUid: 'uid_a',
@@ -187,6 +182,13 @@ void main() {
             .ok,
         isTrue,
       );
+      final back = await manager.moveToIndex(
+        ownerUid: 'uid_a',
+        sessionId: sid,
+        index: 1,
+      );
+      expect(back.ok, isFalse);
+      expect(back.code, 'cursor_not_forward');
       expect(
         (await manager.answer(
           ownerUid: 'uid_a',

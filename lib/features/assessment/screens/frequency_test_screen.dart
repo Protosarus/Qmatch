@@ -15,6 +15,7 @@ import '../services/canonical_assessment_persistence.dart';
 import '../services/canonical_assessment_profile_reconciler.dart';
 import '../services/frequency_canonical_runtime_service.dart';
 import '../utils/assessment_language.dart';
+import '../widgets/assessment_capture_guard.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_scaffold.dart';
 import 'assessment_flow_complete_screen.dart';
@@ -331,6 +332,12 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return AssessmentCaptureGuard(
+      child: _buildAssessmentBody(context),
+    );
+  }
+
+  Widget _buildAssessmentBody(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     if (_isLoading || _isFinishing) {
@@ -389,31 +396,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FrequencyQuestionTopBar(
-                    onBack: () {
-                      if (session.currentQuestionIndex == 0) {
-                        Navigator.of(context).maybePop();
-                      } else {
-                        _runtime
-                            .moveToIndex(
-                          sessionId: session.sessionId,
-                          index: session.currentQuestionIndex - 1,
-                        )
-                            .then((moved) {
-                          if (!moved.ok || moved.state == null || !mounted) {
-                            return;
-                          }
-                          final prev = moved.state!;
-                          final existing = prev.answersByItemId[
-                              prev.itemPlans[prev.currentQuestionIndex].itemId];
-                          setState(() {
-                            _session = prev;
-                            _selectedOptionId = existing?.selectedOptionId;
-                          });
-                        });
-                      }
-                    },
-                  ),
+                  const FrequencyQuestionTopBar(),
                   FrequencyProgressHeader(
                     label:
                         '${l10n.assessmentStageFrequency} • ${session.currentQuestionIndex + 1} / ${session.itemPlans.length}',

@@ -3,7 +3,6 @@ import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
@@ -55,7 +54,6 @@ class _EQTestScreenState extends State<EQTestScreen> {
   @override
   void initState() {
     super.initState();
-    _disableScreenshots();
   }
 
   @override
@@ -69,20 +67,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
   @override
   void dispose() {
     _selectAnswerWarningTimer?.cancel();
-    _enableScreenshots();
     super.dispose();
-  }
-
-  Future<void> _disableScreenshots() async {
-    try {
-      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    } catch (_) {}
-  }
-
-  Future<void> _enableScreenshots() async {
-    try {
-      await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-    } catch (_) {}
   }
 
   void _dismissSelectAnswerWarning() {
@@ -328,6 +313,12 @@ class _EQTestScreenState extends State<EQTestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return AssessmentCaptureGuard(
+      child: _buildAssessmentBody(context),
+    );
+  }
+
+  Widget _buildAssessmentBody(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     if (_isLoading || _isFinishing) {
@@ -409,9 +400,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  EqQuestionTopBar(
-                    onBack: () => Navigator.of(context).maybePop(),
-                  ),
+                  const EqQuestionTopBar(),
                   const SizedBox(height: 2),
                   EqQuestionProgressHeader(
                     label: l10n.eqQuestionProgress(

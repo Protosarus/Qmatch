@@ -13,10 +13,11 @@ import '../../../core/theme/app_radii.dart';
 class FrequencyQuestionTopBar extends StatelessWidget {
   const FrequencyQuestionTopBar({
     super.key,
-    required this.onBack,
+    this.onBack,
   });
 
-  final VoidCallback onBack;
+  /// Intro screens may pass [onBack]; active question screens omit it.
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +26,33 @@ class FrequencyQuestionTopBar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: onBack,
-                customBorder: const CircleBorder(),
-                child: Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0x66101828),
-                    border: Border.all(
-                      color: AppColors.softGold.withValues(alpha: 0.28),
+          if (onBack != null)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onBack,
+                  customBorder: const CircleBorder(),
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0x66101828),
+                      border: Border.all(
+                        color: AppColors.softGold.withValues(alpha: 0.28),
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 15,
-                    color: Colors.white.withValues(alpha: 0.88),
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 15,
+                      color: Colors.white.withValues(alpha: 0.88),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
           SizedBox(
             width: 44,
             height: 44,

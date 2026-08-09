@@ -231,6 +231,7 @@ class EqSessionManager {
     return EqSessionWriteResult(ok: true, state: validated.state);
   }
 
+  /// Forward-only cursor: [index] must be >= currentQuestionIndex.
   Future<EqSessionWriteResult> moveToIndex({
     required String ownerUid,
     required String sessionId,
@@ -244,6 +245,13 @@ class EqSessionManager {
         ok: false,
         code: 'invalid_index',
         message: 'Index outside session range',
+      );
+    }
+    if (index < state.currentQuestionIndex) {
+      return const EqSessionWriteResult(
+        ok: false,
+        code: 'cursor_not_forward',
+        message: 'Assessment cursor is forward-only',
       );
     }
     final next = state.copyWith(
@@ -292,6 +300,17 @@ class EqSessionManager {
       );
     }
     final byId = Map<String, EqSessionAnswer>.from(state.answersByItemId);
+    final existing = byId[itemId];
+    if (existing != null) {
+      if (existing.selectedOptionId == selectedOptionId) {
+        return EqSessionWriteResult(ok: true, state: state);
+      }
+      return const EqSessionWriteResult(
+        ok: false,
+        code: 'answer_already_committed',
+        message: 'Committed assessment responses are immutable',
+      );
+    }
     byId[itemId] = EqSessionAnswer(
       itemId: itemId,
       selectedOptionId: selectedOptionId,

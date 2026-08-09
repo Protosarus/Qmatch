@@ -12,9 +12,10 @@ import 'frequency_question_chrome.dart';
 
 /// EQ question-screen chrome — presentation only; host owns selection / next.
 class EqQuestionTopBar extends StatelessWidget {
-  const EqQuestionTopBar({super.key, required this.onBack});
+  const EqQuestionTopBar({super.key, this.onBack});
 
-  final VoidCallback onBack;
+  /// When null, no back control is shown (forward-only active questions).
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -23,33 +24,34 @@ class EqQuestionTopBar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: onBack,
-                customBorder: const CircleBorder(),
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0x66101828),
-                    border: Border.all(
-                      color: AppColors.vizEq.withValues(alpha: 0.45),
-                      width: 1,
+          if (onBack != null)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onBack,
+                  customBorder: const CircleBorder(),
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0x66101828),
+                      border: Border.all(
+                        color: AppColors.vizEq.withValues(alpha: 0.45),
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 15,
-                    color: Colors.white.withValues(alpha: 0.88),
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 15,
+                      color: Colors.white.withValues(alpha: 0.88),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
           SizedBox(
             width: 38,
             height: 38,

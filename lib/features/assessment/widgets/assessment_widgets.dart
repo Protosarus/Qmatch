@@ -1,3 +1,4 @@
+export 'assessment_capture_guard.dart';
 export 'q_assessment_scaffold.dart';
 export 'q_assessment_header.dart';
 export 'q_assessment_progress.dart';

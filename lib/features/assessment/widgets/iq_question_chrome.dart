@@ -11,9 +11,10 @@ import 'frequency_question_chrome.dart';
 
 /// IQ question-screen chrome — presentation only; host owns selection / next.
 class IqQuestionTopBar extends StatelessWidget {
-  const IqQuestionTopBar({super.key, required this.onBack});
+  const IqQuestionTopBar({super.key, this.onBack});
 
-  final VoidCallback onBack;
+  /// When null, no back control is shown (forward-only active questions).
+  final VoidCallback? onBack;
 
   @override
   Widget build(BuildContext context) {
@@ -22,33 +23,34 @@ class IqQuestionTopBar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: onBack,
-                customBorder: const CircleBorder(),
-                child: Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: const Color(0x66101828),
-                    border: Border.all(
-                      color: const Color(0x779B8CFF),
-                      width: 1,
+          if (onBack != null)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: onBack,
+                  customBorder: const CircleBorder(),
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0x66101828),
+                      border: Border.all(
+                        color: const Color(0x779B8CFF),
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 15,
-                    color: Colors.white.withValues(alpha: 0.88),
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 15,
+                      color: Colors.white.withValues(alpha: 0.88),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
           SizedBox(
             width: 38,
             height: 38,
