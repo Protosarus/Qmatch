@@ -106,7 +106,7 @@ social_awareness
 | P2C-2A-6 IQ→20D adapter | `7ef5312f7c2e36556fbcb3c679ff083cd6f6d8ef` |
 | P2C-2A-7 BLOCKED audit | `e04f251be30146ccb7d1871a6af45b19783fe8be` |
 | Continuity tip before R1 | `bb19fad14ecb4ba49f26dca041dc3022d98332ac` |
-| P2C-2A-7R1 | *(filled after push)* |
+| P2C-2A-7R1 EQ 10D math + banks | `705a532011933ca78a5885480a240eb84b937122` |
 
 ---
 
