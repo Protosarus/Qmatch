@@ -63,6 +63,7 @@ Quantum-inspired runtime = NOT_STARTED
 |-------|--------|
 | P2C-2A-8R1A Frequency banks complete | `6424956e726107d580d0f002623db8de864fdcff` |
 | Continuity tip before Frequency R2 | `2366ac37fc2124391011d751288edc9cc64e6dbc` |
+| P2C-2A-8R2 live Frequency + Frequency→20D | `025e573c8ad3b84fb91070c4568e3b3994dc1fbd` |
 
 ---
 
