@@ -1,17 +1,18 @@
 # QMatch 20D Profile Gap Register v1
 
-**Updated:** P2C-2A-8R1A (Frequency offline banks complete)
+**Updated:** P2C-2A-8R2 (Frequency live + Frequency→20D)
 
 | Gap | Status |
 |-----|--------|
 | IQ → partial canonical profile | **IMPLEMENTED** |
 | EQ live runtime + 10D + Eq→20D merge | **IMPLEMENTED** |
-| Measured dimensions | **14 / 20** |
-| Frequency taxonomy + 6D math offline | **IMPLEMENTED_OFFLINE** |
-| Frequency 50-item TR/EN runtime candidates | **IMPLEMENTED_OFFLINE** |
-| Frequency live canonical + Frequency→20D | **NOT_STARTED** |
-| Full 20D `canonical_profile_ready=true` | **INCOMPLETE** |
+| Frequency taxonomy + 6D math | **IMPLEMENTED** |
+| Frequency 50-item TR/EN banks | **IMPLEMENTED** |
+| Frequency live canonical + Frequency→20D | **IMPLEMENTED** |
+| Measured dimensions | **20 / 20** |
+| `canonical_profile_ready=true` | **IMPLEMENTED** (uncalibrated) |
 | Persona from canonical profile | **NOT_STARTED** |
 | Matching / QRCF | **NOT_STARTED** |
 | Quantum-inspired layer | **NOT_STARTED** |
 | Psychometric calibration | **NOT_STARTED** |
+| RVI runtime gate | **NOT_ACTIVE** |

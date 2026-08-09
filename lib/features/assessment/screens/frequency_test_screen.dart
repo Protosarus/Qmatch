@@ -1,21 +1,27 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/theme/app_colors.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../profile/services/profile_service.dart';
-import '../models/frequency_model.dart';
-import '../services/assessment_set_service.dart';
-import '../services/frequency_service.dart';
+import '../domain/frequency_bank/frequency_bank.dart';
+import '../domain/frequency_session/frequency_session.dart';
+import '../domain/profile/profile.dart';
+import '../services/assessment_progress_service.dart';
+import '../services/canonical_assessment_persistence.dart';
+import '../services/frequency_canonical_runtime_service.dart';
+import '../utils/assessment_language.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_scaffold.dart';
 import 'assessment_flow_complete_screen.dart';
-import 'frequency_result_screen.dart';
 
+/// Canonical 50-item Frequency session — behavioral tendency, not correctness.
+///
+/// Completes the 20D measurement profile. Does NOT invoke Persona / Matching /
+/// QRCF / quantum / RVI gating.
 class FrequencyTestScreen extends StatefulWidget {
   const FrequencyTestScreen({super.key});
 
@@ -24,16 +30,18 @@ class FrequencyTestScreen extends StatefulWidget {
 }
 
 class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
-  final _service = FrequencyService();
-  List<FrequencyQuestion> _questions = [];
-  String _setId = '';
-  String _contentVersion = 'content_legacy_2026_01';
-  bool _loadingQuestions = true;
-  bool _didStartLoading = false;
+  final _runtime = FrequencyCanonicalRuntimeService();
+  final _persistence = CanonicalAssessmentPersistence();
+  final _progress = AssessmentProgressService();
 
-  int _index = 0;
-  final Map<String, int> _answers = {};
-  bool _saving = false;
+  FrequencyPersistedSessionState? _session;
+  FrequencyCanonicalBankDocument? _bank;
+  String? _selectedOptionId;
+  bool _isLoading = true;
+  bool _didStartLoading = false;
+  bool _isFinishing = false;
+  String? _loadError;
+  DateTime? _startedAt;
   bool _showSelectAnswerWarning = false;
   Timer? _selectAnswerWarningTimer;
 
@@ -41,89 +49,17 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   static const _warningAboveContinueGap = 62.0;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_didStartLoading) return;
+    _didStartLoading = true;
+    _bootstrap();
   }
 
   @override
   void dispose() {
     _selectAnswerWarningTimer?.cancel();
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_didStartLoading) return;
-    _didStartLoading = true;
-    _loadQuestions();
-  }
-
-  Future<void> _loadQuestions() async {
-    try {
-      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
-          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final loaded = await _service.loadAssignedFrequencyAssessment(
-        languageCode: languageCode,
-      );
-      if (!mounted) return;
-      setState(() {
-        _questions = loaded.questions.isNotEmpty
-            ? loaded.questions
-            : _service.getFrequencyQuestions();
-        _setId = loaded.setId;
-        _contentVersion = loaded.contentVersion;
-        _loadingQuestions = false;
-      });
-    } catch (e) {
-      debugPrint('Frequency questions load failed: $e');
-      if (!mounted) return;
-      try {
-        final fallback = _service.getFrequencyQuestions();
-        setState(() {
-          _questions = fallback;
-          _loadingQuestions = false;
-        });
-      } catch (fallbackError) {
-        debugPrint('Frequency questions fallback failed: $fallbackError');
-        setState(() {
-          _questions = [];
-          _loadingQuestions = false;
-        });
-      }
-    }
-  }
-
-  FrequencyQuestion get _current => _questions[_index];
-
-  int? get _currentValue => _answers[_current.id];
-
-  List<String> _likertLabels(AppLocalizations l10n) => [
-        l10n.stronglyDisagree,
-        l10n.disagree,
-        l10n.neutral,
-        l10n.agree,
-        l10n.stronglyAgree,
-      ];
-
-  void _setAnswer(int v) {
-    _dismissSelectAnswerWarning();
-    setState(() {
-      _answers[_current.id] = v;
-    });
-  }
-
-  void _next() {
-    if (_currentValue == null) {
-      _showSelectAnswerWarningBanner();
-      return;
-    }
-    _dismissSelectAnswerWarning();
-    if (_index < _questions.length - 1) {
-      setState(() => _index++);
-    } else {
-      _finish();
-    }
   }
 
   void _dismissSelectAnswerWarning() {
@@ -144,66 +80,203 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
     });
   }
 
-  void _back() {
-    if (_index == 0) return;
-    setState(() => _index--);
+  String _tendencyInstruction(AppLocalizations l10n) {
+    final code = Localizations.localeOf(context).languageCode.toLowerCase();
+    if (code.startsWith('tr')) {
+      return 'Gerçekte yapma eğiliminde olduğunuz yanıta en yakın seçeneği seçin.';
+    }
+    return 'Choose the response closest to what you would actually tend to do.';
   }
 
-  Future<void> _finish() async {
-    setState(() => _saving = true);
+  Future<void> _bootstrap() async {
     try {
       final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
           WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final result = _service.calculateResult(_answers, _questions);
-      try {
-        await AssessmentSetService().markAssignmentCompleted(
-          type: 'frequency',
-          score: result.scoreTotal,
-          languageCode: languageCode,
-        );
-      } catch (_) {}
-      await _service.saveFrequencyResult(
-        result,
-        languageCode: languageCode,
-        setId: _setId,
-        contentVersion: _contentVersion,
+      final created = await _runtime.getOrCreateActiveSession(
+        preferredLanguageCode: languageCode,
       );
-      if (!mounted) return;
-      if (result.isComplete) {
-        final profileCompleted = await AuthService().hasCompletedProfile();
-        final uid = FirebaseAuth.instance.currentUser?.uid;
-        if (uid != null) {
-          try {
-            await ProfileService().refreshDiscoverEligibility(uid);
-          } catch (_) {}
-        }
+      if (!created.ok || created.state == null) {
         if (!mounted) return;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => AssessmentFlowCompleteScreen(
-              profileCompleted: profileCompleted,
-            ),
-          ),
-        );
-      } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => FrequencyResultScreen(result: result),
-          ),
-        );
+        setState(() {
+          _loadError =
+              created.message.isNotEmpty ? created.message : created.code;
+          _isLoading = false;
+        });
+        return;
       }
-    } catch (e) {
+      final session = created.state!;
+      final bank = await _runtime.loadBankForLocale(session.bankLocale);
+      final existing = session.answersByItemId[
+          session.itemPlans[session.currentQuestionIndex].itemId];
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-          backgroundColor: AppColors.error,
+      setState(() {
+        _session = session;
+        _bank = bank;
+        _selectedOptionId = existing?.selectedOptionId;
+        _startedAt = DateTime.tryParse(session.startedAt) ?? DateTime.now();
+        _isLoading = false;
+      });
+    } catch (e) {
+      debugPrint('Frequency canonical bootstrap failed: $e');
+      if (!mounted) return;
+      setState(() {
+        _loadError = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _onContinue() async {
+    final session = _session;
+    final bank = _bank;
+    if (session == null || bank == null || _isFinishing) return;
+    if (_selectedOptionId == null) {
+      _showSelectAnswerWarningBanner();
+      return;
+    }
+    _dismissSelectAnswerWarning();
+
+    final plan = session.itemPlans[session.currentQuestionIndex];
+    final answered = await _runtime.answer(
+      sessionId: session.sessionId,
+      itemId: plan.itemId,
+      selectedOptionId: _selectedOptionId!,
+    );
+    if (!answered.ok || answered.state == null) {
+      debugPrint('Frequency answer failed: ${answered.message}');
+      return;
+    }
+
+    final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
+    if (!isLast) {
+      final moved = await _runtime.moveToIndex(
+        sessionId: session.sessionId,
+        index: session.currentQuestionIndex + 1,
+      );
+      if (!moved.ok || moved.state == null || !mounted) return;
+      final next = moved.state!;
+      final existing = next
+          .answersByItemId[next.itemPlans[next.currentQuestionIndex].itemId];
+      setState(() {
+        _session = next;
+        _selectedOptionId = existing?.selectedOptionId;
+      });
+      return;
+    }
+
+    await _completeAndNavigate(answered.state!);
+  }
+
+  Future<void> _completeAndNavigate(
+    FrequencyPersistedSessionState answered,
+  ) async {
+    setState(() => _isFinishing = true);
+    try {
+      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final language = AssessmentLanguage.languageUsed(
+        languageCode: languageCode,
+      );
+      final locale = AssessmentLanguage.localeUsed(
+        locale: Locale(language),
+      );
+
+      final completed = await _runtime.completeSession(
+        sessionId: answered.sessionId,
+      );
+      if (!completed.ok || completed.state == null) {
+        throw StateError(completed.message);
+      }
+      final scored = await _runtime.scoreCompleted(completed.state!);
+      if (!scored.ok || scored.result == null) {
+        throw StateError(scored.message ?? 'Frequency scoring failed');
+      }
+      final result = scored.result!;
+      final bank =
+          await _runtime.loadBankForLocale(completed.state!.bankLocale);
+      final qualitySignals =
+          FrequencyCanonicalRuntimeService.deriveQualitySignals(
+        bank: bank,
+        session: completed.state!,
+      );
+
+      await _persistence.upsertCompletedAssessment(
+        assessmentType: 'frequency',
+        fields: _persistence.buildCanonicalFrequency6dPayload(
+          result: result,
+          sessionId: completed.state!.sessionId,
+          locale: locale,
+          languageUsed: language,
+          qualitySignals: qualitySignals,
+          startedAt: _startedAt,
         ),
       );
-    } finally {
-      if (mounted) setState(() => _saving = false);
+
+      final uid = _runtime.currentUid;
+      if (uid == null || uid.isEmpty) {
+        throw StateError('Owner UID unavailable');
+      }
+
+      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
+      final existingIq = <QmatchProfileDimension>[];
+      final existingEq = <QmatchProfileDimension>[];
+      if (existingProfile != null) {
+        final rows = existingProfile['measured_dimensions'];
+        if (rows is List) {
+          for (final row in rows) {
+            if (row is! Map) continue;
+            final d = QmatchProfileDimension.fromJson(
+              Map<String, dynamic>.from(row),
+            );
+            if (d.measurementState != QmatchMeasurementState.measured) {
+              continue;
+            }
+            if (d.module == 'iq') existingIq.add(d);
+            if (d.module == 'eq') existingEq.add(d);
+          }
+        }
+      }
+
+      final adapted = const FrequencyTo20dRuntimeAdapter().adapt(
+        result: result,
+        ownerUid: uid,
+        sessionId: completed.state!.sessionId,
+        existingIqDimensions: existingIq,
+        existingEqDimensions: existingEq,
+      );
+      if (!adapted.ok || adapted.fragment == null) {
+        throw StateError(adapted.message ?? 'Frequency→20D adapt failed');
+      }
+      await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
+
+      // Closes assessment battery without Persona reveal.
+      await _progress.markAssessmentFlowCompleted();
+
+      final profileCompleted = await AuthService().hasCompletedProfile();
+      try {
+        await ProfileService().refreshDiscoverEligibility(uid);
+      } catch (_) {}
+
+      debugPrint(
+        '✅ Canonical Frequency completed — 20D ready; navigating to flow complete (no Persona)',
+      );
+
+      if (!mounted) return;
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => AssessmentFlowCompleteScreen(
+            profileCompleted: profileCompleted,
+          ),
+        ),
+      );
+    } catch (e) {
+      debugPrint('❌ Error saving canonical Frequency results: $e');
+      if (mounted) {
+        setState(() => _isFinishing = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Frequency completion failed: $e')),
+        );
+      }
     }
   }
 
@@ -211,7 +284,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    if (_loadingQuestions) {
+    if (_isLoading || _isFinishing) {
       return const QAssessmentScaffold(
         richBackdrop: true,
         backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
@@ -223,7 +296,9 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       );
     }
 
-    if (_questions.isEmpty) {
+    final session = _session;
+    final bank = _bank;
+    if (session == null || bank == null || _loadError != null) {
       return QAssessmentScaffold(
         richBackdrop: true,
         backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
@@ -231,7 +306,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Text(
-              l10n.assessmentNoQuestionsAvailable,
+              _loadError ?? l10n.assessmentNoQuestionsAvailable,
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(color: Colors.white),
             ),
@@ -240,9 +315,13 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       );
     }
 
-    final progress = (_index + 1) / _questions.length;
-    final likert = _likertLabels(l10n);
-    final isLast = _index >= _questions.length - 1;
+    final plan = session.itemPlans[session.currentQuestionIndex];
+    final prompt = _runtime.promptFor(bank: bank, itemId: plan.itemId) ?? '';
+    final options = _runtime.displayedOptions(bank: bank, plan: plan);
+    final progress =
+        (session.currentQuestionIndex + 1) / session.itemPlans.length;
+    final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
+    final compact = MediaQuery.sizeOf(context).height < 700;
 
     return QAssessmentScaffold(
       richBackdrop: true,
@@ -250,9 +329,8 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final height = constraints.maxHeight;
-          final compact = height < 700;
           final heroHeight =
-              (height * (compact ? 0.17 : 0.21)).clamp(82.0, 172.0);
+              (height * (compact ? 0.14 : 0.17)).clamp(72.0, 140.0);
 
           return Stack(
             fit: StackFit.expand,
@@ -262,39 +340,92 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                 children: [
                   FrequencyQuestionTopBar(
                     onBack: () {
-                      if (_index == 0) {
+                      if (session.currentQuestionIndex == 0) {
                         Navigator.of(context).maybePop();
                       } else {
-                        _back();
+                        _runtime
+                            .moveToIndex(
+                          sessionId: session.sessionId,
+                          index: session.currentQuestionIndex - 1,
+                        )
+                            .then((moved) {
+                          if (!moved.ok || moved.state == null || !mounted) {
+                            return;
+                          }
+                          final prev = moved.state!;
+                          final existing = prev.answersByItemId[
+                              prev.itemPlans[prev.currentQuestionIndex].itemId];
+                          setState(() {
+                            _session = prev;
+                            _selectedOptionId = existing?.selectedOptionId;
+                          });
+                        });
                       }
                     },
                   ),
                   FrequencyProgressHeader(
                     label:
-                        '${l10n.assessmentStageFrequency} • ${_index + 1} / ${_questions.length}',
+                        '${l10n.assessmentStageFrequency} • ${session.currentQuestionIndex + 1} / ${session.itemPlans.length}',
                     progress: progress,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      _tendencyInstruction(l10n),
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: Colors.white.withValues(alpha: 0.78),
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: heroHeight,
                     child: const FrequencyWaveHero(),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                    child: Text(
+                      prompt,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: Colors.white,
+                        fontSize: compact ? 15.5 : 16.5,
+                        fontWeight: FontWeight.w600,
+                        height: 1.35,
+                      ),
+                    ),
+                  ),
                   Expanded(
-                    child: FrequencyQuestionPanel(
-                      eyebrow: l10n.frequencyTestTitle,
-                      question: _current.question,
-                      labels: likert,
-                      selectedValue: _currentValue,
-                      compact: compact,
-                      onSelected: _saving ? (_) {} : _setAnswer,
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      itemCount: options.length,
+                      separatorBuilder: (_, __) =>
+                          SizedBox(height: compact ? 6 : 8),
+                      itemBuilder: (context, index) {
+                        final opt = options[index];
+                        return FrequencyAnswerOptionRow(
+                          value: index + 1,
+                          label: opt.text,
+                          selected: _selectedOptionId == opt.optionId,
+                          compact: true,
+                          onTap: () {
+                            _dismissSelectAnswerWarning();
+                            setState(() => _selectedOptionId = opt.optionId);
+                          },
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: compact ? 6 : 9),
                   FrequencyContinueButton(
-                    label:
-                        isLast ? l10n.seeMyFrequency : l10n.assessmentContinue,
-                    active: _currentValue != null,
-                    saving: _saving,
-                    onPressed: _next,
+                    label: isLast
+                        ? l10n.assessmentFinish
+                        : l10n.assessmentContinue,
+                    active: _selectedOptionId != null,
+                    saving: _isFinishing,
+                    onPressed: _onContinue,
                   ),
                 ],
               ),

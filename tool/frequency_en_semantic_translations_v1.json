@@ -1,0 +1,552 @@
+{
+  "frequency_tr_v1_depth_preference_001": {
+    "status": "equivalent",
+    "notes": "Early match messaging tone; depth vs light/brief trade-off preserved.",
+    "prompt_en": "In early messaging with a new match, what kind of tone feels more comfortable to you?",
+    "options": {
+      "A": "After a light hello, I try to move into a topic I'm curious about.",
+      "B": "I ask an everyday question and go deeper based on how they reply.",
+      "C": "I open with something witty and surface-level.",
+      "D": "I keep it short and wait for a better moment."
+    }
+  },
+  "frequency_tr_v1_depth_preference_002": {
+    "status": "equivalent",
+    "notes": "Stuck on daily logistics; deepening vs staying practical vs exiting.",
+    "prompt_en": "The conversation is stuck on everyday errands; how do you steer the topic?",
+    "options": {
+      "A": "I ask a question about why this topic matters.",
+      "B": "I ask for a bit more detail while staying practical.",
+      "C": "I keep the agenda as is and don't change the topic.",
+      "D": "I cut the conversation short."
+    }
+  },
+  "frequency_tr_v1_depth_preference_003": {
+    "status": "equivalent",
+    "notes": "Partner giving short replies; deepen / retry / match pace / defer.",
+    "prompt_en": "Your partner keeps giving short replies; how do you continue?",
+    "options": {
+      "A": "I deepen the topic with an open-ended question.",
+      "B": "I keep the pace and try one more angle.",
+      "C": "I match their pace and stay brief.",
+      "D": "I drop the topic and say we can talk another time."
+    }
+  },
+  "frequency_tr_v1_depth_preference_004": {
+    "status": "equivalent",
+    "notes": "Calm ongoing chat; invite deeper thoughts vs light/practical/brief.",
+    "prompt_en": "You've been messaging for a while and the mood is calm. How do you prefer to keep the conversation going?",
+    "options": {
+      "A": "I suggest moving past how the day went into thoughts that have been affecting them.",
+      "B": "I keep it light and slowly drift into something a bit more personal when it fits.",
+      "C": "I stay on practical topics and keep the flow going without going deeper.",
+      "D": "I keep it short and plan to message again later."
+    }
+  },
+  "frequency_tr_v1_depth_preference_005": {
+    "status": "equivalent",
+    "notes": "1:1 chance from group chat; values/hobbies vs general/group flow.",
+    "prompt_en": "A one-to-one chance opens up in a group chat; what do you choose to talk about?",
+    "options": {
+      "A": "I ask about a shared value or motivation.",
+      "B": "I build a light but personal connection through hobbies.",
+      "C": "I keep the group vibe and talk about general things.",
+      "D": "I stay in the group flow instead of splitting off one-to-one."
+    }
+  },
+  "frequency_tr_v1_social_energy_001": {
+    "status": "equivalent",
+    "notes": "Weekend hangout; full join / short visit / skip / propose 1:1.",
+    "prompt_en": "Your friends are organizing a small get-together this weekend; what's your preference?",
+    "options": {
+      "A": "If I'm feeling energetic, I join the whole gathering.",
+      "B": "I stop by briefly and catch the enjoyable part.",
+      "C": "I skip it this week and prefer to rest.",
+      "D": "Instead of a group setting, I suggest a one-to-one plan."
+    }
+  },
+  "frequency_tr_v1_social_energy_002": {
+    "status": "equivalent",
+    "notes": "Tired but invited; join / brief / skip / defer 1:1 away from crowd.",
+    "prompt_en": "A small get-together with people close to you is planned; you're tired but invited. What's your preference?",
+    "options": {
+      "A": "I gather my energy and join the get-together.",
+      "B": "I come for a short while and plan to leave afterward.",
+      "C": "I skip it this time and choose to rest.",
+      "D": "I avoid the crowd and postpone a one-to-one meet-up."
+    }
+  },
+  "frequency_tr_v1_social_energy_003": {
+    "status": "equivalent",
+    "notes": "New venue invite; join eagerly / go but leave early / stay home / quieter alt.",
+    "prompt_en": "Your friend group suggests going to a new place; what do you do?",
+    "options": {
+      "A": "I join right away and enjoy exploring a new setting.",
+      "B": "I go, but I might plan to leave early.",
+      "C": "I prefer to stay home.",
+      "D": "Instead of a crowded place, I suggest a quieter alternative."
+    }
+  },
+  "frequency_tr_v1_social_energy_005": {
+    "status": "equivalent",
+    "notes": "Date venue energy gradient: lively → mid → quiet walk → private.",
+    "prompt_en": "A new match suggests meeting up; what's your preference for the setting?",
+    "options": {
+      "A": "I suggest a lively café or a busy place.",
+      "B": "I suggest a medium-paced, comfortable place.",
+      "C": "I prefer a quiet walk or a park.",
+      "D": "I prefer meeting at home or somewhere secluded."
+    }
+  },
+  "frequency_tr_v1_social_energy_007": {
+    "status": "equivalent",
+    "notes": "Partner wants quiet after busy week; you feel rested — light invite vs space.",
+    "prompt_en": "After a busy week your partner wants quiet time, but you feel rested. What do you do?",
+    "options": {
+      "A": "Even while respecting their need, I offer a light social suggestion.",
+      "B": "I send a short voice note and then leave them space.",
+      "C": "I accept the quiet and spend time on my own.",
+      "D": "I pull back fully and keep contact to a minimum for a while."
+    }
+  },
+  "frequency_tr_v1_spontaneity_001": {
+    "status": "equivalent",
+    "notes": "Sudden Friday invite; accept now vs think vs postpone vs refuse spontaneous.",
+    "prompt_en": "You have no plans for Friday evening; someone suddenly suggests hanging out. What's your preference?",
+    "options": {
+      "A": "I accept right away and figure out the plan in the moment.",
+      "B": "I think briefly and say yes if it works.",
+      "C": "I prefer planning ahead, so I postpone.",
+      "D": "I usually turn down last-minute invitations."
+    }
+  },
+  "frequency_tr_v1_spontaneity_002": {
+    "status": "equivalent",
+    "notes": "Planned activity vs new idea mid-day; flex vs stick to plan.",
+    "prompt_en": "You had a plan for a shared activity; a new idea comes up during the day. What's your preference?",
+    "options": {
+      "A": "I say we should loosen the plan and try the new idea right away.",
+      "B": "After a quick check, I change direction.",
+      "C": "I stick with the original plan.",
+      "D": "I avoid last-minute changes and keep the schedule."
+    }
+  },
+  "frequency_tr_v1_spontaneity_003": {
+    "status": "equivalent",
+    "notes": "Open weekend + friend suggests different activity; try vs evaluate vs hold vs avoid change.",
+    "prompt_en": "You don't have a firm weekend plan; a friend suggests a different activity. What do you do?",
+    "options": {
+      "A": "I switch to the new plan right away and enjoy trying it.",
+      "B": "After a quick check, I accept if it works.",
+      "C": "I stick with what I already had in mind.",
+      "D": "I avoid last-minute changes."
+    }
+  },
+  "frequency_tr_v1_spontaneity_006": {
+    "status": "equivalent",
+    "notes": "Weeknight plan set; last-minute alt — drop plan vs small tweak vs stick vs refuse.",
+    "prompt_en": "Your weekday evening plan is set; someone suggests something different at the last minute. What do you do?",
+    "options": {
+      "A": "I drop the plan and accept the new suggestion.",
+      "B": "If it works, I can make a small change.",
+      "C": "I stick with the plan we already agreed on.",
+      "D": "I usually turn down last-minute changes."
+    }
+  },
+  "frequency_tr_v1_spontaneity_007": {
+    "status": "equivalent",
+    "notes": "New match suddenly proposes different meet time; adapt vs check vs hold vs avoid.",
+    "prompt_en": "A new match suddenly suggests a different meeting time. What's your preference?",
+    "options": {
+      "A": "I adapt right away and accept the new time.",
+      "B": "I reply quickly based on my availability.",
+      "C": "I prefer sticking to the time we already set.",
+      "D": "I avoid sudden time changes."
+    }
+  },
+  "frequency_tr_v1_stability_001": {
+    "status": "equivalent",
+    "notes": "Weekly meet habit with new person; fixed rhythm vs frame vs variable vs no fixed plan.",
+    "prompt_en": "When it comes to building a weekly meet-up habit with someone you just met, what's your preference?",
+    "options": {
+      "A": "I suggest a regular rhythm on the same day/time each week.",
+      "B": "I set a general frame and we clarify the details together.",
+      "C": "I'm open to moving at a different pace each week.",
+      "D": "I leave it to the flow without making a fixed plan."
+    }
+  },
+  "frequency_tr_v1_stability_002": {
+    "status": "equivalent",
+    "notes": "Unset early communication rhythm; propose cadence vs frame vs variable vs flow.",
+    "prompt_en": "Your communication rhythm with someone you just met hasn't settled yet. What's your preference?",
+    "options": {
+      "A": "I suggest a weekly repeating meet-up or chat rhythm.",
+      "B": "I set a general frame and clarify the details together.",
+      "C": "I'm open to moving at a different pace each week.",
+      "D": "I leave it to the flow without making a fixed plan."
+    }
+  },
+  "frequency_tr_v1_stability_004": {
+    "status": "equivalent",
+    "notes": "Settled daily routine vs other's different tempo; protect vs tweak vs try vs hold own.",
+    "prompt_en": "Your daily routine is settled; someone you've met suggests a different pace. What's your preference?",
+    "options": {
+      "A": "I keep my current routine and don't change it beyond small adjustments.",
+      "B": "I can make small adjustments that still fit my routine.",
+      "C": "I'm open to a pace change and willing to try it.",
+      "D": "Rather than disrupt my routine, I continue at my own pace."
+    }
+  },
+  "frequency_tr_v1_stability_005": {
+    "status": "equivalent",
+    "notes": "Long-term rhythm disrupted; restore vs update vs adapt vs abandon fixed rhythm.",
+    "prompt_en": "Your long-term communication rhythm is settled; an unexpected change comes up. What do you do?",
+    "options": {
+      "A": "I try to return to the previous rhythm as soon as possible.",
+      "B": "I propose an updated rhythm based on the new conditions.",
+      "C": "I accept the change and adapt to the new pace.",
+      "D": "I leave it to the natural flow without looking for a fixed rhythm."
+    }
+  },
+  "frequency_tr_v1_stability_006": {
+    "status": "equivalent",
+    "notes": "Partner was quiet; reconnection — restore cadence vs light check-in vs try new tempo vs flow.",
+    "prompt_en": "Your partner has been quiet for a while; a chance to reconnect comes up. What's your preference?",
+    "options": {
+      "A": "I propose rebuilding the earlier regular contact rhythm.",
+      "B": "I suggest a light but predictable check-in pattern.",
+      "C": "I stay flexible this time and say we'll try a new pace.",
+      "D": "I trust the natural flow without setting a rhythm."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_001": {
+    "status": "equivalent",
+    "notes": "Personal disclosure with new match; early open vs gradual vs general vs wait for trust.",
+    "prompt_en": "When it comes to sharing personal information with a new match, what's your preference?",
+    "options": {
+      "A": "Even early on, I share my basic expectations clearly.",
+      "B": "I open up gradually as mutual trust builds.",
+      "C": "I stay general and don't give personal details.",
+      "D": "I don't open personal topics until trust has formed."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_002": {
+    "status": "equivalent",
+    "notes": "Past relationships topic as trust starts; open early vs frame vs general vs withhold.",
+    "prompt_en": "Trust is starting to build; past relationships come up. What's your preference?",
+    "options": {
+      "A": "I share my own experiences openly and early.",
+      "B": "I give a basic frame and open the details gradually.",
+      "C": "I stay general and don't give concrete examples.",
+      "D": "I keep personal history private until trust is fully there."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_003": {
+    "status": "equivalent",
+    "notes": "Personal topic arises mid-chat; share example vs slow details vs general vs change topic.",
+    "prompt_en": "The conversation with a new match is progressing; a personal topic comes up. What do you do?",
+    "options": {
+      "A": "I share a short but clear example from my own experience.",
+      "B": "I open the topic but release the details slowly.",
+      "C": "I stay general and don't give a personal example.",
+      "D": "I change the topic and wait until we know each other better."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_005": {
+    "status": "equivalent",
+    "notes": "Reconnecting after silence; open status vs light note vs general hello vs defer personal.",
+    "prompt_en": "Your partner has been quiet for a while; when reconnecting, how do you handle personal sharing?",
+    "options": {
+      "A": "I reopen the conversation by sharing my own situation clearly.",
+      "B": "I share a light personal note and gauge the pace.",
+      "C": "I continue with a general hello and don't give personal details.",
+      "D": "After a silence, I put personal topics off for later."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_006": {
+    "status": "equivalent",
+    "notes": "Moving from group meet to 1:1; early expectations vs light personal vs general vs defer.",
+    "prompt_en": "You'll continue one-to-one with someone you met in a group setting; how do you handle personal sharing?",
+    "options": {
+      "A": "In the shift to one-to-one, I share my basic expectations early.",
+      "B": "I share light personal information and gauge the pace.",
+      "C": "I stay on general topics and don't give personal details.",
+      "D": "Even one-to-one, I put personal topics off for later."
+    }
+  },
+  "frequency_tr_v1_communication_pace_001": {
+    "status": "equivalent",
+    "notes": "Early messaging frequency; several short / AM-PM / wait for them / reply when free.",
+    "prompt_en": "In the first days with a new match, what's your preference for how often you message?",
+    "options": {
+      "A": "I keep contact alive with a few short messages during the day.",
+      "B": "I write regularly but in moderation, around morning and evening.",
+      "C": "I usually wait until they write first.",
+      "D": "I only reply briefly when it works for me."
+    }
+  },
+  "frequency_tr_v1_communication_pace_002": {
+    "status": "equivalent",
+    "notes": "Long-term messaging rhythm; daily short contact vs flexible vs multi-day gaps vs long silence OK.",
+    "prompt_en": "The relationship has progressed; what's your preference for a longer-term messaging rhythm?",
+    "options": {
+      "A": "I keep up regular short contact during the day.",
+      "B": "I stay flexible but predictable based on the week's intensity.",
+      "C": "I may go quiet for a few days and then catch up.",
+      "D": "Long silences don't bother me."
+    }
+  },
+  "frequency_tr_v1_communication_pace_003": {
+    "status": "equivalent",
+    "notes": "Partner silent a few hours; nudge vs end-of-day vs wait vs treat silence as normal.",
+    "prompt_en": "Your partner hasn't written for a few hours; you're not free but you're curious. What do you do?",
+    "options": {
+      "A": "I send a short message and hope the flow continues.",
+      "B": "I plan a wrap-up message for the end of the day.",
+      "C": "I wait until they write and don't reach out if it isn't urgent.",
+      "D": "I treat a longer silence as normal and don't message."
+    }
+  },
+  "frequency_tr_v1_communication_pace_005": {
+    "status": "equivalent",
+    "notes": "Established daily habit; every day vs weekday regular vs as-needed vs long gaps OK.",
+    "prompt_en": "You've known each other for a while; what's your usual daily communication habit?",
+    "options": {
+      "A": "We definitely message at least once every day.",
+      "B": "Weekdays are regular; weekends can be more sparse.",
+      "C": "I write when needed and don't look for a fixed rhythm.",
+      "D": "Long gaps don't worry me."
+    }
+  },
+  "frequency_tr_v1_communication_pace_007": {
+    "status": "equivalent",
+    "notes": "Friday plan unclear; dense messaging vs few clear msgs vs stay quiet vs minimize.",
+    "prompt_en": "Friday evening plans aren't clear yet; how should last-minute messaging go?",
+    "options": {
+      "A": "I message frequently and try to decide quickly.",
+      "B": "I narrow the options with a few clear messages.",
+      "C": "I stay quiet until a decision is made.",
+      "D": "If the plan is unclear, I keep messaging to a minimum."
+    }
+  },
+  "frequency_tr_v1_depth_preference_007": {
+    "status": "equivalent",
+    "notes": "During shared activity; talk meaning vs check feelings vs keep light vs do quietly together.",
+    "prompt_en": "You're going to try a new activity together; what's your preference on the conversation side?",
+    "options": {
+      "A": "I like talking about what the experience means while we're doing it.",
+      "B": "I check in on feelings now and then, but mostly stay focused on the activity.",
+      "C": "I focus on the activity and keep conversation light.",
+      "D": "I prefer doing it together quietly."
+    }
+  },
+  "frequency_tr_v1_depth_preference_008": {
+    "status": "equivalent",
+    "notes": "Personal topic as trust builds; go to roots vs mid-depth example vs practical vs defer.",
+    "prompt_en": "Trust is starting to build; a personal topic opens up. What's your preference for conversation depth?",
+    "options": {
+      "A": "I want to go into the roots of the topic and explore the connections.",
+      "B": "I stay in the middle and continue with a concrete example.",
+      "C": "I tie the topic to practical outcomes.",
+      "D": "I close the topic and say we can talk later."
+    }
+  },
+  "frequency_tr_v1_communication_pace_004": {
+    "status": "equivalent",
+    "notes": "Coordinating activity by message; frequent updates vs few clear / reduce / prefer in person.",
+    "prompt_en": "You're planning a new activity together; what's your style of coordinating by message?",
+    "options": {
+      "A": "I message often and share real-time updates.",
+      "B": "I lock in the plan with a few clear messages and write when needed.",
+      "C": "Once the plan is clear, I cut back on messaging.",
+      "D": "I prefer talking face to face instead of by phone."
+    }
+  },
+  "frequency_tr_v1_communication_pace_006": {
+    "status": "equivalent",
+    "notes": "After group meet, 1:1 messaging tempo; same day / next day / wait / natural opening.",
+    "prompt_en": "You'll continue one-to-one with someone you met in a group setting; what's the messaging tempo?",
+    "options": {
+      "A": "After we part, I send a few messages the same day.",
+      "B": "I continue the next day with a short message.",
+      "C": "I usually wait until they write first.",
+      "D": "I stay quiet for a while and wait for a natural opening."
+    }
+  },
+  "frequency_tr_v1_social_energy_004": {
+    "status": "equivalent",
+    "notes": "Activity may be crowded; enjoy crowd / quieter corner / seek quieter alt / alone or leave early.",
+    "prompt_en": "You're going to try a new activity together; the setting may be crowded. What's your preference?",
+    "options": {
+      "A": "I enjoy spending time together in a crowded setting.",
+      "B": "I join, but I prefer spending time in a quieter corner.",
+      "C": "Instead of a crowd, I look for a more secluded alternative.",
+      "D": "In a crowded setting I prefer being alone or leaving early."
+    }
+  },
+  "frequency_tr_v1_social_energy_006": {
+    "status": "equivalent",
+    "notes": "Mid energy + weekend friend plans; full join / partial / skip / propose 1:1.",
+    "prompt_en": "You have weekend plans with friends; your energy is medium. What do you do?",
+    "options": {
+      "A": "I join the whole plan and try to build up my energy.",
+      "B": "I join part of the plan and leave afterward.",
+      "C": "I skip it this time and make time for myself.",
+      "D": "Instead of the group, I suggest meeting one-to-one."
+    }
+  },
+  "frequency_tr_v1_spontaneity_004": {
+    "status": "equivalent",
+    "notes": "Group hangout someone suggests switching activity; try now vs discuss vs stick vs avoid group pivot.",
+    "prompt_en": "At a group get-together, someone suggests switching to a different activity. What's your preference?",
+    "options": {
+      "A": "I say we should try the new suggestion right away.",
+      "B": "After a short discussion, we change if it works.",
+      "C": "I stick with the original plan.",
+      "D": "I avoid sudden changes within the group."
+    }
+  },
+  "frequency_tr_v1_spontaneity_005": {
+    "status": "equivalent",
+    "notes": "Mid-activity new idea; switch route vs evaluate vs continue vs avoid mid-change.",
+    "prompt_en": "While doing an activity together, a new idea comes up; what's your preference?",
+    "options": {
+      "A": "We try the new idea right away and change the route.",
+      "B": "After a quick check, we try it if it works.",
+      "C": "I continue with the plan we started.",
+      "D": "I avoid changing the plan mid-activity."
+    }
+  },
+  "frequency_tr_v1_stability_003": {
+    "status": "equivalent",
+    "notes": "Weekend plan changed several times; constrain vs flexible frame vs adapt vs wait until clear.",
+    "prompt_en": "The weekend plan has changed several times; how do you approach it?",
+    "options": {
+      "A": "I propose a clear plan frame and limit the changes.",
+      "B": "I stay flexible but try to keep the main frame.",
+      "C": "I adapt to the changes and move to the new plan.",
+      "D": "I avoid constantly changing plans and wait until things are clear."
+    }
+  },
+  "frequency_tr_v1_stability_007": {
+    "status": "equivalent",
+    "notes": "Weekly routine disrupted after group hangout; restore next day vs one-day flex vs stay flexible vs no need for routine.",
+    "prompt_en": "After a group get-together, your weekly routine is disrupted; what's your preference?",
+    "options": {
+      "A": "I make a point of returning to my routine the next day.",
+      "B": "I flex for a day and then return to the routine.",
+      "C": "If the routine is broken, I stay flexible for a while.",
+      "D": "I don't feel a need for routine and leave it to the flow."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_004": {
+    "status": "equivalent",
+    "notes": "Family/close circle topic as trust grows; open share vs frame vs surface vs later.",
+    "prompt_en": "Trust is growing; the topic of family or close circle comes up. What do you do?",
+    "options": {
+      "A": "I share my own family/circle experiences openly.",
+      "B": "I give a general frame and release the details slowly.",
+      "C": "I keep the topic surface-level and don't give personal details.",
+      "D": "I prefer opening these topics once we know each other better."
+    }
+  },
+  "frequency_tr_v1_disclosure_pace_008": {
+    "status": "equivalent",
+    "notes": "Future plans/expectations once trust formed; concrete early vs frame vs general vs when clearer.",
+    "prompt_en": "Trust has formed; future plans and expectations are being discussed. What's your preference?",
+    "options": {
+      "A": "I share my own expectations clearly and concretely.",
+      "B": "I give a basic frame and open the details gradually.",
+      "C": "I stay general and don't share concrete expectations.",
+      "D": "I share future plans once they're clearer."
+    }
+  },
+  "freq_separator_depth_comm_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "You have recently met someone you like. Which communication pattern would feel most natural to you over the next week?",
+    "options": {
+      "A": "I would exchange frequent short messages during the day and leave deeper conversations for later.",
+      "B": "I would communicate less often, but when we talk I would prefer longer and deeper conversations.",
+      "C": "I would balance brief daily contact with an occasional longer conversation.",
+      "D": "I would keep communication light and occasional until we know each other better."
+    }
+  },
+  "freq_separator_social_stability_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "When you have a free weekend, how do you usually prefer to arrange your social plans?",
+    "options": {
+      "A": "Having several different plans one after another tends to energize me.",
+      "B": "One planned get-together and keeping the rest of the time for myself suits me better.",
+      "C": "I prefer deciding who to see and what to do based on how I feel that day.",
+      "D": "I mostly prefer my own space and may add a short social plan if I feel like it."
+    }
+  },
+  "freq_separator_spontaneity_stability_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "When planning a day together, which approach feels most natural to you?",
+    "options": {
+      "A": "I prefer settling the plan in advance and sticking to it as much as possible.",
+      "B": "I like having a clear main plan while leaving room for small changes.",
+      "C": "A rough idea is enough; I enjoy deciding the details during the day.",
+      "D": "It feels more natural to decide most things at the last minute based on what we feel like doing."
+    }
+  },
+  "freq_separator_disclosure_depth_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "Someone you have recently started getting close to asks you a personal question early on. Which response is closest to you?",
+    "options": {
+      "A": "If I feel comfortable, I answer openly and in detail.",
+      "B": "I share part of it and leave the more personal parts until trust develops.",
+      "C": "I can talk about it, but I prefer more time before sharing personal details.",
+      "D": "I prefer keeping the conversation lighter and building closeness through shared experiences first."
+    }
+  },
+  "freq_separator_comm_stability_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "When your messaging rhythm with someone close to you has been different from usual for a few days, what do you generally do?",
+    "options": {
+      "A": "I keep my usual communication rhythm and do not immediately read too much into the change.",
+      "B": "I adjust how often I message to match their new rhythm.",
+      "C": "At an appropriate time, I directly ask whether our communication rhythm is working for both of us.",
+      "D": "I give the interaction some space to find its rhythm naturally again."
+    }
+  },
+  "freq_separator_social_disclosure_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "In a social setting where you feel comfortable, which pattern is usually closest to you?",
+    "options": {
+      "A": "I talk with many people but mostly keep the topics light.",
+      "B": "I have longer conversations with fewer people and open up gradually.",
+      "C": "I move between different people and may discuss personal topics when trust develops.",
+      "D": "I observe the setting first and join one or two conversations once I feel comfortable."
+    }
+  },
+  "freq_quality_instruction_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "This item only checks whether the instruction was read and does not affect your profile. Please select “I read the instruction.”",
+    "options": {
+      "A": "I can continue",
+      "B": "I read the instruction",
+      "C": "I am unsure",
+      "D": "I will answer later"
+    }
+  },
+  "freq_quality_protocol_v1": {
+    "status": "equivalent",
+    "notes": "already authored in R1A",
+    "prompt_en": "This is another short check that does not contribute to your profile score. For this item, please select “Continue.”",
+    "options": {
+      "A": "Wait a moment",
+      "B": "Skip",
+      "C": "Continue",
+      "D": "Go back"
+    }
+  }
+}

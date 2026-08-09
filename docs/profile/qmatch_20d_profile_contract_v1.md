@@ -1,14 +1,12 @@
 # QMatch Canonical 20D Profile Contract v1
 
-**Phase:** P2C-2A-6  
+**Phase:** P2C-2A-8R2
 **Schema:** `qmatch_canonical_profile_v1`  
 **Registry:** `canonical_dimension_registry_v1`
 
 ---
 
 ## Dimension taxonomy (authoritative)
-
-Source: `docs/core_engine/canonical_dimension_registry_v1.md`
 
 | Group | Count | IDs |
 |-------|-------|-----|
@@ -20,41 +18,24 @@ Total required = **20**.
 
 ---
 
-## Measurement semantics
-
-| State | Meaning |
-|-------|---------|
-| `measured` | Value present in `[0,1]` from a canonical source |
-| `not_measured` | Listed only in `missing_dimension_ids` — **no numeric placeholder** |
-
-Forbidden fillers for missing dims: `0`, `0.0`, `0.5`, `50`, midpoint, imputed.
-
----
-
 ## Profile readiness
 
-| Field | After IQ only | After IQ+EQ (R2) |
-|-------|----------------|------------------|
-| `profile_status` | `partial` | `partial` |
-| `canonical_profile_ready` | `false` | `false` |
-| `iq_group_status` | `complete` | `complete` |
-| `eq_group_status` | `not_started` | `complete` |
-| `frequency_group_status` | `not_started` | `incomplete` |
-| measured / required | 4 / 20 | 14 / 20 |
+| Field | After IQ | After IQ+EQ | After IQ+EQ+Frequency |
+|-------|----------|-------------|------------------------|
+| `profile_status` | partial | partial | **complete** |
+| `canonical_profile_ready` | false | false | **true** |
+| measured / required | 4 / 20 | 14 / 20 | **20 / 20** |
 
-Adapters: `iq_to_20d_runtime_adapter_v1`, `eq_to_20d_runtime_adapter_v1`.
+Readiness requires the exact registry ID set (not mere count==20).
 
-| `eq_group_status` | `not_started` |
-| `frequency_group_status` | `not_started` |
-| `measured_dimension_count` | `4` |
-| `required_dimension_count` | `20` |
+Adapters: `iq_to_20d_runtime_adapter_v1`, `eq_to_20d_runtime_adapter_v1`, `frequency_to_20d_runtime_adapter_v1`.
 
 ---
 
 ## Reliability
 
 `reliability_status = not_calibrated`  
-No fabricated `reliability_estimate` / confidence percentages.
+Full 20D readiness ≠ psychometric calibration.
 
 ---
 
@@ -62,4 +43,4 @@ No fabricated `reliability_estimate` / confidence percentages.
 
 `users/{uid}/profiles/canonical_v1`
 
-Does not overwrite legacy `iq_score` or invent EQ/Frequency values.
+Does not authorize Persona / Matching / quantum merely because `canonical_profile_ready=true`.

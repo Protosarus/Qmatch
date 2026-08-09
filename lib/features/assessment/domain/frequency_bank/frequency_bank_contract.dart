@@ -19,7 +19,7 @@ class FrequencyBankContract {
       'assets/data/assessment_v3/frequency/frequency_pilot_tr_v1.json';
 
   /// Not registered in pubspec until live Frequency migration (R2+).
-  static const bool registeredInPubspec = false;
+  static const bool registeredInPubspec = true;
 
   static const int sessionItemCount = 50;
   static const int coreItemCount = 30;

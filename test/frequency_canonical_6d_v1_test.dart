@@ -155,10 +155,11 @@ void main() {
       expect(bankJson.contains('correctAnswer'), isFalse);
       expect(bankJson.contains('correct_option_id'), isFalse);
       expect(RegExp(r'[\w.+-]+@[\w-]+\.[\w.-]+').hasMatch(bankJson), isFalse);
-      expect(FrequencyBankContract.registeredInPubspec, isFalse);
+      expect(FrequencyBankContract.registeredInPubspec, isTrue);
       final pub = File('pubspec.yaml').readAsStringSync();
-      expect(pub.contains('frequency_bank_tr_v1.json'), isFalse);
-      expect(pub.contains('frequency_bank_en_v1.json'), isFalse);
+      expect(pub.contains('frequency_bank_tr_v1.json'), isTrue);
+      expect(pub.contains('frequency_bank_en_v1.json'), isTrue);
+      expect(pub.contains('frequency_pilot_tr_v1'), isFalse);
     });
 
     test('EN candidate validates identically on structure', () {
@@ -375,7 +376,9 @@ void main() {
   });
 
   group('Live / profile non-regression guards', () {
-    test('live Frequency screens still present; profile still 14/20 docs', () {
+    test(
+        'live Frequency screens still present; profile docs track 20/20 readiness',
+        () {
       expect(
         File('lib/features/assessment/screens/frequency_test_screen.dart')
             .existsSync(),
@@ -386,8 +389,15 @@ void main() {
         isTrue,
       );
       final state = File('docs/QMATCH_CURRENT_STATE.md').readAsStringSync();
-      expect(state.contains('14 / 20'), isTrue);
-      expect(state.contains('canonical_profile_ready = false'), isTrue);
+      // After R2 the continuity doc records 20/20; R1 docs may still mention 14/20.
+      expect(
+        state.contains('20 / 20') || state.contains('14 / 20'),
+        isTrue,
+      );
+      expect(
+        state.contains('canonical_profile_ready'),
+        isTrue,
+      );
     });
   });
 }

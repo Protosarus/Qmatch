@@ -509,8 +509,11 @@ void main(List<String> args) {
   }
 
   final pubspec = File('$root/pubspec.yaml').readAsStringSync();
+  // Canonical Frequency banks may be runtime-registered; pilot assets must not.
   if (pubspec.contains('frequency_pilot_tr_v1') ||
-      pubspec.contains('assessment_v3/frequency')) {
+      pubspec.contains('frequency_pilot_en_v1') ||
+      pubspec.contains('frequency_pilot_tr_v1.json') ||
+      pubspec.contains('frequency_pilot_en_v1.json')) {
     err('pubspec_integration', 'pilot must not be listed in pubspec.yaml');
   }
 

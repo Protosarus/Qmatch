@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('pilot bank is not in pubspec', () {
+  test('pilot bank is not in pubspec; runtime candidates are registered', () {
     final pub = File('pubspec.yaml').readAsStringSync();
     expect(pub.contains('frequency_pilot_tr_v1'), isFalse);
-    expect(pub.contains('assessment_v3/frequency'), isFalse);
+    expect(pub.contains('frequency_bank_tr_v1.json'), isTrue);
+    expect(pub.contains('frequency_bank_en_v1.json'), isTrue);
   });
 
   test('production Frequency screens do not import the pilot', () {
@@ -20,13 +21,13 @@ void main() {
                 f.path.contains('question')));
     for (final f in screens) {
       // Offline domain packages may reference pilot/candidate paths without
-      // wiring them into live screens (P2C-2A-8R1).
+      // wiring them into live screens (P2C-2A-8R1 / R2).
       if (f.path.contains('/domain/trait_scoring/')) continue;
       if (f.path.contains('/domain/frequency_bank/')) continue;
       if (f.path.contains('/domain/frequency_scoring/')) continue;
+      if (f.path.contains('/domain/frequency_session/')) continue;
       final text = f.readAsStringSync();
       expect(text.contains('frequency_pilot_tr_v1'), isFalse, reason: f.path);
-      expect(text.contains('assessment_v3/frequency'), isFalse, reason: f.path);
     }
   });
 

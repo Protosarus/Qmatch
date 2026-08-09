@@ -49,9 +49,10 @@
   "localization": {
     "structural_parity": "validated",
     "internal_translation_status": "authored_candidate",
-    "translation_semantic_review": "candidate_review_required",
+    "internal_semantic_equivalence_review": "passed",
+    "translation_semantic_review": "passed_internal_r2",
     "psychometric_cross_language_validation": "not_calibrated",
-    "pilot_derived_en_fields": "stubs_pending_full_semantic_review",
+    "pilot_derived_en_fields": "semantic_equivalent_authored_p2c_2a_8r2",
     "authored_separator_quality_en": "supplied_in_P2C-2A-8R1A"
   },
   "pair_registry": {
@@ -236,11 +237,11 @@
         "communication_pace",
         "social_energy"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "In early messaging with a new match, what kind of tone feels more comfortable to you?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After a light hello, I try to move into a topic I'm curious about.",
           "dimension_deltas": {
             "depth_preference": 0.6,
             "communication_pace": -0.2
@@ -248,7 +249,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I ask an everyday question and go deeper based on how they reply.",
           "dimension_deltas": {
             "depth_preference": 0.3,
             "social_energy": -0.2
@@ -256,7 +257,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I open with something witty and surface-level.",
           "dimension_deltas": {
             "depth_preference": -0.3,
             "social_energy": 0.2
@@ -264,7 +265,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep it short and wait for a better moment.",
           "dimension_deltas": {
             "depth_preference": -0.45,
             "communication_pace": -0.2
@@ -295,11 +296,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "The conversation is stuck on everyday errands; how do you steer the topic?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I ask a question about why this topic matters.",
           "dimension_deltas": {
             "depth_preference": 0.75,
             "disclosure_pace": -0.2
@@ -307,7 +308,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I ask for a bit more detail while staying practical.",
           "dimension_deltas": {
             "depth_preference": 0.45,
             "spontaneity": -0.2
@@ -315,7 +316,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep the agenda as is and don't change the topic.",
           "dimension_deltas": {
             "depth_preference": -0.2,
             "spontaneity": -0.2
@@ -323,7 +324,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I cut the conversation short.",
           "dimension_deltas": {
             "depth_preference": -0.6,
             "social_energy": -0.2
@@ -354,11 +355,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your partner keeps giving short replies; how do you continue?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I deepen the topic with an open-ended question.",
           "dimension_deltas": {
             "depth_preference": 0.75,
             "communication_pace": -0.2
@@ -366,7 +367,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep the pace and try one more angle.",
           "dimension_deltas": {
             "depth_preference": 0.45,
             "social_energy": -0.2
@@ -374,7 +375,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I match their pace and stay brief.",
           "dimension_deltas": {
             "depth_preference": -0.3,
             "stability": 0.2
@@ -382,7 +383,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I drop the topic and say we can talk another time.",
           "dimension_deltas": {
             "depth_preference": -0.6,
             "communication_pace": -0.2
@@ -413,11 +414,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You've been messaging for a while and the mood is calm. How do you prefer to keep the conversation going?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I suggest moving past how the day went into thoughts that have been affecting them.",
           "dimension_deltas": {
             "depth_preference": 0.75,
             "disclosure_pace": -0.2
@@ -425,7 +426,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep it light and slowly drift into something a bit more personal when it fits.",
           "dimension_deltas": {
             "depth_preference": 0.45,
             "spontaneity": -0.2
@@ -433,7 +434,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay on practical topics and keep the flow going without going deeper.",
           "dimension_deltas": {
             "depth_preference": -0.2,
             "spontaneity": 0.3
@@ -441,7 +442,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep it short and plan to message again later.",
           "dimension_deltas": {
             "depth_preference": -0.6,
             "social_energy": 0.2
@@ -472,11 +473,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "A one-to-one chance opens up in a group chat; what do you choose to talk about?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I ask about a shared value or motivation.",
           "dimension_deltas": {
             "depth_preference": 0.6,
             "communication_pace": -0.2
@@ -484,7 +485,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I build a light but personal connection through hobbies.",
           "dimension_deltas": {
             "depth_preference": 0.3,
             "social_energy": -0.2
@@ -492,7 +493,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep the group vibe and talk about general things.",
           "dimension_deltas": {
             "depth_preference": -0.3,
             "social_energy": 0.3
@@ -500,7 +501,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay in the group flow instead of splitting off one-to-one.",
           "dimension_deltas": {
             "depth_preference": -0.45,
             "stability": 0.2
@@ -531,11 +532,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your friends are organizing a small get-together this weekend; what's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "If I'm feeling energetic, I join the whole gathering.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "stability": -0.2
@@ -543,7 +544,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stop by briefly and catch the enjoyable part.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "disclosure_pace": -0.2
@@ -551,7 +552,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I skip it this week and prefer to rest.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "stability": 0.3
@@ -559,7 +560,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Instead of a group setting, I suggest a one-to-one plan.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "depth_preference": 0.2
@@ -590,11 +591,11 @@
         "depth_preference",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "A small get-together with people close to you is planned; you're tired but invited. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I gather my energy and join the get-together.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "communication_pace": -0.2
@@ -602,7 +603,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I come for a short while and plan to leave afterward.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "depth_preference": -0.2
@@ -610,7 +611,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I skip it this time and choose to rest.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "stability": 0.3
@@ -618,7 +619,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid the crowd and postpone a one-to-one meet-up.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "depth_preference": -0.2
@@ -649,11 +650,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your friend group suggests going to a new place; what do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I join right away and enjoy exploring a new setting.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "stability": -0.2
@@ -661,7 +662,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I go, but I might plan to leave early.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "disclosure_pace": -0.2
@@ -669,7 +670,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer to stay home.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "stability": 0.3
@@ -677,7 +678,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Instead of a crowded place, I suggest a quieter alternative.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "depth_preference": -0.2
@@ -707,11 +708,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "A new match suggests meeting up; what's your preference for the setting?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I suggest a lively café or a busy place.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "stability": -0.2
@@ -719,7 +720,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I suggest a medium-paced, comfortable place.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "disclosure_pace": -0.2
@@ -727,7 +728,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer a quiet walk or a park.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "stability": 0.3
@@ -735,7 +736,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer meeting at home or somewhere secluded.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "disclosure_pace": 0.2
@@ -766,11 +767,11 @@
         "depth_preference",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "After a busy week your partner wants quiet time, but you feel rested. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Even while respecting their need, I offer a light social suggestion.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "communication_pace": -0.2
@@ -778,7 +779,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I send a short voice note and then leave them space.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "depth_preference": -0.2
@@ -786,7 +787,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I accept the quiet and spend time on my own.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "stability": 0.3
@@ -794,7 +795,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I pull back fully and keep contact to a minimum for a while.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "depth_preference": -0.2
@@ -825,11 +826,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You have no plans for Friday evening; someone suddenly suggests hanging out. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I accept right away and figure out the plan in the moment.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "stability": -0.2
@@ -837,7 +838,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I think briefly and say yes if it works.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "disclosure_pace": -0.2
@@ -845,7 +846,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer planning ahead, so I postpone.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "stability": 0.3
@@ -853,7 +854,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I usually turn down last-minute invitations.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "depth_preference": -0.2
@@ -885,11 +886,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You had a plan for a shared activity; a new idea comes up during the day. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I say we should loosen the plan and try the new idea right away.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "social_energy": -0.2
@@ -897,7 +898,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After a quick check, I change direction.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "communication_pace": -0.2
@@ -905,7 +906,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stick with the original plan.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "stability": 0.3
@@ -913,7 +914,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid last-minute changes and keep the schedule.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "depth_preference": -0.2
@@ -945,11 +946,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You don't have a firm weekend plan; a friend suggests a different activity. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I switch to the new plan right away and enjoy trying it.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "stability": -0.2
@@ -957,7 +958,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After a quick check, I accept if it works.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "disclosure_pace": -0.2
@@ -965,7 +966,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stick with what I already had in mind.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "depth_preference": 0.2
@@ -973,7 +974,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid last-minute changes.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "communication_pace": -0.2
@@ -1005,11 +1006,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your weekday evening plan is set; someone suggests something different at the last minute. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I drop the plan and accept the new suggestion.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "social_energy": -0.2
@@ -1017,7 +1018,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "If it works, I can make a small change.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "communication_pace": -0.2
@@ -1025,7 +1026,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stick with the plan we already agreed on.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "stability": 0.3
@@ -1033,7 +1034,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I usually turn down last-minute changes.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "depth_preference": -0.2
@@ -1063,11 +1064,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "A new match suddenly suggests a different meeting time. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I adapt right away and accept the new time.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "stability": -0.2
@@ -1075,7 +1076,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I reply quickly based on my availability.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "disclosure_pace": -0.2
@@ -1083,7 +1084,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer sticking to the time we already set.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "stability": 0.3
@@ -1091,7 +1092,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid sudden time changes.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "disclosure_pace": -0.2
@@ -1122,11 +1123,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "When it comes to building a weekly meet-up habit with someone you just met, what's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I suggest a regular rhythm on the same day/time each week.",
           "dimension_deltas": {
             "stability": 0.75,
             "communication_pace": -0.2
@@ -1134,7 +1135,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I set a general frame and we clarify the details together.",
           "dimension_deltas": {
             "stability": 0.45,
             "spontaneity": -0.2
@@ -1142,7 +1143,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I'm open to moving at a different pace each week.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -1150,7 +1151,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I leave it to the flow without making a fixed plan.",
           "dimension_deltas": {
             "stability": -0.6,
             "social_energy": 0.2
@@ -1182,11 +1183,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your communication rhythm with someone you just met hasn't settled yet. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I suggest a weekly repeating meet-up or chat rhythm.",
           "dimension_deltas": {
             "stability": 0.75,
             "communication_pace": -0.2
@@ -1194,7 +1195,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I set a general frame and clarify the details together.",
           "dimension_deltas": {
             "stability": 0.45,
             "disclosure_pace": -0.2
@@ -1202,7 +1203,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I'm open to moving at a different pace each week.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -1210,7 +1211,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I leave it to the flow without making a fixed plan.",
           "dimension_deltas": {
             "stability": -0.6,
             "social_energy": 0.2
@@ -1241,11 +1242,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your daily routine is settled; someone you've met suggests a different pace. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep my current routine and don't change it beyond small adjustments.",
           "dimension_deltas": {
             "stability": 0.75,
             "communication_pace": -0.2
@@ -1253,7 +1254,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I can make small adjustments that still fit my routine.",
           "dimension_deltas": {
             "stability": 0.45,
             "communication_pace": -0.2
@@ -1261,7 +1262,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I'm open to a pace change and willing to try it.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -1269,7 +1270,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Rather than disrupt my routine, I continue at my own pace.",
           "dimension_deltas": {
             "stability": -0.6,
             "social_energy": 0.2
@@ -1300,11 +1301,11 @@
         "disclosure_pace",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your long-term communication rhythm is settled; an unexpected change comes up. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I try to return to the previous rhythm as soon as possible.",
           "dimension_deltas": {
             "stability": 0.75,
             "communication_pace": -0.2
@@ -1312,7 +1313,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I propose an updated rhythm based on the new conditions.",
           "dimension_deltas": {
             "stability": 0.45,
             "spontaneity": -0.2
@@ -1320,7 +1321,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I accept the change and adapt to the new pace.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -1328,7 +1329,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I leave it to the natural flow without looking for a fixed rhythm.",
           "dimension_deltas": {
             "stability": -0.6,
             "disclosure_pace": -0.2
@@ -1360,11 +1361,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your partner has been quiet for a while; a chance to reconnect comes up. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I propose rebuilding the earlier regular contact rhythm.",
           "dimension_deltas": {
             "stability": 0.75,
             "communication_pace": -0.2
@@ -1372,7 +1373,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I suggest a light but predictable check-in pattern.",
           "dimension_deltas": {
             "stability": 0.45,
             "disclosure_pace": -0.2
@@ -1380,7 +1381,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay flexible this time and say we'll try a new pace.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -1388,7 +1389,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I trust the natural flow without setting a rhythm.",
           "dimension_deltas": {
             "stability": -0.6,
             "social_energy": 0.2
@@ -1419,11 +1420,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "When it comes to sharing personal information with a new match, what's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Even early on, I share my basic expectations clearly.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "communication_pace": -0.2
@@ -1431,7 +1432,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I open up gradually as mutual trust builds.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "social_energy": -0.2
@@ -1439,7 +1440,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay general and don't give personal details.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -1447,7 +1448,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I don't open personal topics until trust has formed.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "social_energy": -0.2
@@ -1478,11 +1479,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Trust is starting to build; past relationships come up. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share my own experiences openly and early.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "depth_preference": -0.2
@@ -1490,7 +1491,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I give a basic frame and open the details gradually.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "stability": -0.2
@@ -1498,7 +1499,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay general and don't give concrete examples.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -1506,7 +1507,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep personal history private until trust is fully there.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "social_energy": -0.2
@@ -1537,11 +1538,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "The conversation with a new match is progressing; a personal topic comes up. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share a short but clear example from my own experience.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "communication_pace": -0.2
@@ -1549,7 +1550,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I open the topic but release the details slowly.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "social_energy": -0.2
@@ -1557,7 +1558,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay general and don't give a personal example.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -1565,7 +1566,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I change the topic and wait until we know each other better.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "social_energy": -0.2
@@ -1597,11 +1598,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your partner has been quiet for a while; when reconnecting, how do you handle personal sharing?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I reopen the conversation by sharing my own situation clearly.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "communication_pace": -0.2
@@ -1609,7 +1610,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share a light personal note and gauge the pace.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "social_energy": -0.2
@@ -1617,7 +1618,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I continue with a general hello and don't give personal details.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -1625,7 +1626,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After a silence, I put personal topics off for later.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "depth_preference": -0.2
@@ -1656,11 +1657,11 @@
         "depth_preference",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You'll continue one-to-one with someone you met in a group setting; how do you handle personal sharing?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "In the shift to one-to-one, I share my basic expectations early.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "depth_preference": -0.2
@@ -1668,7 +1669,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share light personal information and gauge the pace.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "stability": -0.2
@@ -1676,7 +1677,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay on general topics and don't give personal details.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -1684,7 +1685,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Even one-to-one, I put personal topics off for later.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "communication_pace": -0.2
@@ -1715,11 +1716,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "In the first days with a new match, what's your preference for how often you message?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep contact alive with a few short messages during the day.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "depth_preference": -0.2
@@ -1727,7 +1728,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I write regularly but in moderation, around morning and evening.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "disclosure_pace": -0.2
@@ -1735,7 +1736,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I usually wait until they write first.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "stability": 0.3
@@ -1743,7 +1744,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I only reply briefly when it works for me.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "disclosure_pace": -0.2
@@ -1774,11 +1775,11 @@
         "spontaneity",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "The relationship has progressed; what's your preference for a longer-term messaging rhythm?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep up regular short contact during the day.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "social_energy": -0.2
@@ -1786,7 +1787,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay flexible but predictable based on the week's intensity.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "stability": -0.2
@@ -1794,7 +1795,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I may go quiet for a few days and then catch up.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "spontaneity": 0.3
@@ -1802,7 +1803,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Long silences don't bother me.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "stability": 0.2
@@ -1833,11 +1834,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Your partner hasn't written for a few hours; you're not free but you're curious. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I send a short message and hope the flow continues.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "depth_preference": -0.2
@@ -1845,7 +1846,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I plan a wrap-up message for the end of the day.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "disclosure_pace": -0.2
@@ -1853,7 +1854,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I wait until they write and don't reach out if it isn't urgent.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "stability": 0.3
@@ -1861,7 +1862,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I treat a longer silence as normal and don't message.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "disclosure_pace": -0.2
@@ -1892,11 +1893,11 @@
         "disclosure_pace",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You've known each other for a while; what's your usual daily communication habit?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "We definitely message at least once every day.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "depth_preference": -0.2
@@ -1904,7 +1905,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Weekdays are regular; weekends can be more sparse.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "disclosure_pace": -0.2
@@ -1912,7 +1913,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I write when needed and don't look for a fixed rhythm.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "spontaneity": 0.3
@@ -1920,7 +1921,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Long gaps don't worry me.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "disclosure_pace": -0.2
@@ -1951,11 +1952,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Friday evening plans aren't clear yet; how should last-minute messaging go?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I message frequently and try to decide quickly.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "depth_preference": -0.2
@@ -1963,7 +1964,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I narrow the options with a few clear messages.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "disclosure_pace": -0.2
@@ -1971,7 +1972,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay quiet until a decision is made.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "depth_preference": 0.2
@@ -1979,7 +1980,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "If the plan is unclear, I keep messaging to a minimum.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "stability": 0.2
@@ -2010,11 +2011,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You're going to try a new activity together; what's your preference on the conversation side?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I like talking about what the experience means while we're doing it.",
           "dimension_deltas": {
             "depth_preference": 0.6,
             "communication_pace": -0.2
@@ -2022,7 +2023,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I check in on feelings now and then, but mostly stay focused on the activity.",
           "dimension_deltas": {
             "depth_preference": 0.3,
             "social_energy": -0.2
@@ -2030,7 +2031,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I focus on the activity and keep conversation light.",
           "dimension_deltas": {
             "depth_preference": -0.3,
             "stability": 0.2
@@ -2038,7 +2039,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer doing it together quietly.",
           "dimension_deltas": {
             "depth_preference": -0.45,
             "communication_pace": -0.2
@@ -2069,11 +2070,11 @@
         "spontaneity",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Trust is starting to build; a personal topic opens up. What's your preference for conversation depth?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I want to go into the roots of the topic and explore the connections.",
           "dimension_deltas": {
             "depth_preference": 0.75,
             "disclosure_pace": -0.2
@@ -2081,7 +2082,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay in the middle and continue with a concrete example.",
           "dimension_deltas": {
             "depth_preference": 0.45,
             "spontaneity": -0.2
@@ -2089,7 +2090,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I tie the topic to practical outcomes.",
           "dimension_deltas": {
             "depth_preference": -0.2,
             "stability": 0.2
@@ -2097,7 +2098,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I close the topic and say we can talk later.",
           "dimension_deltas": {
             "depth_preference": -0.6,
             "disclosure_pace": -0.2
@@ -2128,11 +2129,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You're planning a new activity together; what's your style of coordinating by message?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I message often and share real-time updates.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "social_energy": -0.2
@@ -2140,7 +2141,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I lock in the plan with a few clear messages and write when needed.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "stability": -0.2
@@ -2148,7 +2149,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Once the plan is clear, I cut back on messaging.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "depth_preference": 0.2
@@ -2156,7 +2157,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer talking face to face instead of by phone.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "social_energy": -0.2
@@ -2186,11 +2187,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You'll continue one-to-one with someone you met in a group setting; what's the messaging tempo?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After we part, I send a few messages the same day.",
           "dimension_deltas": {
             "communication_pace": 0.75,
             "social_energy": -0.2
@@ -2198,7 +2199,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I continue the next day with a short message.",
           "dimension_deltas": {
             "communication_pace": 0.45,
             "stability": -0.2
@@ -2206,7 +2207,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I usually wait until they write first.",
           "dimension_deltas": {
             "communication_pace": -0.3,
             "stability": 0.3
@@ -2214,7 +2215,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay quiet for a while and wait for a natural opening.",
           "dimension_deltas": {
             "communication_pace": -0.6,
             "social_energy": -0.2
@@ -2245,11 +2246,11 @@
         "depth_preference",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You're going to try a new activity together; the setting may be crowded. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I enjoy spending time together in a crowded setting.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "communication_pace": -0.2
@@ -2257,7 +2258,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I join, but I prefer spending time in a quieter corner.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "depth_preference": -0.2
@@ -2265,7 +2266,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Instead of a crowd, I look for a more secluded alternative.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "stability": 0.3
@@ -2273,7 +2274,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "In a crowded setting I prefer being alone or leaving early.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "communication_pace": -0.2
@@ -2304,11 +2305,11 @@
         "depth_preference",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "You have weekend plans with friends; your energy is medium. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I join the whole plan and try to build up my energy.",
           "dimension_deltas": {
             "social_energy": 0.75,
             "communication_pace": -0.2
@@ -2316,7 +2317,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I join part of the plan and leave afterward.",
           "dimension_deltas": {
             "social_energy": 0.45,
             "depth_preference": -0.2
@@ -2324,7 +2325,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I skip it this time and make time for myself.",
           "dimension_deltas": {
             "social_energy": -0.3,
             "spontaneity": 0.3
@@ -2332,7 +2333,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "Instead of the group, I suggest meeting one-to-one.",
           "dimension_deltas": {
             "social_energy": -0.6,
             "depth_preference": 0.2
@@ -2363,11 +2364,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "At a group get-together, someone suggests switching to a different activity. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I say we should try the new suggestion right away.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "social_energy": -0.2
@@ -2375,7 +2376,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After a short discussion, we change if it works.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "communication_pace": -0.2
@@ -2383,7 +2384,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stick with the original plan.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "stability": 0.3
@@ -2391,7 +2392,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid sudden changes within the group.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "social_energy": -0.2
@@ -2423,11 +2424,11 @@
         "disclosure_pace",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "While doing an activity together, a new idea comes up; what's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "We try the new idea right away and change the route.",
           "dimension_deltas": {
             "spontaneity": 0.75,
             "stability": -0.2
@@ -2435,7 +2436,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "After a quick check, we try it if it works.",
           "dimension_deltas": {
             "spontaneity": 0.45,
             "disclosure_pace": -0.2
@@ -2443,7 +2444,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I continue with the plan we started.",
           "dimension_deltas": {
             "spontaneity": -0.3,
             "depth_preference": 0.2
@@ -2451,7 +2452,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid changing the plan mid-activity.",
           "dimension_deltas": {
             "spontaneity": -0.6,
             "communication_pace": -0.2
@@ -2482,11 +2483,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "The weekend plan has changed several times; how do you approach it?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I propose a clear plan frame and limit the changes.",
           "dimension_deltas": {
             "stability": 0.75,
             "spontaneity": -0.2
@@ -2494,7 +2495,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay flexible but try to keep the main frame.",
           "dimension_deltas": {
             "stability": 0.45,
             "social_energy": -0.2
@@ -2502,7 +2503,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I adapt to the changes and move to the new plan.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -2510,7 +2511,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I avoid constantly changing plans and wait until things are clear.",
           "dimension_deltas": {
             "stability": -0.6,
             "depth_preference": -0.2
@@ -2542,11 +2543,11 @@
         "social_energy",
         "spontaneity"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "After a group get-together, your weekly routine is disrupted; what's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I make a point of returning to my routine the next day.",
           "dimension_deltas": {
             "stability": 0.75,
             "communication_pace": -0.2
@@ -2554,7 +2555,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I flex for a day and then return to the routine.",
           "dimension_deltas": {
             "stability": 0.45,
             "social_energy": -0.2
@@ -2562,7 +2563,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "If the routine is broken, I stay flexible for a while.",
           "dimension_deltas": {
             "stability": -0.3,
             "spontaneity": 0.3
@@ -2570,7 +2571,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I don't feel a need for routine and leave it to the flow.",
           "dimension_deltas": {
             "stability": -0.6,
             "depth_preference": -0.2
@@ -2601,11 +2602,11 @@
         "depth_preference",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Trust is growing; the topic of family or close circle comes up. What do you do?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share my own family/circle experiences openly.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "depth_preference": -0.2
@@ -2613,7 +2614,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I give a general frame and release the details slowly.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "stability": -0.2
@@ -2621,7 +2622,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I keep the topic surface-level and don't give personal details.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -2629,7 +2630,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I prefer opening these topics once we know each other better.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "communication_pace": -0.2
@@ -2660,11 +2661,11 @@
         "social_energy",
         "stability"
       ],
-      "prompt": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+      "prompt": "Trust has formed; future plans and expectations are being discussed. What's your preference?",
       "options": [
         {
           "option_id": "A",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share my own expectations clearly and concretely.",
           "dimension_deltas": {
             "disclosure_pace": 0.75,
             "depth_preference": -0.2
@@ -2672,7 +2673,7 @@
         },
         {
           "option_id": "B",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I give a basic frame and open the details gradually.",
           "dimension_deltas": {
             "disclosure_pace": 0.45,
             "stability": -0.2
@@ -2680,7 +2681,7 @@
         },
         {
           "option_id": "C",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I stay general and don't share concrete expectations.",
           "dimension_deltas": {
             "disclosure_pace": -0.3,
             "stability": 0.3
@@ -2688,7 +2689,7 @@
         },
         {
           "option_id": "D",
-          "text": "EN equivalent pending (tr-TR pilot reference; not a translation).",
+          "text": "I share future plans once they're clearer.",
           "dimension_deltas": {
             "disclosure_pace": -0.6,
             "social_energy": -0.2
