@@ -156,7 +156,9 @@ class _DisplayNameCompletionScreenState
       child: _loadingPrefill
           ? const Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  ProfileSetupChrome.accentLabel,
+                ),
               ),
             )
           : LayoutBuilder(
@@ -206,7 +208,7 @@ class _DisplayNameCompletionScreenState
                               color: AppColors.textPrimary,
                               fontSize: 18,
                             ),
-                            cursorColor: AppColors.softGold,
+                            cursorColor: ProfileSetupChrome.accentLabel,
                             decoration: ProfileSetupChrome.fieldDecoration(
                               l10n.displayNameHint,
                             ).copyWith(counterText: ''),
