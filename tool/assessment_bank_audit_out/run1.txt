@@ -1,0 +1,6 @@
+=== Assessment bank audit (deterministic) ===
+total_items=1622
+counts={KEEP: 0, KEEP_WITH_METADATA: 842, REWRITE: 500, RETIRE: 22, MANUAL_REVIEW: 258}
+wrote /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/tool/assessment_bank_audit_out/audit_report.json
+wrote /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/tool/assessment_bank_audit_out/current_assessment_bank_audit_v1.md
+wrote docs/core_engine/current_assessment_bank_audit_v1.md

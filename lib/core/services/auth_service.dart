@@ -76,13 +76,17 @@ class AuthService {
     final data = doc.data() ?? <String, dynamic>{};
 
     final testCompleted = data['test_completed'] as bool? ?? false;
+    final flowCompleted = data['assessment_flow_completed'] as bool? ?? false;
+    final assessmentsDone = testCompleted || flowCompleted;
     final profileCompleted = data['profile_completed'] as bool? ?? false;
     final active = data['active'] as bool? ?? true;
     final profilePhotoUrl = (data['profile_photo_url'] as String?)?.trim();
-    final photos = (data['photos'] as List?)?.cast<String>() ?? const <String>[];
-    final hasPhoto = (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty) || photos.isNotEmpty;
+    final photos =
+        (data['photos'] as List?)?.cast<String>() ?? const <String>[];
+    final hasPhoto = (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty) ||
+        photos.isNotEmpty;
 
-    final eligible = active && testCompleted && profileCompleted && hasPhoto;
+    final eligible = active && assessmentsDone && profileCompleted && hasPhoto;
 
     await _firestore.collection('users').doc(uid).set(
       {
@@ -128,7 +132,8 @@ class AuthService {
               try {
                 await ensureUserDocumentForPhoneUser(user);
               } catch (e) {
-                debugPrint('ensureUserDocumentForPhoneUser after auto-verify: $e');
+                debugPrint(
+                    'ensureUserDocumentForPhoneUser after auto-verify: $e');
               }
             }
             _safeCallback(
@@ -243,7 +248,10 @@ class AuthService {
         {
           'uid': user.uid,
           'phone_number': phoneNumber,
-          'name': user.displayName,
+          // Do not seed null Auth displayName into canonical `name`.
+          // Display-name gate collects and writes a validated value.
+          if (user.displayName != null && user.displayName!.trim().isNotEmpty)
+            'name': user.displayName!.trim(),
           'email': user.email,
           'auth_provider': 'phone',
           'test_completed': false,
@@ -263,7 +271,8 @@ class AuthService {
     // Existing doc: only merge safe fields.
     await ref.set(
       {
-        if (phoneNumber != null && phoneNumber.isNotEmpty) 'phone_number': phoneNumber,
+        if (phoneNumber != null && phoneNumber.isNotEmpty)
+          'phone_number': phoneNumber,
         'auth_provider': 'phone',
         'updated_at': FieldValue.serverTimestamp(),
         'last_active_at': FieldValue.serverTimestamp(),
@@ -303,9 +312,14 @@ class AuthService {
     required String email,
   }) async {
     try {
+      // P1B-1: omit optional assessment mirrors (never write null keys that
+      // would erase valid scores if this path is reused on an existing uid).
+      // P2C-1C-4A: never seed a placeholder like "User"; omit `name` when empty
+      // so the display-name gate collects a real value.
+      final trimmedName = name.trim();
       await _firestore.collection('users').doc(uid).set({
         'uid': uid,
-        'name': name,
+        if (trimmedName.isNotEmpty) 'name': trimmedName,
         'email': email,
         'auth_provider': 'email',
         'test_completed': false,
@@ -313,12 +327,6 @@ class AuthService {
         'profile_completed': false,
         'discover_eligible': false,
         'active': true,
-        'archetype': null,
-        'category': null, // HH, HM, HL, MH, MM, ML, LH, LM, LL
-        'iq_score': null, // Raw score (0-10)
-        'eq_score': null, // Raw score (0-10)
-        'iq_normalized': null, // Normalized (0-100)
-        'eq_normalized': null, // Normalized (0-100)
         'created_at': FieldValue.serverTimestamp(),
         'updated_at': FieldValue.serverTimestamp(),
         'last_active_at': FieldValue.serverTimestamp(),
@@ -342,7 +350,7 @@ class AuthService {
       } else {
         await createUserInFirestore(
           uid: user.uid,
-          name: user.displayName ?? 'User',
+          name: user.displayName?.trim() ?? '',
           email: user.email ?? '',
         );
       }
@@ -358,7 +366,10 @@ class AuthService {
     }
   }
 
-  // Kullanıcı test durumunu kontrol et
+  // Kullanıcı test durumunu kontrol et.
+  //
+  // Meaning: legacy Discover/onboarding gate. For flow v2 this is true only
+  // after IQ+EQ+Frequency complete (`assessment_flow_completed`).
   Future<bool> hasCompletedTests() async {
     final user = _auth.currentUser;
     if (user == null) return false;
@@ -388,38 +399,78 @@ class AuthService {
     }
   }
 
-  // Test tamamlandığında güncelle (normalized skorlar ile)
+  // Test tamamlandığında güncelle (normalized skorlar ile).
+  //
+  // LEGACY helper — P1B-2A flow v2 must NOT call this from EQ.
+  // New flow uses AssessmentProgressService.markEqCompleted /
+  // markAssessmentFlowCompleted instead (no persona rewrite after EQ).
+  //
+  // P1B-1.1: when [writePersona] is false, do not overwrite archetype/category
+  // (unknown IQ denominator must not fabricate a new HH…LL persona).
+  // When [iqNormalized] is null, omit that key (do not write 0 as "Low").
+  //
+  // `test_completed` here still means legacy "IQ+EQ grid done". Prefer
+  // AssessmentProgressService for flow v2 where `test_completed` is set only
+  // after Frequency completes.
   Future<void> updateTestCompletion({
-    required String archetype,
-    required String category,
+    String? archetype,
+    String? category,
     required int iqScore,
     required int eqScore,
-    required int iqNormalized,
+    int? iqNormalized,
     required int eqNormalized,
+    bool writePersona = true,
   }) async {
     final user = _auth.currentUser;
     if (user == null) return;
 
     try {
-      await _firestore.collection('users').doc(user.uid).update({
+      final payload = <String, dynamic>{
         'test_completed': true,
-        'archetype': archetype,
-        'category': category,
         'iq_score': iqScore,
         'eq_score': eqScore,
-        'iq_normalized': iqNormalized,
         'eq_normalized': eqNormalized,
         'test_completed_at': FieldValue.serverTimestamp(),
-      });
+      };
+      if (writePersona &&
+          archetype != null &&
+          archetype.isNotEmpty &&
+          category != null &&
+          category.isNotEmpty) {
+        payload['archetype'] = archetype;
+        payload['category'] = category;
+      }
+      if (iqNormalized != null) {
+        payload['iq_normalized'] = iqNormalized;
+      }
+
+      await _firestore.collection('users').doc(user.uid).update(payload);
 
       // Safe MVP: recompute discover eligibility after tests complete.
       await _refreshDiscoverEligibility(user.uid);
 
-      debugPrint('✅ Test results saved: IQ=$iqScore($iqNormalized), EQ=$eqScore($eqNormalized), Category=$category');
+      debugPrint(
+          '✅ Test results saved: IQ=$iqScore($iqNormalized), EQ=$eqScore($eqNormalized), Category=$category writePersona=$writePersona');
     } catch (e) {
       debugPrint('Error updating test completion: $e');
       throw e.toString();
     }
+  }
+
+  /// Reads existing legacy persona mirrors without inventing defaults.
+  Future<({String? archetype, String? category})>
+      getStoredPersonaMirrors() async {
+    final user = _auth.currentUser;
+    if (user == null) return (archetype: null, category: null);
+    final doc = await _firestore.collection('users').doc(user.uid).get();
+    final data = doc.data();
+    if (data == null) return (archetype: null, category: null);
+    final archetype = (data['archetype'] as String?)?.trim();
+    final category = (data['category'] as String?)?.trim();
+    return (
+      archetype: (archetype == null || archetype.isEmpty) ? null : archetype,
+      category: (category == null || category.isEmpty) ? null : category,
+    );
   }
 
   // Email doğrulandı mı kontrol et

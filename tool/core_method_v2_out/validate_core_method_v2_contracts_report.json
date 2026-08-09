@@ -1,0 +1,12 @@
+{
+  "active_dimension_count": 20,
+  "config_version": "core_method_v2_config_v1",
+  "error_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "freeze_artifact_count": 10,
+  "phase": "P2B-0",
+  "status": "PASS",
+  "validator": "validate_core_method_v2_contracts",
+  "value_field_count": 11
+}

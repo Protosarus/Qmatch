@@ -1,0 +1,204 @@
+{
+  "responses": [
+    {
+      "question_id": "eq_empathy_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 5550
+    },
+    {
+      "question_id": "eq_empathy_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 6300
+    },
+    {
+      "question_id": "eq_empathy_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7050
+    },
+    {
+      "question_id": "eq_empathy_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7800
+    },
+    {
+      "question_id": "eq_perspective_taking_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 5710
+    },
+    {
+      "question_id": "eq_perspective_taking_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 6460
+    },
+    {
+      "question_id": "eq_perspective_taking_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7210
+    },
+    {
+      "question_id": "eq_perspective_taking_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7960
+    },
+    {
+      "question_id": "eq_self_awareness_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 5870
+    },
+    {
+      "question_id": "eq_self_awareness_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 6620
+    },
+    {
+      "question_id": "eq_self_awareness_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7370
+    },
+    {
+      "question_id": "eq_self_awareness_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8120
+    },
+    {
+      "question_id": "eq_emotion_regulation_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6030
+    },
+    {
+      "question_id": "eq_emotion_regulation_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 6780
+    },
+    {
+      "question_id": "eq_emotion_regulation_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7530
+    },
+    {
+      "question_id": "eq_emotion_regulation_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8280
+    },
+    {
+      "question_id": "eq_emotional_openness_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6190
+    },
+    {
+      "question_id": "eq_emotional_openness_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 6940
+    },
+    {
+      "question_id": "eq_emotional_openness_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7690
+    },
+    {
+      "question_id": "eq_emotional_openness_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8440
+    },
+    {
+      "question_id": "eq_boundary_setting_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6350
+    },
+    {
+      "question_id": "eq_boundary_setting_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7100
+    },
+    {
+      "question_id": "eq_boundary_setting_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 7850
+    },
+    {
+      "question_id": "eq_boundary_setting_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8600
+    },
+    {
+      "question_id": "eq_assertiveness_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6510
+    },
+    {
+      "question_id": "eq_assertiveness_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7260
+    },
+    {
+      "question_id": "eq_assertiveness_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8010
+    },
+    {
+      "question_id": "eq_assertiveness_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8760
+    },
+    {
+      "question_id": "eq_conflict_approach_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6670
+    },
+    {
+      "question_id": "eq_conflict_approach_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7420
+    },
+    {
+      "question_id": "eq_conflict_approach_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8170
+    },
+    {
+      "question_id": "eq_conflict_approach_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8920
+    },
+    {
+      "question_id": "eq_repair_orientation_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6830
+    },
+    {
+      "question_id": "eq_repair_orientation_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7580
+    },
+    {
+      "question_id": "eq_repair_orientation_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8330
+    },
+    {
+      "question_id": "eq_repair_orientation_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 9080
+    },
+    {
+      "question_id": "eq_social_awareness_1",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 6990
+    },
+    {
+      "question_id": "eq_social_awareness_2",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7740
+    },
+    {
+      "question_id": "eq_social_awareness_3",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 8490
+    },
+    {
+      "question_id": "eq_social_awareness_4",
+      "selected_option_id": "low",
+      "response_time_milliseconds": 9240
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "anchors": {
+    "iq_tr_v1_logical_003": "iq_tr_v1_anchor_logical",
+    "iq_tr_v1_pattern_003": "iq_tr_v1_anchor_pattern",
+    "iq_tr_v1_spatial_003": "iq_tr_v1_anchor_spatial",
+    "iq_tr_v1_verbal_003": "iq_tr_v1_anchor_verbal"
+  },
+  "automated_validation": "PASS",
+  "calibration_status": "uncalibrated",
+  "content_version": "iq-tr-pilot-v1",
+  "correct_option_counts": {
+    "A": 7,
+    "B": 6,
+    "C": 6,
+    "D": 6
+  },
+  "correct_option_sequence": "ACBDADBCABDCBADCADBCABDAC",
+  "difficulty_counts": {
+    "easy_2": 8,
+    "hard_4": 5,
+    "medium_3": 12
+  },
+  "domain_counts": {
+    "logical_reasoning": 7,
+    "pattern_reasoning": 6,
+    "spatial_reasoning": 6,
+    "verbal_reasoning": 6
+  },
+  "error_count": 0,
+  "findings": [
+    {
+      "code": "trait_scoring",
+      "message": "all-correct smoke passed",
+      "severity": "info"
+    }
+  ],
+  "form_id": "iq_tr_pilot_v1",
+  "locale": "tr-TR",
+  "manual_reasoning_review": "PENDING",
+  "max_correct_run": 1,
+  "near_duplicates": [],
+  "notes": {
+    "does_not_prove_answer_semantics": true,
+    "not_production_wired": true,
+    "offline_only": true
+  },
+  "set_id": "iq_tr_pilot_v1_set_001",
+  "status": "pilot",
+  "unresolved_semantic_risk": "PENDING_EXPERT_REVIEW",
+  "warn_count": 0
+}

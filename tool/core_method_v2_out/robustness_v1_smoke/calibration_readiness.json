@@ -1,0 +1,24 @@
+{
+  "data_collection_implemented_this_phase": false,
+  "engineering_readiness": "pass_or_conditional_see_engineering_readiness",
+  "fairness_claimed": false,
+  "forbidden_outcome_proxies": [
+    "message_frequency_alone",
+    "swipe_acceptance_alone",
+    "retention_alone",
+    "engagement_optimization_alone"
+  ],
+  "measurement_readiness": "conditional",
+  "optimization_risks": [
+    "addiction",
+    "superficial_engagement",
+    "popular_profile_exposure",
+    "demographic_imbalance",
+    "self_fulfilling_ranking_feedback_loops"
+  ],
+  "outcome_calibration_readiness": "conditional",
+  "predictive_validity_claimed": false,
+  "product_research_readiness": "conditional",
+  "production_ranking_readiness": "not_evaluated",
+  "requires_ethically_collected_consented_purpose_limited_data": true
+}

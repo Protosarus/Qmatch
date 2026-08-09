@@ -1,0 +1,28 @@
+{
+  "across_secondary_seeds": {
+    "seed_111111": {
+      "mean_adjusted": 0.6001630174685969,
+      "note": "Different synthetic populations; not paired rank comparison.",
+      "pair_count": 40
+    },
+    "seed_222222": {
+      "mean_adjusted": 0.5796307456451248,
+      "note": "Different synthetic populations; not paired rank comparison.",
+      "pair_count": 37
+    }
+  },
+  "not_a_dating_ranking": true,
+  "pair_count": 9496,
+  "raw_versus_adjusted": {
+    "bottom_10_pct_overlap": 0.97,
+    "kendall_skipped_for_size": true,
+    "kendall_tau_b_style": null,
+    "max_abs_rank_movement": 149.0,
+    "median_abs_rank_movement": 24.0,
+    "pair_count": 1000,
+    "spearman": 0.9877764277764278,
+    "top_10_pct_overlap": 0.84,
+    "top_1_pct_overlap": 0.7,
+    "top_5_pct_overlap": 0.7
+  }
+}

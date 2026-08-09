@@ -1,0 +1,363 @@
+{
+  "config_version": "structural_similarity_config_v1",
+  "not_real_personalities": true,
+  "phase": "P2B-1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "scenario_count": 27,
+  "scenarios": [
+    {
+      "id": "01",
+      "name": "identical_complete",
+      "result": {
+        "eq_similarity": 1.0,
+        "fingerprint": "-49ed4149bfe288ec",
+        "frequency_similarity": 1.0,
+        "iq_distance2": 0.0,
+        "iq_evidence_q": 0.8,
+        "iq_similarity": 1.0,
+        "iq_status": "complete",
+        "missing_modules": [],
+        "overall_status": "complete"
+      }
+    },
+    {
+      "id": "02",
+      "name": "maximum_difference_complete",
+      "result": {
+        "eq_similarity": 0.016879884148789895,
+        "fingerprint": "7431e610923ab54e",
+        "frequency_similarity": 0.016879884148789895,
+        "iq_distance2": 1.0,
+        "iq_evidence_q": 0.8,
+        "iq_similarity": 0.016879884148789895,
+        "iq_status": "complete",
+        "missing_modules": [],
+        "overall_status": "complete"
+      }
+    },
+    {
+      "id": "03",
+      "name": "small_uniform_diff",
+      "result": {
+        "eq_similarity": 0.9898478033787337,
+        "fingerprint": "-3a0efdb0abd8f8aa",
+        "frequency_similarity": 0.9898478033787337,
+        "iq_distance2": 0.0025000000000000044,
+        "iq_evidence_q": 0.8,
+        "iq_similarity": 0.9898478033787337,
+        "iq_status": "complete",
+        "missing_modules": [],
+        "overall_status": "complete"
+      }
+    },
+    {
+      "id": "04",
+      "name": "large_uniform_diff",
+      "result": {
+        "eq_similarity": 0.23006629899380884,
+        "fingerprint": "-3d26cbb518973cd5",
+        "frequency_similarity": 0.23006629899380895,
+        "iq_distance2": 0.3600000000000001,
+        "iq_evidence_q": 0.8,
+        "iq_similarity": 0.23006629899380895,
+        "iq_status": "complete",
+        "missing_modules": [],
+        "overall_status": "complete"
+      }
+    },
+    {
+      "id": "05",
+      "name": "one_high_confidence_discrepant",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-134aff763e0cc409",
+        "frequency_similarity": null,
+        "iq_distance2": 0.3200000000000001,
+        "iq_evidence_q": 0.45,
+        "iq_similarity": 0.2708683284704633,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "06",
+      "name": "one_low_confidence_discrepant",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-19c036cf6a03861b",
+        "frequency_similarity": null,
+        "iq_distance2": 0.16000000000000003,
+        "iq_evidence_q": 0.30000000000000004,
+        "iq_similarity": 0.520450121020702,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "07",
+      "name": "two_dim_high_conf_discrepancy",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "5ef6f8dbe52fbe48",
+        "frequency_similarity": null,
+        "iq_distance2": 0.3243251142995653,
+        "iq_evidence_q": 0.4561655251113366,
+        "iq_similarity": 0.2661285072939534,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "08",
+      "name": "two_dim_low_conf_discrepancy",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-2586c11686f1f123",
+        "frequency_similarity": null,
+        "iq_distance2": 0.1220758846915496,
+        "iq_evidence_q": 0.27803300858899105,
+        "iq_similarity": 0.6075815238649689,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "09",
+      "name": "single_dim_high_confidence",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "05e6a4011565c09d",
+        "frequency_similarity": null,
+        "iq_distance2": 0.36000000000000015,
+        "iq_evidence_q": 0.225,
+        "iq_similarity": 0.2300662989938089,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "10",
+      "name": "single_dim_low_confidence",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "5664fe19f0e93c65",
+        "frequency_similarity": null,
+        "iq_distance2": 0.3600000000000001,
+        "iq_evidence_q": 0.05,
+        "iq_similarity": 0.23006629899380895,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "11",
+      "name": "partial_iq_above_min",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "3fd69fd4dc5127a7",
+        "frequency_similarity": null,
+        "iq_distance2": 0.15999999999999995,
+        "iq_evidence_q": 0.4,
+        "iq_similarity": 0.5204501210207022,
+        "iq_status": "partial",
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "12",
+      "name": "partial_eq_above_min",
+      "result": {
+        "eq_similarity": 0.8493658165683124,
+        "fingerprint": "3a5e6a0b20dd6402",
+        "frequency_similarity": null,
+        "iq_distance2": null,
+        "iq_evidence_q": null,
+        "iq_similarity": null,
+        "iq_status": null,
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "13",
+      "name": "partial_frequency_above_min",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-20f2696f8e7e69d7",
+        "frequency_similarity": 0.6925693242051977,
+        "iq_distance2": null,
+        "iq_evidence_q": null,
+        "iq_similarity": null,
+        "iq_status": null,
+        "missing_modules": [],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "14",
+      "name": "below_minimum_comparable",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-16d6561dd0b0e811",
+        "frequency_similarity": null,
+        "iq_distance2": null,
+        "iq_evidence_q": 0.2,
+        "iq_similarity": null,
+        "iq_status": "insufficient_evidence",
+        "missing_modules": [],
+        "overall_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "15",
+      "name": "entire_module_missing",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "60b430fbbb964ece",
+        "frequency_similarity": null,
+        "iq_distance2": 0.0,
+        "iq_evidence_q": 0.8,
+        "iq_similarity": 1.0,
+        "iq_status": "complete",
+        "missing_modules": [
+          "eq",
+          "frequency"
+        ],
+        "overall_status": "partial"
+      }
+    },
+    {
+      "id": "16",
+      "name": "unpublished_dimensions",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "6339544f3dc4da12",
+        "frequency_similarity": null,
+        "iq_distance2": null,
+        "iq_evidence_q": null,
+        "iq_similarity": null,
+        "iq_status": "insufficient_evidence",
+        "missing_modules": [],
+        "overall_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "17",
+      "name": "non_publishable_dimension",
+      "result": {
+        "note": "excluded_via_not_publishable",
+        "pair_confidence_formula": "sqrt(q_a*q_b)"
+      }
+    },
+    {
+      "id": "18",
+      "name": "zero_pair_confidence",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-22fdff19cccd9234",
+        "frequency_similarity": null,
+        "iq_distance2": null,
+        "iq_evidence_q": null,
+        "iq_similarity": null,
+        "iq_status": "insufficient_evidence",
+        "missing_modules": [],
+        "overall_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "19",
+      "name": "map_order_baseline_fingerprint",
+      "result": "322709f88036f4ad"
+    },
+    {
+      "id": "20",
+      "name": "ab_reversal_same_fingerprint",
+      "result": {
+        "equal": true,
+        "forward": "322709f88036f4ad",
+        "reverse": "322709f88036f4ad"
+      }
+    },
+    {
+      "id": "21",
+      "name": "registry_24d_fixture",
+      "result": {
+        "eq_similarity": 1.0,
+        "fingerprint": "-285a477f8fb1cd64",
+        "frequency_similarity": 1.0,
+        "iq_distance2": 0.0,
+        "iq_evidence_q": 0.8,
+        "iq_similarity": 1.0,
+        "iq_status": "complete",
+        "missing_modules": [],
+        "overall_status": "complete"
+      }
+    },
+    {
+      "id": "22",
+      "name": "invalid_out_of_range_score",
+      "result": {
+        "behavior": "excluded_with_invalid_score"
+      }
+    },
+    {
+      "id": "23",
+      "name": "nan_rejection",
+      "result": {
+        "behavior": "excluded_with_invalid_score"
+      }
+    },
+    {
+      "id": "24",
+      "name": "infinity_rejection",
+      "result": {
+        "behavior": "excluded_with_invalid_confidence"
+      }
+    },
+    {
+      "id": "25",
+      "name": "registry_version_mismatch",
+      "result": {
+        "threw": "CoreMethodValidationException"
+      }
+    },
+    {
+      "id": "26",
+      "name": "scoring_contract_mismatch",
+      "result": {
+        "eq_similarity": null,
+        "fingerprint": "-71c3f4d43d12819c",
+        "frequency_similarity": null,
+        "iq_distance2": null,
+        "iq_evidence_q": null,
+        "iq_similarity": null,
+        "iq_status": "insufficient_evidence",
+        "missing_modules": [],
+        "overall_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "meta_single_dim_confidence",
+      "name": "single_dim_S_unchanged_Q_decreases",
+      "result": {
+        "S_equal": false,
+        "high_Q": 0.225,
+        "high_S": 0.2300662989938089,
+        "low_Q": 0.05,
+        "low_S": 0.23006629899380895,
+        "pair_confidence_high": 0.9,
+        "pair_confidence_low": 0.2
+      }
+    }
+  ],
+  "simulator": "simulate_structural_similarity_v1",
+  "status": "COMPLETE",
+  "synthetic_only": true
+}

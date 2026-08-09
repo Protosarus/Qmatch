@@ -1,0 +1,32 @@
+{
+  "cases": {
+    "all_passed": {
+      "adjusted_score": 0.84,
+      "hard_outcome": "passed",
+      "raw_score": 1.0,
+      "scores_null_when_failed": true
+    },
+    "disabled_constraints": {
+      "adjusted_score": 0.8073509576403567,
+      "hard_outcome": "not_applicable",
+      "raw_score": 0.9519867024122892,
+      "scores_null_when_failed": true
+    },
+    "one_failed": {
+      "adjusted_score": null,
+      "hard_outcome": "failed",
+      "raw_score": null,
+      "scores_null_when_failed": true
+    },
+    "private_counterpart": {
+      "adjusted_score": 0.74,
+      "hard_outcome": "unknown",
+      "raw_score": 1.0,
+      "scores_null_when_failed": true
+    }
+  },
+  "failed_blocks_scores": true,
+  "no_numeric_hard_score_created": true,
+  "unknown_never_auto_failed_or_passed_check_note": "Covered in scenario suite; directional unknown remains unknown.",
+  "unknown_policy_ok": true
+}

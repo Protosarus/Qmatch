@@ -1,0 +1,726 @@
+{
+  "alert_count": 40,
+  "alerts": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.7407832627768361,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.8174449275163213,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.8866834857789615,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.7056670707531949,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "two_cluster",
+      "pearson": 0.9965681905910939,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "two_cluster",
+      "pearson": 0.9970183950836881,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "three_cluster",
+      "pearson": 0.9852957013762872,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "three_cluster",
+      "pearson": 0.9845881306418027,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9781612082859925,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9837350409418021,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "correlated_within_modules",
+      "pearson": 0.9946405168520968,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "correlated_within_modules",
+      "pearson": 0.9839612820211909,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9978862454463621,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9976683949922625,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9819019698321013,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9704933957661142,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.9792919266531693,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_correlated",
+      "pearson": 0.9953523504027679,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.9779573549435167,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_correlated",
+      "pearson": 0.9879223414289476,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.9771060226970515,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.975783868498078,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_independent",
+      "pearson": 0.9966633347054388,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_independent",
+      "pearson": 0.9764471870767327,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "high_confidence_population",
+      "pearson": 0.7225971717034829,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "mixed_confidence_population",
+      "pearson": -0.7347533622054515,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "low_confidence_population",
+      "pearson": -0.7784778628311588,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -0.7714285714285715
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 6,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_modules",
+      "pearson": 0.9047888183683778,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.5
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 6,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_dimensions",
+      "pearson": -0.9989857265577218,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 6,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_dimensions",
+      "pearson": -0.83485279848704,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -0.5
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_dimensions",
+      "pearson": 0.765444746212389,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "narrow_score_range",
+      "pearson": -0.7476502349197148,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "wide_score_range",
+      "pearson": 0.7043847713218077,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.8170580803858816,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.7412478053520747,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.8285714285714286
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_dense",
+      "pearson": 0.8007947592301667,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.9022365796760837,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_dense",
+      "pearson": -0.7932363543515264,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_dense",
+      "pearson": -0.9815957643276875,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": -1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "alert_type": "component_redundancy_risk",
+      "auto_reweight_forbidden": true,
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_dense",
+      "pearson": 0.8255922566641518,
+      "possible_causes": [
+        "synthetic_dependence_pattern",
+        "shared_source_pathway",
+        "similarity_to_self_preference_overlap"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242,
+      "spearman": 0.6
+    }
+  ],
+  "note": "Engineering redundancy alerts only; not scientific conclusions."
+}

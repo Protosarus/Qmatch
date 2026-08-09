@@ -1,0 +1,1108 @@
+{
+  "items": [
+    {
+      "question_id": "iq_logical_reasoning_1",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ logical_reasoning iq_logical_reasoning_1",
+        "en": "IQ logical_reasoning iq_logical_reasoning_1"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_logical_reasoning_2",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ logical_reasoning iq_logical_reasoning_2",
+        "en": "IQ logical_reasoning iq_logical_reasoning_2"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_logical_reasoning_3",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ logical_reasoning iq_logical_reasoning_3",
+        "en": "IQ logical_reasoning iq_logical_reasoning_3"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_logical_reasoning_4",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ logical_reasoning iq_logical_reasoning_4",
+        "en": "IQ logical_reasoning iq_logical_reasoning_4"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_pattern_reasoning_1",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ pattern_reasoning iq_pattern_reasoning_1",
+        "en": "IQ pattern_reasoning iq_pattern_reasoning_1"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_pattern_reasoning_2",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ pattern_reasoning iq_pattern_reasoning_2",
+        "en": "IQ pattern_reasoning iq_pattern_reasoning_2"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_pattern_reasoning_3",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ pattern_reasoning iq_pattern_reasoning_3",
+        "en": "IQ pattern_reasoning iq_pattern_reasoning_3"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_pattern_reasoning_4",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ pattern_reasoning iq_pattern_reasoning_4",
+        "en": "IQ pattern_reasoning iq_pattern_reasoning_4"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_verbal_reasoning_1",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ verbal_reasoning iq_verbal_reasoning_1",
+        "en": "IQ verbal_reasoning iq_verbal_reasoning_1"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_verbal_reasoning_2",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ verbal_reasoning iq_verbal_reasoning_2",
+        "en": "IQ verbal_reasoning iq_verbal_reasoning_2"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_verbal_reasoning_3",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ verbal_reasoning iq_verbal_reasoning_3",
+        "en": "IQ verbal_reasoning iq_verbal_reasoning_3"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_verbal_reasoning_4",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ verbal_reasoning iq_verbal_reasoning_4",
+        "en": "IQ verbal_reasoning iq_verbal_reasoning_4"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_spatial_reasoning_1",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ spatial_reasoning iq_spatial_reasoning_1",
+        "en": "IQ spatial_reasoning iq_spatial_reasoning_1"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_spatial_reasoning_2",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ spatial_reasoning iq_spatial_reasoning_2",
+        "en": "IQ spatial_reasoning iq_spatial_reasoning_2"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_spatial_reasoning_3",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ spatial_reasoning iq_spatial_reasoning_3",
+        "en": "IQ spatial_reasoning iq_spatial_reasoning_3"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "iq_spatial_reasoning_4",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_iq_v1",
+      "item_type": "objective_mcq",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "IQ spatial_reasoning iq_spatial_reasoning_4",
+        "en": "IQ spatial_reasoning iq_spatial_reasoning_4"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "Secenek a",
+            "en": "Option a"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "b",
+          "localized_text": {
+            "tr": "Secenek b",
+            "en": "Option b"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "c",
+          "localized_text": {
+            "tr": "Secenek c",
+            "en": "Option c"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "d",
+          "localized_text": {
+            "tr": "Secenek d",
+            "en": "Option d"
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "a",
+      "difficulty": 2,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "response_validity_roles": []
+    }
+  ]
+}

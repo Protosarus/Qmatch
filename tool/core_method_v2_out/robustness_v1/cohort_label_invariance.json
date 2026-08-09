@@ -1,0 +1,28 @@
+{
+  "comparisons": [
+    {
+      "adjusted_equal": true,
+      "cohort_in_scoring_contributions": false,
+      "explanation_fp_equal": true,
+      "label": "cohort_alpha",
+      "raw_equal": true
+    },
+    {
+      "adjusted_equal": true,
+      "cohort_in_scoring_contributions": false,
+      "explanation_fp_equal": true,
+      "label": "cohort_beta",
+      "raw_equal": true
+    },
+    {
+      "adjusted_equal": true,
+      "cohort_in_scoring_contributions": false,
+      "explanation_fp_equal": true,
+      "label": "cohort_gamma",
+      "raw_equal": true
+    }
+  ],
+  "fairness_claim": false,
+  "note": "Checks accidental dependency only; does not prove fairness.",
+  "pass": true
+}

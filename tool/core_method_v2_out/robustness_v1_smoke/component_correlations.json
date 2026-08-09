@@ -1,0 +1,5726 @@
+{
+  "boundary_heavy_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "boundary_heavy",
+      "pearson": 0.8326337844902424,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "boundary_heavy",
+      "pearson": -0.6060771267198422,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "boundary_heavy",
+      "pearson": -0.6873149814976033,
+      "seed": 424242,
+      "spearman": -0.6571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "boundary_heavy",
+      "pearson": -0.17606326679872392,
+      "seed": 424242,
+      "spearman": -0.2
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "boundary_heavy",
+      "pearson": -0.16598006694717077,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "boundary_heavy",
+      "pearson": -0.15275570004341293,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "boundary_heavy",
+      "pearson": -0.21228685213097023,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "boundary_heavy",
+      "pearson": -0.6712847996925426,
+      "seed": 424242,
+      "spearman": -0.5428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "boundary_heavy",
+      "pearson": 0.22626666626314512,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.3217273551618757,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.3196970851953004,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "boundary_heavy",
+      "pearson": 0.18347132409746766,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "boundary_heavy",
+      "pearson": 0.4086368968257562,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.8186872829816221,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.8191584145059616,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "boundary_heavy",
+      "pearson": 0.09304018819043801,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "boundary_heavy",
+      "pearson": -0.0009989002105893832,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "boundary_heavy",
+      "pearson": -0.009458053898228992,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.6568047058490899,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.6504661074040047,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "boundary_heavy",
+      "pearson": 0.9987884258419159,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "central_normal_like_bounded_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.806623154376139,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "central_normal_like_bounded",
+      "pearson": -0.029100847611180553,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.3547979929975849,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.7407832627768361,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.8457695508874031,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.6640054259291073,
+      "seed": 424242,
+      "spearman": 0.4
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "central_normal_like_bounded",
+      "pearson": -0.031581861838844844,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.39731552258591996,
+      "seed": 424242,
+      "spearman": 0.6
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.8174449275163213,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.9273079805040134,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.16789977914712023,
+      "seed": 424242,
+      "spearman": -0.4
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.8866834857789615,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.4379945983327928,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": -0.7780071119054116,
+      "seed": 424242,
+      "spearman": -0.8
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": -0.08073839320162468,
+      "seed": 424242,
+      "spearman": 0.4
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.7056670707531949,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.7838295645156813,
+      "seed": 424242,
+      "spearman": 0.4
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.3635784086213948,
+      "seed": 424242,
+      "spearman": -0.2
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.9979064942022229,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.43043634820591087,
+      "seed": 424242,
+      "spearman": 0.0
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "central_normal_like_bounded",
+      "pearson": 0.43848920144254283,
+      "seed": 424242,
+      "spearman": 0.0
+    }
+  ],
+  "complete_profiles_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "complete_profiles",
+      "pearson": 0.03736817287927939,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "complete_profiles",
+      "pearson": -0.8000673209509797,
+      "seed": 424242,
+      "spearman": -0.8857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "complete_profiles",
+      "pearson": -0.6404718873513917,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "complete_profiles",
+      "pearson": -0.370830562353816,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "complete_profiles",
+      "pearson": -0.5652460618547639,
+      "seed": 424242,
+      "spearman": -0.8
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "complete_profiles",
+      "pearson": -0.44698548712826164,
+      "seed": 424242,
+      "spearman": -0.8
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "complete_profiles",
+      "pearson": 0.3705320650963788,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "complete_profiles",
+      "pearson": 0.22875150281670664,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "complete_profiles",
+      "pearson": -0.4654128663164533,
+      "seed": 424242,
+      "spearman": -0.6571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "complete_profiles",
+      "pearson": 0.7442772571760753,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "complete_profiles",
+      "pearson": 0.8617511416250913,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "complete_profiles",
+      "pearson": 0.618718026923799,
+      "seed": 424242,
+      "spearman": 0.7142857142857143
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "complete_profiles",
+      "pearson": 0.07619374789499836,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "complete_profiles",
+      "pearson": 0.7535784204388267,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "complete_profiles",
+      "pearson": 0.611148740006474,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "complete_profiles",
+      "pearson": -0.08296792909893103,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "complete_profiles",
+      "pearson": -0.08246093401178198,
+      "seed": 424242,
+      "spearman": 0.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "complete_profiles",
+      "pearson": -0.0947304163733442,
+      "seed": 424242,
+      "spearman": 0.0
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "complete_profiles",
+      "pearson": 0.1478028972941327,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "complete_profiles",
+      "pearson": -0.07072478930005892,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "complete_profiles",
+      "pearson": 0.9699671130454058,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "correlated_within_modules_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "correlated_within_modules",
+      "pearson": 0.9954993700859089,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "correlated_within_modules",
+      "pearson": 0.9944226757663759,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "correlated_within_modules",
+      "pearson": 0.9871226543380229,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "correlated_within_modules",
+      "pearson": -0.3318365794484689,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9772415400535494,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9001891385703555,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "correlated_within_modules",
+      "pearson": 0.9954288820456387,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "correlated_within_modules",
+      "pearson": 0.9946405168520968,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "correlated_within_modules",
+      "pearson": -0.3392425306725326,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9787615221145275,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9117621634564115,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "correlated_within_modules",
+      "pearson": 0.9839612820211909,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "correlated_within_modules",
+      "pearson": -0.34613426393930563,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9751928119127998,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9102623097853518,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "correlated_within_modules",
+      "pearson": -0.2736913988485312,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9860441982391867,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9366359676298349,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": -0.1414736341187169,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": -0.10857619595414676,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "correlated_within_modules",
+      "pearson": 0.9399002681926707,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    }
+  ],
+  "deep_dive_independent_uniform_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "eq_structural",
+      "family": "independent_uniform",
+      "pearson": -0.08936178868737309,
+      "seed": 424242,
+      "spearman": -0.11786607390941928
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "frequency_structural",
+      "family": "independent_uniform",
+      "pearson": -0.12608863653487518,
+      "seed": 424242,
+      "spearman": -0.11475409836065574
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_partner_preference",
+      "family": "independent_uniform",
+      "pearson": -0.3009945057183974,
+      "seed": 424242,
+      "spearman": -0.2975270908585718
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.18725753365875664,
+      "seed": 424242,
+      "spearman": 0.212392331203112
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 56,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.022146124079354575,
+      "seed": 424242,
+      "spearman": 0.028981544771018455
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 56,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.015126570065585621,
+      "seed": 424242,
+      "spearman": 0.012235133287764866
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "frequency_structural",
+      "family": "independent_uniform",
+      "pearson": 0.13738848712024468,
+      "seed": 424242,
+      "spearman": 0.1884412336760211
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_partner_preference",
+      "family": "independent_uniform",
+      "pearson": 0.15718415938916974,
+      "seed": 424242,
+      "spearman": 0.15181994998610726
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.053528589452378456,
+      "seed": 424242,
+      "spearman": -0.030619616560155598
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 56,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.5395778557243938,
+      "seed": 424242,
+      "spearman": 0.5306903622693097
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 56,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.5003664768690077,
+      "seed": 424242,
+      "spearman": 0.5084073820915926
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_partner_preference",
+      "family": "independent_uniform",
+      "pearson": 0.34093717913681754,
+      "seed": 424242,
+      "spearman": 0.2670186162823006
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.06538773642707306,
+      "seed": 424242,
+      "spearman": 0.06907474298416227
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 56,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.8143866865271605,
+      "seed": 424242,
+      "spearman": 0.7861927546138072
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 56,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.8195473953197252,
+      "seed": 424242,
+      "spearman": 0.7962406015037594
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 60,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.24790700126001705,
+      "seed": 424242,
+      "spearman": 0.19155320922478467
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 56,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.5326922805193754,
+      "seed": 424242,
+      "spearman": 0.4875598086124402
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 56,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.5478790595405777,
+      "seed": 424242,
+      "spearman": 0.5075187969924813
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 56,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.40406794811240343,
+      "seed": 424242,
+      "spearman": 0.39576213260423787
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 56,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.41160892147934774,
+      "seed": 424242,
+      "spearman": 0.38086124401913873
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 56,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.991162074327654,
+      "seed": 424242,
+      "spearman": 0.9917293233082707
+    }
+  ],
+  "frequency_preference_correlated_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9951061774234319,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9949713332823799,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9921380693931032,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_correlated",
+      "pearson": -0.22321530566957415,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9977766453832787,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.991024587958738,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9952116769633566,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9978862454463621,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_correlated",
+      "pearson": -0.2854260498017967,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9974238930416233,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.990754930530789,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9976683949922625,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_correlated",
+      "pearson": -0.2714033524063378,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9984978495141803,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9936153122138158,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_correlated",
+      "pearson": -0.3098658881050405,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.996948940042425,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.990754952302186,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": -0.23994855822682243,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": -0.18502316771518507,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_correlated",
+      "pearson": 0.9964097018649477,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "frequency_preference_independent_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9408806090985833,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9765018099844311,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_independent",
+      "pearson": 0.920616886970319,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_independent",
+      "pearson": 0.2515450740493552,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9580547301653417,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9642077546478901,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9905577714957521,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9819019698321013,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_independent",
+      "pearson": 0.3897855834605624,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9967548116596562,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.992013651757115,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9704933957661142,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_independent",
+      "pearson": 0.3637053239508451,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9966533204228994,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9951287188249336,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "frequency_preference_independent",
+      "pearson": 0.32960114322513345,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9820830284345426,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.9650368098212389,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.4011333578636735,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.41790894405474643,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "frequency_preference_independent",
+      "pearson": 0.995884867989102,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "hard_constraint_dense_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "hard_constraint_dense",
+      "pearson": -0.13705530879779435,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "hard_constraint_dense",
+      "pearson": -0.08958336474862003,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_dense",
+      "pearson": 0.05398168285846835,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_dense",
+      "pearson": -0.11349753075823506,
+      "seed": 424242,
+      "spearman": -0.8285714285714286
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "hard_constraint_dense",
+      "pearson": -0.45164515195112653,
+      "seed": 424242,
+      "spearman": -0.5428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_dense",
+      "pearson": -0.12915017265895218,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_dense",
+      "pearson": 0.6748144935054806,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_dense",
+      "pearson": 0.8007947592301667,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_dense",
+      "pearson": -0.010497065283217002,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_dense",
+      "pearson": 0.5195643417598735,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_dense",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    }
+  ],
+  "hard_constraint_sparse_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.5735831954788233,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "hard_constraint_sparse",
+      "pearson": -0.48913576266519204,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.8065649002457059,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.22975511773036608,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.4378053508369326,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.46350035514428095,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "hard_constraint_sparse",
+      "pearson": -0.432784562892089,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.8170580803858816,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.7412478053520747,
+      "seed": 424242,
+      "spearman": 0.8285714285714286
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.7509779454489343,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.7087117663352327,
+      "seed": 424242,
+      "spearman": 0.6
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "hard_constraint_sparse",
+      "pearson": -0.5614983188952832,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.25097852171200324,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.2266879636521106,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.2574231266684238,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.5281276466679623,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.594647291637213,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.5929350921873385,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.9620145805724482,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.9384330547220535,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "hard_constraint_sparse",
+      "pearson": 0.9936352860076064,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    }
+  ],
+  "high_confidence_population_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "high_confidence_population",
+      "pearson": 0.004213443435174622,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "high_confidence_population",
+      "pearson": 0.9062561726986048,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "high_confidence_population",
+      "pearson": -0.18047489745265152,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "high_confidence_population",
+      "pearson": -0.37455858159437916,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.8308713966641565,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.8198446426930057,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "high_confidence_population",
+      "pearson": -0.08804480237529735,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "high_confidence_population",
+      "pearson": 0.31799340028362033,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "high_confidence_population",
+      "pearson": 0.15416300895539004,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.46870493182950035,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.5039859194111534,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "high_confidence_population",
+      "pearson": -0.2868866589034074,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "high_confidence_population",
+      "pearson": -0.640621075620599,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.7603022701488957,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.7516103776731035,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "high_confidence_population",
+      "pearson": 0.7225971717034829,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.21187681388580082,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.1949053983274143,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "high_confidence_population",
+      "pearson": -0.163244402116341,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "high_confidence_population",
+      "pearson": -0.18373193769492496,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "high_confidence_population",
+      "pearson": 0.998536916743322,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "independent_between_modules_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "independent_between_modules",
+      "pearson": -0.26092512601868795,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "independent_between_modules",
+      "pearson": -0.360496379249514,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "independent_between_modules",
+      "pearson": 0.32385672158686063,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_between_modules",
+      "pearson": -0.2539053434595592,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_between_modules",
+      "pearson": -0.08577777573250402,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_between_modules",
+      "pearson": -0.12708556918185415,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "independent_between_modules",
+      "pearson": -0.26724443704963347,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "independent_between_modules",
+      "pearson": -0.06843483176537835,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_between_modules",
+      "pearson": 0.507754992375218,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.1359024136550873,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.20705524842035558,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "independent_between_modules",
+      "pearson": 0.5363042066811414,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_between_modules",
+      "pearson": 0.06579885027748623,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.8268347644492119,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.802761464241125,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_between_modules",
+      "pearson": -0.30279854919243926,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.7566669679554666,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.734665758390645,
+      "seed": 424242,
+      "spearman": 0.7142857142857143
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.26691831595929516,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.31360269905520266,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_between_modules",
+      "pearson": 0.9965137111551301,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    }
+  ],
+  "independent_uniform_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "independent_uniform",
+      "pearson": -0.5336251005373474,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "independent_uniform",
+      "pearson": 0.0724646272699457,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "independent_uniform",
+      "pearson": 0.11746629224322415,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.03230443779045265,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.21402993757395725,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.22801241666641642,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "independent_uniform",
+      "pearson": -0.23940690451036842,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "independent_uniform",
+      "pearson": -0.5990737311566586,
+      "seed": 424242,
+      "spearman": -0.7142857142857143
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": -0.3471520312022024,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": -0.3064629434589171,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": -0.3430907140857984,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "independent_uniform",
+      "pearson": 0.35541541041547625,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.6390777584627693,
+      "seed": 424242,
+      "spearman": 0.7142857142857143
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.9063774995125399,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.9187410182415996,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "independent_uniform",
+      "pearson": 0.49553121141639217,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.6106495535399831,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.6192562351215478,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.757938700865426,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.7333336538162494,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "independent_uniform",
+      "pearson": 0.9977388768603739,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "low_confidence_population_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "low_confidence_population",
+      "pearson": 0.65692256987578,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "low_confidence_population",
+      "pearson": 0.3516800072779529,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "low_confidence_population",
+      "pearson": -0.8310179059147443,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "low_confidence_population",
+      "pearson": 0.20200211710496888,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.7816598601460413,
+      "seed": 424242,
+      "spearman": 0.7142857142857143
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.7191687273254653,
+      "seed": 424242,
+      "spearman": 0.6
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "low_confidence_population",
+      "pearson": -0.06471677153588239,
+      "seed": 424242,
+      "spearman": -0.3142857142857143
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "low_confidence_population",
+      "pearson": -0.6047348684633619,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "low_confidence_population",
+      "pearson": 0.592781446362543,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.9509184277125285,
+      "seed": 424242,
+      "spearman": 0.8285714285714286
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.9549998882359784,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "low_confidence_population",
+      "pearson": -0.6397157424063048,
+      "seed": 424242,
+      "spearman": -0.7142857142857143
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "low_confidence_population",
+      "pearson": -0.7784778628311588,
+      "seed": 424242,
+      "spearman": -0.7714285714285715
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.10787946870286703,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.17933012492575445,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "low_confidence_population",
+      "pearson": 0.14874957877120265,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "low_confidence_population",
+      "pearson": -0.6644767508668407,
+      "seed": 424242,
+      "spearman": -0.6571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "low_confidence_population",
+      "pearson": -0.6846499925433824,
+      "seed": 424242,
+      "spearman": -0.5428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.5110241157763274,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.4111264409874462,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "low_confidence_population",
+      "pearson": 0.9818200212051861,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    }
+  ],
+  "mixed_confidence_population_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "mixed_confidence_population",
+      "pearson": 0.4406296741691004,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "mixed_confidence_population",
+      "pearson": -0.2630849639589649,
+      "seed": 424242,
+      "spearman": -0.3142857142857143
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "mixed_confidence_population",
+      "pearson": -0.14568516254216426,
+      "seed": 424242,
+      "spearman": -0.3142857142857143
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "mixed_confidence_population",
+      "pearson": -0.7347533622054515,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.30264853313121,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.2828716079380687,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "mixed_confidence_population",
+      "pearson": -0.1272079368316275,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "mixed_confidence_population",
+      "pearson": -0.660105451602634,
+      "seed": 424242,
+      "spearman": -0.8857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "mixed_confidence_population",
+      "pearson": -0.40424193952901827,
+      "seed": 424242,
+      "spearman": -0.3142857142857143
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.34995818851039523,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.31190497133978445,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "mixed_confidence_population",
+      "pearson": -0.25854329045268437,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "mixed_confidence_population",
+      "pearson": 0.1031894423897281,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.7783035115573044,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.8107079640325106,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "mixed_confidence_population",
+      "pearson": 0.06221444455958972,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": -0.39639716882769516,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": -0.39860261698919647,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": -0.237312483416075,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": -0.2513594940223038,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "mixed_confidence_population",
+      "pearson": 0.9970432891473099,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    }
+  ],
+  "narrow_score_range_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "narrow_score_range",
+      "pearson": 0.2145641123473586,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "narrow_score_range",
+      "pearson": 0.15281962814352246,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "narrow_score_range",
+      "pearson": 0.531449002300837,
+      "seed": 424242,
+      "spearman": 0.753702346348183
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "narrow_score_range",
+      "pearson": -0.27937054347652873,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.2713798955613537,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.38841540563185095,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "narrow_score_range",
+      "pearson": 0.5271087453615642,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "narrow_score_range",
+      "pearson": -0.17941166976930095,
+      "seed": 424242,
+      "spearman": 0.14494275891311212
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "narrow_score_range",
+      "pearson": -0.6792477124593226,
+      "seed": 424242,
+      "spearman": -0.8285714285714286
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.6730162821554784,
+      "seed": 424242,
+      "spearman": -0.8285714285714286
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "narrow_score_range",
+      "pearson": 0.34765068394534887,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "narrow_score_range",
+      "pearson": -0.3024676268048681,
+      "seed": 424242,
+      "spearman": -0.17393131069573453
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "narrow_score_range",
+      "pearson": -0.7476502349197148,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.739479349554927,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "narrow_score_range",
+      "pearson": 0.6573696053478354,
+      "seed": 424242,
+      "spearman": 0.7142857142857143
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "narrow_score_range",
+      "pearson": 0.3289227970480202,
+      "seed": 424242,
+      "spearman": 0.17393131069573453
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "narrow_score_range",
+      "pearson": 0.33531809534981766,
+      "seed": 424242,
+      "spearman": 0.17393131069573453
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.547748128761884,
+      "seed": 424242,
+      "spearman": -0.49280538030458115
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "narrow_score_range",
+      "pearson": 0.9998526221859289,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.16054294137251238,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "narrow_score_range",
+      "pearson": -0.1524280928937112,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    }
+  ],
+  "negatively_correlated_dimensions_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9993391749657311,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9992137965848379,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.28312327182165964,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.16079649064470405,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9930396178693207,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9839729538221654,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9997340200880032,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.28536759352437524,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.15257495396108384,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9933569365289491,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9823425649315349,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.30546351208538397,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.15029035412047395,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9952468148066527,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.985108133883232,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.20578692752029132,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.38843732922301377,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.42487688573323407,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.20367106489141013,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.26747784675255676,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "negatively_correlated_dimensions",
+      "pearson": 0.9960074749556851,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "positively_correlated_dimensions_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9937605849148868,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9917000994136786,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9672567566010191,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.11695885797705713,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9921671500792142,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9863729703453992,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9993670773293551,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9781612082859925,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.11755081391019884,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9983451188511713,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9912168134192053,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9837350409418021,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.11080726452754572,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9987451811887369,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9935438313590564,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.0856827397159662,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9841365124370076,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.983187104801625,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.15438424259062192,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.008491952833037242,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "positively_correlated_dimensions",
+      "pearson": 0.9882042229652112,
+      "seed": 424242,
+      "spearman": 0.8285714285714286
+    }
+  ],
+  "random_partial_profiles_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 8,
+      "b": "eq_structural",
+      "family": "random_partial_profiles",
+      "pearson": -0.3846361801329973,
+      "seed": 424242,
+      "spearman": 0.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "frequency_structural",
+      "family": "random_partial_profiles",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "mutual_partner_preference",
+      "family": "random_partial_profiles",
+      "pearson": 0.9715212139674987,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 10,
+      "b": "mutual_relationship_values",
+      "family": "random_partial_profiles",
+      "pearson": 0.09067428727716291,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "raw_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.786305186071833,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 8,
+      "b": "adjusted_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.8043642100234041,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "frequency_structural",
+      "family": "random_partial_profiles",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "mutual_partner_preference",
+      "family": "random_partial_profiles",
+      "pearson": -0.6000109175813457,
+      "seed": 424242,
+      "spearman": -0.4
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "mutual_relationship_values",
+      "family": "random_partial_profiles",
+      "pearson": 0.44752260383657794,
+      "seed": 424242,
+      "spearman": 0.7
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.5349547006780245,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.5557819772879413,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "mutual_partner_preference",
+      "family": "random_partial_profiles",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "mutual_relationship_values",
+      "family": "random_partial_profiles",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "raw_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "adjusted_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "random_partial_profiles",
+      "pearson": 0.008195712170629947,
+      "seed": 424242,
+      "spearman": 0.02857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.15962180108905788,
+      "seed": 424242,
+      "spearman": 0.1
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.016280041919254966,
+      "seed": 424242,
+      "spearman": 0.1
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.5468390117553482,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.44599607070300357,
+      "seed": 424242,
+      "spearman": 0.8
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "random_partial_profiles",
+      "pearson": 0.9796365952736773,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "soft_conflict_dense_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "soft_conflict_dense",
+      "pearson": -0.3847819753232489,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "soft_conflict_dense",
+      "pearson": 0.04844818989200296,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_dense",
+      "pearson": 0.06472061374549762,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_dense",
+      "pearson": 0.12258506243327541,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.6549143014862189,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.6000229215994056,
+      "seed": 424242,
+      "spearman": 0.7
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "soft_conflict_dense",
+      "pearson": 0.2613622401878222,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_dense",
+      "pearson": -0.2440994121946917,
+      "seed": 424242,
+      "spearman": -0.2
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_dense",
+      "pearson": -0.36615685871706494,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.6952237810036381,
+      "seed": 424242,
+      "spearman": 0.4
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.7155220130609652,
+      "seed": 424242,
+      "spearman": 0.7
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_dense",
+      "pearson": -0.7932363543515264,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_dense",
+      "pearson": -0.9815957643276875,
+      "seed": 424242,
+      "spearman": -1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.6959140345833782,
+      "seed": 424242,
+      "spearman": 0.3
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.7171145051640311,
+      "seed": 424242,
+      "spearman": 0.1
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_dense",
+      "pearson": 0.8255922566641518,
+      "seed": 424242,
+      "spearman": 0.6
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": -0.48975647900481917,
+      "seed": 424242,
+      "spearman": -0.2
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": -0.5270759608565682,
+      "seed": 424242,
+      "spearman": -0.1
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": -0.6566057112862108,
+      "seed": 424242,
+      "spearman": -0.3
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": -0.6887143969822326,
+      "seed": 424242,
+      "spearman": -0.1
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_dense",
+      "pearson": 0.9974943348660539,
+      "seed": 424242,
+      "spearman": 0.9
+    }
+  ],
+  "soft_conflict_sparse_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "soft_conflict_sparse",
+      "pearson": -0.30310534330069816,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.6475022502943109,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_sparse",
+      "pearson": -0.3118675471038517,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_sparse",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.5243985802010148,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.5457902591097538,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "soft_conflict_sparse",
+      "pearson": -0.29436364181995356,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.9022365796760837,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_sparse",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.391815892732622,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.3394213357766585,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "soft_conflict_sparse",
+      "pearson": -0.38005606027021516,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_sparse",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.7468963270633342,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.7848722348682402,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "soft_conflict_sparse",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.2903916856889459,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.23410911209085253,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "soft_conflict_sparse",
+      "pearson": 0.9977702363888756,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "structured_missing_dimensions_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "eq_structural",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "frequency_structural",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 6,
+      "b": "frequency_structural",
+      "family": "structured_missing_dimensions",
+      "pearson": -0.08476841247840364,
+      "seed": 424242,
+      "spearman": -0.5
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_dimensions",
+      "pearson": 0.40423980045852853,
+      "seed": 424242,
+      "spearman": 0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_dimensions",
+      "pearson": 0.4477843609713109,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 6,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_dimensions",
+      "pearson": -0.9989857265577218,
+      "seed": 424242,
+      "spearman": -1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 6,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_dimensions",
+      "pearson": -0.83485279848704,
+      "seed": 424242,
+      "spearman": -0.5
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_dimensions",
+      "pearson": 0.765444746212389,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_dimensions",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    }
+  ],
+  "structured_missing_modules_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "eq_structural",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "frequency_structural",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "raw_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 0,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "undefined",
+      "available_pair_count": 2,
+      "b": "frequency_structural",
+      "family": "structured_missing_modules",
+      "pearson": null,
+      "seed": 424242,
+      "spearman": null
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 6,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_modules",
+      "pearson": -0.5062760575155487,
+      "seed": 424242,
+      "spearman": -0.5
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 6,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_modules",
+      "pearson": 0.9047888183683778,
+      "seed": 424242,
+      "spearman": 0.5
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 6,
+      "b": "raw_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.6643853584834599,
+      "seed": 424242,
+      "spearman": 0.5
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 6,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.5907014433450749,
+      "seed": 424242,
+      "spearman": 0.5
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 6,
+      "b": "mutual_partner_preference",
+      "family": "structured_missing_modules",
+      "pearson": -0.4904289317105383,
+      "seed": 424242,
+      "spearman": -0.5
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 6,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_modules",
+      "pearson": 0.18168153765183592,
+      "seed": 424242,
+      "spearman": -0.5
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 6,
+      "b": "raw_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.8403789454587518,
+      "seed": 424242,
+      "spearman": 0.5
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 6,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.9110549190776988,
+      "seed": 424242,
+      "spearman": 0.5
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "structured_missing_modules",
+      "pearson": 0.08816245741781358,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.004303976564195855,
+      "seed": 424242,
+      "spearman": 0.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.007614804226677292,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.4598935978766175,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.5338584382355825,
+      "seed": 424242,
+      "spearman": 0.6
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "structured_missing_modules",
+      "pearson": 0.9626855820038421,
+      "seed": 424242,
+      "spearman": 0.9
+    }
+  ],
+  "three_cluster_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "three_cluster",
+      "pearson": 0.990698432239478,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "three_cluster",
+      "pearson": 0.985337774888477,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "three_cluster",
+      "pearson": 0.9837613568817988,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "three_cluster",
+      "pearson": 0.02634031535091919,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9917640411258009,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9792369125257838,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "three_cluster",
+      "pearson": 0.9943329024905344,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "three_cluster",
+      "pearson": 0.9852957013762872,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "three_cluster",
+      "pearson": -0.027452399604718934,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9944620721711834,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9828760926089818,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "three_cluster",
+      "pearson": 0.9845881306418027,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "three_cluster",
+      "pearson": -0.044371455674604925,
+      "seed": 424242,
+      "spearman": -0.37142857142857144
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9931928247551206,
+      "seed": 424242,
+      "spearman": 0.8857142857142857
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9831321922723627,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "three_cluster",
+      "pearson": 0.12653915260890833,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9973858685569756,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.9991367836036477,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.06096891869326894,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.12656777836990996,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "three_cluster",
+      "pearson": 0.995475761146822,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    }
+  ],
+  "two_cluster_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "two_cluster",
+      "pearson": 0.990212538640028,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "two_cluster",
+      "pearson": 0.9931773300015525,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "two_cluster",
+      "pearson": 0.9982124573299181,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "two_cluster",
+      "pearson": 0.5050289730289217,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9958031868041339,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9953275445899965,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "two_cluster",
+      "pearson": 0.9979797440011947,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "two_cluster",
+      "pearson": 0.9965681905910939,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "two_cluster",
+      "pearson": 0.48224479469028697,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9983083881822205,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9963074892137902,
+      "seed": 424242,
+      "spearman": 0.42857142857142855
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "two_cluster",
+      "pearson": 0.9970183950836881,
+      "seed": 424242,
+      "spearman": 0.6571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "two_cluster",
+      "pearson": 0.45468022888660026,
+      "seed": 424242,
+      "spearman": -0.14285714285714285
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9975269073160807,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9949308589771774,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "two_cluster",
+      "pearson": 0.4971989024495026,
+      "seed": 424242,
+      "spearman": 0.2571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9990434745806447,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9981072198476949,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.5122278435409041,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.5353600153935582,
+      "seed": 424242,
+      "spearman": 0.4857142857142857
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "two_cluster",
+      "pearson": 0.9992282032797741,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "values_preference_correlated_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "values_preference_correlated",
+      "pearson": 0.9988538530434479,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "values_preference_correlated",
+      "pearson": 0.9948630797624748,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_correlated",
+      "pearson": 0.9970660606678148,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.9792919266531693,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9989542473206455,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9936107142657904,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "values_preference_correlated",
+      "pearson": 0.9980587354719871,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_correlated",
+      "pearson": 0.9953523504027679,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.9779573549435167,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9996069832164203,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.993127895474189,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_correlated",
+      "pearson": 0.9879223414289476,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.9771060226970515,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9979619057373253,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9918885676013948,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_correlated",
+      "pearson": 0.975783868498078,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9986745769252303,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9950368933121567,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "raw_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9874139137651238,
+      "seed": 424242,
+      "spearman": 0.9
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.993568522156275,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 10,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_correlated",
+      "pearson": 0.9956625626665704,
+      "seed": 424242,
+      "spearman": 0.9
+    }
+  ],
+  "values_preference_independent_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "values_preference_independent",
+      "pearson": 0.993246298988638,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "values_preference_independent",
+      "pearson": 0.98442660881348,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_independent",
+      "pearson": 0.9963426063944736,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_independent",
+      "pearson": 0.08682940338274554,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9952676287177188,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.99217931022768,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "values_preference_independent",
+      "pearson": 0.9756347275235568,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_independent",
+      "pearson": 0.9966633347054388,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_independent",
+      "pearson": 0.14171099628972425,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9957914917885351,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9884959532165808,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "values_preference_independent",
+      "pearson": 0.9764471870767327,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_independent",
+      "pearson": 0.09758937627958267,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9906712222609696,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9837738184134626,
+      "seed": 424242,
+      "spearman": 1.0
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "values_preference_independent",
+      "pearson": 0.06701549617029183,
+      "seed": 424242,
+      "spearman": -0.02857142857142857
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9927524799607943,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9831003784340416,
+      "seed": 424242,
+      "spearman": 0.9428571428571428
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.1484680243897175,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.20249298595254817,
+      "seed": 424242,
+      "spearman": 0.2
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "values_preference_independent",
+      "pearson": 0.9952005766941648,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ],
+  "wide_score_range_424242": [
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "eq_structural",
+      "family": "wide_score_range",
+      "pearson": -0.5510793158066944,
+      "seed": 424242,
+      "spearman": -0.4857142857142857
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "wide_score_range",
+      "pearson": 0.2980729975867,
+      "seed": 424242,
+      "spearman": 0.37142857142857144
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "wide_score_range",
+      "pearson": -0.47722069101377396,
+      "seed": 424242,
+      "spearman": -0.5428571428571428
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "wide_score_range",
+      "pearson": -0.25806050845390566,
+      "seed": 424242,
+      "spearman": -0.42857142857142855
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "wide_score_range",
+      "pearson": -0.03467501965326284,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "iq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "wide_score_range",
+      "pearson": -0.03617562984140909,
+      "seed": 424242,
+      "spearman": -0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "frequency_structural",
+      "family": "wide_score_range",
+      "pearson": 0.16965400772177408,
+      "seed": 424242,
+      "spearman": 0.08571428571428572
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "wide_score_range",
+      "pearson": 0.7043847713218077,
+      "seed": 424242,
+      "spearman": 0.5428571428571428
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "wide_score_range",
+      "pearson": -0.4856317446759102,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.6393753238948813,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "eq_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.566640405805789,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_partner_preference",
+      "family": "wide_score_range",
+      "pearson": 0.01231764201298249,
+      "seed": 424242,
+      "spearman": 0.3142857142857143
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "wide_score_range",
+      "pearson": -0.4680408917051179,
+      "seed": 424242,
+      "spearman": -0.6571428571428571
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.7571824454160837,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "frequency_structural",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.6970753327012508,
+      "seed": 424242,
+      "spearman": 0.7714285714285715
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "mutual_relationship_values",
+      "family": "wide_score_range",
+      "pearson": 0.14882467896899593,
+      "seed": 424242,
+      "spearman": -0.2571428571428571
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "moderate",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.6464112430823676,
+      "seed": 424242,
+      "spearman": 0.8285714285714286
+    },
+    {
+      "a": "mutual_partner_preference",
+      "absolute_correlation_band": "high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.7102764107692011,
+      "seed": 424242,
+      "spearman": 0.8285714285714286
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "raw_aggregate",
+      "family": "wide_score_range",
+      "pearson": -0.37395739204712186,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "mutual_relationship_values",
+      "absolute_correlation_band": "low",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "wide_score_range",
+      "pearson": -0.21444121846848763,
+      "seed": 424242,
+      "spearman": -0.6
+    },
+    {
+      "a": "raw_aggregate",
+      "absolute_correlation_band": "very_high",
+      "available_pair_count": 12,
+      "b": "adjusted_aggregate",
+      "family": "wide_score_range",
+      "pearson": 0.9790979863099607,
+      "seed": 424242,
+      "spearman": 1.0
+    }
+  ]
+}

@@ -953,7 +953,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginWelcomeBack.
   ///
   /// In en, this message translates to:
-  /// **'Welcome back'**
+  /// **'Welcome'**
   String get loginWelcomeBack;
 
   /// No description provided for @loginSubtitle.
@@ -1049,13 +1049,13 @@ abstract class AppLocalizations {
   /// No description provided for @discoverEmptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'No compatible profiles yet.'**
+  /// **'No new profiles to show right now.'**
   String get discoverEmptyTitle;
 
   /// No description provided for @discoverEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Try again later as more people join Qmatch.'**
+  /// **'You can check again in a little while.'**
   String get discoverEmptySubtitle;
 
   /// No description provided for @discoverPass.
@@ -1081,6 +1081,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Interests'**
   String get discoverInterests;
+
+  /// No description provided for @discoverLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding people for you…'**
+  String get discoverLoading;
+
+  /// No description provided for @discoverErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load profiles'**
+  String get discoverErrorTitle;
+
+  /// No description provided for @discoverErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong while loading Discover. Please try again.'**
+  String get discoverErrorBody;
+
+  /// No description provided for @discoverActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That action couldn\'t be completed. Please try again.'**
+  String get discoverActionFailed;
+
+  /// No description provided for @discoverMissingPhotoLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo unavailable'**
+  String get discoverMissingPhotoLabel;
+
+  /// No description provided for @discoverPhotoSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo of {name}'**
+  String discoverPhotoSemanticLabel(String name);
 
   /// No description provided for @compatibilityLabelExceptional.
   ///
@@ -1147,6 +1183,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Conversation'**
   String get messagesConversationFallback;
+
+  /// No description provided for @messagesLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading conversations…'**
+  String get messagesLoading;
+
+  /// No description provided for @messagesAvatarSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo of {name}'**
+  String messagesAvatarSemanticLabel(String name);
+
+  /// No description provided for @messagesUnreadSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unread messages'**
+  String messagesUnreadSemanticLabel(int count);
+
+  /// No description provided for @messagesConversationSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation with {name}'**
+  String messagesConversationSemanticLabel(String name);
 
   /// No description provided for @messagesSayHi.
   ///
@@ -1286,11 +1346,185 @@ abstract class AppLocalizations {
   /// **'Start the conversation.'**
   String get chatStartConversation;
 
+  /// No description provided for @chatEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Say hello when you are ready. There is no rush.'**
+  String get chatEmptySubtitle;
+
+  /// No description provided for @chatLoadingMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading messages…'**
+  String get chatLoadingMessages;
+
+  /// No description provided for @chatMessagesLoadErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load messages.'**
+  String get chatMessagesLoadErrorTitle;
+
+  /// No description provided for @chatMessagesLoadErrorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again in a moment.'**
+  String get chatMessagesLoadErrorSubtitle;
+
+  /// No description provided for @chatProfileLoadErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load profile.'**
+  String get chatProfileLoadErrorTitle;
+
+  /// No description provided for @chatProfileLoadErrorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile details are unavailable right now.'**
+  String get chatProfileLoadErrorSubtitle;
+
+  /// No description provided for @chatSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Message could not be sent. Please try again.'**
+  String get chatSendFailed;
+
+  /// No description provided for @chatActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get chatActionFailed;
+
+  /// No description provided for @chatDateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get chatDateToday;
+
+  /// No description provided for @chatSendSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Send message'**
+  String get chatSendSemanticLabel;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
   String get settingsTitle;
+
+  /// No description provided for @settingsGroupPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get settingsGroupPreferences;
+
+  /// No description provided for @settingsGroupPrivacySafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy & safety'**
+  String get settingsGroupPrivacySafety;
+
+  /// No description provided for @settingsGroupHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & information'**
+  String get settingsGroupHelp;
+
+  /// No description provided for @settingsGroupAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsGroupAccount;
+
+  /// No description provided for @settingsGroupDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer'**
+  String get settingsGroupDeveloper;
+
+  /// No description provided for @settingsNotificationsHonestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Device preferences for now — push delivery depends on your phone settings'**
+  String get settingsNotificationsHonestSubtitle;
+
+  /// No description provided for @settingsPrivacyHonestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Visibility options on this device for now — see Privacy Policy for details'**
+  String get settingsPrivacyHonestSubtitle;
+
+  /// No description provided for @settingsDebug.
+  ///
+  /// In en, this message translates to:
+  /// **'Debug'**
+  String get settingsDebug;
+
+  /// No description provided for @settingsDebugSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment admin and tools (debug builds only)'**
+  String get settingsDebugSubtitle;
+
+  /// No description provided for @profilePhotosEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first photo'**
+  String get profilePhotosEmptyTitle;
+
+  /// No description provided for @profilePhotosEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos help people recognize you. You can add up to 9.'**
+  String get profilePhotosEmptyBody;
+
+  /// No description provided for @profilePhotosEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your photos appear on your profile and in Discover when you are eligible.'**
+  String get profilePhotosEmptyHint;
+
+  /// No description provided for @profilePhotosAddFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo'**
+  String get profilePhotosAddFirst;
+
+  /// No description provided for @profilePhotosAddTile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get profilePhotosAddTile;
+
+  /// No description provided for @profilePhotosUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get profilePhotosUploading;
+
+  /// No description provided for @profilePhotosUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t upload photos. Please try again.'**
+  String get profilePhotosUploadFailed;
+
+  /// No description provided for @profilePhotosDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t delete that photo. Please try again.'**
+  String get profilePhotosDeleteFailed;
+
+  /// No description provided for @profilePhotosAtCapacity.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached the 9-photo maximum.'**
+  String get profilePhotosAtCapacity;
+
+  /// No description provided for @profilePhotosPrimaryBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Main photo'**
+  String get profilePhotosPrimaryBadge;
 
   /// No description provided for @settingsNotifications.
   ///
@@ -1700,6 +1934,60 @@ abstract class AppLocalizations {
   /// **'Interests'**
   String get profileInterests;
 
+  /// No description provided for @profileNoInterestsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No interests added yet'**
+  String get profileNoInterestsYet;
+
+  /// No description provided for @profileDetailsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get profileDetailsSection;
+
+  /// No description provided for @profileLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading profile…'**
+  String get profileLoading;
+
+  /// No description provided for @profileLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load your profile. Please try again.'**
+  String get profileLoadFailed;
+
+  /// No description provided for @profileMissingPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo'**
+  String get profileMissingPhoto;
+
+  /// No description provided for @profileEditPhotoSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile photo'**
+  String get profileEditPhotoSemantic;
+
+  /// No description provided for @profileFieldOccupation.
+  ///
+  /// In en, this message translates to:
+  /// **'Occupation'**
+  String get profileFieldOccupation;
+
+  /// No description provided for @profileFieldDrinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Drinking'**
+  String get profileFieldDrinking;
+
+  /// No description provided for @profileFieldSmoking.
+  ///
+  /// In en, this message translates to:
+  /// **'Smoking'**
+  String get profileFieldSmoking;
+
   /// No description provided for @profileSetupTitle.
   ///
   /// In en, this message translates to:
@@ -1765,6 +2053,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Name must be at least 2 characters'**
   String get nameSelectionErrorMinLength;
+
+  /// No description provided for @displayNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What should we call you?'**
+  String get displayNameTitle;
+
+  /// No description provided for @displayNameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This name will appear on your profile to other people.'**
+  String get displayNameSubtitle;
+
+  /// No description provided for @displayNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get displayNameLabel;
+
+  /// No description provided for @displayNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name'**
+  String get displayNameHint;
+
+  /// No description provided for @displayNamePublicExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a unique username. You can change it later.'**
+  String get displayNamePublicExplanation;
+
+  /// No description provided for @displayNameContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get displayNameContinue;
+
+  /// No description provided for @displayNameSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving…'**
+  String get displayNameSaving;
+
+  /// No description provided for @displayNameErrorEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a display name.'**
+  String get displayNameErrorEmpty;
+
+  /// No description provided for @displayNameErrorTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least 2 characters.'**
+  String get displayNameErrorTooShort;
+
+  /// No description provided for @displayNameErrorTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at most 24 characters.'**
+  String get displayNameErrorTooLong;
+
+  /// No description provided for @displayNameErrorLetterOrNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Include at least one letter or number.'**
+  String get displayNameErrorLetterOrNumber;
+
+  /// No description provided for @displayNameErrorInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'That name contains invalid characters.'**
+  String get displayNameErrorInvalid;
+
+  /// No description provided for @displayNameErrorEmailLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Please use a name, not an email address.'**
+  String get displayNameErrorEmailLike;
+
+  /// No description provided for @displayNameErrorPhoneLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Please use a name, not a phone number.'**
+  String get displayNameErrorPhoneLike;
+
+  /// No description provided for @displayNameErrorUrlLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Please use a name, not a website.'**
+  String get displayNameErrorUrlLike;
+
+  /// No description provided for @displayNameErrorSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save your name. Please try again.'**
+  String get displayNameErrorSaveFailed;
+
+  /// No description provided for @displayNameMissingPeerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Member'**
+  String get displayNameMissingPeerLabel;
 
   /// No description provided for @privacySettingsTitle.
   ///
@@ -2636,6 +3026,12 @@ abstract class AppLocalizations {
   /// **'Notification preferences on this screen are stored on this device for now. Push delivery also depends on your phone settings.'**
   String get settingsMvpNotificationsNote;
 
+  /// No description provided for @blockedUsersLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load blocked users right now. Please try again later.'**
+  String get blockedUsersLoadFailed;
+
   /// No description provided for @blockedUsersError.
   ///
   /// In en, this message translates to:
@@ -2647,6 +3043,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Blocked'**
   String get blockedUsersBlockedAt;
+
+  /// No description provided for @debugModeUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Debug Mode is available only in debug builds.'**
+  String get debugModeUnavailable;
+
+  /// No description provided for @debugHomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Debug tools'**
+  String get debugHomeTitle;
+
+  /// No description provided for @debugHomeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Development-only tools. These routes stay unavailable in release and profile builds.'**
+  String get debugHomeSubtitle;
+
+  /// No description provided for @debugAssessmentAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Admin'**
+  String get debugAssessmentAdmin;
+
+  /// No description provided for @debugPersonaPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Persona Result Preview'**
+  String get debugPersonaPreview;
+
+  /// No description provided for @debugFrequencyPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequency Question Preview'**
+  String get debugFrequencyPreview;
+
+  /// No description provided for @debugGoToAuthWrapper.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Auth Wrapper'**
+  String get debugGoToAuthWrapper;
 
   /// No description provided for @mainAppWelcome.
   ///

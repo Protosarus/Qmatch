@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/relationship_value_registry_v1.schema.json",
+  "title": "RelationshipValueRegistryV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "registry_id",
+    "registry_version",
+    "schema_version",
+    "status",
+    "fields"
+  ],
+  "properties": {
+    "registry_id": { "type": "string", "minLength": 1 },
+    "registry_version": { "type": "string", "minLength": 1 },
+    "schema_version": { "type": "string", "minLength": 1 },
+    "status": { "type": "string" },
+    "calibration_status": { "type": "string" },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "field_id",
+          "value_type",
+          "allowed_values",
+          "supports_hard_constraint",
+          "supports_soft_preference",
+          "sensitive_data_level",
+          "directly_asked_only",
+          "inference_prohibited",
+          "description",
+          "pending_content_review"
+        ],
+        "properties": {
+          "field_id": { "type": "string", "minLength": 1 },
+          "value_type": { "type": "string" },
+          "allowed_values": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "supports_hard_constraint": { "type": "boolean" },
+          "supports_soft_preference": { "type": "boolean" },
+          "sensitive_data_level": { "type": "string" },
+          "directly_asked_only": { "type": "boolean" },
+          "inference_prohibited": { "type": "boolean" },
+          "description": { "type": "string" },
+          "pending_content_review": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

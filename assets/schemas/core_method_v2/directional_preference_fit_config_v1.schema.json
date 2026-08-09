@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/directional_preference_fit_config_v1.schema.json",
+  "title": "DirectionalPreferenceFitConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_id",
+    "config_version",
+    "registry_version",
+    "status",
+    "calibration_status",
+    "runtime_status",
+    "production_approved",
+    "scientifically_validated",
+    "aggregation_mode",
+    "mutual_aggregation_mode",
+    "flexibility_mapping",
+    "minimum_flexibility_scale",
+    "maximum_flexibility_scale",
+    "importance_bounds",
+    "flexibility_bounds",
+    "score_bounds",
+    "confidence_bounds",
+    "minimum_comparable_preferences",
+    "supported_preference_modes",
+    "inferred_preference_policy",
+    "open_preference_policy",
+    "missing_preference_policy",
+    "zero_effective_weight_policy",
+    "version_compatibility_policy",
+    "complementarity_status",
+    "persona_input_status",
+    "ai_scoring_status"
+  ],
+  "properties": {
+    "config_id": { "type": "string" },
+    "config_version": { "type": "string" },
+    "registry_version": { "type": "string" },
+    "status": { "const": "provisional" },
+    "calibration_status": { "const": "uncalibrated" },
+    "runtime_status": { "const": "offline_only" },
+    "production_approved": { "const": false },
+    "scientifically_validated": { "const": false },
+    "aggregation_mode": { "const": "confidence_weighted_mean" },
+    "mutual_aggregation_mode": { "const": "geometric_mean" },
+    "flexibility_mapping": { "const": "linear_scale" },
+    "minimum_flexibility_scale": { "type": "number", "exclusiveMinimum": 0 },
+    "maximum_flexibility_scale": { "type": "number", "exclusiveMinimum": 0 },
+    "importance_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "flexibility_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "score_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "confidence_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "minimum_comparable_preferences": { "type": "integer", "minimum": 1 },
+    "supported_preference_modes": {
+      "type": "array",
+      "items": {
+        "enum": ["range", "similarity_to_self", "open", "unavailable"]
+      },
+      "minItems": 4
+    },
+    "inferred_preference_policy": { "const": "prohibited_by_default" },
+    "open_preference_policy": {
+      "const": "exclude_from_numerator_and_denominator"
+    },
+    "missing_preference_policy": { "const": "exclude_never_impute" },
+    "zero_effective_weight_policy": {
+      "const": "insufficient_evidence_null_fit"
+    },
+    "version_compatibility_policy": {
+      "const": "require_matching_registry_and_scoring_contract"
+    },
+    "complementarity_status": { "const": "disabled_pending_calibration" },
+    "persona_input_status": { "const": "prohibited" },
+    "ai_scoring_status": { "const": "prohibited" },
+    "notes": { "type": "object" }
+  }
+}

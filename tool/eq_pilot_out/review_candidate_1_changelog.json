@@ -1,0 +1,1547 @@
+[
+  {
+    "original_id": "eq_tr_v1_assertiveness_001",
+    "candidate_id": "eq_tr_v1_assertiveness_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "assertiveness",
+    "candidate_primary": "assertiveness",
+    "secondary_before": [
+      "emotion_regulation",
+      "repair_orientation"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "repair_orientation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "B",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:boundary_setting",
+      "A:emotion_regulation",
+      "B:repair_orientation",
+      "C:conflict_approach",
+      "C:repair_orientation"
+    ],
+    "delta_magnitude_changes": [
+      "A:boundary_setting:None->0.2",
+      "A:emotion_regulation:-0.2->None",
+      "A:assertiveness:0.72->0.75",
+      "B:repair_orientation:-0.18->None",
+      "C:conflict_approach:-0.15->None",
+      "C:repair_orientation:None->0.2",
+      "C:assertiveness:0.08->0.2",
+      "D:boundary_setting:-0.22->-0.2",
+      "D:assertiveness:-0.52->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_assertiveness_002",
+    "candidate_id": "eq_tr_v1_assertiveness_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "assertiveness",
+    "candidate_primary": "assertiveness",
+    "secondary_before": [
+      "boundary_setting",
+      "social_awareness"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:boundary_setting",
+      "B:social_awareness"
+    ],
+    "delta_magnitude_changes": [
+      "A:boundary_setting:-0.22->0.2",
+      "A:assertiveness:0.72->0.75",
+      "B:social_awareness:-0.15->0.2",
+      "C:assertiveness:0.08->0.15",
+      "D:assertiveness:-0.52->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_assertiveness_003",
+    "candidate_id": "eq_tr_v1_assertiveness_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "assertiveness",
+    "candidate_primary": "assertiveness",
+    "secondary_before": [],
+    "secondary_after": [
+      "boundary_setting",
+      "repair_orientation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:assertiveness",
+      "B:assertiveness",
+      "C:assertiveness",
+      "D:emotion_regulation",
+      "D:assertiveness"
+    ],
+    "delta_magnitude_changes": [
+      "A:boundary_setting:0.22->0.2",
+      "A:assertiveness:-0.72->0.75",
+      "B:assertiveness:-0.45->0.45",
+      "C:repair_orientation:0.15->0.2",
+      "C:assertiveness:-0.08->0.15",
+      "D:emotion_regulation:-0.15->None",
+      "D:assertiveness:0.52->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_boundary_setting_001",
+    "candidate_id": "eq_tr_v1_boundary_setting_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "boundary_setting",
+    "candidate_primary": "boundary_setting",
+    "secondary_before": [
+      "assertiveness"
+    ],
+    "secondary_after": [
+      "assertiveness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:assertiveness",
+      "B:assertiveness",
+      "C:conflict_approach"
+    ],
+    "delta_magnitude_changes": [
+      "A:assertiveness:-0.22->0.2",
+      "B:boundary_setting:0.48->0.45",
+      "B:assertiveness:-0.18->0.2",
+      "C:boundary_setting:0.12->0.15",
+      "C:conflict_approach:-0.15->None"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_boundary_setting_002",
+    "candidate_id": "eq_tr_v1_boundary_setting_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "boundary_setting",
+    "candidate_primary": "boundary_setting",
+    "secondary_before": [
+      "assertiveness",
+      "repair_orientation"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "repair_orientation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:assertiveness",
+      "C:repair_orientation"
+    ],
+    "delta_magnitude_changes": [
+      "A:assertiveness:-0.25->0.3",
+      "B:boundary_setting:0.48->0.45",
+      "C:boundary_setting:0.12->0.15",
+      "C:repair_orientation:-0.15->0.2",
+      "D:assertiveness:-0.22->-0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_boundary_setting_003",
+    "candidate_id": "eq_tr_v1_boundary_setting_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "boundary_setting",
+    "candidate_primary": "boundary_setting",
+    "secondary_before": [],
+    "secondary_after": [
+      "assertiveness",
+      "conflict_approach",
+      "repair_orientation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:boundary_setting",
+      "B:boundary_setting",
+      "D:boundary_setting"
+    ],
+    "delta_magnitude_changes": [
+      "A:boundary_setting:-0.75->0.75",
+      "B:boundary_setting:-0.48->0.45",
+      "C:boundary_setting:-0.12->-0.2",
+      "C:repair_orientation:0.18->0.2",
+      "D:boundary_setting:0.55->-0.55",
+      "D:conflict_approach:-0.18->-0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_conflict_approach_001",
+    "candidate_id": "eq_tr_v1_conflict_approach_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "conflict_approach",
+    "candidate_primary": "conflict_approach",
+    "secondary_before": [
+      "perspective_taking",
+      "assertiveness"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "emotion_regulation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:assertiveness",
+      "A:perspective_taking",
+      "B:assertiveness",
+      "C:boundary_setting",
+      "C:conflict_approach",
+      "C:emotion_regulation",
+      "D:emotion_regulation"
+    ],
+    "delta_magnitude_changes": [
+      "A:conflict_approach:0.72->0.75",
+      "A:assertiveness:None->0.2",
+      "A:perspective_taking:-0.22->None",
+      "B:conflict_approach:0.46->0.45",
+      "B:assertiveness:-0.18->0.2",
+      "C:boundary_setting:-0.12->None",
+      "C:conflict_approach:0.1->-0.2",
+      "C:emotion_regulation:None->0.2",
+      "D:conflict_approach:-0.55->-0.3",
+      "D:emotion_regulation:-0.2->0.3"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.5",
+      "D:0.72->0.55"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_conflict_approach_002",
+    "candidate_id": "eq_tr_v1_conflict_approach_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "conflict_approach",
+    "candidate_primary": "conflict_approach",
+    "secondary_before": [
+      "emotion_regulation",
+      "repair_orientation"
+    ],
+    "secondary_after": [
+      "emotion_regulation",
+      "repair_orientation",
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:repair_orientation",
+      "A:emotion_regulation",
+      "B:repair_orientation",
+      "B:emotion_regulation",
+      "C:conflict_approach",
+      "C:social_awareness",
+      "C:perspective_taking",
+      "D:empathy"
+    ],
+    "delta_magnitude_changes": [
+      "A:conflict_approach:0.68->0.6",
+      "A:repair_orientation:None->0.3",
+      "A:emotion_regulation:-0.25->None",
+      "B:conflict_approach:0.42->0.2",
+      "B:repair_orientation:-0.18->None",
+      "B:emotion_regulation:None->0.3",
+      "C:conflict_approach:0.12->-0.15",
+      "C:social_awareness:None->0.2",
+      "C:perspective_taking:-0.15->None",
+      "D:conflict_approach:-0.45->-0.55",
+      "D:empathy:-0.15->None"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_conflict_approach_003",
+    "candidate_id": "eq_tr_v1_conflict_approach_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "conflict_approach",
+    "candidate_primary": "conflict_approach",
+    "secondary_before": [
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "emotion_regulation",
+      "perspective_taking"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:boundary_setting",
+      "A:conflict_approach",
+      "A:assertiveness",
+      "B:conflict_approach",
+      "C:conflict_approach",
+      "D:conflict_approach"
+    ],
+    "delta_magnitude_changes": [
+      "A:boundary_setting:0.2->None",
+      "A:conflict_approach:-0.72->0.75",
+      "A:assertiveness:None->0.2",
+      "B:conflict_approach:-0.46->0.45",
+      "B:perspective_taking:0.18->0.2",
+      "C:conflict_approach:-0.1->0.15",
+      "D:conflict_approach:0.55->-0.55",
+      "D:emotion_regulation:-0.22->-0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_emotion_regulation_001",
+    "candidate_id": "eq_tr_v1_emotion_regulation_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "emotion_regulation",
+    "candidate_primary": "emotion_regulation",
+    "secondary_before": [
+      "self_awareness",
+      "social_awareness"
+    ],
+    "secondary_after": [
+      "empathy",
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:social_awareness",
+      "A:self_awareness",
+      "B:social_awareness",
+      "C:conflict_approach",
+      "C:emotion_regulation"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:None->0.2",
+      "A:self_awareness:-0.22->None",
+      "A:emotion_regulation:0.7->0.75",
+      "B:social_awareness:-0.18->0.2",
+      "C:conflict_approach:-0.15->None",
+      "C:emotion_regulation:0.08->-0.2",
+      "D:emotion_regulation:-0.48->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_emotion_regulation_002",
+    "candidate_id": "eq_tr_v1_emotion_regulation_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "emotion_regulation",
+    "candidate_primary": "emotion_regulation",
+    "secondary_before": [
+      "self_awareness"
+    ],
+    "secondary_after": [
+      "emotional_openness",
+      "self_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:self_awareness",
+      "C:emotion_regulation"
+    ],
+    "delta_magnitude_changes": [
+      "A:self_awareness:-0.2->0.2",
+      "A:emotion_regulation:0.7->0.75",
+      "C:emotion_regulation:0.08->-0.2",
+      "D:emotional_openness:0.22->0.2",
+      "D:emotion_regulation:-0.48->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_emotion_regulation_003",
+    "candidate_id": "eq_tr_v1_emotion_regulation_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "emotion_regulation",
+    "candidate_primary": "emotion_regulation",
+    "secondary_before": [
+      "self_awareness",
+      "perspective_taking"
+    ],
+    "secondary_after": [
+      "perspective_taking",
+      "self_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:self_awareness",
+      "B:perspective_taking",
+      "C:emotional_openness"
+    ],
+    "delta_magnitude_changes": [
+      "A:self_awareness:-0.18->0.2",
+      "A:emotion_regulation:0.68->0.75",
+      "B:emotion_regulation:0.42->0.45",
+      "B:perspective_taking:-0.15->0.2",
+      "C:emotional_openness:-0.2->None",
+      "D:emotion_regulation:-0.5->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_emotional_openness_001",
+    "candidate_id": "eq_tr_v1_emotional_openness_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "emotional_openness",
+    "candidate_primary": "emotional_openness",
+    "secondary_before": [
+      "self_awareness",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "empathy",
+      "self_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:self_awareness",
+      "B:boundary_setting",
+      "C:emotional_openness",
+      "C:empathy"
+    ],
+    "delta_magnitude_changes": [
+      "A:emotional_openness:0.78->0.75",
+      "A:self_awareness:-0.18->0.2",
+      "B:emotional_openness:0.42->0.45",
+      "B:boundary_setting:-0.15->0.2",
+      "C:emotional_openness:0.08->-0.15",
+      "C:empathy:-0.22->0.2",
+      "D:emotional_openness:-0.48->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_emotional_openness_002",
+    "candidate_id": "eq_tr_v1_emotional_openness_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "emotional_openness",
+    "candidate_primary": "emotional_openness",
+    "secondary_before": [],
+    "secondary_after": [
+      "conflict_approach",
+      "empathy"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:emotional_openness",
+      "B:emotional_openness",
+      "D:emotional_openness"
+    ],
+    "delta_magnitude_changes": [
+      "A:emotional_openness:-0.78->0.75",
+      "A:empathy:0.18->0.2",
+      "B:emotional_openness:-0.42->0.45",
+      "C:emotional_openness:-0.08->-0.2",
+      "D:emotional_openness:0.48->-0.45",
+      "D:conflict_approach:-0.15->-0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_emotional_openness_003",
+    "candidate_id": "eq_tr_v1_emotional_openness_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "emotional_openness",
+    "candidate_primary": "emotional_openness",
+    "secondary_before": [
+      "empathy",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "empathy",
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:empathy",
+      "B:boundary_setting",
+      "C:emotional_openness",
+      "C:empathy"
+    ],
+    "delta_magnitude_changes": [
+      "A:emotional_openness:0.65->0.6",
+      "A:empathy:-0.22->0.3",
+      "B:emotional_openness:0.35->0.3",
+      "B:boundary_setting:-0.22->0.3",
+      "C:emotional_openness:0.1->-0.15",
+      "C:empathy:-0.18->0.3",
+      "D:emotional_openness:-0.42->-0.45",
+      "D:social_awareness:-0.18->-0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_empathy_001",
+    "candidate_id": "eq_tr_v1_empathy_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "empathy",
+    "candidate_primary": "empathy",
+    "secondary_before": [
+      "boundary_setting",
+      "assertiveness"
+    ],
+    "secondary_after": [
+      "boundary_setting"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "B:boundary_setting",
+      "C:assertiveness",
+      "D:boundary_setting",
+      "D:emotion_regulation"
+    ],
+    "delta_magnitude_changes": [
+      "A:boundary_setting:-0.22->-0.3",
+      "A:empathy:0.72->0.75",
+      "B:boundary_setting:-0.18->0.2",
+      "B:empathy:0.38->0.45",
+      "C:empathy:0.12->0.15",
+      "C:assertiveness:-0.15->None",
+      "D:boundary_setting:None->0.2",
+      "D:emotion_regulation:0.2->None"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_empathy_002",
+    "candidate_id": "eq_tr_v1_empathy_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "empathy",
+    "candidate_primary": "empathy",
+    "secondary_before": [
+      "repair_orientation",
+      "conflict_approach"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "repair_orientation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:repair_orientation",
+      "B:repair_orientation",
+      "C:conflict_approach"
+    ],
+    "delta_magnitude_changes": [
+      "A:repair_orientation:-0.28->0.3",
+      "A:empathy:0.72->0.75",
+      "B:repair_orientation:-0.22->0.2",
+      "B:empathy:0.38->0.45",
+      "C:conflict_approach:-0.18->None",
+      "C:empathy:0.12->0.15",
+      "D:assertiveness:0.25->0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_empathy_003",
+    "candidate_id": "eq_tr_v1_empathy_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "sdr_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "empathy",
+    "candidate_primary": "empathy",
+    "secondary_before": [
+      "emotional_openness",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "emotional_openness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:emotional_openness",
+      "B:boundary_setting",
+      "C:boundary_setting"
+    ],
+    "delta_magnitude_changes": [
+      "A:emotional_openness:-0.22->0.2",
+      "A:empathy:0.7->0.6",
+      "B:boundary_setting:-0.2->0.3",
+      "C:boundary_setting:-0.28->0.3",
+      "C:empathy:0.18->0.3",
+      "D:emotional_openness:-0.22->-0.2",
+      "D:empathy:-0.4->-0.45"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.6",
+      "B:0.72->0.65",
+      "C:0.72->0.65",
+      "D:0.72->0.6"
+    ],
+    "sdr_changes": [
+      "item:low->moderate"
+    ],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_perspective_taking_001",
+    "candidate_id": "eq_tr_v1_perspective_taking_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "perspective_taking",
+    "candidate_primary": "perspective_taking",
+    "secondary_before": [
+      "social_awareness",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:social_awareness",
+      "B:social_awareness",
+      "C:boundary_setting",
+      "D:conflict_approach"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:-0.25->0.2",
+      "B:social_awareness:-0.15->0.2",
+      "B:perspective_taking:0.48->0.45",
+      "C:boundary_setting:-0.28->0.2",
+      "C:perspective_taking:0.1->0.2",
+      "D:conflict_approach:-0.18->None",
+      "D:perspective_taking:-0.42->-0.45"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_perspective_taking_002",
+    "candidate_id": "eq_tr_v1_perspective_taking_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "perspective_taking",
+    "candidate_primary": "perspective_taking",
+    "secondary_before": [
+      "social_awareness"
+    ],
+    "secondary_after": [
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:social_awareness",
+      "C:social_awareness"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:-0.22->0.2",
+      "B:perspective_taking:0.48->0.45",
+      "C:social_awareness:-0.18->0.2",
+      "C:perspective_taking:0.1->0.2",
+      "D:perspective_taking:-0.42->-0.45"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_perspective_taking_003",
+    "candidate_id": "eq_tr_v1_perspective_taking_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "perspective_taking",
+    "candidate_primary": "perspective_taking",
+    "secondary_before": [
+      "conflict_approach",
+      "social_awareness"
+    ],
+    "secondary_after": [
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:conflict_approach",
+      "A:social_awareness",
+      "C:social_awareness"
+    ],
+    "delta_magnitude_changes": [
+      "A:conflict_approach:-0.2->None",
+      "A:social_awareness:None->0.2",
+      "A:perspective_taking:0.68->0.75",
+      "B:perspective_taking:0.42->0.45",
+      "C:social_awareness:-0.18->0.2",
+      "C:perspective_taking:0.22->0.3",
+      "D:social_awareness:-0.15->-0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_repair_orientation_001",
+    "candidate_id": "eq_tr_v1_repair_orientation_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "repair_orientation",
+    "candidate_primary": "repair_orientation",
+    "secondary_before": [
+      "empathy"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "empathy"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:empathy",
+      "B:empathy",
+      "C:conflict_approach"
+    ],
+    "delta_magnitude_changes": [
+      "A:empathy:-0.22->0.2",
+      "B:empathy:-0.15->None",
+      "C:repair_orientation:0.08->0.15",
+      "C:conflict_approach:-0.12->None",
+      "D:repair_orientation:-0.52->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_repair_orientation_002",
+    "candidate_id": "eq_tr_v1_repair_orientation_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "repair_orientation",
+    "candidate_primary": "repair_orientation",
+    "secondary_before": [
+      "emotional_openness",
+      "empathy"
+    ],
+    "secondary_after": [
+      "conflict_approach",
+      "emotional_openness",
+      "empathy"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:emotional_openness",
+      "B:empathy"
+    ],
+    "delta_magnitude_changes": [
+      "A:emotional_openness:-0.22->0.2",
+      "B:empathy:-0.18->0.2",
+      "C:repair_orientation:0.08->0.15",
+      "D:conflict_approach:0.15->0.2",
+      "D:repair_orientation:-0.52->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_repair_orientation_003",
+    "candidate_id": "eq_tr_v1_repair_orientation_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "repair_orientation",
+    "candidate_primary": "repair_orientation",
+    "secondary_before": [
+      "conflict_approach",
+      "assertiveness"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "conflict_approach"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:conflict_approach",
+      "B:assertiveness",
+      "D:conflict_approach"
+    ],
+    "delta_magnitude_changes": [
+      "A:repair_orientation:0.68->0.75",
+      "A:conflict_approach:-0.22->0.2",
+      "B:repair_orientation:0.42->0.45",
+      "B:assertiveness:-0.18->0.2",
+      "C:repair_orientation:0.1->0.15",
+      "D:repair_orientation:-0.5->-0.55",
+      "D:conflict_approach:-0.18->None"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_self_awareness_001",
+    "candidate_id": "eq_tr_v1_self_awareness_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "self_awareness",
+    "candidate_primary": "self_awareness",
+    "secondary_before": [
+      "emotion_regulation"
+    ],
+    "secondary_after": [
+      "emotion_regulation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:emotion_regulation",
+      "B:emotion_regulation"
+    ],
+    "delta_magnitude_changes": [
+      "A:self_awareness:0.72->0.75",
+      "A:emotion_regulation:-0.18->0.2",
+      "B:self_awareness:0.48->0.45",
+      "B:emotion_regulation:-0.15->0.2",
+      "C:self_awareness:0.22->0.2"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_self_awareness_002",
+    "candidate_id": "eq_tr_v1_self_awareness_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "self_awareness",
+    "candidate_primary": "self_awareness",
+    "secondary_before": [
+      "social_awareness",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "boundary_setting",
+      "social_awareness"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:social_awareness",
+      "B:boundary_setting"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:-0.22->0.2",
+      "A:self_awareness:0.7->0.75",
+      "B:boundary_setting:-0.18->0.2",
+      "B:self_awareness:0.44->0.45",
+      "D:social_awareness:0.12->0.2",
+      "D:self_awareness:-0.4->-0.45"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_self_awareness_003",
+    "candidate_id": "eq_tr_v1_self_awareness_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "self_awareness",
+    "candidate_primary": "self_awareness",
+    "secondary_before": [
+      "conflict_approach"
+    ],
+    "secondary_after": [
+      "assertiveness",
+      "emotion_regulation"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [
+      "A:self_awareness",
+      "B:self_awareness",
+      "D:conflict_approach",
+      "D:self_awareness"
+    ],
+    "delta_magnitude_changes": [
+      "A:self_awareness:-0.72->0.75",
+      "A:emotion_regulation:0.25->0.2",
+      "B:self_awareness:-0.48->0.45",
+      "C:self_awareness:-0.22->-0.3",
+      "D:conflict_approach:-0.18->None",
+      "D:self_awareness:0.55->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_social_awareness_001",
+    "candidate_id": "eq_tr_v1_social_awareness_001",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "social_awareness",
+    "candidate_primary": "social_awareness",
+    "secondary_before": [
+      "empathy",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "empathy",
+      "perspective_taking"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:empathy",
+      "B:boundary_setting",
+      "B:perspective_taking"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:0.72->0.75",
+      "A:empathy:-0.22->0.2",
+      "B:boundary_setting:-0.18->None",
+      "B:perspective_taking:None->0.2",
+      "C:social_awareness:0.12->0.15",
+      "D:social_awareness:-0.48->-0.55"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high"
+  },
+  {
+    "original_id": "eq_tr_v1_social_awareness_002",
+    "candidate_id": "eq_tr_v1_social_awareness_002",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "social_awareness",
+    "candidate_primary": "social_awareness",
+    "secondary_before": [
+      "perspective_taking",
+      "boundary_setting"
+    ],
+    "secondary_after": [
+      "perspective_taking"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "B",
+      "D"
+    ],
+    "delta_direction_changes": [
+      "A:perspective_taking",
+      "B:boundary_setting"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:0.7->0.75",
+      "A:perspective_taking:-0.22->0.2",
+      "B:boundary_setting:-0.18->None",
+      "B:social_awareness:0.44->0.45",
+      "D:social_awareness:-0.42->-0.45"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.55",
+      "D:0.72->0.5"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  },
+  {
+    "original_id": "eq_tr_v1_social_awareness_003",
+    "candidate_id": "eq_tr_v1_social_awareness_003",
+    "change_types": [
+      "evidence_remap",
+      "evidence_strength_revision",
+      "language_edit"
+    ],
+    "verdict": "EVIDENCE_REMAP",
+    "original_primary": "social_awareness",
+    "candidate_primary": "social_awareness",
+    "secondary_before": [
+      "repair_orientation",
+      "perspective_taking"
+    ],
+    "secondary_after": [
+      "perspective_taking"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [
+      "A:repair_orientation",
+      "A:perspective_taking",
+      "B:perspective_taking",
+      "D:social_awareness"
+    ],
+    "delta_magnitude_changes": [
+      "A:social_awareness:0.68->0.75",
+      "A:repair_orientation:-0.2->None",
+      "A:perspective_taking:None->0.2",
+      "B:social_awareness:0.42->0.45",
+      "B:perspective_taking:-0.15->0.2",
+      "C:social_awareness:0.12->0.2",
+      "D:social_awareness:-0.45->0.3"
+    ],
+    "evidence_strength_changes": [
+      "A:0.72->0.65",
+      "B:0.72->0.6",
+      "C:0.72->0.5",
+      "D:0.72->0.55"
+    ],
+    "sdr_changes": [],
+    "response_style_changes": [
+      "all->low"
+    ],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium"
+  }
+]

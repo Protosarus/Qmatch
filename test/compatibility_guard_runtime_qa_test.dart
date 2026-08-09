@@ -105,21 +105,24 @@ void main() {
         me: profile(frequencyVector: vec(depth: 0.8, stability: 0.8)),
         candidate: profile(frequencyVector: vec(depth: 0.75, stability: 0.7)),
       );
+      expect(r.available, isTrue);
       expect(r.scoreTotal, inInclusiveRange(0.0, 1.0));
       expect(r.breakdown['frequency_vector']!, greaterThan(0.8));
     });
 
-    test('my vector present, candidate missing', () {
+    test('my vector present, candidate missing => unavailable (not 0.42)', () {
       final r = CompatibilityScoring.calculateCompatibility(
         me: profile(frequencyVector: vec(depth: 0.8)),
         candidate: profile(), // no vector
       );
-      expect(r.breakdown['frequency_vector'],
-          CompatibilityScoring.missingSignalNeutral);
-      expect(r.scoreTotal, isNonNegative);
+      expect(r.available, isFalse);
+      expect(r.scoreTotal, isNull);
+      expect(r.breakdown.containsKey('frequency_vector'), isFalse);
+      expect(
+          r.reason, CompatibilityScoring.reasonInsufficientFrequencyEvidence);
     });
 
-    test('legacy candidate: type/tags only, no vector', () {
+    test('legacy candidate: type/tags only, no vector => unavailable', () {
       final r = CompatibilityScoring.calculateCompatibility(
         me: profile(
           frequencyVector: vec(depth: 0.8, emotionalOpenness: 0.8),
@@ -131,9 +134,9 @@ void main() {
           frequencyTags: const [],
         ),
       );
-      expect(r.breakdown['frequency_vector'],
-          CompatibilityScoring.missingSignalNeutral);
-      expect(r.scoreTotal, inInclusiveRange(0.0, 1.0));
+      expect(r.available, isFalse);
+      expect(r.scoreTotal, isNull);
+      expect(r.breakdown.containsKey('frequency_vector'), isFalse);
     });
 
     test('missing IQ/EQ', () {
@@ -141,19 +144,18 @@ void main() {
         me: profile(iq: null, eq: null, frequencyVector: vec()),
         candidate: profile(iq: null, eq: null, frequencyVector: vec()),
       );
+      expect(r.available, isTrue);
       expect(r.breakdown['iq'], CompatibilityScoring.missingSignalNeutral);
       expect(r.breakdown['eq'], CompatibilityScoring.missingSignalNeutral);
     });
 
-    test('empty tags and empty interests', () {
+    test('empty tags and empty interests without vectors => unavailable', () {
       final r = CompatibilityScoring.calculateCompatibility(
         me: profile(frequencyTags: const [], interests: const []),
         candidate: profile(frequencyTags: const [], interests: const []),
       );
-      expect(r.breakdown['frequency_type_tag'],
-          CompatibilityScoring.missingSignalNeutral);
-      expect(r.breakdown['interests'],
-          CompatibilityScoring.missingSignalNeutral);
+      expect(r.available, isFalse);
+      expect(r.scoreTotal, isNull);
     });
   });
 
@@ -184,7 +186,7 @@ void main() {
         me: profile(category: 'MM', frequencyVector: deep),
         candidate: profile(category: 'MM', frequencyVector: social),
       );
-      expect(similar.scoreTotal, greaterThan(different.scoreTotal + 0.08));
+      expect(similar.scoreTotal!, greaterThan(different.scoreTotal! + 0.08));
 
       // Legacy: same MM + empty tags + identical IQ/EQ → nearly identical
       // regardless of Frequency vector (vector unused).
@@ -199,7 +201,7 @@ void main() {
       final legacyDifferent = legacySimilar; // vector unused → same
       expect((legacySimilar - legacyDifferent).abs(), lessThan(0.001));
       expect(
-        (similar.scoreTotal - different.scoreTotal).abs(),
+        (similar.scoreTotal! - different.scoreTotal!).abs(),
         greaterThan((legacySimilar - legacyDifferent).abs() + 0.08),
       );
     });
@@ -214,11 +216,11 @@ void main() {
         candidate: profile(category: 'LL', frequencyVector: deep),
       );
       // Vector-first: similar Frequency can outrank same-archetype + dissimilar vector.
-      expect(diffArchSimilarVec.scoreTotal,
-          greaterThan(sameArchDiffVec.scoreTotal));
+      expect(diffArchSimilarVec.scoreTotal!,
+          greaterThan(sameArchDiffVec.scoreTotal!));
     });
 
-    test('missing vector fallback is not a free high match', () {
+    test('missing vector is unavailable, not a free high match', () {
       final missing = CompatibilityScoring.calculateCompatibility(
         me: profile(category: 'MM'),
         candidate: profile(category: 'MM'),
@@ -227,9 +229,12 @@ void main() {
         me: profile(category: 'MM', frequencyVector: deep),
         candidate: profile(category: 'MM', frequencyVector: deep),
       );
-      expect(missing.breakdown['frequency_vector'],
-          CompatibilityScoring.missingSignalNeutral);
-      expect(withVec.scoreTotal, greaterThan(missing.scoreTotal));
+      expect(missing.available, isFalse);
+      expect(missing.scoreTotal, isNull);
+      expect(missing.breakdown.containsKey('frequency_vector'), isFalse);
+      expect(withVec.available, isTrue);
+      expect(withVec.scoreTotal, isNotNull);
+      expect(withVec.scoreTotal!, greaterThan(0.0));
     });
   });
 

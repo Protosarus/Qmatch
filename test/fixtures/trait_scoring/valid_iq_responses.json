@@ -1,0 +1,84 @@
+{
+  "responses": [
+    {
+      "question_id": "iq_logical_reasoning_1",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 5900
+    },
+    {
+      "question_id": "iq_logical_reasoning_2",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 6800
+    },
+    {
+      "question_id": "iq_logical_reasoning_3",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 7700
+    },
+    {
+      "question_id": "iq_logical_reasoning_4",
+      "selected_option_id": "b",
+      "response_time_milliseconds": 8600
+    },
+    {
+      "question_id": "iq_pattern_reasoning_1",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 6100
+    },
+    {
+      "question_id": "iq_pattern_reasoning_2",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 7000
+    },
+    {
+      "question_id": "iq_pattern_reasoning_3",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 7900
+    },
+    {
+      "question_id": "iq_pattern_reasoning_4",
+      "selected_option_id": "b",
+      "response_time_milliseconds": 8800
+    },
+    {
+      "question_id": "iq_verbal_reasoning_1",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 6300
+    },
+    {
+      "question_id": "iq_verbal_reasoning_2",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 7200
+    },
+    {
+      "question_id": "iq_verbal_reasoning_3",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 8100
+    },
+    {
+      "question_id": "iq_verbal_reasoning_4",
+      "selected_option_id": "b",
+      "response_time_milliseconds": 9000
+    },
+    {
+      "question_id": "iq_spatial_reasoning_1",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 6500
+    },
+    {
+      "question_id": "iq_spatial_reasoning_2",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 7400
+    },
+    {
+      "question_id": "iq_spatial_reasoning_3",
+      "selected_option_id": "a",
+      "response_time_milliseconds": 8300
+    },
+    {
+      "question_id": "iq_spatial_reasoning_4",
+      "selected_option_id": "b",
+      "response_time_milliseconds": 9200
+    }
+  ]
+}

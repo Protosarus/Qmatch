@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/core_method_v2_aggregation_config_v1.schema.json",
+  "title": "CoreMethodV2AggregationConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_id",
+    "config_version",
+    "registry_version",
+    "status",
+    "calibration_status",
+    "runtime_status",
+    "production_approval_status",
+    "scientifically_validated",
+    "component_weights",
+    "total_weight",
+    "weight_sum_tolerance",
+    "score_bounds",
+    "confidence_bounds",
+    "neutral_score",
+    "minimum_available_component_count",
+    "minimum_available_weight_mass",
+    "raw_aggregation_mode",
+    "evidence_confidence_mode",
+    "confidence_adjustment_mode",
+    "missing_component_policy",
+    "hard_constraint_failed_policy",
+    "hard_constraint_unknown_policy",
+    "hard_constraint_not_applicable_policy",
+    "soft_conflict_policy",
+    "asymmetry_policy",
+    "complementarity_status",
+    "temporal_layer_status",
+    "persona_input_status",
+    "frequency_type_status",
+    "ai_scoring_status",
+    "version_compatibility_policy"
+  ],
+  "properties": {
+    "config_id": { "type": "string" },
+    "config_version": { "type": "string" },
+    "registry_version": { "type": "string" },
+    "status": { "const": "provisional" },
+    "calibration_status": { "const": "uncalibrated" },
+    "runtime_status": { "const": "offline_only" },
+    "production_approval_status": { "const": "not_approved" },
+    "scientifically_validated": { "const": false },
+    "component_weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "iq_structural",
+        "eq_structural",
+        "frequency_structural",
+        "mutual_partner_preference",
+        "mutual_relationship_values"
+      ],
+      "properties": {
+        "iq_structural": { "type": "number", "exclusiveMinimum": 0 },
+        "eq_structural": { "type": "number", "exclusiveMinimum": 0 },
+        "frequency_structural": { "type": "number", "exclusiveMinimum": 0 },
+        "mutual_partner_preference": { "type": "number", "exclusiveMinimum": 0 },
+        "mutual_relationship_values": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "total_weight": { "type": "number" },
+    "weight_sum_tolerance": { "type": "number", "minimum": 0 },
+    "score_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "confidence_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "neutral_score": { "type": "number" },
+    "minimum_available_component_count": { "type": "integer", "minimum": 1 },
+    "minimum_available_weight_mass": { "type": "number", "minimum": 0, "maximum": 1 },
+    "raw_aggregation_mode": {
+      "const": "available_component_weight_renormalization"
+    },
+    "evidence_confidence_mode": { "const": "full_configured_weight_mass" },
+    "confidence_adjustment_mode": { "const": "linear_shrinkage_to_neutral" },
+    "missing_component_policy": { "const": "exclude_without_imputation" },
+    "hard_constraint_failed_policy": {
+      "const": "block_and_withhold_overall_scores"
+    },
+    "hard_constraint_unknown_policy": {
+      "const": "calculate_offline_but_not_publishable_or_ranking_eligible"
+    },
+    "hard_constraint_not_applicable_policy": {
+      "const": "allow_if_other_evidence_gates_pass"
+    },
+    "soft_conflict_policy": { "const": "diagnostics_only_no_numeric_penalty" },
+    "asymmetry_policy": { "const": "diagnostics_only" },
+    "complementarity_status": { "const": "disabled_pending_calibration" },
+    "temporal_layer_status": { "const": "disabled" },
+    "persona_input_status": { "const": "prohibited" },
+    "frequency_type_status": { "const": "prohibited" },
+    "ai_scoring_status": { "const": "prohibited" },
+    "version_compatibility_policy": { "type": "string" },
+    "notes": { "type": "object" }
+  }
+}

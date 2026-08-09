@@ -1,0 +1,142 @@
+{
+  "boundary_heavy": {
+    "family_id": "boundary_heavy",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "central_normal_like_bounded": {
+    "family_id": "central_normal_like_bounded",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "complete_profiles": {
+    "family_id": "complete_profiles",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "correlated_within_modules": {
+    "family_id": "correlated_within_modules",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "deep_dive": {
+    "explanation_pair_count_requested": 24,
+    "family_id": "independent_uniform",
+    "full_pipeline_pair_count_requested": 60,
+    "full_pipeline_pairs_actual": 60,
+    "sampled_pair_count_requested": 120,
+    "sampled_pairs_actual": 120,
+    "seed": 424242,
+    "subject_count": 48
+  },
+  "frequency_preference_correlated": {
+    "family_id": "frequency_preference_correlated",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "frequency_preference_independent": {
+    "family_id": "frequency_preference_independent",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "hard_constraint_dense": {
+    "family_id": "hard_constraint_dense",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "hard_constraint_sparse": {
+    "family_id": "hard_constraint_sparse",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "high_confidence_population": {
+    "family_id": "high_confidence_population",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "independent_between_modules": {
+    "family_id": "independent_between_modules",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "independent_uniform": {
+    "family_id": "independent_uniform",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "low_confidence_population": {
+    "family_id": "low_confidence_population",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "mixed_confidence_population": {
+    "family_id": "mixed_confidence_population",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "narrow_score_range": {
+    "family_id": "narrow_score_range",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "negatively_correlated_dimensions": {
+    "family_id": "negatively_correlated_dimensions",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "positively_correlated_dimensions": {
+    "family_id": "positively_correlated_dimensions",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "random_partial_profiles": {
+    "family_id": "random_partial_profiles",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "soft_conflict_dense": {
+    "family_id": "soft_conflict_dense",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "soft_conflict_sparse": {
+    "family_id": "soft_conflict_sparse",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "structured_missing_dimensions": {
+    "family_id": "structured_missing_dimensions",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "structured_missing_modules": {
+    "family_id": "structured_missing_modules",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "three_cluster": {
+    "family_id": "three_cluster",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "two_cluster": {
+    "family_id": "two_cluster",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "values_preference_correlated": {
+    "family_id": "values_preference_correlated",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "values_preference_independent": {
+    "family_id": "values_preference_independent",
+    "seed": 424242,
+    "subject_count": 4
+  },
+  "wide_score_range": {
+    "family_id": "wide_score_range",
+    "seed": 424242,
+    "subject_count": 4
+  }
+}

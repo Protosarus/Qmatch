@@ -1,0 +1,121 @@
+{
+  "primary_source": "docx",
+  "secondary_source": "pdf",
+  "bank_path": "assets/data/assessment_v3/iq/iq_bank_tr_v1.json",
+  "bank_sha256": "f572b2be1bc149570bba414ccfe6208d231514da84796b433273eafeea55a98d",
+  "pdf_path": "docs/source/assessment/iq/QMatch_Bilissel_Muhakeme_Soru_Bankasi_v2_340.pdf",
+  "pdf_sha256": "4f2c2c23ea81aec91388669827ef9d59268d178f55e9258729638e2294b81640",
+  "pdf_pages": 69,
+  "checks": [
+    {
+      "check": "section_marker_logical_reasoning",
+      "ok": true,
+      "marker": "Mantıksal Muhakeme"
+    },
+    {
+      "check": "section_marker_pattern_reasoning",
+      "ok": true,
+      "marker": "Örüntü Muhakemesi"
+    },
+    {
+      "check": "section_marker_verbal_reasoning",
+      "ok": true,
+      "marker": "Sözel Muhakeme"
+    },
+    {
+      "check": "section_marker_spatial_reasoning",
+      "ok": true,
+      "marker": "Uzamsal Muhakeme"
+    },
+    {
+      "check": "logical_reasoning_first",
+      "item_id": "logic_curated_001",
+      "family": "iq_template_001",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "logical_reasoning_last",
+      "item_id": "logic_additional_075",
+      "family": "iq_template_050",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "pattern_reasoning_first",
+      "item_id": "pattern_curated_026",
+      "family": "iq_template_051",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "pattern_reasoning_last",
+      "item_id": "pattern_additional_055",
+      "family": "iq_template_090",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "verbal_reasoning_first",
+      "item_id": "verbal_additional_001",
+      "family": "iq_template_091",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "verbal_reasoning_last",
+      "item_id": "verbal_additional_055",
+      "family": "iq_template_130",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "spatial_reasoning_first",
+      "item_id": "spatial_curated_076",
+      "family": "iq_template_131",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "spatial_reasoning_last",
+      "item_id": "spatial_additional_055",
+      "family": "iq_template_170",
+      "id_in_pdf": true,
+      "family_in_pdf": true
+    },
+    {
+      "check": "all_item_ids_in_pdf",
+      "missing_count": 0,
+      "missing_sample": []
+    },
+    {
+      "check": "rewritten_ids_in_pdf",
+      "missing_count": 0
+    },
+    {
+      "check": "phrase_340",
+      "present": true
+    },
+    {
+      "check": "phrase_170",
+      "present": true
+    },
+    {
+      "check": "phrase_40",
+      "present": true
+    },
+    {
+      "check": "cevap_anahtari_present",
+      "present": true
+    },
+    {
+      "check": "pdf_answer_extractions",
+      "extracted": 340,
+      "mismatches": 0,
+      "sample": []
+    }
+  ],
+  "discrepancies": [],
+  "discrepancy_count": 0,
+  "silent_resolution": false
+}

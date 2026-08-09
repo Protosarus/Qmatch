@@ -1,0 +1,197 @@
+{
+  "registry_id": "relationship_value_registry_v1",
+  "registry_version": "relationship_value_registry_v1",
+  "schema_version": "relationship_value_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "fields": [
+    {
+      "field_id": "relationship_intent",
+      "value_type": "categorical",
+      "allowed_values": [
+        "friendship",
+        "dating",
+        "long_term",
+        "marriage_oriented",
+        "undecided"
+      ],
+      "supports_hard_constraint": true,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "medium",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Preferred relationship framing",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "marriage_intent",
+      "value_type": "categorical",
+      "allowed_values": [
+        "yes",
+        "maybe",
+        "no",
+        "undecided"
+      ],
+      "supports_hard_constraint": true,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "high",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Explicit marriage intention",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "children_preference",
+      "value_type": "categorical",
+      "allowed_values": [
+        "want_children",
+        "open",
+        "do_not_want",
+        "undecided"
+      ],
+      "supports_hard_constraint": true,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "high",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Children preference",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "monogamy_expectation",
+      "value_type": "categorical",
+      "allowed_values": [
+        "monogamous",
+        "open_to_non_monogamy",
+        "undecided"
+      ],
+      "supports_hard_constraint": true,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "high",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Exclusivity expectation",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "religion_importance",
+      "value_type": "categorical",
+      "allowed_values": [
+        "central",
+        "important",
+        "somewhat",
+        "not_important",
+        "undecided"
+      ],
+      "supports_hard_constraint": false,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "high",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Importance of religion/spirituality",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "relocation_willingness",
+      "value_type": "categorical",
+      "allowed_values": [
+        "willing",
+        "conditional",
+        "unwilling",
+        "undecided"
+      ],
+      "supports_hard_constraint": true,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "medium",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Willingness to relocate",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "preferred_living_location",
+      "value_type": "categorical",
+      "allowed_values": [
+        "same_city",
+        "same_country",
+        "open_international",
+        "undecided"
+      ],
+      "supports_hard_constraint": false,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "medium",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Living location preference",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "smoking_preference",
+      "value_type": "categorical",
+      "allowed_values": [
+        "non_smoker_only",
+        "ok_with_smoking",
+        "smokes",
+        "undecided"
+      ],
+      "supports_hard_constraint": true,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "medium",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Smoking preference/constraint",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "alcohol_preference",
+      "value_type": "categorical",
+      "allowed_values": [
+        "none",
+        "social",
+        "regular",
+        "undecided"
+      ],
+      "supports_hard_constraint": false,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "medium",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Alcohol lifestyle preference",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "career_priority",
+      "value_type": "categorical",
+      "allowed_values": [
+        "very_high",
+        "balanced",
+        "low",
+        "undecided"
+      ],
+      "supports_hard_constraint": false,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "low",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Career priority relative to relationship",
+      "pending_content_review": true
+    },
+    {
+      "field_id": "lifestyle_rhythm",
+      "value_type": "categorical",
+      "allowed_values": [
+        "highly_structured",
+        "mixed",
+        "flexible",
+        "undecided"
+      ],
+      "supports_hard_constraint": false,
+      "supports_soft_preference": true,
+      "sensitive_data_level": "low",
+      "directly_asked_only": true,
+      "inference_prohibited": true,
+      "description": "Lifestyle rhythm preference",
+      "pending_content_review": true
+    }
+  ]
+}

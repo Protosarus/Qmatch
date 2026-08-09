@@ -1,0 +1,98 @@
+{
+  "automated_validation": "PASS",
+  "calibration_status": "uncalibrated",
+  "content_version": "eq-tr-pilot-v1",
+  "domain_counts": {
+    "assertiveness": 3,
+    "boundary_setting": 3,
+    "conflict_approach": 3,
+    "emotion_regulation": 3,
+    "emotional_openness": 3,
+    "empathy": 3,
+    "perspective_taking": 3,
+    "repair_orientation": 3,
+    "self_awareness": 3,
+    "social_awareness": 3
+  },
+  "error_count": 0,
+  "findings": [
+    {
+      "code": "duplicate",
+      "message": "rejected",
+      "severity": "info"
+    },
+    {
+      "code": "unknown",
+      "message": "rejected",
+      "severity": "info"
+    },
+    {
+      "code": "trait_scoring",
+      "message": "EQ pilot scoring smoke passed (30 items)",
+      "severity": "info"
+    }
+  ],
+  "form_id": "eq_tr_pilot_v1",
+  "independent_context_counts": {
+    "assertiveness": 4,
+    "boundary_setting": 8,
+    "conflict_approach": 6,
+    "emotion_regulation": 4,
+    "emotional_openness": 3,
+    "empathy": 3,
+    "perspective_taking": 4,
+    "repair_orientation": 6,
+    "self_awareness": 3,
+    "social_awareness": 5
+  },
+  "locale": "tr-TR",
+  "manual_tradeoff_review": "PENDING",
+  "notes": {
+    "does_not_prove_tradeoff_semantics": true,
+    "json_map_order_not_applicable": true,
+    "not_production_wired": true,
+    "offline_only": true
+  },
+  "overall_readiness": "CONDITIONAL",
+  "pair_registry_counts": {
+    "behavioral_isomorph_groups": 5,
+    "reverse_pairs": 5,
+    "semantic_pairs": 6
+  },
+  "review_state": "internal_review",
+  "rvi_role_counts": {
+    "repeated_context_stability": 10,
+    "response_variation": 5,
+    "reverse_consistency": 10,
+    "semantic_consistency": 12,
+    "social_impression_risk": 5,
+    "timing_quality": 30
+  },
+  "scenario_family_counts": {
+    "boundary_and_request_conflicts": 3,
+    "competing_values_and_tradeoffs": 3,
+    "emotional_disclosure": 3,
+    "internal_emotional_awareness": 3,
+    "interpersonal_support": 3,
+    "perspective_taking_family": 3,
+    "repair_after_disagreement": 3,
+    "repeated_behavioral_patterns": 3,
+    "social_context_awareness": 3,
+    "stress_and_regulation": 3
+  },
+  "secondary_appearances": {
+    "assertiveness": 5,
+    "boundary_setting": 10,
+    "conflict_approach": 4,
+    "emotion_regulation": 3,
+    "emotional_openness": 2,
+    "empathy": 4,
+    "perspective_taking": 4,
+    "repair_orientation": 5,
+    "self_awareness": 4,
+    "social_awareness": 6
+  },
+  "set_id": "eq_tr_pilot_v1_set_001",
+  "status": "pilot",
+  "warn_count": 0
+}

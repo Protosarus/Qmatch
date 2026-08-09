@@ -1,0 +1,2226 @@
+{
+  "contiguous_scenario_numbers": true,
+  "fail_count": 0,
+  "pass_count": 90,
+  "scenario_count": 90,
+  "scenarios": [
+    {
+      "actual_result": {
+        "adj": 0.95,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-187805684e7c1b5e",
+        "q": 1.0,
+        "raw": 0.95,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "score": 0.95
+      },
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "overall status + production limit",
+      "pass": true,
+      "purpose": "Complete complete_high",
+      "scenario_id": "complete_high",
+      "scenario_number": 1
+    },
+    {
+      "actual_result": {
+        "adj": 0.05000000000000001,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-35226e546dde8cc0",
+        "q": 1.0,
+        "raw": 0.05000000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "score": 0.05
+      },
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "overall status + production limit",
+      "pass": true,
+      "purpose": "Complete complete_low",
+      "scenario_id": "complete_low",
+      "scenario_number": 2
+    },
+    {
+      "actual_result": {
+        "adj": 0.5,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "1f2c9ce6f71e1f41",
+        "q": 1.0,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "score": 0.5
+      },
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "overall status + production limit",
+      "pass": true,
+      "purpose": "Complete complete_neutral",
+      "scenario_id": "complete_neutral",
+      "scenario_number": 3
+    },
+    {
+      "actual_result": {
+        "adj": 0.5800000000000001,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "score_shrunk_toward_neutral",
+          "component_low_confidence",
+          "component_low_confidence",
+          "component_low_confidence",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-ff99d70e5651b79",
+        "q": 0.20000000000000004,
+        "raw": 0.9000000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "shrink direction",
+      "pass": true,
+      "purpose": "High raw shrunk downward",
+      "scenario_id": "high_raw_shrunk_down",
+      "scenario_number": 4
+    },
+    {
+      "actual_result": {
+        "adj": 0.42,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "score_shrunk_toward_neutral",
+          "component_low_confidence",
+          "component_low_confidence",
+          "component_low_confidence",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-d14c487520588b1",
+        "q": 0.20000000000000004,
+        "raw": 0.10000000000000002,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "shrink direction",
+      "pass": true,
+      "purpose": "Low raw shrunk upward",
+      "scenario_id": "low_raw_shrunk_up",
+      "scenario_number": 5
+    },
+    {
+      "actual_result": {
+        "adj": 0.5,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "component_low_confidence",
+          "component_low_confidence",
+          "component_low_confidence",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "5cbc9bd8a33ac1aa",
+        "q": 0.20000000000000004,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "no shrink or neutral",
+      "pass": true,
+      "purpose": "Neutral raw unchanged",
+      "scenario_id": "neutral_unchanged",
+      "scenario_number": 6
+    },
+    {
+      "actual_result": {
+        "adj": 0.7760000000000001,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_partial",
+          "score_shrunk_toward_neutral",
+          "component_missing",
+          "explanation_evidence_limited",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_partial",
+        "fp": "-4c58a88423c1220a",
+        "q": 0.9199999999999999,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "component_missing",
+      "pass": true,
+      "purpose": "Partial one missing component",
+      "scenario_id": "partial_one_missing",
+      "scenario_number": 7
+    },
+    {
+      "actual_result": {
+        "adj": 0.704,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_partial",
+          "score_shrunk_toward_neutral",
+          "component_missing",
+          "component_missing",
+          "limited_available_weight_mass",
+          "explanation_evidence_limited",
+          "production_not_approved"
+        ],
+        "count": 7,
+        "first": "overall_status_partial",
+        "fp": "-aec9a6fa9434a7f",
+        "q": 0.68,
+        "raw": 0.8,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "missing signals",
+      "pass": true,
+      "purpose": "Partial multiple missing",
+      "scenario_id": "partial_multi_missing",
+      "scenario_number": 8
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_insufficient",
+          "overall_status_insufficient",
+          "insufficient_component_count",
+          "insufficient_component_weight",
+          "component_missing",
+          "component_missing",
+          "component_missing",
+          "limited_available_weight_mass",
+          "production_not_approved"
+        ],
+        "count": 9,
+        "first": "overall_status_insufficient",
+        "fp": "-b57ef2d5a61ac59",
+        "q": 0.28,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "null scores",
+      "pass": true,
+      "purpose": "Insufficient component count",
+      "scenario_id": "insufficient_count",
+      "scenario_number": 9
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_insufficient",
+          "overall_status_insufficient",
+          "insufficient_component_weight",
+          "component_missing",
+          "component_missing",
+          "component_missing",
+          "limited_available_weight_mass",
+          "explanation_evidence_limited",
+          "production_not_approved"
+        ],
+        "count": 9,
+        "first": "overall_status_insufficient",
+        "fp": "-25c2bc528d7565ff",
+        "q": 0.28,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "null scores",
+      "pass": true,
+      "purpose": "Insufficient available weight mass",
+      "scenario_id": "insufficient_mass",
+      "scenario_number": 10
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "hard_constraint_passed",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "-a41f82aedba163c",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "hard": "passed"
+      },
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted",
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "categorical signal",
+      "pass": true,
+      "purpose": "Hard constraint passed",
+      "scenario_id": "hard_passed",
+      "scenario_number": 11
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "hard_constraint_not_applicable",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "-573ed730dba1f2e1",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "hard": "not_applicable"
+      },
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted",
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "categorical signal",
+      "pass": true,
+      "purpose": "Hard constraint not_applicable",
+      "scenario_id": "hard_not_applicable",
+      "scenario_number": 12
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "hard_constraint_resolution_required",
+          "overall_status_partial",
+          "hard_constraint_unknown",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "hard_constraint_resolution_required",
+        "fp": "0b7a257df4293677",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "hard": "unknown"
+      },
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted",
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "categorical signal",
+      "pass": true,
+      "purpose": "Hard constraint unknown",
+      "scenario_id": "hard_unknown",
+      "scenario_number": 13
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "blocking_first": true,
+        "codes": [
+          "hard_constraint_failed",
+          "hard_constraint_result_blocked",
+          "overall_status_blocked",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "hard_constraint_failed",
+        "fp": "-40fa3b9a8f34e87a",
+        "q": 1.0,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {
+        "hard": "failed"
+      },
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted",
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "categorical signal",
+      "pass": true,
+      "purpose": "Hard constraint failed",
+      "scenario_id": "hard_failed",
+      "scenario_number": 14
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "blocking_first": true,
+        "codes": [
+          "hard_constraint_failed",
+          "hard_constraint_result_blocked",
+          "overall_status_blocked",
+          "relationship_value_aligned",
+          "relationship_value_aligned",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "hard_constraint_failed",
+        "fp": "73474b4e75b75f2d",
+        "q": 1.0,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted",
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "blocking first",
+      "pass": true,
+      "purpose": "Hard failure ranks first",
+      "scenario_id": "hard_failure_ranks_first",
+      "scenario_number": 15
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "blocking_first": true,
+        "codes": [
+          "hard_constraint_failed",
+          "hard_constraint_result_blocked",
+          "overall_status_blocked",
+          "relationship_value_aligned",
+          "relationship_value_aligned",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "hard_constraint_failed",
+        "fp": "73474b4e75b75f2d",
+        "q": 1.0,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted",
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "raw null",
+      "pass": true,
+      "purpose": "Hard failure exposes no overall score",
+      "scenario_id": "hard_failure_no_overall_score",
+      "scenario_number": 16
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_close",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "64f11d62508307b8",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "close code",
+      "pass": true,
+      "purpose": "Structural IQ close",
+      "scenario_id": "struct_iq_close",
+      "scenario_number": 17
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_different",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-ce28c60db94b259",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "different code",
+      "pass": true,
+      "purpose": "Structural IQ distant",
+      "scenario_id": "struct_iq_distant",
+      "scenario_number": 18
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_close",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "1183da48ab4c13c8",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "close",
+      "pass": true,
+      "purpose": "Structural EQ close",
+      "scenario_id": "struct_eq_close",
+      "scenario_number": 19
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_different",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-6d59a4c2d24853f1",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "different",
+      "pass": true,
+      "purpose": "Structural EQ distant",
+      "scenario_id": "struct_eq_distant",
+      "scenario_number": 20
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_close",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "08e554c5a13e6a54",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "close",
+      "pass": true,
+      "purpose": "Structural Frequency close",
+      "scenario_id": "struct_freq_close",
+      "scenario_number": 21
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_different",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "3198657a5b124d93",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "different",
+      "pass": true,
+      "purpose": "Structural Frequency distant",
+      "scenario_id": "struct_freq_distant",
+      "scenario_number": 22
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_close_low_confidence",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "55061c68f145acc8",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "low_conf close",
+      "pass": true,
+      "purpose": "Structural low-confidence closeness",
+      "scenario_id": "struct_close_low_q",
+      "scenario_number": 23
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_different_low_confidence",
+          "structural_module_high_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "0-50fd373471f25b",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "low_conf diff",
+      "pass": true,
+      "purpose": "Structural low-confidence difference",
+      "scenario_id": "struct_diff_low_q",
+      "scenario_number": 24
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_dimension_excluded",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "413288a39b8194d0",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "excluded code",
+      "pass": true,
+      "purpose": "Structural dimension excluded",
+      "scenario_id": "struct_excluded",
+      "scenario_number": 25
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_dimension_close",
+          "structural_module_partial_coverage",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "75d15101f410f381",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "partial coverage",
+      "pass": true,
+      "purpose": "Structural module partial coverage",
+      "scenario_id": "struct_partial",
+      "scenario_number": 26
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_insufficient",
+          "production_not_approved"
+        ],
+        "count": 3,
+        "first": "overall_status_complete",
+        "fp": "-610298aea2b74184",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "insufficient module",
+      "pass": true,
+      "purpose": "Structural module insufficient",
+      "scenario_id": "struct_insufficient",
+      "scenario_number": 27
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_strongly_satisfied",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-27a8a7aac1a18a7e",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "strong",
+      "pass": true,
+      "purpose": "Strong A<-B preference fit",
+      "scenario_id": "pref_a_strong",
+      "scenario_number": 28
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_weakly_satisfied",
+          "partner_preference_directional_asymmetry",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "722b40fa7bf58f04",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "weak",
+      "pass": true,
+      "purpose": "Weak A<-B preference fit",
+      "scenario_id": "pref_a_weak",
+      "scenario_number": 29
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_strongly_satisfied",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-27a8a7aac1a18a7e",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "strong B",
+      "pass": true,
+      "purpose": "Strong B<-A preference fit",
+      "scenario_id": "pref_b_strong",
+      "scenario_number": 30
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_weakly_satisfied",
+          "partner_preference_directional_asymmetry",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "22916763efe42694",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "weak B",
+      "pass": true,
+      "purpose": "Weak B<-A preference fit",
+      "scenario_id": "pref_b_weak",
+      "scenario_number": 31
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_weakly_satisfied",
+          "partner_preference_directional_asymmetry",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "18255ffc7501414d",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "asymmetry",
+      "pass": true,
+      "purpose": "Preference directional asymmetry",
+      "scenario_id": "pref_asymmetry",
+      "scenario_number": 32
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_open",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "-123884e1769da8f1",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "open",
+      "pass": true,
+      "purpose": "Preference explicitly open",
+      "scenario_id": "pref_open",
+      "scenario_number": 33
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_strongly_satisfied",
+          "partner_preference_unavailable",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "-7a20707b44794037",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "unavailable",
+      "pass": true,
+      "purpose": "Preference unavailable",
+      "scenario_id": "pref_unavailable",
+      "scenario_number": 34
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "partner_preference_low_evidence",
+          "partner_preference_low_evidence",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-22d6378465126f8f",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "low evidence",
+      "pass": true,
+      "purpose": "Preference low evidence",
+      "scenario_id": "pref_low_evidence",
+      "scenario_number": 35
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_aligned",
+          "relationship_value_aligned",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-7dbe91b784cc268a",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "aligned",
+      "pass": true,
+      "purpose": "Relationship value aligned",
+      "scenario_id": "value_aligned",
+      "scenario_number": 36
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-60192bf8d80db2ed",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "partial",
+      "pass": true,
+      "purpose": "Relationship value partially aligned",
+      "scenario_id": "value_partial",
+      "scenario_number": 37
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_difference",
+          "relationship_value_difference",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "0b27e5a2f8052f7c",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "difference",
+      "pass": true,
+      "purpose": "Relationship value different",
+      "scenario_id": "value_diff",
+      "scenario_number": 38
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "relationship_value_directional_asymmetry",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "46778aa718b2431d",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "asymmetry",
+      "pass": true,
+      "purpose": "Relationship value asymmetry",
+      "scenario_id": "value_asymmetry",
+      "scenario_number": 39
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_comparison_pending",
+          "relationship_value_comparison_pending",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "-2a36d95e824f9517",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "pending",
+      "pass": true,
+      "purpose": "Relationship value comparison pending",
+      "scenario_id": "value_pending",
+      "scenario_number": 40
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_missing",
+          "production_not_approved"
+        ],
+        "count": 3,
+        "first": "overall_status_complete",
+        "fp": "-3f05a0684afac20a",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "missing",
+      "pass": true,
+      "purpose": "Relationship value missing",
+      "scenario_id": "value_missing",
+      "scenario_number": 41
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_private",
+          "production_not_approved"
+        ],
+        "count": 3,
+        "first": "overall_status_complete",
+        "fp": "7cb4d21f00e8b7a4",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "private redacted",
+      "pass": true,
+      "purpose": "Relationship value private",
+      "scenario_id": "value_private",
+      "scenario_number": 42
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "comparison_permission_denied",
+          "production_not_approved"
+        ],
+        "count": 3,
+        "first": "overall_status_complete",
+        "fp": "4200ad6aa7e70967",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "permission",
+      "pass": true,
+      "purpose": "Comparison permission denied",
+      "scenario_id": "value_permission_denied",
+      "scenario_number": 43
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "overall_status_complete",
+        "fp": "73e4dffbb86e1197",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no soft codes",
+      "pass": true,
+      "purpose": "Soft conflict none",
+      "scenario_id": "soft_none",
+      "scenario_number": 44
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "soft_conflict_low",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "-14274e21a580d5ae",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "low",
+      "pass": true,
+      "purpose": "Soft conflict low",
+      "scenario_id": "soft_low",
+      "scenario_number": 45
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "soft_conflict_moderate",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "224343485fabd822",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "moderate",
+      "pass": true,
+      "purpose": "Soft conflict moderate",
+      "scenario_id": "soft_mod",
+      "scenario_number": 46
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "soft_conflict_high",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "244792252bafe623",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "high",
+      "pass": true,
+      "purpose": "Soft conflict high",
+      "scenario_id": "soft_high",
+      "scenario_number": 47
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "soft_conflict_directional",
+          "production_not_approved"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "4a395e8be30d4b8a",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "directional",
+      "pass": true,
+      "purpose": "Directional soft conflict",
+      "scenario_id": "soft_directional",
+      "scenario_number": 48
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_partially_aligned",
+          "relationship_value_partially_aligned",
+          "production_not_approved",
+          "soft_conflict_directional"
+        ],
+        "count": 5,
+        "first": "overall_status_complete",
+        "fp": "291d8ce6f6f8b98b",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "diag limited",
+      "pass": true,
+      "purpose": "Soft conflict low confidence",
+      "scenario_id": "soft_low_conf",
+      "scenario_number": 49
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "supportive present",
+      "pass": true,
+      "purpose": "Multiple supportive signals",
+      "scenario_id": "multi_supportive",
+      "scenario_number": 50
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "cautionary present",
+      "pass": true,
+      "purpose": "Multiple cautionary signals",
+      "scenario_id": "multi_cautionary",
+      "scenario_number": 51
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "both when available",
+      "pass": true,
+      "purpose": "Supportive and cautionary diversity",
+      "scenario_id": "diversity",
+      "scenario_number": 52
+    },
+    {
+      "actual_result": {
+        "eq_struct": 1
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "module cap",
+      "pass": true,
+      "purpose": "EQ signal cap",
+      "scenario_id": "eq_cap",
+      "scenario_number": 53
+    },
+    {
+      "actual_result": {
+        "freq_struct": 1
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "module cap",
+      "pass": true,
+      "purpose": "Frequency signal cap",
+      "scenario_id": "freq_cap",
+      "scenario_number": 54
+    },
+    {
+      "actual_result": {
+        "evidence_limitation": 2,
+        "measured_difference": 1,
+        "overall_status": 1,
+        "production_limitation": 1,
+        "strong_alignment": 1
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "per category",
+      "pass": true,
+      "purpose": "Category cap",
+      "scenario_id": "category_cap",
+      "scenario_number": 55
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "<= max total",
+      "pass": true,
+      "purpose": "Total signal cap",
+      "scenario_id": "total_cap",
+      "scenario_number": 56
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "stable count",
+      "pass": true,
+      "purpose": "Duplicate signal removal",
+      "scenario_id": "dedupe",
+      "scenario_number": 57
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "same fp",
+      "pass": true,
+      "purpose": "Stable tie-breaking",
+      "scenario_id": "tie_break",
+      "scenario_number": 58
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "same fp",
+      "pass": true,
+      "purpose": "Map order shuffled",
+      "scenario_id": "map_order",
+      "scenario_number": 59
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "structural_module_high_coverage",
+          "structural_module_high_coverage",
+          "structural_dimension_different",
+          "structural_dimension_close",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-118da02bc7062632",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "same fp",
+      "pass": true,
+      "purpose": "Source list order shuffled",
+      "scenario_id": "source_list_order",
+      "scenario_number": 60
+    },
+    {
+      "actual_result": {
+        "adj": 0.7160000000000001,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_partial",
+          "score_shrunk_toward_neutral",
+          "component_missing",
+          "limited_available_weight_mass",
+          "explanation_evidence_limited",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_partial",
+        "fp": "0-bd7f496252ad67",
+        "q": 0.72,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "component_missing",
+      "pass": true,
+      "purpose": "Missing component represented",
+      "scenario_id": "missing_component_represented",
+      "scenario_number": 61
+    },
+    {
+      "actual_result": {
+        "adj": 0.5900000000000001,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "score_shrunk_toward_neutral",
+          "component_low_confidence",
+          "component_low_confidence",
+          "component_low_confidence",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_complete",
+        "fp": "-7d07f3189bf4dc27",
+        "q": 0.3,
+        "raw": 0.8000000000000002,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "low confidence or shrink",
+      "pass": true,
+      "purpose": "Low confidence component represented",
+      "scenario_id": "low_conf_component",
+      "scenario_number": 62
+    },
+    {
+      "actual_result": {
+        "adj": 0.7160000000000001,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_partial",
+          "score_shrunk_toward_neutral",
+          "component_missing",
+          "limited_available_weight_mass",
+          "explanation_evidence_limited",
+          "production_not_approved"
+        ],
+        "count": 6,
+        "first": "overall_status_partial",
+        "fp": "0-bd7f496252ad67",
+        "q": 0.72,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "limited mass",
+      "pass": true,
+      "purpose": "Limited available mass represented",
+      "scenario_id": "limited_mass",
+      "scenario_number": 63
+    },
+    {
+      "actual_result": {
+        "nums": {
+          "adjusted_score": 0.6000000000000001,
+          "m_available": 1.0,
+          "neutral_score": 0.5,
+          "q_available_mean": 0.25,
+          "q_overall": 0.25,
+          "raw_score": 0.9000000000000001
+        }
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "raw/adj/neutral/q present",
+      "pass": true,
+      "purpose": "Confidence adjustment parameters correct",
+      "scenario_id": "shrink_params",
+      "scenario_number": 64
+    },
+    {
+      "actual_result": {
+        "after_raw": 0.7700000000000001,
+        "before_raw": 0.7700000000000001
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "identity",
+      "pass": true,
+      "purpose": "Raw and adjusted unchanged by explanation",
+      "scenario_id": "scores_unchanged",
+      "scenario_number": 65
+    },
+    {
+      "actual_result": {
+        "fp": "-3bf5d8a56e68f97a"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "fp preserved",
+      "pass": true,
+      "purpose": "Component contributions unchanged",
+      "scenario_id": "contributions_unchanged",
+      "scenario_number": 66
+    },
+    {
+      "actual_result": {
+        "fp": "-3bf5d8a56e68f97a"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "fp stable",
+      "pass": true,
+      "purpose": "Source fingerprints preserved",
+      "scenario_id": "source_fp_preserved",
+      "scenario_number": 67
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_private",
+          "production_not_approved"
+        ],
+        "count": 3,
+        "first": "overall_status_complete",
+        "fp": "7cb4d21f00e8b7a4",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "private_value_redacted"
+      ],
+      "expected_mathematical_property": "privacy diag",
+      "pass": true,
+      "purpose": "Private value redacted",
+      "scenario_id": "private_redacted",
+      "scenario_number": 68
+    },
+    {
+      "actual_result": {
+        "adj": 0.7,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "relationship_value_private",
+          "production_not_approved"
+        ],
+        "count": 3,
+        "first": "overall_status_complete",
+        "fp": "7cb4d21f00e8b7a4",
+        "q": 1.0,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no owner_value param",
+      "pass": true,
+      "purpose": "Sensitive parameter omitted",
+      "scenario_id": "sensitive_omitted",
+      "scenario_number": 69
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "blocking_first": true,
+        "codes": [
+          "hard_constraint_failed",
+          "hard_constraint_result_blocked",
+          "overall_status_blocked",
+          "production_not_approved"
+        ],
+        "count": 4,
+        "first": "hard_constraint_failed",
+        "fp": "-41303aaa7d9b6a2e",
+        "q": 1.0,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "hard_constraint_value_redacted"
+      ],
+      "expected_mathematical_property": "no counterpart value",
+      "pass": true,
+      "purpose": "Hard constraint value redacted",
+      "scenario_id": "hard_value_redacted",
+      "scenario_number": 70
+    },
+    {
+      "actual_result": {
+        "adj": 0.6,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-69af9deaa9bd1826",
+        "q": 1.0,
+        "raw": 0.6,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "qmatch.explanation.*",
+      "pass": true,
+      "purpose": "Localization keys only",
+      "scenario_id": "loc_keys_only",
+      "scenario_number": 71
+    },
+    {
+      "actual_result": {
+        "has": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no userFacingText",
+      "pass": true,
+      "purpose": "No free-form text",
+      "scenario_id": "no_free_form",
+      "scenario_number": 72
+    },
+    {
+      "actual_result": {
+        "has": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no personaId",
+      "pass": true,
+      "purpose": "No persona field",
+      "scenario_id": "no_persona",
+      "scenario_number": 73
+    },
+    {
+      "actual_result": {
+        "has": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no FrequencyType",
+      "pass": true,
+      "purpose": "No Frequency type",
+      "scenario_id": "no_freq_type",
+      "scenario_number": 74
+    },
+    {
+      "actual_result": {
+        "adj": 0.6,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-69af9deaa9bd1826",
+        "q": 1.0,
+        "raw": 0.6,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "aiGenerated false",
+      "pass": true,
+      "purpose": "No AI output",
+      "scenario_id": "no_ai",
+      "scenario_number": 75
+    },
+    {
+      "actual_result": {
+        "adj": 0.6,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-69af9deaa9bd1826",
+        "q": 1.0,
+        "raw": 0.6,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "flag false",
+      "pass": true,
+      "purpose": "No complementarity explanation",
+      "scenario_id": "no_complementarity",
+      "scenario_number": 76
+    },
+    {
+      "actual_result": {
+        "adj": 0.6,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-69af9deaa9bd1826",
+        "q": 1.0,
+        "raw": 0.6,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "production_not_approved present",
+      "pass": true,
+      "purpose": "No relationship-success prediction",
+      "scenario_id": "no_success_pred",
+      "scenario_number": 77
+    },
+    {
+      "actual_result": {
+        "adj": 0.6,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-69af9deaa9bd1826",
+        "q": 1.0,
+        "raw": 0.6,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "productionEligible false",
+      "pass": true,
+      "purpose": "No production ranking recommendation",
+      "scenario_id": "no_ranking_rec",
+      "scenario_number": 78
+    },
+    {
+      "actual_result": {
+        "a": "-69af9deaa9bd1826",
+        "b": "-69af9deaa9bd1826"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "fp stable",
+      "pass": true,
+      "purpose": "Serialization round trip",
+      "scenario_id": "serialization",
+      "scenario_number": 79
+    },
+    {
+      "actual_result": {
+        "a": "-69af9deaa9bd1826",
+        "b": "-69af9deaa9bd1826"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "identical",
+      "pass": true,
+      "purpose": "Deterministic fingerprint",
+      "scenario_id": "fingerprint",
+      "scenario_number": 80
+    },
+    {
+      "actual_result": {
+        "ts": "2026-07-25T12:00:00.000Z"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "matches",
+      "pass": true,
+      "purpose": "Injected timestamp",
+      "scenario_id": "timestamp",
+      "scenario_number": 81
+    },
+    {
+      "actual_result": {
+        "n": 20
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "count=20",
+      "pass": true,
+      "purpose": "Current 20-dimension registry unaffected",
+      "scenario_id": "registry_20d",
+      "scenario_number": 82
+    },
+    {
+      "actual_result": {
+        "exists": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "exists",
+      "pass": true,
+      "purpose": "24-dimension fixture unaffected",
+      "scenario_id": "fixture_24d",
+      "scenario_number": 83
+    },
+    {
+      "actual_result": {},
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no call",
+      "pass": true,
+      "purpose": "No structural service invocation",
+      "scenario_id": "no_struct_svc",
+      "scenario_number": 84
+    },
+    {
+      "actual_result": {},
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no call",
+      "pass": true,
+      "purpose": "No preference service invocation",
+      "scenario_id": "no_pref_svc",
+      "scenario_number": 85
+    },
+    {
+      "actual_result": {},
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no call",
+      "pass": true,
+      "purpose": "No value service invocation",
+      "scenario_id": "no_value_svc",
+      "scenario_number": 86
+    },
+    {
+      "actual_result": {},
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no call",
+      "pass": true,
+      "purpose": "No hard/soft service invocation",
+      "scenario_id": "no_hard_soft_svc",
+      "scenario_number": 87
+    },
+    {
+      "actual_result": {},
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no call",
+      "pass": true,
+      "purpose": "No aggregation service invocation",
+      "scenario_id": "no_agg_svc",
+      "scenario_number": 88
+    },
+    {
+      "actual_result": {},
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no firebase",
+      "pass": true,
+      "purpose": "No Firebase dependency",
+      "scenario_id": "no_firebase",
+      "scenario_number": 89
+    },
+    {
+      "actual_result": {
+        "adj": 0.6,
+        "blocking_first": false,
+        "codes": [
+          "overall_status_complete",
+          "production_not_approved"
+        ],
+        "count": 2,
+        "first": "overall_status_complete",
+        "fp": "-69af9deaa9bd1826",
+        "q": 1.0,
+        "raw": 0.6,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "localization_keys_only",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "no_score_modification",
+        "no_soft_conflict_penalty"
+      ],
+      "expected_mathematical_property": "fp stable",
+      "pass": true,
+      "purpose": "Full explanation bundle deterministic",
+      "scenario_id": "full_bundle_det",
+      "scenario_number": 90
+    }
+  ],
+  "simulator": "simulate_structured_compatibility_explanation_v1",
+  "status": "PASS"
+}

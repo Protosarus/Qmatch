@@ -1,0 +1,169 @@
+{
+  "phase": "P2C-2A-0",
+  "generated_at": "2026-07-28T11:59:12.706960Z",
+  "sources": [
+    {
+      "path": "assets/data/assessment_sets/iq_sets.json",
+      "file_type": "json",
+      "item_count": 500,
+      "language": "tr+en_labels (legacy bilingual option labels)",
+      "dimension_distribution": {
+        "UNKNOWN_legacy_no_dimension_field": 500
+      },
+      "difficulty_distribution": {
+        "1": 150,
+        "2": 200,
+        "3": 150
+      },
+      "answer_keys_exist": true,
+      "explanations_exist": false,
+      "runtime_loaded": true,
+      "pubspec_referenced": true,
+      "production_reachable": true,
+      "classification": "legacy_runtime",
+      "duplicate_ids": false,
+      "uses_retired_numerical": false,
+      "can_contribute_to_canonical_bank": false,
+      "confidence": "high",
+      "notes": "50×10 prebuilt sets. No canonical primary_dimension. Not silently importable."
+    },
+    {
+      "path": "assets/data/iq_questions.json",
+      "file_type": "json",
+      "item_count": 10,
+      "language": "legacy",
+      "dimension_distribution": {
+        "UNKNOWN_legacy_no_dimension_field": 10
+      },
+      "difficulty_distribution": {
+        "1": 3,
+        "3": 2,
+        "2": 3,
+        "4": 2
+      },
+      "answer_keys_exist": true,
+      "explanations_exist": false,
+      "runtime_loaded": true,
+      "pubspec_referenced": true,
+      "production_reachable": true,
+      "classification": "legacy_runtime_fallback",
+      "duplicate_ids": false,
+      "uses_retired_numerical": false,
+      "can_contribute_to_canonical_bank": false,
+      "confidence": "high"
+    },
+    {
+      "path": "assets/data/assessment_v3/iq/iq_pilot_tr_v1.json",
+      "file_type": "json",
+      "item_count": 25,
+      "language": "tr-TR",
+      "dimension_distribution": {
+        "logical_reasoning": 7,
+        "pattern_reasoning": 6,
+        "verbal_reasoning": 6,
+        "spatial_reasoning": 6
+      },
+      "difficulty_distribution": {
+        "2": 8,
+        "3": 12,
+        "4": 5
+      },
+      "answer_keys_exist": true,
+      "explanations_exist": true,
+      "runtime_loaded": false,
+      "pubspec_referenced": false,
+      "production_reachable": false,
+      "classification": "pilot_offline",
+      "duplicate_ids": false,
+      "uses_retired_numerical": false,
+      "can_contribute_to_canonical_bank": true,
+      "confidence": "high",
+      "notes": "Offline only. Not wired to IQTestScreen. Uses qmatch_question_schema_v3."
+    },
+    {
+      "path": "assets/data/assessment_v3/iq/iq_pilot_tr_v1_review_candidate_1.json",
+      "file_type": "json",
+      "item_count": 25,
+      "language": "tr-TR",
+      "dimension_distribution": {
+        "logical_reasoning": 7,
+        "pattern_reasoning": 6,
+        "verbal_reasoning": 6,
+        "spatial_reasoning": 6
+      },
+      "difficulty_distribution": {
+        "2": 9,
+        "3": 12,
+        "4": 4
+      },
+      "answer_keys_exist": true,
+      "explanations_exist": true,
+      "runtime_loaded": false,
+      "pubspec_referenced": false,
+      "production_reachable": false,
+      "classification": "candidate_offline",
+      "duplicate_ids": false,
+      "uses_retired_numerical": false,
+      "can_contribute_to_canonical_bank": true,
+      "confidence": "high",
+      "notes": "Offline only. Not wired to IQTestScreen. Uses qmatch_question_schema_v3."
+    },
+    {
+      "path": "test/fixtures/trait_scoring/valid_iq_bank.json",
+      "file_type": "json",
+      "item_count": 16,
+      "language": "test",
+      "dimension_distribution": {},
+      "difficulty_distribution": {},
+      "answer_keys_exist": true,
+      "explanations_exist": false,
+      "runtime_loaded": false,
+      "pubspec_referenced": false,
+      "production_reachable": false,
+      "classification": "test_fixture",
+      "duplicate_ids": false,
+      "uses_retired_numerical": false,
+      "can_contribute_to_canonical_bank": false,
+      "confidence": "high"
+    },
+    {
+      "path": "assets/data/assessment_v3/iq/iq_bank_tr_v1.json",
+      "file_type": "json",
+      "item_count": 0,
+      "language": "tr-TR",
+      "dimension_distribution": {},
+      "difficulty_distribution": {},
+      "answer_keys_exist": false,
+      "explanations_exist": false,
+      "runtime_loaded": false,
+      "pubspec_referenced": false,
+      "production_reachable": false,
+      "classification": "canonical_absent",
+      "duplicate_ids": false,
+      "uses_retired_numerical": false,
+      "can_contribute_to_canonical_bank": false,
+      "confidence": "high",
+      "notes": "Intended path only; file does not exist."
+    }
+  ],
+  "structured_item_count_sum_by_classification": {
+    "legacy_runtime": 500,
+    "legacy_runtime_fallback": 10,
+    "pilot_offline": 25,
+    "candidate_offline": 25,
+    "test_fixture": 16,
+    "canonical_absent": 0
+  },
+  "claim_340": {
+    "classification": "NOT_FOUND",
+    "statement": "The canonical 340-item IQ bank does not currently exist in a runtime-ready repository source.",
+    "evidence": [
+      "No file at assets/data/assessment_v3/iq/iq_bank_tr_v1.json",
+      "docs/release/qmatch_release_master_gap_register_v1.md G-010: NOT_STARTED",
+      "docs/release/qmatch_question_bank_inventory_v1.md: Final 340 bank absent",
+      "Parsed structured IQ JSON totals: 500 legacy + 10 flat + 25 pilot + 25 candidate + 16 fixture; no unique 340 canonical set",
+      "No PDF/DOCX/CSV recoverable 340 source located in repository"
+    ]
+  },
+  "pubspec_assessment_v3_registered": false
+}

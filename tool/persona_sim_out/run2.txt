@@ -1,0 +1,10 @@
+=== Persona prototype simulation (PROVISIONAL) ===
+seed=42 count=200000 processed=200000
+assigned=186673 insufficient=13327
+normalized_entropy=0.9550
+max_share=0.1284 min_share=0.0207
+unreachable=[]
+exact_proto_acc=1.0 near_proto_acc=0.9988333333333334
+central_max=sezgisel share=0.2651
+central_amb_rate=0.9542 nonamb_max=bagimsiz share=0.2759
+wrote /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/tool/persona_sim_out/sim_seed_42_n_200000.json

@@ -1,0 +1,124 @@
+{
+  "responses": [
+    {
+      "question_id": "freq_depth_preference_1",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 5900
+    },
+    {
+      "question_id": "freq_depth_preference_2",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6600
+    },
+    {
+      "question_id": "freq_depth_preference_3",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7300
+    },
+    {
+      "question_id": "freq_depth_preference_4",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 8000
+    },
+    {
+      "question_id": "freq_social_energy_1",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6080
+    },
+    {
+      "question_id": "freq_social_energy_2",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6780
+    },
+    {
+      "question_id": "freq_social_energy_3",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7480
+    },
+    {
+      "question_id": "freq_social_energy_4",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 8180
+    },
+    {
+      "question_id": "freq_spontaneity_1",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6260
+    },
+    {
+      "question_id": "freq_spontaneity_2",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6960
+    },
+    {
+      "question_id": "freq_spontaneity_3",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7660
+    },
+    {
+      "question_id": "freq_spontaneity_4",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 8360
+    },
+    {
+      "question_id": "freq_stability_1",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6440
+    },
+    {
+      "question_id": "freq_stability_2",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 7140
+    },
+    {
+      "question_id": "freq_stability_3",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 7840
+    },
+    {
+      "question_id": "freq_stability_4",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 8540
+    },
+    {
+      "question_id": "freq_disclosure_pace_1",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6620
+    },
+    {
+      "question_id": "freq_disclosure_pace_2",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 7320
+    },
+    {
+      "question_id": "freq_disclosure_pace_3",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 8020
+    },
+    {
+      "question_id": "freq_disclosure_pace_4",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 8720
+    },
+    {
+      "question_id": "freq_communication_pace_1",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 6800
+    },
+    {
+      "question_id": "freq_communication_pace_2",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 7500
+    },
+    {
+      "question_id": "freq_communication_pace_3",
+      "selected_option_id": "mid",
+      "response_time_milliseconds": 8200
+    },
+    {
+      "question_id": "freq_communication_pace_4",
+      "selected_option_id": "high",
+      "response_time_milliseconds": 8900
+    }
+  ]
+}

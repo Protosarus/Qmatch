@@ -1,0 +1,35 @@
+{
+  "form_id": "eq_tr_pilot_v1_review_candidate_1",
+  "content_version": "eq-tr-pilot-v1-review-candidate-1",
+  "parent_content_version": "eq-tr-pilot-v1",
+  "automated_validation": "PASS",
+  "overall_readiness": "CONDITIONAL",
+  "error_count": 0,
+  "warn_count": 0,
+  "primary_counts": {
+    "assertiveness": 3,
+    "boundary_setting": 3,
+    "conflict_approach": 3,
+    "emotion_regulation": 3,
+    "emotional_openness": 3,
+    "empathy": 3,
+    "perspective_taking": 3,
+    "repair_orientation": 3,
+    "self_awareness": 3,
+    "social_awareness": 3
+  },
+  "flat_072_count": 0,
+  "findings": [
+    {
+      "severity": "info",
+      "code": "trait_scoring",
+      "message": "offline scoreModule succeeded"
+    }
+  ],
+  "notes": {
+    "expert_review": "pending",
+    "participant_testing": "pending",
+    "calibration": "pending",
+    "reverse_rvi": "conditional_service_gap"
+  }
+}

@@ -1,0 +1,1 @@
+{"status":"PASS","error_count":0,"report":"/Users/protosarus/Downloads/Projects_2/Qmatch-main 2/tool/core_method_v2_out/validate_core_method_v2_contracts_report.json"}

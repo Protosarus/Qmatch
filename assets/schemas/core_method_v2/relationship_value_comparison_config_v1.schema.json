@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/relationship_value_comparison_config_v1.schema.json",
+  "title": "RelationshipValueComparisonConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_id",
+    "config_version",
+    "registry_version",
+    "status",
+    "calibration_status",
+    "runtime_status",
+    "production_approved",
+    "scientifically_validated",
+    "supported_comparison_modes",
+    "importance_bounds",
+    "flexibility_bounds",
+    "score_bounds",
+    "minimum_comparable_value_fields",
+    "mutual_aggregation_mode",
+    "evidence_confidence_policy",
+    "missing_data_policy",
+    "private_data_policy",
+    "unsupported_field_policy",
+    "hard_constraint_unknown_policy",
+    "version_compatibility_policy",
+    "default_hard_constraint_match_mode",
+    "supported_hard_constraint_match_modes",
+    "soft_conflict_severity_bands",
+    "visibility_policies_allowing_comparison",
+    "complementarity_status",
+    "persona_input_status",
+    "ai_scoring_status",
+    "field_rules"
+  ],
+  "properties": {
+    "config_id": { "type": "string" },
+    "config_version": { "type": "string" },
+    "registry_version": { "type": "string" },
+    "status": { "const": "provisional" },
+    "calibration_status": { "const": "uncalibrated" },
+    "runtime_status": { "const": "offline_only" },
+    "production_approved": { "const": false },
+    "scientifically_validated": { "const": false },
+    "supported_comparison_modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "exact_match",
+          "categorical_compatibility_matrix",
+          "ordered_distance",
+          "set_overlap",
+          "comparison_pending_review"
+        ]
+      }
+    },
+    "importance_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "flexibility_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "score_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "minimum_comparable_value_fields": { "type": "integer", "minimum": 1 },
+    "mutual_aggregation_mode": { "const": "geometric_mean" },
+    "evidence_confidence_policy": { "type": "string" },
+    "missing_data_policy": { "type": "string" },
+    "private_data_policy": { "type": "string" },
+    "unsupported_field_policy": { "type": "string" },
+    "hard_constraint_unknown_policy": { "type": "string" },
+    "version_compatibility_policy": { "type": "string" },
+    "default_hard_constraint_match_mode": {
+      "type": "string",
+      "enum": ["any_allowed", "all_required", "no_rejected_overlap"]
+    },
+    "supported_hard_constraint_match_modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["any_allowed", "all_required", "no_rejected_overlap"]
+      }
+    },
+    "soft_conflict_severity_bands": {
+      "type": "object",
+      "required": ["none", "low", "moderate", "high"],
+      "additionalProperties": false,
+      "properties": {
+        "none": { "type": "object" },
+        "low": { "type": "object" },
+        "moderate": { "type": "object" },
+        "high": { "type": "object" }
+      }
+    },
+    "visibility_policies_allowing_comparison": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "complementarity_status": { "const": "disabled_pending_calibration" },
+    "persona_input_status": { "const": "prohibited" },
+    "ai_scoring_status": { "const": "prohibited" },
+    "field_rules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "comparison_mode",
+          "provisional",
+          "pending_expert_content_review",
+          "production_approved"
+        ],
+        "properties": {
+          "comparison_mode": {
+            "type": "string",
+            "enum": [
+              "exact_match",
+              "categorical_compatibility_matrix",
+              "ordered_distance",
+              "set_overlap",
+              "comparison_pending_review"
+            ]
+          },
+          "directionality": { "type": "string" },
+          "provisional": { "const": true },
+          "pending_expert_content_review": { "type": "boolean" },
+          "production_approved": { "const": false },
+          "matrix": { "type": "object" },
+          "ordered_values": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "set_overlap_metric": { "type": "string" },
+          "empty_set_policy": { "type": "string" },
+          "hard_constraint_match_mode": { "type": "string" },
+          "exclusion_reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

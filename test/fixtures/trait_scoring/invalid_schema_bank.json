@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "question_id": "bad1",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "x",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "numerical",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "x",
+        "en": "x"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "a",
+            "en": "a"
+          },
+          "dimension_deltas": {
+            "numerical": 0.5
+          },
+          "evidence_strength": 1
+        }
+      ],
+      "correctAnswer": 1,
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 10
+    },
+    {
+      "question_id": "bad2",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "x",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "x",
+        "en": "x"
+      },
+      "options": [
+        {
+          "option_id": "a",
+          "localized_text": {
+            "tr": "a",
+            "en": "a"
+          },
+          "dimension_deltas": {
+            "empathy": 1.5
+          },
+          "persona_id": "empat",
+          "evidence_strength": 1
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 10
+    }
+  ]
+}

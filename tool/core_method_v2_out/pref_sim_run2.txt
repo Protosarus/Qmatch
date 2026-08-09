@@ -1,0 +1,1 @@
+{"status":"COMPLETE","scenario_count":24,"report":"/Users/protosarus/Downloads/Projects_2/Qmatch-main 2/tool/core_method_v2_out/directional_preference_fit_simulation_v1_report.json"}

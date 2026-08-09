@@ -29,7 +29,8 @@ class DiscoverService {
     final currentUid = me.uid;
 
     final meDoc = await FirestorePaths.userDoc(currentUid).get();
-    final meData = Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
+    final meData =
+        Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
 
     // Frequency fallback: hydrate type/tags/score/vector from assessments/frequency
     // when user-doc mirrors are missing (legacy users).
@@ -43,11 +44,25 @@ class DiscoverService {
             .get();
         final freq = freqDoc.data();
         if (freq != null) {
-          meData['frequency_type'] ??= freq['type'] ?? freq['frequency_type'];
+          final status = freq['status'] as String?;
+          final ready = freq['canonical_profile_ready'] as bool? ?? false;
+          final type = freq['type'] ?? freq['frequency_type'];
+          // Never hydrate "Incomplete Frequency" / null type into mirrors.
+          if (status != 'incomplete' &&
+              ready &&
+              type is String &&
+              type.isNotEmpty &&
+              type != 'Incomplete Frequency') {
+            meData['frequency_type'] ??= type;
+          }
           meData['frequency_tags'] ??= freq['tags'] ?? freq['frequency_tags'];
-          meData['frequency_score'] ??=
-              freq['scoreTotal'] ?? freq['score_total'] ?? freq['frequency_score'];
-          meData['frequency_vector'] ??= freq['vector'] ?? freq['frequency_vector'];
+          if (status != 'incomplete' && ready) {
+            meData['frequency_score'] ??= freq['scoreTotal'] ??
+                freq['score_total'] ??
+                freq['frequency_score'];
+          }
+          meData['frequency_vector'] ??=
+              freq['vector'] ?? freq['frequency_vector'];
         }
       } catch (_) {
         // ignore for MVP
@@ -98,22 +113,23 @@ class DiscoverService {
 
       out.add(
         candidate.copyWith(
-          compatibilityScore: compat.scoreTotal,
+          // Unavailable → null (never 0.5 filler).
+          compatibilityScore: compat.available ? compat.scoreTotal : null,
           compatibilityLabel: compat.label,
           compatibilityReasons: compat.reasons,
         ),
       );
     }
 
+    // Temporary ordering (P1B-1.1): available compat first (desc), then
+    // unavailable by recency. Does not pretend 50% compatibility.
     out.sort((a, b) {
-      final aScore = a.compatibilityScore ?? 0.5;
-      final bScore = b.compatibilityScore ?? 0.5;
-      final byScore = bScore.compareTo(aScore);
-      if (byScore != 0) return byScore;
-
-      final aTs = a.lastActiveAt?.millisecondsSinceEpoch ?? 0;
-      final bTs = b.lastActiveAt?.millisecondsSinceEpoch ?? 0;
-      return bTs.compareTo(aTs);
+      return CompatibilityScoring.compareDiscoverCandidates(
+        aScore: a.compatibilityScore,
+        bScore: b.compatibilityScore,
+        aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+        bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+      );
     });
 
     return out;

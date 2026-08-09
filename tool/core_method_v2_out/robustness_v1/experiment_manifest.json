@@ -1,0 +1,65 @@
+{
+  "baseline_seed": 424242,
+  "config_version": "core_method_v2_robustness_experiment_config_v1",
+  "derived_counts": {
+    "alert_count": 42,
+    "deep_bundle_count": 10000,
+    "family_count": 26,
+    "invariant_violation_count": 0,
+    "redundancy_alert_count": 21,
+    "seed_count_used": 5
+  },
+  "evaluation_timestamp_utc": "2026-07-24T12:00:00.000Z",
+  "frozen_source_configs": {
+    "aggregation": "core_method_v2_aggregation_config_v1",
+    "explanation": "structured_explanation_config_v1",
+    "preference": "directional_preference_fit_config_v1",
+    "structural": "structural_similarity_config_v1",
+    "values": "relationship_value_comparison_config_v1"
+  },
+  "mode": "full",
+  "output_files": [
+    "alerts.json",
+    "calibration_readiness.json",
+    "cohort_label_invariance.json",
+    "component_correlations.json",
+    "component_distributions.json",
+    "engineering_readiness.json",
+    "experiment_manifest.json",
+    "explanation_stability.json",
+    "full_summary.json",
+    "hard_constraint_robustness.json",
+    "invariant_results.json",
+    "missingness_confidence.json",
+    "numerical_robustness.json",
+    "population_summary.json",
+    "rank_stability.json",
+    "redundancy_alerts.json",
+    "scale_sensitivity.json",
+    "soft_conflict_regression.json",
+    "weight_sensitivity.json"
+  ],
+  "real_user_data_policy": "forbidden_in_this_phase",
+  "resolved_mode": {
+    "deep_dive_uses_top_level_counts": true,
+    "explanation_pair_count": 2000,
+    "explanation_pairs_per_family_sweep": 40,
+    "full_pipeline_pair_count": 10000,
+    "full_pipeline_pairs_per_family_sweep": 120,
+    "mode": "full",
+    "pairs_per_family_sweep": 400,
+    "run_all_families": true,
+    "run_deep_dive": true,
+    "sampled_pair_count": 50000,
+    "secondary_seed_count": 4,
+    "subjects_per_family": 80,
+    "synthetic_population_size": 2000
+  },
+  "secondary_seeds": [
+    111111,
+    222222,
+    333333,
+    444444
+  ],
+  "started_at_note": "injected_timestamp_only"
+}

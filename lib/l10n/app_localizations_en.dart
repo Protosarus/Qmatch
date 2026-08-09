@@ -461,7 +461,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Verification failed. Please try again.';
 
   @override
-  String get loginWelcomeBack => 'Welcome back';
+  String get loginWelcomeBack => 'Welcome';
 
   @override
   String get loginSubtitle => 'Sign in with your email to continue.';
@@ -513,11 +513,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverMatchDialogBody => 'You can now start a conversation.';
 
   @override
-  String get discoverEmptyTitle => 'No compatible profiles yet.';
+  String get discoverEmptyTitle => 'No new profiles to show right now.';
 
   @override
-  String get discoverEmptySubtitle =>
-      'Try again later as more people join Qmatch.';
+  String get discoverEmptySubtitle => 'You can check again in a little while.';
 
   @override
   String get discoverPass => 'Pass';
@@ -532,6 +531,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get discoverInterests => 'Interests';
+
+  @override
+  String get discoverLoading => 'Finding people for you…';
+
+  @override
+  String get discoverErrorTitle => 'Couldn\'t load profiles';
+
+  @override
+  String get discoverErrorBody =>
+      'Something went wrong while loading Discover. Please try again.';
+
+  @override
+  String get discoverActionFailed =>
+      'That action couldn\'t be completed. Please try again.';
+
+  @override
+  String get discoverMissingPhotoLabel => 'Profile photo unavailable';
+
+  @override
+  String discoverPhotoSemanticLabel(String name) {
+    return 'Photo of $name';
+  }
 
   @override
   String get compatibilityLabelExceptional => 'Exceptional match';
@@ -566,6 +587,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get messagesConversationFallback => 'Conversation';
+
+  @override
+  String get messagesLoading => 'Loading conversations…';
+
+  @override
+  String messagesAvatarSemanticLabel(String name) {
+    return 'Photo of $name';
+  }
+
+  @override
+  String messagesUnreadSemanticLabel(int count) {
+    return '$count unread messages';
+  }
+
+  @override
+  String messagesConversationSemanticLabel(String name) {
+    return 'Conversation with $name';
+  }
 
   @override
   String get messagesSayHi => 'Say hi 👋';
@@ -639,7 +678,103 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatStartConversation => 'Start the conversation.';
 
   @override
+  String get chatEmptySubtitle =>
+      'Say hello when you are ready. There is no rush.';
+
+  @override
+  String get chatLoadingMessages => 'Loading messages…';
+
+  @override
+  String get chatMessagesLoadErrorTitle => 'Could not load messages.';
+
+  @override
+  String get chatMessagesLoadErrorSubtitle => 'Please try again in a moment.';
+
+  @override
+  String get chatProfileLoadErrorTitle => 'Could not load profile.';
+
+  @override
+  String get chatProfileLoadErrorSubtitle =>
+      'Profile details are unavailable right now.';
+
+  @override
+  String get chatSendFailed => 'Message could not be sent. Please try again.';
+
+  @override
+  String get chatActionFailed => 'Something went wrong. Please try again.';
+
+  @override
+  String get chatDateToday => 'Today';
+
+  @override
+  String get chatSendSemanticLabel => 'Send message';
+
+  @override
   String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsGroupPreferences => 'Preferences';
+
+  @override
+  String get settingsGroupPrivacySafety => 'Privacy & safety';
+
+  @override
+  String get settingsGroupHelp => 'Help & information';
+
+  @override
+  String get settingsGroupAccount => 'Account';
+
+  @override
+  String get settingsGroupDeveloper => 'Developer';
+
+  @override
+  String get settingsNotificationsHonestSubtitle =>
+      'Device preferences for now — push delivery depends on your phone settings';
+
+  @override
+  String get settingsPrivacyHonestSubtitle =>
+      'Visibility options on this device for now — see Privacy Policy for details';
+
+  @override
+  String get settingsDebug => 'Debug';
+
+  @override
+  String get settingsDebugSubtitle =>
+      'Assessment admin and tools (debug builds only)';
+
+  @override
+  String get profilePhotosEmptyTitle => 'Add your first photo';
+
+  @override
+  String get profilePhotosEmptyBody =>
+      'Photos help people recognize you. You can add up to 9.';
+
+  @override
+  String get profilePhotosEmptyHint =>
+      'Your photos appear on your profile and in Discover when you are eligible.';
+
+  @override
+  String get profilePhotosAddFirst => 'Add photo';
+
+  @override
+  String get profilePhotosAddTile => 'Add';
+
+  @override
+  String get profilePhotosUploading => 'Uploading…';
+
+  @override
+  String get profilePhotosUploadFailed =>
+      'Couldn\'t upload photos. Please try again.';
+
+  @override
+  String get profilePhotosDeleteFailed =>
+      'Couldn\'t delete that photo. Please try again.';
+
+  @override
+  String get profilePhotosAtCapacity => 'You\'ve reached the 9-photo maximum.';
+
+  @override
+  String get profilePhotosPrimaryBadge => 'Main photo';
 
   @override
   String get settingsNotifications => 'Notifications';
@@ -877,6 +1012,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileInterests => 'Interests';
 
   @override
+  String get profileNoInterestsYet => 'No interests added yet';
+
+  @override
+  String get profileDetailsSection => 'Details';
+
+  @override
+  String get profileLoading => 'Loading profile…';
+
+  @override
+  String get profileLoadFailed =>
+      'Couldn\'t load your profile. Please try again.';
+
+  @override
+  String get profileMissingPhoto => 'Add a photo';
+
+  @override
+  String get profileEditPhotoSemantic => 'Edit profile photo';
+
+  @override
+  String get profileFieldOccupation => 'Occupation';
+
+  @override
+  String get profileFieldDrinking => 'Drinking';
+
+  @override
+  String get profileFieldSmoking => 'Smoking';
+
+  @override
   String get profileSetupTitle => 'Create Profile';
 
   @override
@@ -911,6 +1074,64 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get nameSelectionErrorMinLength =>
       'Name must be at least 2 characters';
+
+  @override
+  String get displayNameTitle => 'What should we call you?';
+
+  @override
+  String get displayNameSubtitle =>
+      'This name will appear on your profile to other people.';
+
+  @override
+  String get displayNameLabel => 'Display name';
+
+  @override
+  String get displayNameHint => 'Your name';
+
+  @override
+  String get displayNamePublicExplanation =>
+      'Not a unique username. You can change it later.';
+
+  @override
+  String get displayNameContinue => 'Continue';
+
+  @override
+  String get displayNameSaving => 'Saving…';
+
+  @override
+  String get displayNameErrorEmpty => 'Please enter a display name.';
+
+  @override
+  String get displayNameErrorTooShort => 'Use at least 2 characters.';
+
+  @override
+  String get displayNameErrorTooLong => 'Use at most 24 characters.';
+
+  @override
+  String get displayNameErrorLetterOrNumber =>
+      'Include at least one letter or number.';
+
+  @override
+  String get displayNameErrorInvalid =>
+      'That name contains invalid characters.';
+
+  @override
+  String get displayNameErrorEmailLike =>
+      'Please use a name, not an email address.';
+
+  @override
+  String get displayNameErrorPhoneLike =>
+      'Please use a name, not a phone number.';
+
+  @override
+  String get displayNameErrorUrlLike => 'Please use a name, not a website.';
+
+  @override
+  String get displayNameErrorSaveFailed =>
+      'Could not save your name. Please try again.';
+
+  @override
+  String get displayNameMissingPeerLabel => 'Member';
 
   @override
   String get privacySettingsTitle => 'Privacy';
@@ -1384,12 +1605,39 @@ class AppLocalizationsEn extends AppLocalizations {
       'Notification preferences on this screen are stored on this device for now. Push delivery also depends on your phone settings.';
 
   @override
+  String get blockedUsersLoadFailed =>
+      'We couldn\'t load blocked users right now. Please try again later.';
+
+  @override
   String blockedUsersError(String message) {
     return 'Something went wrong: $message';
   }
 
   @override
   String get blockedUsersBlockedAt => 'Blocked';
+
+  @override
+  String get debugModeUnavailable =>
+      'Debug Mode is available only in debug builds.';
+
+  @override
+  String get debugHomeTitle => 'Debug tools';
+
+  @override
+  String get debugHomeSubtitle =>
+      'Development-only tools. These routes stay unavailable in release and profile builds.';
+
+  @override
+  String get debugAssessmentAdmin => 'Assessment Admin';
+
+  @override
+  String get debugPersonaPreview => 'Persona Result Preview';
+
+  @override
+  String get debugFrequencyPreview => 'Frequency Question Preview';
+
+  @override
+  String get debugGoToAuthWrapper => 'Go to Auth Wrapper';
 
   @override
   String get mainAppWelcome => 'Welcome to QMatch!';

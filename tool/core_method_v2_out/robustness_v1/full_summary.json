@@ -1,0 +1,207 @@
+{
+  "alert_count": 42,
+  "calibration_readiness": {
+    "data_collection_implemented_this_phase": false,
+    "engineering_readiness": "pass_or_conditional_see_engineering_readiness",
+    "fairness_claimed": false,
+    "forbidden_outcome_proxies": [
+      "message_frequency_alone",
+      "swipe_acceptance_alone",
+      "retention_alone",
+      "engagement_optimization_alone"
+    ],
+    "measurement_readiness": "conditional",
+    "optimization_risks": [
+      "addiction",
+      "superficial_engagement",
+      "popular_profile_exposure",
+      "demographic_imbalance",
+      "self_fulfilling_ranking_feedback_loops"
+    ],
+    "outcome_calibration_readiness": "conditional",
+    "predictive_validity_claimed": false,
+    "product_research_readiness": "conditional",
+    "production_ranking_readiness": "not_evaluated",
+    "requires_ethically_collected_consented_purpose_limited_data": true
+  },
+  "claims_forbidden": [
+    "predictive_validity",
+    "relationship_success_prediction",
+    "psychometric_calibration",
+    "demographic_fairness",
+    "causal_interpretation",
+    "production_readiness"
+  ],
+  "engineering_readiness": {
+    "calibration_readiness": "conditional",
+    "component_redundancy": "conditional",
+    "confidence_robustness": "pass",
+    "deterministic_reproducibility": "pass",
+    "explanation_stability": "conditional",
+    "hard_gating_robustness": "pass",
+    "invariant_compliance": "pass",
+    "missingness_robustness": "pass",
+    "note": "Categories are separate; do not collapse into one PASS.",
+    "numerical_robustness": "pass",
+    "parameter_sensitivity": "conditional",
+    "production_readiness": "not_evaluated",
+    "soft_conflict_regression": "pass"
+  },
+  "invariant_results": {
+    "pass": true,
+    "violation_count": 0
+  },
+  "mode": "full",
+  "numerical_robustness": {
+    "hard_blocked": 762,
+    "insufficient_evidence": 95,
+    "invalid": 0,
+    "unexpected_exception_messages": [],
+    "unexpected_exceptions": 0,
+    "valid_complete": 12026,
+    "valid_partial": 237
+  },
+  "population_summary": {
+    "boundary_heavy": {
+      "family_id": "boundary_heavy",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "central_normal_like_bounded": {
+      "family_id": "central_normal_like_bounded",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "complete_profiles": {
+      "family_id": "complete_profiles",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "correlated_within_modules": {
+      "family_id": "correlated_within_modules",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "deep_dive": {
+      "explanation_pair_count_requested": 2000,
+      "family_id": "independent_uniform",
+      "full_pipeline_pair_count_requested": 10000,
+      "full_pipeline_pairs_actual": 10000,
+      "sampled_pair_count_requested": 50000,
+      "sampled_pairs_actual": 50000,
+      "seed": 424242,
+      "subject_count": 2000
+    },
+    "frequency_preference_correlated": {
+      "family_id": "frequency_preference_correlated",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "frequency_preference_independent": {
+      "family_id": "frequency_preference_independent",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "hard_constraint_dense": {
+      "family_id": "hard_constraint_dense",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "hard_constraint_sparse": {
+      "family_id": "hard_constraint_sparse",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "high_confidence_population": {
+      "family_id": "high_confidence_population",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "independent_between_modules": {
+      "family_id": "independent_between_modules",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "independent_uniform": {
+      "family_id": "independent_uniform",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "low_confidence_population": {
+      "family_id": "low_confidence_population",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "mixed_confidence_population": {
+      "family_id": "mixed_confidence_population",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "narrow_score_range": {
+      "family_id": "narrow_score_range",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "negatively_correlated_dimensions": {
+      "family_id": "negatively_correlated_dimensions",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "positively_correlated_dimensions": {
+      "family_id": "positively_correlated_dimensions",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "random_partial_profiles": {
+      "family_id": "random_partial_profiles",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "soft_conflict_dense": {
+      "family_id": "soft_conflict_dense",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "soft_conflict_sparse": {
+      "family_id": "soft_conflict_sparse",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "structured_missing_dimensions": {
+      "family_id": "structured_missing_dimensions",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "structured_missing_modules": {
+      "family_id": "structured_missing_modules",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "three_cluster": {
+      "family_id": "three_cluster",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "two_cluster": {
+      "family_id": "two_cluster",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "values_preference_correlated": {
+      "family_id": "values_preference_correlated",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "values_preference_independent": {
+      "family_id": "values_preference_independent",
+      "seed": 424242,
+      "subject_count": 80
+    },
+    "wide_score_range": {
+      "family_id": "wide_score_range",
+      "seed": 424242,
+      "subject_count": 80
+    }
+  },
+  "redundancy_alert_count": 21
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/core_method_v2_config_v1.schema.json",
+  "title": "CoreMethodV2ConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_id",
+    "config_version",
+    "registry_version",
+    "status",
+    "calibration_status",
+    "offline_only",
+    "production_approved",
+    "scientifically_validated",
+    "module_weights",
+    "weight_sum_tolerance",
+    "score_bounds",
+    "confidence_bounds",
+    "neutral_score",
+    "minimum_comparable_dimensions_per_module",
+    "missing_data_policy",
+    "confidence_adjustment_policy_id",
+    "complementarity_status",
+    "time_layer_status",
+    "ai_scoring_status"
+  ],
+  "properties": {
+    "config_id": { "type": "string" },
+    "config_version": { "type": "string" },
+    "registry_version": { "type": "string" },
+    "status": { "const": "provisional" },
+    "calibration_status": { "const": "uncalibrated" },
+    "offline_only": { "const": true },
+    "production_approved": { "const": false },
+    "scientifically_validated": { "const": false },
+    "module_weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["iq", "eq", "frequency", "values"],
+      "properties": {
+        "iq": { "type": "number" },
+        "eq": { "type": "number" },
+        "frequency": { "type": "number" },
+        "values": { "type": "number" }
+      }
+    },
+    "weight_sum_tolerance": { "type": "number", "minimum": 0 },
+    "score_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "confidence_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "neutral_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "minimum_comparable_dimensions_per_module": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "missing_data_policy": { "type": "string" },
+    "confidence_adjustment_policy_id": { "type": "string" },
+    "complementarity_status": { "const": "disabled_pending_calibration" },
+    "time_layer_status": { "const": "disabled" },
+    "ai_scoring_status": { "const": "prohibited" },
+    "notes": { "type": "object" }
+  }
+}

@@ -53,7 +53,8 @@ class AssessmentSetService {
       throw StateError('User is not authenticated.');
     }
 
-    final language = AssessmentLanguage.languageUsed(languageCode: languageCode);
+    final language =
+        AssessmentLanguage.languageUsed(languageCode: languageCode);
     final locale = localeUsed ??
         AssessmentLanguage.localeUsed(
           locale: Locale(language),
@@ -152,8 +153,9 @@ class AssessmentSetService {
           setId: normalized.id,
           source: loaded.source,
           languageCode: language,
-          firstQuestion:
-              normalized.questions.isNotEmpty ? normalized.questions.first : null,
+          firstQuestion: normalized.questions.isNotEmpty
+              ? normalized.questions.first
+              : null,
         );
 
         return _applyOrdersToSet(normalized, synced.model, type);
@@ -245,9 +247,10 @@ class AssessmentSetService {
       throw StateError('User is not authenticated.');
     }
 
-    final language = AssessmentLanguage.languageUsed(languageCode: languageCode);
-    final locale = localeUsed ??
-        AssessmentLanguage.localeUsed(locale: Locale(language));
+    final language =
+        AssessmentLanguage.languageUsed(languageCode: languageCode);
+    final locale =
+        localeUsed ?? AssessmentLanguage.localeUsed(locale: Locale(language));
 
     await FirestorePaths.userAssessmentAssignmentDoc(user.uid, type).set(
       {
@@ -440,7 +443,8 @@ class AssessmentSetService {
 
   // --- Order repair / sync ---
 
-  Future<({AssessmentAssignmentModel model, bool didRepair})> _syncAssignmentOrders(
+  Future<({AssessmentAssignmentModel model, bool didRepair})>
+      _syncAssignmentOrders(
     DocumentReference<Map<String, dynamic>> assignmentRef,
     AssessmentAssignmentModel assignment,
     AssessmentSetModel normalizedSet,
@@ -454,8 +458,9 @@ class AssessmentSetService {
       if (qOrder.isEmpty) {
         qOrder = List<String>.from(canonicalIds);
       }
-      final opts =
-          type == 'iq' ? Map<String, List<int>>.from(assignment.optionOrders) : <String, List<int>>{};
+      final opts = type == 'iq'
+          ? Map<String, List<int>>.from(assignment.optionOrders)
+          : <String, List<int>>{};
       return (
         model: AssessmentAssignmentModel(
           type: assignment.type,
@@ -566,9 +571,7 @@ class AssessmentSetService {
       if (n <= 1) continue;
 
       final prev = existing[id];
-      if (prev != null &&
-          prev.length == n &&
-          _isPermutationIndices(prev, n)) {
+      if (prev != null && prev.length == n && _isPermutationIndices(prev, n)) {
         out[id] = List<int>.from(prev);
       } else {
         out[id] = List<int>.generate(n, (i) => i)..shuffle(rnd);
@@ -663,12 +666,9 @@ class AssessmentSetService {
     }
 
     final oldCorrectRaw = q['correctAnswer'];
-    final oldCorrect = oldCorrectRaw is int
-        ? oldCorrectRaw
-        : (oldCorrectRaw as num?)?.toInt();
-    if (oldCorrect == null ||
-        oldCorrect < 0 ||
-        oldCorrect >= options.length) {
+    final oldCorrect =
+        oldCorrectRaw is int ? oldCorrectRaw : (oldCorrectRaw as num?)?.toInt();
+    if (oldCorrect == null || oldCorrect < 0 || oldCorrect >= options.length) {
       return q;
     }
 
@@ -685,12 +685,34 @@ class AssessmentSetService {
       ..['correctAnswer'] = newCorrect;
   }
 
-  Future<_AssessmentSetLoadResult?> _loadSetById(String setId, String type) async {
-    final primary =
-        await FirestorePaths.assessmentSetDoc(setId).get();
+  /// Resolves question count for a persisted assessment `set_id` (IQ recovery).
+  ///
+  /// Uses the same load priority as assignment resolution (Firestore → assets →
+  /// legacy). Returns null when the set cannot be resolved or count is ≤ 0.
+  Future<int?> questionCountForSet({
+    required String setId,
+    required String type,
+  }) async {
+    final id = setId.trim();
+    if (id.isEmpty) return null;
+    try {
+      final loaded = await _loadSetById(id, type);
+      if (loaded == null) return null;
+      final fromField = loaded.model.questionCount;
+      if (fromField > 0) return fromField;
+      final fromQuestions = loaded.model.questions.length;
+      return fromQuestions > 0 ? fromQuestions : null;
+    } catch (e) {
+      debugPrint('questionCountForSet($id): $e');
+      return null;
+    }
+  }
+
+  Future<_AssessmentSetLoadResult?> _loadSetById(
+      String setId, String type) async {
+    final primary = await FirestorePaths.assessmentSetDoc(setId).get();
     if (primary.exists && primary.data() != null) {
-      final model =
-          AssessmentSetModel.fromFirestore(setId, primary.data()!);
+      final model = AssessmentSetModel.fromFirestore(setId, primary.data()!);
       if (_isValidAssessmentSetDoc(model)) {
         return _AssessmentSetLoadResult(
           model: model,
@@ -720,8 +742,7 @@ class AssessmentSetService {
       }
     }
 
-    if (setId.startsWith('local_flat_') &&
-        (type == 'iq' || type == 'eq')) {
+    if (setId.startsWith('local_flat_') && (type == 'iq' || type == 'eq')) {
       try {
         final model = await _loadLegacyFlatQuestionAsset(type);
         if (_isValidAssessmentSetDoc(model)) {
@@ -777,7 +798,8 @@ class AssessmentSetService {
     throw StateError('No active assessment set found for type: $type');
   }
 
-  Future<List<AssessmentSetModel>> _queryActiveAssessmentSets(String type) async {
+  Future<List<AssessmentSetModel>> _queryActiveAssessmentSets(
+      String type) async {
     final snap = await FirestorePaths.assessmentSets()
         .where('type', isEqualTo: type)
         .limit(100)
@@ -852,8 +874,9 @@ class AssessmentSetService {
   }
 
   Future<AssessmentSetModel> _loadLegacyFlatQuestionAsset(String type) async {
-    final path =
-        type == 'iq' ? 'assets/data/iq_questions.json' : 'assets/data/eq_questions.json';
+    final path = type == 'iq'
+        ? 'assets/data/iq_questions.json'
+        : 'assets/data/eq_questions.json';
     final raw = await rootBundle.loadString(path);
     final list = json.decode(raw) as List<dynamic>;
     final questions = list

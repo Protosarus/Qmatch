@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "error_count": 0,
+  "warning_count": 0,
+  "errors": [],
+  "warnings": [],
+  "summary": {
+    "item_count": 340,
+    "unique_ids": 340,
+    "unique_prompts": 340,
+    "dimension_counts": {
+      "logical_reasoning": 100,
+      "pattern_reasoning": 80,
+      "verbal_reasoning": 80,
+      "spatial_reasoning": 80
+    },
+    "family_count": 170,
+    "rewritten_counts": {
+      "verbal_reasoning": 9,
+      "pattern_reasoning": 14,
+      "spatial_reasoning": 16,
+      "logical_reasoning": 1
+    },
+    "answer_position_counts": {
+      "a": 97,
+      "c": 81,
+      "b": 86,
+      "d": 76
+    },
+    "missing_metadata": [
+      "difficulty",
+      "rationale",
+      "subskill",
+      "estimated_completion_time",
+      "psychometric_parameters"
+    ],
+    "fabricated_metadata": false
+  },
+  "bank_path": "assets/data/assessment_v3/iq/iq_bank_tr_v1.json",
+  "bank_sha256": "f572b2be1bc149570bba414ccfe6208d231514da84796b433273eafeea55a98d"
+}

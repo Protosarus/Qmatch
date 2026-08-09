@@ -1,0 +1,223 @@
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.59 (1.3.75 available)
+  async 2.13.0 (2.13.1 available)
+  cloud_firestore 5.6.12 (6.7.1 available)
+  cloud_firestore_platform_interface 6.6.12 (8.0.5 available)
+  cloud_firestore_web 4.4.12 (5.7.1 available)
+  cross_file 0.3.5+2 (0.3.5+4 available)
+  ffi 2.1.5 (2.2.0 available)
+  firebase_auth 5.7.0 (6.5.6 available)
+  firebase_auth_platform_interface 7.7.3 (9.0.5 available)
+  firebase_auth_web 5.15.3 (6.2.5 available)
+  firebase_core 3.15.2 (4.12.1 available)
+  firebase_core_platform_interface 6.0.2 (8.0.0 available)
+  firebase_core_web 2.24.1 (3.9.1 available)
+  firebase_storage 12.4.10 (13.4.5 available)
+  firebase_storage_platform_interface 5.2.10 (6.0.5 available)
+  firebase_storage_web 3.10.17 (3.11.11 available)
+  flutter_lints 5.0.0 (6.0.0 available)
+  flutter_plugin_android_lifecycle 2.0.33 (2.0.35 available)
+  flutter_riverpod 2.6.1 (3.3.2 available)
+  font_awesome_flutter 10.12.0 (11.0.0 available)
+  geocoding 2.2.2 (5.0.0 available)
+  geocoding_android 3.3.1 (5.1.0 available)
+  geocoding_ios 2.3.0 (3.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator 10.1.1 (14.0.3 available)
+  geolocator_android 4.6.2 (5.0.3 available)
+  geolocator_apple 2.3.13 (2.3.14 available)
+  geolocator_platform_interface 4.2.6 (4.2.8 available)
+  geolocator_web 2.2.1 (4.1.4 available)
+  google_fonts 6.3.3 (8.2.0 available)
+  google_sign_in 5.4.4 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.15 available)
+  google_sign_in_ios 5.9.0 (6.3.0 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.10.2+1 (1.1.3 available)
+  image_picker 1.2.1 (1.2.3 available)
+  image_picker_android 0.8.13+13 (0.8.13+19 available)
+  intl 0.20.2 (0.20.3 available)
+  js 0.6.7 (0.7.2 available)
+  lints 5.1.1 (6.1.0 available)
+  matcher 0.12.18 (0.12.20 available)
+  meta 1.17.0 (1.19.0 available)
+  path_provider 2.1.5 (2.1.6 available)
+  path_provider_android 2.2.22 (2.3.1 available)
+! path_provider_foundation 2.5.1 (overridden) (2.6.0 available)
+  path_provider_linux 2.2.1 (2.2.2 available)
+  path_provider_platform_interface 2.1.2 (2.1.3 available)
+  permission_handler 11.4.0 (12.0.3 available)
+  permission_handler_android 12.1.0 (13.0.1 available)
+  permission_handler_apple 9.4.7 (9.4.10 available)
+  riverpod 2.6.1 (3.3.2 available)
+  sign_in_with_apple 7.0.1 (8.1.0 available)
+  source_span 1.10.1 (1.10.2 available)
+  test_api 0.7.9 (0.7.13 available)
+  uuid 4.5.2 (4.6.0 available)
+  vector_math 2.2.0 (2.4.1 available)
+  vm_service 15.0.2 (15.2.0 available)
+Got dependencies!
+57 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart
+00:00 +0: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart: (setUpAll)
+00:00 +0: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart: schema version explicit and module enums present
+00:00 +1: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart: EQ/Frequency option deltas bounded and forbid correct fields
+00:00 +2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart: 11 every schema version is explicit in companion blueprint
+00:00 +3: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart: 25 schema files are not listed in pubspec runtime assets
+00:00 +4: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/question_schema_v3_contract_test.dart: (tearDownAll)
+00:00 +4: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_v2_contract_test.dart: (setUpAll)
+00:00 +4: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_v2_contract_test.dart: 1-3: exactly 18 unique canonical persona IDs
+00:00 +5: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: (setUpAll)
+00:00 +6: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: (setUpAll)
+00:00 +7: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: (setUpAll)
+00:00 +7: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_v2_contract_test.dart: 18-19: group / level-shape weights sum to 1
+00:00 +8: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_v2_contract_test.dart: 21-22: no identical target or weighted prototypes
+00:00 +9: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: locks the canonical dimensions and scoring groups
+00:00 +10: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_v2_contract_test.dart: 23-24: no Frequency types or legacy grid IDs as personas
+00:00 +11: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: defines all 18 personas as complete measurable prototypes
+00:00 +12: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: defines all 18 personas as complete measurable prototypes
+00:00 +13: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: defines all 18 personas as complete measurable prototypes
+00:00 +14: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: defines all 18 personas as complete measurable prototypes
+00:00 +15: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_v2_contract_test.dart: primary dims have higher mean weight than neutrals
+00:00 +16: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: defines symmetric and resolvable distinctions for every near pair
+00:00 +17: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: defines symmetric and resolvable distinctions for every near pair
+00:00 +18: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_profiles_contract_test.dart: (tearDownAll)
+00:06 +18: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +19: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +20: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +21: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +22: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +23: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +24: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +25: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +26: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +27: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +28: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +29: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +30: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +31: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +32: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +33: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +33 -1: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +33 -1: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_blueprint_contract_test.dart: 6-10 no correct-answer / grid / frequency-type persona outputs in docs [E]
+  Expected: true
+    Actual: <false>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/assessment_blueprint_contract_test.dart 68:5   main.<fn>
+  
+00:07 +34 -1: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +34 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +34 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_blueprint_contract_test.dart: 15 missing evidence never neutral [E]
+  Expected: true
+    Actual: <false>
+  
+  package:matcher                                     expect
+  package:flutter_test/src/widget_tester.dart 473:18  expect
+  test/assessment_blueprint_contract_test.dart 96:5   main.<fn>
+  
+00:07 +35 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +36 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +37 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (tr)
+00:07 +38 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 375x667 (tr)
+00:07 +39 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 390x844 (tr)
+00:07 +40 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 430x932 (tr)
+00:07 +41 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +42 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +43 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +44 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +45 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +46 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +47 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (tr)
+00:07 +48 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/p1b2a_assessment_flow_test.dart: AssessmentProgressService routing (P1B-2A) 10. Frequency completion marks full flow complete (mirror fields)
+00:07 +49 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +50 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +51 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +52 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +53 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +54 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +55 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +56 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +57 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +58 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (tr)
+00:07 +59 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 320x568 (en)
+00:07 +60 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 375x667 (en)
+00:07 +61 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 390x844 (en)
+00:07 +62 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 430x932 (en)
+00:07 +63 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 412x915 (en)
+00:07 +64 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_result_frame_layout_test.dart: result frame fits 768x1024 (en)
+00:08 +65 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: (setUpAll)
+00:08 +65 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 26 service fingerprints are stable and self-consistent
+00:08 +66 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 27 prototype recovery does not regress materially
+00:08 +67 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +68 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +69 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +70 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +71 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +72 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +73 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +74 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +75 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +76 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +77 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +78 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +79 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +80 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +81 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:08 +82 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/persona_scoring_simulator_parity_test.dart: 28 seed-42 mini distribution remains diversified
+00:09 +83 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 320.0x568.0 tr
+00:09 +84 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 320.0x568.0 tr
+00:09 +85 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 320.0x568.0 en
+00:09 +86 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 390.0x844.0 tr
+00:09 +87 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 390.0x844.0 en
+00:09 +88 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 430.0x932.0 tr
+00:09 +89 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/frequency_question_chrome_layout_test.dart: frequency chrome fits 430.0x932.0 en
+00:10 +90 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/p1b2a_completion_screen_test.dart: completion screen has no persona identity
+00:10 +91 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/p1b2a_completion_screen_test.dart: completion screen has no persona identity
+00:10 +92 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/p1b2a_completion_screen_test.dart: completion screen has no persona identity
+00:10 +93 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Missing-data fallbacks (no crash) both vectors present
+00:10 +94 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Missing-data fallbacks (no crash) my vector present, candidate missing => unavailable (not 0.42)
+00:10 +95 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Missing-data fallbacks (no crash) legacy candidate: type/tags only, no vector => unavailable
+00:10 +96 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Missing-data fallbacks (no crash) missing IQ/EQ
+00:10 +97 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Missing-data fallbacks (no crash) empty tags and empty interests without vectors => unavailable
+00:10 +98 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Score differentiation vs archetype-heavy legacy same archetype + similar vs different Frequency vectors diverge
+00:10 +99 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Score differentiation vs archetype-heavy legacy different archetype + similar Frequency still competitive
+00:10 +100 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: Score differentiation vs archetype-heavy legacy missing vector is unavailable, not a free high match
+00:10 +101 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/compatibility_guard_runtime_qa_test.dart: No fake percentile compatibility output has no percentile fields
+00:11 +102 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +103 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +104 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +105 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +106 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +107 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +108 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +109 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +110 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +111 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +112 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +113 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +114 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +115 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +116 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +117 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +118 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +119 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +120 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +121 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +122 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +123 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +124 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +125 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +126 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +127 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +128 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +129 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +130 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +131 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:11 +132 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 22-23 audit output deterministic and banks unmodified by audit artifact
+00:12 +133 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: 12 every audited item has stable question id in report
+00:12 +134 -2: /Users/protosarus/Downloads/Projects_2/Qmatch-main 2/test/assessment_bank_audit_test.dart: IQ unmappable without domain metadata; Frequency mappable via aliases
+00:12 +135 -2: Some tests failed.

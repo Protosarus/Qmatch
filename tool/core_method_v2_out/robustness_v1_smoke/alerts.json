@@ -1,0 +1,757 @@
+{
+  "alerts": [
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0025389571602469335,
+      "population_family": "independent_uniform",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "neutral_concentration",
+      "configured_threshold": 0.4,
+      "formula_auto_modified": false,
+      "observed_value": 0.5,
+      "population_family": "independent_uniform",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0017216065591169026,
+      "population_family": "independent_uniform",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 1.0,
+      "population_family": "central_normal_like_bounded",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0002031872098423153,
+      "population_family": "central_normal_like_bounded",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0004777212958811906,
+      "population_family": "central_normal_like_bounded",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.3333333333333333,
+      "population_family": "two_cluster",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "neutral_concentration",
+      "configured_threshold": 0.4,
+      "formula_auto_modified": false,
+      "observed_value": 0.6666666666666666,
+      "population_family": "two_cluster",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.16666666666666666,
+      "population_family": "three_cluster",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.5,
+      "population_family": "positively_correlated_dimensions",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.16666666666666666,
+      "population_family": "correlated_within_modules",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0037590305725623083,
+      "population_family": "independent_between_modules",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.002404054898624883,
+      "population_family": "independent_between_modules",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.3333333333333333,
+      "population_family": "frequency_preference_correlated",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.16666666666666666,
+      "population_family": "frequency_preference_independent",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.4,
+      "population_family": "values_preference_correlated",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 0.3333333333333333,
+      "population_family": "values_preference_independent",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0030498436752265136,
+      "population_family": "high_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0026624839881473285,
+      "population_family": "high_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0014248054001480374,
+      "population_family": "mixed_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0005574582737732169,
+      "population_family": "mixed_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0014719292084764343,
+      "population_family": "low_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "neutral_concentration",
+      "configured_threshold": 0.4,
+      "formula_auto_modified": false,
+      "observed_value": 0.5,
+      "population_family": "low_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.00027028654781888954,
+      "population_family": "low_confidence_population",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.002050314435903135,
+      "population_family": "complete_profiles",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0007113573421835442,
+      "population_family": "complete_profiles",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.00467934489489767,
+      "population_family": "random_partial_profiles",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "neutral_concentration",
+      "configured_threshold": 0.4,
+      "formula_auto_modified": false,
+      "observed_value": 0.6,
+      "population_family": "random_partial_profiles",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.001389936068480001,
+      "population_family": "random_partial_profiles",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0016015738773158127,
+      "population_family": "structured_missing_modules",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "neutral_concentration",
+      "configured_threshold": 0.4,
+      "formula_auto_modified": false,
+      "observed_value": 0.4,
+      "population_family": "structured_missing_modules",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0010492700524961983,
+      "population_family": "structured_missing_modules",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "high_saturation",
+      "configured_threshold": 0.15,
+      "formula_auto_modified": false,
+      "observed_value": 1.0,
+      "population_family": "narrow_score_range",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.000025011377130342896,
+      "population_family": "narrow_score_range",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.00045949472519950187,
+      "population_family": "narrow_score_range",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0015078322792953611,
+      "population_family": "wide_score_range",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0009718386156920721,
+      "population_family": "wide_score_range",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0027234144850124295,
+      "population_family": "boundary_heavy",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0017398096904013413,
+      "population_family": "boundary_heavy",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0036823194765288818,
+      "population_family": "hard_constraint_sparse",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.002159163535528127,
+      "population_family": "hard_constraint_sparse",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.003804243445801563,
+      "population_family": "soft_conflict_sparse",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0026562775176360346,
+      "population_family": "soft_conflict_sparse",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0020293652298620435,
+      "population_family": "soft_conflict_dense",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.0009682352139382892,
+      "population_family": "soft_conflict_dense",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "raw_aggregate_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.004497792186169743,
+      "population_family": "independent_uniform",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    },
+    {
+      "affected_metric": "confidence_adjusted_score",
+      "alert_type": "narrow_variance",
+      "configured_threshold": 0.005,
+      "formula_auto_modified": false,
+      "observed_value": 0.00298873837276809,
+      "population_family": "independent_uniform",
+      "possible_causes": [
+        "synthetic_distribution_shape",
+        "provisional_scales_or_weights",
+        "confidence_shrinkage",
+        "missingness_pattern"
+      ],
+      "required_human_interpretation": true,
+      "seed": 424242
+    }
+  ],
+  "count": 47
+}

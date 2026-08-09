@@ -1,0 +1,1634 @@
+{
+  "claims_forbidden": [
+    "predictive_validity",
+    "demographic_fairness",
+    "production_readiness"
+  ],
+  "contiguous": true,
+  "engineering_pass": true,
+  "fail_count": 0,
+  "failed_ids": [],
+  "min_required": 100,
+  "pass_count": 103,
+  "report_id": "core_method_v2_robustness_scenarios_v1",
+  "scenario_count": 103,
+  "scenarios": [
+    {
+      "actual_result": {
+        "config_version": "core_method_v2_robustness_experiment_config_v1"
+      },
+      "deterministic_inputs": {
+        "path": "assets/data/core_method_v2/core_method_v2_robustness_experiment_config_v1.json"
+      },
+      "diagnostic_codes": [
+        "config_ok"
+      ],
+      "expected_mathematical_property": "config_version present",
+      "pass": true,
+      "purpose": "experiment config loads",
+      "scenario_id": "cfg_parses",
+      "scenario_number": 1
+    },
+    {
+      "actual_result": {
+        "status": "provisional"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "status==provisional",
+      "pass": true,
+      "purpose": "status provisional",
+      "scenario_id": "cfg_status_provisional",
+      "scenario_number": 2
+    },
+    {
+      "actual_result": {
+        "runtime_status": "offline_only"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "runtime_status==offline_only",
+      "pass": true,
+      "purpose": "runtime offline_only",
+      "scenario_id": "cfg_runtime_offline",
+      "scenario_number": 3
+    },
+    {
+      "actual_result": {
+        "baseline": 424242,
+        "secondary_count": 4
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "secondary_seeds.length>=4",
+      "pass": true,
+      "purpose": "baseline + >=4 secondary seeds",
+      "scenario_id": "cfg_seeds",
+      "scenario_number": 4
+    },
+    {
+      "actual_result": {
+        "count": 26
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "26 families",
+      "pass": true,
+      "purpose": "all synthetic families declared",
+      "scenario_id": "cfg_families_26",
+      "scenario_number": 5
+    },
+    {
+      "actual_result": {
+        "bins": 20
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "bins==20",
+      "pass": true,
+      "purpose": "histogram bins",
+      "scenario_id": "cfg_histogram_20",
+      "scenario_number": 6
+    },
+    {
+      "actual_result": {
+        "full_pop": 2000,
+        "smoke_pop": 48
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "top-level full counts retained",
+      "pass": true,
+      "purpose": "smoke mode does not replace full top-level counts",
+      "scenario_id": "cfg_smoke_not_overwrite_full",
+      "scenario_number": 7
+    },
+    {
+      "actual_result": {
+        "r": 1.0
+      },
+      "deterministic_inputs": {
+        "x": [
+          0.1,
+          0.2,
+          0.3,
+          0.4
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "r(x,x)==1",
+      "pass": true,
+      "purpose": "Pearson identity",
+      "scenario_id": "stats_pearson_identity",
+      "scenario_number": 8
+    },
+    {
+      "actual_result": {
+        "rho": 1.0
+      },
+      "deterministic_inputs": {
+        "x": [
+          1.0,
+          3.0,
+          2.0
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "rho(x,x)==1",
+      "pass": true,
+      "purpose": "Spearman identity",
+      "scenario_id": "stats_spearman_identity",
+      "scenario_number": 9
+    },
+    {
+      "actual_result": {
+        "ranks": [
+          1.5,
+          1.5,
+          3.0
+        ]
+      },
+      "deterministic_inputs": {
+        "x": [
+          1.0,
+          1.0,
+          2.0
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "ties average",
+      "pass": true,
+      "purpose": "deterministic midranks",
+      "scenario_id": "stats_tied_ranks",
+      "scenario_number": 10
+    },
+    {
+      "actual_result": {
+        "a0": "syn_independent_uniform_67932_0",
+        "a2_0": "syn_independent_uniform_67932_0"
+      },
+      "deterministic_inputs": {
+        "seed": 424242
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "byte-identical subject ids",
+      "pass": true,
+      "purpose": "same seed identical ids",
+      "scenario_id": "syn_deterministic",
+      "scenario_number": 11
+    },
+    {
+      "actual_result": {
+        "a": "syn_independent_uniform_67932_0",
+        "b": "syn_independent_uniform_1b207_0"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "ids differ",
+      "pass": true,
+      "purpose": "different seeds differ",
+      "scenario_id": "syn_seed_divergence",
+      "scenario_number": 12
+    },
+    {
+      "actual_result": {
+        "sample": "syn_independent_uniform_67932_0"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no email/phone patterns",
+      "pass": true,
+      "purpose": "synthetic ids artificial",
+      "scenario_id": "syn_no_real_user_data",
+      "scenario_number": 13
+    },
+    {
+      "actual_result": {
+        "count": 26
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "26 families generate",
+      "pass": true,
+      "purpose": "generator accepts all families",
+      "scenario_id": "syn_all_families",
+      "scenario_number": 14
+    },
+    {
+      "actual_result": {
+        "available_configured_weight_mass": 1.0,
+        "confidence_adjusted_score": 0.6029316486763949,
+        "diagnostic_codes": [
+          "aggregation_registry_namespace_view_applied",
+          "component_partial_but_scoreable",
+          "explanation_generated",
+          "explanation_registry_namespace_view_applied",
+          "high_available_weight_mass",
+          "moderate_evidence_confidence",
+          "no_AI_scoring",
+          "no_complementarity",
+          "no_persona_input",
+          "overall_score_available",
+          "preference_asymmetry_present",
+          "score_shrunk_toward_neutral",
+          "soft_conflicts_diagnostic_only",
+          "soft_conflicts_present_diagnostic_only"
+        ],
+        "eq_structural": 0.44045391924083993,
+        "evaluation_fingerprint": "-13fe8cfeb3a9e882",
+        "evaluation_status": "complete",
+        "explanation_fingerprint": "-6c3d48e8abb85707",
+        "frequency_structural": 0.5761017398595863,
+        "hard_fingerprint": "5af5558a9f91659d",
+        "hard_outcome": "not_applicable",
+        "iq_structural": 0.6658070084032277,
+        "iq_structural_fp": "16bc286bb3678a33",
+        "layer_fingerprint": "-6f5ca65431b97734",
+        "live_ranking_eligible": false,
+        "mutual_partner_preference": 0.8334325256181233,
+        "mutual_relationship_values": 0.741476410279068,
+        "overall_evidence_confidence": 0.7609698028673626,
+        "overall_fingerprint": "48e2890a4eb1be7b",
+        "preference_fingerprint": "-27785872ef4c9e6",
+        "produced_live_match_action": false,
+        "produced_production_ranking_action": false,
+        "production_publishable": false,
+        "ranking_eligible": false,
+        "raw_score": 0.6352637756301822,
+        "soft_fingerprint": "-b53159dd80fbddd",
+        "soft_signal_count": 9,
+        "structural_fingerprint": "16bc286bb3678a33",
+        "subject_a_id": "syn_independent_uniform_67932_0",
+        "subject_b_id": "syn_independent_uniform_67932_1",
+        "unexpected_exception": null,
+        "values_fingerprint": "4ab36f135084de49",
+        "wrote_firestore": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "finite bounded",
+      "pass": true,
+      "purpose": "scores in [0,1] or null",
+      "scenario_id": "harness_bounds_scores",
+      "scenario_number": 15
+    },
+    {
+      "actual_result": {
+        "q": 0.7609698028673626
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "finite bounded",
+      "pass": true,
+      "purpose": "confidence in [0,1] or null",
+      "scenario_id": "harness_bounds_confidence",
+      "scenario_number": 16
+    },
+    {
+      "actual_result": {
+        "overall": "48e2890a4eb1be7b",
+        "pref": "-27785872ef4c9e6",
+        "structural": "16bc286bb3678a33"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "non-empty fingerprints",
+      "pass": true,
+      "purpose": "source fingerprints present",
+      "scenario_id": "harness_preserves_fps",
+      "scenario_number": 17
+    },
+    {
+      "actual_result": {
+        "live": false,
+        "prod_action": false,
+        "prod_pub": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "flags false",
+      "pass": true,
+      "purpose": "no production ranking action",
+      "scenario_id": "harness_no_prod_ranking",
+      "scenario_number": 18
+    },
+    {
+      "actual_result": {
+        "live_match": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "false",
+      "pass": true,
+      "purpose": "no live match action",
+      "scenario_id": "harness_no_live_match",
+      "scenario_number": 19
+    },
+    {
+      "actual_result": {
+        "fs": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "false",
+      "pass": true,
+      "purpose": "no firestore write",
+      "scenario_id": "harness_no_firestore",
+      "scenario_number": 20
+    },
+    {
+      "actual_result": {
+        "ab_iq": 0.6658070084032277,
+        "ba_iq": 0.6658070084032277
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "module scores equal under reversal",
+      "pass": true,
+      "purpose": "structural A/B symmetry",
+      "scenario_id": "inv_structural_symmetry",
+      "scenario_number": 21
+    },
+    {
+      "actual_result": {
+        "ab": 0.8334325256181233,
+        "ba": 0.8334325256181233
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "equal mutual scores",
+      "pass": true,
+      "purpose": "mutual preference pair-order invariance",
+      "scenario_id": "inv_pref_mutual",
+      "scenario_number": 22
+    },
+    {
+      "actual_result": {
+        "ab": 0.741476410279068,
+        "ba": 0.741476410279068
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "equal mutual scores",
+      "pass": true,
+      "purpose": "mutual values pair-order invariance",
+      "scenario_id": "inv_values_mutual",
+      "scenario_number": 23
+    },
+    {
+      "actual_result": {
+        "ab_raw": 0.6352637756301822,
+        "ba_raw": 0.6352637756301822
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "raw/adjusted equal",
+      "pass": true,
+      "purpose": "overall pair-order invariance",
+      "scenario_id": "inv_overall_order",
+      "scenario_number": 24
+    },
+    {
+      "actual_result": {
+        "eq": 1.0,
+        "freq": 1.0,
+        "iq": 1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "high structural similarity when defined",
+      "pass": true,
+      "purpose": "cloned profile identity",
+      "scenario_id": "inv_identity_structural",
+      "scenario_number": 25
+    },
+    {
+      "actual_result": {
+        "raw": 0.6352637756301822
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "finite or null",
+      "pass": true,
+      "purpose": "no NaN in overall",
+      "scenario_id": "inv_no_nan",
+      "scenario_number": 26
+    },
+    {
+      "actual_result": {
+        "adj": 0.6029316486763949
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "not infinite",
+      "pass": true,
+      "purpose": "no infinity",
+      "scenario_id": "inv_no_inf",
+      "scenario_number": 27
+    },
+    {
+      "actual_result": {
+        "a": 0.7,
+        "b": 0.7
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "raw equal",
+      "pass": true,
+      "purpose": "soft conflict non-penalty raw",
+      "scenario_id": "soft_raw_unchanged",
+      "scenario_number": 28
+    },
+    {
+      "actual_result": {
+        "a": 0.7,
+        "b": 0.7
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "adjusted equal",
+      "pass": true,
+      "purpose": "soft conflict non-penalty adjusted",
+      "scenario_id": "soft_adj_unchanged",
+      "scenario_number": 29
+    },
+    {
+      "actual_result": {
+        "a": 1.0,
+        "b": 1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "Q equal",
+      "pass": true,
+      "purpose": "soft conflict non-penalty Q",
+      "scenario_id": "soft_q_unchanged",
+      "scenario_number": 30
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "raw": null
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "raw/adj null",
+      "pass": true,
+      "purpose": "hard failed nulls scores",
+      "scenario_id": "hard_failed_blocks",
+      "scenario_number": 31
+    },
+    {
+      "actual_result": {
+        "outcome": "unknown"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "outcome unknown",
+      "pass": true,
+      "purpose": "unknown remains unknown",
+      "scenario_id": "hard_unknown_remains",
+      "scenario_number": 32
+    },
+    {
+      "actual_result": {
+        "outcome": "not_applicable"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "outcome not_applicable",
+      "pass": true,
+      "purpose": "not_applicable remains",
+      "scenario_id": "hard_na_remains",
+      "scenario_number": 33
+    },
+    {
+      "actual_result": {
+        "included": [
+          "eq_structural",
+          "frequency_structural",
+          "mutual_partner_preference",
+          "mutual_relationship_values"
+        ],
+        "mass": 0.9199999999999999,
+        "raw": 0.8000000000000002
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "iq excluded; raw from available",
+      "pass": true,
+      "purpose": "missing component not imputed as neutral",
+      "scenario_id": "miss_not_imputed",
+      "scenario_number": 34
+    },
+    {
+      "actual_result": {
+        "mass": 0.9199999999999999
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "mass<1",
+      "pass": true,
+      "purpose": "missingness lowers available mass",
+      "scenario_id": "miss_mass_falls",
+      "scenario_number": 35
+    },
+    {
+      "actual_result": {
+        "high": 1.0,
+        "low": 0.20000000000000004
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "Q_low < Q_high",
+      "pass": true,
+      "purpose": "confidence degradation lowers Q",
+      "scenario_id": "conf_q_falls",
+      "scenario_number": 36
+    },
+    {
+      "actual_result": {
+        "adj": 0.5800000000000001,
+        "raw": 0.9000000000000001
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "|adj-0.5| <= |raw-0.5|",
+      "pass": true,
+      "purpose": "low Q moves adjusted toward 0.5",
+      "scenario_id": "conf_shrink_toward_neutral",
+      "scenario_number": 37
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "null scores when gates fail",
+      "pass": true,
+      "purpose": "insufficient evidence does not fabricate 0.50",
+      "scenario_id": "insuff_no_fabricate",
+      "scenario_number": 38
+    },
+    {
+      "actual_result": {
+        "sum": 1.0
+      },
+      "deterministic_inputs": {
+        "delta": 0.2
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "sum≈1",
+      "pass": true,
+      "purpose": "perturbed weights renormalize to 1",
+      "scenario_id": "weight_renorm",
+      "scenario_number": 39
+    },
+    {
+      "actual_result": {
+        "iq": 0.08
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "file weights unchanged",
+      "pass": true,
+      "purpose": "frozen baseline config not overwritten",
+      "scenario_id": "weight_frozen_intact",
+      "scenario_number": 40
+    },
+    {
+      "actual_result": {
+        "eval_raw": 0.6352637756301822,
+        "raw": 0.6352637756301822
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "same raw/adj",
+      "pass": true,
+      "purpose": "explanation does not alter scores",
+      "scenario_id": "expl_preserves_scores",
+      "scenario_number": 41
+    },
+    {
+      "actual_result": {
+        "count": 12
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "signals list exists",
+      "pass": true,
+      "purpose": "explanation generates signals",
+      "scenario_id": "expl_signals_present",
+      "scenario_number": 42
+    },
+    {
+      "actual_result": {
+        "raw1": 0.6352637756301822,
+        "raw2": 0.6352637756301822
+      },
+      "deterministic_inputs": {
+        "label": "cohort_beta"
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "identical scores",
+      "pass": true,
+      "purpose": "opaque cohort labels unused",
+      "scenario_id": "cohort_scores_invariant",
+      "scenario_number": 43
+    },
+    {
+      "actual_result": {
+        "fp1": "-6c3d48e8abb85707",
+        "fp2": "-6c3d48e8abb85707"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "identical explanation fingerprint",
+      "pass": true,
+      "purpose": "cohort labels unused in explanation",
+      "scenario_id": "cohort_expl_invariant",
+      "scenario_number": 44
+    },
+    {
+      "actual_result": {
+        "n": 5,
+        "sum": 5
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "sum==available",
+      "pass": true,
+      "purpose": "histogram counts sum to available",
+      "scenario_id": "dist_hist_sums",
+      "scenario_number": 45
+    },
+    {
+      "actual_result": {
+        "q": {
+          "0.01": 0.10400000000000001,
+          "0.05": 0.12000000000000002,
+          "0.10": 0.14,
+          "0.25": 0.2,
+          "0.50": 0.5,
+          "0.75": 0.5,
+          "0.90": 0.7400000000000001,
+          "0.95": 0.82,
+          "0.99": 0.884
+        }
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "nondecreasing",
+      "pass": true,
+      "purpose": "quantiles ordered",
+      "scenario_id": "dist_quantiles_ordered",
+      "scenario_number": 46
+    },
+    {
+      "actual_result": {
+        "available": 5,
+        "nulls": 1
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "available==5",
+      "pass": true,
+      "purpose": "nulls excluded from numeric summaries",
+      "scenario_id": "dist_nulls_excluded",
+      "scenario_number": 47
+    },
+    {
+      "actual_result": {
+        "j": 0.3333333333333333
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "0<=j<=1",
+      "pass": true,
+      "purpose": "Jaccard in [0,1]",
+      "scenario_id": "jaccard_bounded",
+      "scenario_number": 48
+    },
+    {
+      "actual_result": {
+        "rho": -1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "[-1,1]",
+      "pass": true,
+      "purpose": "Spearman bounded",
+      "scenario_id": "rank_corr_bounded",
+      "scenario_number": 49
+    },
+    {
+      "actual_result": {
+        "bottom_10_pct_overlap": 1.0,
+        "kendall_skipped_for_size": false,
+        "kendall_tau_b_style": 1.0,
+        "max_abs_rank_movement": 0.0,
+        "median_abs_rank_movement": 0.0,
+        "pair_count": 10,
+        "spearman": 1.0,
+        "top_10_pct_overlap": 1.0,
+        "top_1_pct_overlap": 1.0,
+        "top_5_pct_overlap": 1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "0<=overlap<=1",
+      "pass": true,
+      "purpose": "top-decile overlap bounded",
+      "scenario_id": "rank_top_decile_bounded",
+      "scenario_number": 50
+    },
+    {
+      "actual_result": {
+        "p": 1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "proportion==1",
+      "pass": true,
+      "purpose": "neutral concentration measured",
+      "scenario_id": "neutral_measured",
+      "scenario_number": 51
+    },
+    {
+      "actual_result": {
+        "p": 1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "above_0.9==1",
+      "pass": true,
+      "purpose": "high saturation measured",
+      "scenario_id": "saturation_measured",
+      "scenario_number": 52
+    },
+    {
+      "actual_result": {
+        "frozen_iq": 0.35,
+        "local_iq": 0.42
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "frozen file unchanged",
+      "pass": true,
+      "purpose": "scale sensitivity uses experiment-local config",
+      "scenario_id": "scale_local_only",
+      "scenario_number": 53
+    },
+    {
+      "actual_result": {
+        "v": "forbidden"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "persona_input_status==forbidden",
+      "pass": true,
+      "purpose": "persona forbidden in experiment config",
+      "scenario_id": "no_persona_input",
+      "scenario_number": 54
+    },
+    {
+      "actual_result": {
+        "v": "forbidden"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "forbidden",
+      "pass": true,
+      "purpose": "frequency type forbidden",
+      "scenario_id": "no_frequency_type",
+      "scenario_number": 55
+    },
+    {
+      "actual_result": {
+        "v": "forbidden"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "forbidden",
+      "pass": true,
+      "purpose": "AI scoring forbidden",
+      "scenario_id": "no_ai_scoring",
+      "scenario_number": 56
+    },
+    {
+      "actual_result": {
+        "v": "disabled"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "disabled",
+      "pass": true,
+      "purpose": "complementarity disabled",
+      "scenario_id": "no_complementarity",
+      "scenario_number": 57
+    },
+    {
+      "actual_result": {
+        "v": "disabled"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "disabled",
+      "pass": true,
+      "purpose": "temporal disabled",
+      "scenario_id": "no_temporal",
+      "scenario_number": 58
+    },
+    {
+      "actual_result": {
+        "v": "disabled"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "disabled",
+      "pass": true,
+      "purpose": "soft conflict penalty disabled",
+      "scenario_id": "no_soft_penalty",
+      "scenario_number": 59
+    },
+    {
+      "actual_result": {
+        "v": "forbidden_in_this_phase"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "forbidden_in_this_phase",
+      "pass": true,
+      "purpose": "real user data policy",
+      "scenario_id": "real_user_data_forbidden",
+      "scenario_number": 60
+    },
+    {
+      "actual_result": {
+        "n": 20,
+        "v": "canonical_dimension_registry_v1"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "canonical_dimension_registry_v1",
+      "pass": true,
+      "purpose": "20d registry loads",
+      "scenario_id": "registry_20d_unchanged",
+      "scenario_number": 61
+    },
+    {
+      "actual_result": {
+        "n": 24
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "24 dims",
+      "pass": true,
+      "purpose": "24d fixture still loads",
+      "scenario_id": "fixture_24d_supported",
+      "scenario_number": 62
+    },
+    {
+      "actual_result": {
+        "eq": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "identical encodings",
+      "pass": true,
+      "purpose": "serialization deterministic",
+      "scenario_id": "ser_deterministic",
+      "scenario_number": 63
+    },
+    {
+      "actual_result": {
+        "a": "48e2890a4eb1be7b",
+        "b": "48e2890a4eb1be7b"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "same fingerprint twice",
+      "pass": true,
+      "purpose": "fingerprint stable",
+      "scenario_id": "fp_stable",
+      "scenario_number": 64
+    },
+    {
+      "actual_result": {
+        "a": [
+          0.005865858169272542,
+          0.5586178249213845,
+          7
+        ],
+        "b": [
+          0.005865858169272542,
+          0.5586178249213845,
+          7
+        ]
+      },
+      "deterministic_inputs": {
+        "seed": 99
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "identical sequence",
+      "pass": true,
+      "purpose": "PRNG deterministic",
+      "scenario_id": "rng_deterministic",
+      "scenario_number": 65
+    },
+    {
+      "actual_result": {
+        "missing_flags": [
+          {
+            "eq": false,
+            "freq": false,
+            "iq": true
+          },
+          {
+            "eq": true,
+            "freq": false,
+            "iq": false
+          },
+          {
+            "eq": false,
+            "freq": true,
+            "iq": false
+          }
+        ]
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "at least one missing module across subjects",
+      "pass": true,
+      "purpose": "partial profiles keep missing modules",
+      "scenario_id": "partial_preserves_missing",
+      "scenario_number": 66
+    },
+    {
+      "actual_result": {
+        "far_eq": 0.43756473770026927,
+        "near_eq": 0.9898478033787337
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "sim(near) >= sim(far)",
+      "pass": true,
+      "purpose": "closer profiles more similar",
+      "scenario_id": "mono_structural_distance",
+      "scenario_number": 67
+    },
+    {
+      "actual_result": {
+        "adj": 0.5800000000000001,
+        "raw": 0.9000000000000001
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "|adj-0.5|<=|raw-0.5|",
+      "pass": true,
+      "purpose": "shrinkage never farther from neutral",
+      "scenario_id": "shrink_never_farther",
+      "scenario_number": 68
+    },
+    {
+      "actual_result": {
+        "high": 0.7,
+        "moderate": 0.4,
+        "very_high": 0.85
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "very_high>=0.85",
+      "pass": true,
+      "purpose": "high correlation threshold from config",
+      "scenario_id": "corr_threshold_config",
+      "scenario_number": 69
+    },
+    {
+      "actual_result": {
+        "w": 0.08
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "iq weight still 0.08",
+      "pass": true,
+      "purpose": "alerts do not change frozen weights",
+      "scenario_id": "alert_no_auto_reweight",
+      "scenario_number": 70
+    },
+    {
+      "actual_result": {
+        "outcome": "failed",
+        "raw": null
+      },
+      "deterministic_inputs": {
+        "field": "relationship_intent"
+      },
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "failed + null scores",
+      "pass": true,
+      "purpose": "harness hard-failed blocks scores",
+      "scenario_id": "hard_harness_blocks",
+      "scenario_number": 71
+    },
+    {
+      "actual_result": {
+        "n": 5
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "contributions present",
+      "pass": true,
+      "purpose": "component audit available after failure",
+      "scenario_id": "hard_audit_after_fail",
+      "scenario_number": 72
+    },
+    {
+      "actual_result": {
+        "blocking": 3
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "blocking signal present",
+      "pass": true,
+      "purpose": "hard failure appears in explanation",
+      "scenario_id": "expl_hard_signal_preserved",
+      "scenario_number": 73
+    },
+    {
+      "actual_result": {
+        "a": 1.0,
+        "b": 1.0
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "same twice",
+      "pass": true,
+      "purpose": "kendall-style concordance deterministic",
+      "scenario_id": "kendall_deterministic",
+      "scenario_number": 74
+    },
+    {
+      "actual_result": {
+        "deep_dive_uses_top_level_counts": false,
+        "explanation_pair_count": 24,
+        "explanation_pairs_per_family_sweep": 40,
+        "full_pipeline_pair_count": 60,
+        "full_pipeline_pairs_per_family_sweep": 120,
+        "mode": "smoke",
+        "pairs_per_family_sweep": 400,
+        "run_all_families": true,
+        "run_deep_dive": false,
+        "sampled_pair_count": 120,
+        "secondary_seed_count": 2,
+        "subjects_per_family": 4,
+        "synthetic_population_size": 48
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "smoke < full top-level",
+      "pass": true,
+      "purpose": "smoke mode resolves smaller counts",
+      "scenario_id": "mode_smoke_resolves",
+      "scenario_number": 75
+    },
+    {
+      "actual_result": {
+        "deep_dive_uses_top_level_counts": true,
+        "explanation_pair_count": 2000,
+        "explanation_pairs_per_family_sweep": 40,
+        "full_pipeline_pair_count": 10000,
+        "full_pipeline_pairs_per_family_sweep": 120,
+        "mode": "full",
+        "pairs_per_family_sweep": 400,
+        "run_all_families": true,
+        "run_deep_dive": true,
+        "sampled_pair_count": 50000,
+        "secondary_seed_count": 4,
+        "subjects_per_family": 80,
+        "synthetic_population_size": 2000
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "run_deep_dive true",
+      "pass": true,
+      "purpose": "full mode config parses",
+      "scenario_id": "mode_full_resolves",
+      "scenario_number": 76
+    },
+    {
+      "actual_result": {
+        "reqs": [
+          "ethically_collected_consented_purpose_limited_data",
+          "offline_outcome_labels_not_engagement_alone",
+          "no_production_ranking_until_calibration_review",
+          "no_fairness_claims_from_synthetic_data"
+        ]
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "requirements include no fairness/predictive overclaim",
+      "pass": true,
+      "purpose": "calibration readiness forbids predictive claim",
+      "scenario_id": "calib_no_predictive_claim",
+      "scenario_number": 77
+    },
+    {
+      "actual_result": {
+        "adj": 0.5723734012109148,
+        "raw": 0.6003536167761369,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "independent_uniform"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "independent_uniform"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family independent_uniform yields bounded outputs",
+      "scenario_id": "family_bounds_independent_uniform",
+      "scenario_number": 78
+    },
+    {
+      "actual_result": {
+        "adj": 0.8391479292514421,
+        "raw": 0.9404450921547136,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "central_normal_like_bounded"
+      },
+      "diagnostic_codes": [
+        "central_normal_like_bounded",
+        "family_ok"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family central_normal_like_bounded yields bounded outputs",
+      "scenario_id": "family_bounds_central_normal_like_bounded",
+      "scenario_number": 79
+    },
+    {
+      "actual_result": {
+        "adj": 0.4722420758054979,
+        "raw": 0.4587981336956568,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "two_cluster"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "two_cluster"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family two_cluster yields bounded outputs",
+      "scenario_id": "family_bounds_two_cluster",
+      "scenario_number": 80
+    },
+    {
+      "actual_result": {
+        "adj": 0.6532296467382266,
+        "raw": 0.6959785843725491,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "three_cluster"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "three_cluster"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family three_cluster yields bounded outputs",
+      "scenario_id": "family_bounds_three_cluster",
+      "scenario_number": 81
+    },
+    {
+      "actual_result": {
+        "adj": 0.865261901310413,
+        "raw": 0.9670114011964753,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "positively_correlated_dimensions"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "positively_correlated_dimensions"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family positively_correlated_dimensions yields bounded outputs",
+      "scenario_id": "family_bounds_positively_correlated_dimensions",
+      "scenario_number": 82
+    },
+    {
+      "actual_result": {
+        "adj": 0.7146887531420352,
+        "raw": 0.7951906624588616,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "negatively_correlated_dimensions"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "negatively_correlated_dimensions"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family negatively_correlated_dimensions yields bounded outputs",
+      "scenario_id": "family_bounds_negatively_correlated_dimensions",
+      "scenario_number": 83
+    },
+    {
+      "actual_result": {
+        "adj": 0.3839192536139349,
+        "raw": 0.3279269723848548,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "correlated_within_modules"
+      },
+      "diagnostic_codes": [
+        "correlated_within_modules",
+        "family_ok"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family correlated_within_modules yields bounded outputs",
+      "scenario_id": "family_bounds_correlated_within_modules",
+      "scenario_number": 84
+    },
+    {
+      "actual_result": {
+        "adj": 0.676629042490483,
+        "raw": 0.7285275499502772,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "independent_between_modules"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "independent_between_modules"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family independent_between_modules yields bounded outputs",
+      "scenario_id": "family_bounds_independent_between_modules",
+      "scenario_number": 85
+    },
+    {
+      "actual_result": {
+        "adj": 0.24203767771156579,
+        "raw": 0.19733824059069635,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "frequency_preference_correlated"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "frequency_preference_correlated"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family frequency_preference_correlated yields bounded outputs",
+      "scenario_id": "family_bounds_frequency_preference_correlated",
+      "scenario_number": 86
+    },
+    {
+      "actual_result": {
+        "adj": 0.7143296120717963,
+        "raw": 0.7674455366947286,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "frequency_preference_independent"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "frequency_preference_independent"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family frequency_preference_independent yields bounded outputs",
+      "scenario_id": "family_bounds_frequency_preference_independent",
+      "scenario_number": 87
+    },
+    {
+      "actual_result": {
+        "adj": 0.7674938023754341,
+        "raw": 0.899012058550288,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "values_preference_correlated"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "values_preference_correlated"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family values_preference_correlated yields bounded outputs",
+      "scenario_id": "family_bounds_values_preference_correlated",
+      "scenario_number": 88
+    },
+    {
+      "actual_result": {
+        "adj": 0.8487220106766106,
+        "raw": 0.9026983277543056,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "values_preference_independent"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "values_preference_independent"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family values_preference_independent yields bounded outputs",
+      "scenario_id": "family_bounds_values_preference_independent",
+      "scenario_number": 89
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {
+        "family": "high_confidence_population"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "high_confidence_population"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family high_confidence_population yields bounded outputs",
+      "scenario_id": "family_bounds_high_confidence_population",
+      "scenario_number": 90
+    },
+    {
+      "actual_result": {
+        "adj": 0.5484472766849267,
+        "raw": 0.5791830929659079,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "mixed_confidence_population"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "mixed_confidence_population"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family mixed_confidence_population yields bounded outputs",
+      "scenario_id": "family_bounds_mixed_confidence_population",
+      "scenario_number": 91
+    },
+    {
+      "actual_result": {
+        "adj": 0.520560933874928,
+        "raw": 0.550949689923223,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "low_confidence_population"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "low_confidence_population"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family low_confidence_population yields bounded outputs",
+      "scenario_id": "family_bounds_low_confidence_population",
+      "scenario_number": 92
+    },
+    {
+      "actual_result": {
+        "adj": 0.713589073702845,
+        "raw": 0.7568320232903498,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "complete_profiles"
+      },
+      "diagnostic_codes": [
+        "complete_profiles",
+        "family_ok"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family complete_profiles yields bounded outputs",
+      "scenario_id": "family_bounds_complete_profiles",
+      "scenario_number": 93
+    },
+    {
+      "actual_result": {
+        "adj": 0.6007615525622043,
+        "raw": 0.73138270642111,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "family": "random_partial_profiles"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "random_partial_profiles"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family random_partial_profiles yields bounded outputs",
+      "scenario_id": "family_bounds_random_partial_profiles",
+      "scenario_number": 94
+    },
+    {
+      "actual_result": {
+        "adj": 0.6084175251640649,
+        "raw": 0.7542210962700174,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "family": "structured_missing_modules"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "structured_missing_modules"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family structured_missing_modules yields bounded outputs",
+      "scenario_id": "family_bounds_structured_missing_modules",
+      "scenario_number": 95
+    },
+    {
+      "actual_result": {
+        "adj": 0.5301789563548615,
+        "raw": 0.5891934630001492,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "family": "structured_missing_dimensions"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "structured_missing_dimensions"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family structured_missing_dimensions yields bounded outputs",
+      "scenario_id": "family_bounds_structured_missing_dimensions",
+      "scenario_number": 96
+    },
+    {
+      "actual_result": {
+        "adj": 0.853125593264519,
+        "raw": 0.9545863027491667,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "narrow_score_range"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "narrow_score_range"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family narrow_score_range yields bounded outputs",
+      "scenario_id": "family_bounds_narrow_score_range",
+      "scenario_number": 97
+    },
+    {
+      "actual_result": {
+        "adj": 0.46497336297485237,
+        "raw": 0.4549038523609351,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "wide_score_range"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "wide_score_range"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family wide_score_range yields bounded outputs",
+      "scenario_id": "family_bounds_wide_score_range",
+      "scenario_number": 98
+    },
+    {
+      "actual_result": {
+        "adj": 0.428486882321291,
+        "raw": 0.4197771235267639,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "boundary_heavy"
+      },
+      "diagnostic_codes": [
+        "boundary_heavy",
+        "family_ok"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family boundary_heavy yields bounded outputs",
+      "scenario_id": "family_bounds_boundary_heavy",
+      "scenario_number": 99
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {
+        "family": "hard_constraint_sparse"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "hard_constraint_sparse"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family hard_constraint_sparse yields bounded outputs",
+      "scenario_id": "family_bounds_hard_constraint_sparse",
+      "scenario_number": 100
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {
+        "family": "hard_constraint_dense"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "hard_constraint_dense"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family hard_constraint_dense yields bounded outputs",
+      "scenario_id": "family_bounds_hard_constraint_dense",
+      "scenario_number": 101
+    },
+    {
+      "actual_result": {
+        "adj": 0.5488355908766909,
+        "raw": 0.5564944650000194,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "family": "soft_conflict_sparse"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "soft_conflict_sparse"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family soft_conflict_sparse yields bounded outputs",
+      "scenario_id": "family_bounds_soft_conflict_sparse",
+      "scenario_number": 102
+    },
+    {
+      "actual_result": {
+        "adj": null,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {
+        "family": "soft_conflict_dense"
+      },
+      "diagnostic_codes": [
+        "family_ok",
+        "soft_conflict_dense"
+      ],
+      "expected_mathematical_property": "finite bounded or null",
+      "pass": true,
+      "purpose": "family soft_conflict_dense yields bounded outputs",
+      "scenario_id": "family_bounds_soft_conflict_dense",
+      "scenario_number": 103
+    }
+  ]
+}

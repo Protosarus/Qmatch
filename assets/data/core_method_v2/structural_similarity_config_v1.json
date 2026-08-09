@@ -1,0 +1,47 @@
+{
+  "config_id": "structural_similarity_config_v1",
+  "config_version": "structural_similarity_config_v1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "runtime_status": "offline_only",
+  "production_approved": false,
+  "scientifically_validated": false,
+  "distance_metric": "confidence_weighted_normalized_squared_euclidean",
+  "pair_confidence_mode": "geometric_mean",
+  "similarity_kernel": "gaussian_rbf",
+  "default_dimension_weight": 1.0,
+  "dimension_weight_overrides": {},
+  "module_similarity_scales": {
+    "iq": 0.35,
+    "eq": 0.35,
+    "frequency": 0.35
+  },
+  "minimum_comparable_dimensions_per_module": {
+    "iq": 2,
+    "eq": 4,
+    "frequency": 3
+  },
+  "minimum_comparable_source": "core_method_v2_config_v1",
+  "score_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "confidence_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "missing_data_policy": "leave_unpublished_never_impute_neutral",
+  "zero_effective_weight_policy": "insufficient_evidence_null_similarity",
+  "version_compatibility_policy": "require_matching_registry_and_scoring_contract",
+  "complementarity_status": "disabled_pending_calibration",
+  "persona_input_status": "prohibited",
+  "ai_scoring_status": "prohibited",
+  "notes": {
+    "scales_are_provisional_uncalibrated_offline_only": true,
+    "equal_base_weights_within_module_v1": true,
+    "do_not_apply_module_aggregation_weights": true,
+    "do_not_shrink_similarity_toward_neutral": true,
+    "not_production_approved": true
+  }
+}

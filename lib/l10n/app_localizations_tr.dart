@@ -461,7 +461,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Doğrulama başarısız. Lütfen tekrar dene.';
 
   @override
-  String get loginWelcomeBack => 'Tekrar hoş geldin';
+  String get loginWelcomeBack => 'Hoş geldin';
 
   @override
   String get loginSubtitle => 'Devam etmek için e-postanla giriş yap.';
@@ -511,11 +511,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverMatchDialogBody => 'Artık sohbete başlayabilirsiniz.';
 
   @override
-  String get discoverEmptyTitle => 'Henüz uyumlu profil yok.';
+  String get discoverEmptyTitle =>
+      'Şu anda gösterebileceğimiz yeni profil yok.';
 
   @override
   String get discoverEmptySubtitle =>
-      'Qmatch\'e daha fazla kişi katıldıkça tekrar dene.';
+      'Biraz sonra yeniden kontrol edebilirsin.';
 
   @override
   String get discoverPass => 'Geç';
@@ -530,6 +531,28 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get discoverInterests => 'İlgi alanları';
+
+  @override
+  String get discoverLoading => 'Senin için kişiler aranıyor…';
+
+  @override
+  String get discoverErrorTitle => 'Profiller yüklenemedi';
+
+  @override
+  String get discoverErrorBody =>
+      'Keşfet yüklenirken bir sorun oluştu. Lütfen tekrar dene.';
+
+  @override
+  String get discoverActionFailed =>
+      'Bu işlem tamamlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get discoverMissingPhotoLabel => 'Profil fotoğrafı yok';
+
+  @override
+  String discoverPhotoSemanticLabel(String name) {
+    return '$name fotoğrafı';
+  }
 
   @override
   String get compatibilityLabelExceptional => 'Olağanüstü uyum';
@@ -564,6 +587,24 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get messagesConversationFallback => 'Sohbet';
+
+  @override
+  String get messagesLoading => 'Sohbetler yükleniyor…';
+
+  @override
+  String messagesAvatarSemanticLabel(String name) {
+    return '$name fotoğrafı';
+  }
+
+  @override
+  String messagesUnreadSemanticLabel(int count) {
+    return '$count okunmamış mesaj';
+  }
+
+  @override
+  String messagesConversationSemanticLabel(String name) {
+    return '$name ile sohbet';
+  }
 
   @override
   String get messagesSayHi => 'Merhaba de 👋';
@@ -637,7 +678,103 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatStartConversation => 'Sohbete başla.';
 
   @override
+  String get chatEmptySubtitle =>
+      'Hazır olduğunda merhaba diyebilirsin. Acele yok.';
+
+  @override
+  String get chatLoadingMessages => 'Mesajlar yükleniyor…';
+
+  @override
+  String get chatMessagesLoadErrorTitle => 'Mesajlar yüklenemedi.';
+
+  @override
+  String get chatMessagesLoadErrorSubtitle => 'Lütfen biraz sonra tekrar dene.';
+
+  @override
+  String get chatProfileLoadErrorTitle => 'Profil yüklenemedi.';
+
+  @override
+  String get chatProfileLoadErrorSubtitle =>
+      'Profil bilgileri şu an kullanılamıyor.';
+
+  @override
+  String get chatSendFailed => 'Mesaj gönderilemedi. Lütfen tekrar dene.';
+
+  @override
+  String get chatActionFailed => 'Bir şeyler ters gitti. Lütfen tekrar dene.';
+
+  @override
+  String get chatDateToday => 'Bugün';
+
+  @override
+  String get chatSendSemanticLabel => 'Mesaj gönder';
+
+  @override
   String get settingsTitle => 'Ayarlar';
+
+  @override
+  String get settingsGroupPreferences => 'Tercihler';
+
+  @override
+  String get settingsGroupPrivacySafety => 'Gizlilik ve güvenlik';
+
+  @override
+  String get settingsGroupHelp => 'Yardım ve bilgi';
+
+  @override
+  String get settingsGroupAccount => 'Hesap';
+
+  @override
+  String get settingsGroupDeveloper => 'Geliştirici';
+
+  @override
+  String get settingsNotificationsHonestSubtitle =>
+      'Şimdilik cihaz tercihi — bildirim teslimi telefon ayarlarına da bağlıdır';
+
+  @override
+  String get settingsPrivacyHonestSubtitle =>
+      'Görünürlük seçenekleri şimdilik bu cihazda — ayrıntılar için Gizlilik Politikası';
+
+  @override
+  String get settingsDebug => 'Hata ayıklama';
+
+  @override
+  String get settingsDebugSubtitle =>
+      'Değerlendirme yönetimi ve araçlar (yalnızca debug)';
+
+  @override
+  String get profilePhotosEmptyTitle => 'İlk fotoğrafını ekle';
+
+  @override
+  String get profilePhotosEmptyBody =>
+      'Fotoğraflar seni tanımayı kolaylaştırır. En fazla 9 fotoğraf ekleyebilirsin.';
+
+  @override
+  String get profilePhotosEmptyHint =>
+      'Uygun olduğunda fotoğrafların profilinde ve Keşfet’te görünür.';
+
+  @override
+  String get profilePhotosAddFirst => 'Fotoğraf ekle';
+
+  @override
+  String get profilePhotosAddTile => 'Ekle';
+
+  @override
+  String get profilePhotosUploading => 'Yükleniyor…';
+
+  @override
+  String get profilePhotosUploadFailed =>
+      'Fotoğraflar yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get profilePhotosDeleteFailed =>
+      'Fotoğraf silinemedi. Lütfen tekrar dene.';
+
+  @override
+  String get profilePhotosAtCapacity => '9 fotoğraf sınırına ulaştın.';
+
+  @override
+  String get profilePhotosPrimaryBadge => 'Ana fotoğraf';
 
   @override
   String get settingsNotifications => 'Bildirimler';
@@ -873,6 +1010,33 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profileInterests => 'İlgi Alanları';
 
   @override
+  String get profileNoInterestsYet => 'Henüz ilgi alanı eklenmedi';
+
+  @override
+  String get profileDetailsSection => 'Detaylar';
+
+  @override
+  String get profileLoading => 'Profil yükleniyor…';
+
+  @override
+  String get profileLoadFailed => 'Profilin yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get profileMissingPhoto => 'Fotoğraf ekle';
+
+  @override
+  String get profileEditPhotoSemantic => 'Profil fotoğrafını düzenle';
+
+  @override
+  String get profileFieldOccupation => 'Meslek';
+
+  @override
+  String get profileFieldDrinking => 'Alkol';
+
+  @override
+  String get profileFieldSmoking => 'Sigara';
+
+  @override
   String get profileSetupTitle => 'Profil Oluştur';
 
   @override
@@ -905,6 +1069,64 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get nameSelectionErrorMinLength => 'İsim en az 2 karakter olmalı';
+
+  @override
+  String get displayNameTitle => 'Sana nasıl hitap edelim?';
+
+  @override
+  String get displayNameSubtitle =>
+      'Bu ad profilinde diğer kullanıcılara görünecek.';
+
+  @override
+  String get displayNameLabel => 'Görünen ad';
+
+  @override
+  String get displayNameHint => 'Adın';
+
+  @override
+  String get displayNamePublicExplanation =>
+      'Benzersiz kullanıcı adı değildir. Daha sonra değiştirebilirsin.';
+
+  @override
+  String get displayNameContinue => 'Devam';
+
+  @override
+  String get displayNameSaving => 'Kaydediliyor…';
+
+  @override
+  String get displayNameErrorEmpty => 'Lütfen bir görünen ad gir.';
+
+  @override
+  String get displayNameErrorTooShort => 'En az 2 karakter kullan.';
+
+  @override
+  String get displayNameErrorTooLong => 'En fazla 24 karakter kullan.';
+
+  @override
+  String get displayNameErrorLetterOrNumber =>
+      'En az bir harf veya rakam ekle.';
+
+  @override
+  String get displayNameErrorInvalid => 'Bu ad geçersiz karakterler içeriyor.';
+
+  @override
+  String get displayNameErrorEmailLike =>
+      'Lütfen e-posta değil, bir ad kullan.';
+
+  @override
+  String get displayNameErrorPhoneLike =>
+      'Lütfen telefon numarası değil, bir ad kullan.';
+
+  @override
+  String get displayNameErrorUrlLike =>
+      'Lütfen web sitesi değil, bir ad kullan.';
+
+  @override
+  String get displayNameErrorSaveFailed =>
+      'Adın kaydedilemedi. Lütfen tekrar dene.';
+
+  @override
+  String get displayNameMissingPeerLabel => 'Üye';
 
   @override
   String get privacySettingsTitle => 'Gizlilik';
@@ -1377,12 +1599,39 @@ class AppLocalizationsTr extends AppLocalizations {
       'Bu ekrandaki bildirim tercihleri şimdilik bu cihazda tutulur. Anlık bildirimler ayrıca telefon ayarlarına da bağlıdır.';
 
   @override
+  String get blockedUsersLoadFailed =>
+      'Engellenen kullanıcılar şu anda yüklenemedi. Lütfen daha sonra tekrar dene.';
+
+  @override
   String blockedUsersError(String message) {
     return 'Bir hata oluştu: $message';
   }
 
   @override
   String get blockedUsersBlockedAt => 'Engellendi';
+
+  @override
+  String get debugModeUnavailable =>
+      'Hata ayıklama modu yalnızca debug derlemelerinde kullanılabilir.';
+
+  @override
+  String get debugHomeTitle => 'Hata ayıklama araçları';
+
+  @override
+  String get debugHomeSubtitle =>
+      'Yalnızca geliştirme için. Bu yollar release ve profile derlemelerinde kapalı kalır.';
+
+  @override
+  String get debugAssessmentAdmin => 'Değerlendirme Yönetimi';
+
+  @override
+  String get debugPersonaPreview => 'Persona Sonucu Önizleme';
+
+  @override
+  String get debugFrequencyPreview => 'Frequency Soru Önizleme';
+
+  @override
+  String get debugGoToAuthWrapper => 'Auth Wrapper\'a git';
 
   @override
   String get mainAppWelcome => 'QMatch\'e hoş geldin!';

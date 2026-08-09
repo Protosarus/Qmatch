@@ -1,0 +1,51 @@
+{
+  "schema_version": "canonical_assessment_blueprint_v3",
+  "status": "provisional",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "session_counts": {
+    "iq_core": 25,
+    "eq_core": 30,
+    "frequency_core": 50,
+    "adaptive_separator_min": 0,
+    "adaptive_separator_max": 8
+  },
+  "iq_domain_allocation": {
+    "logical_reasoning": 7,
+    "pattern_reasoning": 6,
+    "verbal_reasoning": 6,
+    "spatial_reasoning": 6
+  },
+  "eq_dimensions": [
+    "empathy",
+    "perspective_taking",
+    "self_awareness",
+    "emotion_regulation",
+    "emotional_openness",
+    "boundary_setting",
+    "assertiveness",
+    "conflict_approach",
+    "repair_orientation",
+    "social_awareness"
+  ],
+  "frequency_dimensions": [
+    "depth_preference",
+    "social_energy",
+    "spontaneity",
+    "stability",
+    "disclosure_pace",
+    "communication_pace"
+  ],
+  "frequency_min_primary_per_dimension_in_session": 6,
+  "eq_min_primary_per_dimension_in_session": 2,
+  "minimum_evidence_units_before_present": {
+    "iq": 3,
+    "eq": 3,
+    "frequency": 3
+  },
+  "notes": {
+    "provisional": true,
+    "not_psychometric_norms": true,
+    "eq_frequency_have_no_correct_answers": true,
+    "missing_evidence_never_neutral": true
+  }
+}

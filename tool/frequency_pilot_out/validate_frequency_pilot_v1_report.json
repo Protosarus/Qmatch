@@ -1,0 +1,190 @@
+{
+  "automated_validation": "CONDITIONAL",
+  "calibration_status": "uncalibrated",
+  "content_version": "frequency-tr-pilot-v1",
+  "domain_counts": {
+    "communication_pace": 9,
+    "depth_preference": 9,
+    "disclosure_pace": 8,
+    "social_energy": 8,
+    "spontaneity": 8,
+    "stability": 8
+  },
+  "error_count": 0,
+  "evidence_strength_values": [
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7
+  ],
+  "findings": [
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_depth_preference_001",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_depth_preference_002",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_depth_preference_004",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_depth_preference_006",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_depth_preference_008",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_depth_preference_009",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_disclosure_pace_001",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_disclosure_pace_002",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_social_energy_003",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_spontaneity_002",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_spontaneity_003",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_spontaneity_005",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_spontaneity_008",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_stability_001",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_stability_002",
+      "severity": "warn"
+    },
+    {
+      "code": "option_length_leakage",
+      "message": "max/min option length ratio > 1.5",
+      "question_id": "frequency_tr_v1_stability_006",
+      "severity": "warn"
+    },
+    {
+      "code": "duplicate",
+      "message": "rejected",
+      "severity": "info"
+    },
+    {
+      "code": "unknown",
+      "message": "rejected",
+      "severity": "info"
+    },
+    {
+      "code": "trait_scoring",
+      "message": "Frequency pilot scoring smoke passed (50 items)",
+      "severity": "info"
+    }
+  ],
+  "form_id": "frequency_tr_pilot_v1",
+  "independent_context_counts": {
+    "communication_pace": 10,
+    "depth_preference": 10,
+    "disclosure_pace": 10,
+    "social_energy": 10,
+    "spontaneity": 10,
+    "stability": 10
+  },
+  "locale": "tr-TR",
+  "manual_tradeoff_review": "PENDING",
+  "notes": {
+    "does_not_prove_tradeoff_semantics": true,
+    "eq_construct_separation": "no EQ deltas; disclosure_pace not emotional_openness",
+    "json_map_order_not_applicable": true,
+    "not_production_wired": true,
+    "offline_only": true
+  },
+  "overall_readiness": "CONDITIONAL",
+  "pair_registry_counts": {
+    "behavioral_isomorph_groups": 6,
+    "reverse_pairs": 6,
+    "semantic_pairs": 8
+  },
+  "review_state": "internal_review",
+  "rvi_role_counts": {
+    "repeated_context_stability": 12,
+    "response_variation": 5,
+    "reverse_consistency": 12,
+    "semantic_consistency": 16,
+    "social_impression_risk": 5,
+    "timing_quality": 50
+  },
+  "scenario_family_counts": {
+    "conversation_depth_topic_progression": 5,
+    "early_messaging_first_contact": 5,
+    "longer_term_communication_rhythm": 5,
+    "one_to_one_vs_group": 5,
+    "personal_disclosure_trust": 5,
+    "planning_scheduling_last_minute": 5,
+    "routine_continuity_habits": 5,
+    "shared_activities_novelty": 5,
+    "silence_space_reconnection": 5,
+    "social_outings_groups_recovery": 5
+  },
+  "secondary_appearances": {
+    "communication_pace": 28,
+    "depth_preference": 27,
+    "disclosure_pace": 23,
+    "social_energy": 26,
+    "spontaneity": 16,
+    "stability": 36
+  },
+  "set_id": "frequency_tr_pilot_v1_set_001",
+  "status": "pilot",
+  "warn_count": 16
+}

@@ -1,0 +1,15 @@
+{
+  "calibration_readiness": "conditional",
+  "component_redundancy": "conditional",
+  "confidence_robustness": "pass",
+  "deterministic_reproducibility": "pass",
+  "explanation_stability": "conditional",
+  "hard_gating_robustness": "pass",
+  "invariant_compliance": "pass",
+  "missingness_robustness": "pass",
+  "note": "Categories are separate; do not collapse into one PASS.",
+  "numerical_robustness": "pass",
+  "parameter_sensitivity": "conditional",
+  "production_readiness": "not_evaluated",
+  "soft_conflict_regression": "pass"
+}

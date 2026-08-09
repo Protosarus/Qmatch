@@ -1,0 +1,41 @@
+{
+  "config_id": "core_method_v2_config_v1",
+  "config_version": "core_method_v2_config_v1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "offline_only": true,
+  "production_approved": false,
+  "scientifically_validated": false,
+  "module_weights": {
+    "iq": 0.1,
+    "eq": 0.3,
+    "frequency": 0.35,
+    "values": 0.25
+  },
+  "weight_sum_tolerance": 1e-09,
+  "score_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "confidence_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "neutral_score": 0.5,
+  "minimum_comparable_dimensions_per_module": {
+    "iq": 2,
+    "eq": 4,
+    "frequency": 3,
+    "values": 2
+  },
+  "missing_data_policy": "leave_unpublished_never_impute_neutral",
+  "confidence_adjustment_policy_id": "confidence_adjust_v1_placeholder_disabled",
+  "complementarity_status": "disabled_pending_calibration",
+  "time_layer_status": "disabled",
+  "ai_scoring_status": "prohibited",
+  "notes": {
+    "weights_are_provisional_hypotheses": true,
+    "do_not_execute_formulas_in_p2b0": true
+  }
+}

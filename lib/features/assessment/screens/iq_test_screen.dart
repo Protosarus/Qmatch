@@ -9,8 +9,11 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/question_model.dart';
+import '../services/assessment_progress_service.dart';
 import '../services/assessment_set_service.dart';
+import '../services/canonical_assessment_persistence.dart';
 import '../services/question_service.dart';
+import '../utils/assessment_language.dart';
 import '../widgets/assessment_widgets.dart';
 import 'eq_test_intro_screen.dart';
 
@@ -23,7 +26,12 @@ class IQTestScreen extends StatefulWidget {
 
 class _IQTestScreenState extends State<IQTestScreen> {
   final _questionService = QuestionService();
+  final _persistence = CanonicalAssessmentPersistence();
+  final _progress = AssessmentProgressService();
   List<QuestionModel> _questions = [];
+  String _setId = '';
+  String _contentVersion = 'content_legacy_2026_01';
+  DateTime? _startedAt;
   int _currentQuestionIndex = 0;
   int? _selectedAnswer;
   bool _isLoading = true;
@@ -102,13 +110,17 @@ class _IQTestScreenState extends State<IQTestScreen> {
     try {
       final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
           WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final questions = await _questionService.getRandomIQQuestions(
-        count: 10,
+      final loaded = await _questionService.loadIQAssessment(
         languageCode: languageCode,
       );
       if (!mounted) return;
       setState(() {
-        _questions = questions;
+        _questions = loaded.questions;
+        _setId = loaded.set.id;
+        _contentVersion = loaded.set.version.isNotEmpty
+            ? loaded.set.version
+            : 'content_legacy_2026_01';
+        _startedAt = DateTime.now();
         _isLoading = false;
       });
     } catch (e) {
@@ -143,13 +155,36 @@ class _IQTestScreenState extends State<IQTestScreen> {
         final languageCode =
             Localizations.maybeLocaleOf(context)?.languageCode ??
                 WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+        final language = AssessmentLanguage.languageUsed(
+          languageCode: languageCode,
+        );
+        final locale = AssessmentLanguage.localeUsed(
+          locale: Locale(language),
+        );
         await AssessmentSetService().markAssignmentCompleted(
           type: 'iq',
           score: _correctAnswers,
           languageCode: languageCode,
         );
+        await _persistence.upsertCompletedAssessment(
+          assessmentType: 'iq',
+          fields: _persistence.buildLegacyIqEqPayload(
+            assessmentType: 'iq',
+            setId: _setId,
+            contentVersion: _contentVersion,
+            locale: locale,
+            languageUsed: language,
+            questionCount: _questions.length,
+            answeredCount: _questions.length,
+            rawScore: _correctAnswers,
+            missingDimensions: CanonicalDimensions.iq,
+            assignmentType: 'iq',
+            startedAt: _startedAt,
+          ),
+        );
+        await _progress.markIqCompleted(rawScore: _correctAnswers);
       } catch (e) {
-        debugPrint('IQ assignment completion: $e');
+        debugPrint('IQ assignment/canonical completion: $e');
       }
       if (!mounted) return;
       _showTransitionDialog();

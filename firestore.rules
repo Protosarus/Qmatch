@@ -1,0 +1,237 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function sortedPairId(a, b) {
+      return a < b ? a + '_' + b : b + '_' + a;
+    }
+
+    function isMatchedWith(otherUid) {
+      return isSignedIn()
+        && exists(
+          /databases/$(database)/documents/matches/$(sortedPairId(request.auth.uid, otherUid))
+        );
+    }
+
+    function likeExists(fromUid, toUid) {
+      return exists(
+          /databases/$(database)/documents/users/$(fromUid)/swipes/$(toUid)
+        )
+        && get(
+          /databases/$(database)/documents/users/$(fromUid)/swipes/$(toUid)
+        ).data.direction == 'like';
+    }
+
+    function isMatchMember() {
+      return isSignedIn()
+        && resource.data.keys().hasAny(['users'])
+        && request.auth.uid in resource.data.users;
+    }
+
+    function isMatchMemberOnCreate() {
+      return isSignedIn()
+        && request.resource.data.keys().hasAny(['users'])
+        && request.auth.uid in request.resource.data.users
+        && request.resource.data.users.size() == 2;
+    }
+
+    function matchUsersValid(matchId) {
+      return request.resource.data.users.size() == 2
+        && request.resource.data.user_a is string
+        && request.resource.data.user_b is string
+        && request.resource.data.user_a < request.resource.data.user_b
+        && request.resource.data.users.hasAll([
+          request.resource.data.user_a,
+          request.resource.data.user_b
+        ])
+        && matchId == sortedPairId(
+          request.resource.data.user_a,
+          request.resource.data.user_b
+        );
+    }
+
+    function mutualLikeForMatchCreate() {
+      let a = request.resource.data.user_a;
+      let b = request.resource.data.user_b;
+      return likeExists(a, b) && likeExists(b, a);
+    }
+
+    function isThreadParticipant() {
+      return isSignedIn()
+        && resource.data.keys().hasAny(['participants'])
+        && request.auth.uid in resource.data.participants;
+    }
+
+    function isThreadParticipantOnCreate() {
+      return isSignedIn()
+        && request.resource.data.keys().hasAny(['participants'])
+        && request.auth.uid in request.resource.data.participants
+        && request.resource.data.participants.size() == 2;
+    }
+
+    function threadData(threadId) {
+      return get(/databases/$(database)/documents/threads/$(threadId)).data;
+    }
+
+    function isParticipantOfThread(threadId) {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/threads/$(threadId))
+        && request.auth.uid in threadData(threadId).participants;
+    }
+
+    // Server-owned / derived fields clients must not mutate after create.
+    // Current AuthService/Profile flows still attempt some of these writes —
+    // that is a documented release blocker until a trusted backend owns them.
+    // Canonical public display name (`name`) may be updated by the owner.
+    // Protected derived keys remain immutable via userProtectedKeysUnchanged().
+    function userProtectedKeysUnchanged() {
+      let affected = request.resource.data.diff(resource.data).affectedKeys();
+      return !affected.hasAny([
+        'discover_eligible',
+        'iq_score',
+        'eq_score',
+        'compatibility',
+        'compat',
+        'moderation_state',
+        'moderation_status',
+        'account_deletion_status',
+        'uid'
+      ]);
+    }
+
+    function userCreateProtectedDefaultsOk() {
+      return request.resource.data.uid == request.auth.uid
+        && (
+          !('discover_eligible' in request.resource.data)
+          || request.resource.data.discover_eligible == false
+        );
+    }
+
+    // Deny-by-default for unknown paths.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // users/{uid}
+    match /users/{uid} {
+      // Owner full get; Discover candidates when eligible; matched peers for chat/profile.
+      allow get: if isOwner(uid)
+        || (isSignedIn() && resource.data.discover_eligible == true)
+        || isMatchedWith(uid);
+
+      // List required for Discover query; each returned doc still must pass get.
+      allow list: if isSignedIn();
+
+      allow create: if isOwner(uid) && userCreateProtectedDefaultsOk();
+      allow update: if isOwner(uid) && userProtectedKeysUnchanged();
+      allow delete: if false;
+
+      match /assessment_assignments/{type} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // Private assessment answers / evidence / confidence — owner only.
+      match /assessments/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // Owner writes own swipes; target may read reverse swipe for mutual-like checks.
+      match /swipes/{targetUid} {
+        allow read: if isSignedIn()
+          && (request.auth.uid == uid || request.auth.uid == targetUid);
+        allow create, update: if isOwner(uid);
+        allow delete: if false;
+      }
+
+      match /blocks/{blockedUid} {
+        allow read, write: if isOwner(uid);
+        allow delete: if isOwner(uid);
+      }
+    }
+
+    // assessment_sets/{setId} — client seed/upload helpers intentionally denied.
+    match /assessment_sets/{setId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // questions/{docId} — legacy fallback read only.
+    match /questions/{docId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // matches/{matchId} — create only with mutual likes + deterministic id.
+    match /matches/{matchId} {
+      allow read: if isMatchMember();
+      allow create: if isMatchMemberOnCreate()
+        && matchUsersValid(matchId)
+        && mutualLikeForMatchCreate();
+      allow update: if isMatchMember()
+        && request.resource.data.users == resource.data.users
+        && request.resource.data.user_a == resource.data.user_a
+        && request.resource.data.user_b == resource.data.user_b
+        && !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['compat', 'compatibility']);
+      allow delete: if false;
+    }
+
+    // threads/{threadId}
+    match /threads/{threadId} {
+      allow read: if isThreadParticipant();
+      allow create: if isThreadParticipantOnCreate()
+        && request.resource.data.participants.size() == 2
+        && threadId == sortedPairId(
+          request.resource.data.participants[0],
+          request.resource.data.participants[1]
+        );
+      allow update: if isThreadParticipant()
+        && request.resource.data.participants == resource.data.participants;
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow read: if isParticipantOfThread(threadId);
+        allow create: if isParticipantOfThread(threadId)
+          && (
+            request.resource.data.sender_id == request.auth.uid
+            || (
+              request.resource.data.sender_id == 'system'
+              && request.resource.data.type == 'system'
+            )
+          );
+        allow update, delete: if false;
+      }
+    }
+
+    // reports/{reportId} — reporter create only; no client reads (incl. unrelated users).
+    match /reports/{reportId} {
+      allow create: if isSignedIn()
+        && request.resource.data.reporter_uid == request.auth.uid
+        && request.resource.data.reported_uid is string
+        && request.resource.data.reported_uid != request.auth.uid
+        && request.resource.data.status == 'new';
+      allow read, update, delete: if false;
+    }
+
+    // account_deletion_requests/{uid} — owner-controlled request docs only.
+    match /account_deletion_requests/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid)
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'requested';
+      allow update: if isOwner(uid)
+        && resource.data.uid == request.auth.uid
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'requested'
+        && resource.data.status == 'requested';
+      allow delete: if false;
+    }
+  }
+}

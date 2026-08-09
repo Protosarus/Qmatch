@@ -1,0 +1,7 @@
+{
+  "error_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "status": "PASS",
+  "validator": "validate_core_method_v2_aggregation_v1"
+}

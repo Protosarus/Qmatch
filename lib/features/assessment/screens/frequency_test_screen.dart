@@ -1,15 +1,19 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/services/auth_service.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../profile/services/profile_service.dart';
 import '../models/frequency_model.dart';
 import '../services/assessment_set_service.dart';
 import '../services/frequency_service.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_scaffold.dart';
+import 'assessment_flow_complete_screen.dart';
 import 'frequency_result_screen.dart';
 
 class FrequencyTestScreen extends StatefulWidget {
@@ -22,6 +26,8 @@ class FrequencyTestScreen extends StatefulWidget {
 class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   final _service = FrequencyService();
   List<FrequencyQuestion> _questions = [];
+  String _setId = '';
+  String _contentVersion = 'content_legacy_2026_01';
   bool _loadingQuestions = true;
   bool _didStartLoading = false;
 
@@ -57,12 +63,16 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
     try {
       final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
           WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final list = await _service.loadAssignedFrequencyQuestions(
+      final loaded = await _service.loadAssignedFrequencyAssessment(
         languageCode: languageCode,
       );
       if (!mounted) return;
       setState(() {
-        _questions = list.isNotEmpty ? list : _service.getFrequencyQuestions();
+        _questions = loaded.questions.isNotEmpty
+            ? loaded.questions
+            : _service.getFrequencyQuestions();
+        _setId = loaded.setId;
+        _contentVersion = loaded.contentVersion;
         _loadingQuestions = false;
       });
     } catch (e) {
@@ -155,14 +165,35 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       await _service.saveFrequencyResult(
         result,
         languageCode: languageCode,
+        setId: _setId,
+        contentVersion: _contentVersion,
       );
       if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => FrequencyResultScreen(result: result),
-        ),
-      );
+      if (result.isComplete) {
+        final profileCompleted = await AuthService().hasCompletedProfile();
+        final uid = FirebaseAuth.instance.currentUser?.uid;
+        if (uid != null) {
+          try {
+            await ProfileService().refreshDiscoverEligibility(uid);
+          } catch (_) {}
+        }
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => AssessmentFlowCompleteScreen(
+              profileCompleted: profileCompleted,
+            ),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FrequencyResultScreen(result: result),
+          ),
+        );
+      }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

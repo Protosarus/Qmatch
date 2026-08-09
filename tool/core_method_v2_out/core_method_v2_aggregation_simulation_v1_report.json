@@ -1,0 +1,2560 @@
+{
+  "contiguous_scenario_numbers": true,
+  "fail_count": 0,
+  "pass_count": 90,
+  "scenario_count": 90,
+  "scenarios": [
+    {
+      "actual_result": {
+        "adjusted": 1.0,
+        "available_count": 5,
+        "fingerprint": "-295fcc83c538f785",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 1.0,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "confidence": 1.0,
+        "score": 1.0
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw==1.0 adjusted==1.0",
+      "pass": true,
+      "purpose": "All five components equal 1.0, confidence 1",
+      "scenario_id": "all_one",
+      "scenario_number": 1
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "1187c59672c505ad",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "confidence": 1.0,
+        "score": 0.5
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw==0.5 adjusted==0.5",
+      "pass": true,
+      "purpose": "All five components equal 0.5, confidence 1",
+      "scenario_id": "all_half",
+      "scenario_number": 2
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.0,
+        "available_count": 5,
+        "fingerprint": "7100ea556a546990",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.0,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "confidence": 1.0,
+        "score": 0.0
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw==0.0 adjusted==0.0",
+      "pass": true,
+      "purpose": "All five components equal 0.0, confidence 1",
+      "scenario_id": "all_zero",
+      "scenario_number": 3
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.44000000000000006,
+        "available_count": 5,
+        "fingerprint": "4aed34c33ac6d86e",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.44000000000000006,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "expected_raw": 0.44000000000000006
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw==0.44000000000000006",
+      "pass": true,
+      "purpose": "Mixed components with manually verified raw score",
+      "scenario_id": "mixed_verified_raw",
+      "scenario_number": 4
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.9000000000000001,
+        "available_count": 5,
+        "fingerprint": "-174ddd710c13b593",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.9000000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "q": 1.0,
+        "score": 0.9
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted near raw",
+      "pass": true,
+      "purpose": "High raw with high confidence",
+      "scenario_id": "high_raw_high_q",
+      "scenario_number": 5
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5800000000000001,
+        "available_count": 5,
+        "fingerprint": "5eb3006ec2515209",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.20000000000000004,
+        "q_overall": 0.20000000000000004,
+        "ranking_eligible": false,
+        "raw": 0.9000000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "q": 0.2,
+        "score": 0.9
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted==0.5800000000000001",
+      "pass": true,
+      "purpose": "High raw with low confidence shrinks downward",
+      "scenario_id": "high_raw_low_q",
+      "scenario_number": 6
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.10000000000000002,
+        "available_count": 5,
+        "fingerprint": "-4995bb8d6b1bdaf5",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.10000000000000002,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "q": 1.0,
+        "score": 0.1
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted==0.1",
+      "pass": true,
+      "purpose": "Low raw with high confidence",
+      "scenario_id": "low_raw_high_q",
+      "scenario_number": 7
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.42,
+        "available_count": 5,
+        "fingerprint": "-1f0f0d59467b47c8",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.20000000000000004,
+        "q_overall": 0.20000000000000004,
+        "ranking_eligible": false,
+        "raw": 0.10000000000000002,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "q": 0.2,
+        "score": 0.1
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted==0.42000000000000004",
+      "pass": true,
+      "purpose": "Low raw with low confidence shrinks upward",
+      "scenario_id": "low_raw_low_q",
+      "scenario_number": 8
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "-60a40dd54ddb7efd",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.10000000000000002,
+        "q_overall": 0.10000000000000002,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "q": 0.1,
+        "score": 0.5
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_unchanged_at_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted==0.5",
+      "pass": true,
+      "purpose": "Neutral raw remains neutral under low confidence",
+      "scenario_id": "neutral_raw_low_q",
+      "scenario_number": 9
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7760000000000001,
+        "available_count": 4,
+        "fingerprint": "-13b095fa392bf358",
+        "hard": "passed",
+        "m_available": 0.9199999999999999,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.9199999999999999,
+        "ranking_eligible": false,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": "iq_structural"
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw unchanged for equal scores; Q reduced",
+      "pass": true,
+      "purpose": "One component missing",
+      "scenario_id": "one_component_missing",
+      "scenario_number": 10
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7760000000000001,
+        "available_count": 4,
+        "fingerprint": "-13b095fa392bf358",
+        "hard": "passed",
+        "m_available": 0.9199999999999999,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.9199999999999999,
+        "ranking_eligible": false,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": "iq_structural"
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw remains 0.8; Q lowered by weight",
+      "pass": true,
+      "purpose": "Component iq_structural missing",
+      "scenario_id": "missing_iq_structural",
+      "scenario_number": 11
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7280000000000001,
+        "available_count": 4,
+        "fingerprint": "-155e47641b017daf",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.76,
+        "ranking_eligible": false,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": "eq_structural"
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw remains 0.8; Q lowered by weight",
+      "pass": true,
+      "purpose": "Component eq_structural missing",
+      "scenario_id": "missing_eq_structural",
+      "scenario_number": 12
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7160000000000001,
+        "available_count": 4,
+        "fingerprint": "-5bcedbebecb820a7",
+        "hard": "passed",
+        "m_available": 0.72,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.72,
+        "ranking_eligible": false,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": "frequency_structural"
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "limited_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw remains 0.8; Q lowered by weight",
+      "pass": true,
+      "purpose": "Component frequency_structural missing",
+      "scenario_id": "missing_frequency_structural",
+      "scenario_number": 13
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7400000000000001,
+        "available_count": 4,
+        "fingerprint": "1ff4b9c96a5618b0",
+        "hard": "passed",
+        "m_available": 0.8,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.8,
+        "ranking_eligible": false,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": "mutual_partner_preference"
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw remains 0.8; Q lowered by weight",
+      "pass": true,
+      "purpose": "Component mutual_partner_preference missing",
+      "scenario_id": "missing_mutual_partner_preference",
+      "scenario_number": 14
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7400000000000001,
+        "available_count": 4,
+        "fingerprint": "-204fd59f80a17c77",
+        "hard": "passed",
+        "m_available": 0.8,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.8,
+        "ranking_eligible": false,
+        "raw": 0.8000000000000002,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": "mutual_relationship_values"
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw remains 0.8; Q lowered by weight",
+      "pass": true,
+      "purpose": "Component mutual_relationship_values missing",
+      "scenario_id": "missing_mutual_relationship_values",
+      "scenario_number": 15
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.6359999999999999,
+        "available_count": 3,
+        "fingerprint": "72e763e55c3f7e72",
+        "hard": "passed",
+        "m_available": 0.68,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.68,
+        "ranking_eligible": false,
+        "raw": 0.7,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "missing": [
+          "iq_structural",
+          "eq_structural"
+        ]
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "limited_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "scores available, mass=0.68",
+      "pass": true,
+      "purpose": "Two components missing but above weight threshold",
+      "scenario_id": "two_missing_above_mass",
+      "scenario_number": 16
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 3,
+        "fingerprint": "66ec8241335aa08c",
+        "hard": "passed",
+        "m_available": 0.48000000000000004,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 0.48000000000000004,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {
+        "missing": [
+          "frequency_structural",
+          "eq_structural"
+        ],
+        "remaining_mass": 0.48
+      },
+      "diagnostic_codes": [
+        "available_weight_mass_below_minimum",
+        "component_excluded_missing",
+        "component_missing",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_insufficient_evidence",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "insufficient_evidence, null scores",
+      "pass": true,
+      "purpose": "Two components missing below weight threshold",
+      "scenario_id": "two_missing_below_mass",
+      "scenario_number": 17
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.554,
+        "available_count": 2,
+        "fingerprint": "-56bf204a1501d076",
+        "hard": "passed",
+        "m_available": 0.52,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.52,
+        "ranking_eligible": false,
+        "raw": 0.6038461538461539,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "count": 2,
+        "mass": 0.52
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "limited_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "scores available (count=2, mass=0.52)",
+      "pass": true,
+      "purpose": "Exactly minimum component count",
+      "scenario_id": "exact_min_count",
+      "scenario_number": 18
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 1,
+        "fingerprint": "1642922a4625265d",
+        "hard": "passed",
+        "m_available": 0.28,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 0.28,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {
+        "count": 1
+      },
+      "diagnostic_codes": [
+        "available_component_count_below_minimum",
+        "available_weight_mass_below_minimum",
+        "component_excluded_missing",
+        "component_missing",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_insufficient_evidence",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "null scores",
+      "pass": true,
+      "purpose": "Below minimum component count",
+      "scenario_id": "below_min_count",
+      "scenario_number": 19
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.6,
+        "available_count": 3,
+        "fingerprint": "-2b983ebec2a55cf9",
+        "hard": "passed",
+        "m_available": 0.5,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.5,
+        "ranking_eligible": false,
+        "raw": 0.7,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "custom_weights": true,
+        "mass": 0.5
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "limited_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "may score when mass==0.50",
+      "pass": true,
+      "purpose": "Exactly minimum weight mass",
+      "scenario_id": "exact_min_mass",
+      "scenario_number": 20
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 2,
+        "fingerprint": "04495f5cba2e674c",
+        "hard": "passed",
+        "m_available": 0.28,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 0.28,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {
+        "mass": 0.28
+      },
+      "diagnostic_codes": [
+        "available_weight_mass_below_minimum",
+        "component_excluded_missing",
+        "component_missing",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_insufficient_evidence",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "null scores",
+      "pass": true,
+      "purpose": "Below minimum weight mass",
+      "scenario_id": "below_min_mass",
+      "scenario_number": 21
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 1,
+        "fingerprint": "04ba53885ad60e4e",
+        "hard": "passed",
+        "m_available": 0.24,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 0.24,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {
+        "count": 1
+      },
+      "diagnostic_codes": [
+        "available_component_count_below_minimum",
+        "available_weight_mass_below_minimum",
+        "component_excluded_missing",
+        "component_missing",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_insufficient_evidence",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "insufficient_evidence",
+      "pass": true,
+      "purpose": "One component only",
+      "scenario_id": "one_component_only",
+      "scenario_number": 22
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5799999999999998,
+        "available_count": 3,
+        "fingerprint": "-593ae40713104507",
+        "hard": "passed",
+        "m_available": 0.6000000000000001,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.6000000000000001,
+        "ranking_eligible": false,
+        "raw": 0.6333333333333332,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "mass": 0.6
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "limited_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "mass=0.60 scores available",
+      "pass": true,
+      "purpose": "All structural modules only",
+      "scenario_id": "structural_only",
+      "scenario_number": 23
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 2,
+        "fingerprint": "4e5d689476c96a6c",
+        "hard": "passed",
+        "m_available": 0.4,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 0.4,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {
+        "mass": 0.4
+      },
+      "diagnostic_codes": [
+        "available_weight_mass_below_minimum",
+        "component_excluded_missing",
+        "component_missing",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_insufficient_evidence",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "mass=0.40 insufficient",
+      "pass": true,
+      "purpose": "Preference and values only",
+      "scenario_id": "pref_values_only",
+      "scenario_number": 24
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.484,
+        "available_count": 2,
+        "fingerprint": "-3eb469895d344084",
+        "hard": "passed",
+        "m_available": 0.52,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.52,
+        "ranking_eligible": false,
+        "raw": 0.46923076923076923,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "mass": 0.52
+      },
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "limited_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "mass=0.52 scoreable",
+      "pass": true,
+      "purpose": "EQ and Frequency only",
+      "scenario_id": "eq_freq_only",
+      "scenario_number": 25
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.54,
+        "available_count": 5,
+        "fingerprint": "-545be8ef53600db3",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.54,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw pulled only lightly by iq=1",
+      "pass": true,
+      "purpose": "High-score low-weight component",
+      "scenario_id": "high_score_low_weight",
+      "scenario_number": 26
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.36,
+        "available_count": 5,
+        "fingerprint": "-1dc05c45ae539c09",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.36,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "frequency=0 pulls raw down more",
+      "pass": true,
+      "purpose": "Low-score high-weight component",
+      "scenario_id": "low_score_high_weight",
+      "scenario_number": 27
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "796a04db3654b655",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.54,
+        "q_overall": 0.54,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_unchanged_at_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "Q_overall increases slightly via iq",
+      "pass": true,
+      "purpose": "High-confidence low-weight component",
+      "scenario_id": "high_conf_low_weight",
+      "scenario_number": 28
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "-711b57495379e170",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.388,
+        "q_overall": 0.388,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_unchanged_at_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "Q_overall reduced more by frequency",
+      "pass": true,
+      "purpose": "Low-confidence high-weight component",
+      "scenario_id": "low_conf_high_weight",
+      "scenario_number": 29
+    },
+    {
+      "actual_result": {
+        "full": {
+          "adjusted": 0.7700000000000001,
+          "available_count": 5,
+          "fingerprint": "-4ae6bd0736840a2e",
+          "hard": "passed",
+          "m_available": 1.0,
+          "publishable": true,
+          "q_mean": 1.0,
+          "q_overall": 1.0,
+          "ranking_eligible": false,
+          "raw": 0.7700000000000001,
+          "status": "complete"
+        },
+        "missing_iq": {
+          "adjusted": 0.7484000000000001,
+          "available_count": 4,
+          "fingerprint": "-4a18cd8569e95058",
+          "hard": "passed",
+          "m_available": 0.9199999999999999,
+          "publishable": true,
+          "q_mean": 1.0,
+          "q_overall": 0.9199999999999999,
+          "ranking_eligible": false,
+          "raw": 0.7700000000000001,
+          "status": "partial"
+        }
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw equal, Q lower",
+      "pass": true,
+      "purpose": "Missing component lowers Q but not raw",
+      "scenario_id": "missing_lowers_q_not_raw",
+      "scenario_number": 30
+    },
+    {
+      "actual_result": {
+        "a": {
+          "adjusted": 0.6,
+          "available_count": 5,
+          "fingerprint": "-5086aa05b5e825c2",
+          "hard": "passed",
+          "m_available": 1.0,
+          "publishable": true,
+          "q_mean": 1.0,
+          "q_overall": 1.0,
+          "ranking_eligible": false,
+          "raw": 0.6,
+          "status": "complete"
+        },
+        "b": {
+          "adjusted": 0.5920000000000001,
+          "available_count": 4,
+          "fingerprint": "4cace4170f159076",
+          "hard": "passed",
+          "m_available": 0.9199999999999999,
+          "publishable": true,
+          "q_mean": 1.0,
+          "q_overall": 0.9199999999999999,
+          "ranking_eligible": false,
+          "raw": 0.6000000000000001,
+          "status": "partial"
+        }
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw equal, mass differs",
+      "pass": true,
+      "purpose": "Same raw score with different available mass",
+      "scenario_id": "same_raw_different_mass",
+      "scenario_number": 31
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.42640000000000006,
+        "available_count": 4,
+        "fingerprint": "142f62803198fef1",
+        "hard": "passed",
+        "m_available": 0.9199999999999999,
+        "publishable": true,
+        "q_mean": 0.8000000000000002,
+        "q_overall": 0.7360000000000001,
+        "ranking_eligible": false,
+        "raw": 0.4000000000000001,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_missing",
+        "component_missing",
+        "high_available_weight_mass",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "identity within tol",
+      "pass": true,
+      "purpose": "Q overall equals mass × available mean confidence",
+      "scenario_id": "q_equals_m_times_mean",
+      "scenario_number": 32
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.8300000000000001,
+        "available_count": 5,
+        "fingerprint": "-19c83f7d766738f7",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.8300000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted==raw",
+      "pass": true,
+      "purpose": "Q=1 preserves raw",
+      "scenario_id": "q1_preserves_raw",
+      "scenario_number": 33
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.504,
+        "available_count": 5,
+        "fingerprint": "2e750ee9e22336be",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.01,
+        "q_overall": 0.01,
+        "ranking_eligible": false,
+        "raw": 0.9000000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "q": 0.01
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted near 0.5",
+      "pass": true,
+      "purpose": "Q approaching 0 approaches neutral",
+      "scenario_id": "q_near_0_approaches_neutral",
+      "scenario_number": 34
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.66,
+        "available_count": 5,
+        "fingerprint": "-21d127c5f387606e",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.4000000000000001,
+        "q_overall": 0.4000000000000001,
+        "ranking_eligible": false,
+        "raw": 0.9000000000000001,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "0.5 < adjusted < raw",
+      "pass": true,
+      "purpose": "Raw above neutral shrinks downward",
+      "scenario_id": "raw_above_shrinks_down",
+      "scenario_number": 35
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.33999999999999997,
+        "available_count": 5,
+        "fingerprint": "2ea02269fb6a0a22",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.4000000000000001,
+        "q_overall": 0.4000000000000001,
+        "ranking_eligible": false,
+        "raw": 0.10000000000000002,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw < adjusted < 0.5",
+      "pass": true,
+      "purpose": "Raw below neutral shrinks upward",
+      "scenario_id": "raw_below_shrinks_up",
+      "scenario_number": 36
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "5011b209200b8ed8",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.3,
+        "q_overall": 0.3,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_unchanged_at_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted==0.5",
+      "pass": true,
+      "purpose": "Raw neutral remains neutral",
+      "scenario_id": "raw_neutral_stays",
+      "scenario_number": 37
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.635,
+        "available_count": 5,
+        "fingerprint": "3b620561fa53a228",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 0.3,
+        "q_overall": 0.3,
+        "ranking_eligible": false,
+        "raw": 0.95,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "low_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "|adj-0.5| <= |raw-0.5|",
+      "pass": true,
+      "purpose": "Adjustment never moves farther from neutral",
+      "scenario_id": "never_farther_from_neutral",
+      "scenario_number": 38
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7,
+        "available_count": 5,
+        "fingerprint": "00415d9422d76e08",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "hard": "passed"
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "aggregation allowed",
+      "pass": true,
+      "purpose": "Hard constraint passed",
+      "scenario_id": "hard_passed",
+      "scenario_number": 39
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7,
+        "available_count": 5,
+        "fingerprint": "-1fc326db85810591",
+        "hard": "not_applicable",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.7,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "hard": "not_applicable"
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "aggregation allowed",
+      "pass": true,
+      "purpose": "Hard constraint not_applicable",
+      "scenario_id": "hard_not_applicable",
+      "scenario_number": 40
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7,
+        "available_count": 5,
+        "fingerprint": "68fbd51b83135ee6",
+        "hard": "unknown",
+        "m_available": 1.0,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.7,
+        "status": "partial"
+      },
+      "deterministic_inputs": {
+        "hard": "unknown"
+      },
+      "diagnostic_codes": [
+        "hard_constraint_resolution_required",
+        "hard_constraint_unknown",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "scores retained, not publishable",
+      "pass": true,
+      "purpose": "Hard constraint unknown",
+      "scenario_id": "hard_unknown",
+      "scenario_number": 41
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 5,
+        "fingerprint": "-6eef155d735f6cba",
+        "hard": "failed",
+        "m_available": 1.0,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {
+        "hard": "failed"
+      },
+      "diagnostic_codes": [
+        "hard_constraint_failed",
+        "hard_constraint_failed_block",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_blocked",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "null scores blocked",
+      "pass": true,
+      "purpose": "Hard constraint failed",
+      "scenario_id": "hard_failed",
+      "scenario_number": 42
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 5,
+        "contrib_count": 5,
+        "fingerprint": "-6eef155d735f6cba",
+        "hard": "failed",
+        "m_available": 1.0,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "blocked_by_hard_constraint"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "hard_constraint_failed",
+        "hard_constraint_failed_block",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_blocked",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "contributions present, scores null",
+      "pass": true,
+      "purpose": "Hard failed preserves component audit but withholds scores",
+      "scenario_id": "hard_failed_preserves_audit",
+      "scenario_number": 43
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.7,
+        "available_count": 5,
+        "fingerprint": "68fbd51b83135ee6",
+        "hard": "unknown",
+        "m_available": 1.0,
+        "publishable": false,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.7,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "hard_constraint_resolution_required",
+        "hard_constraint_unknown",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "scores non-null, publishable=false",
+      "pass": true,
+      "purpose": "Hard unknown retains internal scores but disables publish/ranking",
+      "scenario_id": "hard_unknown_internal_scores",
+      "scenario_number": 44
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "-7a38c9533a637e59",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "band": "low"
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "soft_conflicts_present_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostics only; scores unchanged",
+      "pass": true,
+      "purpose": "One low soft conflict",
+      "scenario_id": "soft_low",
+      "scenario_number": 45
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "458850f1f9640ccd",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "band": "moderate"
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "soft_conflicts_present_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostics only; scores unchanged",
+      "pass": true,
+      "purpose": "One moderate soft conflict",
+      "scenario_id": "soft_moderate",
+      "scenario_number": 46
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "7c77c7cb5c64a5ec",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "band": "high"
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "soft_conflicts_present_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostics only; scores unchanged",
+      "pass": true,
+      "purpose": "One high soft conflict",
+      "scenario_id": "soft_high",
+      "scenario_number": 47
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "-10dba58ffcbd8b70",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "soft_conflicts_present_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostics only",
+      "pass": true,
+      "purpose": "Multiple soft conflicts",
+      "scenario_id": "soft_multiple",
+      "scenario_number": 48
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "-4a05c4323a65325f",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "soft_conflicts_present_diagnostic_only"
+      ],
+      "expected_mathematical_property": "raw unchanged",
+      "pass": true,
+      "purpose": "High soft conflict does not change raw score",
+      "scenario_id": "high_soft_no_raw_change",
+      "scenario_number": 49
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "-4a05c4323a65325f",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "soft_conflicts_present_diagnostic_only"
+      ],
+      "expected_mathematical_property": "adjusted unchanged",
+      "pass": true,
+      "purpose": "High soft conflict does not change adjusted score",
+      "scenario_id": "high_soft_no_adj_change",
+      "scenario_number": 50
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "707e7453b036318e",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "asymmetry": 0.05
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostic only",
+      "pass": true,
+      "purpose": "Preference asymmetry low",
+      "scenario_id": "preference_asymmetry_low",
+      "scenario_number": 51
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "09bebd4764e42998",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "asymmetry": 0.4
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "preference_asymmetry_present",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostic only",
+      "pass": true,
+      "purpose": "Preference asymmetry high",
+      "scenario_id": "preference_asymmetry_high",
+      "scenario_number": 52
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "2bfed928daa9444a",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "asymmetry": 0.05
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "diagnostic only",
+      "pass": true,
+      "purpose": "Value asymmetry low",
+      "scenario_id": "value_asymmetry_low",
+      "scenario_number": 53
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "54b51244815ae150",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {
+        "asymmetry": 0.4
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only",
+        "value_asymmetry_present"
+      ],
+      "expected_mathematical_property": "diagnostic only",
+      "pass": true,
+      "purpose": "Value asymmetry high",
+      "scenario_id": "value_asymmetry_high",
+      "scenario_number": 54
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.72,
+        "available_count": 5,
+        "fingerprint": "46720fcd7577f99d",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.72,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "preference_asymmetry_present",
+        "soft_conflicts_diagnostic_only",
+        "value_asymmetry_present"
+      ],
+      "expected_mathematical_property": "raw unchanged",
+      "pass": true,
+      "purpose": "Asymmetry does not change score",
+      "scenario_id": "asymmetry_no_score_change",
+      "scenario_number": 55
+    },
+    {
+      "actual_result": {
+        "a": "0f88e3cd880954ef",
+        "b": "0f88e3cd880954ef"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "identical fingerprint",
+      "pass": true,
+      "purpose": "Map order shuffled",
+      "scenario_id": "map_order_shuffled",
+      "scenario_number": 56
+    },
+    {
+      "actual_result": {
+        "a": 0.66,
+        "b": 0.66
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "identical raw",
+      "pass": true,
+      "purpose": "Component list order shuffled",
+      "scenario_id": "component_list_order_shuffled",
+      "scenario_number": 57
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.55,
+        "available_count": 5,
+        "fingerprint": "-6819c3c709b92017",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.55,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "mutual components unchanged (already mutual)",
+      "pass": true,
+      "purpose": "Pair input reversal using mutual source results",
+      "scenario_id": "pair_reversal_mutual_sources",
+      "scenario_number": 58
+    },
+    {
+      "actual_result": {
+        "ts": "2026-01-02T03:04:05.000Z"
+      },
+      "deterministic_inputs": {
+        "ts": "2026-01-02T03:04:05.000Z"
+      },
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "timestamp injected",
+      "pass": true,
+      "purpose": "Deterministic timestamp",
+      "scenario_id": "deterministic_timestamp",
+      "scenario_number": 59
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "-56a39e867c625a36",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {
+        "score": 1.5
+      },
+      "diagnostic_codes": [
+        "component_excluded_invalid",
+        "component_invalid_score",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid_input",
+      "pass": true,
+      "purpose": "Invalid component score",
+      "scenario_id": "invalid_component_score",
+      "scenario_number": 60
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "-54485e4a74c6972a",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {
+        "confidence": -0.1
+      },
+      "diagnostic_codes": [
+        "component_excluded_invalid",
+        "component_invalid_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid_input",
+      "pass": true,
+      "purpose": "Invalid component confidence",
+      "scenario_id": "invalid_component_confidence",
+      "scenario_number": 61
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "1c9fa2ad9b90cc25",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_invalid",
+        "component_invalid_score",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid_input",
+      "pass": true,
+      "purpose": "NaN component score",
+      "scenario_id": "nan_component_score",
+      "scenario_number": 62
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "379bfeff4d024263",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_invalid",
+        "component_invalid_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid_input",
+      "pass": true,
+      "purpose": "Infinity component confidence",
+      "scenario_id": "infinity_component_confidence",
+      "scenario_number": 63
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Negative weight",
+      "scenario_id": "negative_weight",
+      "scenario_number": 64
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Zero weight",
+      "scenario_id": "zero_weight",
+      "scenario_number": 65
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Weight sum below tolerance",
+      "scenario_id": "weight_sum_below_tolerance",
+      "scenario_number": 66
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Weight sum above tolerance",
+      "scenario_id": "weight_sum_above_tolerance",
+      "scenario_number": 67
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Invalid neutral score",
+      "scenario_id": "invalid_neutral_score",
+      "scenario_number": 68
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Invalid minimum component count",
+      "scenario_id": "invalid_min_component_count",
+      "scenario_number": 69
+    },
+    {
+      "actual_result": {
+        "fails": true
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "config validation fails",
+      "pass": true,
+      "purpose": "Invalid minimum weight mass",
+      "scenario_id": "invalid_min_weight_mass",
+      "scenario_number": 70
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "4221da552595113b",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_invalid",
+        "component_registry_version_mismatch",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid_input",
+      "pass": true,
+      "purpose": "Registry mismatch",
+      "scenario_id": "registry_mismatch",
+      "scenario_number": 71
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "6c7b3e74cefde0b8",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_config_version_mismatch",
+        "component_excluded_invalid",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid_input when flagged",
+      "pass": true,
+      "purpose": "Source config mismatch",
+      "scenario_id": "source_config_mismatch",
+      "scenario_number": 72
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "1d5aca230d3099d7",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_partial_but_scoreable",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "included",
+      "pass": true,
+      "purpose": "Structural source partial but scoreable",
+      "scenario_id": "structural_partial_scoreable",
+      "scenario_number": 73
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "-542d2db8d131f2d1",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_partial_but_scoreable",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "included",
+      "pass": true,
+      "purpose": "Preference source partial but scoreable",
+      "scenario_id": "preference_partial_scoreable",
+      "scenario_number": 74
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 5,
+        "fingerprint": "-5c7fceb83e40e4ed",
+        "hard": "passed",
+        "m_available": 1.0,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 1.0,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "complete"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_partial_but_scoreable",
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "included",
+      "pass": true,
+      "purpose": "Value source partial but scoreable",
+      "scenario_id": "value_partial_scoreable",
+      "scenario_number": 75
+    },
+    {
+      "actual_result": {
+        "adjusted": 0.5,
+        "available_count": 4,
+        "fingerprint": "-3262e3bff5ab3e46",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": true,
+        "q_mean": 1.0,
+        "q_overall": 0.76,
+        "ranking_eligible": false,
+        "raw": 0.5,
+        "status": "partial"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded",
+        "component_insufficient_evidence",
+        "moderate_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_partial",
+        "score_unchanged_at_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "excluded",
+      "pass": true,
+      "purpose": "Source insufficient evidence",
+      "scenario_id": "source_insufficient_evidence",
+      "scenario_number": 76
+    },
+    {
+      "actual_result": {
+        "adjusted": null,
+        "available_count": 4,
+        "fingerprint": "-658ff0b4cd43d541",
+        "hard": "passed",
+        "m_available": 0.76,
+        "publishable": false,
+        "q_mean": null,
+        "q_overall": null,
+        "ranking_eligible": false,
+        "raw": null,
+        "status": "invalid_input"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "component_excluded_invalid",
+        "component_invalid_input",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_invalid",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "invalid diagnostics",
+      "pass": true,
+      "purpose": "Source invalid input",
+      "scenario_id": "source_invalid_input",
+      "scenario_number": 77
+    },
+    {
+      "actual_result": {
+        "contains_call": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no StructuralSimilarityService() call",
+      "pass": true,
+      "purpose": "No structural service invocation",
+      "scenario_id": "no_structural_service_invocation",
+      "scenario_number": 78
+    },
+    {
+      "actual_result": {
+        "contains_call": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no DirectionalPreferenceFitService() call",
+      "pass": true,
+      "purpose": "No preference service invocation",
+      "scenario_id": "no_preference_service_invocation",
+      "scenario_number": 79
+    },
+    {
+      "actual_result": {
+        "contains_call": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no RelationshipValueComparisonService() call",
+      "pass": true,
+      "purpose": "No value service invocation",
+      "scenario_id": "no_value_service_invocation",
+      "scenario_number": 80
+    },
+    {
+      "actual_result": {
+        "ranking": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "rankingEligible always false",
+      "pass": true,
+      "purpose": "No final production ranking action",
+      "scenario_id": "no_final_production_ranking_action",
+      "scenario_number": 81
+    },
+    {
+      "actual_result": {
+        "has_persona": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no personaId field",
+      "pass": true,
+      "purpose": "No persona field",
+      "scenario_id": "no_persona_field",
+      "scenario_number": 82
+    },
+    {
+      "actual_result": {
+        "frequency_type_used": false,
+        "has_freq_type_label": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "no Frequency type label / archetype input",
+      "pass": true,
+      "purpose": "No Frequency type",
+      "scenario_id": "no_frequency_type",
+      "scenario_number": 83
+    },
+    {
+      "actual_result": {
+        "flag": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "complementarityApplied false",
+      "pass": true,
+      "purpose": "No complementarity",
+      "scenario_id": "no_complementarity",
+      "scenario_number": 84
+    },
+    {
+      "actual_result": {
+        "flag": false
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "aiScoringUsed false",
+      "pass": true,
+      "purpose": "No AI scoring",
+      "scenario_id": "no_AI_scoring",
+      "scenario_number": 85
+    },
+    {
+      "actual_result": {
+        "active": 20,
+        "bytes": 14567
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "active dimension count unchanged by aggregation",
+      "pass": true,
+      "purpose": "Current 20-dimension registry unaffected",
+      "scenario_id": "registry_20d_unaffected",
+      "scenario_number": 86
+    },
+    {
+      "actual_result": {
+        "bytes": 17493
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [],
+      "expected_mathematical_property": "fixture still loadable",
+      "pass": true,
+      "purpose": "24-dimension fixture unaffected",
+      "scenario_id": "fixture_24d_unaffected",
+      "scenario_number": 87
+    },
+    {
+      "actual_result": {
+        "a": "72b3f655fa75bd50",
+        "b": "72b3f655fa75bd50"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "fingerprint stable",
+      "pass": true,
+      "purpose": "Serialization round trip",
+      "scenario_id": "serialization_round_trip",
+      "scenario_number": 88
+    },
+    {
+      "actual_result": {
+        "a": "72b3f655fa75bd50",
+        "b": "72b3f655fa75bd50"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "high_available_weight_mass",
+        "high_evidence_confidence",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_available",
+        "score_shrunk_toward_neutral",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "identical across runs",
+      "pass": true,
+      "purpose": "Fingerprint stability",
+      "scenario_id": "fingerprint_stability",
+      "scenario_number": 89
+    },
+    {
+      "actual_result": {
+        "fp": "68d79c9dbf7ba356",
+        "status": "insufficient_evidence"
+      },
+      "deterministic_inputs": {},
+      "diagnostic_codes": [
+        "available_component_count_below_minimum",
+        "available_weight_mass_below_minimum",
+        "component_excluded_missing",
+        "component_missing",
+        "no_AI_scoring",
+        "no_complementarity",
+        "no_persona_input",
+        "overall_score_insufficient_evidence",
+        "soft_conflicts_diagnostic_only"
+      ],
+      "expected_mathematical_property": "fingerprint non-empty and stable",
+      "pass": true,
+      "purpose": "Full source bundle deterministic",
+      "scenario_id": "full_source_bundle_deterministic",
+      "scenario_number": 90
+    }
+  ],
+  "simulator": "simulate_core_method_v2_aggregation_v1",
+  "status": "PASS"
+}

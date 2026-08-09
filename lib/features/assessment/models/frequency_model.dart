@@ -7,6 +7,7 @@ class FrequencyQuestion {
   final String question;
   final String dimension;
   final bool reverseScored;
+
   /// Display labels (localized when content provides maps; else legacy/default).
   final List<String> options;
 
@@ -36,9 +37,8 @@ class FrequencyQuestion {
     Map<String, dynamic> json, {
     String languageCode = 'en',
   }) {
-    final questionRaw = json.containsKey('text')
-        ? json['text']
-        : json['question'];
+    final questionRaw =
+        json.containsKey('text') ? json['text'] : json['question'];
 
     final optsRaw = json['options'];
     List<String> options;
@@ -82,27 +82,53 @@ class FrequencyAnswer {
 }
 
 class FrequencyResult {
+  static const statusCompleted = 'completed';
+  static const statusIncomplete = 'incomplete';
+
   final bool completed;
-  final double scoreTotal; // 0..100
-  final Map<String, double> vector; // 0..1 per dimension
-  final String type;
+
+  /// Partial mean over present dims only; not a complete Frequency score when
+  /// [status] is [statusIncomplete].
+  final double scoreTotal;
+  final Map<String, double> vector; // legacy keys; only present dims
+  /// Legacy Frequency type — null when incomplete (never "Incomplete Frequency").
+  final String? type;
   final List<String> tags;
   final Timestamp? completedAt;
   final Map<String, int>? answers; // optional raw answers (1..5)
+  /// Canonical Frequency dimension IDs lacking evidence.
+  final List<String> missingDimensions;
+
+  /// Legacy dimension key → evidence item count.
+  final Map<String, int> dimensionEvidenceCounts;
+
+  /// True only when all 6 Frequency dimensions have evidence.
+  final bool canonicalProfileReady;
+
+  /// [statusCompleted] or [statusIncomplete] — incomplete is a status, not a type.
+  final String status;
 
   const FrequencyResult({
     this.completed = false,
     this.scoreTotal = 0,
     this.vector = const {},
-    this.type = 'Balanced Frequency',
+    this.type,
     this.tags = const [],
     this.completedAt,
     this.answers,
+    this.missingDimensions = const [],
+    this.dimensionEvidenceCounts = const {},
+    this.canonicalProfileReady = false,
+    this.status = statusIncomplete,
   });
 
+  bool get isComplete =>
+      status == statusCompleted && canonicalProfileReady && type != null;
+
   factory FrequencyResult.fromFirestore(Map<String, dynamic> data) {
-    final vectorRaw =
-        (data['vector'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final vectorRaw = (data['vector'] as Map?)?.cast<String, dynamic>() ??
+        (data['frequency_vector'] as Map?)?.cast<String, dynamic>() ??
+        const {};
     final vector = <String, double>{};
     for (final e in vectorRaw.entries) {
       final v = e.value;
@@ -119,37 +145,80 @@ class FrequencyResult {
       }
     }
 
+    final missingRaw = data['missing_dimensions'];
+    final missing = missingRaw is List
+        ? missingRaw.map((e) => e.toString()).toList()
+        : const <String>[];
+
+    final evidenceRaw = data['dimension_evidence_counts'];
+    final evidence = <String, int>{};
+    if (evidenceRaw is Map) {
+      for (final e in evidenceRaw.entries) {
+        if (e.value is num) {
+          evidence[e.key.toString()] = (e.value as num).toInt();
+        }
+      }
+    }
+
+    final rawType =
+        (data['type'] as String?) ?? (data['frequency_type'] as String?);
+    // Never treat the UI status phrase as a stored type.
+    final type = (rawType == null ||
+            rawType.isEmpty ||
+            rawType == 'Incomplete Frequency')
+        ? null
+        : rawType;
+
+    final statusRaw = data['status'] as String?;
+    final status = statusRaw == statusCompleted || statusRaw == statusIncomplete
+        ? statusRaw!
+        : (missing.isNotEmpty || type == null
+            ? statusIncomplete
+            : statusCompleted);
+
+    final ready = data['canonical_profile_ready'] as bool? ??
+        (status == statusCompleted && missing.isEmpty && vector.length == 6);
+
     return FrequencyResult(
       completed: data['completed'] as bool? ?? false,
       scoreTotal: (data['scoreTotal'] as num?)?.toDouble() ??
           (data['score_total'] as num?)?.toDouble() ??
+          (data['legacy_score_total'] as num?)?.toDouble() ??
           0,
       vector: vector,
-      type: (data['type'] as String?) ??
-          (data['frequency_type'] as String?) ??
-          'Balanced Frequency',
+      type: type,
       tags: List<String>.from(
         data['tags'] ?? data['frequency_tags'] ?? const [],
       ),
-      completedAt:
-          (data['completedAt'] is Timestamp
+      completedAt: (data['completedAt'] is Timestamp
               ? data['completedAt'] as Timestamp
               : null) ??
           (data['completed_at'] is Timestamp
               ? data['completed_at'] as Timestamp
               : null),
       answers: answers,
+      missingDimensions: missing,
+      dimensionEvidenceCounts: evidence,
+      canonicalProfileReady: ready,
+      status: status,
     );
   }
 
   Map<String, dynamic> toFirestore() {
     return {
       'completed': completed,
-      'score_total': scoreTotal,
+      'status': status,
+      // Present-dim mean only; incomplete must not be read as a finished score.
+      if (status == statusCompleted) 'score_total': scoreTotal,
+      if (status == statusCompleted) 'legacy_score_total': scoreTotal,
+      if (status == statusIncomplete) 'partial_score_total': scoreTotal,
       'vector': vector,
-      'type': type,
-      'tags': tags,
+      if (type != null) 'type': type,
+      if (tags.isNotEmpty) 'tags': tags,
       'completed_at': completedAt,
+      'missing_dimensions': missingDimensions,
+      'dimension_evidence_counts': dimensionEvidenceCounts,
+      'canonical_profile_ready': canonicalProfileReady,
       if (answers != null) 'answers': answers,
     };
   }

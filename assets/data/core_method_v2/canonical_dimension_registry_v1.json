@@ -1,0 +1,417 @@
+{
+  "registry_id": "canonical_dimension_registry_v1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "schema_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "active_dimension_count": 20,
+  "notes": {
+    "current_size_is_not_engine_limit": true,
+    "engine_must_iterate_registry": true,
+    "complementarity_disabled_pending_calibration": true,
+    "source_doc": "docs/core_engine/canonical_dimension_registry_v1.md"
+  },
+  "dimensions": [
+    {
+      "dimension_id": "logical_reasoning",
+      "module": "iq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 1,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity_low_weight",
+      "current_calibration_status": "uncalibrated",
+      "description": "Multi-step inference from explicit rules and premises",
+      "prohibited_interpretations": [
+        "Intelligence as moral worth",
+        "wisdom",
+        "leadership"
+      ]
+    },
+    {
+      "dimension_id": "pattern_reasoning",
+      "module": "iq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 2,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity_low_weight",
+      "current_calibration_status": "uncalibrated",
+      "description": "Detecting regularities and abstract relations",
+      "prohibited_interpretations": [
+        "Mystical insight",
+        "EQ empathic sensing"
+      ]
+    },
+    {
+      "dimension_id": "verbal_reasoning",
+      "module": "iq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 3,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity_low_weight",
+      "current_calibration_status": "uncalibrated",
+      "description": "Comprehension and reasoning with language materials",
+      "prohibited_interpretations": [
+        "Eloquence as character",
+        "EQ emotional openness"
+      ]
+    },
+    {
+      "dimension_id": "spatial_reasoning",
+      "module": "iq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 4,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity_low_weight",
+      "current_calibration_status": "uncalibrated",
+      "description": "Mental transformation and spatial relation reasoning",
+      "prohibited_interpretations": [
+        "Artistic taste",
+        "physical athleticism"
+      ]
+    },
+    {
+      "dimension_id": "empathy",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 5,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Affective attunement and concern for others' states",
+      "prohibited_interpretations": [
+        "Agreeableness as virtue",
+        "mind-reading accuracy claims"
+      ]
+    },
+    {
+      "dimension_id": "perspective_taking",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 6,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Cognitive adoption of another viewpoint",
+      "prohibited_interpretations": [
+        "Empathy ability",
+        "moral superiority"
+      ]
+    },
+    {
+      "dimension_id": "self_awareness",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 7,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Recognition of own emotional/motivational states",
+      "prohibited_interpretations": [
+        "Clinical insight",
+        "intelligence"
+      ]
+    },
+    {
+      "dimension_id": "emotion_regulation",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 8,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Managing intensity/expression of emotion in context",
+      "prohibited_interpretations": [
+        "Emotional suppression as health",
+        "stoicism as virtue"
+      ]
+    },
+    {
+      "dimension_id": "emotional_openness",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 9,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Willingness to disclose feelings/needs (EQ construct)",
+      "prohibited_interpretations": [
+        "Frequency disclosure_pace",
+        "honesty as morality"
+      ]
+    },
+    {
+      "dimension_id": "boundary_setting",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 10,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Stating and maintaining personal limits",
+      "prohibited_interpretations": [
+        "Selfishness",
+        "aggression"
+      ]
+    },
+    {
+      "dimension_id": "assertiveness",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 11,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Clear expression of needs/positions without hostility",
+      "prohibited_interpretations": [
+        "Dominance",
+        "Frequency communication_pace"
+      ]
+    },
+    {
+      "dimension_id": "conflict_approach",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 12,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preferred engagement style under disagreement",
+      "prohibited_interpretations": [
+        "Violence",
+        "relationship success"
+      ]
+    },
+    {
+      "dimension_id": "repair_orientation",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 13,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Orientation toward restoring connection after rupture",
+      "prohibited_interpretations": [
+        "Apology performance as virtue"
+      ]
+    },
+    {
+      "dimension_id": "social_awareness",
+      "module": "eq",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 14,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Reading interpersonal cues and group dynamics",
+      "prohibited_interpretations": [
+        "Popularity",
+        "Frequency social_energy"
+      ]
+    },
+    {
+      "dimension_id": "depth_preference",
+      "module": "frequency",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 15,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preference for reflective vs lighter interaction depth",
+      "prohibited_interpretations": [
+        "Intelligence",
+        "EQ empathy"
+      ]
+    },
+    {
+      "dimension_id": "social_energy",
+      "module": "frequency",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 16,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preferred social intensity and recovery space",
+      "prohibited_interpretations": [
+        "Social skill",
+        "popularity"
+      ]
+    },
+    {
+      "dimension_id": "spontaneity",
+      "module": "frequency",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 17,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preference for unplanned novelty vs preparation",
+      "prohibited_interpretations": [
+        "Impulsivity",
+        "irresponsibility"
+      ]
+    },
+    {
+      "dimension_id": "stability",
+      "module": "frequency",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 18,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preference for continuity and predictable rhythms",
+      "prohibited_interpretations": [
+        "Emotional stability",
+        "loyalty"
+      ]
+    },
+    {
+      "dimension_id": "disclosure_pace",
+      "module": "frequency",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 19,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preferred speed/sequencing of personal disclosure",
+      "prohibited_interpretations": [
+        "EQ emotional_openness",
+        "honesty"
+      ]
+    },
+    {
+      "dimension_id": "communication_pace",
+      "module": "frequency",
+      "status": "active",
+      "registry_version": "canonical_dimension_registry_v1",
+      "display_order": 20,
+      "normalized_score_min": 0.0,
+      "normalized_score_max": 1.0,
+      "supports_partner_preference": true,
+      "supports_similarity": true,
+      "supports_complementarity": false,
+      "supports_hard_constraint": false,
+      "default_matching_role": "soft_similarity",
+      "current_calibration_status": "uncalibrated",
+      "description": "Preferred cadence and spacing of communication",
+      "prohibited_interpretations": [
+        "Interest",
+        "affection",
+        "assertiveness"
+      ]
+    }
+  ]
+}

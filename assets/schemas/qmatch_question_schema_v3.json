@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qmatch.local/schemas/qmatch_question_schema_v3.json",
+  "title": "Qmatch Question Schema v3",
+  "type": "object",
+  "required": [
+    "question_id",
+    "module",
+    "schema_version",
+    "content_version",
+    "status",
+    "review_state",
+    "item_type",
+    "primary_dimension",
+    "prompt",
+    "exposure_class",
+    "security_level",
+    "estimated_completion_seconds",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "question_id": { "type": "string", "minLength": 3 },
+    "module": { "type": "string", "enum": ["iq", "eq", "frequency"] },
+    "schema_version": { "type": "string", "const": "qmatch_question_schema_v3" },
+    "content_version": { "type": "string" },
+    "locale": {
+      "type": "object",
+      "properties": {
+        "default": { "type": "string" },
+        "supported": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "internal_review",
+        "construct_review",
+        "language_review",
+        "security_review",
+        "pilot",
+        "calibrated",
+        "active",
+        "suspended",
+        "retired"
+      ]
+    },
+    "review_state": { "type": "string" },
+    "item_type": {
+      "type": "string",
+      "enum": ["mcq_keyed", "mcq_evidence", "likert", "scenario_mcq"]
+    },
+    "primary_dimension": { "type": "string" },
+    "secondary_dimensions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 3
+    },
+    "prompt": {
+      "type": "object",
+      "required": ["tr", "en"],
+      "properties": {
+        "tr": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "options": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/option" }
+    },
+    "likert_scale": {
+      "type": "object",
+      "properties": {
+        "min": { "type": "integer" },
+        "max": { "type": "integer" },
+        "reverse_scored": { "type": "boolean" },
+        "scale_point_deltas": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": { "type": "number", "minimum": -1, "maximum": 1 }
+          }
+        }
+      }
+    },
+    "explanation_availability": {
+      "type": "string",
+      "enum": ["none", "reviewer_only", "post_answer_iq"]
+    },
+    "anchor_group": { "type": ["string", "null"] },
+    "semantic_pair_id": { "type": ["string", "null"] },
+    "reverse_pair_id": { "type": ["string", "null"] },
+    "behavioral_isomorph_group": { "type": ["string", "null"] },
+    "separator_targets": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "response_validity_roles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "semantic_consistency",
+          "reverse_consistency",
+          "timing_quality",
+          "person_fit",
+          "response_variation",
+          "social_impression_risk",
+          "repeated_context_stability"
+        ]
+      }
+    },
+    "exposure_class": {
+      "type": "string",
+      "enum": ["core_pool", "anchor", "separator", "pilot", "secure_iq"]
+    },
+    "security_level": {
+      "type": "string",
+      "enum": ["standard", "elevated", "secure_iq"]
+    },
+    "estimated_completion_seconds": { "type": "number", "minimum": 1 },
+    "authoring_notes": { "type": "string" },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "correct_option_id": { "type": "string" },
+    "solution_method": { "type": "string" },
+    "cognitive_domain": { "type": "string" },
+    "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "estimated_discrimination": { "type": "number" },
+    "distractor_logic": { "type": "object" },
+    "calibration_status": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "module": { "const": "iq" } } },
+      "then": {
+        "required": [
+          "correct_option_id",
+          "solution_method",
+          "cognitive_domain",
+          "difficulty",
+          "calibration_status",
+          "options"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "module": { "enum": ["eq", "frequency"] } }
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["correct_option_id"] },
+            { "required": ["correctAnswer"] },
+            { "properties": { "correct": { "const": true } } }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "option": {
+      "type": "object",
+      "required": [
+        "option_id",
+        "localized_text",
+        "dimension_deltas",
+        "evidence_strength",
+        "social_desirability_risk",
+        "extremity",
+        "response_style_risk",
+        "status"
+      ],
+      "properties": {
+        "option_id": { "type": "string" },
+        "localized_text": {
+          "type": "object",
+          "required": ["tr", "en"],
+          "properties": {
+            "tr": { "type": "string" },
+            "en": { "type": "string" }
+          }
+        },
+        "dimension_deltas": {
+          "type": "object",
+          "additionalProperties": { "type": "number", "minimum": -1, "maximum": 1 }
+        },
+        "evidence_strength": { "type": "number", "minimum": 0, "maximum": 1 },
+        "counter_evidence": { "type": "object" },
+        "social_desirability_risk": {
+          "type": "string",
+          "enum": ["low", "moderate", "high"]
+        },
+        "extremity": { "type": "number", "minimum": 0, "maximum": 1 },
+        "response_style_risk": { "type": "string" },
+        "rationale": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "not": {
+        "anyOf": [
+          { "required": ["correct"] },
+          { "required": ["correctAnswer"] },
+          { "required": ["correct_option_id"] },
+          { "required": ["persona_id"] },
+          { "required": ["persona_points"] }
+        ]
+      }
+    }
+  },
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,7 @@
+{
+  "error_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "status": "PASS",
+  "validator": "validate_structured_compatibility_explanation_v1"
+}

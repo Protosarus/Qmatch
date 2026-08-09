@@ -1,0 +1,10 @@
+{
+  "mean_jaccard": 0.9931623931623932,
+  "min_jaccard": 0.8461538461538461,
+  "pair_count": 2000,
+  "signal_set_jaccard_bounded_0_1": true,
+  "threshold_driven_explanation_changes": 4,
+  "top_1_stability": 1.0,
+  "top_3_overlap_mean": 0.9888888888888889,
+  "trials": 90
+}

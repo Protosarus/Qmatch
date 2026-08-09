@@ -7,10 +7,14 @@ class FirestorePaths {
   static FirebaseFirestore get _db => FirebaseFirestore.instance;
 
   // Root collections
-  static CollectionReference<Map<String, dynamic>> users() => _db.collection('users');
-  static CollectionReference<Map<String, dynamic>> matches() => _db.collection('matches');
-  static CollectionReference<Map<String, dynamic>> threads() => _db.collection('threads');
-  static CollectionReference<Map<String, dynamic>> reports() => _db.collection('reports');
+  static CollectionReference<Map<String, dynamic>> users() =>
+      _db.collection('users');
+  static CollectionReference<Map<String, dynamic>> matches() =>
+      _db.collection('matches');
+  static CollectionReference<Map<String, dynamic>> threads() =>
+      _db.collection('threads');
+  static CollectionReference<Map<String, dynamic>> reports() =>
+      _db.collection('reports');
 
   /// Per-user account deletion requests (ops processes these; app does not wipe data).
   static CollectionReference<Map<String, dynamic>> accountDeletionRequests() =>
@@ -25,11 +29,13 @@ class FirestorePaths {
   static CollectionReference<Map<String, dynamic>> assessmentSets() =>
       _db.collection('assessment_sets');
 
-  static DocumentReference<Map<String, dynamic>> assessmentSetDoc(String setId) =>
+  static DocumentReference<Map<String, dynamic>> assessmentSetDoc(
+          String setId) =>
       assessmentSets().doc(setId);
 
   // users/{uid}
-  static DocumentReference<Map<String, dynamic>> userDoc(String uid) => users().doc(uid);
+  static DocumentReference<Map<String, dynamic>> userDoc(String uid) =>
+      users().doc(uid);
 
   // users/{uid}/swipes
   static CollectionReference<Map<String, dynamic>> userSwipes(String uid) =>
@@ -52,7 +58,8 @@ class FirestorePaths {
       userBlocks(uid).doc(blockedUid);
 
   /// Per-user assignment to a specific assessment set (`iq`, `eq`, `frequency`).
-  static CollectionReference<Map<String, dynamic>> userAssessmentAssignments(String uid) =>
+  static CollectionReference<Map<String, dynamic>> userAssessmentAssignments(
+          String uid) =>
       userDoc(uid).collection('assessment_assignments');
 
   static DocumentReference<Map<String, dynamic>> userAssessmentAssignmentDoc(
@@ -60,6 +67,17 @@ class FirestorePaths {
     String type,
   ) =>
       userAssessmentAssignments(uid).doc(type);
+
+  /// Canonical assessment results: `users/{uid}/assessments/{iq|eq|frequency|persona}`.
+  static CollectionReference<Map<String, dynamic>> userAssessments(
+          String uid) =>
+      userDoc(uid).collection('assessments');
+
+  static DocumentReference<Map<String, dynamic>> userAssessmentDoc(
+    String uid,
+    String assessmentType,
+  ) =>
+      userAssessments(uid).doc(assessmentType);
 
   // matches/{matchId}
   static DocumentReference<Map<String, dynamic>> matchDoc(String matchId) =>
@@ -70,7 +88,8 @@ class FirestorePaths {
       threads().doc(threadId);
 
   // threads/{threadId}/messages
-  static CollectionReference<Map<String, dynamic>> threadMessages(String threadId) =>
+  static CollectionReference<Map<String, dynamic>> threadMessages(
+          String threadId) =>
       threadDoc(threadId).collection('messages');
 
   /// Deterministic match id using sorted UID order.

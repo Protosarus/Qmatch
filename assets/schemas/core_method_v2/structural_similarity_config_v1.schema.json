@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/structural_similarity_config_v1.schema.json",
+  "title": "StructuralSimilarityConfigV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_id",
+    "config_version",
+    "registry_version",
+    "status",
+    "calibration_status",
+    "runtime_status",
+    "production_approved",
+    "scientifically_validated",
+    "distance_metric",
+    "pair_confidence_mode",
+    "similarity_kernel",
+    "default_dimension_weight",
+    "module_similarity_scales",
+    "minimum_comparable_dimensions_per_module",
+    "score_bounds",
+    "confidence_bounds",
+    "missing_data_policy",
+    "zero_effective_weight_policy",
+    "version_compatibility_policy",
+    "complementarity_status",
+    "persona_input_status",
+    "ai_scoring_status"
+  ],
+  "properties": {
+    "config_id": { "type": "string" },
+    "config_version": { "type": "string" },
+    "registry_version": { "type": "string" },
+    "status": { "const": "provisional" },
+    "calibration_status": { "const": "uncalibrated" },
+    "runtime_status": { "const": "offline_only" },
+    "production_approved": { "const": false },
+    "scientifically_validated": { "const": false },
+    "distance_metric": {
+      "const": "confidence_weighted_normalized_squared_euclidean"
+    },
+    "pair_confidence_mode": { "const": "geometric_mean" },
+    "similarity_kernel": { "const": "gaussian_rbf" },
+    "default_dimension_weight": { "type": "number", "minimum": 0 },
+    "dimension_weight_overrides": {
+      "type": "object",
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    },
+    "module_similarity_scales": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["iq", "eq", "frequency"],
+      "properties": {
+        "iq": { "type": "number", "exclusiveMinimum": 0 },
+        "eq": { "type": "number", "exclusiveMinimum": 0 },
+        "frequency": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "minimum_comparable_dimensions_per_module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["iq", "eq", "frequency"],
+      "properties": {
+        "iq": { "type": "integer", "minimum": 1 },
+        "eq": { "type": "integer", "minimum": 1 },
+        "frequency": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "minimum_comparable_source": { "type": "string" },
+    "score_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "confidence_bounds": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "missing_data_policy": { "type": "string" },
+    "zero_effective_weight_policy": { "type": "string" },
+    "version_compatibility_policy": { "type": "string" },
+    "complementarity_status": { "const": "disabled_pending_calibration" },
+    "persona_input_status": { "const": "prohibited" },
+    "ai_scoring_status": { "const": "prohibited" },
+    "notes": { "type": "object" }
+  }
+}

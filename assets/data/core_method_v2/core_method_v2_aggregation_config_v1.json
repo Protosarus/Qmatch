@@ -1,0 +1,50 @@
+{
+  "config_id": "core_method_v2_aggregation_config_v1",
+  "config_version": "core_method_v2_aggregation_config_v1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "runtime_status": "offline_only",
+  "production_approval_status": "not_approved",
+  "scientifically_validated": false,
+  "component_weights": {
+    "iq_structural": 0.08,
+    "eq_structural": 0.24,
+    "frequency_structural": 0.28,
+    "mutual_partner_preference": 0.20,
+    "mutual_relationship_values": 0.20
+  },
+  "total_weight": 1.0,
+  "weight_sum_tolerance": 1e-09,
+  "score_bounds": { "min": 0.0, "max": 1.0 },
+  "confidence_bounds": { "min": 0.0, "max": 1.0 },
+  "neutral_score": 0.5,
+  "minimum_available_component_count": 2,
+  "minimum_available_weight_mass": 0.5,
+  "raw_aggregation_mode": "available_component_weight_renormalization",
+  "evidence_confidence_mode": "full_configured_weight_mass",
+  "confidence_adjustment_mode": "linear_shrinkage_to_neutral",
+  "missing_component_policy": "exclude_without_imputation",
+  "hard_constraint_failed_policy": "block_and_withhold_overall_scores",
+  "hard_constraint_unknown_policy": "calculate_offline_but_not_publishable_or_ranking_eligible",
+  "hard_constraint_not_applicable_policy": "allow_if_other_evidence_gates_pass",
+  "soft_conflict_policy": "diagnostics_only_no_numeric_penalty",
+  "asymmetry_policy": "diagnostics_only",
+  "complementarity_status": "disabled_pending_calibration",
+  "temporal_layer_status": "disabled",
+  "persona_input_status": "prohibited",
+  "frequency_type_status": "prohibited",
+  "ai_scoring_status": "prohibited",
+  "version_compatibility_policy": "require_matching_registry_version",
+  "notes": {
+    "weights_are_provisional_hypotheses": true,
+    "weight_derivation": "prior_four_component_hypothesis_scaled_by_0_80_plus_preference_0_20",
+    "prior_four_component_hypothesis": {
+      "iq": 0.10,
+      "eq": 0.30,
+      "frequency": 0.35,
+      "values": 0.25
+    },
+    "do_not_use_for_production_ranking": true
+  }
+}

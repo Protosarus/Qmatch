@@ -1,0 +1,1017 @@
+{
+  "config_version": "relationship_value_comparison_config_v1",
+  "deterministic_fingerprint": "-288357f716123148",
+  "failed_count": 0,
+  "not_real_personalities": true,
+  "passed_count": 65,
+  "phase": "P2B-3",
+  "registry_version": "relationship_value_registry_v1",
+  "scenario_count": 65,
+  "scenario_ids": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "56",
+    "57",
+    "58",
+    "59",
+    "60",
+    "61",
+    "62",
+    "63",
+    "64",
+    "65"
+  ],
+  "scenarios": [
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=1",
+      "id": "01",
+      "input_summary": "monogamous/monogamous flex=0",
+      "name": "exact_identical",
+      "pass": true,
+      "purpose": "Identical exact-match values"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=0",
+      "id": "02",
+      "input_summary": "monogamous vs open flex=0",
+      "name": "exact_different",
+      "pass": true,
+      "purpose": "Different exact-match values"
+    },
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=1",
+      "id": "03",
+      "input_summary": "yes/yes",
+      "name": "matrix_full",
+      "pass": true,
+      "purpose": "Fully compatible matrix values"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.6
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "0<raw<1",
+      "id": "04",
+      "input_summary": "yes/maybe",
+      "name": "matrix_partial",
+      "pass": true,
+      "purpose": "Partially compatible matrix values"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=0",
+      "id": "05",
+      "input_summary": "yes/no flex=0",
+      "name": "matrix_incompatible",
+      "pass": true,
+      "purpose": "Incompatible matrix values"
+    },
+    {
+      "actual_outcome": {
+        "a_to_b": 0.6,
+        "b_to_a": 0.6999999999999998
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "A<-B != B<-A",
+      "id": "06",
+      "input_summary": "yes vs maybe",
+      "name": "matrix_directional_asymmetry",
+      "pass": true,
+      "purpose": "Directional compatibility matrix asymmetry"
+    },
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=1",
+      "id": "07",
+      "input_summary": "social/social",
+      "name": "ordered_identical",
+      "pass": true,
+      "purpose": "Ordered values identical"
+    },
+    {
+      "actual_outcome": {
+        "adj": 0.6666666666666667,
+        "far": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "higher than max distance",
+      "id": "08",
+      "input_summary": "none/social",
+      "name": "ordered_adjacent",
+      "pass": true,
+      "purpose": "Ordered values adjacent"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=0",
+      "id": "09",
+      "input_summary": "none/undecided",
+      "name": "ordered_max_distance",
+      "pass": true,
+      "purpose": "Ordered values maximally distant"
+    },
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=1",
+      "id": "10",
+      "input_summary": "{mixed,flexible}",
+      "name": "set_identical",
+      "pass": true,
+      "purpose": "Set overlap identical"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.3333333333333333
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "0<raw<1",
+      "id": "11",
+      "input_summary": "jaccard partial",
+      "name": "set_partial",
+      "pass": true,
+      "purpose": "Set overlap partial"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "raw=0",
+      "id": "12",
+      "input_summary": "disjoint flex=0",
+      "name": "set_disjoint",
+      "pass": true,
+      "purpose": "Set overlap disjoint"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "p=0",
+      "id": "13",
+      "input_summary": "c=0 f=0",
+      "name": "flexibility_zero",
+      "pass": true,
+      "purpose": "Flexibility zero"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.5
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "p=0.5",
+      "id": "14",
+      "input_summary": "c=0 f=0.5",
+      "name": "flexibility_medium",
+      "pass": true,
+      "purpose": "Flexibility medium"
+    },
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "p=1",
+      "id": "15",
+      "input_summary": "c=0 f=1",
+      "name": "flexibility_one",
+      "pass": true,
+      "purpose": "Flexibility one"
+    },
+    {
+      "actual_outcome": {
+        "high": 0.1,
+        "low": 0.9
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "higher fit than high-I mismatch",
+      "id": "16",
+      "input_summary": "mismatch low I",
+      "name": "low_importance_mismatch",
+      "pass": true,
+      "purpose": "Low-importance mismatch"
+    },
+    {
+      "actual_outcome": {
+        "raw": 0.1
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "lower fit",
+      "id": "17",
+      "input_summary": "mismatch high I",
+      "name": "high_importance_mismatch",
+      "pass": true,
+      "purpose": "High-importance mismatch"
+    },
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "A<-B available",
+      "id": "18",
+      "input_summary": "directional only A",
+      "name": "multi_field_a_to_b",
+      "pass": true,
+      "purpose": "Multi-field directional A<-B"
+    },
+    {
+      "actual_outcome": {
+        "raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "B<-A available",
+      "id": "19",
+      "input_summary": "directional only B",
+      "name": "multi_field_b_to_a",
+      "pass": true,
+      "purpose": "Multi-field directional B<-A"
+    },
+    {
+      "actual_outcome": {
+        "mutual": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "mutual high",
+      "id": "20",
+      "input_summary": "yes/yes",
+      "name": "both_directions_strong",
+      "pass": true,
+      "purpose": "Both directions strong"
+    },
+    {
+      "actual_outcome": {
+        "mutual": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "mutual low",
+      "id": "21",
+      "input_summary": "yes/no",
+      "name": "both_directions_weak",
+      "pass": true,
+      "purpose": "Both directions weak"
+    },
+    {
+      "actual_outcome": {
+        "asym": 0.09999999999999987
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "asymmetry > 0",
+      "id": "22",
+      "input_summary": "asym matrix",
+      "name": "strong_a_weak_b",
+      "pass": true,
+      "purpose": "Strong A<-B / weak B<-A"
+    },
+    {
+      "actual_outcome": {
+        "a_to_b": 0.6,
+        "b_to_a": 0.6999999999999998
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "directions swapped under reverse",
+      "id": "23",
+      "input_summary": "reversed asymmetry",
+      "name": "weak_a_strong_b",
+      "pass": true,
+      "purpose": "Weak A<-B / strong B<-A"
+    },
+    {
+      "actual_outcome": {
+        "mutual": 0.648074069840786
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "sqrt product",
+      "id": "24",
+      "input_summary": "check sqrt",
+      "name": "mutual_geometric_mean",
+      "pass": true,
+      "purpose": "Mutual geometric mean"
+    },
+    {
+      "actual_outcome": {
+        "mutual": 0.648074069840786,
+        "orig": 0.648074069840786
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "mutual invariant",
+      "id": "25",
+      "input_summary": "swap A/B",
+      "name": "pair_reversal",
+      "pass": true,
+      "purpose": "Pair reversal"
+    },
+    {
+      "actual_outcome": {
+        "fp1": "-2e532f7f139ce0ac",
+        "fp2": "-2e532f7f139ce0ac"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "same fingerprint",
+      "id": "26",
+      "input_summary": "shuffled keys",
+      "name": "map_order_shuffled",
+      "pass": true,
+      "purpose": "Map order shuffled"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_b",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ],
+        "raw": null
+      },
+      "diagnostic_codes": [
+        "comparison_pending_review",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_a",
+        "value_missing_subject_b"
+      ],
+      "expected_outcome": "excluded missing_b",
+      "id": "27",
+      "input_summary": "B missing",
+      "name": "one_field_missing",
+      "pass": true,
+      "purpose": "One field missing"
+    },
+    {
+      "actual_outcome": {
+        "count": 11,
+        "raw": null
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "insufficient",
+      "id": "28",
+      "input_summary": "two missing",
+      "name": "multiple_fields_missing",
+      "pass": true,
+      "purpose": "Multiple fields missing"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "visibility_policy_blocked",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "visibility blocked",
+      "id": "29",
+      "input_summary": "visibility private",
+      "name": "private_field",
+      "pass": true,
+      "purpose": "Private field"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "comparison_permission_denied",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "permission denied",
+      "id": "30",
+      "input_summary": "permission false",
+      "name": "permission_denied",
+      "pass": true,
+      "purpose": "Comparison permission denied"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "pending review",
+      "id": "31",
+      "input_summary": "preferred_living_location",
+      "name": "pending_review",
+      "pass": true,
+      "purpose": "Pending-review field"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_not_allowed",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "value_not_allowed",
+      "id": "32",
+      "input_summary": "not_a_real_value",
+      "name": "invalid_allowed_value",
+      "pass": true,
+      "purpose": "Invalid allowed value"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "invalid_importance",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "invalid_importance",
+      "id": "33",
+      "input_summary": "I=1.5",
+      "name": "invalid_importance",
+      "pass": true,
+      "purpose": "Invalid importance"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "invalid_flexibility",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "invalid_flexibility",
+      "id": "34",
+      "input_summary": "f=-0.2",
+      "name": "invalid_flexibility",
+      "pass": true,
+      "purpose": "Invalid flexibility"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "invalid_importance",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "invalid_importance",
+      "id": "35",
+      "input_summary": "I=NaN",
+      "name": "nan_rejection",
+      "pass": true,
+      "purpose": "NaN rejection"
+    },
+    {
+      "actual_outcome": {
+        "codes": [
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "invalid_importance",
+          "comparison_pending_review",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a",
+          "value_missing_subject_a"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "invalid_importance",
+      "id": "36",
+      "input_summary": "I=Inf",
+      "name": "infinity_rejection",
+      "pass": true,
+      "purpose": "Infinity rejection"
+    },
+    {
+      "actual_outcome": {
+        "agg": "not_applicable"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "not_applicable",
+      "id": "37",
+      "input_summary": "enabled=false",
+      "name": "hard_disabled",
+      "pass": true,
+      "purpose": "Hard constraint explicitly disabled"
+    },
+    {
+      "actual_outcome": {
+        "agg": "passed"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "passed",
+      "id": "38",
+      "input_summary": "accepted match",
+      "name": "hard_passed",
+      "pass": true,
+      "purpose": "Hard constraint passed"
+    },
+    {
+      "actual_outcome": {
+        "agg": "failed"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "failed",
+      "id": "39",
+      "input_summary": "rejected smokes",
+      "name": "hard_failed_rejected",
+      "pass": true,
+      "purpose": "Hard constraint failed by rejected value"
+    },
+    {
+      "actual_outcome": {
+        "agg": "failed"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "failed",
+      "id": "40",
+      "input_summary": "whitelist miss",
+      "name": "hard_failed_missing_accepted",
+      "pass": true,
+      "purpose": "Hard constraint failed by missing accepted value"
+    },
+    {
+      "actual_outcome": {
+        "agg": "unknown"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "unknown",
+      "id": "41",
+      "input_summary": "B missing",
+      "name": "hard_unknown_missing",
+      "pass": true,
+      "purpose": "Hard constraint unknown because counterpart missing"
+    },
+    {
+      "actual_outcome": {
+        "agg": "unknown"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "unknown",
+      "id": "42",
+      "input_summary": "private visibility",
+      "name": "hard_unknown_private",
+      "pass": true,
+      "purpose": "Hard constraint unknown because private"
+    },
+    {
+      "actual_outcome": {
+        "agg": "passed",
+        "n": 2
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "passed",
+      "id": "43",
+      "input_summary": "two passed",
+      "name": "hard_multi_all_passed",
+      "pass": true,
+      "purpose": "Multiple constraints all passed"
+    },
+    {
+      "actual_outcome": {
+        "agg": "failed"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "failed",
+      "id": "44",
+      "input_summary": "one fail",
+      "name": "hard_multi_one_failed",
+      "pass": true,
+      "purpose": "Multiple constraints one failed"
+    },
+    {
+      "actual_outcome": {
+        "agg": "unknown"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "unknown",
+      "id": "45",
+      "input_summary": "one unknown",
+      "name": "hard_multi_one_unknown",
+      "pass": true,
+      "purpose": "Multiple constraints one unknown"
+    },
+    {
+      "actual_outcome": {
+        "a": "failed",
+        "b": "unknown"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "directions differ",
+      "id": "46",
+      "input_summary": "A fails B unknown/na",
+      "name": "hard_directional_differ",
+      "pass": true,
+      "purpose": "Directional constraints differ"
+    },
+    {
+      "actual_outcome": {
+        "agg": "passed"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "passed",
+      "id": "47",
+      "input_summary": "both pass",
+      "name": "mutual_hard_passed",
+      "pass": true,
+      "purpose": "Mutual hard result passed"
+    },
+    {
+      "actual_outcome": {
+        "agg": "failed"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "failed",
+      "id": "48",
+      "input_summary": "A fails",
+      "name": "mutual_hard_failed",
+      "pass": true,
+      "purpose": "Mutual hard result failed"
+    },
+    {
+      "actual_outcome": {
+        "agg": "unknown"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "unknown",
+      "id": "49",
+      "input_summary": "missing counterpart",
+      "name": "mutual_hard_unknown",
+      "pass": true,
+      "purpose": "Mutual hard result unknown"
+    },
+    {
+      "actual_outcome": {
+        "agg": "not_applicable"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "not_applicable",
+      "id": "50",
+      "input_summary": "empty",
+      "name": "no_applicable_constraints",
+      "pass": true,
+      "purpose": "No applicable constraints"
+    },
+    {
+      "actual_outcome": {
+        "band": "none",
+        "sev": 0.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "severity=0 band=none",
+      "id": "51",
+      "input_summary": "identical",
+      "name": "soft_none",
+      "pass": true,
+      "purpose": "Soft conflict none"
+    },
+    {
+      "actual_outcome": {
+        "band": "low",
+        "sev": 0.2
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "band=low",
+      "id": "52",
+      "input_summary": "I=0.2 c=0",
+      "name": "soft_low",
+      "pass": true,
+      "purpose": "Soft conflict low"
+    },
+    {
+      "actual_outcome": {
+        "band": "moderate",
+        "sev": 0.5
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "band=moderate",
+      "id": "53",
+      "input_summary": "I=0.5 c=0",
+      "name": "soft_moderate",
+      "pass": true,
+      "purpose": "Soft conflict moderate"
+    },
+    {
+      "actual_outcome": {
+        "band": "high",
+        "sev": 0.9
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "band=high",
+      "id": "54",
+      "input_summary": "I=0.9 c=0",
+      "name": "soft_high",
+      "pass": true,
+      "purpose": "Soft conflict high"
+    },
+    {
+      "actual_outcome": {
+        "high": 0.9,
+        "low": 0.2
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "high > low",
+      "id": "55",
+      "input_summary": "I 0.2 vs 0.9",
+      "name": "importance_increases_severity",
+      "pass": true,
+      "purpose": "Greater importance increases severity"
+    },
+    {
+      "actual_outcome": {
+        "highF": 0.17999999999999997,
+        "lowF": 0.9
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "lowF > highF",
+      "id": "56",
+      "input_summary": "f 0 vs 0.8",
+      "name": "flexibility_lowers_severity",
+      "pass": true,
+      "purpose": "Greater flexibility lowers severity"
+    },
+    {
+      "actual_outcome": {
+        "a": 0.9,
+        "mutual": 0.9
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "mutual == max",
+      "id": "57",
+      "input_summary": "max of directions",
+      "name": "mutual_soft_uses_max",
+      "pass": true,
+      "purpose": "Mutual soft severity uses maximum"
+    },
+    {
+      "actual_outcome": {
+        "blocked": false
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "not blocked",
+      "id": "58",
+      "input_summary": "soft high, hard NA",
+      "name": "soft_does_not_hard_fail",
+      "pass": true,
+      "purpose": "Soft conflict does not create hard failure"
+    },
+    {
+      "actual_outcome": {
+        "blocked": true,
+        "has_overall": false,
+        "value_mutual": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "no overall score; values unchanged",
+      "id": "59",
+      "input_summary": "hard failed container",
+      "name": "hard_fail_no_fabricated_value_score",
+      "pass": true,
+      "purpose": "Hard failure does not fabricate numeric value score"
+    },
+    {
+      "actual_outcome": {
+        "eq_status": "insufficient_evidence",
+        "layer_has_structural": false,
+        "struct_fp": "-37077a8abd26c6b9"
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "structural engine invoked separately; not in value layer JSON",
+      "id": "60",
+      "input_summary": "independent structural call",
+      "name": "structural_remains_separate",
+      "pass": true,
+      "purpose": "Structural similarity remains separate"
+    },
+    {
+      "actual_outcome": {
+        "layer_has_pref": false,
+        "pref_raw": 1.0
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "preference raw exists; not aggregated in layer",
+      "id": "61",
+      "input_summary": "independent preference call",
+      "name": "preference_remains_separate",
+      "pass": true,
+      "purpose": "Partner-preference fit remains separate"
+    },
+    {
+      "actual_outcome": {
+        "keys": [
+          "config_version",
+          "deterministic_fingerprint",
+          "diagnostics",
+          "evaluation_coverage_a_to_b",
+          "evaluation_coverage_b_to_a",
+          "future_final_result_should_be_blocked",
+          "missing_fields",
+          "mutual_hard_constraint_result",
+          "mutual_value_result",
+          "registry_version",
+          "soft_conflict_result"
+        ]
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "no overall_compatibility_score",
+      "id": "62",
+      "input_summary": "layer JSON keys",
+      "name": "no_final_compatibility_score",
+      "pass": true,
+      "purpose": "No final compatibility score"
+    },
+    {
+      "actual_outcome": {
+        "dims20": 20,
+        "dims24": 24
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "24 dims; value layer independent",
+      "id": "63",
+      "input_summary": "fixture length",
+      "name": "registry_24d_unaffected",
+      "pass": true,
+      "purpose": "24-dimension registry remains unaffected"
+    },
+    {
+      "actual_outcome": {
+        "threw": true
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "throws",
+      "id": "64",
+      "input_summary": "config registry wrong",
+      "name": "registry_mismatch",
+      "pass": true,
+      "purpose": "Registry mismatch"
+    },
+    {
+      "actual_outcome": {
+        "threw": true
+      },
+      "diagnostic_codes": [],
+      "expected_outcome": "throws",
+      "id": "65",
+      "input_summary": "status not provisional",
+      "name": "config_mismatch",
+      "pass": true,
+      "purpose": "Config mismatch"
+    }
+  ],
+  "simulator": "simulate_relationship_value_layer_v1",
+  "status": "COMPLETE",
+  "synthetic_only": true
+}

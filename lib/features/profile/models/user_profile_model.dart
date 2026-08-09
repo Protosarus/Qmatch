@@ -6,7 +6,7 @@ class UserProfileModel {
   final String name;
   final int age;
   final String gender;
-  final GeoPoint? location;      // Artık opsiyonel
+  final GeoPoint? location; // Artık opsiyonel
   final String? locationText;
   final String education;
   final String bio;
@@ -31,8 +31,8 @@ class UserProfileModel {
   final String? profilePhotoUrl;
 
   // Test Results (sadece arketip gösterilecek, IQ/EQ skorları gizli)
-  final String? archetype;    // Arketip ismi (örn: "Vizyon Lideri")
-  final String? category;     // HH, HM, HL, MH, MM, ML, LH, LM, LL
+  final String? archetype; // Arketip ismi (örn: "Vizyon Lideri")
+  final String? category; // HH, HM, HL, MH, MM, ML, LH, LM, LL
 
   // Meta
   final bool profileCompleted;
@@ -68,37 +68,47 @@ class UserProfileModel {
     this.completedAt,
   });
 
+  /// Profile setup / edit payload for `users/{uid}`.
+  ///
+  /// P1B-1: optional nulls are **omitted** so merge writes cannot erase
+  /// assessment-derived fields (`archetype`, `category`, persona mirrors, etc.).
+  /// Explicit `false` / `0` values are still written.
   Map<String, dynamic> toFirestore() {
+    // P2C-1C-4A: never merge-write an empty `name` (would erase the
+    // canonical display name collected by DisplayNameService).
+    final trimmedName = name.trim();
     return {
-      'name': name,
+      if (trimmedName.isNotEmpty) 'name': trimmedName,
       'age': age,
       'gender': gender,
-      'location': location,
-      'location_text': locationText,
+      if (location != null) 'location': location,
+      if (locationText != null) 'location_text': locationText,
       'education': education,
       'bio': bio,
       'interests': interests,
-      'occupation': occupation,
-      'drinking': drinking,
-      'smoking': smoking,
-      'pets': pets,
-      'children': children,
-      'religion': religion,
-      'animal_love': animalLove,
+      if (occupation != null) 'occupation': occupation,
+      if (drinking != null) 'drinking': drinking,
+      if (smoking != null) 'smoking': smoking,
+      if (pets != null) 'pets': pets,
+      if (children != null) 'children': children,
+      if (religion != null) 'religion': religion,
+      if (animalLove != null) 'animal_love': animalLove,
       'looking_for': lookingFor,
       'age_range': ageRange,
       'distance_preference': distancePreference,
       'photos': photos,
-      'profile_photo_url': profilePhotoUrl,
-      'archetype': archetype,
-      'category': category,
+      if (profilePhotoUrl != null) 'profile_photo_url': profilePhotoUrl,
+      // Assessment-derived legacy mirrors: never write null (omit instead).
+      if (archetype != null) 'archetype': archetype,
+      if (category != null) 'category': category,
       'profile_completed': profileCompleted,
       'verified': verified,
-      'completed_at': completedAt,
+      if (completedAt != null) 'completed_at': completedAt,
     };
   }
 
-  factory UserProfileModel.fromFirestore(Map<String, dynamic> data, String userId) {
+  factory UserProfileModel.fromFirestore(
+      Map<String, dynamic> data, String userId) {
     return UserProfileModel(
       userId: userId,
       name: data['name'] ?? '',

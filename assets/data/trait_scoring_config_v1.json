@@ -1,0 +1,423 @@
+{
+  "schema_version": "trait_scoring_config_v1",
+  "config_version": "trait_scoring_config_v1.0",
+  "status": "provisional",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "question_schema_version": "qmatch_question_schema_v3",
+  "trait_scoring_version": "trait_scoring_v1.0",
+  "rvi_version": "rvi_v1_provisional",
+  "module_requirements": {
+    "iq": {
+      "session_items": 25,
+      "required_domains": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning"
+      ]
+    },
+    "eq": {
+      "session_items": 30,
+      "required_dimensions": [
+        "empathy",
+        "perspective_taking",
+        "self_awareness",
+        "emotion_regulation",
+        "emotional_openness",
+        "boundary_setting",
+        "assertiveness",
+        "conflict_approach",
+        "repair_orientation",
+        "social_awareness"
+      ]
+    },
+    "frequency": {
+      "session_items": 50,
+      "required_dimensions": [
+        "depth_preference",
+        "social_energy",
+        "spontaneity",
+        "stability",
+        "disclosure_pace",
+        "communication_pace"
+      ]
+    }
+  },
+  "dimension_requirements": {
+    "logical_reasoning": {
+      "module": "iq",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 7,
+      "target_total_evidence": 7,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "pattern_reasoning": {
+      "module": "iq",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 6,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "verbal_reasoning": {
+      "module": "iq",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 6,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "spatial_reasoning": {
+      "module": "iq",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 6,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "empathy": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "perspective_taking": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "self_awareness": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "emotion_regulation": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "emotional_openness": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "boundary_setting": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "assertiveness": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "conflict_approach": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "repair_orientation": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "social_awareness": {
+      "module": "eq",
+      "minimum_primary_evidence": 2,
+      "minimum_total_evidence": 3,
+      "target_primary_evidence": 3,
+      "target_total_evidence": 4,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 2,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "depth_preference": {
+      "module": "frequency",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 8,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "social_energy": {
+      "module": "frequency",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 8,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "spontaneity": {
+      "module": "frequency",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 8,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "stability": {
+      "module": "frequency",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 8,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "disclosure_pace": {
+      "module": "frequency",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 8,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    },
+    "communication_pace": {
+      "module": "frequency",
+      "minimum_primary_evidence": 3,
+      "minimum_total_evidence": 4,
+      "target_primary_evidence": 6,
+      "target_total_evidence": 8,
+      "maximum_single_item_influence": 0.35,
+      "minimum_independent_contexts": 3,
+      "minimum_reliability": 0.35,
+      "required_for_profile_readiness": true,
+      "required_for_persona": true,
+      "evidence_sufficiency_curve": {
+        "formula": "min(1, primary/target_primary, total/target_total) * independence_factor",
+        "provisional": true
+      }
+    }
+  },
+  "reliability_weights": {
+    "evidence_sufficiency": 0.3,
+    "semantic_consistency": 0.15,
+    "reverse_consistency": 0.15,
+    "response_time_quality": 0.1,
+    "context_independence": 0.15,
+    "item_information_quality": 0.05,
+    "person_fit": 0.05,
+    "response_variation": 0.05,
+    "renormalize_over_available_only": true
+  },
+  "rvi_weights": {
+    "semantic_consistency": 0.2,
+    "reverse_consistency": 0.2,
+    "timing_quality": 0.15,
+    "person_fit": 0.1,
+    "response_variation": 0.15,
+    "social_impression_risk": 0.1,
+    "repeated_context_stability": 0.1,
+    "renormalize_over_available_only": true
+  },
+  "missing_data_policy": {
+    "never_fill_with": [
+      0,
+      0.5,
+      0.42
+    ],
+    "omit_from_dimension_scores": true,
+    "list_in_missing_dimensions": true
+  },
+  "score_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "independence": {
+    "same_context_diminishing_factor": 0.5,
+    "max_full_credit_per_context_group": 1.0,
+    "provisional": true
+  },
+  "iq_scoring": {
+    "default_item_weight": 1.0,
+    "enable_calibrated_item_weights": false
+  },
+  "behavioral_scoring": {
+    "signed_to_unit_interval": "(r + 1) / 2",
+    "max_abs_primary_delta": 0.85,
+    "max_dims_per_option": 3,
+    "max_l1_delta_magnitude": 1.6
+  },
+  "calibration_notes": {
+    "provisional": true,
+    "no_clinical_validation": true,
+    "no_global_evidence_denominator": true,
+    "replaced_temporary_persona_global_div_3": true
+  }
+}

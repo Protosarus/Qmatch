@@ -1,0 +1,143 @@
+{
+  "config_id": "core_method_v2_robustness_experiment_config",
+  "config_version": "core_method_v2_robustness_experiment_config_v1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "runtime_status": "offline_only",
+  "production_approval_status": "not_approved",
+  "scientifically_validated": false,
+  "baseline_seed": 424242,
+  "secondary_seeds": [111111, 222222, 333333, 444444],
+  "synthetic_population_size": 2000,
+  "sampled_pair_count": 50000,
+  "full_pipeline_pair_count": 10000,
+  "explanation_pair_count": 2000,
+  "subjects_per_family_full_sweep": 80,
+  "pairs_per_family_full_sweep": 400,
+  "full_pipeline_pairs_per_family_full_sweep": 120,
+  "explanation_pairs_per_family_full_sweep": 40,
+  "primary_deep_dive_family": "independent_uniform",
+  "score_bounds": { "min": 0.0, "max": 1.0 },
+  "confidence_bounds": { "min": 0.0, "max": 1.0 },
+  "quantile_points": [0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99],
+  "histogram_bin_count": 20,
+  "correlation_alert_thresholds": {
+    "moderate": 0.40,
+    "high": 0.70,
+    "very_high": 0.85
+  },
+  "score_saturation_thresholds": {
+    "low_tail_proportion": 0.15,
+    "high_tail_proportion": 0.15,
+    "narrow_variance": 0.005
+  },
+  "neutral_concentration_window": { "min": 0.45, "max": 0.55 },
+  "neutral_concentration_alert_threshold": 0.40,
+  "weight_perturbation_levels": [-0.20, -0.10, 0.0, 0.10, 0.20],
+  "scale_perturbation_levels": [-0.20, -0.10, 0.0, 0.10, 0.20],
+  "threshold_perturbation_levels": [-0.05, -0.02, 0.0, 0.02, 0.05],
+  "missingness_rates": [0.0, 0.10, 0.25, 0.40, 0.60],
+  "confidence_noise_levels": {
+    "none": 0.0,
+    "mild": 0.10,
+    "moderate": 0.25,
+    "severe": 0.50
+  },
+  "score_noise_levels": [0.01, 0.03, 0.05],
+  "rank_stability_metrics": [
+    "spearman",
+    "kendall_tau_b_style",
+    "top_1_pct_overlap",
+    "top_5_pct_overlap",
+    "top_10_pct_overlap",
+    "bottom_10_pct_overlap",
+    "median_abs_rank_movement",
+    "max_abs_rank_movement"
+  ],
+  "explanation_stability_metrics": [
+    "signal_set_jaccard",
+    "top_1_stability",
+    "top_3_overlap",
+    "category_stability",
+    "threshold_crossing_count"
+  ],
+  "calibration_readiness_requirements": [
+    "ethically_collected_consented_purpose_limited_data",
+    "offline_outcome_labels_not_engagement_alone",
+    "no_production_ranking_until_calibration_review",
+    "no_fairness_claims_from_synthetic_data"
+  ],
+  "real_user_data_policy": "forbidden_in_this_phase",
+  "synthetic_family_ids": [
+    "independent_uniform",
+    "central_normal_like_bounded",
+    "two_cluster",
+    "three_cluster",
+    "positively_correlated_dimensions",
+    "negatively_correlated_dimensions",
+    "correlated_within_modules",
+    "independent_between_modules",
+    "frequency_preference_correlated",
+    "frequency_preference_independent",
+    "values_preference_correlated",
+    "values_preference_independent",
+    "high_confidence_population",
+    "mixed_confidence_population",
+    "low_confidence_population",
+    "complete_profiles",
+    "random_partial_profiles",
+    "structured_missing_modules",
+    "structured_missing_dimensions",
+    "narrow_score_range",
+    "wide_score_range",
+    "boundary_heavy",
+    "hard_constraint_sparse",
+    "hard_constraint_dense",
+    "soft_conflict_sparse",
+    "soft_conflict_dense"
+  ],
+  "opaque_cohort_labels": ["cohort_alpha", "cohort_beta", "cohort_gamma"],
+  "modes": {
+    "smoke": {
+      "synthetic_population_size": 48,
+      "subjects_per_family": 4,
+      "sampled_pair_count": 120,
+      "full_pipeline_pair_count": 60,
+      "explanation_pair_count": 24,
+      "secondary_seed_count": 2,
+      "run_deep_dive": false,
+      "run_all_families": true
+    },
+    "full": {
+      "synthetic_population_size": 2000,
+      "subjects_per_family": 80,
+      "sampled_pair_count": 50000,
+      "full_pipeline_pair_count": 10000,
+      "explanation_pair_count": 2000,
+      "secondary_seed_count": 4,
+      "run_deep_dive": true,
+      "run_all_families": true,
+      "deep_dive_uses_top_level_counts": true
+    }
+  },
+  "injected_evaluation_timestamp_utc": "2026-07-24T12:00:00.000Z",
+  "frozen_source_configs": {
+    "structural": "structural_similarity_config_v1",
+    "preference": "directional_preference_fit_config_v1",
+    "values": "relationship_value_comparison_config_v1",
+    "aggregation": "core_method_v2_aggregation_config_v1",
+    "explanation": "structured_explanation_config_v1"
+  },
+  "complementarity_status": "disabled",
+  "temporal_layer_status": "disabled",
+  "persona_input_status": "forbidden",
+  "frequency_type_status": "forbidden",
+  "ai_scoring_status": "forbidden",
+  "soft_conflict_penalty_status": "disabled",
+  "notes": [
+    "Synthetic data evaluates engineering behavior only.",
+    "Synthetic data cannot establish predictive validity, fairness, or calibration.",
+    "Do not run population-scale simulations inside flutter test."
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "confidence_rows": [
+    {
+      "base_adjusted": null,
+      "base_q": 0.8160229109207305,
+      "degrade": 0.0,
+      "degraded_adjusted": null,
+      "degraded_q": 0.8160229109207305,
+      "level": "none",
+      "q_fell_or_equal": true
+    },
+    {
+      "base_adjusted": null,
+      "base_q": 0.8160229109207305,
+      "degrade": 0.1,
+      "degraded_adjusted": null,
+      "degraded_q": 0.7725334786450614,
+      "level": "mild",
+      "q_fell_or_equal": true
+    },
+    {
+      "base_adjusted": null,
+      "base_q": 0.8160229109207305,
+      "degrade": 0.25,
+      "degraded_adjusted": null,
+      "degraded_q": 0.7005070251220448,
+      "level": "moderate",
+      "q_fell_or_equal": true
+    },
+    {
+      "base_adjusted": null,
+      "base_q": 0.8160229109207305,
+      "degrade": 0.5,
+      "degraded_adjusted": null,
+      "degraded_q": 0.55041207003591,
+      "level": "severe",
+      "q_fell_or_equal": true
+    }
+  ],
+  "insufficient_does_not_fabricate_neutral": true,
+  "missingness_rows": [
+    {
+      "adjusted_score": null,
+      "available_components": 5,
+      "available_mass": 1.0,
+      "evaluation_status": "blocked_by_hard_constraint",
+      "fabricated_neutral": false,
+      "missingness_rate": 0.0,
+      "q_overall": 0.8160229109207305,
+      "raw_score": null
+    },
+    {
+      "adjusted_score": null,
+      "available_components": 4,
+      "available_mass": 0.9199999999999999,
+      "evaluation_status": "blocked_by_hard_constraint",
+      "fabricated_neutral": false,
+      "missingness_rate": 0.1,
+      "q_overall": 0.7358621716588021,
+      "raw_score": null
+    },
+    {
+      "adjusted_score": null,
+      "available_components": 1,
+      "available_mass": 0.2,
+      "evaluation_status": "blocked_by_hard_constraint",
+      "fabricated_neutral": false,
+      "missingness_rate": 0.25,
+      "q_overall": 0.18180573915099627,
+      "raw_score": null
+    },
+    {
+      "adjusted_score": null,
+      "available_components": 1,
+      "available_mass": 0.2,
+      "evaluation_status": "blocked_by_hard_constraint",
+      "fabricated_neutral": false,
+      "missingness_rate": 0.4,
+      "q_overall": 0.18180573915099627,
+      "raw_score": null
+    },
+    {
+      "adjusted_score": null,
+      "available_components": 1,
+      "available_mass": 0.2,
+      "evaluation_status": "blocked_by_hard_constraint",
+      "fabricated_neutral": false,
+      "missingness_rate": 0.6,
+      "q_overall": 0.18180573915099627,
+      "raw_score": null
+    }
+  ]
+}

@@ -1,0 +1,2913 @@
+{
+  "schema_version": "persona_profiles_v2_20d",
+  "persona_profile_version": "persona_profiles_v2_20d.0",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "created_at": "2026-07-24",
+  "group_weights": {
+    "iq": 0.15,
+    "eq": 0.3,
+    "frequency": 0.55
+  },
+  "dimension_order": [
+    "logical_reasoning",
+    "pattern_reasoning",
+    "verbal_reasoning",
+    "spatial_reasoning",
+    "empathy",
+    "perspective_taking",
+    "self_awareness",
+    "emotion_regulation",
+    "emotional_openness",
+    "boundary_setting",
+    "assertiveness",
+    "conflict_approach",
+    "repair_orientation",
+    "social_awareness",
+    "depth_preference",
+    "social_energy",
+    "spontaneity",
+    "stability",
+    "disclosure_pace",
+    "communication_pace"
+  ],
+  "scoring_notes": {
+    "provisional": true,
+    "similarity_is_not_probability": true,
+    "confidence_is_separate_from_similarity": true,
+    "no_persona_quota": true,
+    "no_forced_distribution": true,
+    "missing_evidence_never_filled_with_neutral": true,
+    "group_weights_apply_after_within_group_normalization": true,
+    "calibration_status": "synthetic_validation_only"
+  },
+  "calibration_status": "synthetic_validation_only",
+  "personas": [
+    {
+      "persona_id": "uygulayici",
+      "labels": {
+        "tr": "Uygulayıcı",
+        "en": "Executor"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.72,
+        "pattern_reasoning": 0.54,
+        "verbal_reasoning": 0.46,
+        "spatial_reasoning": 0.5,
+        "empathy": 0.4,
+        "perspective_taking": 0.48,
+        "self_awareness": 0.6,
+        "emotion_regulation": 0.78,
+        "emotional_openness": 0.32,
+        "boundary_setting": 0.7,
+        "assertiveness": 0.76,
+        "conflict_approach": 0.6,
+        "repair_orientation": 0.52,
+        "social_awareness": 0.5,
+        "depth_preference": 0.42,
+        "social_energy": 0.58,
+        "spontaneity": 0.22,
+        "stability": 0.9,
+        "disclosure_pace": 0.36,
+        "communication_pace": 0.7
+      },
+      "dimension_weights": {
+        "logical_reasoning": 1.15,
+        "pattern_reasoning": 0.8,
+        "verbal_reasoning": 0.7,
+        "spatial_reasoning": 0.75,
+        "empathy": 0.65,
+        "perspective_taking": 0.7,
+        "self_awareness": 0.9,
+        "emotion_regulation": 1.3,
+        "emotional_openness": 0.6,
+        "boundary_setting": 1.1,
+        "assertiveness": 1.35,
+        "conflict_approach": 0.85,
+        "repair_orientation": 0.8,
+        "social_awareness": 0.75,
+        "depth_preference": 0.7,
+        "social_energy": 0.85,
+        "spontaneity": 0.95,
+        "stability": 1.55,
+        "disclosure_pace": 0.65,
+        "communication_pace": 1.1
+      },
+      "primary_dimensions": [
+        "stability",
+        "assertiveness",
+        "emotion_regulation"
+      ],
+      "supporting_dimensions": [
+        "boundary_setting",
+        "communication_pace",
+        "logical_reasoning"
+      ],
+      "neutral_dimensions": [
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "perspective_taking",
+        "self_awareness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "stability",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with uygulayici peak on stability.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.31,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with uygulayici peak on assertiveness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotion_regulation",
+          "direction": "below",
+          "threshold": 0.33,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with uygulayici peak on emotion_regulation.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "stability",
+          "assertiveness",
+          "emotion_regulation"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "kararli",
+        "stratejist",
+        "muhafiz"
+      ],
+      "separator_targets": {
+        "kararli": {
+          "dimensions": [
+            "spontaneity",
+            "communication_pace",
+            "logical_reasoning"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "stratejist": {
+          "dimensions": [
+            "pattern_reasoning",
+            "perspective_taking",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "muhafiz": {
+          "dimensions": [
+            "empathy",
+            "conflict_approach",
+            "disclosure_pace"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 1,
+      "rationale": {
+        "tr": "PROVİZYONEL: Uygulayıcı profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Executor is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "koruyucu",
+      "labels": {
+        "tr": "Koruyucu",
+        "en": "Guardian"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.46,
+        "pattern_reasoning": 0.44,
+        "verbal_reasoning": 0.54,
+        "spatial_reasoning": 0.42,
+        "empathy": 0.88,
+        "perspective_taking": 0.72,
+        "self_awareness": 0.66,
+        "emotion_regulation": 0.74,
+        "emotional_openness": 0.74,
+        "boundary_setting": 0.82,
+        "assertiveness": 0.52,
+        "conflict_approach": 0.48,
+        "repair_orientation": 0.84,
+        "social_awareness": 0.7,
+        "depth_preference": 0.8,
+        "social_energy": 0.48,
+        "spontaneity": 0.24,
+        "stability": 0.88,
+        "disclosure_pace": 0.74,
+        "communication_pace": 0.5
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.7,
+        "pattern_reasoning": 0.65,
+        "verbal_reasoning": 0.85,
+        "spatial_reasoning": 0.6,
+        "empathy": 1.5,
+        "perspective_taking": 1.05,
+        "self_awareness": 0.95,
+        "emotion_regulation": 1.05,
+        "emotional_openness": 1.15,
+        "boundary_setting": 1.35,
+        "assertiveness": 0.8,
+        "conflict_approach": 0.75,
+        "repair_orientation": 1.4,
+        "social_awareness": 1.05,
+        "depth_preference": 1.2,
+        "social_energy": 0.8,
+        "spontaneity": 0.85,
+        "stability": 1.4,
+        "disclosure_pace": 1.15,
+        "communication_pace": 0.8
+      },
+      "primary_dimensions": [
+        "empathy",
+        "boundary_setting",
+        "repair_orientation",
+        "stability"
+      ],
+      "supporting_dimensions": [
+        "disclosure_pace",
+        "depth_preference",
+        "perspective_taking"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "self_awareness",
+        "emotion_regulation"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "empathy",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with koruyucu peak on empathy.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "boundary_setting",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with koruyucu peak on boundary_setting.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "repair_orientation",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with koruyucu peak on repair_orientation.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "stability",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with koruyucu peak on stability.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "empathy",
+          "boundary_setting",
+          "repair_orientation"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "muhafiz",
+        "sifaci",
+        "empat"
+      ],
+      "separator_targets": {
+        "muhafiz": {
+          "dimensions": [
+            "empathy",
+            "repair_orientation",
+            "disclosure_pace",
+            "conflict_approach"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "sifaci": {
+          "dimensions": [
+            "boundary_setting",
+            "assertiveness",
+            "conflict_approach"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "empat": {
+          "dimensions": [
+            "boundary_setting",
+            "emotion_regulation",
+            "stability"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 2,
+      "rationale": {
+        "tr": "PROVİZYONEL: Koruyucu profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Guardian is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "bilge",
+      "labels": {
+        "tr": "Bilge",
+        "en": "Sage"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.64,
+        "pattern_reasoning": 0.62,
+        "verbal_reasoning": 0.82,
+        "spatial_reasoning": 0.48,
+        "empathy": 0.6,
+        "perspective_taking": 0.88,
+        "self_awareness": 0.9,
+        "emotion_regulation": 0.76,
+        "emotional_openness": 0.56,
+        "boundary_setting": 0.56,
+        "assertiveness": 0.34,
+        "conflict_approach": 0.44,
+        "repair_orientation": 0.62,
+        "social_awareness": 0.64,
+        "depth_preference": 0.88,
+        "social_energy": 0.26,
+        "spontaneity": 0.28,
+        "stability": 0.72,
+        "disclosure_pace": 0.52,
+        "communication_pace": 0.28
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.95,
+        "pattern_reasoning": 0.9,
+        "verbal_reasoning": 1.35,
+        "spatial_reasoning": 0.7,
+        "empathy": 0.9,
+        "perspective_taking": 1.45,
+        "self_awareness": 1.5,
+        "emotion_regulation": 1.15,
+        "emotional_openness": 0.85,
+        "boundary_setting": 0.85,
+        "assertiveness": 0.65,
+        "conflict_approach": 0.7,
+        "repair_orientation": 0.95,
+        "social_awareness": 0.95,
+        "depth_preference": 1.4,
+        "social_energy": 0.85,
+        "spontaneity": 0.8,
+        "stability": 1.0,
+        "disclosure_pace": 0.85,
+        "communication_pace": 0.9
+      },
+      "primary_dimensions": [
+        "self_awareness",
+        "perspective_taking",
+        "depth_preference",
+        "verbal_reasoning"
+      ],
+      "supporting_dimensions": [
+        "emotion_regulation",
+        "verbal_reasoning",
+        "social_awareness"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "emotional_openness",
+        "boundary_setting"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "self_awareness",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bilge peak on self_awareness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "perspective_taking",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bilge peak on perspective_taking.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "depth_preference",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bilge peak on depth_preference.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "verbal_reasoning",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bilge peak on verbal_reasoning.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "self_awareness",
+          "perspective_taking",
+          "depth_preference"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "analist",
+        "sezgisel",
+        "yargic"
+      ],
+      "separator_targets": {
+        "analist": {
+          "dimensions": [
+            "depth_preference",
+            "emotional_openness",
+            "self_awareness",
+            "logical_reasoning"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "sezgisel": {
+          "dimensions": [
+            "verbal_reasoning",
+            "social_energy",
+            "emotion_regulation"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "yargic": {
+          "dimensions": [
+            "conflict_approach",
+            "boundary_setting",
+            "emotional_openness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 3,
+      "rationale": {
+        "tr": "PROVİZYONEL: Bilge profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Sage is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "lider",
+      "labels": {
+        "tr": "Lider",
+        "en": "Leader"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.66,
+        "pattern_reasoning": 0.56,
+        "verbal_reasoning": 0.72,
+        "spatial_reasoning": 0.5,
+        "empathy": 0.48,
+        "perspective_taking": 0.66,
+        "self_awareness": 0.62,
+        "emotion_regulation": 0.68,
+        "emotional_openness": 0.4,
+        "boundary_setting": 0.68,
+        "assertiveness": 0.92,
+        "conflict_approach": 0.82,
+        "repair_orientation": 0.56,
+        "social_awareness": 0.86,
+        "depth_preference": 0.38,
+        "social_energy": 0.9,
+        "spontaneity": 0.34,
+        "stability": 0.74,
+        "disclosure_pace": 0.28,
+        "communication_pace": 0.82
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.95,
+        "pattern_reasoning": 0.85,
+        "verbal_reasoning": 1.15,
+        "spatial_reasoning": 0.7,
+        "empathy": 0.85,
+        "perspective_taking": 1.05,
+        "self_awareness": 0.95,
+        "emotion_regulation": 1.0,
+        "emotional_openness": 0.75,
+        "boundary_setting": 0.9,
+        "assertiveness": 1.55,
+        "conflict_approach": 1.25,
+        "repair_orientation": 0.9,
+        "social_awareness": 1.4,
+        "depth_preference": 0.85,
+        "social_energy": 1.35,
+        "spontaneity": 0.85,
+        "stability": 0.95,
+        "disclosure_pace": 0.7,
+        "communication_pace": 1.15
+      },
+      "primary_dimensions": [
+        "assertiveness",
+        "social_awareness",
+        "social_energy",
+        "conflict_approach"
+      ],
+      "supporting_dimensions": [
+        "verbal_reasoning",
+        "communication_pace",
+        "perspective_taking"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "self_awareness",
+        "emotion_regulation"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with lider peak on assertiveness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_awareness",
+          "direction": "below",
+          "threshold": 0.41,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with lider peak on social_awareness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_energy",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with lider peak on social_energy.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "conflict_approach",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with lider peak on conflict_approach.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "assertiveness",
+          "social_awareness",
+          "social_energy"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "vizyoner",
+        "uygulayici",
+        "donusturucu"
+      ],
+      "separator_targets": {
+        "vizyoner": {
+          "dimensions": [
+            "assertiveness",
+            "social_energy",
+            "pattern_reasoning",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "uygulayici": {
+          "dimensions": [
+            "social_awareness",
+            "social_energy",
+            "stability"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "donusturucu": {
+          "dimensions": [
+            "stability",
+            "repair_orientation",
+            "conflict_approach"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 4,
+      "rationale": {
+        "tr": "PROVİZYONEL: Lider profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Leader is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "muhafiz",
+      "labels": {
+        "tr": "Muhafız",
+        "en": "Sentinel"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.6,
+        "pattern_reasoning": 0.52,
+        "verbal_reasoning": 0.48,
+        "spatial_reasoning": 0.46,
+        "empathy": 0.42,
+        "perspective_taking": 0.54,
+        "self_awareness": 0.62,
+        "emotion_regulation": 0.82,
+        "emotional_openness": 0.28,
+        "boundary_setting": 0.92,
+        "assertiveness": 0.8,
+        "conflict_approach": 0.86,
+        "repair_orientation": 0.46,
+        "social_awareness": 0.56,
+        "depth_preference": 0.52,
+        "social_energy": 0.38,
+        "spontaneity": 0.18,
+        "stability": 0.92,
+        "disclosure_pace": 0.24,
+        "communication_pace": 0.46
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.85,
+        "pattern_reasoning": 0.75,
+        "verbal_reasoning": 0.75,
+        "spatial_reasoning": 0.7,
+        "empathy": 0.7,
+        "perspective_taking": 0.8,
+        "self_awareness": 0.9,
+        "emotion_regulation": 1.25,
+        "emotional_openness": 0.55,
+        "boundary_setting": 1.55,
+        "assertiveness": 1.3,
+        "conflict_approach": 1.45,
+        "repair_orientation": 0.75,
+        "social_awareness": 0.85,
+        "depth_preference": 0.85,
+        "social_energy": 0.75,
+        "spontaneity": 0.95,
+        "stability": 1.55,
+        "disclosure_pace": 0.7,
+        "communication_pace": 0.8
+      },
+      "primary_dimensions": [
+        "boundary_setting",
+        "stability",
+        "conflict_approach",
+        "assertiveness"
+      ],
+      "supporting_dimensions": [
+        "emotion_regulation",
+        "logical_reasoning"
+      ],
+      "neutral_dimensions": [
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "perspective_taking",
+        "self_awareness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "boundary_setting",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with muhafiz peak on boundary_setting.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "stability",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with muhafiz peak on stability.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "conflict_approach",
+          "direction": "below",
+          "threshold": 0.41,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with muhafiz peak on conflict_approach.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.35,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with muhafiz peak on assertiveness.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "boundary_setting",
+          "stability",
+          "conflict_approach"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "koruyucu",
+        "kararli",
+        "yargic"
+      ],
+      "separator_targets": {
+        "koruyucu": {
+          "dimensions": [
+            "empathy",
+            "repair_orientation",
+            "disclosure_pace",
+            "conflict_approach"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "kararli": {
+          "dimensions": [
+            "conflict_approach",
+            "boundary_setting",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "yargic": {
+          "dimensions": [
+            "perspective_taking",
+            "empathy",
+            "disclosure_pace"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 5,
+      "rationale": {
+        "tr": "PROVİZYONEL: Muhafız profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Sentinel is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "sifaci",
+      "labels": {
+        "tr": "Şifacı",
+        "en": "Healer"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.44,
+        "pattern_reasoning": 0.46,
+        "verbal_reasoning": 0.56,
+        "spatial_reasoning": 0.42,
+        "empathy": 0.9,
+        "perspective_taking": 0.76,
+        "self_awareness": 0.7,
+        "emotion_regulation": 0.76,
+        "emotional_openness": 0.78,
+        "boundary_setting": 0.48,
+        "assertiveness": 0.3,
+        "conflict_approach": 0.28,
+        "repair_orientation": 0.94,
+        "social_awareness": 0.74,
+        "depth_preference": 0.8,
+        "social_energy": 0.46,
+        "spontaneity": 0.3,
+        "stability": 0.74,
+        "disclosure_pace": 0.84,
+        "communication_pace": 0.44
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.65,
+        "pattern_reasoning": 0.7,
+        "verbal_reasoning": 0.85,
+        "spatial_reasoning": 0.6,
+        "empathy": 1.5,
+        "perspective_taking": 1.15,
+        "self_awareness": 1.0,
+        "emotion_regulation": 1.2,
+        "emotional_openness": 1.2,
+        "boundary_setting": 0.85,
+        "assertiveness": 0.6,
+        "conflict_approach": 0.55,
+        "repair_orientation": 1.6,
+        "social_awareness": 1.1,
+        "depth_preference": 1.25,
+        "social_energy": 0.8,
+        "spontaneity": 0.75,
+        "stability": 1.1,
+        "disclosure_pace": 1.3,
+        "communication_pace": 0.75
+      },
+      "primary_dimensions": [
+        "repair_orientation",
+        "empathy",
+        "disclosure_pace",
+        "emotion_regulation"
+      ],
+      "supporting_dimensions": [
+        "depth_preference",
+        "emotional_openness",
+        "perspective_taking"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "self_awareness",
+        "boundary_setting"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "repair_orientation",
+          "direction": "below",
+          "threshold": 0.49,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sifaci peak on repair_orientation.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "empathy",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sifaci peak on empathy.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "disclosure_pace",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sifaci peak on disclosure_pace.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotion_regulation",
+          "direction": "below",
+          "threshold": 0.31,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sifaci peak on emotion_regulation.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "repair_orientation",
+          "empathy",
+          "disclosure_pace"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "empat",
+        "koruyucu",
+        "iletisimci"
+      ],
+      "separator_targets": {
+        "empat": {
+          "dimensions": [
+            "repair_orientation",
+            "emotion_regulation",
+            "boundary_setting",
+            "stability"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "koruyucu": {
+          "dimensions": [
+            "assertiveness",
+            "boundary_setting",
+            "conflict_approach"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "iletisimci": {
+          "dimensions": [
+            "depth_preference",
+            "social_energy",
+            "communication_pace"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 6,
+      "rationale": {
+        "tr": "PROVİZYONEL: Şifacı profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Healer is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "yargic",
+      "labels": {
+        "tr": "Yargıç",
+        "en": "Judge"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.78,
+        "pattern_reasoning": 0.68,
+        "verbal_reasoning": 0.7,
+        "spatial_reasoning": 0.48,
+        "empathy": 0.42,
+        "perspective_taking": 0.86,
+        "self_awareness": 0.74,
+        "emotion_regulation": 0.88,
+        "emotional_openness": 0.24,
+        "boundary_setting": 0.82,
+        "assertiveness": 0.68,
+        "conflict_approach": 0.8,
+        "repair_orientation": 0.5,
+        "social_awareness": 0.74,
+        "depth_preference": 0.7,
+        "social_energy": 0.34,
+        "spontaneity": 0.2,
+        "stability": 0.8,
+        "disclosure_pace": 0.26,
+        "communication_pace": 0.38
+      },
+      "dimension_weights": {
+        "logical_reasoning": 1.25,
+        "pattern_reasoning": 1.05,
+        "verbal_reasoning": 1.1,
+        "spatial_reasoning": 0.7,
+        "empathy": 0.75,
+        "perspective_taking": 1.4,
+        "self_awareness": 1.1,
+        "emotion_regulation": 1.4,
+        "emotional_openness": 0.55,
+        "boundary_setting": 1.25,
+        "assertiveness": 1.0,
+        "conflict_approach": 1.3,
+        "repair_orientation": 0.85,
+        "social_awareness": 1.15,
+        "depth_preference": 0.9,
+        "social_energy": 0.75,
+        "spontaneity": 0.8,
+        "stability": 1.15,
+        "disclosure_pace": 0.6,
+        "communication_pace": 0.75
+      },
+      "primary_dimensions": [
+        "perspective_taking",
+        "emotion_regulation",
+        "conflict_approach",
+        "logical_reasoning"
+      ],
+      "supporting_dimensions": [
+        "boundary_setting",
+        "social_awareness",
+        "stability"
+      ],
+      "neutral_dimensions": [
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "self_awareness",
+        "emotional_openness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "perspective_taking",
+          "direction": "below",
+          "threshold": 0.41,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yargic peak on perspective_taking.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotion_regulation",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yargic peak on emotion_regulation.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "conflict_approach",
+          "direction": "below",
+          "threshold": 0.35,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yargic peak on conflict_approach.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "logical_reasoning",
+          "direction": "below",
+          "threshold": 0.33,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yargic peak on logical_reasoning.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "perspective_taking",
+          "emotion_regulation",
+          "conflict_approach"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "analist",
+        "muhafiz",
+        "bilge"
+      ],
+      "separator_targets": {
+        "analist": {
+          "dimensions": [
+            "conflict_approach",
+            "social_awareness",
+            "boundary_setting"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "muhafiz": {
+          "dimensions": [
+            "perspective_taking",
+            "empathy",
+            "logical_reasoning"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "bilge": {
+          "dimensions": [
+            "conflict_approach",
+            "depth_preference",
+            "emotional_openness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 7,
+      "rationale": {
+        "tr": "PROVİZYONEL: Yargıç profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Judge is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "empat",
+      "labels": {
+        "tr": "Empat",
+        "en": "Empath"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.4,
+        "pattern_reasoning": 0.46,
+        "verbal_reasoning": 0.58,
+        "spatial_reasoning": 0.42,
+        "empathy": 0.94,
+        "perspective_taking": 0.82,
+        "self_awareness": 0.72,
+        "emotion_regulation": 0.36,
+        "emotional_openness": 0.9,
+        "boundary_setting": 0.32,
+        "assertiveness": 0.28,
+        "conflict_approach": 0.3,
+        "repair_orientation": 0.66,
+        "social_awareness": 0.82,
+        "depth_preference": 0.76,
+        "social_energy": 0.52,
+        "spontaneity": 0.46,
+        "stability": 0.46,
+        "disclosure_pace": 0.88,
+        "communication_pace": 0.5
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.6,
+        "pattern_reasoning": 0.7,
+        "verbal_reasoning": 0.9,
+        "spatial_reasoning": 0.6,
+        "empathy": 1.6,
+        "perspective_taking": 1.25,
+        "self_awareness": 1.05,
+        "emotion_regulation": 0.75,
+        "emotional_openness": 1.45,
+        "boundary_setting": 0.7,
+        "assertiveness": 0.55,
+        "conflict_approach": 0.55,
+        "repair_orientation": 1.05,
+        "social_awareness": 1.25,
+        "depth_preference": 1.15,
+        "social_energy": 0.85,
+        "spontaneity": 0.8,
+        "stability": 0.8,
+        "disclosure_pace": 1.4,
+        "communication_pace": 0.8
+      },
+      "primary_dimensions": [
+        "empathy",
+        "emotional_openness",
+        "disclosure_pace",
+        "social_awareness"
+      ],
+      "supporting_dimensions": [
+        "depth_preference",
+        "perspective_taking",
+        "repair_orientation"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "self_awareness",
+        "emotion_regulation"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "empathy",
+          "direction": "below",
+          "threshold": 0.49,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with empat peak on empathy.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotional_openness",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with empat peak on emotional_openness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "disclosure_pace",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with empat peak on disclosure_pace.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_awareness",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with empat peak on social_awareness.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "empathy",
+          "emotional_openness",
+          "disclosure_pace"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "sifaci",
+        "iletisimci",
+        "sezgisel"
+      ],
+      "separator_targets": {
+        "sifaci": {
+          "dimensions": [
+            "repair_orientation",
+            "emotion_regulation",
+            "boundary_setting",
+            "emotional_openness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "iletisimci": {
+          "dimensions": [
+            "empathy",
+            "depth_preference",
+            "social_energy",
+            "communication_pace"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "sezgisel": {
+          "dimensions": [
+            "disclosure_pace",
+            "assertiveness",
+            "pattern_reasoning"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 8,
+      "rationale": {
+        "tr": "PROVİZYONEL: Empat profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Empath is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "cesur",
+      "labels": {
+        "tr": "Cesur",
+        "en": "Brave"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.52,
+        "pattern_reasoning": 0.54,
+        "verbal_reasoning": 0.5,
+        "spatial_reasoning": 0.64,
+        "empathy": 0.42,
+        "perspective_taking": 0.48,
+        "self_awareness": 0.52,
+        "emotion_regulation": 0.34,
+        "emotional_openness": 0.56,
+        "boundary_setting": 0.38,
+        "assertiveness": 0.88,
+        "conflict_approach": 0.82,
+        "repair_orientation": 0.44,
+        "social_awareness": 0.58,
+        "depth_preference": 0.46,
+        "social_energy": 0.78,
+        "spontaneity": 0.9,
+        "stability": 0.26,
+        "disclosure_pace": 0.54,
+        "communication_pace": 0.74
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.8,
+        "pattern_reasoning": 0.85,
+        "verbal_reasoning": 0.75,
+        "spatial_reasoning": 1.0,
+        "empathy": 0.7,
+        "perspective_taking": 0.75,
+        "self_awareness": 0.8,
+        "emotion_regulation": 0.7,
+        "emotional_openness": 0.9,
+        "boundary_setting": 0.7,
+        "assertiveness": 1.45,
+        "conflict_approach": 1.35,
+        "repair_orientation": 0.7,
+        "social_awareness": 0.9,
+        "depth_preference": 0.75,
+        "social_energy": 1.2,
+        "spontaneity": 1.55,
+        "stability": 0.85,
+        "disclosure_pace": 0.85,
+        "communication_pace": 1.1
+      },
+      "primary_dimensions": [
+        "spontaneity",
+        "assertiveness",
+        "conflict_approach",
+        "social_energy"
+      ],
+      "supporting_dimensions": [
+        "spatial_reasoning",
+        "communication_pace",
+        "emotional_openness"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "empathy",
+        "perspective_taking",
+        "self_awareness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "spontaneity",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with cesur peak on spontaneity.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with cesur peak on assertiveness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "conflict_approach",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with cesur peak on conflict_approach.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_energy",
+          "direction": "below",
+          "threshold": 0.33,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with cesur peak on social_energy.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "spontaneity",
+          "assertiveness",
+          "conflict_approach"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "kararli",
+        "donusturucu",
+        "lider"
+      ],
+      "separator_targets": {
+        "kararli": {
+          "dimensions": [
+            "spontaneity",
+            "stability",
+            "emotion_regulation"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "donusturucu": {
+          "dimensions": [
+            "repair_orientation",
+            "social_awareness",
+            "stability"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "lider": {
+          "dimensions": [
+            "social_awareness",
+            "stability",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 9,
+      "rationale": {
+        "tr": "PROVİZYONEL: Cesur profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Brave is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "kararli",
+      "labels": {
+        "tr": "Kararlı",
+        "en": "Determined"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.7,
+        "pattern_reasoning": 0.58,
+        "verbal_reasoning": 0.5,
+        "spatial_reasoning": 0.48,
+        "empathy": 0.44,
+        "perspective_taking": 0.52,
+        "self_awareness": 0.64,
+        "emotion_regulation": 0.84,
+        "emotional_openness": 0.34,
+        "boundary_setting": 0.72,
+        "assertiveness": 0.82,
+        "conflict_approach": 0.64,
+        "repair_orientation": 0.5,
+        "social_awareness": 0.54,
+        "depth_preference": 0.5,
+        "social_energy": 0.46,
+        "spontaneity": 0.16,
+        "stability": 0.94,
+        "disclosure_pace": 0.34,
+        "communication_pace": 0.6
+      },
+      "dimension_weights": {
+        "logical_reasoning": 1.05,
+        "pattern_reasoning": 0.85,
+        "verbal_reasoning": 0.75,
+        "spatial_reasoning": 0.7,
+        "empathy": 0.7,
+        "perspective_taking": 0.8,
+        "self_awareness": 0.95,
+        "emotion_regulation": 1.35,
+        "emotional_openness": 0.65,
+        "boundary_setting": 1.15,
+        "assertiveness": 1.3,
+        "conflict_approach": 0.95,
+        "repair_orientation": 0.8,
+        "social_awareness": 0.85,
+        "depth_preference": 0.8,
+        "social_energy": 0.8,
+        "spontaneity": 1.0,
+        "stability": 1.6,
+        "disclosure_pace": 0.65,
+        "communication_pace": 0.95
+      },
+      "primary_dimensions": [
+        "stability",
+        "emotion_regulation",
+        "assertiveness"
+      ],
+      "supporting_dimensions": [
+        "logical_reasoning",
+        "boundary_setting",
+        "communication_pace"
+      ],
+      "neutral_dimensions": [
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "perspective_taking",
+        "self_awareness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "stability",
+          "direction": "below",
+          "threshold": 0.49,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with kararli peak on stability.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotion_regulation",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with kararli peak on emotion_regulation.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with kararli peak on assertiveness.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "stability",
+          "emotion_regulation",
+          "assertiveness"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "cesur",
+        "uygulayici",
+        "muhafiz"
+      ],
+      "separator_targets": {
+        "cesur": {
+          "dimensions": [
+            "spontaneity",
+            "stability",
+            "emotion_regulation"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "uygulayici": {
+          "dimensions": [
+            "communication_pace",
+            "logical_reasoning",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "muhafiz": {
+          "dimensions": [
+            "conflict_approach",
+            "disclosure_pace",
+            "empathy"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 10,
+      "rationale": {
+        "tr": "PROVİZYONEL: Kararlı profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Determined is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "vizyoner",
+      "labels": {
+        "tr": "Vizyoner",
+        "en": "Visionary"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.58,
+        "pattern_reasoning": 0.88,
+        "verbal_reasoning": 0.82,
+        "spatial_reasoning": 0.6,
+        "empathy": 0.5,
+        "perspective_taking": 0.84,
+        "self_awareness": 0.74,
+        "emotion_regulation": 0.44,
+        "emotional_openness": 0.62,
+        "boundary_setting": 0.38,
+        "assertiveness": 0.66,
+        "conflict_approach": 0.52,
+        "repair_orientation": 0.54,
+        "social_awareness": 0.68,
+        "depth_preference": 0.84,
+        "social_energy": 0.62,
+        "spontaneity": 0.8,
+        "stability": 0.24,
+        "disclosure_pace": 0.48,
+        "communication_pace": 0.56
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.95,
+        "pattern_reasoning": 1.45,
+        "verbal_reasoning": 1.3,
+        "spatial_reasoning": 0.85,
+        "empathy": 0.8,
+        "perspective_taking": 1.3,
+        "self_awareness": 1.1,
+        "emotion_regulation": 0.8,
+        "emotional_openness": 0.9,
+        "boundary_setting": 0.7,
+        "assertiveness": 1.0,
+        "conflict_approach": 0.85,
+        "repair_orientation": 0.85,
+        "social_awareness": 1.0,
+        "depth_preference": 1.15,
+        "social_energy": 0.95,
+        "spontaneity": 1.15,
+        "stability": 0.8,
+        "disclosure_pace": 0.85,
+        "communication_pace": 0.9
+      },
+      "primary_dimensions": [
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "perspective_taking",
+        "spontaneity"
+      ],
+      "supporting_dimensions": [
+        "depth_preference",
+        "social_awareness",
+        "assertiveness"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "self_awareness",
+        "emotion_regulation",
+        "emotional_openness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "pattern_reasoning",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with vizyoner peak on pattern_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "verbal_reasoning",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with vizyoner peak on verbal_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "perspective_taking",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with vizyoner peak on perspective_taking.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "spontaneity",
+          "direction": "below",
+          "threshold": 0.35,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with vizyoner peak on spontaneity.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "pattern_reasoning",
+          "verbal_reasoning",
+          "perspective_taking"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "lider",
+        "yaratici",
+        "stratejist"
+      ],
+      "separator_targets": {
+        "lider": {
+          "dimensions": [
+            "assertiveness",
+            "social_energy",
+            "pattern_reasoning",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "yaratici": {
+          "dimensions": [
+            "spatial_reasoning",
+            "emotional_openness",
+            "perspective_taking"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "stratejist": {
+          "dimensions": [
+            "spontaneity",
+            "stability",
+            "assertiveness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 11,
+      "rationale": {
+        "tr": "PROVİZYONEL: Vizyoner profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Visionary is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "yaratici",
+      "labels": {
+        "tr": "Yaratıcı",
+        "en": "Creator"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.46,
+        "pattern_reasoning": 0.84,
+        "verbal_reasoning": 0.54,
+        "spatial_reasoning": 0.82,
+        "empathy": 0.52,
+        "perspective_taking": 0.58,
+        "self_awareness": 0.68,
+        "emotion_regulation": 0.38,
+        "emotional_openness": 0.82,
+        "boundary_setting": 0.3,
+        "assertiveness": 0.48,
+        "conflict_approach": 0.42,
+        "repair_orientation": 0.5,
+        "social_awareness": 0.56,
+        "depth_preference": 0.72,
+        "social_energy": 0.54,
+        "spontaneity": 0.92,
+        "stability": 0.22,
+        "disclosure_pace": 0.78,
+        "communication_pace": 0.5
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.8,
+        "pattern_reasoning": 1.35,
+        "verbal_reasoning": 0.9,
+        "spatial_reasoning": 1.3,
+        "empathy": 0.85,
+        "perspective_taking": 0.95,
+        "self_awareness": 0.95,
+        "emotion_regulation": 0.75,
+        "emotional_openness": 1.2,
+        "boundary_setting": 0.65,
+        "assertiveness": 0.85,
+        "conflict_approach": 0.8,
+        "repair_orientation": 0.85,
+        "social_awareness": 0.9,
+        "depth_preference": 0.95,
+        "social_energy": 0.9,
+        "spontaneity": 1.45,
+        "stability": 0.75,
+        "disclosure_pace": 1.15,
+        "communication_pace": 0.85
+      },
+      "primary_dimensions": [
+        "spontaneity",
+        "pattern_reasoning",
+        "spatial_reasoning",
+        "emotional_openness"
+      ],
+      "supporting_dimensions": [
+        "disclosure_pace",
+        "depth_preference",
+        "social_awareness"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "verbal_reasoning",
+        "empathy",
+        "perspective_taking",
+        "self_awareness",
+        "emotion_regulation"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "spontaneity",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yaratici peak on spontaneity.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "pattern_reasoning",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yaratici peak on pattern_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "spatial_reasoning",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yaratici peak on spatial_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotional_openness",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with yaratici peak on emotional_openness.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "spontaneity",
+          "pattern_reasoning",
+          "spatial_reasoning"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "donusturucu",
+        "sezgisel",
+        "vizyoner"
+      ],
+      "separator_targets": {
+        "donusturucu": {
+          "dimensions": [
+            "spatial_reasoning",
+            "conflict_approach",
+            "assertiveness",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "sezgisel": {
+          "dimensions": [
+            "spatial_reasoning",
+            "social_awareness",
+            "assertiveness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "vizyoner": {
+          "dimensions": [
+            "spatial_reasoning",
+            "verbal_reasoning",
+            "stability"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 12,
+      "rationale": {
+        "tr": "PROVİZYONEL: Yaratıcı profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Creator is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "iletisimci",
+      "labels": {
+        "tr": "İletişimci",
+        "en": "Communicator"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.48,
+        "pattern_reasoning": 0.5,
+        "verbal_reasoning": 0.88,
+        "spatial_reasoning": 0.44,
+        "empathy": 0.68,
+        "perspective_taking": 0.7,
+        "self_awareness": 0.58,
+        "emotion_regulation": 0.52,
+        "emotional_openness": 0.78,
+        "boundary_setting": 0.42,
+        "assertiveness": 0.74,
+        "conflict_approach": 0.52,
+        "repair_orientation": 0.6,
+        "social_awareness": 0.86,
+        "depth_preference": 0.34,
+        "social_energy": 0.92,
+        "spontaneity": 0.68,
+        "stability": 0.4,
+        "disclosure_pace": 0.76,
+        "communication_pace": 0.92
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.75,
+        "pattern_reasoning": 0.75,
+        "verbal_reasoning": 1.5,
+        "spatial_reasoning": 0.65,
+        "empathy": 1.0,
+        "perspective_taking": 1.05,
+        "self_awareness": 0.9,
+        "emotion_regulation": 0.85,
+        "emotional_openness": 1.2,
+        "boundary_setting": 0.7,
+        "assertiveness": 1.15,
+        "conflict_approach": 0.8,
+        "repair_orientation": 0.95,
+        "social_awareness": 1.4,
+        "depth_preference": 0.7,
+        "social_energy": 1.5,
+        "spontaneity": 1.05,
+        "stability": 0.75,
+        "disclosure_pace": 1.15,
+        "communication_pace": 1.55
+      },
+      "primary_dimensions": [
+        "communication_pace",
+        "social_energy",
+        "verbal_reasoning",
+        "social_awareness"
+      ],
+      "supporting_dimensions": [
+        "emotional_openness",
+        "assertiveness",
+        "disclosure_pace"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "perspective_taking",
+        "self_awareness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "communication_pace",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with iletisimci peak on communication_pace.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_energy",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with iletisimci peak on social_energy.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "verbal_reasoning",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with iletisimci peak on verbal_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_awareness",
+          "direction": "below",
+          "threshold": 0.41,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with iletisimci peak on social_awareness.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "communication_pace",
+          "social_energy",
+          "verbal_reasoning"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "empat",
+        "lider",
+        "donusturucu"
+      ],
+      "separator_targets": {
+        "empat": {
+          "dimensions": [
+            "empathy",
+            "depth_preference",
+            "social_energy",
+            "communication_pace"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "lider": {
+          "dimensions": [
+            "depth_preference",
+            "stability",
+            "conflict_approach"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "donusturucu": {
+          "dimensions": [
+            "stability",
+            "conflict_approach",
+            "depth_preference"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 13,
+      "rationale": {
+        "tr": "PROVİZYONEL: İletişimci profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Communicator is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "analist",
+      "labels": {
+        "tr": "Analist",
+        "en": "Analyst"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.92,
+        "pattern_reasoning": 0.9,
+        "verbal_reasoning": 0.66,
+        "spatial_reasoning": 0.58,
+        "empathy": 0.34,
+        "perspective_taking": 0.76,
+        "self_awareness": 0.7,
+        "emotion_regulation": 0.82,
+        "emotional_openness": 0.24,
+        "boundary_setting": 0.64,
+        "assertiveness": 0.44,
+        "conflict_approach": 0.48,
+        "repair_orientation": 0.4,
+        "social_awareness": 0.52,
+        "depth_preference": 0.62,
+        "social_energy": 0.28,
+        "spontaneity": 0.2,
+        "stability": 0.68,
+        "disclosure_pace": 0.26,
+        "communication_pace": 0.34
+      },
+      "dimension_weights": {
+        "logical_reasoning": 1.55,
+        "pattern_reasoning": 1.5,
+        "verbal_reasoning": 1.05,
+        "spatial_reasoning": 0.85,
+        "empathy": 0.6,
+        "perspective_taking": 1.2,
+        "self_awareness": 1.05,
+        "emotion_regulation": 1.3,
+        "emotional_openness": 0.5,
+        "boundary_setting": 0.95,
+        "assertiveness": 0.7,
+        "conflict_approach": 0.8,
+        "repair_orientation": 0.7,
+        "social_awareness": 0.8,
+        "depth_preference": 0.9,
+        "social_energy": 0.75,
+        "spontaneity": 0.8,
+        "stability": 1.0,
+        "disclosure_pace": 0.55,
+        "communication_pace": 0.7
+      },
+      "primary_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "emotion_regulation"
+      ],
+      "supporting_dimensions": [
+        "perspective_taking",
+        "self_awareness",
+        "stability"
+      ],
+      "neutral_dimensions": [
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "emotional_openness",
+        "boundary_setting",
+        "assertiveness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "logical_reasoning",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with analist peak on logical_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "pattern_reasoning",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with analist peak on pattern_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotion_regulation",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with analist peak on emotion_regulation.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "logical_reasoning",
+          "pattern_reasoning",
+          "emotion_regulation"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "bilge",
+        "yargic",
+        "stratejist"
+      ],
+      "separator_targets": {
+        "bilge": {
+          "dimensions": [
+            "depth_preference",
+            "emotional_openness",
+            "logical_reasoning",
+            "self_awareness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "yargic": {
+          "dimensions": [
+            "conflict_approach",
+            "social_awareness",
+            "pattern_reasoning"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "stratejist": {
+          "dimensions": [
+            "assertiveness",
+            "stability",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 14,
+      "rationale": {
+        "tr": "PROVİZYONEL: Analist profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Analyst is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "donusturucu",
+      "labels": {
+        "tr": "Dönüştürücü",
+        "en": "Transformer"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.56,
+        "pattern_reasoning": 0.66,
+        "verbal_reasoning": 0.64,
+        "spatial_reasoning": 0.52,
+        "empathy": 0.56,
+        "perspective_taking": 0.66,
+        "self_awareness": 0.6,
+        "emotion_regulation": 0.46,
+        "emotional_openness": 0.68,
+        "boundary_setting": 0.4,
+        "assertiveness": 0.86,
+        "conflict_approach": 0.9,
+        "repair_orientation": 0.76,
+        "social_awareness": 0.82,
+        "depth_preference": 0.7,
+        "social_energy": 0.76,
+        "spontaneity": 0.88,
+        "stability": 0.18,
+        "disclosure_pace": 0.68,
+        "communication_pace": 0.74
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.85,
+        "pattern_reasoning": 0.95,
+        "verbal_reasoning": 0.95,
+        "spatial_reasoning": 0.8,
+        "empathy": 0.95,
+        "perspective_taking": 1.0,
+        "self_awareness": 0.95,
+        "emotion_regulation": 0.85,
+        "emotional_openness": 1.0,
+        "boundary_setting": 0.75,
+        "assertiveness": 1.4,
+        "conflict_approach": 1.5,
+        "repair_orientation": 1.2,
+        "social_awareness": 1.25,
+        "depth_preference": 0.9,
+        "social_energy": 1.1,
+        "spontaneity": 1.25,
+        "stability": 0.8,
+        "disclosure_pace": 0.95,
+        "communication_pace": 1.05
+      },
+      "primary_dimensions": [
+        "conflict_approach",
+        "assertiveness",
+        "spontaneity",
+        "social_awareness"
+      ],
+      "supporting_dimensions": [
+        "repair_orientation",
+        "social_energy",
+        "emotional_openness"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "perspective_taking"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "conflict_approach",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with donusturucu peak on conflict_approach.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.41,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with donusturucu peak on assertiveness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "spontaneity",
+          "direction": "below",
+          "threshold": 0.43,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with donusturucu peak on spontaneity.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_awareness",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with donusturucu peak on social_awareness.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "conflict_approach",
+          "assertiveness",
+          "spontaneity"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "yaratici",
+        "lider",
+        "cesur"
+      ],
+      "separator_targets": {
+        "yaratici": {
+          "dimensions": [
+            "conflict_approach",
+            "assertiveness",
+            "spatial_reasoning",
+            "repair_orientation"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "lider": {
+          "dimensions": [
+            "stability",
+            "spontaneity",
+            "repair_orientation"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "cesur": {
+          "dimensions": [
+            "repair_orientation",
+            "social_awareness",
+            "stability"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 15,
+      "rationale": {
+        "tr": "PROVİZYONEL: Dönüştürücü profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Transformer is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "bagimsiz",
+      "labels": {
+        "tr": "Bağımsız",
+        "en": "Independent"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.64,
+        "pattern_reasoning": 0.56,
+        "verbal_reasoning": 0.54,
+        "spatial_reasoning": 0.5,
+        "empathy": 0.36,
+        "perspective_taking": 0.56,
+        "self_awareness": 0.84,
+        "emotion_regulation": 0.74,
+        "emotional_openness": 0.3,
+        "boundary_setting": 0.92,
+        "assertiveness": 0.78,
+        "conflict_approach": 0.62,
+        "repair_orientation": 0.32,
+        "social_awareness": 0.42,
+        "depth_preference": 0.6,
+        "social_energy": 0.16,
+        "spontaneity": 0.42,
+        "stability": 0.7,
+        "disclosure_pace": 0.24,
+        "communication_pace": 0.38
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.95,
+        "pattern_reasoning": 0.85,
+        "verbal_reasoning": 0.85,
+        "spatial_reasoning": 0.75,
+        "empathy": 0.65,
+        "perspective_taking": 0.9,
+        "self_awareness": 1.3,
+        "emotion_regulation": 1.1,
+        "emotional_openness": 0.65,
+        "boundary_setting": 1.55,
+        "assertiveness": 1.25,
+        "conflict_approach": 0.95,
+        "repair_orientation": 0.65,
+        "social_awareness": 0.7,
+        "depth_preference": 0.85,
+        "social_energy": 1.0,
+        "spontaneity": 0.85,
+        "stability": 1.0,
+        "disclosure_pace": 0.7,
+        "communication_pace": 0.75
+      },
+      "primary_dimensions": [
+        "boundary_setting",
+        "self_awareness",
+        "assertiveness",
+        "social_energy"
+      ],
+      "supporting_dimensions": [
+        "emotion_regulation",
+        "stability",
+        "logical_reasoning"
+      ],
+      "neutral_dimensions": [
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "perspective_taking",
+        "emotional_openness"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "boundary_setting",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bagimsiz peak on boundary_setting.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "self_awareness",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bagimsiz peak on self_awareness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "assertiveness",
+          "direction": "below",
+          "threshold": 0.33,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with bagimsiz peak on assertiveness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "social_energy",
+          "direction": "above",
+          "threshold": 0.56,
+          "severity": 0.3,
+          "rationale": "PROVISIONAL: strongly conflicts with bagimsiz valley on social_energy.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "boundary_setting",
+          "self_awareness",
+          "assertiveness"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "sezgisel",
+        "muhafiz",
+        "kararli"
+      ],
+      "separator_targets": {
+        "sezgisel": {
+          "dimensions": [
+            "boundary_setting",
+            "empathy",
+            "social_awareness",
+            "assertiveness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "muhafiz": {
+          "dimensions": [
+            "empathy",
+            "conflict_approach",
+            "social_energy"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "kararli": {
+          "dimensions": [
+            "social_energy",
+            "repair_orientation",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 16,
+      "rationale": {
+        "tr": "PROVİZYONEL: Bağımsız profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Independent is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "sezgisel",
+      "labels": {
+        "tr": "Sezgisel",
+        "en": "Intuitive"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.38,
+        "pattern_reasoning": 0.76,
+        "verbal_reasoning": 0.62,
+        "spatial_reasoning": 0.48,
+        "empathy": 0.82,
+        "perspective_taking": 0.78,
+        "self_awareness": 0.76,
+        "emotion_regulation": 0.44,
+        "emotional_openness": 0.82,
+        "boundary_setting": 0.42,
+        "assertiveness": 0.32,
+        "conflict_approach": 0.36,
+        "repair_orientation": 0.56,
+        "social_awareness": 0.92,
+        "depth_preference": 0.74,
+        "social_energy": 0.4,
+        "spontaneity": 0.54,
+        "stability": 0.42,
+        "disclosure_pace": 0.8,
+        "communication_pace": 0.36
+      },
+      "dimension_weights": {
+        "logical_reasoning": 0.65,
+        "pattern_reasoning": 1.2,
+        "verbal_reasoning": 0.95,
+        "spatial_reasoning": 0.75,
+        "empathy": 1.25,
+        "perspective_taking": 1.2,
+        "self_awareness": 1.15,
+        "emotion_regulation": 0.8,
+        "emotional_openness": 1.25,
+        "boundary_setting": 0.75,
+        "assertiveness": 0.6,
+        "conflict_approach": 0.65,
+        "repair_orientation": 0.9,
+        "social_awareness": 1.55,
+        "depth_preference": 1.1,
+        "social_energy": 0.8,
+        "spontaneity": 0.85,
+        "stability": 0.8,
+        "disclosure_pace": 1.2,
+        "communication_pace": 0.75
+      },
+      "primary_dimensions": [
+        "social_awareness",
+        "empathy",
+        "emotional_openness",
+        "pattern_reasoning"
+      ],
+      "supporting_dimensions": [
+        "perspective_taking",
+        "disclosure_pace",
+        "depth_preference"
+      ],
+      "neutral_dimensions": [
+        "logical_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "self_awareness",
+        "emotion_regulation",
+        "boundary_setting"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "social_awareness",
+          "direction": "below",
+          "threshold": 0.47,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sezgisel peak on social_awareness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "empathy",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sezgisel peak on empathy.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "emotional_openness",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sezgisel peak on emotional_openness.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "pattern_reasoning",
+          "direction": "below",
+          "threshold": 0.31,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with sezgisel peak on pattern_reasoning.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "social_awareness",
+          "empathy",
+          "emotional_openness"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "bagimsiz",
+        "yaratici",
+        "empat"
+      ],
+      "separator_targets": {
+        "bagimsiz": {
+          "dimensions": [
+            "boundary_setting",
+            "empathy",
+            "social_awareness",
+            "assertiveness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "yaratici": {
+          "dimensions": [
+            "spatial_reasoning",
+            "social_awareness",
+            "spontaneity"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "empat": {
+          "dimensions": [
+            "pattern_reasoning",
+            "assertiveness",
+            "emotion_regulation"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 17,
+      "rationale": {
+        "tr": "PROVİZYONEL: Sezgisel profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Intuitive is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    },
+    {
+      "persona_id": "stratejist",
+      "labels": {
+        "tr": "Stratejist",
+        "en": "Strategist"
+      },
+      "target_vector": {
+        "logical_reasoning": 0.9,
+        "pattern_reasoning": 0.86,
+        "verbal_reasoning": 0.7,
+        "spatial_reasoning": 0.54,
+        "empathy": 0.4,
+        "perspective_taking": 0.82,
+        "self_awareness": 0.74,
+        "emotion_regulation": 0.8,
+        "emotional_openness": 0.28,
+        "boundary_setting": 0.74,
+        "assertiveness": 0.76,
+        "conflict_approach": 0.7,
+        "repair_orientation": 0.46,
+        "social_awareness": 0.66,
+        "depth_preference": 0.72,
+        "social_energy": 0.36,
+        "spontaneity": 0.14,
+        "stability": 0.84,
+        "disclosure_pace": 0.28,
+        "communication_pace": 0.6
+      },
+      "dimension_weights": {
+        "logical_reasoning": 1.45,
+        "pattern_reasoning": 1.4,
+        "verbal_reasoning": 1.05,
+        "spatial_reasoning": 0.8,
+        "empathy": 0.7,
+        "perspective_taking": 1.25,
+        "self_awareness": 1.1,
+        "emotion_regulation": 1.2,
+        "emotional_openness": 0.6,
+        "boundary_setting": 1.05,
+        "assertiveness": 1.15,
+        "conflict_approach": 1.05,
+        "repair_orientation": 0.8,
+        "social_awareness": 0.95,
+        "depth_preference": 0.9,
+        "social_energy": 0.8,
+        "spontaneity": 0.95,
+        "stability": 1.15,
+        "disclosure_pace": 0.65,
+        "communication_pace": 0.85
+      },
+      "primary_dimensions": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "perspective_taking",
+        "stability"
+      ],
+      "supporting_dimensions": [
+        "assertiveness",
+        "emotion_regulation",
+        "boundary_setting"
+      ],
+      "neutral_dimensions": [
+        "verbal_reasoning",
+        "spatial_reasoning",
+        "empathy",
+        "self_awareness",
+        "emotional_openness",
+        "conflict_approach"
+      ],
+      "anti_traits": [
+        {
+          "dimension_id": "logical_reasoning",
+          "direction": "below",
+          "threshold": 0.45,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with stratejist peak on logical_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "pattern_reasoning",
+          "direction": "below",
+          "threshold": 0.41,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with stratejist peak on pattern_reasoning.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "perspective_taking",
+          "direction": "below",
+          "threshold": 0.37,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with stratejist peak on perspective_taking.",
+          "minimum_evidence_required": 2
+        },
+        {
+          "dimension_id": "stability",
+          "direction": "below",
+          "threshold": 0.39,
+          "severity": 0.35,
+          "rationale": "PROVISIONAL: strongly conflicts with stratejist peak on stability.",
+          "minimum_evidence_required": 2
+        }
+      ],
+      "minimum_evidence": {
+        "required_groups": [
+          "eq",
+          "frequency"
+        ],
+        "minimum_group_coverage": {
+          "iq": 0.0,
+          "eq": 0.4,
+          "frequency": 0.5
+        },
+        "critical_dimensions": [
+          "logical_reasoning",
+          "pattern_reasoning",
+          "perspective_taking"
+        ],
+        "minimum_evidence_per_critical_dimension": 2,
+        "minimum_total_coverage": 0.45,
+        "notes": "PROVISIONAL: insufficient evidence must block persona assignment."
+      },
+      "closest_competitors": [
+        "analist",
+        "uygulayici",
+        "vizyoner"
+      ],
+      "separator_targets": {
+        "analist": {
+          "dimensions": [
+            "assertiveness",
+            "stability",
+            "social_awareness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "uygulayici": {
+          "dimensions": [
+            "pattern_reasoning",
+            "perspective_taking",
+            "communication_pace"
+          ],
+          "notes": "PROVISIONAL separator set"
+        },
+        "vizyoner": {
+          "dimensions": [
+            "spontaneity",
+            "stability",
+            "emotional_openness"
+          ],
+          "notes": "PROVISIONAL separator set"
+        }
+      },
+      "tie_break_rank": 18,
+      "rationale": {
+        "tr": "PROVİZYONEL: Stratejist profili ayırt edici tepeler/vadiler ile tanımlanır; ahlaki sıralama değildir.",
+        "en": "PROVISIONAL: Strategist is defined by distinctive peaks/valleys; not a moral ranking."
+      },
+      "status": "provisional"
+    }
+  ]
+}

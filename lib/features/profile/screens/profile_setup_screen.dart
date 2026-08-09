@@ -8,6 +8,7 @@ import '../../../core/widgets/elegant_warning.dart';
 import '../../../core/navigation/auth_wrapper.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/user_profile_model.dart';
+import '../services/display_name_service.dart';
 import '../services/profile_service.dart';
 import 'steps/basic_info_step.dart';
 import 'steps/bio_step.dart';
@@ -105,7 +106,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
     try {
       final userId = _authService.currentUser?.uid ?? '';
-      final name = _authService.currentUser?.displayName ?? '';
+      // Preserve canonical Firestore display name; do not overwrite with Auth.
+      final name =
+          await DisplayNameService().readCanonicalDisplayName(userId) ?? '';
 
       final profile = UserProfileModel(
         userId: userId,

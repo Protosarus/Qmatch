@@ -5,12 +5,22 @@ import '../models/question_model.dart';
 import '../utils/assessment_localization_debug.dart';
 import 'assessment_set_service.dart';
 
+/// Assigned MCQ set + localized questions (IQ/EQ).
+class LoadedMcqAssessment {
+  final AssessmentSetModel set;
+  final List<QuestionModel> questions;
+
+  const LoadedMcqAssessment({
+    required this.set,
+    required this.questions,
+  });
+}
+
 class QuestionService {
   final AssessmentSetService _assessmentSetService;
 
   QuestionService({AssessmentSetService? assessmentSetService})
-      : _assessmentSetService =
-            assessmentSetService ?? AssessmentSetService();
+      : _assessmentSetService = assessmentSetService ?? AssessmentSetService();
 
   static String _defaultLanguageCode() {
     try {
@@ -20,29 +30,40 @@ class QuestionService {
     }
   }
 
-  Future<List<QuestionModel>> loadIQQuestions({
+  Future<LoadedMcqAssessment> loadIQAssessment({
     String? languageCode,
   }) async {
+    final lang = languageCode ?? _defaultLanguageCode();
     try {
       final set = await _assessmentSetService.getOrAssignSet(
         type: 'iq',
-        languageCode: languageCode ?? _defaultLanguageCode(),
+        languageCode: lang,
       );
-      return _mapQuestions(
-        set,
-        languageCode: languageCode ?? _defaultLanguageCode(),
+      return LoadedMcqAssessment(
+        set: set,
+        questions: _mapQuestions(set, languageCode: lang),
       );
     } catch (e, st) {
       debugPrint('❌ Error loading IQ assessment set: $e\n$st');
-      return [];
+      return const LoadedMcqAssessment(
+        set: AssessmentSetModel(id: '', type: 'iq'),
+        questions: [],
+      );
     }
+  }
+
+  Future<List<QuestionModel>> loadIQQuestions({
+    String? languageCode,
+  }) async {
+    return (await loadIQAssessment(languageCode: languageCode)).questions;
   }
 
   Future<List<QuestionModel>> getRandomIQQuestions({
     int count = 10,
     String? languageCode,
   }) async {
-    final allQuestions = await loadIQQuestions(languageCode: languageCode);
+    final loaded = await loadIQAssessment(languageCode: languageCode);
+    final allQuestions = loaded.questions;
     if (allQuestions.isEmpty) return [];
     if (allQuestions.length <= count) {
       return allQuestions;
@@ -50,29 +71,40 @@ class QuestionService {
     return allQuestions.sublist(0, count);
   }
 
-  Future<List<QuestionModel>> loadEQQuestions({
+  Future<LoadedMcqAssessment> loadEQAssessment({
     String? languageCode,
   }) async {
+    final lang = languageCode ?? _defaultLanguageCode();
     try {
       final set = await _assessmentSetService.getOrAssignSet(
         type: 'eq',
-        languageCode: languageCode ?? _defaultLanguageCode(),
+        languageCode: lang,
       );
-      return _mapQuestions(
-        set,
-        languageCode: languageCode ?? _defaultLanguageCode(),
+      return LoadedMcqAssessment(
+        set: set,
+        questions: _mapQuestions(set, languageCode: lang),
       );
     } catch (e, st) {
       debugPrint('❌ Error loading EQ assessment set: $e\n$st');
-      return [];
+      return const LoadedMcqAssessment(
+        set: AssessmentSetModel(id: '', type: 'eq'),
+        questions: [],
+      );
     }
+  }
+
+  Future<List<QuestionModel>> loadEQQuestions({
+    String? languageCode,
+  }) async {
+    return (await loadEQAssessment(languageCode: languageCode)).questions;
   }
 
   Future<List<QuestionModel>> getRandomEQQuestions({
     int count = 10,
     String? languageCode,
   }) async {
-    final allQuestions = await loadEQQuestions(languageCode: languageCode);
+    final loaded = await loadEQAssessment(languageCode: languageCode);
+    final allQuestions = loaded.questions;
     if (allQuestions.isEmpty) return [];
     if (allQuestions.length <= count) {
       return allQuestions;

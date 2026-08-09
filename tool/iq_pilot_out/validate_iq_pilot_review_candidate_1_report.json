@@ -1,0 +1,53 @@
+{
+  "anchors": {
+    "iq_tr_v1_logical_003": "iq_tr_v1_anchor_logical",
+    "iq_tr_v1_pattern_003": "iq_tr_v1_anchor_pattern",
+    "iq_tr_v1_spatial_007": "iq_tr_v1_anchor_spatial",
+    "iq_tr_v1_verbal_003": "iq_tr_v1_anchor_verbal"
+  },
+  "automated_validation": "PASS",
+  "correct_option_counts": {
+    "A": 7,
+    "B": 6,
+    "C": 6,
+    "D": 6
+  },
+  "correct_option_sequence": "ACDBADCBADBCABDCBADCABDAC",
+  "difficulty_counts": {
+    "easy_2": 9,
+    "hard_4": 4,
+    "medium_3": 12
+  },
+  "domain_counts": {
+    "logical_reasoning": 7,
+    "pattern_reasoning": 6,
+    "spatial_reasoning": 6,
+    "verbal_reasoning": 6
+  },
+  "error_count": 0,
+  "findings": [
+    {
+      "code": "difficulty_honest_mismatch",
+      "message": "reviewed e9/m12/h4 ≠ provisional 8/12/5",
+      "severity": "warn"
+    },
+    {
+      "code": "duplicate",
+      "message": "rejected",
+      "severity": "info"
+    },
+    {
+      "code": "unknown",
+      "message": "rejected",
+      "severity": "info"
+    }
+  ],
+  "max_correct_run": 1,
+  "notes": {
+    "does_not_prove_semantics": true,
+    "expert_reviews_pending": true,
+    "offline_only": true
+  },
+  "overall_readiness": "CONDITIONAL",
+  "warn_count": 1
+}

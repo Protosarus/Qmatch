@@ -1,0 +1,41 @@
+{
+  "form_id": "frequency_tr_pilot_v1_review_candidate_1",
+  "content_version": "frequency-tr-pilot-v1-review-candidate-1",
+  "parent_content_version": "frequency-tr-pilot-v1",
+  "parent_sha256": "8b9e3b13f761707d32cee62dc4a3eef02e8983b1c76b71ae4976543457b041ab",
+  "parent_sha256_expected": "8b9e3b13f761707d32cee62dc4a3eef02e8983b1c76b71ae4976543457b041ab",
+  "automated_validation": "PASS",
+  "overall_readiness": "CONDITIONAL",
+  "reverse_pair_service_compatibility": "PASS",
+  "error_count": 0,
+  "warn_count": 0,
+  "max_option_length_ratio": 1.4864864864864864,
+  "primary_counts": {
+    "communication_pace": 9,
+    "depth_preference": 9,
+    "disclosure_pace": 8,
+    "social_energy": 8,
+    "spontaneity": 8,
+    "stability": 8
+  },
+  "flat_072_count": 0,
+  "findings": [
+    {
+      "severity": "info",
+      "code": "reverse_pair_service_compatibility",
+      "message": "PASS — declared behavioral_correspondence under reverse_pair_consistency_contract_v1"
+    },
+    {
+      "severity": "info",
+      "code": "trait_scoring",
+      "message": "offline scoreModule succeeded"
+    }
+  ],
+  "notes": {
+    "expert_review": "pending",
+    "cognitive_interviews": "pending",
+    "calibration": "pending",
+    "reverse_rvi": "aligned_behavioral_correspondence",
+    "reverse_pair_consistency_contract": "docs/core_engine/reverse_pair_consistency_contract_v1.md"
+  }
+}

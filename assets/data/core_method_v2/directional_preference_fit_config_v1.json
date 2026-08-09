@@ -1,0 +1,52 @@
+{
+  "config_id": "directional_preference_fit_config_v1",
+  "config_version": "directional_preference_fit_config_v1",
+  "registry_version": "canonical_dimension_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "runtime_status": "offline_only",
+  "production_approved": false,
+  "scientifically_validated": false,
+  "aggregation_mode": "confidence_weighted_mean",
+  "mutual_aggregation_mode": "geometric_mean",
+  "flexibility_mapping": "linear_scale",
+  "minimum_flexibility_scale": 0.10,
+  "maximum_flexibility_scale": 0.35,
+  "importance_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "flexibility_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "score_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "confidence_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "minimum_comparable_preferences": 1,
+  "supported_preference_modes": [
+    "range",
+    "similarity_to_self",
+    "open",
+    "unavailable"
+  ],
+  "inferred_preference_policy": "prohibited_by_default",
+  "open_preference_policy": "exclude_from_numerator_and_denominator",
+  "missing_preference_policy": "exclude_never_impute",
+  "zero_effective_weight_policy": "insufficient_evidence_null_fit",
+  "version_compatibility_policy": "require_matching_registry_and_scoring_contract",
+  "complementarity_status": "disabled_pending_calibration",
+  "persona_input_status": "prohibited",
+  "ai_scoring_status": "prohibited",
+  "notes": {
+    "scales_are_provisional_uncalibrated_offline_only": true,
+    "not_production_approved": true,
+    "do_not_aggregate_with_structural_similarity": true,
+    "do_not_infer_preferences_from_self_scores": true
+  }
+}

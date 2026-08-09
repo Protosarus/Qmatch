@@ -1,0 +1,922 @@
+{
+  "schemaVersion": 1,
+  "scoringVersion": "persona_v1.0.0",
+  "status": "locked",
+  "scale": {
+    "minimum": 0.0,
+    "neutral": 0.5,
+    "maximum": 1.0
+  },
+  "dimensionOrder": {
+    "iqStyle": ["logic", "pattern", "verbal", "spatial", "numerical"],
+    "eqCharacter": [
+      "empathy",
+      "selfAwareness",
+      "emotionalRegulation",
+      "boundaries",
+      "assertiveness",
+      "perspectiveTaking",
+      "repairOrientation",
+      "autonomy",
+      "adaptability",
+      "intuitiveSensitivity"
+    ],
+    "frequencyStyle": [
+      "depth",
+      "socialEnergy",
+      "spontaneity",
+      "stability",
+      "emotionalOpenness",
+      "conversationPace"
+    ]
+  },
+  "dimensionDefinitions": {
+    "logic": {
+      "low": {"tr": "Deneyimsel ve çağrışımsal düşünme", "en": "Experiential and associative reasoning"},
+      "high": {"tr": "Kural ve çıkarım odaklı düşünme", "en": "Rule- and inference-led reasoning"}
+    },
+    "pattern": {
+      "low": {"tr": "Tekil ayrıntılara odaklanma", "en": "Focus on individual details"},
+      "high": {"tr": "Bağlantı ve düzenlilikleri fark etme", "en": "Noticing connections and regularities"}
+    },
+    "verbal": {
+      "low": {"tr": "Sözel olmayan temsilleri tercih etme", "en": "Preference for non-verbal representations"},
+      "high": {"tr": "Kavramları dil üzerinden çözümleme", "en": "Working through concepts in language"}
+    },
+    "spatial": {
+      "low": {"tr": "Sıralı ve sembolik temsili tercih etme", "en": "Preference for sequential and symbolic representation"},
+      "high": {"tr": "Görsel-uzamsal dönüşümleri kullanma", "en": "Using visual-spatial transformations"}
+    },
+    "numerical": {
+      "low": {"tr": "Nitel değerlendirmeyi tercih etme", "en": "Preference for qualitative evaluation"},
+      "high": {"tr": "Nicel ilişkileri kullanma", "en": "Using quantitative relationships"}
+    },
+    "empathy": {
+      "low": {"tr": "Önce görev veya kendi konumuna odaklanma", "en": "Prioritizing the task or one's own position"},
+      "high": {"tr": "Karşı tarafın duygusunu hesaba katma", "en": "Accounting for the other person's feelings"}
+    },
+    "selfAwareness": {
+      "low": {"tr": "İç durumunu eylem sırasında keşfetme", "en": "Discovering one's inner state through action"},
+      "high": {"tr": "Kendi duygu ve ihtiyacını erken fark etme", "en": "Recognizing one's feelings and needs early"}
+    },
+    "emotionalRegulation": {
+      "low": {"tr": "Duyguyu hızlı ve doğrudan dışa vurma", "en": "Expressing emotion quickly and directly"},
+      "high": {"tr": "Yoğun duyguda tepkiyi düzenleme", "en": "Regulating responses under intense emotion"}
+    },
+    "boundaries": {
+      "low": {"tr": "Yakınlık ve esnek erişilebilirliği önceleme", "en": "Prioritizing closeness and flexible availability"},
+      "high": {"tr": "Kişisel sınırları açık ve tutarlı koruma", "en": "Maintaining clear and consistent personal boundaries"}
+    },
+    "assertiveness": {
+      "low": {"tr": "Gözlemleyip davet bekleme", "en": "Observing and waiting for an invitation"},
+      "high": {"tr": "Açık konuşup inisiyatif alma", "en": "Speaking directly and taking initiative"}
+    },
+    "perspectiveTaking": {
+      "low": {"tr": "Tek bir tutarlı çerçevede kalma", "en": "Staying within one consistent frame"},
+      "high": {"tr": "Birden fazla bakış açısını tartma", "en": "Weighing multiple perspectives"}
+    },
+    "repairOrientation": {
+      "low": {"tr": "Kırılma sonrası mesafe ve kapanışı tercih etme", "en": "Preferring distance or closure after rupture"},
+      "high": {"tr": "Kırılma sonrası bağı onarmaya yönelme", "en": "Moving to repair connection after rupture"}
+    },
+    "autonomy": {
+      "low": {"tr": "Kararları ilişkiyle yakın eşgüdümleme", "en": "Closely coordinating decisions with the relationship"},
+      "high": {"tr": "Yakınlık içinde kendi yönünü koruma", "en": "Maintaining one's own direction within closeness"}
+    },
+    "adaptability": {
+      "low": {"tr": "Öngörülebilir yaklaşımı sürdürme", "en": "Maintaining a predictable approach"},
+      "high": {"tr": "Koşula göre yaklaşımı değiştirme", "en": "Changing approach with circumstances"}
+    },
+    "intuitiveSensitivity": {
+      "low": {"tr": "Açık ve doğrulanabilir sinyallere dayanma", "en": "Relying on explicit and verifiable signals"},
+      "high": {"tr": "Söylenmeyen ton ve sinyalleri fark etme", "en": "Noticing unspoken tone and signals"}
+    },
+    "depth": {
+      "low": {"tr": "Hafif ve kademeli bağ kurma", "en": "Building connection lightly and gradually"},
+      "high": {"tr": "Anlamlı ve derin bağ arama", "en": "Seeking meaningful and deep connection"}
+    },
+    "socialEnergy": {
+      "low": {"tr": "Sakin ve seçici sosyal yoğunluk", "en": "Calm and selective social intensity"},
+      "high": {"tr": "Canlı ve sık sosyal etkileşim", "en": "Lively and frequent social interaction"}
+    },
+    "spontaneity": {
+      "low": {"tr": "Planlı ve öngörülebilir ritim", "en": "Planned and predictable rhythm"},
+      "high": {"tr": "Beklenmedik seçeneklere açık ritim", "en": "Rhythm open to unexpected options"}
+    },
+    "stability": {
+      "low": {"tr": "Değişkenlik ve yeniliğe tolerans", "en": "Tolerance for variability and novelty"},
+      "high": {"tr": "Süreklilik ve güvenilir takip ihtiyacı", "en": "Need for continuity and reliable follow-through"}
+    },
+    "emotionalOpenness": {
+      "low": {"tr": "Duyguyu özel ve seçici paylaşma", "en": "Sharing emotion privately and selectively"},
+      "high": {"tr": "Duyguyu görünür ve doğrudan paylaşma", "en": "Sharing emotion visibly and directly"}
+    },
+    "conversationPace": {
+      "low": {"tr": "Düşünerek ilerleyen iletişim temposu", "en": "A reflective communication pace"},
+      "high": {"tr": "Hızlı ve sık iletişim temposu", "en": "A quick and frequent communication pace"}
+    }
+  },
+  "scoringContract": {
+    "groupWeights": {"iqStyle": 0.10, "eqCharacter": 0.55, "frequencyStyle": 0.35},
+    "dimensionWeightMeaning": "Relative salience inside its group; normalize by the sum of weights before calculating similarity.",
+    "nearPairResolution": {
+      "activationMaximumBaseScoreGap": 0.03,
+      "minimumRuleEvidence": 2,
+      "ruleUsage": "Use only as a deterministic tie-break after prototype similarity. A criterion is evidence when the user's normalized value is closer to the favored persona by at least minimumTargetAdvantage."
+    }
+  },
+  "personas": [
+    {
+      "personaId": "uygulayici",
+      "title": {"tr": "Uygulayıcı", "en": "Executor"},
+      "description": {
+        "tr": "Belirsizliği uygulanabilir adımlara çevirir; düzenli takip ve pratik hareketle işi tamamlar.",
+        "en": "Turns uncertainty into workable steps and completes the task through steady follow-through and practical action."
+      },
+      "traitLabels": [
+        {"tr": "Pratik", "en": "Practical"},
+        {"tr": "Takipçi", "en": "Dependable"},
+        {"tr": "Çözüm odaklı", "en": "Solution-focused"}
+      ],
+      "asset": "assets/images/assessment_persona_executor_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.66, 0.56, 0.48, 0.53, 0.67],
+        "eqCharacter": [0.50, 0.58, 0.72, 0.66, 0.70, 0.52, 0.58, 0.62, 0.48, 0.40],
+        "frequencyStyle": [0.48, 0.56, 0.38, 0.82, 0.46, 0.62]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.20, 0.85, 0.65, 0.75, 1.25],
+        "eqCharacter": [0.70, 0.90, 1.25, 1.15, 1.30, 0.70, 0.85, 0.95, 0.90, 0.60],
+        "frequencyStyle": [0.70, 0.80, 0.90, 1.50, 0.65, 1.05]
+      },
+      "distinguishingSignals": [
+        {"dimension": "stability", "direction": "high", "threshold": 0.70},
+        {"dimension": "assertiveness", "direction": "high", "threshold": 0.62},
+        {"dimension": "emotionalRegulation", "direction": "high", "threshold": 0.64}
+      ],
+      "nearPersonaIds": ["kararli", "muhafiz"]
+    },
+    {
+      "personaId": "koruyucu",
+      "title": {"tr": "Koruyucu", "en": "Guardian"},
+      "description": {
+        "tr": "İnsanların güvenliğini ve aidiyetini gözetir; desteği sadakat ve sağlıklı sınırlarla birlikte sunar.",
+        "en": "Looks after people's safety and belonging, offering support together with loyalty and healthy boundaries."
+      },
+      "traitLabels": [
+        {"tr": "Destekleyici", "en": "Supportive"},
+        {"tr": "Sadık", "en": "Loyal"},
+        {"tr": "Sınırları net", "en": "Boundaried"}
+      ],
+      "asset": "assets/images/assessment_persona_guardian_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.48, 0.46, 0.55, 0.43, 0.44],
+        "eqCharacter": [0.82, 0.62, 0.70, 0.74, 0.58, 0.70, 0.76, 0.45, 0.50, 0.64],
+        "frequencyStyle": [0.68, 0.56, 0.34, 0.82, 0.70, 0.56]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.70, 0.65, 0.90, 0.60, 0.60],
+        "eqCharacter": [1.45, 0.90, 1.05, 1.30, 0.80, 1.05, 1.25, 0.75, 0.75, 1.00],
+        "frequencyStyle": [1.10, 0.80, 0.75, 1.35, 1.20, 0.80]
+      },
+      "distinguishingSignals": [
+        {"dimension": "empathy", "direction": "high", "threshold": 0.72},
+        {"dimension": "boundaries", "direction": "high", "threshold": 0.66},
+        {"dimension": "stability", "direction": "high", "threshold": 0.72}
+      ],
+      "nearPersonaIds": ["sifaci", "empat", "muhafiz"]
+    },
+    {
+      "personaId": "bilge",
+      "title": {"tr": "Bilge", "en": "Sage"},
+      "description": {
+        "tr": "Deneyimi sakin düşünmeyle işler; öz-farkındalık ve çoklu perspektifle anlam üretir.",
+        "en": "Processes experience through calm reflection, creating meaning with self-awareness and multiple perspectives."
+      },
+      "traitLabels": [
+        {"tr": "Derinlikli", "en": "Reflective"},
+        {"tr": "Öz-farkındalığı yüksek", "en": "Self-aware"},
+        {"tr": "Çok yönlü", "en": "Broad-minded"}
+      ],
+      "asset": "assets/images/assessment_persona_sage_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.68, 0.68, 0.74, 0.50, 0.52],
+        "eqCharacter": [0.68, 0.86, 0.82, 0.68, 0.48, 0.86, 0.64, 0.66, 0.60, 0.68],
+        "frequencyStyle": [0.86, 0.34, 0.34, 0.68, 0.58, 0.34]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.00, 1.05, 1.20, 0.65, 0.70],
+        "eqCharacter": [0.95, 1.50, 1.30, 0.90, 0.65, 1.50, 0.90, 0.90, 0.90, 1.00],
+        "frequencyStyle": [1.50, 0.80, 0.70, 0.90, 0.90, 1.05]
+      },
+      "distinguishingSignals": [
+        {"dimension": "selfAwareness", "direction": "high", "threshold": 0.76},
+        {"dimension": "perspectiveTaking", "direction": "high", "threshold": 0.76},
+        {"dimension": "depth", "direction": "high", "threshold": 0.76}
+      ],
+      "nearPersonaIds": ["analist", "sezgisel"]
+    },
+    {
+      "personaId": "lider",
+      "title": {"tr": "Lider", "en": "Leader"},
+      "description": {
+        "tr": "Ortak yönü görünür kılar; açık iletişim, düzenlenmiş duygu ve sosyal inisiyatifle insanları harekete geçirir.",
+        "en": "Makes shared direction visible and mobilizes people through clear communication, regulated emotion, and social initiative."
+      },
+      "traitLabels": [
+        {"tr": "İnisiyatif alan", "en": "Initiating"},
+        {"tr": "Net", "en": "Clear"},
+        {"tr": "Harekete geçirici", "en": "Mobilizing"}
+      ],
+      "asset": "assets/images/assessment_persona_leader_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.64, 0.62, 0.72, 0.50, 0.58],
+        "eqCharacter": [0.62, 0.68, 0.82, 0.70, 0.90, 0.70, 0.64, 0.62, 0.70, 0.54],
+        "frequencyStyle": [0.60, 0.86, 0.66, 0.70, 0.70, 0.84]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.90, 0.90, 1.10, 0.60, 0.80],
+        "eqCharacter": [0.85, 0.95, 1.35, 1.00, 1.55, 0.95, 0.85, 0.85, 1.05, 0.70],
+        "frequencyStyle": [0.80, 1.45, 1.00, 0.90, 1.00, 1.35]
+      },
+      "distinguishingSignals": [
+        {"dimension": "assertiveness", "direction": "high", "threshold": 0.78},
+        {"dimension": "socialEnergy", "direction": "high", "threshold": 0.76},
+        {"dimension": "emotionalRegulation", "direction": "high", "threshold": 0.72}
+      ],
+      "nearPersonaIds": ["iletisimci", "stratejist", "cesur"]
+    },
+    {
+      "personaId": "muhafiz",
+      "title": {"tr": "Muhafız", "en": "Sentinel"},
+      "description": {
+        "tr": "Riskleri erken sınırlar; düzen, süreklilik ve net kurallarla güvenli bir zemin kurar.",
+        "en": "Contains risks early, creating safe ground through order, continuity, and clear rules."
+      },
+      "traitLabels": [
+        {"tr": "Tedbirli", "en": "Cautious"},
+        {"tr": "Düzenli", "en": "Orderly"},
+        {"tr": "Güvenilir", "en": "Reliable"}
+      ],
+      "asset": "assets/images/assessment_persona_guard_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.72, 0.60, 0.46, 0.54, 0.66],
+        "eqCharacter": [0.48, 0.62, 0.82, 0.88, 0.62, 0.58, 0.44, 0.68, 0.30, 0.36],
+        "frequencyStyle": [0.44, 0.36, 0.20, 0.92, 0.38, 0.42]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.20, 0.90, 0.60, 0.75, 1.00],
+        "eqCharacter": [0.70, 0.90, 1.30, 1.55, 0.90, 0.80, 0.70, 1.00, 1.30, 0.60],
+        "frequencyStyle": [0.70, 0.80, 1.25, 1.55, 0.75, 0.85]
+      },
+      "distinguishingSignals": [
+        {"dimension": "boundaries", "direction": "high", "threshold": 0.78},
+        {"dimension": "stability", "direction": "high", "threshold": 0.82},
+        {"dimension": "spontaneity", "direction": "low", "threshold": 0.32}
+      ],
+      "nearPersonaIds": ["uygulayici", "stratejist", "koruyucu", "kararli", "yargic", "bagimsiz"]
+    },
+    {
+      "personaId": "sifaci",
+      "title": {"tr": "Şifacı", "en": "Healer"},
+      "description": {
+        "tr": "Kırılma anlarında duyguyu erişilebilir tutar; sabır ve şefkatle ilişkiyi onarmaya yönelir.",
+        "en": "Keeps emotion accessible during rupture and moves toward relational repair with patience and compassion."
+      },
+      "traitLabels": [
+        {"tr": "Şefkatli", "en": "Compassionate"},
+        {"tr": "Onarıcı", "en": "Restorative"},
+        {"tr": "Sabırlı", "en": "Patient"}
+      ],
+      "asset": "assets/images/assessment_persona_healer_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.44, 0.46, 0.62, 0.40, 0.38],
+        "eqCharacter": [0.90, 0.76, 0.74, 0.60, 0.50, 0.78, 0.94, 0.42, 0.68, 0.76],
+        "frequencyStyle": [0.80, 0.48, 0.36, 0.66, 0.88, 0.48]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.60, 0.65, 0.90, 0.55, 0.50],
+        "eqCharacter": [1.45, 1.05, 1.05, 0.85, 0.70, 1.10, 1.60, 0.70, 1.00, 1.15],
+        "frequencyStyle": [1.20, 0.70, 0.70, 0.85, 1.45, 0.80]
+      },
+      "distinguishingSignals": [
+        {"dimension": "repairOrientation", "direction": "high", "threshold": 0.82},
+        {"dimension": "empathy", "direction": "high", "threshold": 0.80},
+        {"dimension": "emotionalOpenness", "direction": "high", "threshold": 0.78}
+      ],
+      "nearPersonaIds": ["empat", "koruyucu", "donusturucu"]
+    },
+    {
+      "personaId": "yargic",
+      "title": {"tr": "Yargıç", "en": "Judge"},
+      "description": {
+        "tr": "Karar verirken farklı tarafları ve tutarlı ilkeleri birlikte tartar; adil sınırlar kurar.",
+        "en": "Weighs different sides together with consistent principles and establishes fair boundaries when deciding."
+      },
+      "traitLabels": [
+        {"tr": "Adil", "en": "Fair"},
+        {"tr": "Tutarlı", "en": "Consistent"},
+        {"tr": "Ölçülü", "en": "Measured"}
+      ],
+      "asset": "assets/images/assessment_persona_judge_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.82, 0.66, 0.72, 0.48, 0.68],
+        "eqCharacter": [0.56, 0.68, 0.84, 0.86, 0.68, 0.88, 0.58, 0.66, 0.44, 0.44],
+        "frequencyStyle": [0.64, 0.38, 0.26, 0.82, 0.48, 0.40]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.40, 1.00, 1.00, 0.60, 1.00],
+        "eqCharacter": [0.80, 0.95, 1.25, 1.45, 0.95, 1.50, 0.85, 0.90, 0.80, 0.65],
+        "frequencyStyle": [0.90, 0.75, 0.90, 1.20, 0.70, 0.80]
+      },
+      "distinguishingSignals": [
+        {"dimension": "perspectiveTaking", "direction": "high", "threshold": 0.78},
+        {"dimension": "boundaries", "direction": "high", "threshold": 0.76},
+        {"dimension": "logic", "direction": "high", "threshold": 0.72}
+      ],
+      "nearPersonaIds": ["analist", "muhafiz"]
+    },
+    {
+      "personaId": "empat",
+      "title": {"tr": "Empat", "en": "Empath"},
+      "description": {
+        "tr": "Duygusal tonu hızla algılar; karşı tarafın deneyimine girerek derin ve açık bağ kurar.",
+        "en": "Quickly senses emotional tone and builds deep, open connection by entering the other person's experience."
+      },
+      "traitLabels": [
+        {"tr": "Hassas", "en": "Sensitive"},
+        {"tr": "Anlayışlı", "en": "Understanding"},
+        {"tr": "Bağ odaklı", "en": "Connection-led"}
+      ],
+      "asset": "assets/images/assessment_persona_empath_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.42, 0.54, 0.64, 0.42, 0.34],
+        "eqCharacter": [0.94, 0.70, 0.62, 0.46, 0.44, 0.90, 0.78, 0.34, 0.64, 0.94],
+        "frequencyStyle": [0.92, 0.56, 0.48, 0.54, 0.92, 0.54]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.55, 0.75, 0.90, 0.55, 0.45],
+        "eqCharacter": [1.60, 1.00, 0.90, 0.80, 0.65, 1.45, 1.05, 0.75, 0.90, 1.55],
+        "frequencyStyle": [1.45, 0.80, 0.70, 0.75, 1.45, 0.75]
+      },
+      "distinguishingSignals": [
+        {"dimension": "empathy", "direction": "high", "threshold": 0.84},
+        {"dimension": "intuitiveSensitivity", "direction": "high", "threshold": 0.84},
+        {"dimension": "depth", "direction": "high", "threshold": 0.82}
+      ],
+      "nearPersonaIds": ["sifaci", "sezgisel", "koruyucu", "iletisimci"]
+    },
+    {
+      "personaId": "cesur",
+      "title": {"tr": "Cesur", "en": "Brave"},
+      "description": {
+        "tr": "Belirsizlikte beklemek yerine hareketi seçer; doğrudanlık, risk toleransı ve hızla alan açar.",
+        "en": "Chooses action over waiting in uncertainty, creating room through directness, risk tolerance, and speed."
+      },
+      "traitLabels": [
+        {"tr": "Atılgan", "en": "Bold"},
+        {"tr": "Spontane", "en": "Spontaneous"},
+        {"tr": "Doğrudan", "en": "Direct"}
+      ],
+      "asset": "assets/images/assessment_persona_brave_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.56, 0.58, 0.48, 0.60, 0.52],
+        "eqCharacter": [0.44, 0.56, 0.54, 0.58, 0.94, 0.44, 0.48, 0.82, 0.82, 0.46],
+        "frequencyStyle": [0.42, 0.80, 0.94, 0.30, 0.62, 0.88]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.80, 0.80, 0.60, 0.80, 0.70],
+        "eqCharacter": [0.70, 0.75, 0.95, 0.85, 1.60, 0.65, 0.70, 1.20, 1.30, 0.65],
+        "frequencyStyle": [0.70, 1.20, 1.60, 1.10, 0.85, 1.30]
+      },
+      "distinguishingSignals": [
+        {"dimension": "assertiveness", "direction": "high", "threshold": 0.84},
+        {"dimension": "spontaneity", "direction": "high", "threshold": 0.84},
+        {"dimension": "stability", "direction": "low", "threshold": 0.40}
+      ],
+      "nearPersonaIds": ["lider", "yaratici"]
+    },
+    {
+      "personaId": "kararli",
+      "title": {"tr": "Kararlı", "en": "Determined"},
+      "description": {
+        "tr": "Seçtiği yönü baskı altında da korur; özdenetim ve istikrarlı ritimle uzun vadeli takip gösterir.",
+        "en": "Maintains a chosen direction under pressure, showing long-term follow-through through self-control and steady rhythm."
+      },
+      "traitLabels": [
+        {"tr": "Azimli", "en": "Persistent"},
+        {"tr": "Özdenetimli", "en": "Self-controlled"},
+        {"tr": "İstikrarlı", "en": "Steady"}
+      ],
+      "asset": "assets/images/assessment_persona_determined_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.60, 0.52, 0.46, 0.48, 0.58],
+        "eqCharacter": [0.46, 0.72, 0.92, 0.76, 0.72, 0.48, 0.54, 0.72, 0.28, 0.34],
+        "frequencyStyle": [0.48, 0.40, 0.24, 0.94, 0.42, 0.46]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.90, 0.70, 0.60, 0.60, 0.85],
+        "eqCharacter": [0.65, 1.00, 1.60, 1.15, 1.10, 0.65, 0.80, 1.10, 1.30, 0.60],
+        "frequencyStyle": [0.70, 0.75, 1.10, 1.60, 0.70, 0.80]
+      },
+      "distinguishingSignals": [
+        {"dimension": "emotionalRegulation", "direction": "high", "threshold": 0.82},
+        {"dimension": "stability", "direction": "high", "threshold": 0.84},
+        {"dimension": "adaptability", "direction": "low", "threshold": 0.38}
+      ],
+      "nearPersonaIds": ["uygulayici", "muhafiz"]
+    },
+    {
+      "personaId": "vizyoner",
+      "title": {"tr": "Vizyoner", "en": "Visionary"},
+      "description": {
+        "tr": "Dağınık sinyallerden geleceğe dönük bir yön kurar; olasılıkları inisiyatif ve esneklikle büyütür.",
+        "en": "Builds a future direction from scattered signals and expands possibilities through initiative and flexibility."
+      },
+      "traitLabels": [
+        {"tr": "Gelecek odaklı", "en": "Future-focused"},
+        {"tr": "Bağlantısal", "en": "Connective"},
+        {"tr": "Başlatıcı", "en": "Catalytic"}
+      ],
+      "asset": "assets/images/assessment_persona_visionary_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.68, 0.92, 0.66, 0.70, 0.54],
+        "eqCharacter": [0.52, 0.66, 0.68, 0.56, 0.82, 0.72, 0.58, 0.72, 0.92, 0.72],
+        "frequencyStyle": [0.70, 0.68, 0.84, 0.34, 0.66, 0.72]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.00, 1.60, 0.90, 1.05, 0.70],
+        "eqCharacter": [0.70, 0.90, 0.90, 0.75, 1.20, 1.00, 0.75, 1.00, 1.50, 1.00],
+        "frequencyStyle": [0.90, 0.95, 1.30, 1.05, 0.90, 1.00]
+      },
+      "distinguishingSignals": [
+        {"dimension": "pattern", "direction": "high", "threshold": 0.82},
+        {"dimension": "adaptability", "direction": "high", "threshold": 0.82},
+        {"dimension": "assertiveness", "direction": "high", "threshold": 0.72}
+      ],
+      "nearPersonaIds": ["yaratici", "stratejist", "donusturucu"]
+    },
+    {
+      "personaId": "yaratici",
+      "title": {"tr": "Yaratıcı", "en": "Creator"},
+      "description": {
+        "tr": "Farklı bağlantıları özgün ifadeye çevirir; değişken ve spontane süreçlerde seçenek üretir.",
+        "en": "Turns unusual connections into original expression and generates options in fluid, spontaneous processes."
+      },
+      "traitLabels": [
+        {"tr": "Özgün", "en": "Original"},
+        {"tr": "Esnek", "en": "Flexible"},
+        {"tr": "İfade gücü yüksek", "en": "Expressive"}
+      ],
+      "asset": "assets/images/assessment_persona_creator_reward_sparse.png",
+      "targetVector": {
+        "iqStyle": [0.48, 0.86, 0.76, 0.78, 0.38],
+        "eqCharacter": [0.56, 0.70, 0.54, 0.46, 0.66, 0.68, 0.52, 0.80, 0.96, 0.82],
+        "frequencyStyle": [0.70, 0.62, 0.94, 0.22, 0.82, 0.68]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.65, 1.45, 1.05, 1.20, 0.55],
+        "eqCharacter": [0.75, 0.95, 1.00, 0.80, 0.90, 0.95, 0.75, 1.10, 1.60, 1.20],
+        "frequencyStyle": [0.90, 0.85, 1.55, 1.20, 1.20, 0.90]
+      },
+      "distinguishingSignals": [
+        {"dimension": "adaptability", "direction": "high", "threshold": 0.86},
+        {"dimension": "spontaneity", "direction": "high", "threshold": 0.84},
+        {"dimension": "stability", "direction": "low", "threshold": 0.34}
+      ],
+      "nearPersonaIds": ["vizyoner", "cesur"]
+    },
+    {
+      "personaId": "iletisimci",
+      "title": {"tr": "İletişimci", "en": "Communicator"},
+      "description": {
+        "tr": "Duygu ve düşünceleri dolaşıma sokar; hızlı, açık ve perspektif alan iletişimle ilişkileri yönetir.",
+        "en": "Keeps thoughts and feelings moving, managing relationships through quick, open, perspective-aware communication."
+      },
+      "traitLabels": [
+        {"tr": "İfade gücü yüksek", "en": "Articulate"},
+        {"tr": "Sosyal", "en": "Social"},
+        {"tr": "Bağ kuran", "en": "Connecting"}
+      ],
+      "asset": "assets/images/assessment_persona_communicator_medallion.png",
+      "targetVector": {
+        "iqStyle": [0.50, 0.56, 0.90, 0.40, 0.42],
+        "eqCharacter": [0.72, 0.66, 0.64, 0.52, 0.76, 0.84, 0.72, 0.44, 0.72, 0.68],
+        "frequencyStyle": [0.64, 0.94, 0.70, 0.46, 0.90, 0.94]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.65, 0.75, 1.55, 0.55, 0.55],
+        "eqCharacter": [1.00, 0.90, 0.95, 0.75, 1.15, 1.30, 1.00, 0.70, 1.00, 0.95],
+        "frequencyStyle": [0.85, 1.55, 1.10, 0.80, 1.40, 1.50]
+      },
+      "distinguishingSignals": [
+        {"dimension": "socialEnergy", "direction": "high", "threshold": 0.84},
+        {"dimension": "conversationPace", "direction": "high", "threshold": 0.84},
+        {"dimension": "emotionalOpenness", "direction": "high", "threshold": 0.80}
+      ],
+      "nearPersonaIds": ["lider", "empat"]
+    },
+    {
+      "personaId": "analist",
+      "title": {"tr": "Analist", "en": "Analyst"},
+      "description": {
+        "tr": "Karar öncesi kanıtı ve örüntüyü sınar; sakin tempo ve tutarlı mantıkla değerlendirme yapar.",
+        "en": "Tests evidence and patterns before deciding, evaluating with a calm pace and consistent logic."
+      },
+      "traitLabels": [
+        {"tr": "Analitik", "en": "Analytical"},
+        {"tr": "Temkinli", "en": "Deliberate"},
+        {"tr": "Tutarlı", "en": "Consistent"}
+      ],
+      "asset": "assets/images/assessment_persona_analyst_medallion.png",
+      "targetVector": {
+        "iqStyle": [0.94, 0.88, 0.62, 0.66, 0.82],
+        "eqCharacter": [0.40, 0.70, 0.82, 0.72, 0.46, 0.74, 0.42, 0.82, 0.40, 0.30],
+        "frequencyStyle": [0.72, 0.24, 0.18, 0.78, 0.32, 0.22]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.60, 1.50, 0.85, 0.95, 1.30],
+        "eqCharacter": [0.65, 1.00, 1.25, 1.00, 0.75, 1.15, 0.70, 1.15, 1.00, 0.65],
+        "frequencyStyle": [0.95, 1.00, 1.05, 1.05, 0.85, 1.25]
+      },
+      "distinguishingSignals": [
+        {"dimension": "logic", "direction": "high", "threshold": 0.84},
+        {"dimension": "pattern", "direction": "high", "threshold": 0.78},
+        {"dimension": "conversationPace", "direction": "low", "threshold": 0.34}
+      ],
+      "nearPersonaIds": ["stratejist", "bilge", "yargic", "bagimsiz"]
+    },
+    {
+      "personaId": "donusturucu",
+      "title": {"tr": "Dönüştürücü", "en": "Transformer"},
+      "description": {
+        "tr": "İşe yaramayan örüntüyü fark edip değişimi başlatır; onarım ile esnek inisiyatifi birlikte kullanır.",
+        "en": "Recognizes patterns that no longer work and initiates change, combining repair with flexible initiative."
+      },
+      "traitLabels": [
+        {"tr": "Değişim odaklı", "en": "Change-oriented"},
+        {"tr": "Onarıcı", "en": "Restorative"},
+        {"tr": "Uyarlanabilir", "en": "Adaptive"}
+      ],
+      "asset": "assets/images/assessment_persona_transformer_medallion.png",
+      "targetVector": {
+        "iqStyle": [0.58, 0.76, 0.58, 0.56, 0.48],
+        "eqCharacter": [0.66, 0.74, 0.70, 0.58, 0.82, 0.76, 0.90, 0.66, 0.96, 0.72],
+        "frequencyStyle": [0.72, 0.64, 0.86, 0.28, 0.76, 0.70]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.80, 1.10, 0.75, 0.75, 0.65],
+        "eqCharacter": [0.90, 1.00, 1.00, 0.80, 1.20, 1.05, 1.45, 0.90, 1.60, 1.00],
+        "frequencyStyle": [0.95, 0.90, 1.25, 1.15, 1.10, 0.95]
+      },
+      "distinguishingSignals": [
+        {"dimension": "adaptability", "direction": "high", "threshold": 0.86},
+        {"dimension": "repairOrientation", "direction": "high", "threshold": 0.80},
+        {"dimension": "assertiveness", "direction": "high", "threshold": 0.72}
+      ],
+      "nearPersonaIds": ["sifaci", "vizyoner"]
+    },
+    {
+      "personaId": "bagimsiz",
+      "title": {"tr": "Bağımsız", "en": "Independent"},
+      "description": {
+        "tr": "Yakınlık içinde kendi yönünü ve temposunu korur; ihtiyaçlarını net sınırlarla yönetir.",
+        "en": "Maintains personal direction and pace within closeness, managing needs through clear boundaries."
+      },
+      "traitLabels": [
+        {"tr": "Özerk", "en": "Autonomous"},
+        {"tr": "Sınırları net", "en": "Boundaried"},
+        {"tr": "Kendi ritminde", "en": "Self-paced"}
+      ],
+      "asset": "assets/images/assessment_persona_independent_medallion.png",
+      "targetVector": {
+        "iqStyle": [0.68, 0.62, 0.50, 0.58, 0.56],
+        "eqCharacter": [0.38, 0.84, 0.78, 0.94, 0.58, 0.52, 0.30, 0.98, 0.54, 0.34],
+        "frequencyStyle": [0.52, 0.18, 0.28, 0.58, 0.24, 0.18]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.95, 0.85, 0.65, 0.75, 0.75],
+        "eqCharacter": [0.70, 1.20, 1.20, 1.55, 0.90, 0.75, 1.10, 1.65, 0.90, 0.65],
+        "frequencyStyle": [0.75, 1.15, 0.85, 0.85, 1.15, 1.25]
+      },
+      "distinguishingSignals": [
+        {"dimension": "autonomy", "direction": "high", "threshold": 0.88},
+        {"dimension": "boundaries", "direction": "high", "threshold": 0.84},
+        {"dimension": "conversationPace", "direction": "low", "threshold": 0.30}
+      ],
+      "nearPersonaIds": ["analist", "muhafiz"]
+    },
+    {
+      "personaId": "sezgisel",
+      "title": {"tr": "Sezgisel", "en": "Intuitive"},
+      "description": {
+        "tr": "Söylenmeyen duygusal tonu ve ince örüntüleri yakalar; anlamı sakin ve derin bir ritimde işler.",
+        "en": "Detects unspoken emotional tone and subtle patterns, processing meaning in a calm and deep rhythm."
+      },
+      "traitLabels": [
+        {"tr": "Sezgili", "en": "Intuitive"},
+        {"tr": "İnce gözlemci", "en": "Perceptive"},
+        {"tr": "Derinlikli", "en": "Deep"}
+      ],
+      "asset": "assets/images/assessment_persona_intuitive_medallion.png",
+      "targetVector": {
+        "iqStyle": [0.50, 0.84, 0.62, 0.60, 0.38],
+        "eqCharacter": [0.76, 0.78, 0.66, 0.52, 0.34, 0.82, 0.62, 0.54, 0.72, 0.98],
+        "frequencyStyle": [0.94, 0.28, 0.36, 0.50, 0.68, 0.24]
+      },
+      "dimensionWeights": {
+        "iqStyle": [0.65, 1.30, 0.85, 0.85, 0.50],
+        "eqCharacter": [1.05, 1.10, 0.95, 0.75, 0.85, 1.20, 0.85, 0.80, 1.00, 1.65],
+        "frequencyStyle": [1.50, 0.95, 0.75, 0.75, 1.00, 1.20]
+      },
+      "distinguishingSignals": [
+        {"dimension": "intuitiveSensitivity", "direction": "high", "threshold": 0.88},
+        {"dimension": "depth", "direction": "high", "threshold": 0.84},
+        {"dimension": "socialEnergy", "direction": "low", "threshold": 0.40}
+      ],
+      "nearPersonaIds": ["empat", "bilge"]
+    },
+    {
+      "personaId": "stratejist",
+      "title": {"tr": "Stratejist", "en": "Strategist"},
+      "description": {
+        "tr": "Uzun vadeli hedefi, riskleri ve hamle sırasını birlikte planlar; kontrollü inisiyatif alır.",
+        "en": "Plans long-term goals, risks, and move order together, taking controlled initiative."
+      },
+      "traitLabels": [
+        {"tr": "Planlı", "en": "Strategic"},
+        {"tr": "Öngörülü", "en": "Foresighted"},
+        {"tr": "Kontrollü", "en": "Controlled"}
+      ],
+      "asset": "assets/images/assessment_persona_strategist_knight_medallion.png",
+      "targetVector": {
+        "iqStyle": [0.84, 0.96, 0.58, 0.72, 0.80],
+        "eqCharacter": [0.38, 0.72, 0.88, 0.86, 0.76, 0.68, 0.40, 0.86, 0.50, 0.34],
+        "frequencyStyle": [0.58, 0.30, 0.22, 0.86, 0.34, 0.30]
+      },
+      "dimensionWeights": {
+        "iqStyle": [1.50, 1.60, 0.75, 1.00, 1.20],
+        "eqCharacter": [0.60, 1.00, 1.35, 1.35, 1.20, 1.00, 0.70, 1.20, 1.00, 0.60],
+        "frequencyStyle": [0.80, 0.90, 1.10, 1.35, 0.80, 1.05]
+      },
+      "distinguishingSignals": [
+        {"dimension": "pattern", "direction": "high", "threshold": 0.84},
+        {"dimension": "logic", "direction": "high", "threshold": 0.82},
+        {"dimension": "stability", "direction": "high", "threshold": 0.76}
+      ],
+      "nearPersonaIds": ["analist", "vizyoner", "lider", "muhafiz"]
+    }
+  ],
+  "nearPersonaPairs": [
+    {
+      "personaA": "uygulayici",
+      "personaB": "kararli",
+      "criteria": [
+        {"dimension": "socialEnergy", "favors": "uygulayici", "minimumTargetAdvantage": 0.10},
+        {"dimension": "conversationPace", "favors": "uygulayici", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalRegulation", "favors": "kararli", "minimumTargetAdvantage": 0.10},
+        {"dimension": "adaptability", "favors": "kararli", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "uygulayici",
+      "personaB": "muhafiz",
+      "criteria": [
+        {"dimension": "adaptability", "favors": "uygulayici", "minimumTargetAdvantage": 0.10},
+        {"dimension": "socialEnergy", "favors": "uygulayici", "minimumTargetAdvantage": 0.10},
+        {"dimension": "boundaries", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "spontaneity", "favors": "muhafiz", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "koruyucu",
+      "personaB": "sifaci",
+      "criteria": [
+        {"dimension": "boundaries", "favors": "koruyucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "stability", "favors": "koruyucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "repairOrientation", "favors": "sifaci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "sifaci", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "koruyucu",
+      "personaB": "empat",
+      "criteria": [
+        {"dimension": "boundaries", "favors": "koruyucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "stability", "favors": "koruyucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "intuitiveSensitivity", "favors": "empat", "minimumTargetAdvantage": 0.10},
+        {"dimension": "depth", "favors": "empat", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "koruyucu",
+      "personaB": "muhafiz",
+      "criteria": [
+        {"dimension": "empathy", "favors": "koruyucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "repairOrientation", "favors": "koruyucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "boundaries", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalRegulation", "favors": "muhafiz", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "bilge",
+      "personaB": "analist",
+      "criteria": [
+        {"dimension": "empathy", "favors": "bilge", "minimumTargetAdvantage": 0.10},
+        {"dimension": "perspectiveTaking", "favors": "bilge", "minimumTargetAdvantage": 0.10},
+        {"dimension": "logic", "favors": "analist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "analist", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "bilge",
+      "personaB": "sezgisel",
+      "criteria": [
+        {"dimension": "emotionalRegulation", "favors": "bilge", "minimumTargetAdvantage": 0.10},
+        {"dimension": "verbal", "favors": "bilge", "minimumTargetAdvantage": 0.10},
+        {"dimension": "intuitiveSensitivity", "favors": "sezgisel", "minimumTargetAdvantage": 0.10},
+        {"dimension": "pattern", "favors": "sezgisel", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "lider",
+      "personaB": "iletisimci",
+      "criteria": [
+        {"dimension": "emotionalRegulation", "favors": "lider", "minimumTargetAdvantage": 0.10},
+        {"dimension": "boundaries", "favors": "lider", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "iletisimci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "conversationPace", "favors": "iletisimci", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "lider",
+      "personaB": "stratejist",
+      "criteria": [
+        {"dimension": "socialEnergy", "favors": "lider", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "lider", "minimumTargetAdvantage": 0.10},
+        {"dimension": "logic", "favors": "stratejist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "pattern", "favors": "stratejist", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "lider",
+      "personaB": "cesur",
+      "criteria": [
+        {"dimension": "emotionalRegulation", "favors": "lider", "minimumTargetAdvantage": 0.10},
+        {"dimension": "stability", "favors": "lider", "minimumTargetAdvantage": 0.10},
+        {"dimension": "spontaneity", "favors": "cesur", "minimumTargetAdvantage": 0.10},
+        {"dimension": "autonomy", "favors": "cesur", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "muhafiz",
+      "personaB": "stratejist",
+      "criteria": [
+        {"dimension": "stability", "favors": "muhafiz", "minimumTargetAdvantage": 0.05},
+        {"dimension": "adaptability", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "pattern", "favors": "stratejist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "assertiveness", "favors": "stratejist", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "muhafiz",
+      "personaB": "kararli",
+      "criteria": [
+        {"dimension": "boundaries", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "logic", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalRegulation", "favors": "kararli", "minimumTargetAdvantage": 0.10},
+        {"dimension": "selfAwareness", "favors": "kararli", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "sifaci",
+      "personaB": "empat",
+      "criteria": [
+        {"dimension": "repairOrientation", "favors": "sifaci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalRegulation", "favors": "sifaci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "intuitiveSensitivity", "favors": "empat", "minimumTargetAdvantage": 0.10},
+        {"dimension": "depth", "favors": "empat", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "sifaci",
+      "personaB": "donusturucu",
+      "criteria": [
+        {"dimension": "empathy", "favors": "sifaci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "sifaci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "adaptability", "favors": "donusturucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "assertiveness", "favors": "donusturucu", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "yargic",
+      "personaB": "analist",
+      "criteria": [
+        {"dimension": "perspectiveTaking", "favors": "yargic", "minimumTargetAdvantage": 0.10},
+        {"dimension": "boundaries", "favors": "yargic", "minimumTargetAdvantage": 0.10},
+        {"dimension": "logic", "favors": "analist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "pattern", "favors": "analist", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "yargic",
+      "personaB": "muhafiz",
+      "criteria": [
+        {"dimension": "perspectiveTaking", "favors": "yargic", "minimumTargetAdvantage": 0.10},
+        {"dimension": "verbal", "favors": "yargic", "minimumTargetAdvantage": 0.10},
+        {"dimension": "stability", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "spontaneity", "favors": "muhafiz", "minimumTargetAdvantage": 0.05}
+      ]
+    },
+    {
+      "personaA": "empat",
+      "personaB": "sezgisel",
+      "criteria": [
+        {"dimension": "empathy", "favors": "empat", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "empat", "minimumTargetAdvantage": 0.10},
+        {"dimension": "pattern", "favors": "sezgisel", "minimumTargetAdvantage": 0.10},
+        {"dimension": "conversationPace", "favors": "sezgisel", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "empat",
+      "personaB": "iletisimci",
+      "criteria": [
+        {"dimension": "depth", "favors": "empat", "minimumTargetAdvantage": 0.10},
+        {"dimension": "intuitiveSensitivity", "favors": "empat", "minimumTargetAdvantage": 0.10},
+        {"dimension": "socialEnergy", "favors": "iletisimci", "minimumTargetAdvantage": 0.10},
+        {"dimension": "conversationPace", "favors": "iletisimci", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "cesur",
+      "personaB": "yaratici",
+      "criteria": [
+        {"dimension": "assertiveness", "favors": "cesur", "minimumTargetAdvantage": 0.10},
+        {"dimension": "socialEnergy", "favors": "cesur", "minimumTargetAdvantage": 0.10},
+        {"dimension": "adaptability", "favors": "yaratici", "minimumTargetAdvantage": 0.10},
+        {"dimension": "intuitiveSensitivity", "favors": "yaratici", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "vizyoner",
+      "personaB": "yaratici",
+      "criteria": [
+        {"dimension": "assertiveness", "favors": "vizyoner", "minimumTargetAdvantage": 0.10},
+        {"dimension": "logic", "favors": "vizyoner", "minimumTargetAdvantage": 0.10},
+        {"dimension": "spontaneity", "favors": "yaratici", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "yaratici", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "vizyoner",
+      "personaB": "stratejist",
+      "criteria": [
+        {"dimension": "adaptability", "favors": "vizyoner", "minimumTargetAdvantage": 0.10},
+        {"dimension": "spontaneity", "favors": "vizyoner", "minimumTargetAdvantage": 0.10},
+        {"dimension": "logic", "favors": "stratejist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "stability", "favors": "stratejist", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "vizyoner",
+      "personaB": "donusturucu",
+      "criteria": [
+        {"dimension": "pattern", "favors": "vizyoner", "minimumTargetAdvantage": 0.10},
+        {"dimension": "spatial", "favors": "vizyoner", "minimumTargetAdvantage": 0.10},
+        {"dimension": "repairOrientation", "favors": "donusturucu", "minimumTargetAdvantage": 0.10},
+        {"dimension": "emotionalOpenness", "favors": "donusturucu", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "analist",
+      "personaB": "stratejist",
+      "criteria": [
+        {"dimension": "logic", "favors": "analist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "conversationPace", "favors": "analist", "minimumTargetAdvantage": 0.07},
+        {"dimension": "assertiveness", "favors": "stratejist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "boundaries", "favors": "stratejist", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "analist",
+      "personaB": "bagimsiz",
+      "criteria": [
+        {"dimension": "logic", "favors": "analist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "pattern", "favors": "analist", "minimumTargetAdvantage": 0.10},
+        {"dimension": "autonomy", "favors": "bagimsiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "boundaries", "favors": "bagimsiz", "minimumTargetAdvantage": 0.10}
+      ]
+    },
+    {
+      "personaA": "bagimsiz",
+      "personaB": "muhafiz",
+      "criteria": [
+        {"dimension": "autonomy", "favors": "bagimsiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "selfAwareness", "favors": "bagimsiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "stability", "favors": "muhafiz", "minimumTargetAdvantage": 0.10},
+        {"dimension": "empathy", "favors": "muhafiz", "minimumTargetAdvantage": 0.10}
+      ]
+    }
+  ]
+}

@@ -1,16 +1,38 @@
 import 'dart:math' as math;
 
 class CompatibilityResult {
-  final double scoreTotal; // 0..1
+  /// 0..1 when [available]; null when evidence is insufficient.
+  final double? scoreTotal;
+  final bool available;
+  final int comparableDimensionCount;
+  final String? reason;
   final String label;
   final List<String> reasons;
   final Map<String, double> breakdown;
 
   const CompatibilityResult({
     required this.scoreTotal,
+    required this.available,
+    required this.comparableDimensionCount,
+    required this.reason,
     required this.label,
     required this.reasons,
     required this.breakdown,
+  });
+}
+
+/// Outcome of Frequency vector comparison (P1B-1.1 sparse-safe).
+class FrequencyVectorSimilarityResult {
+  final double? score;
+  final bool available;
+  final int comparableDimensionCount;
+  final String? reason;
+
+  const FrequencyVectorSimilarityResult({
+    required this.score,
+    required this.available,
+    required this.comparableDimensionCount,
+    this.reason,
   });
 }
 
@@ -21,6 +43,10 @@ class CompatibilityResult {
 /// - Prefer IQ/EQ **bands** over raw normalized closeness (avoids 51 vs 59 noise).
 /// - Lower archetype weight (HH…LL are coarse).
 /// - No fake percentiles.
+///
+/// P1B-1.1: sparse Frequency vectors compare only shared dims; below
+/// [minComparableFrequencyDimensions] the overall score is unavailable
+/// (not filled with 0.5 / 0.42 dimension invent).
 class CompatibilityScoring {
   // --- Cold-start weights (must sum to 1.0) ---
   /// Behavioral rhythm / connection style (primary cold-start signal).
@@ -44,8 +70,16 @@ class CompatibilityScoring {
   /// Recent activity boost.
   static const double recencyWeight = 0.12;
 
-  /// Slightly below midpoint: missing data should not look like a strong match.
+  /// Slightly below midpoint: missing *non-Frequency* signals only.
+  /// Never used as a fabricated Frequency dimension value.
   static const double missingSignalNeutral = 0.42;
+
+  /// Minimum shared Frequency dims required for an available compatibility score.
+  /// Documented temporary policy (P1B-1.1): half of the six legacy dims.
+  static const int minComparableFrequencyDimensions = 3;
+
+  static const String reasonInsufficientFrequencyEvidence =
+      'insufficient_frequency_evidence';
 
   static const List<String> frequencyDimensionKeys = [
     'depth',
@@ -171,7 +205,7 @@ class CompatibilityScoring {
   }
 
   /// Parse Frequency 6D vector from user/assessment maps.
-  /// Accepts `frequency_vector` or nested `vector`.
+  /// Accepts `frequency_vector` or nested `vector`. Sparse maps are allowed.
   static Map<String, double>? parseFrequencyVector(Map<String, dynamic> data) {
     dynamic raw = data['frequency_vector'] ?? data['vector'];
     if (raw is! Map) return null;
@@ -184,26 +218,67 @@ class CompatibilityScoring {
     return out;
   }
 
-  /// Mean absolute distance → similarity on shared Frequency dimensions.
-  /// Missing either vector → [missingSignalNeutral] (do not invent dims).
-  static double frequencyVectorSimilarity(
+  /// Compare only dimensions present and valid for both users.
+  ///
+  /// Equal weight per comparable dim (mean absolute distance → similarity).
+  /// Below [minComparableFrequencyDimensions] → unavailable (not 0.5/0.42).
+  static FrequencyVectorSimilarityResult frequencyVectorSimilarityDetailed(
     Map<String, double>? a,
     Map<String, double>? b,
   ) {
     if (a == null || a.isEmpty || b == null || b.isEmpty) {
-      return missingSignalNeutral;
+      return const FrequencyVectorSimilarityResult(
+        score: null,
+        available: false,
+        comparableDimensionCount: 0,
+        reason: reasonInsufficientFrequencyEvidence,
+      );
     }
+
     var sumAbs = 0.0;
     var n = 0;
     for (final key in frequencyDimensionKeys) {
       final va = a[key];
       final vb = b[key];
       if (va == null || vb == null) continue;
+      if (va.isNaN || vb.isNaN) continue;
       sumAbs += (va - vb).abs();
       n++;
     }
-    if (n == 0) return missingSignalNeutral;
-    return _clamp01(1.0 - (sumAbs / n));
+
+    if (n < minComparableFrequencyDimensions) {
+      return FrequencyVectorSimilarityResult(
+        score: null,
+        available: false,
+        comparableDimensionCount: n,
+        reason: reasonInsufficientFrequencyEvidence,
+      );
+    }
+
+    final score = _clamp01(1.0 - (sumAbs / n));
+    if (score.isNaN) {
+      return FrequencyVectorSimilarityResult(
+        score: null,
+        available: false,
+        comparableDimensionCount: n,
+        reason: reasonInsufficientFrequencyEvidence,
+      );
+    }
+
+    return FrequencyVectorSimilarityResult(
+      score: score,
+      available: true,
+      comparableDimensionCount: n,
+    );
+  }
+
+  /// Legacy double API: returns similarity when available, else null.
+  /// Does **not** invent 0.5 / 0.42 for sparse vectors.
+  static double? frequencyVectorSimilarity(
+    Map<String, double>? a,
+    Map<String, double>? b,
+  ) {
+    return frequencyVectorSimilarityDetailed(a, b).score;
   }
 
   /// Tags Jaccard, else type equality, else missing-neutral.
@@ -249,12 +324,14 @@ class CompatibilityScoring {
       candidateArchetype: candidateArchetype,
     );
 
-    final iq = bandClosenessScore(me['iq_normalized'], candidate['iq_normalized']);
-    final eq = bandClosenessScore(me['eq_normalized'], candidate['eq_normalized']);
+    final iq =
+        bandClosenessScore(me['iq_normalized'], candidate['iq_normalized']);
+    final eq =
+        bandClosenessScore(me['eq_normalized'], candidate['eq_normalized']);
 
     final myVector = parseFrequencyVector(me);
     final candVector = parseFrequencyVector(candidate);
-    final frequencyVector = frequencyVectorSimilarity(myVector, candVector);
+    final freqSim = frequencyVectorSimilarityDetailed(myVector, candVector);
 
     final myFreqTags = (me['frequency_tags'] is List)
         ? List<String>.from(me['frequency_tags'] as List)
@@ -279,6 +356,30 @@ class CompatibilityScoring {
 
     final recency = recencyScore(candidate['last_active_at'] as DateTime?);
 
+    final breakdown = <String, double>{
+      'frequency_type_tag': frequencyTypeTag,
+      'archetype': archetype,
+      'iq': iq,
+      'eq': eq,
+      'interests': interests,
+      'recency': recency,
+    };
+
+    if (!freqSim.available || freqSim.score == null) {
+      return CompatibilityResult(
+        scoreTotal: null,
+        available: false,
+        comparableDimensionCount: freqSim.comparableDimensionCount,
+        reason: freqSim.reason ?? reasonInsufficientFrequencyEvidence,
+        label: 'insufficient_evidence',
+        reasons: const [],
+        breakdown: breakdown,
+      );
+    }
+
+    final frequencyVector = freqSim.score!;
+    breakdown['frequency_vector'] = frequencyVector;
+
     final score = _clamp01(
       (frequencyVector * frequencyVectorWeight) +
           (frequencyTypeTag * frequencyTypeTagWeight) +
@@ -302,20 +403,9 @@ class CompatibilityScoring {
       label = 'low_signal';
     }
 
-    final breakdown = <String, double>{
-      'frequency_vector': frequencyVector,
-      'frequency_type_tag': frequencyTypeTag,
-      'archetype': archetype,
-      'iq': iq,
-      'eq': eq,
-      'interests': interests,
-      'recency': recency,
-    };
-
     // Reasons use stable keys already localized in Discover UI.
     // Prefer the stronger Frequency signal under the existing `frequency` key.
-    final frequencyReason =
-        math.max(frequencyVector, frequencyTypeTag);
+    final frequencyReason = math.max(frequencyVector, frequencyTypeTag);
 
     final signals = <String, double>{
       'frequency': frequencyReason,
@@ -345,9 +435,30 @@ class CompatibilityScoring {
 
     return CompatibilityResult(
       scoreTotal: score,
+      available: true,
+      comparableDimensionCount: freqSim.comparableDimensionCount,
+      reason: null,
       label: label,
       reasons: reasons.take(4).toList(),
       breakdown: breakdown,
     );
+  }
+
+  /// Discover sort: available scores first (desc), then unavailable by recency.
+  /// Never treats null as 0.5.
+  static int compareDiscoverCandidates({
+    required double? aScore,
+    required double? bScore,
+    required int aLastActiveMs,
+    required int bLastActiveMs,
+  }) {
+    final aAvail = aScore != null;
+    final bAvail = bScore != null;
+    if (aAvail != bAvail) return aAvail ? -1 : 1;
+    if (aAvail && bAvail) {
+      final byScore = bScore.compareTo(aScore);
+      if (byScore != 0) return byScore;
+    }
+    return bLastActiveMs.compareTo(aLastActiveMs);
   }
 }

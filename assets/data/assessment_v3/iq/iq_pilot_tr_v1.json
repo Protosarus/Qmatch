@@ -1,0 +1,2576 @@
+{
+  "form_id": "iq_tr_pilot_v1",
+  "set_id": "iq_tr_pilot_v1_set_001",
+  "module": "iq",
+  "locale": "tr-TR",
+  "schema_version": 3,
+  "question_schema_version": "qmatch_question_schema_v3",
+  "content_version": "iq-tr-pilot-v1",
+  "status": "pilot",
+  "calibration_status": "uncalibrated",
+  "question_count": 25,
+  "trait_scoring_version": "trait_scoring_v1.0",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "difficulty_band_encoding": {
+    "easy": 2,
+    "medium": 3,
+    "hard": 4
+  },
+  "notes": {
+    "en_prompt_fields": "schema-required stubs only; not authored translations",
+    "provisional": true,
+    "not_production": true
+  },
+  "items": [
+    {
+      "question_id": "iq_tr_v1_logical_001",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Kural: «Yağmur yağarsa zemin ıslanır.»\nBilinen: Zemin ıslanmıştır.\nHangisi kesin olarak çıkarılabilir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Yağmur zorunlu değildir; başka nedenler olabilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Yağmur yağmıştır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Yağmur yağmamıştır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Zemin kurudur.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "İfade bir şartlı önermedir (P→Q). Q'nun doğru olması P'yi zorunlu kılmaz (olumlama yanılgısı / affirming the consequent). Bu yüzden yağmur zorunlu değildir; başka nedenler mümkündür.",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "reverses_or_affirms_consequent",
+        "C": "assumes_unsupported_information",
+        "D": "contradicts_given_premise"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; conditional reasoning; easy",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_logical_002",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Üç raf üst üste: üst, orta, alt.\n• Bardak üstte değildir.\n• Tabak altta değildir.\n• Çaydanlık tabağın hemen altındadır.\nHangisi zorunludur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Bardak ortadadır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Çaydanlık üsttedir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Tabak üstte, çaydanlık ortada, bardak alttadır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Tabak alttadır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "C",
+      "solution_method": "Çaydanlık tabağın hemen altında → tabak üstte veya ortada; çaydanlık sırasıyla orta veya alt. Tabak altta değil (verildi) → tabak üst veya orta. Bardak üstte değil. Eğer tabak orta olsaydı çaydanlık alt olurdu; bardak üstte olamaz → bardak üst kalırdı ki yasak. Bu yüzden tabak üstte, çaydanlık orta, bardak alt zorunludur.",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "ignores_one_constraint",
+        "B": "reverses_ordering",
+        "D": "contradicts_given_premise"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 55,
+      "authoring_notes": "newly_authored; ordering constraints; easy",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_logical_003",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Tüm denizciler yüzme bilir. Bazı yüzme bilenler müzisyendir. Ayşe müzisyendir.\nHangisi kesin olarak doğrudur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Ayşe denizcidir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Ayşe'nin denizci olup olmadığı bu bilgilerle belirlenemez.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Ayşe yüzme bilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Hiçbir müzisyen denizci değildir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "B",
+      "solution_method": "«Bazı yüzücüler müzisyen» ifadesi Ayşe için yüzme bilmeyi zorunlu kılmaz; müzisyen olmak denizci olmayı da gerektirmez. Bu nedenle Ayşe'nin denizciliği belirlenemez.",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "assumes_unsupported_information",
+        "C": "confuses_some_with_all",
+        "D": "selects_possible_not_necessary"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": "iq_tr_v1_anchor_logical",
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 50,
+      "authoring_notes": "newly_authored; set relationships; medium; ANCHOR",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_logical_004",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Bir yarışmada: «Birincilik için hem hızlı hem dikkatli olmak gerekir.»\nDeniz hızlıdır ama dikkatli değildir.\nHangisi zorunludur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Deniz birinciliği kazanır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Dikkatli olmak birincilik için yeterlidir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Hızlı olmak birincilik için yeterlidir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Deniz birinciliği kazanamaz.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "D",
+      "solution_method": "Birincilik için gerekli koşullar: hızlı VE dikkatli (ikisi de gerekli). Deniz dikkatli değil → gerekli koşul eksik → birincilik imkânsız.",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "ignores_necessary_condition",
+        "B": "confuses_necessary_with_sufficient",
+        "C": "confuses_necessary_with_sufficient"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; necessary vs sufficient; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_logical_005",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Önerme 1: «Eğer lamba açıksa oda aydınlıktır.»\nÖnerme 2: «Oda aydınlık değildir.»\nHangisi zorunlu sonuçtur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Lamba kapalıdır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Lamba açıktır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Lamba bozuktur.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Oda pencereden aydınlanıyordur.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "Modus tollens: P→Q ve ¬Q ⇒ ¬P. Oda aydınlık değil ⇒ lamba açık değildir (kapalıdır, bu bağlamda).",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "contradicts_valid_inference",
+        "C": "assumes_unsupported_information",
+        "D": "assumes_unsupported_information"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; modus tollens; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_logical_006",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Aşağıdaki üç ifade birlikte veriliyor:\n1) En az bir kutu kırmızıdır.\n2) En az bir kutu mavidir.\n3) Her kutu ya kırmızı ya mavidir (ikisi birden değil).\nToplam iki kutu vardır.\nHangisi zorunludur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "İki kutu da kırmızıdır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "İki kutu da mavidir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Kutuların renkleri belirlenemez.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Bir kutu kırmızı, bir kutu mavidir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "D",
+      "solution_method": "İki kutu, her biri tek renk (kırmızı XOR mavi). En az bir kırmızı ve en az bir mavi → tam olarak bir kırmızı ve bir mavi olmalıdır.",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 4,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "ignores_one_constraint",
+        "B": "ignores_one_constraint",
+        "C": "assumes_underdetermination_when_determined"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 60,
+      "authoring_notes": "newly_authored; contradiction/constraint; hard",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_logical_007",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "logical_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "«Yalnızca yağmur yağarsa maç iptal edilir.» ifadesi doğru kabul edilsin.\nMaç iptal edilmiştir.\nHangisi zorunludur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Saha bozuk olduğu için iptal edilmiştir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Yağmur yağmıştır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Yağmur yağmamış olabilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Maç oynanmıştır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "B",
+      "solution_method": "«Yalnızca yağmur yağarsa iptal» ≈ iptal ↔ yağmur (bu bağlamda: iptalin yeterli ve gerekli koşulu yağmur). Maç iptal → yağmur yağmıştır.",
+      "cognitive_domain": "logical_reasoning",
+      "difficulty": 4,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "assumes_unsupported_information",
+        "C": "ignores_biconditional_force",
+        "D": "contradicts_given_premise"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 55,
+      "authoring_notes": "newly_authored; only-if / necessary-sufficient; hard",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_pattern_001",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Aşağıdaki sayı örüntüsünde boşluğu doldurun:\n2, 4, 8, 16, ?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "24",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "30",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "32",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "18",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "C",
+      "solution_method": "Her terim bir öncekinin 2 katı: 2→4→8→16→32. Bu tek, tutarlı ve en yalın kuraldır.",
+      "cognitive_domain": "pattern_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "adds_fixed_increment_instead_of_doubling",
+        "B": "arbitrary_arithmetic",
+        "D": "adds_2_only"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 35,
+      "authoring_notes": "newly_authored; geometric doubling; easy; concept similar to common sequences but original wording",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_pattern_002",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Sembol dizisi: ▲ ● ▲ ● ▲ ?\nSoru işareti yerine hangisi gelmelidir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "●",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "▲",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "■",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "◆",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "İki sembolün dönüşümlü tekrarı: ▲●▲●▲●.",
+      "cognitive_domain": "pattern_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "repeats_previous_instead_of_alternating",
+        "C": "introduces_new_symbol_without_rule",
+        "D": "introduces_new_symbol_without_rule"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "authoring_notes": "newly_authored; alternating symbols; easy",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_pattern_003",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Kuralı bulun ve eksik terimi seçin:\n3, 6, 5, 10, 9, 18, ?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "36",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "17",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "20",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "15",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "B",
+      "solution_method": "Kural çift adımlı: ×2, sonra −1: 3×2=6, 6−1=5, 5×2=10, 10−1=9, 9×2=18, 18−1=17. En yalın düzenli kural budur.",
+      "cognitive_domain": "pattern_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "applies_only_doubling",
+        "C": "arbitrary_increment",
+        "D": "subtracts_from_wrong_term"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": "iq_tr_v1_anchor_pattern",
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 50,
+      "authoring_notes": "newly_authored; multi-rule sequence; medium; ANCHOR",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_pattern_004",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Her satırda aynı kural geçerlidir:\n2  3  6\n4  5  20\n3  7  ?\n? yerine ne gelmelidir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "10",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "14",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "24",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "21",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "D",
+      "solution_method": "Satır kuralı: üçüncü = birinci × ikinci. 3×7=21.",
+      "cognitive_domain": "pattern_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "adds_instead_of_multiplying",
+        "B": "multiplies_by_wrong_factor",
+        "C": "adds_product_components_incorrectly"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; matrix product rule; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_pattern_005",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Harf-sayı eşlemesi (A=1, B=2, …):\nC-3, F-6, I-9, ?\nSonraki çift hangisidir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "J-10",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "K-11",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "L-12",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "H-8",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "C",
+      "solution_method": "Harfler 3'er artar (C,F,I,L) ve sayılar harf sırasına eşittir (3,6,9,12).",
+      "cognitive_domain": "pattern_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "increments_by_one_only",
+        "B": "increments_by_two",
+        "D": "moves_backward"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; letter-number progression; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_pattern_006",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "pattern_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Çarpanları artan dizide sonraki değer nedir?\n1, 2, 6, 24, 120, ?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "240",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "720",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "600",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "480",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "B",
+      "solution_method": "n! dizisi: 1=1!, 2=2!, 6=3!, 24=4!, 120=5!, sonraki 6!=720. Çarpanlar 2,3,4,5,6 şeklinde artar; alternatif «sürekli ×2» kuralı verilerle uyumsuzdur.",
+      "cognitive_domain": "pattern_reasoning",
+      "difficulty": 4,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "doubles_previous",
+        "C": "multiplies_by_5_only",
+        "D": "multiplies_by_4"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 55,
+      "authoring_notes": "newly_authored; factorial pattern; hard; flag: factorial knowledge light but pattern of increasing multipliers is visible",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_verbal_001",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "İlişki: «Öğretmen / okul» ilişkisine en çok benzeyen hangisidir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Doktor / hastane",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kitap / sayfa",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Yolcu / bilet",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Kalem / yazı",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "İlişki: meslek insanı ile birincil çalışma mekânı. Doktor-hastane aynı ilişkiyi taşır.",
+      "cognitive_domain": "verbal_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "part_whole_not_profession_place",
+        "C": "user_object_relation",
+        "D": "tool_product_relation"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 35,
+      "authoring_notes": "newly_authored; analogy; easy; Turkish-specific; needs locale equivalent not literal translation",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_verbal_002",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Aşağıdaki cümleden zorunlu olarak çıkan sonuç hangisidir?\n«Bütün katılımcılar kimlik kartı getirdi.»",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Hiçbir katılımcı kimlik kartı getirmemiştir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Katılımcıların çoğu kimlik kartı getirmemiştir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Kimlik kartı getirmeyenler yarışa alınmamıştır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "En az bir katılımcı kimlik kartı getirmiştir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "D",
+      "solution_method": "«Bütün» evrensel olumlu önerme, küme boş değilse «en az bir»i gerektirir; soru bağlamında katılımcı kümesi dolu kabul edilir. Diğer şıklar çelişir veya ek bilgi ekler.",
+      "cognitive_domain": "verbal_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "contradicts_universal_affirmative",
+        "B": "contradicts_universal_affirmative",
+        "C": "assumes_unsupported_information"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 40,
+      "authoring_notes": "newly_authored; inference from statement; easy",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_verbal_003",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Argüman: «Bu ilaç ateşi düşürür; çünkü benzer bileşenli ilaçlar ateşi düşürmüştür.»\nArgümandaki asıl dayanak hangisidir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "İlacın fiyatı uygundur.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "İlacın rengi kırmızıdır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Benzerlikten yola çıkan bir genelleme.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Ateş her zaman zararsızdır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "C",
+      "solution_method": "Argüman, benzer örneklerden bu ilaca geçiş yapan bir analoji/genellemedir.",
+      "cognitive_domain": "verbal_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "irrelevant_attribute",
+        "B": "irrelevant_attribute",
+        "D": "unsupported_value_claim"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": "iq_tr_v1_anchor_verbal",
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; argument structure; medium; ANCHOR; no medical advice—structure only",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_verbal_004",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "«Kedi, köpek, at» grubuna «aynı kategori ilişkisi» açısından hangisi uymaz?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Masa",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Koyun",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Tavşan",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "İnek",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "İlk üçü canlı hayvan; masa cansız nesnedir.",
+      "cognitive_domain": "verbal_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "same_category_animal",
+        "C": "same_category_animal",
+        "D": "same_category_animal"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "authoring_notes": "newly_authored; category relation; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_verbal_005",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Cümle: «Toplantı kısa sürdü; ancak kararlar netleşti.»\n«Ancak» bağlacının işlevi hangisine en yakındır?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Neden belirtmek",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Zaman sırası bildirmek",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Koşul bildirmek",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Zıtlık / beklenmedik sonuç ilişkisi kurmak",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "D",
+      "solution_method": "«Ancak» burada kısa sürmeye karşın net karar çıktığını gösteren karşıtlık bağlacıdır.",
+      "cognitive_domain": "verbal_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "confuses_contrast_with_cause",
+        "B": "confuses_contrast_with_sequence",
+        "C": "confuses_contrast_with_condition"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 40,
+      "authoring_notes": "newly_authored; contextual meaning; medium; Turkish connective; locale-specific",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_verbal_006",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "verbal_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "İki ifade:\n1) «Bazı raporlar gecikti.»\n2) «Hiçbir rapor gecikmedi.»\nBu iki ifade hakkında hangisi doğrudur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "İkisi birden doğru olabilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Aynı anda doğru olamazlar; biri doğruysa diğeri yanlıştır.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "İkisi mantıken eşdeğerdir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "İkinci ifade birinciden zorunlu olarak çıkar.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "B",
+      "solution_method": "«Bazı … gecikti» ile «hiçbir … gecikmedi» çelişik önermelerdir; aynı anda doğru olamazlar ve biri doğruysa diğeri yanlıştır.",
+      "cognitive_domain": "verbal_reasoning",
+      "difficulty": 4,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "allows_contradiction",
+        "C": "false_equivalence",
+        "D": "invalid_entailment"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 55,
+      "authoring_notes": "newly_authored; opposition of quantifiers; hard; locale-specific",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_spatial_001",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Bir ızgarada: Kuzey yukarıdır. Nokta A, nokta B'nin iki birim kuzeyindedir. B, C'nin bir birim doğusundadır.\nA, C'ye göre nerededir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Bir birim batı, iki birim kuzey",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "İki birim güney",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Bir birim doğu, iki birim kuzey",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Bir birim batı, iki birim güney",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "C",
+      "solution_method": "C orijin olsun. B = C + (1 doğu). A = B + (2 kuzey) = C + (1 doğu, 2 kuzey).",
+      "cognitive_domain": "spatial_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "reverses_east_west",
+        "B": "ignores_east_offset",
+        "D": "reverses_both_axes"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; relative position; easy",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_spatial_002",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Bir kişi kuzeye bakarak durur. Sağa döner, sonra tekrar sağa döner.\nŞimdi hangi yöne bakmaktadır?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Güney",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kuzey",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Doğu",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Batı",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "Kuzey → sağa = doğu → sağa = güney.",
+      "cognitive_domain": "spatial_reasoning",
+      "difficulty": 2,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "ignores_turns",
+        "C": "stops_after_one_turn",
+        "D": "turns_left_instead_of_right"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 30,
+      "authoring_notes": "newly_authored; direction changes; easy",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_spatial_003",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Bir küpün ön yüzünde A, üst yüzünde B vardır. Küp, ön yüz taban olacak şekilde öne doğru 90° döndürülür.\nDöndürmeden sonra üst yüzde hangisi bulunur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "A",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "A'nın karşı yüzü",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "B",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "B'nin karşı yüzü",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "B",
+      "solution_method": "Öne 90°: eski ön tabana, eski üst öne, eski arka üste gelir. Eski arka, A'nın karşı yüzüdür; yeni üst budur.",
+      "cognitive_domain": "spatial_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "confuses_new_top_with_old_front",
+        "C": "assumes_top_unchanged",
+        "D": "selects_opposite_of_wrong_face"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": "iq_tr_v1_anchor_spatial",
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 60,
+      "authoring_notes": "newly_authored; cube rotation; medium; ANCHOR",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_spatial_004",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Kâğıt üzerinde L şeklinde bir yol çizilmiştir: 3 birim kuzeye, sonra 2 birim doğuya.\nBaşlangıç noktasına göre bitiş noktası nerededir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "3 doğu, 2 kuzey",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "2 batı, 3 kuzey",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "2 doğu, 3 güney",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "2 doğu, 3 kuzey",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "D",
+      "solution_method": "Net yer değiştirme: +3 kuzey, +2 doğu.",
+      "cognitive_domain": "spatial_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "swaps_components",
+        "B": "reverses_east_west",
+        "C": "reverses_north_south"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 40,
+      "authoring_notes": "newly_authored; path orientation; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_spatial_005",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Bir masa üzerinde: kitap defterin solundadır. Kalem defterin önündedir. Gözlemci masaya bakmaktadır (ön = gözlemciye yakın).\nKalem, kitaba göre yaklaşık nerededir?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Kitabın sağ-önünde",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kitabın sol-arkasında",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Kitabın tam arkasında",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Kitabın tam solunda",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "A",
+      "solution_method": "Defter referans: kitap solunda, kalem önünde. Kitaptan bakınca defter sağda, kalem defterin önünde → kitabın sağ-ön bölgesi.",
+      "cognitive_domain": "spatial_reasoning",
+      "difficulty": 3,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "B": "reverses_left_right_and_front_back",
+        "C": "ignores_right_offset",
+        "D": "ignores_front_offset"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 50,
+      "authoring_notes": "newly_authored; relative layout; medium",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    },
+    {
+      "question_id": "iq_tr_v1_spatial_006",
+      "module": "iq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "iq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "pending_manual_semantic_and_language_review",
+      "item_type": "mcq_keyed",
+      "primary_dimension": "spatial_reasoning",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Düz bir kâğıtta ok işareti sağa (→) bakıyor. Kâğıt, saat yönünde 90° döndürülüyor; ardından bir kez daha saat yönünde 90° döndürülüyor.\nOk şimdi hangi yöne bakar?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Sağa (→)",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Aşağı (↓)",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Sola (←)",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Yukarı (↑)",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {},
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.0,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "correct_option_id": "C",
+      "solution_method": "Saat yönünde 90°: → ↓ olur; bir 90° daha: ↓ ← olur. Toplam 180°.",
+      "cognitive_domain": "spatial_reasoning",
+      "difficulty": 4,
+      "estimated_discrimination": 0.5,
+      "distractor_logic": {
+        "A": "ignores_rotations",
+        "B": "stops_after_one_rotation",
+        "D": "rotates_counterclockwise"
+      },
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality",
+        "response_variation"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 45,
+      "authoring_notes": "newly_authored; viewpoint/planar rotation; hard",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z",
+      "explanation_availability": "reviewer_only"
+    }
+  ]
+}

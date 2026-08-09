@@ -27,14 +27,14 @@ class UserModel {
     );
   }
 
-  // Firestore'a kaydet
+  // Firestore'a kaydet — omit optional nulls (do not erase stored archetype).
   Map<String, dynamic> toFirestore() {
     return {
       'name': name,
       'email': email,
       'test_completed': testCompleted,
-      'archetype': archetype,
-      'level': level,
+      if (archetype != null) 'archetype': archetype,
+      if (level != null) 'level': level,
       'created_at': DateTime.now().toIso8601String(),
     };
   }

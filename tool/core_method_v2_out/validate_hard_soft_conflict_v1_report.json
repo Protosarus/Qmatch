@@ -1,0 +1,8 @@
+{
+  "error_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "phase": "P2B-3",
+  "status": "PASS",
+  "validator": "validate_hard_soft_conflict_v1"
+}

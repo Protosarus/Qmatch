@@ -1,0 +1,12 @@
+{
+  "error_count": 0,
+  "finding_count": 0,
+  "findings": [],
+  "identity_check": "identical_profiles_similarity_1",
+  "monotonicity_check": "larger_distance_lower_similarity",
+  "pair_confidence_mode": "geometric_mean",
+  "phase": "P2B-1",
+  "status": "PASS",
+  "symmetry_check": "ab_reversal",
+  "validator": "validate_structural_similarity_v1"
+}

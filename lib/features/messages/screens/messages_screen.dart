@@ -1,140 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_fonts/google_fonts.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../assessment/utils/assessment_language.dart';
-import '../../assessment/utils/assessment_result_display_resolver.dart';
+
+import '../../../core/identity/identity.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../l10n/app_localizations.dart';
 import '../models/chat_thread_model.dart';
 import '../services/chat_service.dart';
+import '../utils/conversation_timestamp_format.dart';
+import '../widgets/messages_widgets.dart';
 import 'chat_detail_screen.dart';
-import '../../../l10n/app_localizations.dart';
 
-class MessagesScreen extends StatelessWidget {
+/// Messages inbox (conversation list). Presentation migrated in P2C-1C-3A.
+///
+/// Firestore stream / ChatService behavior is unchanged.
+class MessagesScreen extends StatefulWidget {
   const MessagesScreen({super.key});
+
+  @override
+  State<MessagesScreen> createState() => _MessagesScreenState();
+}
+
+class _MessagesScreenState extends State<MessagesScreen> {
+  final ChatService _chatService = ChatService();
+
+  /// Bumping recreates the StreamBuilder subscription (real retry).
+  int _streamEpoch = 0;
+
+  void _retryStream() {
+    setState(() => _streamEpoch++);
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final chatService = ChatService();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      key: const Key('qmatch-messages-screen'),
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
-              child: Row(
-                children: [
-                  Text(
-                    l10n.messagesTitle,
-                    style: GoogleFonts.playfairDisplay(
-                      color: AppColors.primary,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            QMatchMessagesHeader(title: l10n.messagesTitle),
             Expanded(
               child: StreamBuilder<List<ChatThreadModel>>(
-                stream: chatService.getMyThreadsStream(),
+                key: ValueKey('messages-stream-$_streamEpoch'),
+                stream: _chatService.getMyThreadsStream(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-                      ),
+                  if (snapshot.connectionState == ConnectionState.waiting &&
+                      !snapshot.hasData &&
+                      !snapshot.hasError) {
+                    return QMatchMessagesLoadingState(
+                      message: l10n.messagesLoading,
                     );
                   }
 
                   if (snapshot.hasError) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.error_outline,
-                              size: 56,
-                              color: AppColors.textSecondary.withValues(alpha: 0.7),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              l10n.messagesLoadErrorTitle,
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              l10n.messagesLoadErrorSubtitle,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                color: AppColors.textSecondary,
-                                fontSize: 13,
-                                height: 1.4,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    debugPrint('Messages stream error: ${snapshot.error}');
+                    return QMatchMessagesErrorState(
+                      title: l10n.messagesLoadErrorTitle,
+                      body: l10n.messagesLoadErrorSubtitle,
+                      retryLabel: l10n.retry,
+                      onRetry: _retryStream,
                     );
                   }
 
-                  final threads = snapshot.data ?? const [];
+                  final threads = snapshot.data ?? const <ChatThreadModel>[];
                   if (threads.isEmpty) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.chat_bubble_outline,
-                              size: 72,
-                              color: AppColors.textSecondary.withValues(alpha: 0.5),
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              l10n.messagesEmptyTitle,
-                              style: GoogleFonts.playfairDisplay(
-                                color: AppColors.primary,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              l10n.messagesEmptySubtitle,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.inter(
-                                color: AppColors.textSecondary,
-                                fontSize: 14,
-                                height: 1.4,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    return QMatchMessagesEmptyState(
+                      title: l10n.messagesEmptyTitle,
+                      body: l10n.messagesEmptySubtitle,
                     );
                   }
 
                   return ListView.separated(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    key: const Key('qmatch-messages-list'),
+                    padding: const EdgeInsets.fromLTRB(
+                      AppSpacing.md,
+                      AppSpacing.xs,
+                      AppSpacing.md,
+                      AppSpacing.md,
+                    ),
                     itemCount: threads.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 10),
+                    separatorBuilder: (_, __) =>
+                        const QMatchConversationListSeparator(),
                     itemBuilder: (context, index) {
                       final thread = threads[index];
-                      return _ThreadTile(
+                      return _MessagesThreadRow(
                         thread: thread,
-                        chatService: chatService,
-                        onTap: (otherUserId, otherName) {
+                        chatService: _chatService,
+                        onOpen: (otherUserId, otherName) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -159,16 +114,18 @@ class MessagesScreen extends StatelessWidget {
   }
 }
 
-class _ThreadTile extends StatelessWidget {
-  final ChatThreadModel thread;
-  final ChatService chatService;
-  final void Function(String otherUserId, String? otherUserName) onTap;
-
-  const _ThreadTile({
+/// Resolves counterpart public profile via existing [ChatService], then renders
+/// a presentation-only tile. Keeps Firestore out of widget components.
+class _MessagesThreadRow extends StatelessWidget {
+  const _MessagesThreadRow({
     required this.thread,
     required this.chatService,
-    required this.onTap,
+    required this.onOpen,
   });
+
+  final ChatThreadModel thread;
+  final ChatService chatService;
+  final void Function(String otherUserId, String? otherUserName) onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -178,206 +135,61 @@ class _ThreadTile extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final otherId = chatService.getOtherParticipantId(thread, currentUid);
+    late final String otherId;
+    try {
+      otherId = chatService.getOtherParticipantId(thread, currentUid);
+    } catch (e) {
+      debugPrint('Messages invalid participants for ${thread.threadId}: $e');
+      return const SizedBox.shrink();
+    }
+
     final unread = thread.unreadCounts[currentUid] ?? 0;
+    final localeCode = Localizations.maybeLocaleOf(context)?.languageCode;
+    final timeText = formatConversationTimestamp(
+      thread.lastMessageAt,
+      localeCode: localeCode,
+    );
 
     return FutureBuilder<Map<String, dynamic>?>(
       future: chatService.getUserPublicProfile(otherId),
       builder: (context, snap) {
-        final p = snap.data;
-        final name = (p?['name'] as String?)?.trim();
-        final age = (p?['age'] as num?)?.toInt();
-        final archetype = p?['archetype'] as String?;
-        final category = p?['category'] as String?;
-        final profilePhotoUrl = (p?['profile_photo_url'] as String?)?.trim();
-        final photos = (p?['photos'] as List?)?.cast<String>() ?? const <String>[];
+        final profile = snap.data;
+        final resolved = UserIdentityResolver.fromUserMap(profile);
+        final profilePhotoUrl =
+            (profile?['profile_photo_url'] as String?)?.trim();
+        final photos =
+            (profile?['photos'] as List?)?.cast<String>() ?? const <String>[];
 
         final photoUrl = (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty)
             ? profilePhotoUrl
             : (photos.isNotEmpty ? photos.first : null);
 
-        final displayName = (name == null || name.isEmpty) ? l10n.messagesConversationFallback : name;
-        final subtitle = thread.lastMessagePreview?.trim().isNotEmpty == true
+        // Missing/deleted counterpart → localized fallback (never raw uid/email).
+        final displayName = resolved.hasDisplayName
+            ? resolved.displayName!
+            : l10n.messagesConversationFallback;
+
+        final preview = thread.lastMessagePreview?.trim().isNotEmpty == true
             ? thread.lastMessagePreview!.trim()
             : l10n.messagesSayHi;
 
-        final timeText = _formatTimestamp(thread.lastMessageAt);
-
-        return InkWell(
-          onTap: () => onTap(otherId, name),
-          borderRadius: BorderRadius.circular(18),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: AppColors.primary.withValues(alpha: 0.12),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              children: [
-                _Avatar(photoUrl: photoUrl),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              age != null ? '$displayName, $age' : displayName,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          if (timeText != null) ...[
-                            const SizedBox(width: 8),
-                            Text(
-                              timeText,
-                              style: GoogleFonts.inter(
-                                color: AppColors.textSecondary.withValues(alpha: 0.8),
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      if ((archetype != null && archetype.isNotEmpty) ||
-                          (category != null && category.isNotEmpty))
-                        Builder(
-                          builder: (context) {
-                            final languageCode =
-                                AssessmentLanguage.languageUsed(
-                              languageCode: Localizations.maybeLocaleOf(context)
-                                  ?.languageCode,
-                            );
-                            final display = (category != null &&
-                                    category.isNotEmpty)
-                                ? AssessmentResultDisplayResolver
-                                    .resolveIqEqLevel(
-                                    category,
-                                    languageCode: languageCode,
-                                  )
-                                : AssessmentResultDisplayResolver
-                                    .resolveArchetypeLabel(
-                                    archetype,
-                                    languageCode: languageCode,
-                                  );
-                            return Text(
-                              display.title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                                color: AppColors.primary.withValues(alpha: 0.9),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            );
-                          },
-                        )
-                      else
-                        const SizedBox.shrink(),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              subtitle,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.inter(
-                                color: AppColors.textSecondary,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ),
-                          if (unread > 0) ...[
-                            const SizedBox(width: 10),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: AppColors.primary,
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                              child: Text(
-                                unread > 99 ? '99+' : '$unread',
-                                style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+        return QMatchConversationTile(
+          displayName: displayName,
+          age: resolved.hasDisplayName ? resolved.age : null,
+          photoUrl: photoUrl,
+          previewText: preview,
+          timestampText: timeText,
+          unreadCount: unread,
+          avatarSemanticLabel: l10n.messagesAvatarSemanticLabel(displayName),
+          unreadSemanticLabel:
+              unread > 0 ? l10n.messagesUnreadSemanticLabel(unread) : null,
+          rowSemanticLabel: l10n.messagesConversationSemanticLabel(displayName),
+          onTap: () => onOpen(
+            otherId,
+            resolved.hasDisplayName ? resolved.displayName : null,
           ),
         );
       },
-    );
-  }
-
-  static String? _formatTimestamp(Timestamp? ts) {
-    if (ts == null) return null;
-    final d = ts.toDate();
-    final now = DateTime.now();
-    final sameDay = now.year == d.year && now.month == d.month && now.day == d.day;
-    if (sameDay) {
-      final hh = d.hour.toString().padLeft(2, '0');
-      final mm = d.minute.toString().padLeft(2, '0');
-      return '$hh:$mm';
-    }
-    return '${d.day.toString().padLeft(2, '0')}.${d.month.toString().padLeft(2, '0')}';
-  }
-}
-
-class _Avatar extends StatelessWidget {
-  final String? photoUrl;
-
-  const _Avatar({required this.photoUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    final placeholder = Container(
-      width: 52,
-      height: 52,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900,
-        shape: BoxShape.circle,
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
-      ),
-      child: Icon(
-        Icons.person,
-        color: AppColors.primary.withValues(alpha: 0.6),
-      ),
-    );
-
-    if (photoUrl == null || photoUrl!.isEmpty) return placeholder;
-
-    return ClipOval(
-      child: SizedBox(
-        width: 52,
-        height: 52,
-        child: Image.network(
-          photoUrl!,
-          fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => placeholder,
-        ),
-      ),
     );
   }
 }

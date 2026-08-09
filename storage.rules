@@ -1,0 +1,41 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isPermittedImage() {
+      return request.resource.contentType.matches('image/(jpeg|jpg|png|webp)');
+    }
+
+    function underMaxSize() {
+      // 5 MiB hard cap for profile photos.
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // Deny unknown paths by default.
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // profile_photos/{userId}/{fileName}
+    // Privacy tradeoff: authenticated reads are allowed so Discover/chat can
+    // load peer photos via the Storage SDK when download tokens are unavailable.
+    // Download URLs with tokens may still resolve outside these rules.
+    // Metadata.contentType is client-supplied; rules enforce declared type only.
+    match /profile_photos/{userId}/{fileName} {
+      allow read: if isSignedIn();
+
+      allow create, update: if isOwner(userId)
+        && isPermittedImage()
+        && underMaxSize();
+
+      allow delete: if isOwner(userId);
+    }
+  }
+}

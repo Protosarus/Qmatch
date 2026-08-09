@@ -1,10 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:math' as math;
+import 'dart:ui' show ImageFilter;
+
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/navigation/auth_wrapper.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_gradients.dart';
+import '../../../core/theme/app_radii.dart';
 import '../../../core/widgets/elegant_warning.dart';
+import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
+import '../widgets/auth_world_map_accent.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,12 +26,32 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _emailFocus = FocusNode();
+  final _passwordFocus = FocusNode();
+
   bool _isLoading = false;
   bool _obscurePassword = true;
+  bool _emailFocused = false;
+  bool _passwordFocused = false;
   String? _inlineError;
 
   @override
+  void initState() {
+    super.initState();
+    _emailFocus.addListener(() {
+      if (!mounted) return;
+      setState(() => _emailFocused = _emailFocus.hasFocus);
+    });
+    _passwordFocus.addListener(() {
+      if (!mounted) return;
+      setState(() => _passwordFocused = _passwordFocus.hasFocus);
+    });
+  }
+
+  @override
   void dispose() {
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -30,36 +59,46 @@ class _LoginScreenState extends State<LoginScreen> {
 
   InputDecoration _fieldDecoration({
     required String label,
+    required bool focused,
     Widget? suffixIcon,
   }) {
+    final idleBorder = const Color(0x77A890D8);
+    final focusBorder = focused ? AppColors.softGold : idleBorder;
     return InputDecoration(
       labelText: label,
-      labelStyle: GoogleFonts.inter(color: AppColors.textSecondary),
+      labelStyle: GoogleFonts.inter(
+        color: const Color(0xFF9A90B8),
+        fontSize: 13,
+        fontWeight: FontWeight.w500,
+      ),
+      floatingLabelStyle: GoogleFonts.inter(
+        color: focused ? AppColors.softGold : const Color(0xFFB8AED8),
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-        borderSide: BorderSide(
-          color: AppColors.primary.withValues(alpha: 0.28),
-        ),
+        borderRadius: AppRadii.cardBorder,
+        borderSide: BorderSide(color: idleBorder, width: 1.0),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        borderRadius: AppRadii.cardBorder,
+        borderSide: BorderSide(color: focusBorder, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: AppRadii.cardBorder,
         borderSide: BorderSide(
           color: AppColors.error.withValues(alpha: 0.7),
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: AppRadii.cardBorder,
         borderSide: BorderSide(
           color: AppColors.error.withValues(alpha: 0.9),
           width: 1.5,
         ),
       ),
       filled: true,
-      fillColor: AppColors.surface,
+      fillColor: const Color(0xAA141A2E),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       suffixIcon: suffixIcon,
     );
@@ -67,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _handleLogin() async {
     final l10n = AppLocalizations.of(context)!;
+    FocusScope.of(context).unfocus();
     setState(() => _inlineError = null);
     if (!_formKey.currentState!.validate()) return;
 
@@ -109,197 +149,465 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Widget _glowField({
+    required bool focused,
+    required Widget child,
+  }) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      decoration: BoxDecoration(
+        borderRadius: AppRadii.cardBorder,
+        boxShadow: focused
+            ? [
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.45),
+                  blurRadius: 16,
+                ),
+                BoxShadow(
+                  color: AppColors.softGold.withValues(alpha: 0.28),
+                  blurRadius: 14,
+                  offset: const Offset(2, 2),
+                ),
+              ]
+            : null,
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.primary,
-            size: 22,
-          ),
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: AppColors.midnightNavy,
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            const _LoginCosmicBackdrop(),
+            SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 4, 12, 0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: QMatchGlassIconButton(
+                        icon: Icons.arrow_back_ios_new,
+                        iconSize: 18,
+                        circular: true,
+                        tooltip: MaterialLocalizations.of(context)
+                            .backButtonTooltip,
+                        onPressed: () => Navigator.of(context).maybePop(),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final padH =
+                            (constraints.maxWidth * 0.06).clamp(20.0, 28.0);
+                        return SingleChildScrollView(
+                          padding: EdgeInsets.only(
+                            left: padH,
+                            right: padH,
+                            bottom: bottomInset + 16,
+                          ),
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: math.max(
+                                0.0,
+                                constraints.maxHeight - bottomInset,
+                              ),
+                              maxWidth: 430,
+                            ),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 4),
+                                      SizedBox(
+                                        width: 44,
+                                        height: 44,
+                                        child: Image.asset(
+                                          'assets/images/welcome_q_glow.png',
+                                          fit: BoxFit.contain,
+                                          filterQuality: FilterQuality.high,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        l10n.loginWelcomeBack,
+                                        style: GoogleFonts.playfairDisplay(
+                                          color: Colors.white,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1.15,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        l10n.loginSubtitle,
+                                        style: GoogleFonts.inter(
+                                          color: const Color(0xFFC8C0E0),
+                                          fontSize: 14,
+                                          height: 1.45,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 28),
+                                      if (_inlineError != null) ...[
+                                        Container(
+                                          width: double.infinity,
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 10,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: AppRadii.buttonBorder,
+                                            color: AppColors.error
+                                                .withValues(alpha: 0.12),
+                                            border: Border.all(
+                                              color: AppColors.error
+                                                  .withValues(alpha: 0.45),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            _inlineError!,
+                                            style: GoogleFonts.inter(
+                                              color: AppColors.error
+                                                  .withValues(alpha: 0.95),
+                                              fontSize: 13,
+                                              height: 1.35,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 14),
+                                      ],
+                                      _glowField(
+                                        focused: _emailFocused,
+                                        child: TextFormField(
+                                          controller: _emailController,
+                                          focusNode: _emailFocus,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          textInputAction: TextInputAction.next,
+                                          style: GoogleFonts.inter(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          decoration: _fieldDecoration(
+                                            label: l10n.email,
+                                            focused: _emailFocused,
+                                          ),
+                                          onChanged: (_) {
+                                            if (_inlineError != null) {
+                                              setState(
+                                                () => _inlineError = null,
+                                              );
+                                            }
+                                          },
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return l10n.loginErrorEnterEmail;
+                                            }
+                                            if (!value.contains('@')) {
+                                              return l10n.loginErrorValidEmail;
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      _glowField(
+                                        focused: _passwordFocused,
+                                        child: TextFormField(
+                                          controller: _passwordController,
+                                          focusNode: _passwordFocus,
+                                          obscureText: _obscurePassword,
+                                          textInputAction: TextInputAction.done,
+                                          onFieldSubmitted: (_) =>
+                                              _handleLogin(),
+                                          style: GoogleFonts.inter(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                          ),
+                                          decoration: _fieldDecoration(
+                                            label: l10n.password,
+                                            focused: _passwordFocused,
+                                            suffixIcon: IconButton(
+                                              icon: Icon(
+                                                _obscurePassword
+                                                    ? Icons
+                                                        .visibility_off_outlined
+                                                    : Icons
+                                                        .visibility_outlined,
+                                                color: const Color(0xFF9A90B8),
+                                                size: 22,
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  _obscurePassword =
+                                                      !_obscurePassword;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          onChanged: (_) {
+                                            if (_inlineError != null) {
+                                              setState(
+                                                () => _inlineError = null,
+                                              );
+                                            }
+                                          },
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return l10n
+                                                  .loginErrorEnterPassword;
+                                            }
+                                            if (value.length < 6) {
+                                              return l10n
+                                                  .loginErrorPasswordMinLength;
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const IgnorePointer(
+                                    child: AuthWorldMapAccent(),
+                                  ),
+                                  Column(
+                                    children: [
+                                      _CosmicCtaButton(
+                                        loading: _isLoading,
+                                        label: l10n.logIn,
+                                        onPressed:
+                                            _isLoading ? null : _handleLogin,
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        l10n.loginPreferPhoneHint,
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.inter(
+                                          color: const Color(0xFFA8A0C0),
+                                          fontSize: 12,
+                                          height: 1.4,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              padding: EdgeInsets.only(
-                left: 32,
-                right: 32,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-              ),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight -
-                      MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 12),
-                      Text(
-                        l10n.loginWelcomeBack,
-                        style: GoogleFonts.playfairDisplay(
-                          color: AppColors.primary,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.loginSubtitle,
-                        style: GoogleFonts.inter(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                          height: 1.4,
-                        ),
-                      ),
-                      const SizedBox(height: 36),
+    );
+  }
+}
 
-                      TextFormField(
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        style: GoogleFonts.inter(color: Colors.white),
-                        decoration: _fieldDecoration(label: l10n.email),
-                        onChanged: (_) {
-                          if (_inlineError != null) {
-                            setState(() => _inlineError = null);
-                          }
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return l10n.loginErrorEnterEmail;
-                          }
-                          if (!value.contains('@')) {
-                            return l10n.loginErrorValidEmail;
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
+class _LoginCosmicBackdrop extends StatelessWidget {
+  const _LoginCosmicBackdrop();
 
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obscurePassword,
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) => _handleLogin(),
-                        style: GoogleFonts.inter(color: Colors.white),
-                        decoration: _fieldDecoration(
-                          label: l10n.password,
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscurePassword
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              color: AppColors.textSecondary,
-                              size: 22,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                        ),
-                        onChanged: (_) {
-                          if (_inlineError != null) {
-                            setState(() => _inlineError = null);
-                          }
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return l10n.loginErrorEnterPassword;
-                          }
-                          if (value.length < 6) {
-                            return l10n.loginErrorPasswordMinLength;
-                          }
-                          return null;
-                        },
-                      ),
-
-                      if (_inlineError != null) ...[
-                        const SizedBox(height: 14),
-                        Text(
-                          _inlineError!,
-                          style: GoogleFonts.inter(
-                            color: AppColors.error.withValues(alpha: 0.9),
-                            fontSize: 13,
-                            height: 1.35,
-                          ),
-                        ),
-                      ],
-
-                      const SizedBox(height: 28),
-
-                      SizedBox(
-                        width: double.infinity,
-                        height: 52,
-                        child: ElevatedButton(
-                          onPressed: _isLoading ? null : _handleLogin,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: AppColors.background,
-                            disabledBackgroundColor:
-                                AppColors.primary.withValues(alpha: 0.5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: _isLoading
-                              ? const SizedBox(
-                                  height: 22,
-                                  width: 22,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      AppColors.background,
-                                    ),
-                                  ),
-                                )
-                              : Text(
-                                  l10n.logIn,
-                                  maxLines: 1,
-                                  softWrap: false,
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.background,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      Center(
-                        child: Text(
-                          l10n.loginPreferPhoneHint,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.inter(
-                            color: AppColors.textSecondary
-                                .withValues(alpha: 0.75),
-                            fontSize: 12,
-                            height: 1.4,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: AppGradients.cosmicBackgroundGradient,
+            ),
+          ),
+          Positioned(
+            top: -40,
+            left: -30,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
+              child: Container(
+                width: 240,
+                height: 240,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.electricBlue.withValues(alpha: 0.14),
                 ),
               ),
-            );
-          },
+            ),
+          ),
+          Positioned(
+            top: -70,
+            right: -50,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 55, sigmaY: 55),
+              child: Container(
+                width: 230,
+                height: 230,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.32),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 60,
+            left: -40,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 70, sigmaY: 70),
+              child: Container(
+                width: 210,
+                height: 210,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.secondary.withValues(alpha: 0.12),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 140,
+            right: -20,
+            child: ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 45, sigmaY: 45),
+              child: Container(
+                width: 140,
+                height: 140,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.softGold.withValues(alpha: 0.08),
+                ),
+              ),
+            ),
+          ),
+          const CustomPaint(painter: _StarFieldPainter()),
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0x440A0F1C),
+                  Color(0x180A0F1C),
+                  Color(0x880C0C0C),
+                ],
+                stops: [0.0, 0.5, 1.0],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StarFieldPainter extends CustomPainter {
+  const _StarFieldPainter();
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rnd = math.Random(42);
+    final paint = Paint()..style = PaintingStyle.fill;
+    for (var i = 0; i < 48; i++) {
+      final x = rnd.nextDouble() * size.width;
+      final y = rnd.nextDouble() * size.height;
+      final r = rnd.nextDouble() * 1.15 + 0.35;
+      final a = 0.18 + rnd.nextDouble() * 0.45;
+      paint.color = Color.fromRGBO(230, 225, 255, a);
+      canvas.drawCircle(Offset(x, y), r, paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _CosmicCtaButton extends StatelessWidget {
+  const _CosmicCtaButton({
+    required this.label,
+    required this.onPressed,
+    required this.loading,
+  });
+
+  final String label;
+  final VoidCallback? onPressed;
+  final bool loading;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: AppRadii.pillBorder,
+        gradient: AppGradients.cosmicCtaGradient,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.softGold.withValues(alpha: 0.28),
+            blurRadius: 18,
+            offset: const Offset(4, 5),
+          ),
+          BoxShadow(
+            color: AppColors.resonanceViolet.withValues(alpha: 0.28),
+            blurRadius: 16,
+            offset: const Offset(-3, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: AppRadii.pillBorder,
+          child: SizedBox(
+            width: double.infinity,
+            height: 54,
+            child: Center(
+              child: loading
+                  ? const SizedBox(
+                      width: 22,
+                      height: 22,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+            ),
+          ),
         ),
       ),
     );

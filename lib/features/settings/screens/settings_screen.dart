@@ -1,30 +1,56 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/services/auth_service.dart';
+
 import '../../../core/navigation/auth_wrapper.dart';
+import '../../../core/services/auth_service.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_radii.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/widgets/cosmic/q_glass_card.dart';
+import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_pushed_screen_header.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../debug/debug_home_screen.dart';
+import '../services/account_deletion_request_service.dart';
 import 'about_screen.dart';
 import 'account_deletion_request_screen.dart';
 import 'blocked_users_screen.dart';
 import 'help_support_screen.dart';
 import 'notifications_settings_screen.dart';
 import 'privacy_settings_screen.dart';
-import '../services/account_deletion_request_service.dart';
-import '../../../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({
+    super.key,
+    this.debugForceDebugRow,
+    this.animateBackground,
+    this.deletionService,
+    this.debugDeletionPending,
+  });
+
+  /// Test override: when non-null, forces Debug row visibility.
+  final bool? debugForceDebugRow;
+
+  /// Goldens: pass false to freeze cosmic animation.
+  final bool? animateBackground;
+
+  final AccountDeletionRequestService? deletionService;
+
+  /// When non-null, skips Firestore and uses this pending flag (tests).
+  final bool? debugDeletionPending;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final _deletionService = AccountDeletionRequestService();
+  late final AccountDeletionRequestService _deletionService =
+      widget.deletionService ?? AccountDeletionRequestService();
   bool _deletionPending = false;
   bool _deletionPendingLoaded = false;
+
+  bool get _showDebug => widget.debugForceDebugRow ?? kDebugMode;
 
   @override
   void initState() {
@@ -33,6 +59,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _loadDeletionPending() async {
+    if (widget.debugDeletionPending != null) {
+      if (!mounted) return;
+      setState(() {
+        _deletionPending = widget.debugDeletionPending!;
+        _deletionPendingLoaded = true;
+      });
+      return;
+    }
     final pending = await _deletionService.isAccountDeletionPending();
     if (!mounted) return;
     setState(() {
@@ -47,7 +81,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         builder: (_) => const AccountDeletionRequestScreen(),
       ),
     );
-    // Refresh status after returning (e.g. user just submitted).
     if (mounted) await _loadDeletionPending();
   }
 
@@ -57,17 +90,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceElevated,
           title: Text(
             l10n.settingsLogoutConfirmTitle,
             style: GoogleFonts.playfairDisplay(
-              color: AppColors.primary,
+              color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),
           content: Text(
             l10n.settingsLogoutConfirmBody,
-            style: GoogleFonts.inter(color: Colors.white),
+            style: GoogleFonts.inter(color: AppColors.textSecondary),
           ),
           actions: [
             TextButton(
@@ -80,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             FilledButton(
               onPressed: () => Navigator.of(context).pop(true),
               style: FilledButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: AppColors.danger,
                 foregroundColor: Colors.white,
               ),
               child: Text(
@@ -115,202 +148,317 @@ class _SettingsScreenState extends State<SettingsScreen> {
             : l10n.settingsDeleteAccountSubtitle);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(24),
-              child: Row(
-                children: [
-                  Text(
-                    l10n.settingsTitle,
-                    style: GoogleFonts.playfairDisplay(
-                      color: AppColors.primary,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+      backgroundColor: Colors.transparent,
+      body: QMatchCosmicBackground(
+        key: const Key('qmatch-settings-cosmic'),
+        seed: 17,
+        animate: widget.animateBackground,
+        child: SafeArea(
+          child: Column(
+            children: [
+              QMatchPushedScreenHeader(
+                title: l10n.settingsTitle,
+                backButtonKey: const Key('qmatch-settings-back'),
+                titleKey: const Key('qmatch-settings-title'),
               ),
-            ),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                children: [
-                  if (_deletionPending) ...[
-                    Container(
-                      width: double.infinity,
-                      margin: const EdgeInsets.only(bottom: 16),
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: AppColors.primary.withValues(alpha: 0.35),
-                        ),
-                      ),
-                      child: Text(
-                        l10n.settingsDeleteAccountPendingBanner,
-                        style: GoogleFonts.inter(
-                          color: AppColors.primary,
-                          fontSize: 13,
-                          height: 1.45,
-                        ),
-                      ),
-                    ),
-                  ],
-                  _buildSettingItem(
-                    icon: Icons.notifications,
-                    title: l10n.settingsNotifications,
-                    subtitle: l10n.settingsNotificationsSubtitle,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const NotificationsSettingsScreen(),
-                        ),
-                      );
-                    },
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.md,
+                    AppSpacing.sm,
+                    AppSpacing.md,
+                    AppSpacing.xl,
                   ),
-                  _buildSettingItem(
-                    icon: Icons.privacy_tip,
-                    title: l10n.settingsPrivacy,
-                    subtitle: l10n.settingsPrivacySubtitle,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const PrivacySettingsScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildSettingItem(
-                    icon: Icons.block,
-                    title: l10n.settingsBlocked,
-                    subtitle: l10n.settingsBlockedSubtitle,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const BlockedUsersScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildSettingItem(
-                    icon: Icons.help,
-                    title: l10n.settingsHelpSupport,
-                    subtitle: l10n.settingsHelpSupportSubtitle,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const HelpSupportScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildSettingItem(
-                    icon: Icons.info,
-                    title: l10n.settingsAbout,
-                    subtitle: l10n.settingsAboutSubtitle,
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const AboutScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildSettingItem(
-                    icon: Icons.delete_forever_outlined,
-                    title: deleteTitle,
-                    subtitle: deleteSubtitle,
-                    isDestructive: true,
-                    onTap: _openDeleteAccount,
-                  ),
-                  if (kDebugMode)
-                    _buildSettingItem(
-                      icon: Icons.bug_report_outlined,
-                      title: 'Debug',
-                      subtitle: 'Assessment Admin / tools (debug only)',
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const DebugHomeScreen(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (_deletionPending) ...[
+                        QGlassCard(
+                          key: const Key('qmatch-settings-deletion-banner'),
+                          child: Text(
+                            l10n.settingsDeleteAccountPendingBanner,
+                            style: GoogleFonts.inter(
+                              color: AppColors.softGold,
+                              fontSize: 13,
+                              height: 1.45,
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                  const SizedBox(height: 24),
-                  _buildSettingItem(
-                    icon: Icons.logout,
-                    title: l10n.settingsLogout,
-                    subtitle: l10n.settingsLogoutSubtitle,
-                    isDestructive: true,
-                    onTap: () async {
-                      await _confirmLogout(context);
-                    },
+                        ),
+                        const SizedBox(height: AppSpacing.md),
+                      ],
+                      _SettingsGroup(
+                        title: l10n.settingsGroupPreferences,
+                        children: [
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-notifications'),
+                            icon: Icons.notifications_outlined,
+                            title: l10n.settingsNotifications,
+                            subtitle: l10n.settingsNotificationsHonestSubtitle,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      const NotificationsSettingsScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      _SettingsGroup(
+                        title: l10n.settingsGroupPrivacySafety,
+                        children: [
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-privacy'),
+                            icon: Icons.privacy_tip_outlined,
+                            title: l10n.settingsPrivacy,
+                            subtitle: l10n.settingsPrivacyHonestSubtitle,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const PrivacySettingsScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-blocked'),
+                            icon: Icons.block_outlined,
+                            title: l10n.settingsBlocked,
+                            subtitle: l10n.settingsBlockedSubtitle,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const BlockedUsersScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      _SettingsGroup(
+                        title: l10n.settingsGroupHelp,
+                        children: [
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-help'),
+                            icon: Icons.help_outline,
+                            title: l10n.settingsHelpSupport,
+                            subtitle: l10n.settingsHelpSupportSubtitle,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const HelpSupportScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-about'),
+                            icon: Icons.info_outline,
+                            title: l10n.settingsAbout,
+                            subtitle: l10n.settingsAboutSubtitle,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const AboutScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      _SettingsGroup(
+                        title: l10n.settingsGroupAccount,
+                        children: [
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-delete'),
+                            icon: Icons.delete_forever_outlined,
+                            title: deleteTitle,
+                            subtitle: deleteSubtitle,
+                            destructive: true,
+                            onTap: _openDeleteAccount,
+                          ),
+                        ],
+                      ),
+                      if (_showDebug) ...[
+                        const SizedBox(height: AppSpacing.md),
+                        _SettingsGroup(
+                          title: l10n.settingsGroupDeveloper,
+                          children: [
+                            QMatchSettingsTile(
+                              key: const Key('qmatch-settings-debug'),
+                              icon: Icons.bug_report_outlined,
+                              title: l10n.settingsDebug,
+                              subtitle: l10n.settingsDebugSubtitle,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => const DebugHomeScreen(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                      const SizedBox(height: AppSpacing.lg),
+                      QMatchSettingsTile(
+                        key: const Key('qmatch-settings-logout'),
+                        icon: Icons.logout,
+                        title: l10n.settingsLogout,
+                        subtitle: l10n.settingsLogoutSubtitle,
+                        destructive: true,
+                        emphasized: true,
+                        onTap: () async => _confirmLogout(context),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildSettingItem({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required VoidCallback onTap,
-    bool isDestructive = false,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isDestructive
-              ? Colors.red.withValues(alpha: 0.3)
-              : AppColors.primary.withValues(alpha: 0.2),
-        ),
-      ),
-      child: ListTile(
-        onTap: onTap,
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: isDestructive
-                ? Colors.red.withValues(alpha: 0.1)
-                : AppColors.primary.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12),
+class _SettingsGroup extends StatelessWidget {
+  const _SettingsGroup({required this.title, required this.children});
+
+  final String title;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(
+            left: AppSpacing.xxs,
+            bottom: AppSpacing.xs,
           ),
-          child: Icon(
-            icon,
-            color: isDestructive ? Colors.red : AppColors.primary,
-            size: 24,
+          child: Text(
+            title,
+            style: GoogleFonts.inter(
+              color: AppColors.textMuted,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.4,
+            ),
           ),
         ),
-        title: Text(
-          title,
-          style: GoogleFonts.inter(
-            color: isDestructive ? Colors.red : Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+        QGlassCard(
+          padding: EdgeInsets.zero,
+          child: Column(
+            children: [
+              for (var i = 0; i < children.length; i++) ...[
+                if (i > 0)
+                  const Divider(
+                    height: 1,
+                    color: AppColors.borderSubtle,
+                  ),
+                children[i],
+              ],
+            ],
           ),
         ),
-        subtitle: Text(
-          subtitle,
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 14,
+      ],
+    );
+  }
+}
+
+/// Modern Settings row (presentation only).
+class QMatchSettingsTile extends StatelessWidget {
+  const QMatchSettingsTile({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+    this.destructive = false,
+    this.emphasized = false,
+    this.enabled = true,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback? onTap;
+  final bool destructive;
+  final bool emphasized;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = !enabled
+        ? AppColors.textMuted
+        : (destructive ? AppColors.danger : AppColors.textPrimary);
+    final iconBg = destructive
+        ? AppColors.danger.withValues(alpha: 0.12)
+        : AppColors.resonanceViolet.withValues(alpha: 0.16);
+
+    return Material(
+      color: emphasized ? AppColors.glassSurfaceStrong : Colors.transparent,
+      child: InkWell(
+        onTap: enabled ? onTap : null,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 64),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: iconBg,
+                    borderRadius: BorderRadius.circular(AppRadii.sm),
+                  ),
+                  child: Icon(icon, color: color, size: 22),
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: GoogleFonts.inter(
+                          color: color,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        subtitle,
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 13,
+                          height: 1.35,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (enabled)
+                  Icon(
+                    Icons.chevron_right,
+                    color: destructive
+                        ? AppColors.danger.withValues(alpha: 0.7)
+                        : AppColors.textMuted,
+                  ),
+              ],
+            ),
           ),
-        ),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: isDestructive ? Colors.red : AppColors.textSecondary,
         ),
       ),
     );

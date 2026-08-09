@@ -1,0 +1,104 @@
+{
+  "items": [
+    {
+      "question_id": "eq_sem_a",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_eq_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "eq_sem_a",
+        "en": "eq_sem_a"
+      },
+      "options": [
+        {
+          "option_id": "yes",
+          "localized_text": {
+            "tr": "yes",
+            "en": "yes"
+          },
+          "dimension_deltas": {
+            "empathy": 0.5
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "no",
+          "localized_text": {
+            "tr": "no",
+            "en": "no"
+          },
+          "dimension_deltas": {
+            "empathy": -0.5
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": [],
+      "semantic_pair_id": "sem_emp_1"
+    },
+    {
+      "question_id": "eq_sem_b",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_eq_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "eq_sem_b",
+        "en": "eq_sem_b"
+      },
+      "options": [
+        {
+          "option_id": "yes",
+          "localized_text": {
+            "tr": "yes",
+            "en": "yes"
+          },
+          "dimension_deltas": {
+            "empathy": 0.5
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "no",
+          "localized_text": {
+            "tr": "no",
+            "en": "no"
+          },
+          "dimension_deltas": {
+            "empathy": -0.5
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": [],
+      "semantic_pair_id": "sem_emp_1"
+    }
+  ]
+}

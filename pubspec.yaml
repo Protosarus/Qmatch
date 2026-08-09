@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  characters: ^1.3.0
   flutter_riverpod: ^2.6.1
   google_fonts: ^6.2.1
   firebase_core: ^3.15.2
@@ -19,7 +20,9 @@ dependencies:
   cloud_firestore: ^5.6.12
   google_sign_in: ^5.4.4
   sign_in_with_apple: ^7.0.1
-  flutter_windowmanager: ^0.2.0
+  # Path-vendored 0.2.0 with AGP namespace patch (do not use pub-cache copy).
+  flutter_windowmanager:
+    path: packages/flutter_windowmanager_local
   geolocator: ^10.1.0
   geocoding: ^2.1.1
   image_picker: ^1.0.7
@@ -41,7 +44,11 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - assets/images/chat/
     - assets/data/iq_questions.json
     - assets/data/eq_questions.json
+    - assets/data/persona_profiles_v1.json
     - assets/data/assessment_sets/
     - assets/images/chat_wallpaper_dark.png
+    # Golden-test font stand-ins (Roboto renamed). Not intended app UI fonts.
+    - test/fonts/google_fonts/

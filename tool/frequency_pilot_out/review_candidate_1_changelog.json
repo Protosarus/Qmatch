@@ -1,0 +1,1731 @@
+[
+  {
+    "original_id": "frequency_tr_v1_communication_pace_001",
+    "candidate_id": "frequency_tr_v1_communication_pace_001",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.24
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_002",
+    "candidate_id": "frequency_tr_v1_communication_pace_002",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "social_energy",
+      "spontaneity",
+      "stability"
+    ],
+    "secondary_after": [
+      "social_energy",
+      "spontaneity",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.47
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_003",
+    "candidate_id": "frequency_tr_v1_communication_pace_003",
+    "change_types": [
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_02 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.24
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_004",
+    "candidate_id": "frequency_tr_v1_communication_pace_004",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.41
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_005",
+    "candidate_id": "frequency_tr_v1_communication_pace_005",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.42
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_006",
+    "candidate_id": "frequency_tr_v1_communication_pace_006",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.47
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_007",
+    "candidate_id": "frequency_tr_v1_communication_pace_007",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.31
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_008",
+    "candidate_id": "frequency_tr_v1_communication_pace_008",
+    "change_types": [
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_02 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.23
+  },
+  {
+    "original_id": "frequency_tr_v1_communication_pace_009",
+    "candidate_id": "frequency_tr_v1_communication_pace_009",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "communication_pace",
+    "candidate_primary": "communication_pace",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.19
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_001",
+    "candidate_id": "frequency_tr_v1_depth_preference_001",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.23
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_002",
+    "candidate_id": "frequency_tr_v1_depth_preference_002",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.45
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_003",
+    "candidate_id": "frequency_tr_v1_depth_preference_003",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.42
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_004",
+    "candidate_id": "frequency_tr_v1_depth_preference_004",
+    "change_types": [
+      "option_length_edit",
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_01 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.46
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_005",
+    "candidate_id": "frequency_tr_v1_depth_preference_005",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.35
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_006",
+    "candidate_id": "frequency_tr_v1_depth_preference_006",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "disclosure_pace",
+      "spontaneity",
+      "stability"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "spontaneity",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.42
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_007",
+    "candidate_id": "frequency_tr_v1_depth_preference_007",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.48
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_008",
+    "candidate_id": "frequency_tr_v1_depth_preference_008",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "disclosure_pace",
+      "spontaneity",
+      "stability"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "spontaneity",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.47
+  },
+  {
+    "original_id": "frequency_tr_v1_depth_preference_009",
+    "candidate_id": "frequency_tr_v1_depth_preference_009",
+    "change_types": [
+      "option_length_edit",
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "depth_preference",
+    "candidate_primary": "depth_preference",
+    "secondary_before": [
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_01 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.12
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_001",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_001",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.42
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_002",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_002",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.09
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_003",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_003",
+    "change_types": [
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_06 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.49
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_004",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_004",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.2
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_005",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_005",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.24
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_006",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_006",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.25
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_007",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_007",
+    "change_types": [
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_06 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.21
+  },
+  {
+    "original_id": "frequency_tr_v1_disclosure_pace_008",
+    "candidate_id": "frequency_tr_v1_disclosure_pace_008",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "disclosure_pace",
+    "candidate_primary": "disclosure_pace",
+    "secondary_before": [
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.34
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_001",
+    "candidate_id": "frequency_tr_v1_social_energy_001",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.12
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_002",
+    "candidate_id": "frequency_tr_v1_social_energy_002",
+    "change_types": [
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_03 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.41
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_003",
+    "candidate_id": "frequency_tr_v1_social_energy_003",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.41
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_004",
+    "candidate_id": "frequency_tr_v1_social_energy_004",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.36
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_005",
+    "candidate_id": "frequency_tr_v1_social_energy_005",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.28
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_006",
+    "candidate_id": "frequency_tr_v1_social_energy_006",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.28
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_007",
+    "candidate_id": "frequency_tr_v1_social_energy_007",
+    "change_types": [
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_03 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.33
+  },
+  {
+    "original_id": "frequency_tr_v1_social_energy_008",
+    "candidate_id": "frequency_tr_v1_social_energy_008",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "social_energy",
+    "candidate_primary": "social_energy",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.07
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_001",
+    "candidate_id": "frequency_tr_v1_spontaneity_001",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.38
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_002",
+    "candidate_id": "frequency_tr_v1_spontaneity_002",
+    "change_types": [
+      "option_length_edit",
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_04 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.26
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_003",
+    "candidate_id": "frequency_tr_v1_spontaneity_003",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C",
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.44
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_004",
+    "candidate_id": "frequency_tr_v1_spontaneity_004",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.34
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_005",
+    "candidate_id": "frequency_tr_v1_spontaneity_005",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.3
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_006",
+    "candidate_id": "frequency_tr_v1_spontaneity_006",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.18
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_007",
+    "candidate_id": "frequency_tr_v1_spontaneity_007",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "disclosure_pace",
+      "stability"
+    ],
+    "secondary_after": [
+      "disclosure_pace",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.39
+  },
+  {
+    "original_id": "frequency_tr_v1_spontaneity_008",
+    "candidate_id": "frequency_tr_v1_spontaneity_008",
+    "change_types": [
+      "option_length_edit",
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "spontaneity",
+    "candidate_primary": "spontaneity",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "stability"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "C"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_04 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.37
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_001",
+    "candidate_id": "frequency_tr_v1_stability_001",
+    "change_types": [
+      "option_length_edit"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.23
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_002",
+    "candidate_id": "frequency_tr_v1_stability_002",
+    "change_types": [
+      "option_length_edit",
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_05 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.27
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_003",
+    "candidate_id": "frequency_tr_v1_stability_003",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "depth_preference",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "depth_preference",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.32
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_004",
+    "candidate_id": "frequency_tr_v1_stability_004",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.27
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_005",
+    "candidate_id": "frequency_tr_v1_stability_005",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "disclosure_pace",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "disclosure_pace",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.35
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_006",
+    "candidate_id": "frequency_tr_v1_stability_006",
+    "change_types": [
+      "option_length_edit",
+      "reverse_pair_revision"
+    ],
+    "verdict": "PASS_WITH_MINOR_EDIT",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "disclosure_pace",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [
+      "D"
+    ],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [
+      "reverse_pair=frequency_tr_v1_rev_05 retained (doc-only)"
+    ],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "high",
+    "option_length_ratio_after": 1.17
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_007",
+    "candidate_id": "frequency_tr_v1_stability_007",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "depth_preference",
+      "social_energy",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.22
+  },
+  {
+    "original_id": "frequency_tr_v1_stability_008",
+    "candidate_id": "frequency_tr_v1_stability_008",
+    "change_types": [
+      "unchanged"
+    ],
+    "verdict": "PASS",
+    "original_primary": "stability",
+    "candidate_primary": "stability",
+    "secondary_before": [
+      "communication_pace",
+      "disclosure_pace",
+      "spontaneity"
+    ],
+    "secondary_after": [
+      "communication_pace",
+      "disclosure_pace",
+      "spontaneity"
+    ],
+    "prompt_changed": false,
+    "option_text_changed": [],
+    "delta_direction_changes": [],
+    "delta_magnitude_changes": [],
+    "evidence_strength_changes": [],
+    "sdr_changes": [],
+    "response_style_changes": [],
+    "pair_group_changes": [],
+    "rvi_changes": [],
+    "id_decision": "retain — primary dimension and scenario trade-off unchanged",
+    "remaining_review_concern": "expert psychological + cognitive interview pending",
+    "human_review_priority": "medium",
+    "option_length_ratio_after": 1.41
+  }
+]

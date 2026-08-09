@@ -1,0 +1,1 @@
+{"status":"COMPLETE","scenario_count":27,"report":"/Users/protosarus/Downloads/Projects_2/Qmatch-main 2/tool/core_method_v2_out/structural_similarity_simulation_v1_report.json"}

@@ -1,0 +1,3677 @@
+{
+  "form_id": "eq_tr_pilot_v1",
+  "set_id": "eq_tr_pilot_v1_set_001",
+  "module": "eq",
+  "locale": "tr-TR",
+  "schema_version": 3,
+  "question_schema_version": "qmatch_question_schema_v3",
+  "content_version": "eq-tr-pilot-v1",
+  "status": "pilot",
+  "review_state": "internal_review",
+  "calibration_status": "uncalibrated",
+  "question_count": 30,
+  "trait_scoring_version": "trait_scoring_v1.0",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "scenario_family_allocation": {
+    "interpersonal_support": 3,
+    "internal_emotional_awareness": 3,
+    "boundary_and_request_conflicts": 3,
+    "repair_after_disagreement": 3,
+    "perspective_taking_family": 3,
+    "emotional_disclosure": 3,
+    "social_context_awareness": 3,
+    "stress_and_regulation": 3,
+    "competing_values_and_tradeoffs": 3,
+    "repeated_behavioral_patterns": 3
+  },
+  "primary_dimension_allocation": {
+    "empathy": 3,
+    "perspective_taking": 3,
+    "self_awareness": 3,
+    "emotion_regulation": 3,
+    "emotional_openness": 3,
+    "boundary_setting": 3,
+    "assertiveness": 3,
+    "conflict_approach": 3,
+    "repair_orientation": 3,
+    "social_awareness": 3
+  },
+  "item_scenario_families": {
+    "eq_tr_v1_assertiveness_001": "boundary_and_request_conflicts",
+    "eq_tr_v1_assertiveness_002": "competing_values_and_tradeoffs",
+    "eq_tr_v1_assertiveness_003": "repeated_behavioral_patterns",
+    "eq_tr_v1_boundary_setting_001": "boundary_and_request_conflicts",
+    "eq_tr_v1_boundary_setting_002": "competing_values_and_tradeoffs",
+    "eq_tr_v1_boundary_setting_003": "repeated_behavioral_patterns",
+    "eq_tr_v1_conflict_approach_001": "boundary_and_request_conflicts",
+    "eq_tr_v1_conflict_approach_002": "repair_after_disagreement",
+    "eq_tr_v1_conflict_approach_003": "competing_values_and_tradeoffs",
+    "eq_tr_v1_emotion_regulation_001": "internal_emotional_awareness",
+    "eq_tr_v1_emotion_regulation_002": "stress_and_regulation",
+    "eq_tr_v1_emotion_regulation_003": "stress_and_regulation",
+    "eq_tr_v1_emotional_openness_001": "internal_emotional_awareness",
+    "eq_tr_v1_emotional_openness_002": "emotional_disclosure",
+    "eq_tr_v1_emotional_openness_003": "emotional_disclosure",
+    "eq_tr_v1_empathy_001": "interpersonal_support",
+    "eq_tr_v1_empathy_002": "repair_after_disagreement",
+    "eq_tr_v1_empathy_003": "emotional_disclosure",
+    "eq_tr_v1_perspective_taking_001": "perspective_taking_family",
+    "eq_tr_v1_perspective_taking_002": "perspective_taking_family",
+    "eq_tr_v1_perspective_taking_003": "social_context_awareness",
+    "eq_tr_v1_repair_orientation_001": "interpersonal_support",
+    "eq_tr_v1_repair_orientation_002": "repair_after_disagreement",
+    "eq_tr_v1_repair_orientation_003": "repeated_behavioral_patterns",
+    "eq_tr_v1_self_awareness_001": "internal_emotional_awareness",
+    "eq_tr_v1_self_awareness_002": "social_context_awareness",
+    "eq_tr_v1_self_awareness_003": "stress_and_regulation",
+    "eq_tr_v1_social_awareness_001": "interpersonal_support",
+    "eq_tr_v1_social_awareness_002": "perspective_taking_family",
+    "eq_tr_v1_social_awareness_003": "social_context_awareness"
+  },
+  "pair_registry": {
+    "semantic_pairs": [
+      {
+        "pair_id": "eq_tr_v1_sem_01",
+        "question_ids": [
+          "eq_tr_v1_empathy_001",
+          "eq_tr_v1_empathy_002"
+        ]
+      },
+      {
+        "pair_id": "eq_tr_v1_sem_02",
+        "question_ids": [
+          "eq_tr_v1_perspective_taking_001",
+          "eq_tr_v1_perspective_taking_002"
+        ]
+      },
+      {
+        "pair_id": "eq_tr_v1_sem_03",
+        "question_ids": [
+          "eq_tr_v1_boundary_setting_001",
+          "eq_tr_v1_boundary_setting_002"
+        ]
+      },
+      {
+        "pair_id": "eq_tr_v1_sem_04",
+        "question_ids": [
+          "eq_tr_v1_assertiveness_001",
+          "eq_tr_v1_assertiveness_002"
+        ]
+      },
+      {
+        "pair_id": "eq_tr_v1_sem_05",
+        "question_ids": [
+          "eq_tr_v1_repair_orientation_001",
+          "eq_tr_v1_repair_orientation_002"
+        ]
+      },
+      {
+        "pair_id": "eq_tr_v1_sem_06",
+        "question_ids": [
+          "eq_tr_v1_emotion_regulation_001",
+          "eq_tr_v1_emotion_regulation_002"
+        ]
+      }
+    ],
+    "reverse_pairs": [
+      {
+        "pair_id": "eq_tr_v1_rev_01",
+        "question_ids": [
+          "eq_tr_v1_emotional_openness_001",
+          "eq_tr_v1_emotional_openness_002"
+        ],
+        "consistency_mode": "behavioral_correspondence"
+      },
+      {
+        "pair_id": "eq_tr_v1_rev_02",
+        "question_ids": [
+          "eq_tr_v1_boundary_setting_001",
+          "eq_tr_v1_boundary_setting_003"
+        ],
+        "consistency_mode": "behavioral_correspondence"
+      },
+      {
+        "pair_id": "eq_tr_v1_rev_03",
+        "question_ids": [
+          "eq_tr_v1_assertiveness_001",
+          "eq_tr_v1_assertiveness_003"
+        ],
+        "consistency_mode": "behavioral_correspondence"
+      },
+      {
+        "pair_id": "eq_tr_v1_rev_04",
+        "question_ids": [
+          "eq_tr_v1_conflict_approach_001",
+          "eq_tr_v1_conflict_approach_003"
+        ],
+        "consistency_mode": "behavioral_correspondence"
+      },
+      {
+        "pair_id": "eq_tr_v1_rev_05",
+        "question_ids": [
+          "eq_tr_v1_self_awareness_001",
+          "eq_tr_v1_self_awareness_003"
+        ],
+        "consistency_mode": "behavioral_correspondence"
+      }
+    ],
+    "behavioral_isomorph_groups": [
+      {
+        "group_id": "eq_tr_v1_iso_01",
+        "question_ids": [
+          "eq_tr_v1_empathy_001",
+          "eq_tr_v1_empathy_003"
+        ]
+      },
+      {
+        "group_id": "eq_tr_v1_iso_02",
+        "question_ids": [
+          "eq_tr_v1_boundary_setting_002",
+          "eq_tr_v1_assertiveness_002"
+        ]
+      },
+      {
+        "group_id": "eq_tr_v1_iso_03",
+        "question_ids": [
+          "eq_tr_v1_repair_orientation_002",
+          "eq_tr_v1_repair_orientation_003"
+        ]
+      },
+      {
+        "group_id": "eq_tr_v1_iso_04",
+        "question_ids": [
+          "eq_tr_v1_perspective_taking_002",
+          "eq_tr_v1_perspective_taking_003"
+        ]
+      },
+      {
+        "group_id": "eq_tr_v1_iso_05",
+        "question_ids": [
+          "eq_tr_v1_emotion_regulation_002",
+          "eq_tr_v1_emotion_regulation_003"
+        ]
+      }
+    ]
+  },
+  "notes": {
+    "en_prompt_fields": "schema-required stubs only; not authored translations",
+    "provisional": true,
+    "not_production": true,
+    "internal_language_review": "completed",
+    "expert_psychological_review": "pending",
+    "participant_cognitive_interviews": "pending",
+    "calibration": "pending",
+    "not_a_clinical_instrument": true
+  },
+  "items": [
+    {
+      "question_id": "eq_tr_v1_assertiveness_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "assertiveness",
+      "secondary_dimensions": [
+        "emotion_regulation",
+        "repair_orientation"
+      ],
+      "prompt": {
+        "tr": "Arkadaşın senin adına bir plan yaptı; katılmak istemiyorsun ama hayır demek onu kırabilir. Ne söylersin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Teşekkür eder, katılamayacağını ve nedenini açıkça belirtirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.72,
+            "emotion_regulation": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Net ve saygılı reddetme.; tradeoff_cost_on_emotion_regulation",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Katılmayacağımı yumuşak bir ifadeyle söylerim; gerekçeyi çok açmadan bırakırım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.45,
+            "repair_orientation": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapıcı assertiveness.; tradeoff_cost_on_repair_orientation",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Alternatif bir zaman öneririm; katılmama kararımı net ama yumuşak tutarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.08,
+            "conflict_approach": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "assertiveness": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Belirsizlik; düşük assertiveness.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Şimdilik uyumlu görünürüm; sonra yalnızken hissettiğimi not alıp netleştiririm.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": -0.52,
+            "boundary_setting": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Uyum odaklı; ihtiyaç bastırılır.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_04",
+      "reverse_pair_id": "eq_tr_v1_rev_03",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=boundary_and_request_conflicts; sdr_item_risk=low; tradeoff=açık ret vs uyum; how_avoids_ideal_answer=hayır demek kırıcı olmak zorunda değildir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_assertiveness_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "assertiveness",
+      "secondary_dimensions": [
+        "boundary_setting",
+        "social_awareness"
+      ],
+      "prompt": {
+        "tr": "Toplantıda fikrin kesildi; tekrar söz almak istiyorsun. Ortam rekabetçi. Nasıl davranırsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Kibarca söz isteyip görüşünü tamamlarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": -0.22,
+            "assertiveness": 0.72
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "moderate",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Doğrudan ama profesyonel assertiveness.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Chat üzerinden «devam etmek isterim» yazıp söz alırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": -0.15,
+            "assertiveness": 0.45
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Dolaylı assertiveness kanalı.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Konu geçene kadar beklersin, sonra kısaca eklersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.08
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "assertiveness": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Geç ve zayıf ifade.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Söylenmeyen kısmı önemsemeden susarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": -0.52
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Geri çekilme.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_04",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_02",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "semantic_consistency",
+        "social_impression_risk",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=competing_values_and_tradeoffs; sdr_item_risk=moderate; tradeoff=ses alma vs grup akışı; how_avoids_ideal_answer=farklı iletişim kanalları eşit derecede geçerli",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_assertiveness_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "assertiveness",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Partnerin sürekli son dakika plan değiştiriyor; sen buna tepki göstermek istiyorsun. Uzun vadede ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Değişikliklerin seni zorladığını ve önceden haber vermesini istersin. Bu tercihin maliyeti zaman veya netlik kaybı olabilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": 0.22,
+            "assertiveness": -0.72
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tekrarlayan davranışa net geri bildirim.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Esnek olduğun ve olmadığın durumları örnekle açıklarsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": -0.45
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapılandırılmış geri bildirim.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Bir kez söylersin ama sonra yine uyum sağlarsın. Bu tercihin maliyeti zaman veya netlik kaybı olabilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.15,
+            "assertiveness": -0.08
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "assertiveness": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tutarsız assertiveness.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Alışkanlık haline getirir, şikâyet etmezsin. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": -0.15,
+            "assertiveness": 0.52
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bastırılmış ihtiyaç.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_03",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=repeated_behavioral_patterns; sdr_item_risk=low; tradeoff=plan güvenilirliği vs esneklik; how_avoids_ideal_answer=tekrarlayan davranış net konuşmayı gerektirebilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_boundary_setting_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "boundary_setting",
+      "secondary_dimensions": [
+        "assertiveness"
+      ],
+      "prompt": {
+        "tr": "Aile toplantısında seni rahatsız eden bir konu yine gündeme geliyor. Her seferinde konu değiştirilmişti. Bu sefer ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Sakin ama net bir şekilde bu konuyu konuşmak istemediğini söylersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": 0.75,
+            "assertiveness": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Doğrudan sınır ifadesi.; tradeoff_cost_on_assertiveness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Neden rahatsız olduğunu kısaca açıklayıp alternatif konu önerirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": 0.48,
+            "assertiveness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Açıklamalı sınır.; tradeoff_cost_on_assertiveness",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Yine konuyu değiştirmeye çalışırsın, doğrudan söylemezsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": 0.12,
+            "conflict_approach": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "boundary_setting": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Dolaylı kaçınma.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Konuyu savuştururum; ilişkiyi germemek için sınırımı şimdilik sessiz tutarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": -0.55,
+            "assertiveness": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sınır ihlali / uyum.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": "eq_tr_v1_anchor_boundary_setting",
+      "semantic_pair_id": "eq_tr_v1_sem_03",
+      "reverse_pair_id": "eq_tr_v1_rev_02",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 46,
+      "authoring_notes": "adapted_from_legacy_scenario; scenario_family=boundary_and_request_conflicts; sdr_item_risk=low; tradeoff=net sınır vs huzur koruma; how_avoids_ideal_answer=doğrudan söylemek veya dolaylı yönlendirmek savunulabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_boundary_setting_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "boundary_setting",
+      "secondary_dimensions": [
+        "assertiveness",
+        "repair_orientation"
+      ],
+      "prompt": {
+        "tr": "İş arkadaşın sürekli mesai saati dışında yazıyor. Bu ritim seni yoruyor. Nasıl yaklaşırsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Mesai dışı yanıt vermeyeceğini ve acil durum tanımını netleştirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": -0.25,
+            "boundary_setting": 0.75
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapılandırılmış iş sınırı.; tradeoff_cost_on_assertiveness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Yorgun olduğunu söyleyip ertesi gün dönüş yapacağını belirtirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": 0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yumuşak sınır.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Çoğu mesaja yine cevap verirsin ama geciktirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": -0.15,
+            "boundary_setting": 0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "boundary_setting": -0.12
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tutarsız sınır.; tradeoff_cost_on_repair_orientation",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "İlişkiyi bozmamak için her mesaja anında dönersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": -0.22,
+            "boundary_setting": -0.55
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sınır yok sayılır.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_03",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_02",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=competing_values_and_tradeoffs; sdr_item_risk=low; tradeoff=iş-yaşam sınırı vs erişilebilirlik; how_avoids_ideal_answer=hem net kural hem esnek yanıt makul",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_boundary_setting_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "boundary_setting",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Flörtün plansız sık sık gelmek istiyor; sen düzenli programını korumak istiyorsun. Tekrarlayan durumda ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Ortak bir görüşme ritmi önerir, hangi günler uygun olduğunu netleştirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.2,
+            "boundary_setting": -0.75
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tekrarlayan sınır yapılandırması.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Esnek olduğun günleri söyler, diğerlerinde meşgul olduğunu hatırlatırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": -0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Kısmi yapılandırma.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Hayır demekte zorlanır, programını sık sık değiştirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.18,
+            "boundary_setting": -0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "boundary_setting": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Zayıf sınır tutarlılığı.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Rahatsız ettiğini söylemeden uzak durmaya çalışırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.18,
+            "boundary_setting": 0.55
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Pasif kaçınma.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_02",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=repeated_behavioral_patterns; sdr_item_risk=low; tradeoff=program vs spontane yakınlık; how_avoids_ideal_answer=düzen isteği ile esneklik gerçek bir gerilimdir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_conflict_approach_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "conflict_approach",
+      "secondary_dimensions": [
+        "perspective_taking",
+        "assertiveness"
+      ],
+      "prompt": {
+        "tr": "Ev arkadaşın ortak alanı farklı kullanıyor; bu seni rahatsız ediyor. Henüz konuşmadınız. İlk hamlen ne olur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Ortak kuralları konuşmak için uygun bir zaman ayırırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.72,
+            "perspective_taking": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapılandırılmış çatışma girişi.; tradeoff_cost_on_perspective_taking",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kısa bir mesajla rahatsızlığını belirtip yüz yüze konuşmayı önerirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.46,
+            "assertiveness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Orta düzey doğrudanlık.; tradeoff_cost_on_assertiveness",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Konuyu ertelemeyi öneririm; soğuyunca daha net konuşabileceğimizi söylerim.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.1,
+            "boundary_setting": -0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "conflict_approach": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Pasif beklenti.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Kısa bir ara isterim; kendi tepkimi toplayıp sonra dönerim.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.55,
+            "emotion_regulation": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Ertelemeli/agresif uç.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_04",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=boundary_and_request_conflicts; sdr_item_risk=low; tradeoff=erken konuşma vs bekleme; how_avoids_ideal_answer=hem doğrudan hem dolaylı giriş makul",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_conflict_approach_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "conflict_approach",
+      "secondary_dimensions": [
+        "emotion_regulation",
+        "repair_orientation"
+      ],
+      "prompt": {
+        "tr": "İki arkadaşın senin yanında tartışmaya başladı. Arabuluculuk yapmak mı, tarafsız kalmak mı — eğilimin ne?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Her ikisinin de duyulmasını sağlayıp sakinleştirmeye çalışırsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.68,
+            "emotion_regulation": -0.25
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Aktif arabuluculuk.; tradeoff_cost_on_emotion_regulation",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kendi görüşünü söylemeden konuyu ertelemeyi teklif edersin. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.42,
+            "repair_orientation": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Erteleme tabanlı yaklaşım.; tradeoff_cost_on_repair_orientation",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Taraf tutmadan dinler, müdahale etmezsin. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.12,
+            "perspective_taking": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "conflict_approach": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Pasif gözlem.; tradeoff_cost_on_perspective_taking",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Ortamdan uzaklaşırsın, sorun kendi haline kalsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.45,
+            "empathy": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Kaçınma.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "response_variation",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=repair_after_disagreement; sdr_item_risk=low; tradeoff=arabuluculuk vs tarafsızlık; how_avoids_ideal_answer=müdahale etmemek de bir tercihtir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_conflict_approach_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "conflict_approach",
+      "secondary_dimensions": [
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "İş yerinde ekip içi bir anlaşmazlık büyüyor; sen farklı bir çözüm görüyorsun. Toplantıda nasıl katılırsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Alternatif çözümünü gerekçeleriyle sunar, diyaloğu açarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "boundary_setting": 0.2,
+            "conflict_approach": -0.72
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapıcı muhalefet.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Endişeni kısaca belirtir, başkalarının fikrini sorarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.18,
+            "conflict_approach": -0.46
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Düşük yoğunluklu katılım.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Tartışmayı kısa keserim; ortak bir ara çözüm önermeden önce nabız yoklarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.1
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "conflict_approach": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Uyum odaklı geri çekilme.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Meslektaşların yanında sert bir şekilde karşı çıkarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": -0.22,
+            "conflict_approach": 0.55
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yıkıcı çatışma tarzı.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_04",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=competing_values_and_tradeoffs; sdr_item_risk=low; tradeoff=muhalefet vs grup uyumu; how_avoids_ideal_answer=sert karşı çıkma ile susmak farklı maliyetler taşır",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_emotion_regulation_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "emotion_regulation",
+      "secondary_dimensions": [
+        "self_awareness",
+        "social_awareness"
+      ],
+      "prompt": {
+        "tr": "Gergin bir ekip toplantısında bir meslektaşın gözyaşlarına hakim olamadı. İlk içgüdün ne olur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Ortamı yumuşatmak için kısa bir ara önerir, tonunu sakin tutarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.7,
+            "self_awareness": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Düzenleme odaklı müdahale.; tradeoff_cost_on_self_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Konuyu daha sonra ele almak üzere toplantıyı yönlendirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.45,
+            "social_awareness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapılandırılmış sakinleştirme.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Tartışmaya devam edersin; duyguların zamanla yatışacağını düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.08,
+            "conflict_approach": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "emotion_regulation": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Minimal düzenleme.; tradeoff_cost_on_conflict_approach",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Rahatsız edici bulup konuyu değiştirirsin, duyguyu görmezden gelirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": -0.48,
+            "empathy": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bastırma/kaçınma eğilimi.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": "eq_tr_v1_anchor_emotion_regulation",
+      "semantic_pair_id": "eq_tr_v1_sem_06",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 50,
+      "authoring_notes": "adapted_from_legacy_scenario; scenario_family=internal_emotional_awareness; sdr_item_risk=low; tradeoff=duygusal tempo vs gündem baskısı; how_avoids_ideal_answer=ara vermek, devam etmek veya yönlendirmek makul seçenekler",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_emotion_regulation_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "emotion_regulation",
+      "secondary_dimensions": [
+        "self_awareness"
+      ],
+      "prompt": {
+        "tr": "Flörtünle mesajlaşırken ani bir gerilim hissediyorsun. Yazmadan önce duygunu nasıl yönetirsin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Birkaç dakika ara verir, ne hissettiğini adlandırıp sonra yanıtlarsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": -0.2,
+            "emotion_regulation": 0.7
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bilinçli düzenleme döngüsü.; tradeoff_cost_on_self_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Tonunu yumuşatmak için mesajı yeniden yazarsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.45
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Çıktı odaklı düzenleme.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Hızlıca yanıt verirsin ama sonra gereksiz olduğunu fark edersin. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.08
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "emotion_regulation": -0.12
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Gecikmiş farkındalık.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Hissettiklerini olduğu gibi yazarsın, pişman olma ihtimalini göze alırsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.22,
+            "emotion_regulation": -0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Düşük ön-düzenleme.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_06",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_05",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=stress_and_regulation; sdr_item_risk=low; tradeoff=duraklama vs anlık ifade; how_avoids_ideal_answer=hem erteleme hem anlık yanıt gerçek tercihlerdir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_emotion_regulation_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "emotion_regulation",
+      "secondary_dimensions": [
+        "self_awareness",
+        "perspective_taking"
+      ],
+      "prompt": {
+        "tr": "İş yerinde eleştiri aldın; öğle arasında hâlâ içinde kalıyor. Öğleden sonraki toplantıya girmeden önce ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Kısa bir yürüyüş veya nefes egzersiziyle duygunu sakinleştirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.68,
+            "self_awareness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Aktif düzenleme stratejisi.; tradeoff_cost_on_self_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Eleştiriden çıkarılacak bir nokta bulup zihnini oraya odaklarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.42,
+            "perspective_taking": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bilişsel yeniden çerçeveleme.; tradeoff_cost_on_perspective_taking",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Duyguyu bastırıp profesyonel görünmeye çalışırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.15,
+            "emotional_openness": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "emotion_regulation": -0.15
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yüzeysel bastırma.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Eleştiriyi düşünerek toplantıya girersin, odaklanmakta zorlanırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": -0.5
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Düzenleme başarısız.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_05",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=stress_and_regulation; sdr_item_risk=low; tradeoff=sakinleştirme vs bastırma; how_avoids_ideal_answer=profesyonellik ile duygu işleme farklı yollar gerektirir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_emotional_openness_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "emotional_openness",
+      "secondary_dimensions": [
+        "self_awareness",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Yeni tanıştığın biri sana kişisel bir şey anlatmaya başladı. Sen de benzer bir deneyimini paylaşmayı düşünüyorsun. Ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Deneyimini açıkça anlatır, duygularını da paylaşırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.78,
+            "self_awareness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "moderate",
+          "extremity": 0.6,
+          "response_style_risk": "low",
+          "rationale": "Yüksek duygusal açıklık.; tradeoff_cost_on_self_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Deneyimini özetler ama tüm ayrıntıları vermezsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.42,
+            "boundary_setting": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Seçici açıklık.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Dinler, kendi hikâyeni paylaşmadan destekleyici kalırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.08,
+            "empathy": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "emotional_openness": -0.05
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Düşük öz-açıklık; dinleme odaklı.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Konuyu daha genel tutup kişisel detay vermezsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": -0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Kapalı duygusal paylaşım.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_01",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "social_impression_risk",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=internal_emotional_awareness; sdr_item_risk=moderate; tradeoff=açıklık vs mahremiyet; how_avoids_ideal_answer=erken aşamada tam açıklık her zaman gerekli değildir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_emotional_openness_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "emotional_openness",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "Partnerin duygularını paylaşmanı istiyor; sen genelde içini pek açmazsın. Bu akşam nasıl davranırsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Bugün neler hissettiğini dürüstçe anlatmaya çalışırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.18,
+            "emotional_openness": -0.78
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "İstenen açıklığa yanıt.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Bir-iki duygu adı söyler, derinleşmeden devam edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": -0.42
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Kısmi açıklık.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "İyi olduğunu söyler, detaya girmezsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": -0.08
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "emotional_openness": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yüzeysel yanıt.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Konuyu başka bir gündeme kaydırırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.15,
+            "emotional_openness": 0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Açıklıktan kaçınma.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_01",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=emotional_disclosure; sdr_item_risk=low; tradeoff=istenen yakınlık vs alışkanlık; how_avoids_ideal_answer=kademeli açıklık da geçerli bir yanıttır",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_emotional_openness_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "emotional_openness",
+      "secondary_dimensions": [
+        "empathy",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Arkadaş grubunda biri zor bir dönemini anlatıyor. Sen de benzer bir şey yaşamıştın ama herkesin önünde anlatmak istemiyorsun.",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Yine de kısaca kendi deneyimini paylaşır, grubu desteklersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.65,
+            "empathy": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Grup bağlamında açıklık.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Sonra özel konuşmak üzere teklif edersin, şimdilik dinlersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.35,
+            "boundary_setting": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Erteleme ile sınırlı açıklık.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Destekleyici kalır ama kendi hikâyeni paylaşmazsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": 0.1,
+            "empathy": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Empati var; öz-açıklık düşük.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Konuyu hafife alıp ortamı neşelendirmeye çalışırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": -0.42,
+            "social_awareness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Duygusal derinlikten kaçınma.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "response_variation",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=emotional_disclosure; sdr_item_risk=low; tradeoff=grup açıklığı vs özel paylaşım; how_avoids_ideal_answer=herkesin önünde açılmak zorunlu değildir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_empathy_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [
+        "boundary_setting",
+        "assertiveness"
+      ],
+      "prompt": {
+        "tr": "Yakın bir arkadaşın zor bir ayrılık yaşıyor ve mesaj atıp duygularını anlatıyor. Bu akşam başka planların var ama onu duymak istiyorsun. Ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Planını erteleyip telefonda uzun süre dinler, hissettiklerini yansıtmaya çalışırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.72,
+            "boundary_setting": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "boundary_setting": 0.15
+          },
+          "social_desirability_risk": "moderate",
+          "extremity": 0.55,
+          "response_style_risk": "low",
+          "rationale": "Yüksek duygusal yanıt; sınır maliyeti taşır.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kısa ama sıcak bir mesaj atıp yarın yüz yüze konuşmayı teklif edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.38,
+            "boundary_setting": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Orta düzey destek; zaman sınırı korunur.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Pratik bir tavsiye listesi gönderir, kendi deneyiminden bir örnek eklersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.12,
+            "assertiveness": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "empathy": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Destek niyeti var; duygusal yansıtma sınırlı.; tradeoff_cost_on_assertiveness",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Meşgul olduğunu söyleyip kafasını dağıtması için etkinlik önerirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": -0.45,
+            "emotion_regulation": 0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Kaçınma eğilimi; duygusal ihtiyaç ikinci planda.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": "eq_tr_v1_anchor_empathy",
+      "semantic_pair_id": "eq_tr_v1_sem_01",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_01",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "semantic_consistency",
+        "social_impression_risk",
+        "timing_quality"
+      ],
+      "exposure_class": "anchor",
+      "security_level": "standard",
+      "estimated_completion_seconds": 48,
+      "authoring_notes": "adapted_from_legacy_scenario; scenario_family=interpersonal_support; sdr_item_risk=moderate; tradeoff=destek vs zaman sınırı; how_avoids_ideal_answer=dinleme, tavsiye ve mesafe seçenekleri eşit derecede savunulabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_empathy_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [
+        "repair_orientation",
+        "conflict_approach"
+      ],
+      "prompt": {
+        "tr": "İş arkadaşınla tartıştıktan sonra o soğuk davranıyor; sen barışmak istiyorsun ama hâlâ kırgınsın. İlk adımı nasıl atarsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Onun bakış açısını anlamaya çalışır, duygusunu doğrudan sorarsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": -0.28,
+            "empathy": 0.72
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Empati odaklı onarım girişimi.; tradeoff_cost_on_repair_orientation",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Bir süre bekler, ortam sakinleşince kısa bir özür ve ortak zemin ararsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": -0.22,
+            "empathy": 0.38
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Ölçülü yakınlaşma; duygusal yoğunluk düşük.; tradeoff_cost_on_repair_orientation",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Konuyu iş gündemine bağlayarak mesleki iletişimi sürdürürsün. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.18,
+            "empathy": 0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "empathy": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Duygusal konuyu dolaylı ele alır.; tradeoff_cost_on_conflict_approach",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Kendi haklılığını koruyup mesafeyi sürdürürsün. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.25,
+            "empathy": -0.45
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Empatik bağ kurulmaz; savunma öncelikli.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_01",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=repair_after_disagreement; sdr_item_risk=low; tradeoff=onarım vs korunma; how_avoids_ideal_answer=hem duygusal yakınlaşma hem mesafe makul gerekçelere dayanır",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_empathy_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "empathy",
+      "secondary_dimensions": [
+        "emotional_openness",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Flörtün duygusal bir konuyu açmak istiyor ama sen yorgunsun. Açmak istediği şey seni de etkileyebilir. Nasıl karşılık verirsin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Yorgun olsan da dinlemeye hazır olduğunu söyler, dikkatini verirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.7,
+            "emotional_openness": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "moderate",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yüksek duygusal erişilebilirlik.; tradeoff_cost_on_emotional_openness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Dinlemek istediğini ama kısa tutmayı tercih ettiğini açıkça belirtirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.45,
+            "boundary_setting": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Empati ile sınır dengelenir.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Yarın daha uygun bir zaman önerir, kısa bir destek mesajı eklersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": 0.18,
+            "boundary_setting": -0.28
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Erteleme; sınırlı duygusal yansıtma.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Konuyu hafife alıp başka bir şeye yönlendirmeye çalışırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": -0.4,
+            "emotional_openness": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Duygusal ihtiyaç minimize edilir.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_01",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=emotional_disclosure; sdr_item_risk=low; tradeoff=açıklık vs dinlenme ihtiyacı; how_avoids_ideal_answer=yorgunluk ve duygusal hazır olma gerçek bir gerilim oluşturur",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_perspective_taking_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "perspective_taking",
+      "secondary_dimensions": [
+        "social_awareness",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Arkadaşın seni bir davetiye konusunda eleştiriyor; sen katılamayacağını söylemiştin. Onun neden kırgın olabileceğini düşünürsün — ilk iç tepkin ne olur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Belki kendini değersiz hissetti; davetin onun için önemli olduğunu hatırlarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.75,
+            "social_awareness": -0.25
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Güçlü perspektif alma.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "İki tarafın da haklı yanları olabileceğini, iletişim eksikliği olabileceğini düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.48,
+            "social_awareness": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Dengeli çoklu perspektif.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Onun gerekçesini dinlerim ama kendi önceliğimi de kısaca koyarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.1,
+            "boundary_setting": -0.28
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "perspective_taking": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Öz odaklı çerçeveleme.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Durumu kendi açımdan özetlerim; karşı tarafın bağlamını sonra sorarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": -0.42,
+            "conflict_approach": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Karşı taraf perspektifi reddedilir.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_02",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=perspective_taking_family; sdr_item_risk=low; tradeoff=başkasının çerçevesi vs kendi gerekçen; how_avoids_ideal_answer=eleştiriyi tamamen haklı veya haksız saymak zorunda değilsin",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_perspective_taking_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "perspective_taking",
+      "secondary_dimensions": [
+        "social_awareness"
+      ],
+      "prompt": {
+        "tr": "Takım toplantısında sessiz kalan bir meslektaşın vardı. Sonradan fikrinin göz ardı edildiğini fark ediyorsun. Onun yerinde olsan ne hissederdin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Görünmez kalmış ve saygısızlık hissetmiş olabileceğini düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": -0.22,
+            "perspective_taking": 0.75
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Empatik perspektif simülasyonu.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Belki konuşmak istemediğini ama yine de dışlanmış hissetmiş olabileceğini varsayarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Belirsizliği tolere eden perspektif.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Toplantı dinamiğinin herkesi eşit davet etmediğini genel olarak değerlendirirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": -0.18,
+            "perspective_taking": 0.1
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sistemik ama kişisel perspektif zayıf.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Sessiz kalmasının kendi tercihi olduğunu ve fazla yorum yapmazsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": -0.42
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Perspektif alma düşük.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_02",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_04",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "response_variation",
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=perspective_taking_family; sdr_item_risk=low; tradeoff=sessizlik yorumu vs dışlanma olasılığı; how_avoids_ideal_answer=sessizlik hem tercih hem dışlanma olabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_perspective_taking_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "perspective_taking",
+      "secondary_dimensions": [
+        "conflict_approach",
+        "social_awareness"
+      ],
+      "prompt": {
+        "tr": "Bir arkadaş grubunda biri espri yaptı; başka biri gülmedi ve ortam gerildi. Gülmeyen kişinin içinde ne geçiyor olabilir diye düşünürsün.",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Espriyi incitici bulmuş veya kendini hedef alınmış hissetmiş olabilir.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.68,
+            "conflict_approach": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Olası duygusal etki tahmini.; tradeoff_cost_on_conflict_approach",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "O an dikkati dağılmış ya da mizah anlayışı farklı olabilir diye düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.42
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Alternatif açıklamalar üretir.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Grup baskısı hissetmiş olabileceğini kısaca not edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": 0.22,
+            "social_awareness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sınırlı perspektif derinliği.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Abartıyor olabileceğini düşünüp konuyu kapatırsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "perspective_taking": -0.45,
+            "social_awareness": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Perspektif reddi.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_04",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=social_context_awareness; sdr_item_risk=low; tradeoff=grup dinamiği vs bireysel duygu; how_avoids_ideal_answer=gülmeme tek bir nedene indirgenmez",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_repair_orientation_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "repair_orientation",
+      "secondary_dimensions": [
+        "empathy"
+      ],
+      "prompt": {
+        "tr": "Arkadaşına kaba bir mesaj attığını fark ettin; o henüz cevap vermedi. Ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Özür diler, niyetini açıklar ve konuşmak istediğini söylersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.75,
+            "empathy": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "moderate",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Doğrudan onarım girişimi.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Mesajını düzelten kısa bir takip gönderirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.45,
+            "empathy": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yazılı onarım.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Zaman geçsin, kendiliğinden düzelir diye beklersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.08,
+            "conflict_approach": -0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "repair_orientation": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Pasif beklenti.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Haklı olduğunu düşünüp mesajına dokunmazsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": -0.52,
+            "assertiveness": 0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Onarım reddi.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_05",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "semantic_consistency",
+        "social_impression_risk",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=interpersonal_support; sdr_item_risk=moderate; tradeoff=özür vs zaman; how_avoids_ideal_answer=hem aktif onarım hem bekleme savunulabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_repair_orientation_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "repair_orientation",
+      "secondary_dimensions": [
+        "emotional_openness",
+        "empathy"
+      ],
+      "prompt": {
+        "tr": "Partnerinle tartıştınız; gece boyunca konuşmadınız. Sabah ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "İletişimi yeniden açmak için sakin bir mesaj veya kahve teklifi yaparsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotional_openness": -0.22,
+            "repair_orientation": 0.75
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Proaktif bağ onarımı.; tradeoff_cost_on_emotional_openness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Önce özür veya ortak zemin cümlesiyle diyaloğu başlatırsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "empathy": -0.18,
+            "repair_orientation": 0.45
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sözel onarım.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "O adım atana kadar normal davranırsın, konuyu açmazsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.08
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "repair_orientation": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bekle-gör onarımı.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Hâlâ haklı olduğunu düşünerek mesafe korursun. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": 0.15,
+            "repair_orientation": -0.52
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Onarım ertelenir veya reddedilir.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": "eq_tr_v1_sem_05",
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_03",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "semantic_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=repair_after_disagreement; sdr_item_risk=low; tradeoff=ilk adım vs bekleme; how_avoids_ideal_answer=sabah yakınlaşması zorunlu değildir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_repair_orientation_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "repair_orientation",
+      "secondary_dimensions": [
+        "conflict_approach",
+        "assertiveness"
+      ],
+      "prompt": {
+        "tr": "İş yerinde yanlış anlaşılma yüzünden meslektaşın sana kırgın. Bu tür durumlar daha önce de oldu. Genelde ne yaparsın?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Yanlış anlaşılmayı netleştirip özür veya açıklama yaparsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.68,
+            "conflict_approach": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tekrarlayan onarım kalıbı.; tradeoff_cost_on_conflict_approach",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Kısa bir kontrol mesajı atıp yüz yüze konuşmayı planlarsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.42,
+            "assertiveness": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Rutin düşük yoğunluklu onarım.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Zamanla geçer diye müdahale etmezsin. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": 0.1
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "repair_orientation": -0.1
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Pasif onarım beklentisi.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Sorumluluğu tamamen karşı tarafa bırakırsın. Kısa vadeli rahatlık ile uzun vadeli dengeyi tartarım.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "repair_orientation": -0.5,
+            "conflict_approach": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Onarım sorumluluğu reddedilir.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": "eq_tr_v1_iso_03",
+      "separator_targets": [],
+      "response_validity_roles": [
+        "repeated_context_stability",
+        "response_variation",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=repeated_behavioral_patterns; sdr_item_risk=low; tradeoff=tekrarlayan onarım alışkanlığı; how_avoids_ideal_answer=her yanlış anlaşılma hemen konuşmayı gerektirmez",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_self_awareness_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "self_awareness",
+      "secondary_dimensions": [
+        "emotion_regulation"
+      ],
+      "prompt": {
+        "tr": "Partnerin bugün mesafeli; sen gerginsin ve bunun nedenini tam bilmiyorsun. Kendi iç durumuna bakınca ilk fark ettiğin ne olur?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Onun davranışını kişisel algıladığını ve kaygının arttığını fark edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": 0.72,
+            "emotion_regulation": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tetikleyici farkındalığı yüksek.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Yorgunluk ve stresin tepkini şişirdiğini düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": 0.48,
+            "emotion_regulation": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bağlamsal öz-farkındalık.; tradeoff_cost_on_emotion_regulation",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Henüz net bir duygu adı koyamazsın ama rahatsız olduğunu bilirsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": 0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "self_awareness": -0.05
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Kısmi duygusal farkındalık.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Sorun partnerde olduğu için kendi halini sorgulamazsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": -0.55
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Öz-farkındalık düşük.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_05",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 44,
+      "authoring_notes": "substantially_rewritten_legacy_concept; scenario_family=internal_emotional_awareness; sdr_item_risk=low; tradeoff=iç tetik vs dış atfetme; how_avoids_ideal_answer=mesafe hem kişisel hem bağlamsal yorumlanabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_self_awareness_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "self_awareness",
+      "secondary_dimensions": [
+        "social_awareness",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Bir sosyal ortamda aniden içe kapanma isteği duyuyorsun. Bu tepkinin altında ne olabileceğini nasıl değerlendirirsin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Sosyal yorgunluk veya tetiklenen bir anı olabileceğini fark edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": 0.7,
+            "social_awareness": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Çok katmanlı öz-gözlem.; tradeoff_cost_on_social_awareness",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Ortamın gürültülü olduğunu ve sınırlarının dolmakta olduğunu düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": 0.44,
+            "boundary_setting": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bağlamsal öz analiz.; tradeoff_cost_on_boundary_setting",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Basitçe modunun düşük olduğunu söylersin, derinine inmezsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": 0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yüzeysel duygu etiketi.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Ortamın seni rahatsız ettiğini düşünür, kendini sorgulamazsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": -0.4,
+            "social_awareness": 0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Dış atfetme eğilimi.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "response_variation",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=social_context_awareness; sdr_item_risk=low; tradeoff=iç geri çekilme vs ortam etkisi; how_avoids_ideal_answer=kapanma hem içsel hem dışsal nedenlerle açıklanabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_self_awareness_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "self_awareness",
+      "secondary_dimensions": [
+        "conflict_approach"
+      ],
+      "prompt": {
+        "tr": "Yoğun bir günün ardından küçük bir yorum seni aşırı derecede kızdırdı. Tepkinin büyüklüğü hakkında kendine ne dersin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Biriktirilmiş stresin bu tepkiyi büyüttüğünü fark edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "emotion_regulation": 0.25,
+            "self_awareness": -0.72
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Tetikleyici birikimi fark edilir.",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Konunun sana dokunan bir yönü olabileceğini kabul edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "self_awareness": -0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Orta düzey öz-yansıma.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Haklı öfke olduğunu düşünür, kendi rolünü sorgulamazsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "assertiveness": 0.2,
+            "self_awareness": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "self_awareness": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sınırlı öz-farkındalık.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Diğer kişinin kasıtlı provokasyon yaptığını varsayarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "conflict_approach": -0.18,
+            "self_awareness": 0.55
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Öz-farkındalık yerine dış suçlama.; tradeoff_cost_on_conflict_approach",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": "eq_tr_v1_rev_05",
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "reverse_consistency",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=stress_and_regulation; sdr_item_risk=low; tradeoff=birikmiş stres vs haklı öfke; how_avoids_ideal_answer=aşırı tepki hem birikim hem değer ihlali olabilir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_social_awareness_001",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_awareness",
+      "secondary_dimensions": [
+        "empathy",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Bir davette yalnız oturan birini fark ettin; grup halinde sohbet ediliyor. Ortamın dinamiğini nasıl okursun?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Kişinin dahil edilmediğini ve muhtemelen dışlanmış hissettiğini düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.72,
+            "empathy": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "moderate",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yüksek sosyal sinyal okuma.; tradeoff_cost_on_empathy",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Belki yorgun veya tanıdık aradığını, henüz emin olmadığını varsayarsın.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.45,
+            "boundary_setting": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Çoklu olasılık okuma.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Kendi sohbetine odaklanır, fazla yorum yapmazsın. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "social_awareness": -0.08
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sınırlı ortam taraması.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Tercih meselesi olduğunu düşünüp dikkat etmezsin. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": -0.48
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sosyal ipuçları göz ardı.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "social_impression_risk",
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=interpersonal_support; sdr_item_risk=moderate; tradeoff=dışlanma sinyali vs kişisel tercih; how_avoids_ideal_answer=yalnız oturmak tek anlama gelmez",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_social_awareness_002",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_awareness",
+      "secondary_dimensions": [
+        "perspective_taking",
+        "boundary_setting"
+      ],
+      "prompt": {
+        "tr": "Arkadaş grubunda biri espri yaptıktan sonra ortamın gerildiğini hissediyorsun. Ne fark edersin?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Espriyi yanlış yorumlayan veya incinen biri olabileceğini düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.7,
+            "perspective_taking": -0.22
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Gerilim kaynağı hipotezi.; tradeoff_cost_on_perspective_taking",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Genel olarak mizahın o an uygun olmadığını sezersin. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.44,
+            "boundary_setting": -0.18
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Bağlamsal uygunluk farkındalığı.",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Sadece kısa bir sessizlik olduğunu sanır, fazla anlam yüklemezsin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Düşük sosyal okuma.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Gerilimi fark etmez, sohbete devam edersin. İlişki dinamiğini de göz önünde bulundururum.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": -0.42
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sosyal sinyal kaçırma.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=perspective_taking_family; sdr_item_risk=low; tradeoff=grup tonu vs bireysel tepki; how_avoids_ideal_answer=gerilim her zaman kişisel değildir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    },
+    {
+      "question_id": "eq_tr_v1_social_awareness_003",
+      "module": "eq",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "eq-tr-pilot-v1",
+      "locale": {
+        "default": "tr-TR",
+        "supported": [
+          "tr-TR"
+        ]
+      },
+      "status": "pilot",
+      "review_state": "internal_review",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_awareness",
+      "secondary_dimensions": [
+        "repair_orientation",
+        "perspective_taking"
+      ],
+      "prompt": {
+        "tr": "Yeni bir iş ekibine katıldın; toplantıda kimlerin söz aldığını ve kimlerin geri planda kaldığını fark ediyorsun. İlk izlenimin ne?",
+        "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+      },
+      "options": [
+        {
+          "option_id": "A",
+          "localized_text": {
+            "tr": "Resmi hiyerarşi ve informal grupların katılımı etkilediğini düşünürsün.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.68,
+            "repair_orientation": -0.2
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Yapısal sosyal okuma.; tradeoff_cost_on_repair_orientation",
+          "status": "active"
+        },
+        {
+          "option_id": "B",
+          "localized_text": {
+            "tr": "Bazı konuların belirli kişileri daha çok devreye soktuğunu not edersin.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.42,
+            "perspective_taking": -0.15
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Konu-bazlı dinamik farkındalık.; tradeoff_cost_on_perspective_taking",
+          "status": "active"
+        },
+        {
+          "option_id": "C",
+          "localized_text": {
+            "tr": "Ortamın gerginliğini fark ederim; yine de kendi planıma göre ilerlerim.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": 0.12
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {
+            "social_awareness": -0.05
+          },
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Gözlem erteleme.",
+          "status": "active"
+        },
+        {
+          "option_id": "D",
+          "localized_text": {
+            "tr": "Sosyal ipuçlarını not ederim ama doğrudan müdahale etmeden izlerim.",
+            "en": "EN equivalent pending (tr-TR pilot reference; not a translation)."
+          },
+          "dimension_deltas": {
+            "social_awareness": -0.45
+          },
+          "evidence_strength": 0.72,
+          "counter_evidence": {},
+          "social_desirability_risk": "low",
+          "extremity": 0.35,
+          "response_style_risk": "low",
+          "rationale": "Sosyal dinamikleri okumama.",
+          "status": "active"
+        }
+      ],
+      "explanation_availability": "reviewer_only",
+      "calibration_status": "uncalibrated",
+      "anchor_group": null,
+      "semantic_pair_id": null,
+      "reverse_pair_id": null,
+      "behavioral_isomorph_group": null,
+      "separator_targets": [],
+      "response_validity_roles": [
+        "timing_quality"
+      ],
+      "exposure_class": "pilot",
+      "security_level": "standard",
+      "estimated_completion_seconds": 42,
+      "authoring_notes": "newly_authored; scenario_family=social_context_awareness; sdr_item_risk=low; tradeoff=güç dinamiği vs eşit katılım varsayımı; how_avoids_ideal_answer=erken izlenimler kesin hüküm değildir",
+      "created_at": "2026-07-24T00:00:00Z",
+      "updated_at": "2026-07-24T00:00:00Z"
+    }
+  ]
+}

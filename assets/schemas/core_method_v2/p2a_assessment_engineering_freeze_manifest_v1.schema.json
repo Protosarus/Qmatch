@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "qmatch://schemas/core_method_v2/p2a_assessment_engineering_freeze_manifest_v1.schema.json",
+  "title": "P2aAssessmentEngineeringFreezeManifestV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_id",
+    "manifest_version",
+    "schema_version",
+    "status",
+    "scientifically_validated",
+    "psychometrically_calibrated",
+    "expert_approved",
+    "production_ready",
+    "created_for_phase",
+    "notes",
+    "artifacts"
+  ],
+  "properties": {
+    "manifest_id": { "type": "string" },
+    "manifest_version": { "type": "string" },
+    "schema_version": { "type": "string" },
+    "status": { "type": "string" },
+    "scientifically_validated": { "const": false },
+    "psychometrically_calibrated": { "const": false },
+    "expert_approved": { "const": false },
+    "production_ready": { "const": false },
+    "created_for_phase": { "type": "string" },
+    "notes": { "type": "object" },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "role",
+          "sha256",
+          "runtime_loaded",
+          "production_wired",
+          "question_text_freeze_status",
+          "option_text_freeze_status",
+          "evidence_delta_freeze_status",
+          "metadata_freeze_status",
+          "known_pending_reviews",
+          "engineering_freeze_meaning"
+        ],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "module": { "type": ["string", "null"] },
+          "role": { "type": "string" },
+          "form_id": { "type": ["string", "null"] },
+          "content_version": { "type": ["string", "null"] },
+          "parent_content_version": { "type": ["string", "null"] },
+          "schema_version": {},
+          "review_state": { "type": ["string", "null"] },
+          "calibration_status": { "type": ["string", "null"] },
+          "status": { "type": ["string", "null"] },
+          "sha256": { "type": "string", "minLength": 64, "maxLength": 64 },
+          "runtime_loaded": { "type": "boolean" },
+          "production_wired": { "type": "boolean" },
+          "question_text_freeze_status": { "type": "string" },
+          "option_text_freeze_status": { "type": "string" },
+          "evidence_delta_freeze_status": { "type": "string" },
+          "metadata_freeze_status": { "type": "string" },
+          "known_pending_reviews": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "engineering_freeze_meaning": { "type": "string" }
+        }
+      }
+    }
+  }
+}

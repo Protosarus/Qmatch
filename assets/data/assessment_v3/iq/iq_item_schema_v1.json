@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qmatch.local/schemas/iq_item_schema_v1.json",
+  "title": "QMatch Canonical IQ Item Schema v1",
+  "description": "Runtime-neutral IQ item contract for the future iq_bank_tr_v1.json. Classical explainable MCQ only. No non-classical score fields. No IRT fake parameters. No raw user answers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "bank_version",
+    "locale",
+    "dimension",
+    "subskill",
+    "prompt",
+    "options",
+    "correct_option_id",
+    "rationale",
+    "difficulty_band",
+    "estimated_time_seconds",
+    "language_dependency",
+    "cognitive_load",
+    "answer_order_policy",
+    "status",
+    "source",
+    "review_state",
+    "tags"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 8,
+      "pattern": "^iq_[a-z0-9_]+$"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "iq_item_schema_v1"
+    },
+    "bank_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "locale": {
+      "type": "string",
+      "enum": ["tr-TR"]
+    },
+    "dimension": {
+      "type": "string",
+      "enum": [
+        "logical_reasoning",
+        "pattern_reasoning",
+        "verbal_reasoning",
+        "spatial_reasoning"
+      ]
+    },
+    "subskill": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 1200
+    },
+    "options": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": ["A", "B", "C", "D"]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          }
+        }
+      }
+    },
+    "correct_option_id": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D"]
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 2000
+    },
+    "difficulty_band": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"],
+      "description": "Editorial estimate until empirical calibration exists."
+    },
+    "estimated_time_seconds": {
+      "type": "integer",
+      "minimum": 20,
+      "maximum": 180
+    },
+    "language_dependency": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "cognitive_load": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "answer_order_policy": {
+      "type": "string",
+      "enum": ["fixed", "shuffle_allowed"]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "technically_valid",
+        "content_reviewed",
+        "expert_reviewed",
+        "pilot_eligible",
+        "runtime_eligible",
+        "suspended",
+        "rejected"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_state": {
+      "type": "string",
+      "enum": [
+        "unreviewed",
+        "tech_pass",
+        "content_pass",
+        "expert_pass",
+        "needs_revision",
+        "rejected"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "maxItems": 12
+    }
+  },
+  "not": {
+    "anyOf": [
+      { "required": ["quantum_score"] },
+      { "required": ["quantum_amplitude"] },
+      { "required": ["irt_a"] },
+      { "required": ["irt_b"] },
+      { "required": ["discrimination"] },
+      { "required": ["user_answers"] },
+      { "required": ["correct_index"] }
+    ]
+  }
+}

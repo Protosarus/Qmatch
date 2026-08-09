@@ -1,0 +1,308 @@
+{
+  "config_id": "relationship_value_comparison_config_v1",
+  "config_version": "relationship_value_comparison_config_v1",
+  "registry_version": "relationship_value_registry_v1",
+  "status": "provisional",
+  "calibration_status": "uncalibrated",
+  "runtime_status": "offline_only",
+  "production_approved": false,
+  "scientifically_validated": false,
+  "supported_comparison_modes": [
+    "exact_match",
+    "categorical_compatibility_matrix",
+    "ordered_distance",
+    "set_overlap",
+    "comparison_pending_review"
+  ],
+  "importance_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "flexibility_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "score_bounds": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "minimum_comparable_value_fields": 1,
+  "mutual_aggregation_mode": "geometric_mean",
+  "evidence_confidence_policy": "explicit_present_and_permitted_equals_one",
+  "missing_data_policy": "exclude_never_impute",
+  "private_data_policy": "exclude_or_unknown_never_pass_fail",
+  "unsupported_field_policy": "exclude_with_diagnostics",
+  "hard_constraint_unknown_policy": "remain_unknown_never_pass_or_fail",
+  "version_compatibility_policy": "require_matching_registry_version",
+  "default_hard_constraint_match_mode": "any_allowed",
+  "supported_hard_constraint_match_modes": [
+    "any_allowed",
+    "all_required",
+    "no_rejected_overlap"
+  ],
+  "soft_conflict_severity_bands": {
+    "none": {
+      "min": 0.0,
+      "max": 0.0
+    },
+    "low": {
+      "min_exclusive": 0.0,
+      "max": 0.25
+    },
+    "moderate": {
+      "min_exclusive": 0.25,
+      "max": 0.6
+    },
+    "high": {
+      "min_exclusive": 0.6,
+      "max": 1.0
+    }
+  },
+  "visibility_policies_allowing_comparison": [
+    "internal_comparison_allowed",
+    "pair_visible"
+  ],
+  "complementarity_status": "disabled_pending_calibration",
+  "persona_input_status": "prohibited",
+  "ai_scoring_status": "prohibited",
+  "field_rules": {
+    "relationship_intent": {
+      "comparison_mode": "categorical_compatibility_matrix",
+      "directionality": "directional",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "matrix": {
+        "directionality": "directional",
+        "cells": {
+          "friendship": {
+            "friendship": 1.0,
+            "dating": 0.666667,
+            "long_term": 0.333333,
+            "marriage_oriented": 0.0,
+            "undecided": 0.5
+          },
+          "dating": {
+            "friendship": 0.566667,
+            "dating": 1.0,
+            "long_term": 0.666667,
+            "marriage_oriented": 0.333333,
+            "undecided": 0.5
+          },
+          "long_term": {
+            "friendship": 0.283333,
+            "dating": 0.566667,
+            "long_term": 1.0,
+            "marriage_oriented": 0.666667,
+            "undecided": 0.5
+          },
+          "marriage_oriented": {
+            "friendship": 0.0,
+            "dating": 0.283333,
+            "long_term": 0.566667,
+            "marriage_oriented": 1.0,
+            "undecided": 0.5
+          },
+          "undecided": {
+            "friendship": 0.5,
+            "dating": 0.5,
+            "long_term": 0.5,
+            "marriage_oriented": 0.5,
+            "undecided": 1.0
+          }
+        }
+      },
+      "hard_constraint_match_mode": "any_allowed"
+    },
+    "marriage_intent": {
+      "comparison_mode": "categorical_compatibility_matrix",
+      "directionality": "directional",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "matrix": {
+        "directionality": "directional",
+        "cells": {
+          "yes": {
+            "yes": 1.0,
+            "maybe": 0.6,
+            "no": 0.0,
+            "undecided": 0.4
+          },
+          "maybe": {
+            "yes": 0.7,
+            "maybe": 1.0,
+            "no": 0.3,
+            "undecided": 0.7
+          },
+          "no": {
+            "yes": 0.0,
+            "maybe": 0.4,
+            "no": 1.0,
+            "undecided": 0.5
+          },
+          "undecided": {
+            "yes": 0.5,
+            "maybe": 0.7,
+            "no": 0.5,
+            "undecided": 1.0
+          }
+        }
+      },
+      "hard_constraint_match_mode": "any_allowed"
+    },
+    "children_preference": {
+      "comparison_mode": "categorical_compatibility_matrix",
+      "directionality": "directional",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "matrix": {
+        "directionality": "directional",
+        "cells": {
+          "want_children": {
+            "want_children": 1.0,
+            "open": 0.7,
+            "do_not_want": 0.0,
+            "undecided": 0.4
+          },
+          "open": {
+            "want_children": 0.75,
+            "open": 1.0,
+            "do_not_want": 0.55,
+            "undecided": 0.7
+          },
+          "do_not_want": {
+            "want_children": 0.0,
+            "open": 0.6,
+            "do_not_want": 1.0,
+            "undecided": 0.5
+          },
+          "undecided": {
+            "want_children": 0.5,
+            "open": 0.7,
+            "do_not_want": 0.5,
+            "undecided": 1.0
+          }
+        }
+      },
+      "hard_constraint_match_mode": "any_allowed"
+    },
+    "monogamy_expectation": {
+      "comparison_mode": "exact_match",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "hard_constraint_match_mode": "any_allowed"
+    },
+    "religion_importance": {
+      "comparison_mode": "ordered_distance",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "ordered_values": [
+        "central",
+        "important",
+        "somewhat",
+        "not_important",
+        "undecided"
+      ]
+    },
+    "relocation_willingness": {
+      "comparison_mode": "ordered_distance",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "ordered_values": [
+        "willing",
+        "conditional",
+        "unwilling",
+        "undecided"
+      ],
+      "hard_constraint_match_mode": "any_allowed"
+    },
+    "preferred_living_location": {
+      "comparison_mode": "comparison_pending_review",
+      "directionality": "n/a",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "exclusion_reason": "no_defensible_geographic_or_location_compatibility_rule"
+    },
+    "smoking_preference": {
+      "comparison_mode": "categorical_compatibility_matrix",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "matrix": {
+        "directionality": "symmetric",
+        "cells": {
+          "non_smoker_only": {
+            "non_smoker_only": 1.0,
+            "ok_with_smoking": 0.7,
+            "smokes": 0.0,
+            "undecided": 0.5
+          },
+          "ok_with_smoking": {
+            "non_smoker_only": 0.7,
+            "ok_with_smoking": 1.0,
+            "smokes": 0.85,
+            "undecided": 0.5
+          },
+          "smokes": {
+            "non_smoker_only": 0.0,
+            "ok_with_smoking": 0.85,
+            "smokes": 1.0,
+            "undecided": 0.5
+          },
+          "undecided": {
+            "non_smoker_only": 0.5,
+            "ok_with_smoking": 0.5,
+            "smokes": 0.5,
+            "undecided": 1.0
+          }
+        }
+      },
+      "hard_constraint_match_mode": "any_allowed"
+    },
+    "alcohol_preference": {
+      "comparison_mode": "ordered_distance",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "ordered_values": [
+        "none",
+        "social",
+        "regular",
+        "undecided"
+      ]
+    },
+    "career_priority": {
+      "comparison_mode": "ordered_distance",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "ordered_values": [
+        "very_high",
+        "balanced",
+        "low",
+        "undecided"
+      ]
+    },
+    "lifestyle_rhythm": {
+      "comparison_mode": "set_overlap",
+      "directionality": "symmetric",
+      "provisional": true,
+      "pending_expert_content_review": true,
+      "production_approved": false,
+      "set_overlap_metric": "jaccard",
+      "empty_set_policy": "exclude_as_invalid"
+    }
+  }
+}

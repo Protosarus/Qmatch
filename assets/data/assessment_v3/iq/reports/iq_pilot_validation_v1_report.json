@@ -1,0 +1,17 @@
+{
+  "item_count": 25,
+  "error_count": 0,
+  "warning_count": 0,
+  "has_errors": false,
+  "dimension_counts": {
+    "logical_reasoning": 7,
+    "pattern_reasoning": 6,
+    "verbal_reasoning": 6,
+    "spatial_reasoning": 6
+  },
+  "subskill_counts": {},
+  "difficulty_counts": {},
+  "answer_position_counts": {},
+  "difficulty_is_calibrated": false,
+  "findings": []
+}

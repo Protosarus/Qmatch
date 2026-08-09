@@ -1,0 +1,37 @@
+{
+  "config_version": "persona_scoring_config_v2.0",
+  "status": "provisional",
+  "persona_profile_version": "persona_profiles_v2_20d.0",
+  "dimension_registry_version": "canonical_dimension_registry_v1",
+  "group_weights": {
+    "iq": 0.15,
+    "eq": 0.3,
+    "frequency": 0.55
+  },
+  "level_distance_weight": 0.65,
+  "shape_distance_weight": 0.35,
+  "anti_trait_penalty_weight": 0.12,
+  "missing_evidence_penalty_weight": 0.18,
+  "similarity_temperature": 0.22,
+  "top2_margin_threshold": 0.035,
+  "low_confidence_threshold": 0.5,
+  "minimum_group_coverage": {
+    "iq": 0.0,
+    "eq": 0.4,
+    "frequency": 0.5
+  },
+  "minimum_total_coverage": 0.45,
+  "adaptive_separator_enabled": true,
+  "adaptive_separator_max_questions": 3,
+  "deterministic_tie_break_policy": "lowest_tie_break_rank_then_lexicographic_persona_id",
+  "numerical_epsilon": 1e-12,
+  "calibration_notes": {
+    "provisional": true,
+    "similarity_scores_are_not_probabilities": true,
+    "confidence_is_separate_from_similarity": true,
+    "no_persona_quota": true,
+    "no_forced_distribution": true,
+    "production_calibration_required": true,
+    "all_thresholds_are_hypotheses": true
+  }
+}

@@ -1,0 +1,1540 @@
+{
+  "items": [
+    {
+      "question_id": "freq_depth_preference_1",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_depth_preference_1",
+        "en": "freq_depth_preference_1"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "depth_preference": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_depth_preference_2",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_depth_preference_2",
+        "en": "freq_depth_preference_2"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "depth_preference": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_depth_preference_3",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_depth_preference_3",
+        "en": "freq_depth_preference_3"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "depth_preference": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_depth_preference_4",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_depth_preference_4",
+        "en": "freq_depth_preference_4"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "depth_preference": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "depth_preference": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_social_energy_1",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_social_energy_1",
+        "en": "freq_social_energy_1"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "social_energy": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_social_energy_2",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_social_energy_2",
+        "en": "freq_social_energy_2"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "social_energy": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_social_energy_3",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_social_energy_3",
+        "en": "freq_social_energy_3"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "social_energy": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_social_energy_4",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_social_energy_4",
+        "en": "freq_social_energy_4"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "social_energy": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "social_energy": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_spontaneity_1",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_spontaneity_1",
+        "en": "freq_spontaneity_1"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "spontaneity": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_spontaneity_2",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_spontaneity_2",
+        "en": "freq_spontaneity_2"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "spontaneity": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_spontaneity_3",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_spontaneity_3",
+        "en": "freq_spontaneity_3"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "spontaneity": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_spontaneity_4",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_spontaneity_4",
+        "en": "freq_spontaneity_4"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "spontaneity": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "spontaneity": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_stability_1",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_stability_1",
+        "en": "freq_stability_1"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "stability": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "stability": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "stability": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_stability_2",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_stability_2",
+        "en": "freq_stability_2"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "stability": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "stability": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "stability": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_stability_3",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_stability_3",
+        "en": "freq_stability_3"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "stability": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "stability": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "stability": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_stability_4",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_stability_4",
+        "en": "freq_stability_4"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "stability": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "stability": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "stability": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_disclosure_pace_1",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_disclosure_pace_1",
+        "en": "freq_disclosure_pace_1"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_disclosure_pace_2",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_disclosure_pace_2",
+        "en": "freq_disclosure_pace_2"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_disclosure_pace_3",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_disclosure_pace_3",
+        "en": "freq_disclosure_pace_3"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_disclosure_pace_4",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_disclosure_pace_4",
+        "en": "freq_disclosure_pace_4"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "disclosure_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_communication_pace_1",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_communication_pace_1",
+        "en": "freq_communication_pace_1"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "communication_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_communication_pace_2",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_communication_pace_2",
+        "en": "freq_communication_pace_2"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "communication_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_communication_pace_3",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_communication_pace_3",
+        "en": "freq_communication_pace_3"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "communication_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    },
+    {
+      "question_id": "freq_communication_pace_4",
+      "module": "frequency",
+      "schema_version": "qmatch_question_schema_v3",
+      "content_version": "fixture_frequency_v1",
+      "item_type": "scenario_mcq",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": [],
+      "prompt": {
+        "tr": "freq_communication_pace_4",
+        "en": "freq_communication_pace_4"
+      },
+      "options": [
+        {
+          "option_id": "high",
+          "localized_text": {
+            "tr": "high",
+            "en": "high"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "mid",
+          "localized_text": {
+            "tr": "mid",
+            "en": "mid"
+          },
+          "dimension_deltas": {
+            "communication_pace": 0.0
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        },
+        {
+          "option_id": "low",
+          "localized_text": {
+            "tr": "low",
+            "en": "low"
+          },
+          "dimension_deltas": {
+            "communication_pace": -0.6
+          },
+          "evidence_strength": 1.0,
+          "social_desirability_risk": "low",
+          "extremity": 0.1,
+          "response_style_risk": "low",
+          "status": "active"
+        }
+      ],
+      "exposure_class": "core_pool",
+      "security_level": "standard",
+      "estimated_completion_seconds": 25,
+      "response_validity_roles": []
+    }
+  ]
+}

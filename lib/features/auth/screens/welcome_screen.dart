@@ -347,15 +347,41 @@ class _Cue extends StatelessWidget {
   }
 }
 
-class _Hero extends StatelessWidget {
+class _Hero extends StatefulWidget {
   const _Hero({required this.size});
   final double size;
 
+  @override
+  State<_Hero> createState() => _HeroState();
+}
+
+class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
   /// Open nebula couple — no center black disc.
   static const _asset = 'assets/images/welcome_couple_v3.png';
 
+  late final AnimationController _breath;
+
+  @override
+  void initState() {
+    super.initState();
+    _breath = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2400),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _breath.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = widget.size;
+    final reduceMotion =
+        MediaQuery.maybeOf(context)?.disableAnimations == true;
+
     return SizedBox(
       width: size,
       height: size,
@@ -389,10 +415,79 @@ class _Hero extends StatelessWidget {
             filterQuality: FilterQuality.high,
             gaplessPlayback: true,
           ),
+          // Point spark only — no circular disc/ring overlay.
+          if (!reduceMotion)
+            IgnorePointer(
+              child: AnimatedBuilder(
+                animation: _breath,
+                builder: (context, _) {
+                  final t = Curves.easeInOut.transform(_breath.value);
+                  return CustomPaint(
+                    size: Size(size, size),
+                    painter: _CenterSparkPainter(t: t),
+                  );
+                },
+              ),
+            ),
         ],
       ),
     );
   }
+}
+
+class _CenterSparkPainter extends CustomPainter {
+  _CenterSparkPainter({required this.t});
+
+  final double t;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final c = Offset(size.width / 2, size.height / 2);
+    // Hot core — tiny; breath = brightness only.
+    final coreR = size.shortestSide * 0.012;
+    final glowR = size.shortestSide * 0.028;
+
+    final glow = Paint()
+      ..color = Color.fromRGBO(255, 236, 180, 0.20 + t * 0.55)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
+    canvas.drawCircle(c, glowR, glow);
+
+    final core = Paint()
+      ..color = Color.fromRGBO(255, 252, 245, 0.35 + t * 0.60)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.5);
+    canvas.drawCircle(c, coreR, core);
+
+    // Soft rays — fade at ends, no ring.
+    final ray = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1.0 + t * 0.5
+      ..color = Color.fromRGBO(255, 248, 230, 0.18 + t * 0.50)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.5);
+
+    final arm = size.shortestSide * 0.045;
+    canvas.drawLine(c.translate(-arm, 0), c.translate(arm, 0), ray);
+    canvas.drawLine(c.translate(0, -arm), c.translate(0, arm), ray);
+
+    ray
+      ..strokeWidth = 0.7 + t * 0.35
+      ..color = Color.fromRGBO(255, 230, 160, 0.10 + t * 0.32);
+    final diag = arm * 0.55;
+    canvas.drawLine(
+      c.translate(-diag, -diag),
+      c.translate(diag, diag),
+      ray,
+    );
+    canvas.drawLine(
+      c.translate(-diag, diag),
+      c.translate(diag, -diag),
+      ray,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _CenterSparkPainter oldDelegate) =>
+      oldDelegate.t != t;
 }
 
 class _Cta extends StatelessWidget {

@@ -3,6 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/app_support.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/widgets/cosmic/q_glass_card.dart';
+import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_primary_action.dart';
+import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../services/account_deletion_request_service.dart';
 
@@ -93,11 +98,11 @@ class _AccountDeletionRequestScreenState
       barrierDismissible: false,
       builder: (ctx) {
         return AlertDialog(
-          backgroundColor: AppColors.surface,
+          backgroundColor: AppColors.surfaceElevated,
           title: Text(
             l10n.accountDeletionSuccessTitle,
             style: GoogleFonts.playfairDisplay(
-              color: AppColors.primary,
+              color: AppColors.textPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -106,16 +111,15 @@ class _AccountDeletionRequestScreenState
             style: GoogleFonts.inter(color: Colors.white, height: 1.45),
           ),
           actions: [
-            FilledButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-                Navigator.of(context).pop();
-              },
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.black,
+            SizedBox(
+              width: 170,
+              child: QMatchPrimaryAction(
+                label: l10n.accountDeletionSuccessAction,
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                  Navigator.of(context).pop();
+                },
               ),
-              child: Text(l10n.accountDeletionSuccessAction),
             ),
           ],
         );
@@ -128,38 +132,51 @@ class _AccountDeletionRequestScreenState
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: AppColors.primary),
-        title: Text(
-          l10n.accountDeletionTitle,
-          style: GoogleFonts.playfairDisplay(
-            color: AppColors.primary,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+      backgroundColor: Colors.transparent,
+      body: QMatchCosmicBackground(
+        seed: 53,
+        child: SafeArea(
+          child: Column(
+            children: [
+              QMatchPushedScreenHeader(
+                key: const Key('qmatch-delete-header'),
+                title: l10n.accountDeletionTitle,
+                backButtonKey: const Key('qmatch-delete-back'),
+                titleKey: const Key('qmatch-delete-title'),
+              ),
+              Expanded(
+                child: !_pendingLoaded
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.softGold,
+                          ),
+                        ),
+                      )
+                    : (_alreadyPending
+                        ? _buildPendingBody(l10n)
+                        : _buildRequestBody(l10n)),
+              ),
+            ],
           ),
         ),
       ),
-      body: !_pendingLoaded
-          ? const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-              ),
-            )
-          : (_alreadyPending ? _buildPendingBody(l10n) : _buildRequestBody(l10n)),
     );
   }
 
   Widget _buildPendingBody(AppLocalizations l10n) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        AppSpacing.sm,
+        AppSpacing.md,
+        AppSpacing.xl,
+      ),
       children: [
         Text(
           l10n.accountDeletionPendingTitle,
           style: GoogleFonts.inter(
-            color: AppColors.primary,
+            color: AppColors.softGold,
             fontWeight: FontWeight.w700,
             fontSize: 16,
           ),
@@ -202,7 +219,12 @@ class _AccountDeletionRequestScreenState
 
   Widget _buildRequestBody(AppLocalizations l10n) {
     return ListView(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        AppSpacing.sm,
+        AppSpacing.md,
+        AppSpacing.xl,
+      ),
       children: [
         Text(
           l10n.accountDeletionWarningTitle,
@@ -246,27 +268,15 @@ class _AccountDeletionRequestScreenState
           ),
         ),
         const SizedBox(height: 18),
-        CheckboxListTile(
+        _checkRow(
           value: _ackIrreversible,
           onChanged: (v) => setState(() => _ackIrreversible = v ?? false),
-          activeColor: AppColors.primary,
-          controlAffinity: ListTileControlAffinity.leading,
-          contentPadding: EdgeInsets.zero,
-          title: Text(
-            l10n.accountDeletionAckIrreversible,
-            style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
-          ),
+          label: l10n.accountDeletionAckIrreversible,
         ),
-        CheckboxListTile(
+        _checkRow(
           value: _ackTimeline,
           onChanged: (v) => setState(() => _ackTimeline = v ?? false),
-          activeColor: AppColors.primary,
-          controlAffinity: ListTileControlAffinity.leading,
-          contentPadding: EdgeInsets.zero,
-          title: Text(
-            l10n.accountDeletionAckTimeline,
-            style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
-          ),
+          label: l10n.accountDeletionAckTimeline,
         ),
         const SizedBox(height: 8),
         Text(
@@ -289,17 +299,17 @@ class _AccountDeletionRequestScreenState
             hintText: AccountDeletionRequestService.confirmationToken,
             hintStyle: GoogleFonts.inter(color: AppColors.textSecondary),
             filled: true,
-            fillColor: AppColors.surface,
+            fillColor: AppColors.glassSurfaceStrong,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: AppColors.primary.withValues(alpha: 0.25),
+                color: AppColors.borderGlow,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: AppColors.primary.withValues(alpha: 0.25),
+                color: AppColors.borderGlow,
               ),
             ),
           ),
@@ -312,24 +322,13 @@ class _AccountDeletionRequestScreenState
           ),
         ],
         const SizedBox(height: 20),
-        FilledButton(
+        QMatchPrimaryAction(
+          key: const Key('qmatch-delete-submit'),
+          label: l10n.accountDeletionSubmit,
           onPressed: _canSubmit ? () => _submit(l10n) : null,
-          style: FilledButton.styleFrom(
-            backgroundColor: Colors.red,
-            disabledBackgroundColor: Colors.red.withValues(alpha: 0.25),
-            foregroundColor: Colors.white,
-            minimumSize: const Size(double.infinity, 48),
-          ),
-          child: _submitting
-              ? const SizedBox(
-                  width: 22,
-                  height: 22,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : Text(
-                  l10n.accountDeletionSubmit,
-                  style: GoogleFonts.inter(fontWeight: FontWeight.w700),
-                ),
+          enabled: _canSubmit,
+          loading: _submitting,
+          tone: QMatchPrimaryActionTone.destructive,
         ),
         const SizedBox(height: 10),
         Text(
@@ -345,14 +344,7 @@ class _AccountDeletionRequestScreenState
   }
 
   Widget _card({required String title, required String body}) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.primary.withValues(alpha: 0.14)),
-      ),
+    return QGlassCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -374,6 +366,26 @@ class _AccountDeletionRequestScreenState
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _checkRow({
+    required bool value,
+    required ValueChanged<bool?> onChanged,
+    required String label,
+  }) {
+    return CheckboxListTile(
+      value: value,
+      onChanged: onChanged,
+      activeColor: AppColors.softGold,
+      checkColor: AppColors.cosmicBlack,
+      side: const BorderSide(color: AppColors.borderSubtle),
+      controlAffinity: ListTileControlAffinity.leading,
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        label,
+        style: GoogleFonts.inter(color: Colors.white, fontSize: 13),
       ),
     );
   }
