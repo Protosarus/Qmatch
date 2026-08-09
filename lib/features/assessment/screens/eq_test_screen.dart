@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/eq_bank/eq_bank.dart';
 import '../domain/eq_session/eq_session.dart';
@@ -511,7 +509,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
                   right: 0,
                   bottom: _continueButtonHeight + _warningAboveContinueGap,
                   child: IgnorePointer(
-                    child: _EqSelectAnswerWarningBanner(
+                    child: FrequencySelectAnswerWarning(
                       message: l10n.iqPleaseSelectAnswerToContinue,
                     ),
                   ),
@@ -519,42 +517,6 @@ class _EQTestScreenState extends State<EQTestScreen> {
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class _EqSelectAnswerWarningBanner extends StatelessWidget {
-  const _EqSelectAnswerWarningBanner({required this.message});
-
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: AppRadii.pillBorder,
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: AppRadii.pillBorder,
-            color: const Color(0xCC1A1028),
-            border: Border.all(
-              color: AppColors.vizEq.withValues(alpha: 0.45),
-            ),
-          ),
-          child: Text(
-            message,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-              color: Colors.white,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
       ),
     );
   }
