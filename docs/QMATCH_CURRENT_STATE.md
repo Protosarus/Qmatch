@@ -11,11 +11,13 @@ supporting context only when they conflict with the current repository.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Local HEAD | `149276fe5c876e9d76500e2fa297ce769aba89be` |
-| Remote branch | `origin/main` |
-| Remote HEAD | `149276fe5c876e9d76500e2fa297ce769aba89be` |
-| Last completed phase | **P2C-2A-4 — Canonical 4D IQ Scoring** |
+| Last completed implementation phase | **P2C-2A-4 — Canonical 4D IQ Scoring** |
+| Implementation commit (P2C-2A-4) | `149276fe5c876e9d76500e2fa297ce769aba89be` |
+| Verified at P2C-2A-4: local HEAD == `origin/main` | `149276fe5c876e9d76500e2fa297ce769aba89be` |
+| Continuity document | `docs/QMATCH_CURRENT_STATE.md` (this file; tip may advance on docs-only updates) |
 | Checkpoint date | 2026-08-09 |
+
+Live tip: run `git rev-parse HEAD` / `git rev-parse origin/main` — they must match before starting a phase.
 
 ---
 
