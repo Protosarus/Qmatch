@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/services/auth_service.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../profile/services/profile_service.dart';
 import '../domain/frequency_bank/frequency_bank.dart';
