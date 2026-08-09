@@ -142,9 +142,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   }) {
     // Idle: soft violet. Focused: violet → gold glow edge.
     final idleBorder = const Color(0x77A890D8);
-    final focusBorder = focused
-        ? AppColors.softGold
-        : idleBorder;
+    final focusBorder = focused ? AppColors.softGold : idleBorder;
     return InputDecoration(
       labelText: label,
       hintText: hint,
@@ -297,9 +295,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
         onFailed: (message) {
           _sendInFlight = false;
           if (!mounted) return;
-          final text = message.trim().isEmpty
-              ? l10n.phoneSignupErrorSmsFailed
-              : message;
+          final text =
+              message.trim().isEmpty ? l10n.phoneSignupErrorSmsFailed : message;
           _setError(text);
         },
         onTimeout: () {
@@ -366,7 +363,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       final message = switch (e.code) {
-        'invalid-verification-code' || 'invalid-verification-id' =>
+        'invalid-verification-code' ||
+        'invalid-verification-id' =>
           l10n.phoneSignupErrorIncorrectCode,
         'session-expired' => l10n.phoneSignupErrorVerificationExpired,
         _ => l10n.phoneSignupErrorVerificationFailed,
@@ -409,8 +407,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                         icon: Icons.arrow_back_ios_new,
                         iconSize: 18,
                         circular: true,
-                        tooltip: MaterialLocalizations.of(context)
-                            .backButtonTooltip,
+                        tooltip:
+                            MaterialLocalizations.of(context).backButtonTooltip,
                         onPressed: () => Navigator.of(context).maybePop(),
                       ),
                     ),
@@ -441,318 +439,355 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                  const SizedBox(height: 4),
-                                  SizedBox(
-                                    width: 44,
-                                    height: 44,
-                                    child: Image.asset(
-                                      'assets/images/welcome_q_glow.png',
-                                      fit: BoxFit.contain,
-                                      filterQuality: FilterQuality.high,
+                                    const SizedBox(height: 4),
+                                    SizedBox(
+                                      width: 44,
+                                      height: 44,
+                                      child: Image.asset(
+                                        'assets/images/welcome_q_glow.png',
+                                        fit: BoxFit.contain,
+                                        filterQuality: FilterQuality.high,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  Text(
-                                    _codeSent
-                                        ? l10n.phoneSignupTitleEnterCode
-                                        : l10n.phoneSignupTitleAskNumber,
-                                    style: GoogleFonts.playfairDisplay(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.15,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    _codeSent
-                                        ? l10n.phoneSignupSubtitleCodeSent
-                                        : l10n.phoneSignupSubtitleSendCode,
-                                    style: GoogleFonts.inter(
-                                      color: const Color(0xFFC8C0E0),
-                                      fontSize: 14,
-                                      height: 1.45,
-                                    ),
-                                  ),
-                                  if (_codeSent &&
-                                      displayedPhone.isNotEmpty) ...[
-                                    const SizedBox(height: 8),
+                                    const SizedBox(height: 12),
                                     Text(
-                                      displayedPhone,
-                                      style: GoogleFonts.inter(
-                                        color: AppColors.resonanceViolet
-                                            .withValues(alpha: 0.95),
-                                        fontSize: 13.5,
+                                      _codeSent
+                                          ? l10n.phoneSignupTitleEnterCode
+                                          : l10n.phoneSignupTitleAskNumber,
+                                      style: GoogleFonts.playfairDisplay(
+                                        color: Colors.white,
+                                        fontSize: 30,
                                         fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.2,
-                                      ),
-                                    ),
-                                  ],
-                                  const SizedBox(height: 28),
-                                  if (_error != null) ...[
-                                    Container(
-                                      width: double.infinity,
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 10,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: AppRadii.buttonBorder,
-                                        color: AppColors.error
-                                            .withValues(alpha: 0.12),
-                                        border: Border.all(
-                                          color: AppColors.error
-                                              .withValues(alpha: 0.45),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        _error!,
-                                        style: GoogleFonts.inter(
-                                          color: AppColors.error
-                                              .withValues(alpha: 0.95),
-                                          fontSize: 13,
-                                          height: 1.35,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 14),
-                                  ],
-                                  if (!_codeSent) ...[
-                                    AnimatedContainer(
-                                      duration:
-                                          const Duration(milliseconds: 180),
-                                      decoration: BoxDecoration(
-                                        borderRadius: AppRadii.cardBorder,
-                                        boxShadow: _phoneFocused
-                                            ? [
-                                                BoxShadow(
-                                                  color: AppColors
-                                                      .resonanceViolet
-                                                      .withValues(alpha: 0.45),
-                                                  blurRadius: 16,
-                                                ),
-                                                BoxShadow(
-                                                  color: AppColors.softGold
-                                                      .withValues(alpha: 0.28),
-                                                  blurRadius: 14,
-                                                  offset: const Offset(2, 2),
-                                                ),
-                                              ]
-                                            : null,
-                                      ),
-                                      child: IntlPhoneField(
-                                        controller: _phoneController,
-                                        focusNode: _phoneFocus,
-                                        initialCountryCode: _initialIsoCode,
-                                        keyboardType: TextInputType.phone,
-                                        textInputAction: TextInputAction.done,
-                                        onSubmitted: (_) => _sendCode(),
-                                        onChanged: _onPhoneChanged,
-                                        onCountryChanged: (country) {
-                                          _dialCode = '+${country.dialCode}';
-                                          _e164Phone = _buildE164(
-                                            dialCode: _dialCode,
-                                            nationalNumber:
-                                                _nationalNumber.isNotEmpty
-                                                    ? _nationalNumber
-                                                    : _phoneController.text,
-                                          );
-                                          if (mounted) setState(() {});
-                                        },
-                                        style: GoogleFonts.inter(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          letterSpacing: 0.3,
-                                        ),
-                                        dropdownTextStyle: GoogleFonts.inter(
-                                          color: accent,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        flagsButtonPadding:
-                                            const EdgeInsets.only(
-                                          left: 12,
-                                          right: 4,
-                                        ),
-                                        dropdownIcon: Icon(
-                                          Icons.arrow_drop_down,
-                                          color:
-                                              accent.withValues(alpha: 0.95),
-                                        ),
-                                        disableLengthCheck: true,
-                                        showDropdownIcon: true,
-                                        decoration: _fieldDecoration(
-                                          label: l10n.phoneNumber,
-                                          hint: l10n.mobileNumberHint,
-                                          focused: _phoneFocused,
-                                        ),
-                                        pickerDialogStyle: PickerDialogStyle(
-                                          backgroundColor:
-                                              AppColors.midnightNavy,
-                                          countryCodeStyle: GoogleFonts.inter(
-                                            color: accent,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          countryNameStyle: GoogleFonts.inter(
-                                            color: Colors.white,
-                                          ),
-                                          searchFieldInputDecoration:
-                                              InputDecoration(
-                                            hintText: l10n.searchCountry,
-                                            hintStyle: GoogleFonts.inter(
-                                              color: const Color(0xFF9A90B8),
-                                            ),
-                                            prefixIcon: const Icon(
-                                              Icons.search,
-                                              color: Color(0xFF9A90B8),
-                                            ),
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: AppColors
-                                                    .resonanceViolet
-                                                    .withValues(alpha: 0.35),
-                                              ),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: AppColors.softGold
-                                                    .withValues(alpha: 0.9),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        autovalidateMode:
-                                            AutovalidateMode.disabled,
+                                        height: 1.15,
                                       ),
                                     ),
                                     const SizedBox(height: 10),
                                     Text(
-                                      l10n.phoneSignupCountryHint,
+                                      _codeSent
+                                          ? l10n.phoneSignupSubtitleCodeSent
+                                          : l10n.phoneSignupSubtitleSendCode,
                                       style: GoogleFonts.inter(
-                                        color: const Color(0xFFB0A8C8),
-                                        fontSize: 12.5,
-                                        height: 1.35,
+                                        color: const Color(0xFFC8C0E0),
+                                        fontSize: 14,
+                                        height: 1.45,
                                       ),
                                     ),
-                                  ] else ...[
-                                    AnimatedContainer(
-                                      duration:
-                                          const Duration(milliseconds: 180),
-                                      decoration: BoxDecoration(
-                                        borderRadius: AppRadii.cardBorder,
-                                        boxShadow: _codeFocused
-                                            ? [
-                                                BoxShadow(
-                                                  color: AppColors
-                                                      .resonanceViolet
-                                                      .withValues(alpha: 0.45),
-                                                  blurRadius: 16,
-                                                ),
-                                                BoxShadow(
-                                                  color: AppColors.softGold
-                                                      .withValues(alpha: 0.28),
-                                                  blurRadius: 14,
-                                                ),
-                                              ]
-                                            : null,
-                                      ),
-                                      child: TextFormField(
-                                        controller: _codeController,
-                                        focusNode: _codeFocus,
-                                        keyboardType: TextInputType.number,
-                                        textInputAction: TextInputAction.done,
-                                        onFieldSubmitted: (_) => _verifyCode(),
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
-                                          LengthLimitingTextInputFormatter(6),
-                                        ],
+                                    if (_codeSent &&
+                                        displayedPhone.isNotEmpty) ...[
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        displayedPhone,
                                         style: GoogleFonts.inter(
-                                          color: Colors.white,
+                                          color: AppColors.resonanceViolet
+                                              .withValues(alpha: 0.95),
+                                          fontSize: 13.5,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 20,
-                                          letterSpacing: 6,
+                                          letterSpacing: 0.2,
                                         ),
-                                        decoration: _fieldDecoration(
-                                          label: l10n.verificationCode,
-                                          hint: '••••••',
-                                          focused: _codeFocused,
-                                        ),
-                                        maxLength: 6,
-                                        onChanged: (_) {
-                                          if (_error != null && mounted) {
-                                            setState(() => _error = null);
-                                          }
-                                        },
                                       ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        TextButton(
-                                          onPressed: _isLoading
-                                              ? null
-                                              : () {
-                                                  if (!mounted) return;
-                                                  setState(() {
-                                                    _codeSent = false;
-                                                    _error = null;
-                                                    _verificationId = null;
-                                                    _codeController.clear();
-                                                  });
-                                                },
-                                          style: TextButton.styleFrom(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                              vertical: 8,
-                                            ),
-                                            minimumSize: Size.zero,
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
+                                    ],
+                                    const SizedBox(height: 28),
+                                    if (_error != null) ...[
+                                      Container(
+                                        width: double.infinity,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 10,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: AppRadii.buttonBorder,
+                                          color: AppColors.error
+                                              .withValues(alpha: 0.12),
+                                          border: Border.all(
+                                            color: AppColors.error
+                                                .withValues(alpha: 0.45),
                                           ),
-                                          child: Text(
-                                            l10n.changeNumber,
+                                        ),
+                                        child: Text(
+                                          _error!,
+                                          style: GoogleFonts.inter(
+                                            color: AppColors.error
+                                                .withValues(alpha: 0.95),
+                                            fontSize: 13,
+                                            height: 1.35,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                    ],
+                                    if (!_codeSent) ...[
+                                      AnimatedContainer(
+                                        duration:
+                                            const Duration(milliseconds: 180),
+                                        decoration: BoxDecoration(
+                                          borderRadius: AppRadii.cardBorder,
+                                          boxShadow: _phoneFocused
+                                              ? [
+                                                  BoxShadow(
+                                                    color: AppColors
+                                                        .resonanceViolet
+                                                        .withValues(
+                                                            alpha: 0.45),
+                                                    blurRadius: 16,
+                                                  ),
+                                                  BoxShadow(
+                                                    color: AppColors.softGold
+                                                        .withValues(
+                                                            alpha: 0.28),
+                                                    blurRadius: 14,
+                                                    offset: const Offset(2, 2),
+                                                  ),
+                                                ]
+                                              : null,
+                                        ),
+                                        child: Theme(
+                                          data: Theme.of(context).copyWith(
+                                            brightness: Brightness.dark,
+                                            colorScheme: Theme.of(context)
+                                                .colorScheme
+                                                .copyWith(
+                                                  brightness: Brightness.dark,
+                                                  onSurface: Colors.white,
+                                                ),
+                                            textTheme: Theme.of(context)
+                                                .textTheme
+                                                .apply(
+                                                  bodyColor: Colors.white,
+                                                  displayColor: Colors.white,
+                                                ),
+                                          ),
+                                          child: IntlPhoneField(
+                                            controller: _phoneController,
+                                            focusNode: _phoneFocus,
+                                            initialCountryCode: _initialIsoCode,
+                                            keyboardType: TextInputType.phone,
+                                            textInputAction:
+                                                TextInputAction.done,
+                                            onSubmitted: (_) => _sendCode(),
+                                            onChanged: _onPhoneChanged,
+                                            onCountryChanged: (country) {
+                                              _dialCode =
+                                                  '+${country.dialCode}';
+                                              _e164Phone = _buildE164(
+                                                dialCode: _dialCode,
+                                                nationalNumber:
+                                                    _nationalNumber.isNotEmpty
+                                                        ? _nationalNumber
+                                                        : _phoneController.text,
+                                              );
+                                              if (mounted) setState(() {});
+                                            },
                                             style: GoogleFonts.inter(
-                                              color: const Color(0xFFC4B0FF),
-                                              fontSize: 13,
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              letterSpacing: 0.3,
+                                            ),
+                                            dropdownTextStyle:
+                                                GoogleFonts.inter(
+                                              color: accent,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.w600,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              decorationColor: const Color(
-                                                0x99C4B0FF,
+                                            ),
+                                            flagsButtonPadding:
+                                                const EdgeInsets.only(
+                                              left: 12,
+                                              right: 4,
+                                            ),
+                                            dropdownIcon: Icon(
+                                              Icons.arrow_drop_down,
+                                              color: accent.withValues(
+                                                  alpha: 0.95),
+                                            ),
+                                            disableLengthCheck: true,
+                                            showDropdownIcon: true,
+                                            decoration: _fieldDecoration(
+                                              label: l10n.phoneNumber,
+                                              hint: l10n.mobileNumberHint,
+                                              focused: _phoneFocused,
+                                            ),
+                                            pickerDialogStyle:
+                                                PickerDialogStyle(
+                                              backgroundColor:
+                                                  AppColors.midnightNavy,
+                                              countryCodeStyle:
+                                                  GoogleFonts.inter(
+                                                color: accent,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              countryNameStyle:
+                                                  GoogleFonts.inter(
+                                                color: Colors.white,
+                                              ),
+                                              searchFieldCursorColor: accent,
+                                              searchFieldInputDecoration:
+                                                  InputDecoration(
+                                                hintText: l10n.searchCountry,
+                                                hintStyle: GoogleFonts.inter(
+                                                  color:
+                                                      const Color(0xFF9A90B8),
+                                                ),
+                                                prefixIcon: const Icon(
+                                                  Icons.search,
+                                                  color: Color(0xFF9A90B8),
+                                                ),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: AppColors
+                                                        .resonanceViolet
+                                                        .withValues(
+                                                            alpha: 0.35),
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: AppColors.softGold
+                                                        .withValues(alpha: 0.9),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            autovalidateMode:
+                                                AutovalidateMode.disabled,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        l10n.phoneSignupCountryHint,
+                                        style: GoogleFonts.inter(
+                                          color: const Color(0xFFB0A8C8),
+                                          fontSize: 12.5,
+                                          height: 1.35,
+                                        ),
+                                      ),
+                                    ] else ...[
+                                      AnimatedContainer(
+                                        duration:
+                                            const Duration(milliseconds: 180),
+                                        decoration: BoxDecoration(
+                                          borderRadius: AppRadii.cardBorder,
+                                          boxShadow: _codeFocused
+                                              ? [
+                                                  BoxShadow(
+                                                    color: AppColors
+                                                        .resonanceViolet
+                                                        .withValues(
+                                                            alpha: 0.45),
+                                                    blurRadius: 16,
+                                                  ),
+                                                  BoxShadow(
+                                                    color: AppColors.softGold
+                                                        .withValues(
+                                                            alpha: 0.28),
+                                                    blurRadius: 14,
+                                                  ),
+                                                ]
+                                              : null,
+                                        ),
+                                        child: TextFormField(
+                                          controller: _codeController,
+                                          focusNode: _codeFocus,
+                                          keyboardType: TextInputType.number,
+                                          textInputAction: TextInputAction.done,
+                                          onFieldSubmitted: (_) =>
+                                              _verifyCode(),
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(6),
+                                          ],
+                                          style: GoogleFonts.inter(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20,
+                                            letterSpacing: 6,
+                                          ),
+                                          decoration: _fieldDecoration(
+                                            label: l10n.verificationCode,
+                                            hint: '••••••',
+                                            focused: _codeFocused,
+                                          ),
+                                          maxLength: 6,
+                                          onChanged: (_) {
+                                            if (_error != null && mounted) {
+                                              setState(() => _error = null);
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        children: [
+                                          TextButton(
+                                            onPressed: _isLoading
+                                                ? null
+                                                : () {
+                                                    if (!mounted) return;
+                                                    setState(() {
+                                                      _codeSent = false;
+                                                      _error = null;
+                                                      _verificationId = null;
+                                                      _codeController.clear();
+                                                    });
+                                                  },
+                                            style: TextButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 4,
+                                                vertical: 8,
+                                              ),
+                                              minimumSize: Size.zero,
+                                              tapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                            ),
+                                            child: Text(
+                                              l10n.changeNumber,
+                                              style: GoogleFonts.inter(
+                                                color: const Color(0xFFC4B0FF),
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                decorationColor: const Color(
+                                                  0x99C4B0FF,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        const Spacer(),
-                                        TextButton(
-                                          onPressed:
-                                              _isLoading ? null : _sendCode,
-                                          style: TextButton.styleFrom(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                              vertical: 8,
+                                          const Spacer(),
+                                          TextButton(
+                                            onPressed:
+                                                _isLoading ? null : _sendCode,
+                                            style: TextButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 4,
+                                                vertical: 8,
+                                              ),
+                                              minimumSize: Size.zero,
+                                              tapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
                                             ),
-                                            minimumSize: Size.zero,
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
-                                          ),
-                                          child: Text(
-                                            l10n.resendCode,
-                                            style: GoogleFonts.inter(
-                                              color: _didTimeout
-                                                  ? accent
-                                                  : accent.withValues(
-                                                      alpha: 0.75,
-                                                    ),
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
+                                            child: Text(
+                                              l10n.resendCode,
+                                              style: GoogleFonts.inter(
+                                                color: _didTimeout
+                                                    ? accent
+                                                    : accent.withValues(
+                                                        alpha: 0.75,
+                                                      ),
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
                                   ],
                                 ),
                                 IgnorePointer(
@@ -760,28 +795,28 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                 ),
                                 Column(
                                   children: [
-                                  _CosmicCtaButton(
-                                    loading: _isLoading,
-                                    label: _codeSent
-                                        ? l10n.verify
-                                        : l10n.sendCode,
-                                    onPressed: _isLoading
-                                        ? null
-                                        : (_codeSent
-                                            ? _verifyCode
-                                            : _sendCode),
-                                  ),
-                                  const SizedBox(height: 14),
-                                  Text(
-                                    l10n.phoneSignupSmsDisclaimer,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.inter(
-                                      color: const Color(0xFFA8A0C0),
-                                      fontSize: 11.5,
-                                      height: 1.4,
+                                    _CosmicCtaButton(
+                                      loading: _isLoading,
+                                      label: _codeSent
+                                          ? l10n.verify
+                                          : l10n.sendCode,
+                                      onPressed: _isLoading
+                                          ? null
+                                          : (_codeSent
+                                              ? _verifyCode
+                                              : _sendCode),
                                     ),
-                                  ),
-                                  const SizedBox(height: 12),
+                                    const SizedBox(height: 14),
+                                    Text(
+                                      l10n.phoneSignupSmsDisclaimer,
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.inter(
+                                        color: const Color(0xFFA8A0C0),
+                                        fontSize: 11.5,
+                                        height: 1.4,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
                                   ],
                                 ),
                               ],
@@ -983,4 +1018,3 @@ class _CosmicCtaButton extends StatelessWidget {
     );
   }
 }
-
