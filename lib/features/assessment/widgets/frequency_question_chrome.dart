@@ -173,15 +173,46 @@ class FrequencyProgressHeader extends StatelessWidget {
 class FrequencyWaveHero extends StatelessWidget {
   const FrequencyWaveHero({super.key});
 
+  /// Knock out the plate's near-black fill so the cosmic scaffold shows through.
+  static const _blackPlateKnockout = ColorFilter.matrix(<double>[
+    1, 0, 0, 0, 0,
+    0, 1, 0, 0, 0,
+    0, 0, 1, 0, 0,
+    // Alpha from luminance — pure black → transparent, glow stays opaque.
+    0.28, 0.42, 0.62, 0, 0,
+  ]);
+
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: Image.asset(
-        'assets/images/frequency_static_resonance_hero.png',
-        fit: BoxFit.contain,
-        alignment: Alignment.center,
-        filterQuality: FilterQuality.high,
-        gaplessPlayback: true,
+      child: ClipRect(
+        child: SizedBox.expand(
+          child: ColorFiltered(
+            colorFilter: _blackPlateKnockout,
+            child: ShaderMask(
+              blendMode: BlendMode.dstIn,
+              shaderCallback: (bounds) {
+                return RadialGradient(
+                  center: Alignment.center,
+                  radius: 0.98,
+                  colors: const [
+                    Color(0xFFFFFFFF),
+                    Color(0xF5FFFFFF),
+                    Color(0x00FFFFFF),
+                  ],
+                  stops: const [0.0, 0.46, 1.0],
+                ).createShader(bounds);
+              },
+              child: Image.asset(
+                'assets/images/frequency_static_resonance_hero.png',
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.center,
+                filterQuality: FilterQuality.high,
+                gaplessPlayback: true,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
