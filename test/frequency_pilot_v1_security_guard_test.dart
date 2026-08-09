@@ -19,7 +19,11 @@ void main() {
                 f.path.contains('assessment') ||
                 f.path.contains('question')));
     for (final f in screens) {
+      // Offline domain packages may reference pilot/candidate paths without
+      // wiring them into live screens (P2C-2A-8R1).
       if (f.path.contains('/domain/trait_scoring/')) continue;
+      if (f.path.contains('/domain/frequency_bank/')) continue;
+      if (f.path.contains('/domain/frequency_scoring/')) continue;
       final text = f.readAsStringSync();
       expect(text.contains('frequency_pilot_tr_v1'), isFalse, reason: f.path);
       expect(text.contains('assessment_v3/frequency'), isFalse, reason: f.path);

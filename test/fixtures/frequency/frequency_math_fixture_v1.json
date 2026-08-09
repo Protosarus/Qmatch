@@ -1,0 +1,187 @@
+{
+  "schema_version": "qmatch_frequency_bank_v1",
+  "bank_version": "frequency_math_fixture_v1",
+  "content_version": "frequency-math-fixture-v1",
+  "locale": "en-US",
+  "status": "math_fixture",
+  "calibration_status": "uncalibrated",
+  "reliability_status": "not_calibrated",
+  "scoring_policy_version": "frequency_6d_uncalibrated_signed_evidence_v1",
+  "rvi_runtime_gate": "NOT_CALIBRATED / NOT_ACTIVE",
+  "pair_registry": {},
+  "items": [
+    {
+      "item_id": "fx_depth",
+      "item_role": "core",
+      "primary_dimension": "depth_preference",
+      "secondary_dimensions": [],
+      "prompt": "Fixture depth preference",
+      "reverse_scored": true,
+      "options": [
+        {
+          "option_id": "A",
+          "text": "low",
+          "dimension_deltas": { "depth_preference": -1.0 }
+        },
+        {
+          "option_id": "B",
+          "text": "mid",
+          "dimension_deltas": { "depth_preference": 0.0 }
+        },
+        {
+          "option_id": "C",
+          "text": "high",
+          "dimension_deltas": { "depth_preference": 1.0 }
+        }
+      ]
+    },
+    {
+      "item_id": "fx_social",
+      "item_role": "core",
+      "primary_dimension": "social_energy",
+      "secondary_dimensions": [],
+      "prompt": "Fixture social energy",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "low",
+          "dimension_deltas": { "social_energy": -1.0 }
+        },
+        {
+          "option_id": "B",
+          "text": "mid",
+          "dimension_deltas": { "social_energy": 0.0 }
+        },
+        {
+          "option_id": "C",
+          "text": "high",
+          "dimension_deltas": { "social_energy": 1.0 }
+        }
+      ]
+    },
+    {
+      "item_id": "fx_spontaneity",
+      "item_role": "core",
+      "primary_dimension": "spontaneity",
+      "secondary_dimensions": [],
+      "prompt": "Fixture spontaneity",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "low",
+          "dimension_deltas": { "spontaneity": -1.0 }
+        },
+        {
+          "option_id": "B",
+          "text": "mid",
+          "dimension_deltas": { "spontaneity": 0.0 }
+        },
+        {
+          "option_id": "C",
+          "text": "high",
+          "dimension_deltas": { "spontaneity": 1.0 }
+        }
+      ]
+    },
+    {
+      "item_id": "fx_stability",
+      "item_role": "core",
+      "primary_dimension": "stability",
+      "secondary_dimensions": [],
+      "prompt": "Fixture stability",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "low",
+          "dimension_deltas": { "stability": -1.0 }
+        },
+        {
+          "option_id": "B",
+          "text": "mid",
+          "dimension_deltas": { "stability": 0.0 }
+        },
+        {
+          "option_id": "C",
+          "text": "high",
+          "dimension_deltas": { "stability": 1.0 }
+        }
+      ]
+    },
+    {
+      "item_id": "fx_disclosure",
+      "item_role": "core",
+      "primary_dimension": "disclosure_pace",
+      "secondary_dimensions": [],
+      "prompt": "Fixture disclosure pace",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "low",
+          "dimension_deltas": { "disclosure_pace": -1.0 }
+        },
+        {
+          "option_id": "B",
+          "text": "mid",
+          "dimension_deltas": { "disclosure_pace": 0.0 }
+        },
+        {
+          "option_id": "C",
+          "text": "high",
+          "dimension_deltas": { "disclosure_pace": 1.0 }
+        }
+      ]
+    },
+    {
+      "item_id": "fx_comm",
+      "item_role": "core",
+      "primary_dimension": "communication_pace",
+      "secondary_dimensions": ["stability"],
+      "prompt": "Fixture communication pace",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "low",
+          "dimension_deltas": {
+            "communication_pace": -1.0,
+            "stability": 0.3
+          }
+        },
+        {
+          "option_id": "B",
+          "text": "mid",
+          "dimension_deltas": {
+            "communication_pace": 0.0,
+            "stability": 0.0
+          }
+        },
+        {
+          "option_id": "C",
+          "text": "high",
+          "dimension_deltas": {
+            "communication_pace": 1.0,
+            "stability": -0.3
+          }
+        }
+      ]
+    },
+    {
+      "item_id": "fx_quality",
+      "item_role": "quality",
+      "primary_dimension": null,
+      "secondary_dimensions": [],
+      "prompt": "Fixture quality-only (no trait deltas)",
+      "options": [
+        {
+          "option_id": "A",
+          "text": "consistent pace",
+          "dimension_deltas": {}
+        },
+        {
+          "option_id": "B",
+          "text": "variable pace",
+          "dimension_deltas": {}
+        }
+      ]
+    }
+  ]
+}
