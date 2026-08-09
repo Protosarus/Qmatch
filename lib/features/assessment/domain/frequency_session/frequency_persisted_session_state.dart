@@ -76,6 +76,7 @@ class FrequencyPersistedSessionState {
     required this.updatedAt,
     required this.status,
     this.completedAt,
+    this.remoteFinalized = false,
   });
 
   final String schemaVersion;
@@ -94,6 +95,9 @@ class FrequencyPersistedSessionState {
   final String? completedAt;
   final FrequencyPersistedSessionStatus status;
 
+  /// True only after remote assessments/frequency + progress + canonical_v1 succeed.
+  final bool remoteFinalized;
+
   Map<String, FrequencySessionAnswer> get answersByItemId => {
         for (final a in answers) a.itemId: a,
       };
@@ -104,6 +108,7 @@ class FrequencyPersistedSessionState {
     String? updatedAt,
     String? completedAt,
     FrequencyPersistedSessionStatus? status,
+    bool? remoteFinalized,
   }) {
     return FrequencyPersistedSessionState(
       schemaVersion: schemaVersion,
@@ -121,6 +126,7 @@ class FrequencyPersistedSessionState {
       updatedAt: updatedAt ?? this.updatedAt,
       completedAt: completedAt ?? this.completedAt,
       status: status ?? this.status,
+      remoteFinalized: remoteFinalized ?? this.remoteFinalized,
     );
   }
 
@@ -147,6 +153,7 @@ class FrequencyPersistedSessionState {
       'updated_at': updatedAt,
       if (completedAt != null) 'completed_at': completedAt,
       'status': status.wireValue,
+      'remote_finalized': remoteFinalized,
     };
   }
 
@@ -175,6 +182,7 @@ class FrequencyPersistedSessionState {
       completedAt: json['completed_at'] as String?,
       status:
           FrequencyPersistedSessionStatus.fromWire(json['status'] as String?),
+      remoteFinalized: json['remote_finalized'] as bool? ?? false,
     );
   }
 }

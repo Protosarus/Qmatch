@@ -13,6 +13,7 @@ import '../domain/eq_session/eq_session.dart';
 import '../domain/profile/profile.dart';
 import '../services/assessment_progress_service.dart';
 import '../services/canonical_assessment_persistence.dart';
+import '../services/canonical_assessment_profile_reconciler.dart';
 import '../services/eq_canonical_runtime_service.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/assessment_widgets.dart';
@@ -35,6 +36,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
   final _runtime = EqCanonicalRuntimeService();
   final _persistence = CanonicalAssessmentPersistence();
   final _progress = AssessmentProgressService();
+  final _reconciler = CanonicalAssessmentProfileReconciler();
 
   EqPersistedSessionState? _session;
   EqCanonicalBankDocument? _bank;
@@ -152,6 +154,24 @@ class _EQTestScreenState extends State<EQTestScreen> {
     final session = _session;
     final bank = _bank;
     if (session == null || bank == null || _isFinishing) return;
+
+    final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final language = AssessmentLanguage.languageUsed(
+      languageCode: languageCode,
+    );
+    final locale = AssessmentLanguage.localeUsed(locale: Locale(language));
+
+    if (session.status ==
+        EqPersistedSessionStatus.completedPendingPersistence) {
+      await _finalizeRemoteAndNavigate(
+        session: session,
+        locale: locale,
+        language: language,
+      );
+      return;
+    }
+
     if (_selectedOptionId == null) {
       _showSelectAnswerWarningBanner();
       return;
@@ -166,6 +186,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
     );
     if (!answered.ok || answered.state == null) {
       debugPrint('EQ answer failed: ${answered.message}');
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+      );
       return;
     }
 
@@ -186,29 +211,42 @@ class _EQTestScreenState extends State<EQTestScreen> {
       return;
     }
 
-    await _completeAndNavigate(answered.state!);
-  }
-
-  Future<void> _completeAndNavigate(EqPersistedSessionState answered) async {
     setState(() => _isFinishing = true);
     try {
-      final languageCode =
-          Localizations.maybeLocaleOf(context)?.languageCode ??
-              WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final language = AssessmentLanguage.languageUsed(
-        languageCode: languageCode,
-      );
-      final locale = AssessmentLanguage.localeUsed(
-        locale: Locale(language),
-      );
-
       final completed = await _runtime.completeSession(
-        sessionId: answered.sessionId,
+        sessionId: answered.state!.sessionId,
       );
       if (!completed.ok || completed.state == null) {
         throw StateError(completed.message);
       }
-      final scored = await _runtime.scoreCompleted(completed.state!);
+      if (!mounted) return;
+      setState(() => _session = completed.state);
+      await _finalizeRemoteAndNavigate(
+        session: completed.state!,
+        locale: locale,
+        language: language,
+      );
+    } catch (e) {
+      debugPrint('EQ complete failed: $e');
+      if (!mounted) return;
+      setState(() => _isFinishing = false);
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.iqCanonicalPersistError)),
+      );
+    }
+  }
+
+  /// Score → persist eq → reconcile IQ4 → EQ→20D → markEq → finalize session.
+  Future<void> _finalizeRemoteAndNavigate({
+    required EqPersistedSessionState session,
+    required String locale,
+    required String language,
+  }) async {
+    setState(() => _isFinishing = true);
+    final l10n = AppLocalizations.of(context)!;
+    try {
+      final scored = await _runtime.scoreCompleted(session);
       if (!scored.ok || scored.result == null) {
         throw StateError(scored.message ?? 'EQ scoring failed');
       }
@@ -218,7 +256,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
         assessmentType: 'eq',
         fields: _persistence.buildCanonicalEq10dPayload(
           result: result,
-          sessionId: completed.state!.sessionId,
+          sessionId: session.sessionId,
           locale: locale,
           languageUsed: language,
           startedAt: _startedAt,
@@ -230,53 +268,62 @@ class _EQTestScreenState extends State<EQTestScreen> {
         throw StateError('Owner UID unavailable');
       }
 
-      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
-      final existingIq = <QmatchProfileDimension>[];
-      if (existingProfile != null) {
-        final rows = existingProfile['measured_dimensions'];
-        if (rows is List) {
-          for (final row in rows) {
-            if (row is! Map) continue;
-            final d = QmatchProfileDimension.fromJson(
-              Map<String, dynamic>.from(row),
-            );
-            if (d.module == 'iq' &&
-                d.measurementState == QmatchMeasurementState.measured) {
-              existingIq.add(d);
-            }
-          }
-        }
+      final repair = await _reconciler.ensureIq4(ownerUid: uid);
+      if (!repair.ok) {
+        debugPrint(
+            'EQ pre-req IQ4 repair failed: ${repair.code} ${repair.message}');
+        if (!mounted) return;
+        setState(() => _isFinishing = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.assessmentPrerequisiteRepairError)),
+        );
+        return;
       }
+
+      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
+      final existingIq = _reconciler.measuredOfModule(existingProfile, 'iq');
 
       final adapted = const EqTo20dRuntimeAdapter().adapt(
         result: result,
         ownerUid: uid,
-        sessionId: completed.state!.sessionId,
+        sessionId: session.sessionId,
         existingIqDimensions: existingIq,
       );
       if (!adapted.ok || adapted.fragment == null) {
         throw StateError(adapted.message ?? 'EQ→20D adapt failed');
       }
       await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
-
       await _progress.markEqCompleted();
 
+      final finalized = await _runtime.markRemoteFinalized(
+        sessionId: session.sessionId,
+      );
+      if (!finalized.ok || finalized.state == null) {
+        throw StateError(
+          finalized.message.isNotEmpty
+              ? finalized.message
+              : 'EQ finalize failed',
+        );
+      }
+
       debugPrint('✅ Canonical EQ completed — navigating to Frequency');
+      if (!mounted) return;
+      setState(() {
+        _session = finalized.state;
+        _isFinishing = false;
+      });
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const FrequencyIntroScreen()),
+      );
     } catch (e) {
       debugPrint('❌ Error saving canonical EQ results: $e');
       if (mounted) {
         setState(() => _isFinishing = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('EQ completion failed: $e')),
+          SnackBar(content: Text(l10n.iqCanonicalPersistError)),
         );
       }
-      return;
     }
-
-    if (!mounted) return;
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const FrequencyIntroScreen()),
-    );
   }
 
   @override
@@ -320,6 +367,8 @@ class _EQTestScreenState extends State<EQTestScreen> {
     final progress =
         (session.currentQuestionIndex + 1) / session.itemPlans.length;
     final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
+    final pendingFinalize =
+        session.status == EqPersistedSessionStatus.completedPendingPersistence;
 
     return QAssessmentScaffold(
       richBackdrop: true,
@@ -410,23 +459,30 @@ class _EQTestScreenState extends State<EQTestScreen> {
                             selected:
                                 _selectedOptionId == options[index].optionId,
                             compact: true,
-                            onTap: () {
-                              _dismissSelectAnswerWarning();
-                              setState(() {
-                                _selectedOptionId = options[index].optionId;
-                              });
-                            },
+                            onTap: (_isFinishing || pendingFinalize)
+                                ? () {}
+                                : () {
+                                    _dismissSelectAnswerWarning();
+                                    setState(() {
+                                      _selectedOptionId =
+                                          options[index].optionId;
+                                    });
+                                  },
                           ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 8),
                   EqContinueButton(
-                    label: isLast
-                        ? l10n.assessmentFinish
-                        : l10n.assessmentContinue,
-                    active: _selectedOptionId != null,
-                    onPressed: _onContinue,
+                    label: pendingFinalize
+                        ? l10n.iqCanonicalFinalizeRetry
+                        : (isLast
+                            ? l10n.assessmentFinish
+                            : l10n.assessmentContinue),
+                    active: pendingFinalize
+                        ? !_isFinishing
+                        : (_selectedOptionId != null && !_isFinishing),
+                    onPressed: _isFinishing ? () {} : _onContinue,
                   ),
                 ],
               ),

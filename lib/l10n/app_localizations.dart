@@ -338,6 +338,12 @@ abstract class AppLocalizations {
   /// **'Save result'**
   String get iqCanonicalFinalizeRetry;
 
+  /// No description provided for @assessmentPrerequisiteRepairError.
+  ///
+  /// In en, this message translates to:
+  /// **'A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.'**
+  String get assessmentPrerequisiteRepairError;
+
   /// No description provided for @iqDimLogicalReasoning.
   ///
   /// In en, this message translates to:

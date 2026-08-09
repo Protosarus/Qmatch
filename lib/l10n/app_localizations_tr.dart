@@ -144,6 +144,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get iqCanonicalFinalizeRetry => 'Sonucu kaydet';
 
   @override
+  String get assessmentPrerequisiteRepairError =>
+      'Devam etmeden önce önceki bir değerlendirmenin onarılması gerekiyor. Lütfen o değerlendirmeyi yeniden dene veya yeniden başlat.';
+
+  @override
   String get iqDimLogicalReasoning => 'Mantıksal Muhakeme';
 
   @override

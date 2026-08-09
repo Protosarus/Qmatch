@@ -12,6 +12,7 @@ import '../domain/frequency_session/frequency_session.dart';
 import '../domain/profile/profile.dart';
 import '../services/assessment_progress_service.dart';
 import '../services/canonical_assessment_persistence.dart';
+import '../services/canonical_assessment_profile_reconciler.dart';
 import '../services/frequency_canonical_runtime_service.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/frequency_question_chrome.dart';
@@ -33,6 +34,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   final _runtime = FrequencyCanonicalRuntimeService();
   final _persistence = CanonicalAssessmentPersistence();
   final _progress = AssessmentProgressService();
+  final _reconciler = CanonicalAssessmentProfileReconciler();
 
   FrequencyPersistedSessionState? _session;
   FrequencyCanonicalBankDocument? _bank;
@@ -130,6 +132,24 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
     final session = _session;
     final bank = _bank;
     if (session == null || bank == null || _isFinishing) return;
+
+    final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final language = AssessmentLanguage.languageUsed(
+      languageCode: languageCode,
+    );
+    final locale = AssessmentLanguage.localeUsed(locale: Locale(language));
+
+    if (session.status ==
+        FrequencyPersistedSessionStatus.completedPendingPersistence) {
+      await _finalizeRemoteAndNavigate(
+        session: session,
+        locale: locale,
+        language: language,
+      );
+      return;
+    }
+
     if (_selectedOptionId == null) {
       _showSelectAnswerWarningBanner();
       return;
@@ -144,6 +164,11 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
     );
     if (!answered.ok || answered.state == null) {
       debugPrint('Frequency answer failed: ${answered.message}');
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+      );
       return;
     }
 
@@ -164,47 +189,59 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       return;
     }
 
-    await _completeAndNavigate(answered.state!);
-  }
-
-  Future<void> _completeAndNavigate(
-    FrequencyPersistedSessionState answered,
-  ) async {
     setState(() => _isFinishing = true);
     try {
-      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
-          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-      final language = AssessmentLanguage.languageUsed(
-        languageCode: languageCode,
-      );
-      final locale = AssessmentLanguage.localeUsed(
-        locale: Locale(language),
-      );
-
       final completed = await _runtime.completeSession(
-        sessionId: answered.sessionId,
+        sessionId: answered.state!.sessionId,
       );
       if (!completed.ok || completed.state == null) {
         throw StateError(completed.message);
       }
-      final scored = await _runtime.scoreCompleted(completed.state!);
+      if (!mounted) return;
+      setState(() => _session = completed.state);
+      await _finalizeRemoteAndNavigate(
+        session: completed.state!,
+        locale: locale,
+        language: language,
+      );
+    } catch (e) {
+      debugPrint('Frequency complete failed: $e');
+      if (!mounted) return;
+      setState(() => _isFinishing = false);
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.iqCanonicalPersistError)),
+      );
+    }
+  }
+
+  /// Score → persist frequency → reconcile IQ4+EQ10 → Frequency→20D →
+  /// mark flow complete → finalize session.
+  Future<void> _finalizeRemoteAndNavigate({
+    required FrequencyPersistedSessionState session,
+    required String locale,
+    required String language,
+  }) async {
+    setState(() => _isFinishing = true);
+    final l10n = AppLocalizations.of(context)!;
+    try {
+      final scored = await _runtime.scoreCompleted(session);
       if (!scored.ok || scored.result == null) {
         throw StateError(scored.message ?? 'Frequency scoring failed');
       }
       final result = scored.result!;
-      final bank =
-          await _runtime.loadBankForLocale(completed.state!.bankLocale);
+      final bank = await _runtime.loadBankForLocale(session.bankLocale);
       final qualitySignals =
           FrequencyCanonicalRuntimeService.deriveQualitySignals(
         bank: bank,
-        session: completed.state!,
+        session: session,
       );
 
       await _persistence.upsertCompletedAssessment(
         assessmentType: 'frequency',
         fields: _persistence.buildCanonicalFrequency6dPayload(
           result: result,
-          sessionId: completed.state!.sessionId,
+          sessionId: session.sessionId,
           locale: locale,
           languageUsed: language,
           qualitySignals: qualitySignals,
@@ -217,30 +254,27 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
         throw StateError('Owner UID unavailable');
       }
 
-      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
-      final existingIq = <QmatchProfileDimension>[];
-      final existingEq = <QmatchProfileDimension>[];
-      if (existingProfile != null) {
-        final rows = existingProfile['measured_dimensions'];
-        if (rows is List) {
-          for (final row in rows) {
-            if (row is! Map) continue;
-            final d = QmatchProfileDimension.fromJson(
-              Map<String, dynamic>.from(row),
-            );
-            if (d.measurementState != QmatchMeasurementState.measured) {
-              continue;
-            }
-            if (d.module == 'iq') existingIq.add(d);
-            if (d.module == 'eq') existingEq.add(d);
-          }
-        }
+      final repair = await _reconciler.ensureIq4AndEq10(ownerUid: uid);
+      if (!repair.ok) {
+        debugPrint(
+          'Frequency pre-req 14/20 repair failed: ${repair.code} ${repair.message}',
+        );
+        if (!mounted) return;
+        setState(() => _isFinishing = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.assessmentPrerequisiteRepairError)),
+        );
+        return;
       }
+
+      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
+      final existingIq = _reconciler.measuredOfModule(existingProfile, 'iq');
+      final existingEq = _reconciler.measuredOfModule(existingProfile, 'eq');
 
       final adapted = const FrequencyTo20dRuntimeAdapter().adapt(
         result: result,
         ownerUid: uid,
-        sessionId: completed.state!.sessionId,
+        sessionId: session.sessionId,
         existingIqDimensions: existingIq,
         existingEqDimensions: existingEq,
       );
@@ -249,8 +283,19 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       }
       await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
 
-      // Closes assessment battery without Persona reveal.
+      // Progress mark only after canonical profile upsert succeeds.
       await _progress.markAssessmentFlowCompleted();
+
+      final finalized = await _runtime.markRemoteFinalized(
+        sessionId: session.sessionId,
+      );
+      if (!finalized.ok || finalized.state == null) {
+        throw StateError(
+          finalized.message.isNotEmpty
+              ? finalized.message
+              : 'Frequency finalize failed',
+        );
+      }
 
       final profileCompleted = await AuthService().hasCompletedProfile();
       try {
@@ -262,6 +307,10 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       );
 
       if (!mounted) return;
+      setState(() {
+        _session = finalized.state;
+        _isFinishing = false;
+      });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => AssessmentFlowCompleteScreen(
@@ -274,7 +323,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       if (mounted) {
         setState(() => _isFinishing = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Frequency completion failed: $e')),
+          SnackBar(content: Text(l10n.iqCanonicalPersistError)),
         );
       }
     }
@@ -321,6 +370,8 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
     final progress =
         (session.currentQuestionIndex + 1) / session.itemPlans.length;
     final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
+    final pendingFinalize = session.status ==
+        FrequencyPersistedSessionStatus.completedPendingPersistence;
     final compact = MediaQuery.sizeOf(context).height < 700;
 
     return QAssessmentScaffold(
@@ -410,22 +461,30 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                           label: opt.text,
                           selected: _selectedOptionId == opt.optionId,
                           compact: true,
-                          onTap: () {
-                            _dismissSelectAnswerWarning();
-                            setState(() => _selectedOptionId = opt.optionId);
-                          },
+                          onTap: (_isFinishing || pendingFinalize)
+                              ? () {}
+                              : () {
+                                  _dismissSelectAnswerWarning();
+                                  setState(
+                                    () => _selectedOptionId = opt.optionId,
+                                  );
+                                },
                         );
                       },
                     ),
                   ),
                   SizedBox(height: compact ? 6 : 9),
                   FrequencyContinueButton(
-                    label: isLast
-                        ? l10n.assessmentFinish
-                        : l10n.assessmentContinue,
-                    active: _selectedOptionId != null,
+                    label: pendingFinalize
+                        ? l10n.iqCanonicalFinalizeRetry
+                        : (isLast
+                            ? l10n.assessmentFinish
+                            : l10n.assessmentContinue),
+                    active: pendingFinalize
+                        ? !_isFinishing
+                        : (_selectedOptionId != null && !_isFinishing),
                     saving: _isFinishing,
-                    onPressed: _onContinue,
+                    onPressed: _isFinishing ? () {} : _onContinue,
                   ),
                 ],
               ),

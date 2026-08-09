@@ -71,6 +71,7 @@
   "iqCanonicalAnswerError": "Yanıtın kaydedilemedi. Lütfen tekrar dene.",
   "iqCanonicalPersistError": "Sonucun kaydedilemedi. Yanıtların güvende; tekrar deneyebilirsin.",
   "iqCanonicalFinalizeRetry": "Sonucu kaydet",
+  "assessmentPrerequisiteRepairError": "Devam etmeden önce önceki bir değerlendirmenin onarılması gerekiyor. Lütfen o değerlendirmeyi yeniden dene veya yeniden başlat.",
   "iqDimLogicalReasoning": "Mantıksal Muhakeme",
   "iqDimPatternReasoning": "Örüntü Muhakemesi",
   "iqDimVerbalReasoning": "Sözel Muhakeme",

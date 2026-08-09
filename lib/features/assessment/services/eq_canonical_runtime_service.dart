@@ -103,6 +103,11 @@ class EqCanonicalRuntimeService {
     return 'live_eq_${uid}_$hex';
   }
 
+  /// Resume valid in-progress / pending-finalization draft, or create new.
+  ///
+  /// [preferredLanguageCode] only applies when composing a **new** session.
+  /// An existing active/pending session always resumes against its persisted
+  /// `bank_locale` / `bank_version` (no mid-session language swap).
   Future<EqSessionWriteResult> getOrCreateActiveSession({
     String? preferredLanguageCode,
   }) async {
@@ -116,8 +121,7 @@ class EqCanonicalRuntimeService {
     }
 
     final peek = await _repo.loadActiveSession(uid);
-    if (peek.isLoaded &&
-        peek.state!.status == EqPersistedSessionStatus.inProgress) {
+    if (peek.isLoaded && peek.state!.status.keepsActivePointer) {
       final bank = await loadBankForLocale(peek.state!.bankLocale);
       final manager = await _bindManager(bank);
       return manager.getOrCreateActiveSession(
@@ -131,6 +135,26 @@ class EqCanonicalRuntimeService {
         ok: false,
         code: peek.code.name,
         message: peek.message,
+      );
+    }
+
+    // Stuck pre-hotfix / cleared-pointer recovery: bind the candidate's bank.
+    final listed = await _repo.listOwnerSessions(uid);
+    final stuck = <EqPersistedSessionState>[
+      for (final s in listed)
+        if (!s.remoteFinalized &&
+            s.answers.length == EqSessionContract.sessionItemCount &&
+            (s.status == EqPersistedSessionStatus.completed ||
+                s.status ==
+                    EqPersistedSessionStatus.completedPendingPersistence))
+          s,
+    ];
+    if (stuck.length == 1) {
+      final bank = await loadBankForLocale(stuck.single.bankLocale);
+      final manager = await _bindManager(bank);
+      return manager.getOrCreateActiveSession(
+        ownerUid: uid,
+        sessionSeed: _newSessionSeed(uid),
       );
     }
 
@@ -231,12 +255,36 @@ class EqCanonicalRuntimeService {
     return manager.complete(ownerUid: uid, sessionId: sessionId);
   }
 
+  /// After remote assessments/eq + progress + canonical_v1 succeed.
+  Future<EqSessionWriteResult> markRemoteFinalized({
+    required String sessionId,
+  }) async {
+    final uid = currentUid;
+    if (uid == null || uid.isEmpty) {
+      return const EqSessionWriteResult(
+        ok: false,
+        code: 'owner_unavailable',
+        message: 'Owner UID unavailable',
+      );
+    }
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return EqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
+    return manager.markRemoteFinalized(ownerUid: uid, sessionId: sessionId);
+  }
+
   Future<EqScoringOutcome> scoreCompleted(
     EqPersistedSessionState session,
   ) async {
     final bank = await loadBankForLocale(session.bankLocale);
     await _bindManager(bank);
-    if (session.status != EqPersistedSessionStatus.completed) {
+    if (!session.status.isScoreable) {
       return const EqScoringOutcome.fail(
         code: EqScoringFailureCode.incompleteSession,
         message: 'Session not completed',

@@ -143,6 +143,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iqCanonicalFinalizeRetry => 'Save result';
 
   @override
+  String get assessmentPrerequisiteRepairError =>
+      'A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.';
+
+  @override
   String get iqDimLogicalReasoning => 'Logical Reasoning';
 
   @override

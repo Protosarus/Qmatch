@@ -6,6 +6,9 @@ import 'eq_session_contract.dart';
 import 'eq_session_persistence_repository.dart';
 
 /// Compose full 30-item EQ session + durable resume.
+///
+/// HOTFIX: answer-complete locks answers as [completedPendingPersistence]
+/// while keeping the active pointer until remote finalization succeeds.
 class EqSessionManager {
   EqSessionManager({
     required EqCanonicalBankDocument bank,
@@ -57,6 +60,7 @@ class EqSessionManager {
     ];
   }
 
+  /// Resume valid in-progress / pending-finalization draft, else compose new.
   Future<EqSessionWriteResult> getOrCreateActiveSession({
     required String ownerUid,
     required String sessionSeed,
@@ -77,9 +81,12 @@ class EqSessionManager {
         bank: _bank,
         ownerUid: ownerUid,
       );
-      if (validated.isLoaded &&
-          validated.state!.status == EqPersistedSessionStatus.inProgress) {
-        return EqSessionWriteResult(ok: true, state: validated.state);
+      if (validated.isLoaded) {
+        final status = validated.state!.status;
+        if (status == EqPersistedSessionStatus.inProgress ||
+            status == EqPersistedSessionStatus.completedPendingPersistence) {
+          return EqSessionWriteResult(ok: true, state: validated.state);
+        }
       }
       if (validated.code == EqSessionLoadCode.incompatibleBank ||
           validated.code == EqSessionLoadCode.incompatiblePolicy ||
@@ -100,6 +107,13 @@ class EqSessionManager {
         code: existing.code.name,
         message: existing.message,
       );
+    }
+
+    // Conservative recovery for pre-hotfix stuck sessions:
+    // exactly one non-finalized completed 30-answer blob for this UID+bank.
+    final recovered = await _recoverUniqueStuckCompleted(ownerUid);
+    if (recovered != null) {
+      return recovered;
     }
 
     final plans = _composePlans(sessionSeed);
@@ -137,7 +151,51 @@ class EqSessionManager {
     return EqSessionWriteResult(ok: true, state: state);
   }
 
-  Future<EqSessionWriteResult> _loadValidatedInProgress(
+  /// Promote a unique stuck pre-hotfix `completed` session into pending.
+  Future<EqSessionWriteResult?> _recoverUniqueStuckCompleted(
+    String ownerUid,
+  ) async {
+    final listed = await _repository.listOwnerSessions(ownerUid);
+    final candidates = <EqPersistedSessionState>[];
+    for (final raw in listed) {
+      if (raw.ownerUid != ownerUid) continue;
+      if (raw.remoteFinalized) continue;
+      if (raw.status != EqPersistedSessionStatus.completed &&
+          raw.status != EqPersistedSessionStatus.completedPendingPersistence) {
+        continue;
+      }
+      if (raw.answers.length != EqSessionContract.sessionItemCount) continue;
+      final validated = EqPersistedSessionValidator.validate(
+        state: raw,
+        bank: _bank,
+        ownerUid: ownerUid,
+      );
+      if (!validated.isLoaded) continue;
+      candidates.add(validated.state!);
+    }
+    if (candidates.length != 1) {
+      // 0 → compose new; >1 → unsafe, do not guess.
+      return null;
+    }
+    final only = candidates.single;
+    if (only.status == EqPersistedSessionStatus.completedPendingPersistence &&
+        only.remoteFinalized == false) {
+      // Re-attach active pointer if missing.
+      await _repository.saveSession(only);
+      return EqSessionWriteResult(ok: true, state: only);
+    }
+    final now = _nowIso();
+    final pending = only.copyWith(
+      status: EqPersistedSessionStatus.completedPendingPersistence,
+      remoteFinalized: false,
+      updatedAt: now,
+      completedAt: only.completedAt ?? now,
+    );
+    await _repository.saveSession(pending);
+    return EqSessionWriteResult(ok: true, state: pending);
+  }
+
+  Future<EqSessionWriteResult> _loadValidatedEditable(
     String ownerUid,
     String sessionId,
   ) async {
@@ -159,13 +217,15 @@ class EqSessionManager {
         ok: false,
         code: validated.code.name,
         message: validated.message,
+        state: loaded.state,
       );
     }
-    if (validated.state!.status != EqPersistedSessionStatus.inProgress) {
-      return const EqSessionWriteResult(
+    if (!validated.state!.status.isAnswerEditable) {
+      return EqSessionWriteResult(
         ok: false,
-        code: 'session_not_in_progress',
-        message: 'Session is not in progress',
+        code: 'session_not_editable',
+        message: 'Session is ${validated.state!.status.name}',
+        state: validated.state,
       );
     }
     return EqSessionWriteResult(ok: true, state: validated.state);
@@ -176,7 +236,7 @@ class EqSessionManager {
     required String sessionId,
     required int index,
   }) async {
-    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    final loaded = await _loadValidatedEditable(ownerUid, sessionId);
     if (!loaded.ok) return loaded;
     final state = loaded.state!;
     if (index < 0 || index >= state.itemPlans.length) {
@@ -200,9 +260,16 @@ class EqSessionManager {
     required String itemId,
     required String selectedOptionId,
   }) async {
-    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    final loaded = await _loadValidatedEditable(ownerUid, sessionId);
     if (!loaded.ok) return loaded;
     final state = loaded.state!;
+    if (!state.status.isAnswerEditable) {
+      return const EqSessionWriteResult(
+        ok: false,
+        code: 'session_not_editable',
+        message: 'Completed/abandoned sessions reject answers',
+      );
+    }
     EqSessionItemPlan? plan;
     for (final p in state.itemPlans) {
       if (p.itemId == itemId) {
@@ -238,18 +305,31 @@ class EqSessionManager {
     return EqSessionWriteResult(ok: true, state: next);
   }
 
+  /// Lock the 30-answer set for scoring while keeping resume/finalization.
+  ///
+  /// Status becomes [EqPersistedSessionStatus.completedPendingPersistence]
+  /// (active pointer retained). Call [markRemoteFinalized] only after remote
+  /// assessments/eq + progress + canonical_v1 succeed.
   Future<EqSessionWriteResult> complete({
     required String ownerUid,
     required String sessionId,
   }) async {
-    final loaded = await _loadValidatedInProgress(ownerUid, sessionId);
+    final loaded = await _loadValidatedEditable(ownerUid, sessionId);
     if (!loaded.ok) return loaded;
     final state = loaded.state!;
-    if (state.answers.length != state.itemPlans.length) {
+    if (state.itemPlans.length != EqSessionContract.sessionItemCount) {
       return const EqSessionWriteResult(
         ok: false,
+        code: 'invalid_plan',
+        message: 'Session must contain 30 items',
+      );
+    }
+    if (state.answers.length != EqSessionContract.sessionItemCount) {
+      return EqSessionWriteResult(
+        ok: false,
         code: 'incomplete_session',
-        message: 'Not all items answered',
+        message:
+            'Need ${EqSessionContract.sessionItemCount} answers, have ${state.answers.length}',
       );
     }
     for (final p in state.itemPlans) {
@@ -263,9 +343,64 @@ class EqSessionManager {
     }
     final now = _nowIso();
     final next = state.copyWith(
-      status: EqPersistedSessionStatus.completed,
+      status: EqPersistedSessionStatus.completedPendingPersistence,
       completedAt: now,
       updatedAt: now,
+      remoteFinalized: false,
+    );
+    await _repository.saveSession(next);
+    return EqSessionWriteResult(ok: true, state: next);
+  }
+
+  /// Marks remote pipeline success: scientific `completed` + clear active.
+  Future<EqSessionWriteResult> markRemoteFinalized({
+    required String ownerUid,
+    required String sessionId,
+  }) async {
+    final loaded = await _repository.loadSession(ownerUid, sessionId);
+    if (!loaded.isLoaded) {
+      return EqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final validated = EqPersistedSessionValidator.validate(
+      state: loaded.state!,
+      bank: _bank,
+      ownerUid: ownerUid,
+    );
+    if (!validated.isLoaded) {
+      return EqSessionWriteResult(
+        ok: false,
+        code: validated.code.name,
+        message: validated.message,
+        state: loaded.state,
+      );
+    }
+    final state = validated.state!;
+    if (!state.status.isScoreable &&
+        state.status != EqPersistedSessionStatus.completed) {
+      return EqSessionWriteResult(
+        ok: false,
+        code: 'session_not_finalizable',
+        message: 'Session is ${state.status.wireValue}',
+        state: state,
+      );
+    }
+    if (state.answers.length != EqSessionContract.sessionItemCount) {
+      return const EqSessionWriteResult(
+        ok: false,
+        code: 'incomplete_session',
+        message: 'Cannot finalize incomplete session',
+      );
+    }
+    final now = _nowIso();
+    final next = state.copyWith(
+      status: EqPersistedSessionStatus.completed,
+      remoteFinalized: true,
+      updatedAt: now,
+      completedAt: state.completedAt ?? now,
     );
     await _repository.saveSession(next);
     return EqSessionWriteResult(ok: true, state: next);

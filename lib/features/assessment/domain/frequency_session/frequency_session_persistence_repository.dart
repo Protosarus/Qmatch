@@ -27,6 +27,8 @@ class FrequencySessionStorageKeys {
 
   static String session(String uid, String sessionId) =>
       '$prefix.session.$uid.$sessionId';
+
+  static String sessionPrefix(String ownerUid) => '$prefix.session.$ownerUid.';
 }
 
 enum FrequencySessionLoadCode {
@@ -75,6 +77,11 @@ abstract class FrequencySessionPersistenceRepository {
       String ownerUid, String sessionId);
   Future<void> deleteSession(String ownerUid, String sessionId);
   Future<void> clearOwnerSessions(String ownerUid);
+
+  /// Lists durable session blobs for [ownerUid] (UID-scoped only).
+  Future<List<FrequencyPersistedSessionState>> listOwnerSessions(
+    String ownerUid,
+  );
 }
 
 class FrequencySessionMemoryRepository
@@ -87,7 +94,7 @@ class FrequencySessionMemoryRepository
         FrequencySessionStorageKeys.session(state.ownerUid, state.sessionId);
     _store[key] = jsonEncode(state.toJson());
     final activeKey = FrequencySessionStorageKeys.activePointer(state.ownerUid);
-    if (state.status == FrequencyPersistedSessionStatus.inProgress) {
+    if (state.status.keepsActivePointer) {
       _store[activeKey] = state.sessionId;
     } else if (_store[activeKey] == state.sessionId) {
       _store.remove(activeKey);
@@ -158,12 +165,33 @@ class FrequencySessionMemoryRepository
 
   @override
   Future<void> clearOwnerSessions(String ownerUid) async {
-    final prefix = '${FrequencySessionStorageKeys.prefix}.session.$ownerUid.';
+    final prefix = FrequencySessionStorageKeys.sessionPrefix(ownerUid);
     _store.removeWhere(
       (k, _) =>
           k.startsWith(prefix) ||
           k == FrequencySessionStorageKeys.activePointer(ownerUid),
     );
+  }
+
+  @override
+  Future<List<FrequencyPersistedSessionState>> listOwnerSessions(
+    String ownerUid,
+  ) async {
+    if (ownerUid.trim().isEmpty) return const [];
+    final prefix = FrequencySessionStorageKeys.sessionPrefix(ownerUid);
+    final out = <FrequencyPersistedSessionState>[];
+    for (final e in _store.entries) {
+      if (!e.key.startsWith(prefix)) continue;
+      try {
+        final state = FrequencyPersistedSessionState.fromJson(
+          jsonDecode(e.value) as Map<String, dynamic>,
+        );
+        if (state.ownerUid == ownerUid) out.add(state);
+      } catch (_) {
+        // Skip corrupt blobs during listing.
+      }
+    }
+    return out;
   }
 }
 

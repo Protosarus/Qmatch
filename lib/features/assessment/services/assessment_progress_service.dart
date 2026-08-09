@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../models/assessment_progress.dart';
 import '../models/frequency_model.dart';
+import 'canonical_assessment_persistence.dart';
+import 'canonical_assessment_profile_reconciler.dart';
 
 /// Resolves and writes assessment progress for flow version 2.
 ///
@@ -69,7 +71,7 @@ class AssessmentProgressService {
       'frequency',
     ).get();
 
-    return resolveFromMaps(
+    final snapshot = resolveFromMaps(
       userDoc: userDoc,
       iqAssessment: iqDoc.data(),
       eqAssessment: eqDoc.data(),
@@ -78,6 +80,79 @@ class AssessmentProgressService {
       eqAssignment: eqAsg.data(),
       frequencyAssignment: freqAsg.data(),
     );
+
+    // Canonical profile gate: completion mirrors alone are not enough to
+    // advance past missing IQ4 / 14/20 fragments.
+    final persistence = CanonicalAssessmentPersistence();
+    final reconciler = CanonicalAssessmentProfileReconciler(
+      persistence: persistence,
+    );
+    var check = reconciler.inspectProfileMap(
+      await persistence.getCanonicalProfile(uid: uid),
+    );
+
+    if (snapshot.iqCompleted && !check.hasExactIq4) {
+      final repair = await reconciler.ensureIq4(ownerUid: uid);
+      check = repair.check ??
+          reconciler.inspectProfileMap(
+            await persistence.getCanonicalProfile(uid: uid),
+          );
+      if (!repair.ok || !check.hasExactIq4) {
+        return AssessmentProgressSnapshot(
+          assessmentFlowVersion: snapshot.assessmentFlowVersion,
+          iqStatus: snapshot.iqStatus,
+          eqStatus: snapshot.eqStatus,
+          frequencyStatus: snapshot.frequencyStatus,
+          frequencyCompleted: snapshot.frequencyCompleted,
+          frequencyIncomplete: snapshot.frequencyIncomplete,
+          iqCompleted: snapshot.iqCompleted,
+          eqCompleted: snapshot.eqCompleted,
+          allAssessmentsCompleted: snapshot.allAssessmentsCompleted,
+          assessmentFlowCompleted: snapshot.assessmentFlowCompleted,
+          canonicalPersonaAvailable: snapshot.canonicalPersonaAvailable,
+          profileCompleted: snapshot.profileCompleted,
+          destination: AssessmentFlowDestination.iq,
+          resolutionSource: snapshot.resolutionSource,
+          reason: 'iq_canonical_profile_required',
+        );
+      }
+    }
+
+    if (snapshot.iqCompleted && snapshot.eqCompleted && !check.hasExact14) {
+      final repair = await reconciler.ensureIq4AndEq10(ownerUid: uid);
+      check = repair.check ??
+          reconciler.inspectProfileMap(
+            await persistence.getCanonicalProfile(uid: uid),
+          );
+      if (!repair.ok || !check.hasExact14) {
+        if (snapshot.destination == AssessmentFlowDestination.frequency) {
+          final missingIq4 = !check.hasExactIq4;
+          return AssessmentProgressSnapshot(
+            assessmentFlowVersion: snapshot.assessmentFlowVersion,
+            iqStatus: snapshot.iqStatus,
+            eqStatus: snapshot.eqStatus,
+            frequencyStatus: snapshot.frequencyStatus,
+            frequencyCompleted: snapshot.frequencyCompleted,
+            frequencyIncomplete: snapshot.frequencyIncomplete,
+            iqCompleted: snapshot.iqCompleted,
+            eqCompleted: snapshot.eqCompleted,
+            allAssessmentsCompleted: snapshot.allAssessmentsCompleted,
+            assessmentFlowCompleted: snapshot.assessmentFlowCompleted,
+            canonicalPersonaAvailable: snapshot.canonicalPersonaAvailable,
+            profileCompleted: snapshot.profileCompleted,
+            destination: missingIq4
+                ? AssessmentFlowDestination.iq
+                : AssessmentFlowDestination.eq,
+            resolutionSource: snapshot.resolutionSource,
+            reason: missingIq4
+                ? 'iq_canonical_profile_required'
+                : 'eq_canonical_profile_required',
+          );
+        }
+      }
+    }
+
+    return snapshot;
   }
 
   /// Pure resolver for unit tests (no Firebase).

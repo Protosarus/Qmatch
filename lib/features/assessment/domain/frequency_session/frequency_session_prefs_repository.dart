@@ -26,7 +26,7 @@ class FrequencySessionPrefsRepository
       json,
     );
     final activeKey = FrequencySessionStorageKeys.activePointer(state.ownerUid);
-    if (state.status == FrequencyPersistedSessionStatus.inProgress) {
+    if (state.status.keepsActivePointer) {
       await prefs.setString(activeKey, state.sessionId);
     } else {
       final active = prefs.getString(activeKey);
@@ -113,8 +113,7 @@ class FrequencySessionPrefsRepository
   @override
   Future<void> clearOwnerSessions(String ownerUid) async {
     final prefs = await _ensure();
-    final prefixSession =
-        '${FrequencySessionStorageKeys.prefix}.session.$ownerUid.';
+    final prefixSession = FrequencySessionStorageKeys.sessionPrefix(ownerUid);
     final keys = prefs.getKeys().where(
           (k) =>
               k.startsWith(prefixSession) ||
@@ -123,5 +122,29 @@ class FrequencySessionPrefsRepository
     for (final k in keys) {
       await prefs.remove(k);
     }
+  }
+
+  @override
+  Future<List<FrequencyPersistedSessionState>> listOwnerSessions(
+    String ownerUid,
+  ) async {
+    if (ownerUid.trim().isEmpty) return const [];
+    final prefs = await _ensure();
+    final prefix = FrequencySessionStorageKeys.sessionPrefix(ownerUid);
+    final out = <FrequencyPersistedSessionState>[];
+    for (final k in prefs.getKeys()) {
+      if (!k.startsWith(prefix)) continue;
+      final raw = prefs.getString(k);
+      if (raw == null) continue;
+      try {
+        final state = FrequencyPersistedSessionState.fromJson(
+          jsonDecode(raw) as Map<String, dynamic>,
+        );
+        if (state.ownerUid == ownerUid) out.add(state);
+      } catch (_) {
+        // Skip corrupt blobs during listing.
+      }
+    }
+    return out;
   }
 }

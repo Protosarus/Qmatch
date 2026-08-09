@@ -273,7 +273,6 @@ class _IQTestScreenState extends State<IQTestScreen> {
             startedAt: _startedAt,
           ),
         );
-        await _progress.markIqCompleted(rawScore: null);
 
         final uid = _runtime.currentUid;
         if (uid == null || uid.isEmpty) {
@@ -287,7 +286,10 @@ class _IQTestScreenState extends State<IQTestScreen> {
           throw StateError(
               adapted.message ?? adapted.code?.name ?? 'adapt_failed');
         }
+        // Profile before progress mirror — downstream must not see iq_completed
+        // without IQ4 on canonical_v1.
         await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
+        await _progress.markIqCompleted(rawScore: null);
       } catch (e) {
         debugPrint('Canonical IQ result persistence failed: $e');
         if (!mounted) return;

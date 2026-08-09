@@ -26,6 +26,8 @@ class EqSessionStorageKeys {
 
   static String session(String uid, String sessionId) =>
       '$prefix.session.$uid.$sessionId';
+
+  static String sessionPrefix(String ownerUid) => '$prefix.session.$ownerUid.';
 }
 
 enum EqSessionLoadCode {
@@ -73,6 +75,9 @@ abstract class EqSessionPersistenceRepository {
   Future<EqSessionLoadResult> loadSession(String ownerUid, String sessionId);
   Future<void> deleteSession(String ownerUid, String sessionId);
   Future<void> clearOwnerSessions(String ownerUid);
+
+  /// Lists durable session blobs for [ownerUid] (UID-scoped only).
+  Future<List<EqPersistedSessionState>> listOwnerSessions(String ownerUid);
 }
 
 class EqSessionMemoryRepository implements EqSessionPersistenceRepository {
@@ -83,7 +88,7 @@ class EqSessionMemoryRepository implements EqSessionPersistenceRepository {
     final key = EqSessionStorageKeys.session(state.ownerUid, state.sessionId);
     _store[key] = jsonEncode(state.toJson());
     final activeKey = EqSessionStorageKeys.activePointer(state.ownerUid);
-    if (state.status == EqPersistedSessionStatus.inProgress) {
+    if (state.status.keepsActivePointer) {
       _store[activeKey] = state.sessionId;
     } else if (_store[activeKey] == state.sessionId) {
       _store.remove(activeKey);
@@ -151,12 +156,33 @@ class EqSessionMemoryRepository implements EqSessionPersistenceRepository {
 
   @override
   Future<void> clearOwnerSessions(String ownerUid) async {
-    final prefix = '${EqSessionStorageKeys.prefix}.session.$ownerUid.';
+    final prefix = EqSessionStorageKeys.sessionPrefix(ownerUid);
     _store.removeWhere(
       (k, _) =>
           k.startsWith(prefix) ||
           k == EqSessionStorageKeys.activePointer(ownerUid),
     );
+  }
+
+  @override
+  Future<List<EqPersistedSessionState>> listOwnerSessions(
+    String ownerUid,
+  ) async {
+    if (ownerUid.trim().isEmpty) return const [];
+    final prefix = EqSessionStorageKeys.sessionPrefix(ownerUid);
+    final out = <EqPersistedSessionState>[];
+    for (final e in _store.entries) {
+      if (!e.key.startsWith(prefix)) continue;
+      try {
+        final state = EqPersistedSessionState.fromJson(
+          jsonDecode(e.value) as Map<String, dynamic>,
+        );
+        if (state.ownerUid == ownerUid) out.add(state);
+      } catch (_) {
+        // Skip corrupt blobs during listing.
+      }
+    }
+    return out;
   }
 }
 
