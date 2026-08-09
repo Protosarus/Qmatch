@@ -309,7 +309,7 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final minHeight = compact ? 34.0 : 42.0;
+    final minHeight = compact ? 44.0 : 52.0;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -318,8 +318,8 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
         child: Container(
           constraints: BoxConstraints(minHeight: minHeight),
           padding: EdgeInsets.symmetric(
-            horizontal: compact ? 9 : 11,
-            vertical: compact ? 4 : 7,
+            horizontal: compact ? 11 : 13,
+            vertical: compact ? 9 : 11,
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
@@ -351,10 +351,11 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
                 : null,
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: compact ? 25 : 29,
-                height: compact ? 25 : 29,
+                width: compact ? 27 : 31,
+                height: compact ? 27 : 31,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: const Color(0x55201638),
@@ -371,24 +372,24 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: compact ? 8 : 10),
+              SizedBox(width: compact ? 9 : 11),
               Expanded(
                 child: Text(
                   label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
                     color: Colors.white.withValues(
-                      alpha: selected ? 1 : 0.82,
+                      alpha: selected ? 1 : 0.92,
                     ),
-                    fontSize: compact ? 11.5 : 13,
-                    fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+                    fontSize: compact ? 15 : 16.5,
+                    fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                    height: 1.32,
                   ),
                 ),
               ),
+              const SizedBox(width: 6),
               Icon(
                 selected ? Icons.check_circle_rounded : Icons.circle_outlined,
-                size: compact ? 17 : 19,
+                size: compact ? 19 : 21,
                 color: selected
                     ? const Color(0xFFFFD68B)
                     : const Color(0x777D7597),

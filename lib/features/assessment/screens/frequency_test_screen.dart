@@ -413,7 +413,6 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
     final isLast = session.currentQuestionIndex >= session.itemPlans.length - 1;
     final pendingFinalize = session.status ==
         FrequencyPersistedSessionStatus.completedPendingPersistence;
-    final compact = MediaQuery.sizeOf(context).height < 700;
 
     return QAssessmentScaffold(
       richBackdrop: true,
@@ -421,8 +420,10 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final height = constraints.maxHeight;
+          final compact = height < 700;
+          // Keep wave modest so question + options get vertical room.
           final heroHeight =
-              (height * (compact ? 0.14 : 0.17)).clamp(72.0, 140.0);
+              (height * (compact ? 0.10 : 0.12)).clamp(56.0, 110.0);
 
           return Stack(
             fit: StackFit.expand,
@@ -477,7 +478,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.inter(
                                 color: Colors.white,
-                                fontSize: compact ? 15.5 : 16.5,
+                                fontSize: compact ? 17.5 : 19,
                                 fontWeight: FontWeight.w600,
                                 height: 1.35,
                               ),
@@ -499,7 +500,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                           value: index + 1,
                           label: opt.text,
                           selected: _selectedOptionId == opt.optionId,
-                          compact: true,
+                          compact: compact,
                           onTap: (_isFinishing || pendingFinalize)
                               ? () {}
                               : () {
