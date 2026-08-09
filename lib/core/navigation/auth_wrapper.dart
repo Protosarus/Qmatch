@@ -96,13 +96,17 @@ class AuthWrapper extends StatelessWidget {
 class _AuthLoadingScaffold extends StatelessWidget {
   const _AuthLoadingScaffold();
 
+  /// Cool lavender — Frequency / cosmic accent (not soft-gold).
+  static const Color _spinner = Color(0xFFDAC8ED);
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: Color(0xFF0C0C0C),
       body: Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE3C565)),
+          valueColor: AlwaysStoppedAnimation<Color>(_spinner),
+          strokeWidth: 2.6,
         ),
       ),
     );

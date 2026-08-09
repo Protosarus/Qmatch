@@ -380,7 +380,8 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
         backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
         child: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
+            strokeWidth: 2.6,
           ),
         ),
       );
