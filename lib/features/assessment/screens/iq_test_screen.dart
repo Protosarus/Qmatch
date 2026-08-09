@@ -11,6 +11,7 @@ import '../../../l10n/app_localizations.dart';
 import '../domain/iq_bank/iq_bank.dart';
 import '../domain/iq_scoring/iq_scoring.dart';
 import '../domain/iq_session/iq_session.dart';
+import '../domain/profile/profile.dart';
 import '../services/assessment_progress_service.dart';
 import '../services/canonical_assessment_persistence.dart';
 import '../services/iq_canonical_runtime_service.dart';
@@ -238,6 +239,21 @@ class _IQTestScreenState extends State<IQTestScreen> {
         );
         // Do not write legacy scalar iq_score (not a standardized IQ).
         await _progress.markIqCompleted(rawScore: null);
+
+        // P2C-2A-6: map 4D IQ into partial canonical 20D profile (no EQ/Freq).
+        final uid = _runtime.currentUid;
+        if (uid == null || uid.isEmpty) {
+          throw StateError('Owner UID unavailable for profile adapter');
+        }
+        final adapted = const IqTo20dRuntimeAdapter().adapt(
+          result: scored.result!,
+          ownerUid: uid,
+        );
+        if (!adapted.ok || adapted.fragment == null) {
+          throw StateError(
+              adapted.message ?? adapted.code?.name ?? 'adapt_failed');
+        }
+        await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
       } catch (e) {
         debugPrint('Canonical IQ result persistence failed: $e');
         if (!mounted) return;

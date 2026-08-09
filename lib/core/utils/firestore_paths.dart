@@ -79,6 +79,15 @@ class FirestorePaths {
   ) =>
       userAssessments(uid).doc(assessmentType);
 
+  /// Canonical multidimensional profile: `users/{uid}/profiles/canonical_v1`.
+  static CollectionReference<Map<String, dynamic>> userProfiles(String uid) =>
+      userDoc(uid).collection('profiles');
+
+  static DocumentReference<Map<String, dynamic>> userCanonicalProfileDoc(
+    String uid,
+  ) =>
+      userProfiles(uid).doc('canonical_v1');
+
   // matches/{matchId}
   static DocumentReference<Map<String, dynamic>> matchDoc(String matchId) =>
       matches().doc(matchId);

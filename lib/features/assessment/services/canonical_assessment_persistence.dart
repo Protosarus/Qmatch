@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
 import '../domain/iq_scoring/iq_scoring_models.dart';
+import '../domain/profile/profile.dart';
 import 'assessment_set_service.dart';
 import 'iq_recovery.dart';
 
@@ -64,6 +65,8 @@ class CanonicalAssessmentVersions {
   static const normalizationVersion = 'norm_v0_missing_explicit';
   static const rviVersion = 'rvi_v0_unscored';
   static const iqLiveResultSchemaVersion = 'qmatch_iq_live_result_v1';
+  static const canonicalProfileSchemaVersion =
+      QmatchProfileContract.schemaVersion;
 }
 
 /// Shared merge writer for `users/{uid}/assessments/{type}` documents.
@@ -134,6 +137,60 @@ class CanonicalAssessmentPersistence {
     }
 
     await ref.set(payload, SetOptions(merge: true));
+  }
+
+  /// Upserts the versioned partial/full canonical profile document.
+  ///
+  /// Path: `users/{uid}/profiles/canonical_v1`
+  /// Idempotent for the same IQ contribution (merge replace of IQ fields).
+  Future<void> upsertCanonicalProfileFragment(
+    QmatchCanonicalProfileFragment fragment,
+  ) async {
+    final user = _authOrThrow.currentUser;
+    if (user == null) {
+      throw StateError('User is not authenticated.');
+    }
+    if (fragment.ownerUid != user.uid) {
+      throw StateError('Profile owner UID mismatch.');
+    }
+    await upsertCanonicalProfileFragmentForUid(fragment);
+  }
+
+  Future<void> upsertCanonicalProfileFragmentForUid(
+    QmatchCanonicalProfileFragment fragment,
+  ) async {
+    final db = _firestore ?? FirebaseFirestore.instance;
+    final ref = db
+        .collection('users')
+        .doc(fragment.ownerUid)
+        .collection('profiles')
+        .doc('canonical_v1');
+    final existing = await ref.get();
+    final payload = omitNulls({
+      ...fragment.toFirestoreFields(),
+      // Server timestamps for audit; keep ISO updated_at from fragment too.
+      'persisted_at': FieldValue.serverTimestamp(),
+    });
+    if (!existing.exists) {
+      payload['created_at'] = FieldValue.serverTimestamp();
+    } else {
+      payload.remove('created_at');
+    }
+    await ref.set(payload, SetOptions(merge: true));
+  }
+
+  Future<Map<String, dynamic>?> getCanonicalProfile({String? uid}) async {
+    final resolvedUid = uid ?? _authOrThrow.currentUser?.uid;
+    if (resolvedUid == null) return null;
+    final db = _firestore ?? FirebaseFirestore.instance;
+    final snap = await db
+        .collection('users')
+        .doc(resolvedUid)
+        .collection('profiles')
+        .doc('canonical_v1')
+        .get();
+    if (!snap.exists) return null;
+    return snap.data();
   }
 
   Future<Map<String, dynamic>?> getAssessment(

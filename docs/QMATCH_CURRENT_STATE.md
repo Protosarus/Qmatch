@@ -11,9 +11,8 @@ supporting context only when they conflict with the current repository.
 | Field | Value |
 |-------|-------|
 | Branch | `main` |
-| Last completed implementation phase | **P2C-2A-5 — Canonical IQ Runtime Integration** |
-| Implementation commit (P2C-2A-5) | `8df90ec07463aaaddbc35a78aa22d7ab64087b78` |
-| Locale integrity commit (P2C-2A-5) | `28a8b4e48d4dafca256554a7d2dff12959677458` |
+| Last completed implementation phase | **P2C-2A-6 — IQ → 20D Runtime Adapter** |
+| Implementation commit (P2C-2A-6) | *(filled after push)* |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -33,9 +32,9 @@ Discover/matching surfaces.
 
 | Module | Live (user-facing) | Notes |
 |--------|---------------------|-------|
-| **IQ** | Canonical 25-session + 4D uncalibrated scorer | Legacy 10-item path retired from **new** sessions |
-| **EQ** | Unchanged live EQ path | Not modified in P2C-2A-5 |
-| **Frequency** | Unchanged live Frequency path | Not modified in P2C-2A-5 |
+| **IQ** | Canonical 25-session + 4D uncalibrated scorer | Live wired |
+| **EQ** | Unchanged live EQ path | Not modified in P2C-2A-6 |
+| **Frequency** | Unchanged live Frequency path | Not modified in P2C-2A-6 |
 
 ---
 
@@ -43,58 +42,48 @@ Discover/matching surfaces.
 
 | Capability | Status |
 |------------|--------|
-| Canonical bank | **IMPLEMENTED** (340 TR `tr_v2_340` + 340 EN `en_v2_340`) |
-| Composer | **IMPLEMENTED** |
-| Persistence / resume | **IMPLEMENTED** |
-| Canonical 4D scorer | **IMPLEMENTED** |
-| Live IQ runtime integration | **IMPLEMENTED** |
-| Legacy 10-item new-session path | **RETIRED_FROM_ACTIVE_NEW_SESSION_PATH** |
+| Canonical bank TR + EN | **IMPLEMENTED** |
+| Composer / resume / 4D scorer / live runtime | **IMPLEMENTED** |
+| IQ → canonical profile adapter | **IMPLEMENTED** |
+| Measured canonical profile dimensions | **4** |
+| IQ group | **COMPLETE** |
+| EQ group | **NOT_STARTED** (live EQ unchanged / noncanonical) |
+| Frequency group | **NOT_STARTED** (live Frequency unchanged / noncanonical) |
+| Full 20D profile | **INCOMPLETE** |
+| `canonical_profile_ready` | **false** |
 | Psychometric calibration | **NOT_STARTED** |
-| 20D adapter | **NOT_STARTED** |
-| Cloud session sync | **NOT_STARTED / DEFERRED** |
+| Persona from canonical profile | **NOT_STARTED** |
+| Matching / QRCF / quantum from profile | **NOT_STARTED** |
 
 ---
 
-## Live IQ Path (current)
+## Live IQ → Profile Path (current)
 
 ```
-IQTestIntro → IQTestScreen (IqCanonicalRuntimeService)
-  → UID-scoped SharedPreferences session
-  → 25 items / displayedOptionIds / selectedOptionId
-  → IqCanonicalScorer
+IQ completion
+  → IqCanonicalScorer (4D)
   → users/{uid}/assessments/iq (qmatch_iq_live_result_v1)
-  → markIqCompleted(rawScore: null)
+  → IqTo20dRuntimeAdapter
+  → users/{uid}/profiles/canonical_v1 (qmatch_canonical_profile_v1, partial)
   → IqReasoningProfileScreen
-  → IqToEqTransition → EQ
+  → EQ
 ```
 
 Scientific label remains: **uncalibrated multidimensional reasoning performance**.
-No standardized IQ / percentile.
+Profile schema: `qmatch_canonical_profile_v1`. Registry:
+`canonical_dimension_registry_v1`.
 
-Locale: new sessions select canonical bank by app language (`tr` → `tr-TR` /
-`iq_bank_tr_v1.json`, otherwise `en-US` / `iq_bank_en_v1.json`). An in-progress
-session’s persisted `bank_locale` / `bank_version` remains authoritative —
-mid-session UI locale changes do **not** regenerate or partially translate the
-session.
-
----
-
-## Result persistence
-
-See `docs/assessment/qmatch_iq_live_result_persistence_v1.md`.
-
-Versioned canonical payload in `users/{uid}/assessments/iq`. Legacy scalar
-`iq_score` is **not** written for new canonical completions.
+Missing 16 dimensions are listed as `not_measured` IDs only — never filled with
+0 / 0.5 / 50.
 
 ---
 
 ## Frozen / Do Not Accidentally Modify
 
-- Composer / scoring policy versions without a dedicated phase
-- EQ / Frequency / TraitScoring / Core Method / Discover ranking
-- Fabricating IQ numbers or calibration
-- 20D adapter (next dedicated phase)
-- Broad deletion of legacy 10-set assets (cleanup debt only)
+- IQ scoring policy / banks without a dedicated phase
+- Fabricating EQ/Frequency profile values
+- Persona / matching / quantum from partial IQ-only profile
+- Group weights for Persona/matching
 
 ---
 
@@ -102,11 +91,10 @@ Versioned canonical payload in `users/{uid}/assessments/iq`. Legacy scalar
 
 | Phase | Commit |
 |-------|--------|
-| P2C-2A-3 durable resume | `30d5cdb56953bfd32c4d1705e83d69b48477deca` |
-| P2C-2A-4 4D scoring | `149276fe5c876e9d76500e2fa297ce769aba89be` |
-| Continuity tip before P2C-2A-5 | `697462c3a2159bf047ebf1a9d9c9622a1961c89a` |
 | P2C-2A-5 runtime integration | `8df90ec07463aaaddbc35a78aa22d7ab64087b78` |
 | P2C-2A-5 locale integrity | `28a8b4e48d4dafca256554a7d2dff12959677458` |
+| Continuity tip before P2C-2A-6 | `70f6ac7cbccb3d387bce0dfc14e4b1e711a991a4` |
+| P2C-2A-6 IQ→20D adapter | *(filled after push)* |
 
 ---
 
@@ -116,28 +104,26 @@ Versioned canonical payload in `users/{uid}/assessments/iq`. Legacy scalar
 |-------|--------|
 | `dart format` (changed Dart) | clean |
 | `flutter analyze` | No issues found |
-| dedicated IQ suites (runtime/persistence/scoring/bank/composer/pilot/locale parity) | PASS |
-| `flutter test` (full) | **867** passed |
+| adapter + IQ regression suites | PASS |
+| `flutter test` (full) | **878** passed |
 | `git diff --check` | clean |
-| pilot pubspec guard | allows canonical `iq_bank_tr_v1` + `iq_bank_en_v1`; rejects pilot assets |
 
 ---
 
 ## Current Release Readiness
 
 **IQ assessment: NOT scientifically RELEASE READY**
-
-Live canonical path is wired, but content remains desk-reviewed candidate /
-uncalibrated. No population IQ interpretation.
+**Canonical 20D profile: INCOMPLETE (4/20 measured)**
 
 ---
 
 ## Next Exact Phase
 
-**P2C-2A-6 — IQ → 20D Runtime Adapter**
+**P2C-2A-7 — EQ Canonical Migration** (or equivalent EQ→canonical profile phase)
 
-Wire the four uncalibrated IQ dimension provisional scores into the future
-20-dimensional profile **without** inventing IQ percentiles or calibration.
+Bring the 10 EQ dimensions into the same `qmatch_canonical_profile_v1`
+boundary without inventing placeholders. Confirm against repository gap
+register before starting.
 
 Do not implement in this checkpoint.
 
@@ -145,11 +131,11 @@ Do not implement in this checkpoint.
 
 ## Open Blockers / Risks
 
-1. Psychometric calibration not started.
-2. 20D adapter not started.
-3. Legacy 10-set asset cleanup debt remains.
-4. Historical `iq_score` mirrors may be absent for new completions.
-5. EN bank is a localized counterpart of TR (`en_v2_340`); a few idiom/password/mirror items required documented language-specific adaptations (see `docs/assessment/qmatch_iq_bank_en_v1_adaptations.md`).
+1. EQ canonical profile contribution not started.
+2. Frequency canonical profile contribution not started.
+3. Psychometric IQ calibration not started.
+4. Persona / matching must not consume partial IQ-only profiles.
+5. Legacy 10-set cleanup debt remains.
 
 ---
 
