@@ -486,7 +486,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.inter(
                                 color: Colors.white,
-                                fontSize: compact ? 17.5 : 19,
+                                fontSize: compact ? 15.5 : 16.5,
                                 fontWeight: FontWeight.w600,
                                 height: 1.35,
                               ),

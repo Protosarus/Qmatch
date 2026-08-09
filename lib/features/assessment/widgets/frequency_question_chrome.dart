@@ -309,7 +309,7 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final minHeight = compact ? 44.0 : 52.0;
+    final minHeight = compact ? 38.0 : 44.0;
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -318,8 +318,8 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
         child: Container(
           constraints: BoxConstraints(minHeight: minHeight),
           padding: EdgeInsets.symmetric(
-            horizontal: compact ? 11 : 13,
-            vertical: compact ? 9 : 11,
+            horizontal: compact ? 10 : 12,
+            vertical: compact ? 6 : 8,
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
@@ -380,9 +380,9 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
                     color: Colors.white.withValues(
                       alpha: selected ? 1 : 0.92,
                     ),
-                    fontSize: compact ? 15 : 16.5,
+                    fontSize: compact ? 13.5 : 14.5,
                     fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                    height: 1.32,
+                    height: 1.28,
                   ),
                 ),
               ),
