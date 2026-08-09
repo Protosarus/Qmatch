@@ -7,8 +7,9 @@ void main() {
     final pub = File('pubspec.yaml').readAsStringSync();
     expect(pub.contains('iq_pilot_tr_v1'), isFalse);
     expect(pub.contains('iq_pilot_tr_v1.json'), isFalse);
-    // Canonical recovered bank is intentionally runtime-registered in P2C-2A-5.
+    // Canonical recovered banks are intentionally runtime-registered in P2C-2A-5.
     expect(pub.contains('iq_bank_tr_v1.json'), isTrue);
+    expect(pub.contains('iq_bank_en_v1.json'), isTrue);
   });
 
   test('production IQ screens do not import the pilot', () {

@@ -28,8 +28,8 @@ IQTestIntroScreen
 - Answer identity = `selectedOptionId` only
 - UI does not score
 - No standardized IQ / percentile
-- Bank locale for this phase: `tr-TR` (question content); UI chrome follows app l10n
-- Mid-session UI locale change does not mutate/regenerate the session
+- Bank locale for new sessions: `tr-TR` or `en-US` from app language
+- Active session bank locale is sticky (no mid-session regen/translation)
 - No previous-question navigation (product UX unchanged)
 
 ## Legacy

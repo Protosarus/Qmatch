@@ -311,6 +311,7 @@ void main() {
     test('bank asset registered for runtime', () {
       final pub = File('pubspec.yaml').readAsStringSync();
       expect(pub.contains('iq_bank_tr_v1.json'), isTrue);
+      expect(pub.contains('iq_bank_en_v1.json'), isTrue);
       expect(pub.contains('iq_pilot_tr_v1'), isFalse);
     });
 

@@ -13,6 +13,8 @@ import '../domain/iq_session/iq_session_prefs_repository.dart';
 /// Live orchestration for canonical IQ sessions (P2C-2A-5).
 ///
 /// Wraps offline bank + [IqSessionManager] + [IqCanonicalScorer].
+/// Selects TR/EN bank from preferred language for **new** sessions; an
+/// existing active session's persisted `bank_locale` remains authoritative.
 /// Does not invent standardized IQ / percentiles / 20D mapping.
 class IqCanonicalRuntimeService {
   IqCanonicalRuntimeService({
@@ -27,8 +29,13 @@ class IqCanonicalRuntimeService {
         _seedRandom = seedRandom ?? Random.secure(),
         _bundle = bundle ?? rootBundle;
 
-  static const bankAssetPath =
+  static const bankAssetPathTr =
       'assets/data/assessment_v3/iq/iq_bank_tr_v1.json';
+  static const bankAssetPathEn =
+      'assets/data/assessment_v3/iq/iq_bank_en_v1.json';
+
+  /// Backward-compatible alias (TR bank). Prefer [assetPathForLocale].
+  static const bankAssetPath = bankAssetPathTr;
 
   final FirebaseAuth? _auth;
   final IqSessionPersistenceRepository? _repository;
@@ -36,29 +43,68 @@ class IqCanonicalRuntimeService {
   final Random _seedRandom;
   final AssetBundle _bundle;
 
-  IqRecoveredBankDocument? _bank;
+  final Map<String, IqRecoveredBankDocument> _banksByLocale = {};
   IqSessionManager? _manager;
+  IqRecoveredBankDocument? _activeBank;
 
   FirebaseAuth get _authOrThrow => _auth ?? FirebaseAuth.instance;
+
+  IqSessionPersistenceRepository get _repo =>
+      _repository ?? IqSessionPrefsRepository();
 
   /// Current Auth UID or null if signed out.
   String? get currentUid => _authOrThrow.currentUser?.uid;
 
-  Future<IqRecoveredBankDocument> loadBank() async {
-    if (_bank != null) return _bank!;
-    final raw = await _bundle.loadString(bankAssetPath);
-    _bank = IqRecoveredBankDocument.fromJson(
-      jsonDecode(raw) as Map<String, dynamic>,
-    );
-    return _bank!;
+  /// Bank bound to the current manager / last successful session bind.
+  IqRecoveredBankDocument? get activeBank => _activeBank;
+
+  /// Maps app language codes to canonical bank locales.
+  static String resolveBankLocale(String? languageCode) {
+    final code = (languageCode ?? 'en').toLowerCase();
+    if (code.startsWith('tr')) return 'tr-TR';
+    return 'en-US';
   }
 
-  Future<IqSessionManager> _ensureManager() async {
-    if (_manager != null) return _manager!;
-    final bank = await loadBank();
+  static String assetPathForLocale(String bankLocale) {
+    switch (bankLocale) {
+      case 'tr-TR':
+        return bankAssetPathTr;
+      case 'en-US':
+        return bankAssetPathEn;
+      default:
+        throw ArgumentError('Unsupported bank locale: $bankLocale');
+    }
+  }
+
+  Future<IqRecoveredBankDocument> loadBankForLocale(String bankLocale) async {
+    final cached = _banksByLocale[bankLocale];
+    if (cached != null) return cached;
+    final raw = await _bundle.loadString(assetPathForLocale(bankLocale));
+    final bank = IqRecoveredBankDocument.fromJson(
+      jsonDecode(raw) as Map<String, dynamic>,
+    );
+    if (bank.locale != bankLocale) {
+      throw StateError(
+        'Loaded bank locale ${bank.locale} != requested $bankLocale',
+      );
+    }
+    _banksByLocale[bankLocale] = bank;
+    return bank;
+  }
+
+  /// Loads the TR bank (tests / tools). Prefer [loadBankForLocale].
+  Future<IqRecoveredBankDocument> loadBank() => loadBankForLocale('tr-TR');
+
+  Future<IqSessionManager> _bindManager(IqRecoveredBankDocument bank) async {
+    if (_manager != null &&
+        _activeBank != null &&
+        identical(_activeBank, bank)) {
+      return _manager!;
+    }
+    _activeBank = bank;
     _manager = IqSessionManager(
       bank: bank,
-      repository: _repository ?? IqSessionPrefsRepository(),
+      repository: _repo,
       idFactory: _idFactory ?? IqSessionIdFactory(),
     );
     return _manager!;
@@ -71,7 +117,13 @@ class IqCanonicalRuntimeService {
   }
 
   /// Resume valid in-progress draft or create a new canonical session.
-  Future<IqSessionWriteResult> getOrCreateActiveSession() async {
+  ///
+  /// [preferredLanguageCode] only applies when composing a **new** session.
+  /// An existing active session always resumes against its persisted
+  /// `bank_locale` / `bank_version` (no mid-session language swap).
+  Future<IqSessionWriteResult> getOrCreateActiveSession({
+    String? preferredLanguageCode,
+  }) async {
     final uid = currentUid;
     if (uid == null || uid.isEmpty) {
       return const IqSessionWriteResult(
@@ -80,11 +132,41 @@ class IqCanonicalRuntimeService {
         message: 'Owner UID unavailable',
       );
     }
-    final manager = await _ensureManager();
+
+    final peek = await _repo.loadActiveSession(uid);
+    if (peek.isLoaded &&
+        peek.state!.status == IqPersistedSessionStatus.inProgress) {
+      final sessionLocale = peek.state!.bankLocale;
+      final bank = await loadBankForLocale(sessionLocale);
+      final manager = await _bindManager(bank);
+      return manager.getOrCreateActiveSession(
+        ownerUid: uid,
+        sessionSeed: _newSessionSeed(uid),
+      );
+    }
+    if (peek.code == IqSessionLoadCode.corrupt ||
+        peek.code == IqSessionLoadCode.ownerMismatch) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: peek.code.name,
+        message: peek.message,
+      );
+    }
+
+    final bankLocale = resolveBankLocale(preferredLanguageCode);
+    final bank = await loadBankForLocale(bankLocale);
+    final manager = await _bindManager(bank);
     return manager.getOrCreateActiveSession(
       ownerUid: uid,
       sessionSeed: _newSessionSeed(uid),
     );
+  }
+
+  Future<IqSessionManager> _managerForSession(
+    IqPersistedSessionState session,
+  ) async {
+    final bank = await loadBankForLocale(session.bankLocale);
+    return _bindManager(bank);
   }
 
   Future<IqSessionWriteResult> answer({
@@ -100,7 +182,15 @@ class IqCanonicalRuntimeService {
         message: 'Owner UID unavailable',
       );
     }
-    final manager = await _ensureManager();
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
     return manager.answer(
       ownerUid: uid,
       sessionId: sessionId,
@@ -121,7 +211,15 @@ class IqCanonicalRuntimeService {
         message: 'Owner UID unavailable',
       );
     }
-    final manager = await _ensureManager();
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
     return manager.moveToIndex(
       ownerUid: uid,
       sessionId: sessionId,
@@ -140,7 +238,15 @@ class IqCanonicalRuntimeService {
         message: 'Owner UID unavailable',
       );
     }
-    final manager = await _ensureManager();
+    final loaded = await _repo.loadSession(uid, sessionId);
+    if (!loaded.isLoaded) {
+      return IqSessionWriteResult(
+        ok: false,
+        code: loaded.code.name,
+        message: loaded.message,
+      );
+    }
+    final manager = await _managerForSession(loaded.state!);
     return manager.complete(ownerUid: uid, sessionId: sessionId);
   }
 
@@ -154,7 +260,8 @@ class IqCanonicalRuntimeService {
         message: 'Owner UID unavailable',
       );
     }
-    final bank = await loadBank();
+    final bank = await loadBankForLocale(session.bankLocale);
+    _activeBank = bank;
     return const IqCanonicalScorer().scoreCompletedSession(
       session: session,
       bank: bank,

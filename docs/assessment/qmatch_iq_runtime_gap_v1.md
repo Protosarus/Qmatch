@@ -46,5 +46,5 @@ iq_test_intro_screen
 
 - Empirical calibration
 - 20D adapter wiring
-- Optional EN bank content (current bank is `tr-TR`)
+- Optional EN bank content: **IMPLEMENTED** (`iq_bank_en_v1.json` / `en_v2_340`)
 - Legacy asset cleanup debt

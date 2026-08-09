@@ -34,8 +34,16 @@ class IqRecoveredBankValidator {
     if (items.length != IqRecoveredBankDocument.expectedItemCount) {
       errors.add('Expected 340 items, found ${items.length}');
     }
-    if (bank.bankVersion != IqRecoveredBankDocument.expectedBankVersion) {
+    if (!IqRecoveredBankDocument.allowedBankVersions
+        .contains(bank.bankVersion)) {
       errors.add('Unexpected bank_version=${bank.bankVersion}');
+    }
+    final expectedVersion =
+        IqRecoveredBankDocument.localeToBankVersion[bank.locale];
+    if (expectedVersion == null || expectedVersion != bank.bankVersion) {
+      errors.add(
+        'locale/bank_version mismatch: ${bank.locale} vs ${bank.bankVersion}',
+      );
     }
 
     final ids = items.map((i) => i.id).toList();

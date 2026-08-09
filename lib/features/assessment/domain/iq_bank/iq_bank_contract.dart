@@ -8,6 +8,7 @@ class IqBankContract {
   static const String schemaVersion = 'iq_item_schema_v1';
   static const String recoveredBankSchemaVersion = 'qmatch_iq_bank_v1';
   static const String targetBankFileName = 'iq_bank_tr_v1.json';
+  static const String targetBankFileNameEn = 'iq_bank_en_v1.json';
   static const String schemaFileName = 'iq_item_schema_v1.json';
   static const String pilotFileName = 'iq_pilot_tr_v1.json';
 
@@ -51,7 +52,7 @@ class IqBankContract {
   static const int pilotItems = 25;
 
   static const Set<String> difficultyBands = {'easy', 'medium', 'hard'};
-  static const Set<String> locales = {'tr-TR'};
+  static const Set<String> locales = {'tr-TR', 'en-US'};
 
   static const int minEstimatedTimeSeconds = 20;
   static const int maxEstimatedTimeSeconds = 180;

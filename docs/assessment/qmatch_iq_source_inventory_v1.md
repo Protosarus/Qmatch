@@ -13,7 +13,7 @@
 |----------|--------|
 | Runtime IQ bank users see today | Legacy **10-item** sets via Firestore / `iq_sets.json` |
 | Canonical 25-item pilot | Exists offline; **not** pubspec-registered; **not** production-reachable |
-| Canonical 340-item bank | **Recovered** — content **FOUND_RECOVERABLE**; JSON **IMPLEMENTED**; live runtime **IMPLEMENTED** (P2C-2A-5) |
+| Canonical 340-item bank | **Recovered** — TR + EN JSON **IMPLEMENTED**; live runtime locale-selected (P2C-2A-5) |
 | PDFs / DOCX recoverable banks | Source package preserved under `docs/source/assessment/iq/` |
 
 **Honest statement:** The canonical 340-item IQ bank is validated JSON recovered from the verified DOCX source and is **live-wired** for new IQ sessions as of P2C-2A-5. It is **not** RELEASE_READY scientifically (uncalibrated; desk-reviewed candidate).

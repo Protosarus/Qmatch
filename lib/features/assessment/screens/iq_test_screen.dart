@@ -104,18 +104,23 @@ class _IQTestScreenState extends State<IQTestScreen> {
 
   Future<void> _bootstrap() async {
     try {
-      final bank = await _runtime.loadBank();
-      final created = await _runtime.getOrCreateActiveSession();
+      final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+      final created = await _runtime.getOrCreateActiveSession(
+        preferredLanguageCode: languageCode,
+      );
       if (!mounted) return;
       if (!created.ok || created.state == null) {
         setState(() {
-          _bank = bank;
+          _bank = _runtime.activeBank;
           _loadErrorCode = created.code ?? 'session_unavailable';
           _isLoading = false;
         });
         return;
       }
       final session = created.state!;
+      final bank = _runtime.activeBank ??
+          await _runtime.loadBankForLocale(session.bankLocale);
       final idx = session.currentQuestionIndex;
       final plan = session.itemPlans[idx];
       final existing = session.answersByItemId[plan.itemId];

@@ -42,7 +42,7 @@ Discover/matching surfaces.
 
 | Capability | Status |
 |------------|--------|
-| Canonical bank | **IMPLEMENTED** (340 / `tr_v2_340`) |
+| Canonical bank | **IMPLEMENTED** (340 TR `tr_v2_340` + 340 EN `en_v2_340`) |
 | Composer | **IMPLEMENTED** |
 | Persistence / resume | **IMPLEMENTED** |
 | Canonical 4D scorer | **IMPLEMENTED** |
@@ -70,8 +70,11 @@ IQTestIntro → IQTestScreen (IqCanonicalRuntimeService)
 Scientific label remains: **uncalibrated multidimensional reasoning performance**.
 No standardized IQ / percentile.
 
-Locale: bank content is `tr-TR`. UI chrome follows app l10n. Mid-session UI
-locale changes do not regenerate the session.
+Locale: new sessions select canonical bank by app language (`tr` → `tr-TR` /
+`iq_bank_tr_v1.json`, otherwise `en-US` / `iq_bank_en_v1.json`). An in-progress
+session’s persisted `bank_locale` / `bank_version` remains authoritative —
+mid-session UI locale changes do **not** regenerate or partially translate the
+session.
 
 ---
 
@@ -111,10 +114,10 @@ Versioned canonical payload in `users/{uid}/assessments/iq`. Legacy scalar
 |-------|--------|
 | `dart format` (changed Dart) | clean |
 | `flutter analyze` | No issues found |
-| dedicated IQ suites (runtime/persistence/scoring/bank/composer/pilot) | PASS |
-| `flutter test` (full) | **855** passed |
+| dedicated IQ suites (runtime/persistence/scoring/bank/composer/pilot/locale parity) | PASS |
+| `flutter test` (full) | **867** passed |
 | `git diff --check` | clean |
-| pilot pubspec guard | allows canonical `iq_bank_tr_v1`; rejects pilot assets |
+| pilot pubspec guard | allows canonical `iq_bank_tr_v1` + `iq_bank_en_v1`; rejects pilot assets |
 
 ---
 
@@ -142,9 +145,9 @@ Do not implement in this checkpoint.
 
 1. Psychometric calibration not started.
 2. 20D adapter not started.
-3. EN bank content not available (TR bank used for question text).
-4. Legacy 10-set asset cleanup debt remains.
-5. Historical `iq_score` mirrors may be absent for new completions.
+3. Legacy 10-set asset cleanup debt remains.
+4. Historical `iq_score` mirrors may be absent for new completions.
+5. EN bank is a localized counterpart of TR (`en_v2_340`); a few idiom/password/mirror items required documented language-specific adaptations (see `docs/assessment/qmatch_iq_bank_en_v1_adaptations.md`).
 
 ---
 

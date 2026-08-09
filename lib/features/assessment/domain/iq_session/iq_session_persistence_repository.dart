@@ -54,6 +54,13 @@ class IqPersistedSessionValidator {
             'Stored bank ${state.bankVersion} != active ${bank.bankVersion}',
       );
     }
+    if (state.bankLocale != bank.locale) {
+      return IqSessionLoadResult(
+        code: IqSessionLoadCode.incompatibleBank,
+        message:
+            'Stored bank_locale ${state.bankLocale} != active ${bank.locale}',
+      );
+    }
     if (state.selectionPolicyVersion != expectedPolicyVersion) {
       return IqSessionLoadResult(
         code: IqSessionLoadCode.incompatiblePolicy,

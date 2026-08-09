@@ -37,9 +37,18 @@ class IqRecoveredBankDocument {
   final List<IqRecoveredBankItem> items;
 
   static const expectedSchemaVersion = 'qmatch_iq_bank_v1';
+
+  /// Turkish recovered bank version (historical constant; prefer [allowedBankVersions]).
   static const expectedBankVersion = 'tr_v2_340';
   static const expectedLocale = 'tr-TR';
   static const expectedItemCount = 340;
+
+  static const allowedLocales = {'tr-TR', 'en-US'};
+  static const allowedBankVersions = {'tr_v2_340', 'en_v2_340'};
+  static const localeToBankVersion = {
+    'tr-TR': 'tr_v2_340',
+    'en-US': 'en_v2_340',
+  };
 
   factory IqRecoveredBankDocument.fromJson(Map<String, dynamic> json) {
     final schemaVersion = _reqString(json, 'schema_version');
@@ -51,10 +60,17 @@ class IqRecoveredBankDocument {
     }
     final bankVersion = _reqString(json, 'bank_version');
     final locale = _reqString(json, 'locale');
-    if (locale != expectedLocale) {
+    if (!allowedLocales.contains(locale)) {
       throw IqRecoveredBankDecodeException(
         'Unsupported locale=$locale',
         fieldPath: 'locale',
+      );
+    }
+    final expectedForLocale = localeToBankVersion[locale];
+    if (expectedForLocale == null || expectedForLocale != bankVersion) {
+      throw IqRecoveredBankDecodeException(
+        'Unsupported bank_version=$bankVersion for locale=$locale',
+        fieldPath: 'bank_version',
       );
     }
     final source = _reqString(json, 'source');

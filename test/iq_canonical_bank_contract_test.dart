@@ -161,12 +161,17 @@ void main() {
 
   test('invalid locale', () {
     final item = _validItem();
-    item['locale'] = 'en-US';
+    item['locale'] = 'fr-FR';
     final report = IqItemValidator.validateItems([item]);
     expect(
       report.errors.any((e) => e.code == 'invalid_locale'),
       isTrue,
     );
+  });
+
+  test('en-US is a supported canonical bank locale', () {
+    expect(IqBankContract.locales.contains('en-US'), isTrue);
+    expect(IqBankContract.locales.contains('tr-TR'), isTrue);
   });
 
   test('empty rationale', () {
