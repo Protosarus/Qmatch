@@ -12,7 +12,7 @@ supporting context only when they conflict with the current repository.
 |-------|-------|
 | Branch | `main` |
 | Last completed implementation phase | **P2C-2A-5 — Canonical IQ Runtime Integration** |
-| Implementation commit (P2C-2A-5) |  |
+| Implementation commit (P2C-2A-5) | `8df90ec07463aaaddbc35a78aa22d7ab64087b78` |
 | Continuity document | `docs/QMATCH_CURRENT_STATE.md` |
 | Checkpoint date | 2026-08-09 |
 
@@ -101,7 +101,7 @@ Versioned canonical payload in `users/{uid}/assessments/iq`. Legacy scalar
 | P2C-2A-3 durable resume | `30d5cdb56953bfd32c4d1705e83d69b48477deca` |
 | P2C-2A-4 4D scoring | `149276fe5c876e9d76500e2fa297ce769aba89be` |
 | Continuity tip before P2C-2A-5 | `697462c3a2159bf047ebf1a9d9c9622a1961c89a` |
-| P2C-2A-5 runtime integration |  |
+| P2C-2A-5 runtime integration | `8df90ec07463aaaddbc35a78aa22d7ab64087b78` |
 
 ---
 
