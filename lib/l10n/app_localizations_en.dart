@@ -93,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iqIntroLabel => 'IQ Assessment';
 
   @override
-  String get iqIntroMeta => '10 questions · About 3 minutes';
+  String get iqIntroMeta => '25 questions · About 8 minutes';
 
   @override
   String get iqIntroStart => 'Begin assessment';
@@ -115,6 +115,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continueToEqAssessment => 'Continue to EQ assessment';
+
+  @override
+  String get iqReasoningProfileTitle => 'Reasoning Profile';
+
+  @override
+  String get iqReasoningProfileSubtitle =>
+      'Your uncalibrated multidimensional reasoning performance on this session.';
+
+  @override
+  String get iqUncalibratedDisclaimer =>
+      'Not a standardized IQ score · Not a population percentile';
+
+  @override
+  String get iqCanonicalSessionError =>
+      'We couldn\'t load your assessment session. Please try again.';
+
+  @override
+  String get iqDimLogicalReasoning => 'Logical Reasoning';
+
+  @override
+  String get iqDimPatternReasoning => 'Pattern Reasoning';
+
+  @override
+  String get iqDimVerbalReasoning => 'Verbal Reasoning';
+
+  @override
+  String get iqDimSpatialReasoning => 'Spatial Reasoning';
 
   @override
   String get eqTestTitle => 'EQ Test';

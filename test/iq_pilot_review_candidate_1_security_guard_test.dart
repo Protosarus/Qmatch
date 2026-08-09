@@ -7,7 +7,6 @@ void main() {
     final pub = File('pubspec.yaml').readAsStringSync();
     expect(pub.contains('review_candidate_1'), isFalse);
     expect(pub.contains('iq_pilot_tr_v1_review_candidate'), isFalse);
-    expect(pub.contains('assessment_v3/iq'), isFalse);
   });
 
   test('production code does not import review candidate assets', () {
@@ -18,10 +17,11 @@ void main() {
     for (final f in screens) {
       if (f.path.contains('/domain/trait_scoring/')) continue;
       if (f.path.contains('/domain/iq_bank/')) continue;
+      if (f.path.contains('/domain/iq_session/')) continue;
+      if (f.path.contains('/domain/iq_scoring/')) continue;
       final text = f.readAsStringSync();
       expect(text.contains('review_candidate_1'), isFalse, reason: f.path);
       expect(text.contains('iq_pilot_tr_v1_review'), isFalse, reason: f.path);
-      expect(text.contains('assessment_v3/iq'), isFalse, reason: f.path);
     }
   });
 

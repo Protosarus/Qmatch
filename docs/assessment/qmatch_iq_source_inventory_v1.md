@@ -1,8 +1,8 @@
 # QMatch IQ Source Inventory v1
 
-**Phase:** P2C-2A-0  
-**HEAD:** `4bbd6cb` (at audit start)  
-**Method:** Parsed structured files on disk; counts are not inferred from filenames alone.  
+**Phase:** P2C-2A-0
+**HEAD:** `4bbd6cb` (at audit start)
+**Method:** Parsed structured files on disk; counts are not inferred from filenames alone.
 **Machine report:** `assets/data/assessment_v3/iq/reports/iq_source_inventory_v1_report.json`
 
 ---
@@ -13,10 +13,10 @@
 |----------|--------|
 | Runtime IQ bank users see today | Legacy **10-item** sets via Firestore / `iq_sets.json` |
 | Canonical 25-item pilot | Exists offline; **not** pubspec-registered; **not** production-reachable |
-| Canonical 340-item bank | **Recovered offline** — content **FOUND_RECOVERABLE**; JSON **IMPLEMENTED_OFFLINE**; runtime **NOT_STARTED** |
+| Canonical 340-item bank | **Recovered** — content **FOUND_RECOVERABLE**; JSON **IMPLEMENTED**; live runtime **IMPLEMENTED** (P2C-2A-5) |
 | PDFs / DOCX recoverable banks | Source package preserved under `docs/source/assessment/iq/` |
 
-**Honest statement:** The canonical 340-item IQ bank exists as validated offline JSON recovered from the verified DOCX source. It is **not** runtime-wired, **not** RELEASE_READY, and must not be treated as expert-reviewed or calibrated.
+**Honest statement:** The canonical 340-item IQ bank is validated JSON recovered from the verified DOCX source and is **live-wired** for new IQ sessions as of P2C-2A-5. It is **not** RELEASE_READY scientifically (uncalibrated; desk-reviewed candidate).
 
 ---
 
@@ -113,8 +113,8 @@
 | Classification | `canonical_recovered_offline` |
 | Source package | `docs/source/assessment/iq/QMatch_Bilissel_Muhakeme_Soru_Bankasi_v2_340.{docx,pdf}` |
 | Existing content status | **FOUND_RECOVERABLE** |
-| Canonical JSON status | **IMPLEMENTED_OFFLINE** |
-| Runtime IQ integration | **NOT_STARTED** |
+| Canonical JSON status | **IMPLEMENTED** |
+| Runtime IQ integration | **IMPLEMENTED** (P2C-2A-5) |
 | Confidence | high |
 
 ### 7. Tooling / docs (non-bank)
@@ -154,17 +154,17 @@
 | test_fixture | 16 |
 | canonical_recovered_offline | 340 |
 | **Canonical 340 unique (offline)** | **340** |
-| **Canonical 340 runtime-wired** | **0** |
+| **Canonical 340 runtime-wired** | **340** (P2C-2A-5 live path) |
 
 ---
 
 ## 340-item claim
 
-**Existing question content: FOUND_RECOVERABLE**  
-**Canonical JSON: IMPLEMENTED_OFFLINE**  
-**Runtime IQ integration: NOT_STARTED**  
-**Dynamic 25-question session: NOT_STARTED**  
-**Psychometric calibration: NOT_STARTED**  
+**Existing question content: FOUND_RECOVERABLE**
+**Canonical JSON: IMPLEMENTED**
+**Runtime IQ integration: IMPLEMENTED (P2C-2A-5)**
+**Dynamic 25-question session: IMPLEMENTED**
+**Psychometric calibration: NOT_STARTED**
 **Expert review: NOT_STARTED**
 
 Evidence (P2C-2A-1):

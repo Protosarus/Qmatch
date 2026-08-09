@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('pilot bank is not in pubspec', () {
+  test('pilot bank is not in pubspec (canonical bank may be)', () {
     final pub = File('pubspec.yaml').readAsStringSync();
     expect(pub.contains('iq_pilot_tr_v1'), isFalse);
-    expect(pub.contains('assessment_v3/iq'), isFalse);
+    expect(pub.contains('iq_pilot_tr_v1.json'), isFalse);
+    // Canonical recovered bank is intentionally runtime-registered in P2C-2A-5.
+    expect(pub.contains('iq_bank_tr_v1.json'), isTrue);
   });
 
   test('production IQ screens do not import the pilot', () {
@@ -19,12 +21,12 @@ void main() {
                 f.path.contains('assessment') ||
                 f.path.contains('question')));
     for (final f in screens) {
-      // Skip the pure trait domain and this test tree.
       if (f.path.contains('/domain/trait_scoring/')) continue;
       if (f.path.contains('/domain/iq_bank/')) continue;
+      if (f.path.contains('/domain/iq_session/')) continue;
+      if (f.path.contains('/domain/iq_scoring/')) continue;
       final text = f.readAsStringSync();
       expect(text.contains('iq_pilot_tr_v1'), isFalse, reason: f.path);
-      expect(text.contains('assessment_v3/iq'), isFalse, reason: f.path);
     }
   });
 
@@ -44,7 +46,6 @@ void main() {
     final pilot =
         File('assets/data/assessment_v3/iq/iq_pilot_tr_v1.json').existsSync();
     expect(pilot, isTrue);
-    // Distinct paths — pilot is additive only.
     expect(
       File('assets/data/assessment_v3/iq/iq_pilot_tr_v1.json').path,
       isNot(File('assets/data/iq_questions.json').path),

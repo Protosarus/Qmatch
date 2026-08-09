@@ -265,18 +265,14 @@ void main() {
     expect(inv.contains('Production reachable'), isTrue);
     expect(inv.contains('legacy_runtime'), isTrue);
     expect(inv.contains('FOUND_RECOVERABLE'), isTrue);
-    expect(inv.contains('IMPLEMENTED_OFFLINE'), isTrue);
+    expect(inv.contains('IMPLEMENTED'), isTrue);
+    expect(inv.contains('P2C-2A-5'), isTrue);
   });
 
-  test('recovered 340 bank exists offline and is not runtime-wired', () {
+  test('recovered 340 bank exists and is runtime-registered (P2C-2A-5)', () {
     expect(File(_targetBankPath).existsSync(), isTrue);
-    final inv = File(
-      'docs/assessment/qmatch_iq_source_inventory_v1.md',
-    ).readAsStringSync();
-    expect(inv.contains('IMPLEMENTED_OFFLINE'), isTrue);
-    expect(inv.contains('NOT_STARTED'), isTrue);
     final pubspec = File('pubspec.yaml').readAsStringSync();
-    expect(pubspec.contains('iq_bank_tr_v1.json'), isFalse);
+    expect(pubspec.contains('iq_bank_tr_v1.json'), isTrue);
   });
 
   test('no quantum field appears in canonical IQ item schema', () {
@@ -294,18 +290,17 @@ void main() {
     );
   });
 
-  test(
-      'current runtime IQ loader path remains legacy (unchanged by this phase)',
-      () {
+  test('live IQ path uses canonical runtime (P2C-2A-5)', () {
     final screen = File('lib/features/assessment/screens/iq_test_screen.dart')
         .readAsStringSync();
     final service =
         File('lib/features/assessment/services/question_service.dart')
             .readAsStringSync();
-    expect(screen.contains('loadIQAssessment'), isTrue);
+    expect(screen.contains('IqCanonicalRuntimeService'), isTrue);
+    expect(screen.contains('loadIQAssessment'), isFalse);
+    // Legacy service API retained for EQ / rollback tooling.
     expect(service.contains('loadIQAssessment'), isTrue);
     expect(service.contains('iq_bank_tr_v1'), isFalse);
-    expect(service.contains('assessment_v3/iq'), isFalse);
   });
 
   test('subskill registry covers all four dimensions', () {

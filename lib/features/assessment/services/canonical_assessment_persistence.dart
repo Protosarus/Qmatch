@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
+import '../domain/iq_scoring/iq_scoring_models.dart';
 import 'assessment_set_service.dart';
 import 'iq_recovery.dart';
 
@@ -56,10 +57,13 @@ class CanonicalAssessmentVersions {
   static const assessmentVersion = 'assessment_result_v1';
   static const questionSchemaVersion = 'qschema_legacy_v0';
   static const traitScoringVersionLegacyTotal = 'trait_unscored_legacy_total';
+  static const traitScoringVersionIq4dUncalibrated =
+      'iq_4d_uncalibrated_accuracy_v1';
   static const traitScoringVersionFrequencyPartial =
       'trait_frequency_legacy_partial_v1';
   static const normalizationVersion = 'norm_v0_missing_explicit';
   static const rviVersion = 'rvi_v0_unscored';
+  static const iqLiveResultSchemaVersion = 'qmatch_iq_live_result_v1';
 }
 
 /// Shared merge writer for `users/{uid}/assessments/{type}` documents.
@@ -265,6 +269,78 @@ class CanonicalAssessmentPersistence {
         'inconsistency_flag': false,
         'quality_band': 'unknown',
       },
+    });
+  }
+
+  /// Versioned canonical 4D IQ live result (P2C-2A-5).
+  ///
+  /// Does **not** overwrite the meaning of legacy scalar `iq_score`.
+  /// Stores uncalibrated provisional scores only — no answer keys / IQ / percentiles.
+  Map<String, dynamic> buildCanonicalIq4dPayload({
+    required IqCanonicalScoringResult result,
+    required String locale,
+    required String languageUsed,
+    DateTime? startedAt,
+  }) {
+    final dimensionScores = <String, dynamic>{};
+    final evidenceCounts = <String, dynamic>{};
+    for (final d in result.dimensionScores) {
+      dimensionScores[d.dimension] = d.provisionalScore;
+      evidenceCounts[d.dimension] = d.answeredCount;
+    }
+    return omitNulls({
+      'assessment_version': CanonicalAssessmentVersions.assessmentVersion,
+      'live_result_schema_version':
+          CanonicalAssessmentVersions.iqLiveResultSchemaVersion,
+      'question_schema_version': 'qmatch_iq_bank_v1',
+      'content_version': result.bankVersion,
+      'bank_version': result.bankVersion,
+      'bank_locale': result.bankLocale,
+      'selection_policy_version': result.selectionPolicyVersion,
+      'scoring_policy_version': result.scoringPolicyVersion,
+      'trait_scoring_version':
+          CanonicalAssessmentVersions.traitScoringVersionIq4dUncalibrated,
+      'normalization_version': CanonicalAssessmentVersions.normalizationVersion,
+      'locale': locale,
+      'language_used': languageUsed,
+      'session_id': result.sessionId,
+      'question_count': 25,
+      'answered_count': result.totalAnswered,
+      // Explicitly omit legacy scalar raw_score / iq identity.
+      'status': 'completed',
+      if (startedAt != null) 'started_at': Timestamp.fromDate(startedAt),
+      'completed_at': FieldValue.serverTimestamp(),
+      'source': 'client_canonical_iq_v1',
+      'calibration_status': result.calibrationStatus.wireValue,
+      'dimension_scores': dimensionScores,
+      'dimension_evidence_counts': evidenceCounts,
+      // Reliability not available — do not fabricate.
+      'dimension_reliability': <String, dynamic>{},
+      'missing_dimensions': <String>[],
+      'canonical_profile_ready': false,
+      'iq_result_kind': 'uncalibrated_reasoning_profile_v1',
+      'canonical_dimensions': [
+        for (final d in result.dimensionScores)
+          {
+            'dimension': d.dimension,
+            'item_count': d.itemCount,
+            'correct_count': d.correctCount,
+            'incorrect_count': d.incorrectCount,
+            'answered_count': d.answeredCount,
+            'raw_accuracy': d.rawAccuracy,
+            'provisional_score': d.provisionalScore,
+            'calibration_status': d.calibrationStatus.wireValue,
+          },
+      ],
+      'response_validity': {
+        'rvi_version': CanonicalAssessmentVersions.rviVersion,
+        'completion_ratio': 1.0,
+        'straightlining_flag': false,
+        'too_fast_flag': false,
+        'inconsistency_flag': false,
+        'quality_band': 'unknown',
+      },
+      'structural_flags': result.structuralFlags.toJson(),
     });
   }
 }

@@ -94,7 +94,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get iqIntroLabel => 'IQ Değerlendirmesi';
 
   @override
-  String get iqIntroMeta => '10 soru · Yaklaşık 3 dakika';
+  String get iqIntroMeta => '25 soru · Yaklaşık 8 dakika';
 
   @override
   String get iqIntroStart => 'Değerlendirmeye Başla';
@@ -116,6 +116,33 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get continueToEqAssessment => 'EQ değerlendirmesine geç';
+
+  @override
+  String get iqReasoningProfileTitle => 'Muhakeme Profili';
+
+  @override
+  String get iqReasoningProfileSubtitle =>
+      'Bu oturumdaki kalibre edilmemiş çok boyutlu muhakeme performansın.';
+
+  @override
+  String get iqUncalibratedDisclaimer =>
+      'Standart IQ skoru değildir · Nüfus yüzdeliği değildir';
+
+  @override
+  String get iqCanonicalSessionError =>
+      'Değerlendirme oturumu yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get iqDimLogicalReasoning => 'Mantıksal Muhakeme';
+
+  @override
+  String get iqDimPatternReasoning => 'Örüntü Muhakemesi';
+
+  @override
+  String get iqDimVerbalReasoning => 'Sözel Muhakeme';
+
+  @override
+  String get iqDimSpatialReasoning => 'Uzamsal Muhakeme';
 
   @override
   String get eqTestTitle => 'EQ Testi';

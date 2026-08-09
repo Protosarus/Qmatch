@@ -547,6 +547,7 @@ void main() {
         'lib/features/assessment/screens/iq_test_screen.dart',
       ).readAsStringSync();
       expect(iqScreen.contains('IqSessionManager'), isFalse);
+      expect(iqScreen.contains('IqCanonicalRuntimeService'), isTrue);
       expect(iqScreen.contains('IqSessionPrefsRepository'), isFalse);
     });
   });

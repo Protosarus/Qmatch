@@ -410,8 +410,10 @@ void main(List<String> args) {
 
   // Pubspec / production guards
   final pubspec = File('$root/pubspec.yaml').readAsStringSync();
+  // Canonical bank may be runtime-registered; pilot assets must not be.
   if (pubspec.contains('iq_pilot_tr_v1') ||
-      pubspec.contains('assessment_v3/iq')) {
+      pubspec.contains('iq_pilot_tr_v1.json') ||
+      pubspec.contains('review_candidate')) {
     err('pubspec_integration', 'pilot must not be listed in pubspec.yaml');
   }
 

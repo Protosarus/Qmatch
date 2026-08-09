@@ -194,18 +194,17 @@ void main() {
     final service =
         File('lib/features/assessment/services/question_service.dart')
             .readAsStringSync();
-    final screen = File('lib/features/assessment/screens/iq_test_screen.dart')
-        .readAsStringSync();
+    // Legacy QuestionService remains available and does not load the bank.
     expect(service.contains('iq_bank_tr_v1'), isFalse);
     expect(service.contains('assessment_v3/iq'), isFalse);
-    expect(screen.contains('iq_bank_tr_v1'), isFalse);
-    expect(screen.contains('IqRecoveredBankDocument'), isFalse);
   });
 
-  test('no current IQ session behavior change markers', () {
+  test('canonical bank is registered for live IQ runtime (P2C-2A-5)', () {
     final pubspec = File('pubspec.yaml').readAsStringSync();
-    expect(pubspec.contains('assessment_v3/iq/iq_bank_tr_v1.json'), isFalse);
-    expect(pubspec.contains('assets/data/assessment_v3/iq/'), isFalse);
+    expect(pubspec.contains('assessment_v3/iq/iq_bank_tr_v1.json'), isTrue);
+    final screen = File('lib/features/assessment/screens/iq_test_screen.dart')
+        .readAsStringSync();
+    expect(screen.contains('IqCanonicalRuntimeService'), isTrue);
   });
 
   test('bank is offline recovered not release-ready claim', () {

@@ -257,7 +257,7 @@ abstract class AppLocalizations {
   /// No description provided for @iqIntroMeta.
   ///
   /// In en, this message translates to:
-  /// **'10 questions · About 3 minutes'**
+  /// **'25 questions · About 8 minutes'**
   String get iqIntroMeta;
 
   /// No description provided for @iqIntroStart.
@@ -295,6 +295,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue to EQ assessment'**
   String get continueToEqAssessment;
+
+  /// No description provided for @iqReasoningProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reasoning Profile'**
+  String get iqReasoningProfileTitle;
+
+  /// No description provided for @iqReasoningProfileSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your uncalibrated multidimensional reasoning performance on this session.'**
+  String get iqReasoningProfileSubtitle;
+
+  /// No description provided for @iqUncalibratedDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a standardized IQ score · Not a population percentile'**
+  String get iqUncalibratedDisclaimer;
+
+  /// No description provided for @iqCanonicalSessionError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t load your assessment session. Please try again.'**
+  String get iqCanonicalSessionError;
+
+  /// No description provided for @iqDimLogicalReasoning.
+  ///
+  /// In en, this message translates to:
+  /// **'Logical Reasoning'**
+  String get iqDimLogicalReasoning;
+
+  /// No description provided for @iqDimPatternReasoning.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Reasoning'**
+  String get iqDimPatternReasoning;
+
+  /// No description provided for @iqDimVerbalReasoning.
+  ///
+  /// In en, this message translates to:
+  /// **'Verbal Reasoning'**
+  String get iqDimVerbalReasoning;
+
+  /// No description provided for @iqDimSpatialReasoning.
+  ///
+  /// In en, this message translates to:
+  /// **'Spatial Reasoning'**
+  String get iqDimSpatialReasoning;
 
   /// No description provided for @eqTestTitle.
   ///

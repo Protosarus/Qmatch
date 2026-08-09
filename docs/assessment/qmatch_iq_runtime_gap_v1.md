@@ -1,65 +1,50 @@
 # QMatch IQ Runtime Gap v1
 
-**Phase:** P2C-2A-4 (updated)
-**Constraint:** Current production IQ selection/scoring was **not** modified.
+**Phase:** P2C-2A-5 (updated)
 
 ---
 
-## Current runtime path (unchanged)
+## Current runtime path
 
 ```
 iq_test_intro_screen
-  → IQTestScreen._loadQuestions
-    → QuestionService.loadIQAssessment
-      → AssessmentSetService.getOrAssignSet(type: 'iq')
-    → QuestionModel MCQ UI (10 items)
-    → correct-count score (list index)
-    → CanonicalAssessmentPersistence (legacy total; empty dimension_scores)
+  → IQTestScreen (canonical runtime)
+    → IqCanonicalRuntimeService + SharedPreferences session
+    → 25 questions / option-ID answers
+    → IqCanonicalScorer (uncalibrated 4D)
+    → users/{uid}/assessments/iq (qmatch_iq_live_result_v1)
+    → IqReasoningProfileScreen
+    → IqToEqTransitionScreen → EQ
 ```
 
 | Fact | Value |
 |------|-------|
-| Questions shown | **10** |
-| Dimension IDs on live items | **none** |
-| v3 bank reachable at runtime | **no** |
-| Session composer wired | **no** |
-| Session persistence wired to UI | **no** |
-| Canonical 4D scorer wired | **no** |
+| Questions shown | **25** |
+| Answer identity | **selectedOptionId** |
+| Scoring | **4D uncalibrated provisionalScore** |
+| Standardized IQ | **none** |
 
 ---
 
-## Offline status after P2C-2A-4
+## Status after P2C-2A-5
 
 | Capability | Status |
 |------------|--------|
-| Canonical 340-item bank | **IMPLEMENTED_OFFLINE** |
-| 25-question session composer | **IMPLEMENTED_OFFLINE** |
-| Session persistence/resume | **IMPLEMENTED_OFFLINE** |
-| Answer-state persistence | **IMPLEMENTED_OFFLINE** |
-| Canonical 4D IQ scorer | **IMPLEMENTED_OFFLINE** |
+| Canonical 340-item bank | **IMPLEMENTED** |
+| 25-question session composer | **IMPLEMENTED** |
+| Session persistence/resume | **IMPLEMENTED** |
+| Canonical 4D IQ scorer | **IMPLEMENTED** |
+| Live canonical IQ runtime | **IMPLEMENTED** |
+| Legacy 10-item new-session path | **RETIRED_FROM_ACTIVE_NEW_SESSION_PATH** |
 | Psychometric calibration | **NOT_STARTED** |
 | 20D runtime adapter | **NOT_STARTED** |
-| Runtime IQ screen integration | **NOT_STARTED** |
 | Cloud session sync | **NOT_STARTED / DEFERRED** |
 
 ---
 
-## Gaps for later phases
+## Remaining gaps
 
-| Gap | Needed change (later) |
-|-----|------------------------|
-| Runtime wire | IQTestScreen → session manager → option-ID UI → 4D scorer |
-| Persistence of results | Explicit schema for 4D provisional scores (not fake IQ) |
-| Calibration | Pilot evidence per calibration plan |
-| 20D adapter | Map four dimensions only; versioned |
-| Migration | Move users off 10-item legacy sets / index scoring |
-
----
-
-## Explicit non-goals of this phase
-
-- No change to live IQ flow
-- No overall IQ / percentile fabrication
-- No TraitScoring / Core Method / EQ / Frequency changes
-- No Firestore schema for canonical 4D results
-- IQ assessment is **not** release-ready
+- Empirical calibration
+- 20D adapter wiring
+- Optional EN bank content (current bank is `tr-TR`)
+- Legacy asset cleanup debt

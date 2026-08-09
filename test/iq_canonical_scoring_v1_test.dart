@@ -581,7 +581,8 @@ void main() {
         'lib/features/assessment/screens/iq_test_screen.dart',
       ).readAsStringSync();
       expect(iq.contains('IqCanonicalScorer'), isFalse);
-      expect(iq.contains('iq_scoring'), isFalse);
+      // Runtime integration (P2C-2A-5) may import scoring models for result handoff.
+      expect(iq.contains('IqCanonicalRuntimeService'), isTrue);
 
       final qs = File(
         'lib/features/assessment/services/question_service.dart',
