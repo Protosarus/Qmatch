@@ -8,5 +8,4 @@ export 'q_assessment_navigation.dart';
 export 'iq_question_chrome.dart';
 export 'eq_question_chrome.dart';
 export 'frequency_question_chrome.dart';
-export 'iq_to_eq_transition_screen.dart';
 export 'assessment_result_frame.dart';

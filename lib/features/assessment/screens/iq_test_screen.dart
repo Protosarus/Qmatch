@@ -305,10 +305,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
   void _openEqIntro() {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(
-        // Legacy ctor retained; score unused for calibration.
-        builder: (context) => const EQTestIntroScreen(
-          iqScore: 0,
-        ),
+        builder: (context) => const EQTestIntroScreen(),
       ),
     );
   }

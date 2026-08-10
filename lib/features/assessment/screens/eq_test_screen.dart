@@ -17,12 +17,7 @@ import 'frequency_intro_screen.dart';
 
 /// Canonical 30-item EQ session — behavioral tendency, not correctness.
 class EQTestScreen extends StatefulWidget {
-  final int iqScore;
-
-  const EQTestScreen({
-    super.key,
-    this.iqScore = 0,
-  });
+  const EQTestScreen({super.key});
 
   @override
   State<EQTestScreen> createState() => _EQTestScreenState();

@@ -13,12 +13,7 @@ import 'eq_test_screen.dart';
 ///
 /// Layers: cosmic bg → soft readabilty wash → Q → transparent hero → copy → CTA.
 class EQTestIntroScreen extends StatelessWidget {
-  final int iqScore;
-
-  const EQTestIntroScreen({
-    super.key,
-    this.iqScore = 0,
-  });
+  const EQTestIntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +76,7 @@ class EQTestIntroScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EQTestScreen(iqScore: iqScore),
+                  builder: (context) => const EQTestScreen(),
                 ),
               );
             },
