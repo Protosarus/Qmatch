@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -102,4 +104,18 @@ void main() {
       );
     }
   }
+
+  test('Frequency question spacing keeps subtle upward bias under wave', () {
+    final src = File(
+      'lib/features/assessment/screens/frequency_test_screen.dart',
+    ).readAsStringSync();
+    expect(src.contains('EdgeInsets.fromLTRB(16, 0, 16, 8)'), isTrue);
+    expect(src.contains('bottom: compact ? 10 : 16'), isTrue);
+    // Wave slot formula and CTA gap unchanged.
+    expect(
+      src.contains('(height * (compact ? 0.14 : 0.16)).clamp(78.0, 148.0)'),
+      isTrue,
+    );
+    expect(src.contains('SizedBox(height: compact ? 6 : 9)'), isTrue);
+  });
 }
