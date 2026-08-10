@@ -90,7 +90,7 @@ class _PhotoPlaceholder extends StatelessWidget {
                 height: 28,
                 child: CircularProgressIndicator(
                   strokeWidth: 2.2,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
                 ),
               )
             : Icon(

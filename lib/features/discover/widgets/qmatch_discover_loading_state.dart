@@ -267,7 +267,7 @@ class _LoadingCaption extends StatelessWidget {
           height: 14,
           child: CircularProgressIndicator(
             strokeWidth: 1.8,
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
           ),
         ),
         const SizedBox(width: AppSpacing.xs),

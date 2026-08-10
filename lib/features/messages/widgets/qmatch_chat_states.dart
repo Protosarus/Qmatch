@@ -82,7 +82,7 @@ class QMatchChatLoadingState extends StatelessWidget {
             height: 28,
             child: CircularProgressIndicator(
               strokeWidth: 2.4,
-              valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
             ),
           ),
           const SizedBox(height: AppSpacing.md),

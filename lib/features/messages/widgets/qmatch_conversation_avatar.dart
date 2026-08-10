@@ -77,7 +77,7 @@ class _AvatarPlaceholder extends StatelessWidget {
                 height: 18,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.softGold),
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
                 ),
               )
             : Icon(

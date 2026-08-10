@@ -52,6 +52,7 @@ class QMatchMessageComposer extends StatelessWidget {
                     maxLines: 5,
                     textInputAction: TextInputAction.newline,
                     keyboardType: TextInputType.multiline,
+                    cursorColor: const Color(0xFFDAC8ED),
                     style: GoogleFonts.inter(
                       color: AppColors.textPrimary,
                       fontSize: 15,
@@ -82,7 +83,7 @@ class QMatchMessageComposer extends StatelessWidget {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
-                          color: AppColors.softGold.withValues(alpha: 0.55),
+                          color: const Color(0xFFDAC8ED).withValues(alpha: 0.55),
                           width: 1.4,
                         ),
                       ),
