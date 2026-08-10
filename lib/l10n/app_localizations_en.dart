@@ -20,9 +20,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setAsMain => 'Set as Main Photo';
 
   @override
-  String get delete => 'Delete';
-
-  @override
   String get mainPhotoUpdated => '⭐ Main photo updated';
 
   @override
@@ -51,25 +48,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assessmentContinue => 'Continue';
 
   @override
-  String get assessmentBack => 'Back';
-
-  @override
-  String get assessmentNext => 'Next';
-
-  @override
   String get assessmentFinish => 'Finish';
-
-  @override
-  String get assessmentComplete => 'Assessment Complete!';
-
-  @override
-  String get assessmentProfileCreated => 'Your mental profile is ready.';
-
-  @override
-  String get assessmentViewProfile => 'View My Profile';
-
-  @override
-  String get assessmentPleaseSelectAnswer => 'Please select an answer';
 
   @override
   String get iqPleaseSelectAnswerToContinue => 'Select an answer to continue';
@@ -79,12 +58,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get assessmentNoQuestionsAvailable => 'No questions available';
-
-  @override
-  String get iqTestTitle => 'IQ Test';
-
-  @override
-  String get startIqTest => 'Start IQ Test';
 
   @override
   String get iqIntroHeadline => 'Build your cognitive profile';
@@ -102,9 +75,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String iqQuestionProgress(int current, int total) {
     return 'IQ · $current / $total';
   }
-
-  @override
-  String get iqQuestionLabel => 'IQ Question';
 
   @override
   String get iqCanonicalSessionError =>
@@ -126,9 +96,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.';
 
   @override
-  String get eqTestTitle => 'EQ Test';
-
-  @override
   String get eqIntroLabel => 'EQ Assessment';
 
   @override
@@ -144,18 +111,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eqIntroHeadlineEmphasis => 'Intelligence';
 
   @override
-  String get eqPillarSelfAwareness => 'Self-awareness';
-
-  @override
-  String get eqPillarEmpathy => 'Empathy';
-
-  @override
-  String get eqPillarBalance => 'Emotional Balance';
-
-  @override
-  String get eqPillarHarmony => 'Inner Harmony';
-
-  @override
   String eqQuestionProgress(int current, int total) {
     return 'EQ · $current / $total';
   }
@@ -164,9 +119,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String frequencyQuestionProgress(int current, int total) {
     return 'Frequency · $current / $total';
   }
-
-  @override
-  String get eqQuestionInsightLabel => 'EQ';
 
   @override
   String get eqCategoryEmpathy => 'Empathy';
@@ -182,28 +134,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eqCategoryRelationshipManagement => 'Relationship Management';
-
-  @override
-  String get eqIntroHeadline => 'Emotional Intelligence';
-
-  @override
-  String get eqIntroDescription =>
-      'Your emotional quotient (EQ) measures your ability to understand and manage emotions - both yours and others\'.';
-
-  @override
-  String get eqBulletQuestions => '30 scenario-based questions';
-
-  @override
-  String get eqBulletEmpathy => 'Measures empathy & self-awareness';
-
-  @override
-  String get eqBulletDuration => 'Takes about 15 minutes';
-
-  @override
-  String get startEqTest => 'Start EQ Test';
-
-  @override
-  String get eqTestCompleted => 'EQ Test Completed!';
 
   @override
   String get assessmentStageFrequency => 'Frequency';
@@ -232,46 +162,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get startFrequencyTest => 'Start Frequency Test';
 
   @override
-  String get frequencyTestTitle => 'Frequency Test';
-
-  @override
-  String get stronglyDisagree => 'Strongly disagree';
-
-  @override
-  String get disagree => 'Disagree';
-
-  @override
-  String get neutral => 'Neutral';
-
-  @override
-  String get agree => 'Agree';
-
-  @override
-  String get stronglyAgree => 'Strongly agree';
-
-  @override
   String get continueAction => 'Continue';
 
   @override
-  String get next => 'Next';
-
-  @override
-  String get back => 'Back';
-
-  @override
-  String get finish => 'Finish';
-
-  @override
-  String get save => 'Save';
-
-  @override
   String get cancel => 'Cancel';
-
-  @override
-  String get done => 'Done';
-
-  @override
-  String get start => 'Start';
 
   @override
   String get retry => 'Retry';
@@ -284,9 +178,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get submit => 'Submit';
-
-  @override
-  String get send => 'Send';
 
   @override
   String get deleteAction => 'Delete';
@@ -304,38 +195,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navSettings => 'Settings';
 
   @override
-  String get welcomeMatchMinds => 'Match minds.';
-
-  @override
-  String get welcomeFeelTheFrequency => 'Feel the frequency.';
-
-  @override
-  String get welcomeSubtitle =>
-      'Meet people through personality, emotion, and real compatibility.';
-
-  @override
   String get welcomeContinueWithPhone => 'Continue with Phone';
-
-  @override
-  String get welcomeSecureSignInHint => 'Secure sign-in. No email required.';
-
-  @override
-  String get welcomeAlreadyHaveAccount => 'Already have an account? ';
-
-  @override
-  String get welcomeLogIn => 'Log in';
 
   @override
   String get welcomeLogInWithEmail => 'Log in with email';
 
   @override
   String get welcomeTagline => 'INTELLIGENCE. EMOTION. FREQUENCY.';
-
-  @override
-  String get welcomeHeadlinePrefix => 'Find your';
-
-  @override
-  String get welcomeHeadlineEmphasis => 'frequency';
 
   @override
   String get welcomeCueIntelligent => 'Intelligent\nmatching';
@@ -378,10 +244,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeLegalSuffix => '.';
-
-  @override
-  String get welcomeTermsPrivacy =>
-      'By continuing, you agree to our Terms of Service and Privacy Policy.';
 
   @override
   String get phoneSignupTitleAskNumber => 'Connect to your world';
@@ -687,9 +549,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatMessagesLoadErrorSubtitle => 'Please try again in a moment.';
 
   @override
-  String get chatProfileLoadErrorTitle => 'Could not load profile.';
-
-  @override
   String get chatProfileLoadErrorSubtitle =>
       'Profile details are unavailable right now.';
 
@@ -776,13 +635,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsNotifications => 'Notifications';
 
   @override
-  String get settingsNotificationsSubtitle => 'Manage notification preferences';
-
-  @override
   String get settingsPrivacy => 'Privacy';
-
-  @override
-  String get settingsPrivacySubtitle => 'Privacy settings';
 
   @override
   String get settingsBlocked => 'Blocked users';
@@ -880,16 +733,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.site if you need help.';
 
   @override
-  String get settingsDeleteAccountDialogTitle => 'Request account deletion';
-
-  @override
-  String get settingsDeleteAccountDialogBody =>
-      'Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.site.';
-
-  @override
-  String get settingsDeleteAccountDialogAction => 'Got it';
-
-  @override
   String get accountDeletionTitle => 'Delete account';
 
   @override
@@ -948,10 +791,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Submitting does not immediately erase your data. We confirm when processing is complete.';
 
   @override
-  String get accountDeletionAlreadyRequested =>
-      'You already have a pending deletion request. If you need help, email support@qmatch.site.';
-
-  @override
   String get accountDeletionPendingTitle => 'Request already received';
 
   @override
@@ -981,16 +820,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeletionSuccessAction => 'Done';
-
-  @override
-  String get privacyPolicyTodo => 'Privacy Policy';
-
-  @override
-  String get termsOfUseTodo => 'Terms of Use';
-
-  @override
-  String get helpSupportContactTodo =>
-      'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.';
 
   @override
   String get profileTitle => 'Profile';
@@ -1037,9 +866,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileSetupTitle => 'Create Profile';
-
-  @override
-  String get profileSetupContinue => 'CONTINUE';
 
   @override
   String get profileSetupComplete => 'FINISH';
@@ -1089,9 +915,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Not a unique username. You can change it later.';
 
   @override
-  String get displayNameContinue => 'Continue';
-
-  @override
   String get displayNameSaving => 'Saving…';
 
   @override
@@ -1125,9 +948,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get displayNameErrorSaveFailed =>
       'Could not save your name. Please try again.';
-
-  @override
-  String get displayNameMissingPeerLabel => 'Member';
 
   @override
   String get privacySettingsTitle => 'Privacy';
@@ -1335,15 +1155,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get photos => 'Photos';
-
-  @override
-  String get addPhoto => 'Add photo';
-
-  @override
-  String get completeProfile => 'Complete profile';
-
-  @override
-  String get saveProfile => 'Save profile';
 
   @override
   String get profileBioSubtitle => 'Share what makes you you.';
@@ -1606,11 +1417,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get blockedUsersLoadFailed =>
       'We couldn\'t load blocked users right now. Please try again later.';
-
-  @override
-  String blockedUsersError(String message) {
-    return 'Something went wrong: $message';
-  }
 
   @override
   String get blockedUsersBlockedAt => 'Blocked';

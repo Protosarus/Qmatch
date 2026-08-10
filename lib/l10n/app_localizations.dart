@@ -116,12 +116,6 @@ abstract class AppLocalizations {
   /// **'Set as Main Photo'**
   String get setAsMain;
 
-  /// No description provided for @delete.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete;
-
   /// No description provided for @mainPhotoUpdated.
   ///
   /// In en, this message translates to:
@@ -170,47 +164,11 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get assessmentContinue;
 
-  /// No description provided for @assessmentBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get assessmentBack;
-
-  /// No description provided for @assessmentNext.
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get assessmentNext;
-
   /// No description provided for @assessmentFinish.
   ///
   /// In en, this message translates to:
   /// **'Finish'**
   String get assessmentFinish;
-
-  /// No description provided for @assessmentComplete.
-  ///
-  /// In en, this message translates to:
-  /// **'Assessment Complete!'**
-  String get assessmentComplete;
-
-  /// No description provided for @assessmentProfileCreated.
-  ///
-  /// In en, this message translates to:
-  /// **'Your mental profile is ready.'**
-  String get assessmentProfileCreated;
-
-  /// No description provided for @assessmentViewProfile.
-  ///
-  /// In en, this message translates to:
-  /// **'View My Profile'**
-  String get assessmentViewProfile;
-
-  /// No description provided for @assessmentPleaseSelectAnswer.
-  ///
-  /// In en, this message translates to:
-  /// **'Please select an answer'**
-  String get assessmentPleaseSelectAnswer;
 
   /// No description provided for @iqPleaseSelectAnswerToContinue.
   ///
@@ -229,18 +187,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No questions available'**
   String get assessmentNoQuestionsAvailable;
-
-  /// No description provided for @iqTestTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'IQ Test'**
-  String get iqTestTitle;
-
-  /// No description provided for @startIqTest.
-  ///
-  /// In en, this message translates to:
-  /// **'Start IQ Test'**
-  String get startIqTest;
 
   /// No description provided for @iqIntroHeadline.
   ///
@@ -272,12 +218,6 @@ abstract class AppLocalizations {
   /// **'IQ · {current} / {total}'**
   String iqQuestionProgress(int current, int total);
 
-  /// No description provided for @iqQuestionLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'IQ Question'**
-  String get iqQuestionLabel;
-
   /// No description provided for @iqCanonicalSessionError.
   ///
   /// In en, this message translates to:
@@ -307,12 +247,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.'**
   String get assessmentPrerequisiteRepairError;
-
-  /// No description provided for @eqTestTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'EQ Test'**
-  String get eqTestTitle;
 
   /// No description provided for @eqIntroLabel.
   ///
@@ -344,30 +278,6 @@ abstract class AppLocalizations {
   /// **'Intelligence'**
   String get eqIntroHeadlineEmphasis;
 
-  /// No description provided for @eqPillarSelfAwareness.
-  ///
-  /// In en, this message translates to:
-  /// **'Self-awareness'**
-  String get eqPillarSelfAwareness;
-
-  /// No description provided for @eqPillarEmpathy.
-  ///
-  /// In en, this message translates to:
-  /// **'Empathy'**
-  String get eqPillarEmpathy;
-
-  /// No description provided for @eqPillarBalance.
-  ///
-  /// In en, this message translates to:
-  /// **'Emotional Balance'**
-  String get eqPillarBalance;
-
-  /// No description provided for @eqPillarHarmony.
-  ///
-  /// In en, this message translates to:
-  /// **'Inner Harmony'**
-  String get eqPillarHarmony;
-
   /// No description provided for @eqQuestionProgress.
   ///
   /// In en, this message translates to:
@@ -379,12 +289,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Frequency · {current} / {total}'**
   String frequencyQuestionProgress(int current, int total);
-
-  /// No description provided for @eqQuestionInsightLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'EQ'**
-  String get eqQuestionInsightLabel;
 
   /// No description provided for @eqCategoryEmpathy.
   ///
@@ -415,48 +319,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Relationship Management'**
   String get eqCategoryRelationshipManagement;
-
-  /// No description provided for @eqIntroHeadline.
-  ///
-  /// In en, this message translates to:
-  /// **'Emotional Intelligence'**
-  String get eqIntroHeadline;
-
-  /// No description provided for @eqIntroDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Your emotional quotient (EQ) measures your ability to understand and manage emotions - both yours and others\'.'**
-  String get eqIntroDescription;
-
-  /// No description provided for @eqBulletQuestions.
-  ///
-  /// In en, this message translates to:
-  /// **'30 scenario-based questions'**
-  String get eqBulletQuestions;
-
-  /// No description provided for @eqBulletEmpathy.
-  ///
-  /// In en, this message translates to:
-  /// **'Measures empathy & self-awareness'**
-  String get eqBulletEmpathy;
-
-  /// No description provided for @eqBulletDuration.
-  ///
-  /// In en, this message translates to:
-  /// **'Takes about 15 minutes'**
-  String get eqBulletDuration;
-
-  /// No description provided for @startEqTest.
-  ///
-  /// In en, this message translates to:
-  /// **'Start EQ Test'**
-  String get startEqTest;
-
-  /// No description provided for @eqTestCompleted.
-  ///
-  /// In en, this message translates to:
-  /// **'EQ Test Completed!'**
-  String get eqTestCompleted;
 
   /// No description provided for @assessmentStageFrequency.
   ///
@@ -506,89 +368,17 @@ abstract class AppLocalizations {
   /// **'Start Frequency Test'**
   String get startFrequencyTest;
 
-  /// No description provided for @frequencyTestTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Frequency Test'**
-  String get frequencyTestTitle;
-
-  /// No description provided for @stronglyDisagree.
-  ///
-  /// In en, this message translates to:
-  /// **'Strongly disagree'**
-  String get stronglyDisagree;
-
-  /// No description provided for @disagree.
-  ///
-  /// In en, this message translates to:
-  /// **'Disagree'**
-  String get disagree;
-
-  /// No description provided for @neutral.
-  ///
-  /// In en, this message translates to:
-  /// **'Neutral'**
-  String get neutral;
-
-  /// No description provided for @agree.
-  ///
-  /// In en, this message translates to:
-  /// **'Agree'**
-  String get agree;
-
-  /// No description provided for @stronglyAgree.
-  ///
-  /// In en, this message translates to:
-  /// **'Strongly agree'**
-  String get stronglyAgree;
-
   /// No description provided for @continueAction.
   ///
   /// In en, this message translates to:
   /// **'Continue'**
   String get continueAction;
 
-  /// No description provided for @next.
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get next;
-
-  /// No description provided for @back.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
-
-  /// No description provided for @finish.
-  ///
-  /// In en, this message translates to:
-  /// **'Finish'**
-  String get finish;
-
-  /// No description provided for @save.
-  ///
-  /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
-
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
-
-  /// No description provided for @done.
-  ///
-  /// In en, this message translates to:
-  /// **'Done'**
-  String get done;
-
-  /// No description provided for @start.
-  ///
-  /// In en, this message translates to:
-  /// **'Start'**
-  String get start;
 
   /// No description provided for @retry.
   ///
@@ -613,12 +403,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Submit'**
   String get submit;
-
-  /// No description provided for @send.
-  ///
-  /// In en, this message translates to:
-  /// **'Send'**
-  String get send;
 
   /// No description provided for @deleteAction.
   ///
@@ -650,47 +434,11 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get navSettings;
 
-  /// No description provided for @welcomeMatchMinds.
-  ///
-  /// In en, this message translates to:
-  /// **'Match minds.'**
-  String get welcomeMatchMinds;
-
-  /// No description provided for @welcomeFeelTheFrequency.
-  ///
-  /// In en, this message translates to:
-  /// **'Feel the frequency.'**
-  String get welcomeFeelTheFrequency;
-
-  /// No description provided for @welcomeSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Meet people through personality, emotion, and real compatibility.'**
-  String get welcomeSubtitle;
-
   /// No description provided for @welcomeContinueWithPhone.
   ///
   /// In en, this message translates to:
   /// **'Continue with Phone'**
   String get welcomeContinueWithPhone;
-
-  /// No description provided for @welcomeSecureSignInHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Secure sign-in. No email required.'**
-  String get welcomeSecureSignInHint;
-
-  /// No description provided for @welcomeAlreadyHaveAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account? '**
-  String get welcomeAlreadyHaveAccount;
-
-  /// No description provided for @welcomeLogIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Log in'**
-  String get welcomeLogIn;
 
   /// No description provided for @welcomeLogInWithEmail.
   ///
@@ -703,18 +451,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'INTELLIGENCE. EMOTION. FREQUENCY.'**
   String get welcomeTagline;
-
-  /// No description provided for @welcomeHeadlinePrefix.
-  ///
-  /// In en, this message translates to:
-  /// **'Find your'**
-  String get welcomeHeadlinePrefix;
-
-  /// No description provided for @welcomeHeadlineEmphasis.
-  ///
-  /// In en, this message translates to:
-  /// **'frequency'**
-  String get welcomeHeadlineEmphasis;
 
   /// No description provided for @welcomeCueIntelligent.
   ///
@@ -799,12 +535,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'.'**
   String get welcomeLegalSuffix;
-
-  /// No description provided for @welcomeTermsPrivacy.
-  ///
-  /// In en, this message translates to:
-  /// **'By continuing, you agree to our Terms of Service and Privacy Policy.'**
-  String get welcomeTermsPrivacy;
 
   /// No description provided for @phoneSignupTitleAskNumber.
   ///
@@ -1352,12 +1082,6 @@ abstract class AppLocalizations {
   /// **'Please try again in a moment.'**
   String get chatMessagesLoadErrorSubtitle;
 
-  /// No description provided for @chatProfileLoadErrorTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not load profile.'**
-  String get chatProfileLoadErrorTitle;
-
   /// No description provided for @chatProfileLoadErrorSubtitle.
   ///
   /// In en, this message translates to:
@@ -1514,23 +1238,11 @@ abstract class AppLocalizations {
   /// **'Notifications'**
   String get settingsNotifications;
 
-  /// No description provided for @settingsNotificationsSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Manage notification preferences'**
-  String get settingsNotificationsSubtitle;
-
   /// No description provided for @settingsPrivacy.
   ///
   /// In en, this message translates to:
   /// **'Privacy'**
   String get settingsPrivacy;
-
-  /// No description provided for @settingsPrivacySubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Privacy settings'**
-  String get settingsPrivacySubtitle;
 
   /// No description provided for @settingsBlocked.
   ///
@@ -1706,24 +1418,6 @@ abstract class AppLocalizations {
   /// **'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.site if you need help.'**
   String get settingsDeleteAccountPendingBanner;
 
-  /// No description provided for @settingsDeleteAccountDialogTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Request account deletion'**
-  String get settingsDeleteAccountDialogTitle;
-
-  /// No description provided for @settingsDeleteAccountDialogBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Use Settings → Delete account to submit an in-app request. You can also email support@qmatch.site.'**
-  String get settingsDeleteAccountDialogBody;
-
-  /// No description provided for @settingsDeleteAccountDialogAction.
-  ///
-  /// In en, this message translates to:
-  /// **'Got it'**
-  String get settingsDeleteAccountDialogAction;
-
   /// No description provided for @accountDeletionTitle.
   ///
   /// In en, this message translates to:
@@ -1814,12 +1508,6 @@ abstract class AppLocalizations {
   /// **'Submitting does not immediately erase your data. We confirm when processing is complete.'**
   String get accountDeletionNotImmediateNote;
 
-  /// No description provided for @accountDeletionAlreadyRequested.
-  ///
-  /// In en, this message translates to:
-  /// **'You already have a pending deletion request. If you need help, email support@qmatch.site.'**
-  String get accountDeletionAlreadyRequested;
-
   /// No description provided for @accountDeletionPendingTitle.
   ///
   /// In en, this message translates to:
@@ -1867,24 +1555,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get accountDeletionSuccessAction;
-
-  /// No description provided for @privacyPolicyTodo.
-  ///
-  /// In en, this message translates to:
-  /// **'Privacy Policy'**
-  String get privacyPolicyTodo;
-
-  /// No description provided for @termsOfUseTodo.
-  ///
-  /// In en, this message translates to:
-  /// **'Terms of Use'**
-  String get termsOfUseTodo;
-
-  /// No description provided for @helpSupportContactTodo.
-  ///
-  /// In en, this message translates to:
-  /// **'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
-  String get helpSupportContactTodo;
 
   /// No description provided for @profileTitle.
   ///
@@ -1976,12 +1646,6 @@ abstract class AppLocalizations {
   /// **'Create Profile'**
   String get profileSetupTitle;
 
-  /// No description provided for @profileSetupContinue.
-  ///
-  /// In en, this message translates to:
-  /// **'CONTINUE'**
-  String get profileSetupContinue;
-
   /// No description provided for @profileSetupComplete.
   ///
   /// In en, this message translates to:
@@ -2066,12 +1730,6 @@ abstract class AppLocalizations {
   /// **'Not a unique username. You can change it later.'**
   String get displayNamePublicExplanation;
 
-  /// No description provided for @displayNameContinue.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue'**
-  String get displayNameContinue;
-
   /// No description provided for @displayNameSaving.
   ///
   /// In en, this message translates to:
@@ -2131,12 +1789,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save your name. Please try again.'**
   String get displayNameErrorSaveFailed;
-
-  /// No description provided for @displayNameMissingPeerLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Member'**
-  String get displayNameMissingPeerLabel;
 
   /// No description provided for @privacySettingsTitle.
   ///
@@ -2509,24 +2161,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Photos'**
   String get photos;
-
-  /// No description provided for @addPhoto.
-  ///
-  /// In en, this message translates to:
-  /// **'Add photo'**
-  String get addPhoto;
-
-  /// No description provided for @completeProfile.
-  ///
-  /// In en, this message translates to:
-  /// **'Complete profile'**
-  String get completeProfile;
-
-  /// No description provided for @saveProfile.
-  ///
-  /// In en, this message translates to:
-  /// **'Save profile'**
-  String get saveProfile;
 
   /// No description provided for @profileBioSubtitle.
   ///
@@ -3019,12 +2653,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We couldn\'t load blocked users right now. Please try again later.'**
   String get blockedUsersLoadFailed;
-
-  /// No description provided for @blockedUsersError.
-  ///
-  /// In en, this message translates to:
-  /// **'Something went wrong: {message}'**
-  String blockedUsersError(String message);
 
   /// No description provided for @blockedUsersBlockedAt.
   ///

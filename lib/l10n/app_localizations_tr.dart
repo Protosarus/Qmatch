@@ -20,9 +20,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get setAsMain => 'Ana Fotoğraf Yap';
 
   @override
-  String get delete => 'Sil';
-
-  @override
   String get mainPhotoUpdated => '⭐ Ana fotoğraf güncellendi';
 
   @override
@@ -52,25 +49,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get assessmentContinue => 'Devam';
 
   @override
-  String get assessmentBack => 'Geri';
-
-  @override
-  String get assessmentNext => 'İleri';
-
-  @override
   String get assessmentFinish => 'Bitir';
-
-  @override
-  String get assessmentComplete => 'Değerlendirme tamamlandı!';
-
-  @override
-  String get assessmentProfileCreated => 'Zihinsel profilin oluşturuldu.';
-
-  @override
-  String get assessmentViewProfile => 'Profilimi Gör';
-
-  @override
-  String get assessmentPleaseSelectAnswer => 'Lütfen bir cevap seçin';
 
   @override
   String get iqPleaseSelectAnswerToContinue => 'Devam etmek için bir cevap seç';
@@ -80,12 +59,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get assessmentNoQuestionsAvailable => 'Soru bulunamadı';
-
-  @override
-  String get iqTestTitle => 'IQ Testi';
-
-  @override
-  String get startIqTest => 'IQ Testine Başla';
 
   @override
   String get iqIntroHeadline => 'Zihinsel profilini oluştur';
@@ -103,9 +76,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String iqQuestionProgress(int current, int total) {
     return 'IQ · $current / $total';
   }
-
-  @override
-  String get iqQuestionLabel => 'IQ Sorusu';
 
   @override
   String get iqCanonicalSessionError =>
@@ -127,9 +97,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Devam etmeden önce önceki bir değerlendirmenin onarılması gerekiyor. Lütfen o değerlendirmeyi yeniden dene veya yeniden başlat.';
 
   @override
-  String get eqTestTitle => 'EQ Testi';
-
-  @override
   String get eqIntroLabel => 'EQ Değerlendirmesi';
 
   @override
@@ -145,18 +112,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get eqIntroHeadlineEmphasis => 'zekâ';
 
   @override
-  String get eqPillarSelfAwareness => 'Öz farkındalık';
-
-  @override
-  String get eqPillarEmpathy => 'Empati';
-
-  @override
-  String get eqPillarBalance => 'Duygusal Denge';
-
-  @override
-  String get eqPillarHarmony => 'İçsel Uyum';
-
-  @override
   String eqQuestionProgress(int current, int total) {
     return 'EQ · $current / $total';
   }
@@ -165,9 +120,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String frequencyQuestionProgress(int current, int total) {
     return 'Frekans · $current / $total';
   }
-
-  @override
-  String get eqQuestionInsightLabel => 'EQ';
 
   @override
   String get eqCategoryEmpathy => 'Empati';
@@ -183,28 +135,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get eqCategoryRelationshipManagement => 'İlişki Yönetimi';
-
-  @override
-  String get eqIntroHeadline => 'Duygusal zekâ';
-
-  @override
-  String get eqIntroDescription =>
-      'Duygusal zeka (EQ), hem kendi duygularını hem de başkalarınınkini anlama ve yönetme becerini ölçer.';
-
-  @override
-  String get eqBulletQuestions => '30 senaryo tabanlı soru';
-
-  @override
-  String get eqBulletEmpathy => 'Empati ve öz farkındalığı ölçer';
-
-  @override
-  String get eqBulletDuration => 'Yaklaşık 15 dakika sürer';
-
-  @override
-  String get startEqTest => 'EQ Testine Başla';
-
-  @override
-  String get eqTestCompleted => 'EQ testi tamamlandı!';
 
   @override
   String get assessmentStageFrequency => 'Frekans';
@@ -233,46 +163,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get startFrequencyTest => 'Frekans Testine Başla';
 
   @override
-  String get frequencyTestTitle => 'Frekans Testi';
-
-  @override
-  String get stronglyDisagree => 'Kesinlikle katılmıyorum';
-
-  @override
-  String get disagree => 'Katılmıyorum';
-
-  @override
-  String get neutral => 'Kararsızım';
-
-  @override
-  String get agree => 'Katılıyorum';
-
-  @override
-  String get stronglyAgree => 'Kesinlikle katılıyorum';
-
-  @override
   String get continueAction => 'Devam';
 
   @override
-  String get next => 'İleri';
-
-  @override
-  String get back => 'Geri';
-
-  @override
-  String get finish => 'Bitir';
-
-  @override
-  String get save => 'Kaydet';
-
-  @override
   String get cancel => 'İptal';
-
-  @override
-  String get done => 'Tamam';
-
-  @override
-  String get start => 'Başla';
 
   @override
   String get retry => 'Yeniden dene';
@@ -285,9 +179,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get submit => 'Gönder';
-
-  @override
-  String get send => 'Gönder';
 
   @override
   String get deleteAction => 'Sil';
@@ -305,38 +196,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navSettings => 'Ayarlar';
 
   @override
-  String get welcomeMatchMinds => 'Zihinleri eşleştir.';
-
-  @override
-  String get welcomeFeelTheFrequency => 'Frekansı hisset.';
-
-  @override
-  String get welcomeSubtitle =>
-      'Kişilik, duygu ve gerçek uyum üzerinden insanlarla tanış.';
-
-  @override
   String get welcomeContinueWithPhone => 'Telefon ile devam et';
-
-  @override
-  String get welcomeSecureSignInHint => 'Güvenli giriş. E-posta gerekmez.';
-
-  @override
-  String get welcomeAlreadyHaveAccount => 'Zaten hesabın var mı? ';
-
-  @override
-  String get welcomeLogIn => 'Giriş yap';
 
   @override
   String get welcomeLogInWithEmail => 'E-posta ile giriş yap';
 
   @override
   String get welcomeTagline => 'ZEKA. DUYGU. FREKANS.';
-
-  @override
-  String get welcomeHeadlinePrefix => 'Frekansını';
-
-  @override
-  String get welcomeHeadlineEmphasis => 'bul';
 
   @override
   String get welcomeCueIntelligent => 'Akıllı\neşleşme';
@@ -379,10 +245,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get welcomeLegalSuffix => '\'nı kabul etmiş olursun.';
-
-  @override
-  String get welcomeTermsPrivacy =>
-      'Devam ederek Qmatch Kullanım Şartları ve Gizlilik Politikası\'nı kabul etmiş olursun.';
 
   @override
   String get phoneSignupTitleAskNumber => 'Dünyana bağlan';
@@ -687,9 +549,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatMessagesLoadErrorSubtitle => 'Lütfen biraz sonra tekrar dene.';
 
   @override
-  String get chatProfileLoadErrorTitle => 'Profil yüklenemedi.';
-
-  @override
   String get chatProfileLoadErrorSubtitle =>
       'Profil bilgileri şu an kullanılamıyor.';
 
@@ -776,13 +635,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsNotifications => 'Bildirimler';
 
   @override
-  String get settingsNotificationsSubtitle => 'Bildirim tercihlerini yönet';
-
-  @override
   String get settingsPrivacy => 'Gizlilik';
-
-  @override
-  String get settingsPrivacySubtitle => 'Gizlilik ayarları';
 
   @override
   String get settingsBlocked => 'Engellenenler';
@@ -879,16 +732,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Hesap silme talebin beklemede. 30 gün içinde işleyeceğiz. Yardım için support@qmatch.site adresine yaz.';
 
   @override
-  String get settingsDeleteAccountDialogTitle => 'Hesap silme talebi';
-
-  @override
-  String get settingsDeleteAccountDialogBody =>
-      'Ayarlar → Hesabı sil üzerinden uygulama içi talep gönderebilirsin. İstersen support@qmatch.site adresine de yazabilirsin.';
-
-  @override
-  String get settingsDeleteAccountDialogAction => 'Anladım';
-
-  @override
   String get accountDeletionTitle => 'Hesabı sil';
 
   @override
@@ -946,10 +789,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Göndermek verilerini anında silmez. İşlem tamamlandığında bilgilendiririz.';
 
   @override
-  String get accountDeletionAlreadyRequested =>
-      'Bekleyen bir silme talebin zaten var. Yardım için support@qmatch.site adresine yaz.';
-
-  @override
   String get accountDeletionPendingTitle => 'Talep zaten alındı';
 
   @override
@@ -979,16 +818,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get accountDeletionSuccessAction => 'Tamam';
-
-  @override
-  String get privacyPolicyTodo => 'Gizlilik Politikası';
-
-  @override
-  String get termsOfUseTodo => 'Kullanım Şartları';
-
-  @override
-  String get helpSupportContactTodo =>
-      'Daha fazla yardıma mı ihtiyacın var?\n\nBize support@qmatch.site adresinden yaz.\n\nHer mesajı okuruz. Hesabı silmek için Ayarlar → Hesabı sil yolunu kullan (30 gün içinde işlenir) veya hesabına bağlı telefon/e-posta ile destekle iletişime geç.';
 
   @override
   String get profileTitle => 'Profil';
@@ -1036,9 +865,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profileSetupTitle => 'Profil Oluştur';
 
   @override
-  String get profileSetupContinue => 'DEVAM';
-
-  @override
   String get profileSetupComplete => 'TAMAMLA';
 
   @override
@@ -1084,9 +910,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Benzersiz kullanıcı adı değildir. Daha sonra değiştirebilirsin.';
 
   @override
-  String get displayNameContinue => 'Devam';
-
-  @override
   String get displayNameSaving => 'Kaydediliyor…';
 
   @override
@@ -1120,9 +943,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get displayNameErrorSaveFailed =>
       'Adın kaydedilemedi. Lütfen tekrar dene.';
-
-  @override
-  String get displayNameMissingPeerLabel => 'Üye';
 
   @override
   String get privacySettingsTitle => 'Gizlilik';
@@ -1328,15 +1148,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get photos => 'Fotoğraflar';
-
-  @override
-  String get addPhoto => 'Fotoğraf ekle';
-
-  @override
-  String get completeProfile => 'Profili tamamla';
-
-  @override
-  String get saveProfile => 'Profili kaydet';
 
   @override
   String get profileBioSubtitle => 'Kendini ifade et, dikkat çek!';
@@ -1600,11 +1411,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get blockedUsersLoadFailed =>
       'Engellenen kullanıcılar şu anda yüklenemedi. Lütfen daha sonra tekrar dene.';
-
-  @override
-  String blockedUsersError(String message) {
-    return 'Bir hata oluştu: $message';
-  }
 
   @override
   String get blockedUsersBlockedAt => 'Engellendi';
