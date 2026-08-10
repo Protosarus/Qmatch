@@ -56,26 +56,20 @@
   "iqQuestionProgress": "IQ · {current} / {total}",
   "@iqQuestionProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "iqQuestionLabel": "IQ Question",
-  "iqTestCompleted": "IQ assessment complete",
-  "iqToEqMessage": "The first part of your cognitive profile is ready. Now let's continue with your emotional profile.",
-  "continueToEqAssessment": "Continue to EQ assessment",
-  "iqReasoningProfileTitle": "Reasoning Profile",
-  "iqReasoningProfileSubtitle": "Your uncalibrated multidimensional reasoning performance on this session.",
-  "iqUncalibratedDisclaimer": "Not a standardized IQ score · Not a population percentile",
   "iqCanonicalSessionError": "We couldn't load your assessment session. Please try again.",
   "iqCanonicalAnswerError": "We couldn't save your answer. Please try again.",
   "iqCanonicalPersistError": "We couldn't save your result. Your answers are safe; you can try again.",
   "iqCanonicalFinalizeRetry": "Save result",
   "assessmentPrerequisiteRepairError": "A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.",
-  "iqDimLogicalReasoning": "Logical Reasoning",
-  "iqDimPatternReasoning": "Pattern Reasoning",
-  "iqDimVerbalReasoning": "Verbal Reasoning",
-  "iqDimSpatialReasoning": "Spatial Reasoning",
   "eqTestTitle": "EQ Test",
   "eqIntroLabel": "EQ Assessment",
   "eqIntroMeta": "30 questions · About 15 minutes",
@@ -89,8 +83,12 @@
   "eqQuestionProgress": "EQ · {current} / {total}",
   "@eqQuestionProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "eqQuestionInsightLabel": "EQ",
@@ -106,8 +104,6 @@
   "eqBulletDuration": "Takes about 15 minutes",
   "startEqTest": "Start EQ Test",
   "eqTestCompleted": "EQ Test Completed!",
-  "assessmentStageIq": "IQ",
-  "assessmentStageEq": "EQ",
   "assessmentStageFrequency": "Frequency",
   "frequencyIntroTitle": "Discover your frequency",
   "frequencyIntroDescription": "Frequency is not about intelligence. It is about how you connect, communicate, and build trust.",
@@ -117,10 +113,6 @@
   "frequencyBulletRhythm": "What kind of conversation rhythm fits you",
   "startFrequencyTest": "Start Frequency Test",
   "frequencyTestTitle": "Frequency Test",
-  "yourFrequency": "Your frequency",
-  "balancedFrequency": "Balanced Frequency",
-  "frequencyScore": "Score",
-  "seeMyFrequency": "See My Frequency",
   "stronglyDisagree": "Strongly disagree",
   "disagree": "Disagree",
   "neutral": "Neutral",
@@ -241,19 +233,25 @@
   "messagesAvatarSemanticLabel": "Photo of {name}",
   "@messagesAvatarSemanticLabel": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "messagesUnreadSemanticLabel": "{count} unread messages",
   "@messagesUnreadSemanticLabel": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "messagesConversationSemanticLabel": "Conversation with {name}",
   "@messagesConversationSemanticLabel": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "messagesSayHi": "Say hi 👋",
@@ -357,7 +355,9 @@
   "accountDeletionSupportHint": "Questions? Contact {email}",
   "@accountDeletionSupportHint": {
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionAckIrreversible": "I understand this request is for permanent deletion, not temporary deactivation.",
@@ -365,7 +365,9 @@
   "accountDeletionTypeDeleteHint": "Type {token} to confirm",
   "@accountDeletionTypeDeleteHint": {
     "placeholders": {
-      "token": { "type": "String" }
+      "token": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionSubmit": "Submit deletion request",
@@ -375,7 +377,9 @@
   "accountDeletionPendingBody": "Your deletion request has been received and is pending. We will process it within 30 days. You can contact {email} if you have questions.",
   "@accountDeletionPendingBody": {
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionPendingNoResubmit": "You do not need to submit another request. Duplicate submissions are disabled while this request is pending.",
@@ -385,7 +389,9 @@
   "accountDeletionSuccessBody": "Your deletion request has been received. We will process it within 30 days. You can contact {email} if you have questions.",
   "@accountDeletionSuccessBody": {
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionSuccessAction": "Done",
@@ -659,44 +665,6 @@
   "debugGoToAuthWrapper": "Go to Auth Wrapper",
   "mainAppWelcome": "Welcome to QMatch!",
   "mainAppComingSoon": "Main app coming soon…",
-  "emailSignupTitle": "Create account",
-  "emailSignupSubtitle": "with email",
-  "fullName": "Full name",
-  "signUp": "Sign up",
-  "signupJoinToday": "Join QMatch today",
-  "signupCreateAccount": "Create account",
-  "signupAlreadyHaveAccount": "Already have an account? ",
-  "signupErrorWeakPassword": "Password is too weak",
-  "signupErrorEmailInUse": "An account already exists with this email",
-  "signupErrorInvalidEmail": "Invalid email address",
-  "signupErrorFailed": "Signup failed. Please try again.",
-  "nameRequired": "Please enter your name",
-  "nameMinLength": "Name must be at least 2 characters",
-  "verifyEmailTitle": "Verify email",
-  "verificationEmailSent": "Verification email sent!",
-  "verificationTitle": "Verification",
-  "verificationCodeSentEmail": "Verification code sent to email",
-  "verificationCodeSentSms": "Verification code sent via SMS",
-  "verificationEnterEmailCode": "Enter the code sent to\n{contact}",
-  "@verificationEnterEmailCode": {
-    "placeholders": {
-      "contact": {
-        "type": "String"
-      }
-    }
-  },
-  "verificationEnterSmsCode": "Enter the SMS code sent to\n{contact}",
-  "@verificationEnterSmsCode": {
-    "placeholders": {
-      "contact": {
-        "type": "String"
-      }
-    }
-  },
-  "resendCodeAction": "Resend code",
-  "socialContinueGoogle": "Continue with Google",
-  "socialContinueApple": "Continue with Apple",
-  "socialOrEmail": "Or continue with email",
   "interestCatSports": "Sports",
   "interestCatArts": "Arts",
   "interestCatTech": "Technology",
@@ -755,35 +723,6 @@
   "interestHistoricSites": "Historic sites",
   "interestBeach": "Beach holiday",
   "interestSoloTravel": "Solo travel",
-  "emailVerificationSentTo": "We sent a verification link to:\n{email}",
-  "@emailVerificationSentTo": {
-    "placeholders": {
-      "email": {
-        "type": "String"
-      }
-    }
-  },
-  "emailVerificationNextSteps": "Next steps:",
-  "emailVerificationStepInbox": "Check your email inbox",
-  "emailVerificationStepClick": "Click the verification link",
-  "emailVerificationStepReturn": "Return to this app",
-  "emailVerificationWaiting": "Waiting for verification…",
-  "emailVerificationResendIn": "Resend in {seconds}s",
-  "@emailVerificationResendIn": {
-    "placeholders": {
-      "seconds": {
-        "type": "int"
-      }
-    }
-  },
-  "emailVerificationResend": "Resend email",
-  "emailVerificationSpamHint": "Check your spam folder if you don't see it.",
-  "pleaseEnterPassword": "Please enter a password",
-  "welcomeTitle": "Welcome",
-  "socialContinueWithEmail": "Continue with email",
-  "orDivider": "or",
   "privacyVisibilitySection": "Visibility",
-  "privacyDataSecuritySection": "Data & security",
-  "socialCreateAccountSubtitle": "Create your QMatch account",
-  "socialAlreadyHaveAccountLogin": "Already have an account? Log in"
+  "privacyDataSecuritySection": "Data & security"
 }

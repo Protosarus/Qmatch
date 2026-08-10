@@ -47,6 +47,6 @@ legacy scalar `iq_score` field.
 ## Legacy compatibility
 
 Older clients that only read `users/{uid}.iq_score` may see it **absent** for
-new canonical completions. EQ intro accepts `iqScore: 0` and may recover from
-Firestore when needed; Discover uses `iq_normalized` / flow completion, not this
+new canonical completions. Live onboarding is IQ → EQ Intro → EQ (no `iqScore`
+ctor plumbing). Discover uses `iq_normalized` / flow completion, not this
 scalar, for gating.

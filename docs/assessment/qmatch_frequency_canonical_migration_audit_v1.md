@@ -19,10 +19,10 @@ FrequencyIntroScreen → FrequencyTestScreen (Likert)
   → FrequencyService + frequency_sets.json
   → legacy aliases / reverseScored / aggregate totals
   → assessments/frequency (trait_frequency_legacy_partial_v1)
-  → AssessmentFlowCompleteScreen / FrequencyResultScreen
+  → AssessmentFlowCompleteScreen
 ```
 
-Retired from **active new sessions**.
+Retired from **active new sessions**. (`FrequencyResultScreen` deleted.)
 
 ## CANONICAL NEW LIVE PATH
 

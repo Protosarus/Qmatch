@@ -13,9 +13,11 @@ iq_test_intro_screen
     → 25 questions / option-ID answers
     → IqCanonicalScorer (uncalibrated 4D)
     → users/{uid}/assessments/iq (qmatch_iq_live_result_v1)
-    → IqReasoningProfileScreen
-    → IqToEqTransitionScreen → EQ
+    → EQTestIntroScreen → EQ → Frequency → AssessmentFlowCompleteScreen
 ```
+
+Orphan UI removed from onboarding: `IqReasoningProfileScreen`,
+`IqToEqTransitionScreen` (no longer in tree).
 
 | Fact | Value |
 |------|-------|

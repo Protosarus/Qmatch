@@ -14,7 +14,8 @@
   `spatial_reasoning` with `provisionalScore ∈ [0,1]`, `calibrationStatus=uncalibrated`
 - Firestore: `users/{uid}/assessments/iq` via `buildCanonicalIq4dPayload`
   (`qmatch_iq_live_result_v1`), `canonical_profile_ready: false`
-- UI: `IqReasoningProfileScreen` → EQ transition
+- UI: IQ completion navigates to `EQTestIntroScreen` (Reasoning Profile /
+  IQ→EQ transition screens removed)
 - **Does not** write a multidimensional profile document today
 
 ## 2. Canonical 20D taxonomy (exists — do not invent)
@@ -67,7 +68,7 @@ not a 20D profile document.
 1. After valid `IqCanonicalScorer` result + IQ assessment persist
 2. Run `IqTo20dRuntimeAdapter` → partial canonical profile fragment
 3. Persist versioned profile (new path) without fabricating EQ/Frequency values
-4. Continue onboarding IQ → Reasoning Profile → EQ unchanged
+4. Continue onboarding IQ → EQ Intro → EQ unchanged (no Reasoning Profile)
 5. Do **not** call Persona / matching / quantum / TraitScoring live paths
 
 ## 6. Adapter design decision

@@ -36,7 +36,7 @@ Via `CanonicalAssessmentPersistence.buildLegacyIqEqPayload` + `AssessmentProgres
 
 | Consumer | Use of IQ value |
 |----------|-----------------|
-| `IQTestScreen` → `EQTestIntroScreen(iqScore:)` | Passes correct-count forward |
+| `IQTestScreen` → `EQTestIntroScreen` | Onboarding handoff (no score ctor) |
 | `AssessmentProgressService` | Completion gate + optional raw mirror |
 | `CanonicalAssessmentPersistence.recoverIqResult` | Recovery of raw count |
 | Discover / compatibility | **No direct IQ score dependency found** in discover package |

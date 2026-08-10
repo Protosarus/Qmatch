@@ -271,7 +271,9 @@ Possible storage:
 ### Frequency results
 
 - Scoring may still emit internal tag IDs
-- `FrequencyResultScreen` (and any share cards) must resolve tags through the localized catalog
+- Discover / share surfaces must resolve tags through the localized catalog
+  (`FrequencyResultScreen` was removed; completion uses
+  `AssessmentFlowCompleteScreen`)
 - Type titles such as `"Balanced Frequency"` must come from l10n / localized maps — not English-only hardcoded strings where TR is expected
 
 ---

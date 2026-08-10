@@ -1,7 +1,14 @@
 # DS-3A — Assessment UI Audit (IQ / EQ / Frequency)
 
-**Date:** 2026-07-19  
-**Scope:** Inspection only — no code, assets, scoring, Firestore, or navigation changes.  
+**Date:** 2026-07-19 (historical audit)
+
+**Current live flow note (2026-08):**
+`IQ Intro → IQ → EQ Intro → EQ → Frequency Intro → Frequency → AssessmentFlowCompleteScreen`
+
+Deleted orphans: Reasoning Profile, IQ→EQ transition, Frequency result, `eq_test_screen_temp`.
+
+**Original scope:** Inspection only — no code, assets, scoring, Firestore, or navigation changes.
+
 **App root:** Qmatch Flutter (`lib/features/assessment/`)
 
 ---
@@ -12,16 +19,15 @@
 
 | Role | Path | Class | Production wiring |
 |------|------|-------|-------------------|
-| IQ intro | `lib/features/assessment/screens/iq_test_intro_screen.dart` | `IQTestIntroScreen` | Yes — `AuthWrapper`, verification flow |
+| IQ intro | `lib/features/assessment/screens/iq_test_intro_screen.dart` | `IQTestIntroScreen` | Yes — `AuthWrapper` |
 | IQ questions | `lib/features/assessment/screens/iq_test_screen.dart` | `IQTestScreen` | Yes — from IQ intro |
-| EQ intro | `lib/features/assessment/screens/eq_test_intro_screen.dart` | `EQTestIntroScreen` | **No** — defined, never navigated to |
-| EQ questions | `lib/features/assessment/screens/eq_test_screen.dart` | `EQTestScreen` | Yes — IQ completion dialog → `pushReplacement` |
-| Frequency intro | `lib/features/assessment/screens/frequency_intro_screen.dart` | `FrequencyIntroScreen` | Yes — `AuthWrapper` / EQ result CTA |
+| EQ intro | `lib/features/assessment/screens/eq_test_intro_screen.dart` | `EQTestIntroScreen` | Yes — after IQ complete / AuthWrapper |
+| EQ questions | `lib/features/assessment/screens/eq_test_screen.dart` | `EQTestScreen` | Yes — from EQ intro |
+| Frequency intro | `lib/features/assessment/screens/frequency_intro_screen.dart` | `FrequencyIntroScreen` | Yes — after EQ / AuthWrapper |
 | Frequency questions | `lib/features/assessment/screens/frequency_test_screen.dart` | `FrequencyTestScreen` | Yes — from Frequency intro |
-| Frequency result | `lib/features/assessment/screens/frequency_result_screen.dart` | `FrequencyResultScreen` | Yes — after Frequency finish |
-| Dead stub | `lib/features/assessment/screens/eq_test_screen_temp.dart` | — | Empty / unused |
+| Flow complete | `lib/features/assessment/screens/assessment_flow_complete_screen.dart` | `AssessmentFlowCompleteScreen` | Yes — after Frequency finish |
 
-There is **no** `lib/features/assessment/widgets/` directory. No shared assessment UI package.
+Removed: `FrequencyResultScreen`, `IqReasoningProfileScreen`, `IqToEqTransitionScreen`, `eq_test_screen_temp.dart`.
 
 ### Services / models / utils
 
@@ -53,29 +59,19 @@ There is **no** `lib/features/assessment/widgets/` directory. No shared assessme
 
 ---
 
-## 2. Runtime flow
+## 2. Runtime flow (current)
 
 ```
 AuthWrapper
-  └─ !test_completed → IQTestIntroScreen → IQTestScreen
-       └─ last IQ Q → markAssignmentCompleted(iq)
-            └─ dialog → EQTestScreen(iqScore:)   [EQ intro skipped]
-                 └─ last EQ Q → updateTestCompletion + archetype
-                      └─ dialog → FrequencyIntroScreen
-                           └─ FrequencyTestScreen → FrequencyResultScreen
-                                └─ AuthWrapper (frequency_completed)
+  └─ assessment progress → IQTestIntroScreen → IQTestScreen
+       └─ complete → EQTestIntroScreen → EQTestScreen
+            └─ complete → FrequencyIntroScreen → FrequencyTestScreen
+                 └─ complete → AssessmentFlowCompleteScreen → AuthWrapper
 ```
-
-Alternate gate: if `test_completed && !frequency_completed` → `FrequencyIntroScreen` directly.
 
 | Concern | IQ | EQ | Frequency |
 |---------|----|----|-----------|
-| Progress | `(index+1)/length` custom bar | Same | `(index+1)/length` `LinearProgressIndicator` |
-| Answer select | `_selectedAnswer` + `GestureDetector` | Same | `_answers[id]` 1–5 + `InkWell` |
-| Next | `_nextQuestion()` | `_nextQuestion()` | `_next()` |
-| Back | **None** | **None** | `_back()` |
-| Completion | Last Q → assignment + EQ dialog | Last Q → `_showResults()` | Last Q → `_finish()` |
-| Result nav | → `EQTestScreen` | → `FrequencyIntroScreen` | → `FrequencyResultScreen` |
+| Result nav | → `EQTestIntroScreen` | → `FrequencyIntroScreen` | → `AssessmentFlowCompleteScreen` |
 
 ---
 
@@ -269,7 +265,7 @@ Scoring formulas, set assignment, `option_orders`, Discover `frequency_vector` m
 
 ## 9. Evidence anchors
 
-- IQ advance / EQ handoff: `iq_test_screen.dart` → `_nextQuestion`, dialog `EQTestScreen(iqScore:)`
+- IQ advance / EQ handoff: `iq_test_screen.dart` → `EQTestIntroScreen`
 - Set / option rules: `assessment_set_service.dart` header comments (`question_order`, IQ `option_orders`)
 - Frequency Likert chrome: `frequency_test_screen.dart` → `_likertLabels(l10n)`
 - Auth gating: `lib/core/navigation/auth_wrapper.dart`

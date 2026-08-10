@@ -278,42 +278,6 @@ abstract class AppLocalizations {
   /// **'IQ Question'**
   String get iqQuestionLabel;
 
-  /// No description provided for @iqTestCompleted.
-  ///
-  /// In en, this message translates to:
-  /// **'IQ assessment complete'**
-  String get iqTestCompleted;
-
-  /// No description provided for @iqToEqMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'The first part of your cognitive profile is ready. Now let\'s continue with your emotional profile.'**
-  String get iqToEqMessage;
-
-  /// No description provided for @continueToEqAssessment.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue to EQ assessment'**
-  String get continueToEqAssessment;
-
-  /// No description provided for @iqReasoningProfileTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Reasoning Profile'**
-  String get iqReasoningProfileTitle;
-
-  /// No description provided for @iqReasoningProfileSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your uncalibrated multidimensional reasoning performance on this session.'**
-  String get iqReasoningProfileSubtitle;
-
-  /// No description provided for @iqUncalibratedDisclaimer.
-  ///
-  /// In en, this message translates to:
-  /// **'Not a standardized IQ score · Not a population percentile'**
-  String get iqUncalibratedDisclaimer;
-
   /// No description provided for @iqCanonicalSessionError.
   ///
   /// In en, this message translates to:
@@ -343,30 +307,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.'**
   String get assessmentPrerequisiteRepairError;
-
-  /// No description provided for @iqDimLogicalReasoning.
-  ///
-  /// In en, this message translates to:
-  /// **'Logical Reasoning'**
-  String get iqDimLogicalReasoning;
-
-  /// No description provided for @iqDimPatternReasoning.
-  ///
-  /// In en, this message translates to:
-  /// **'Pattern Reasoning'**
-  String get iqDimPatternReasoning;
-
-  /// No description provided for @iqDimVerbalReasoning.
-  ///
-  /// In en, this message translates to:
-  /// **'Verbal Reasoning'**
-  String get iqDimVerbalReasoning;
-
-  /// No description provided for @iqDimSpatialReasoning.
-  ///
-  /// In en, this message translates to:
-  /// **'Spatial Reasoning'**
-  String get iqDimSpatialReasoning;
 
   /// No description provided for @eqTestTitle.
   ///
@@ -512,18 +452,6 @@ abstract class AppLocalizations {
   /// **'EQ Test Completed!'**
   String get eqTestCompleted;
 
-  /// No description provided for @assessmentStageIq.
-  ///
-  /// In en, this message translates to:
-  /// **'IQ'**
-  String get assessmentStageIq;
-
-  /// No description provided for @assessmentStageEq.
-  ///
-  /// In en, this message translates to:
-  /// **'EQ'**
-  String get assessmentStageEq;
-
   /// No description provided for @assessmentStageFrequency.
   ///
   /// In en, this message translates to:
@@ -577,30 +505,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Frequency Test'**
   String get frequencyTestTitle;
-
-  /// No description provided for @yourFrequency.
-  ///
-  /// In en, this message translates to:
-  /// **'Your frequency'**
-  String get yourFrequency;
-
-  /// No description provided for @balancedFrequency.
-  ///
-  /// In en, this message translates to:
-  /// **'Balanced Frequency'**
-  String get balancedFrequency;
-
-  /// No description provided for @frequencyScore.
-  ///
-  /// In en, this message translates to:
-  /// **'Score'**
-  String get frequencyScore;
-
-  /// No description provided for @seeMyFrequency.
-  ///
-  /// In en, this message translates to:
-  /// **'See My Frequency'**
-  String get seeMyFrequency;
 
   /// No description provided for @stronglyDisagree.
   ///
@@ -3182,150 +3086,6 @@ abstract class AppLocalizations {
   /// **'Main app coming soon…'**
   String get mainAppComingSoon;
 
-  /// No description provided for @emailSignupTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Create account'**
-  String get emailSignupTitle;
-
-  /// No description provided for @emailSignupSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'with email'**
-  String get emailSignupSubtitle;
-
-  /// No description provided for @fullName.
-  ///
-  /// In en, this message translates to:
-  /// **'Full name'**
-  String get fullName;
-
-  /// No description provided for @signUp.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign up'**
-  String get signUp;
-
-  /// No description provided for @signupJoinToday.
-  ///
-  /// In en, this message translates to:
-  /// **'Join QMatch today'**
-  String get signupJoinToday;
-
-  /// No description provided for @signupCreateAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Create account'**
-  String get signupCreateAccount;
-
-  /// No description provided for @signupAlreadyHaveAccount.
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account? '**
-  String get signupAlreadyHaveAccount;
-
-  /// No description provided for @signupErrorWeakPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Password is too weak'**
-  String get signupErrorWeakPassword;
-
-  /// No description provided for @signupErrorEmailInUse.
-  ///
-  /// In en, this message translates to:
-  /// **'An account already exists with this email'**
-  String get signupErrorEmailInUse;
-
-  /// No description provided for @signupErrorInvalidEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid email address'**
-  String get signupErrorInvalidEmail;
-
-  /// No description provided for @signupErrorFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Signup failed. Please try again.'**
-  String get signupErrorFailed;
-
-  /// No description provided for @nameRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter your name'**
-  String get nameRequired;
-
-  /// No description provided for @nameMinLength.
-  ///
-  /// In en, this message translates to:
-  /// **'Name must be at least 2 characters'**
-  String get nameMinLength;
-
-  /// No description provided for @verifyEmailTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Verify email'**
-  String get verifyEmailTitle;
-
-  /// No description provided for @verificationEmailSent.
-  ///
-  /// In en, this message translates to:
-  /// **'Verification email sent!'**
-  String get verificationEmailSent;
-
-  /// No description provided for @verificationTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Verification'**
-  String get verificationTitle;
-
-  /// No description provided for @verificationCodeSentEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Verification code sent to email'**
-  String get verificationCodeSentEmail;
-
-  /// No description provided for @verificationCodeSentSms.
-  ///
-  /// In en, this message translates to:
-  /// **'Verification code sent via SMS'**
-  String get verificationCodeSentSms;
-
-  /// No description provided for @verificationEnterEmailCode.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the code sent to\n{contact}'**
-  String verificationEnterEmailCode(String contact);
-
-  /// No description provided for @verificationEnterSmsCode.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter the SMS code sent to\n{contact}'**
-  String verificationEnterSmsCode(String contact);
-
-  /// No description provided for @resendCodeAction.
-  ///
-  /// In en, this message translates to:
-  /// **'Resend code'**
-  String get resendCodeAction;
-
-  /// No description provided for @socialContinueGoogle.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue with Google'**
-  String get socialContinueGoogle;
-
-  /// No description provided for @socialContinueApple.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue with Apple'**
-  String get socialContinueApple;
-
-  /// No description provided for @socialOrEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Or continue with email'**
-  String get socialOrEmail;
-
   /// No description provided for @interestCatSports.
   ///
   /// In en, this message translates to:
@@ -3674,84 +3434,6 @@ abstract class AppLocalizations {
   /// **'Solo travel'**
   String get interestSoloTravel;
 
-  /// No description provided for @emailVerificationSentTo.
-  ///
-  /// In en, this message translates to:
-  /// **'We sent a verification link to:\n{email}'**
-  String emailVerificationSentTo(String email);
-
-  /// No description provided for @emailVerificationNextSteps.
-  ///
-  /// In en, this message translates to:
-  /// **'Next steps:'**
-  String get emailVerificationNextSteps;
-
-  /// No description provided for @emailVerificationStepInbox.
-  ///
-  /// In en, this message translates to:
-  /// **'Check your email inbox'**
-  String get emailVerificationStepInbox;
-
-  /// No description provided for @emailVerificationStepClick.
-  ///
-  /// In en, this message translates to:
-  /// **'Click the verification link'**
-  String get emailVerificationStepClick;
-
-  /// No description provided for @emailVerificationStepReturn.
-  ///
-  /// In en, this message translates to:
-  /// **'Return to this app'**
-  String get emailVerificationStepReturn;
-
-  /// No description provided for @emailVerificationWaiting.
-  ///
-  /// In en, this message translates to:
-  /// **'Waiting for verification…'**
-  String get emailVerificationWaiting;
-
-  /// No description provided for @emailVerificationResendIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Resend in {seconds}s'**
-  String emailVerificationResendIn(int seconds);
-
-  /// No description provided for @emailVerificationResend.
-  ///
-  /// In en, this message translates to:
-  /// **'Resend email'**
-  String get emailVerificationResend;
-
-  /// No description provided for @emailVerificationSpamHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Check your spam folder if you don\'t see it.'**
-  String get emailVerificationSpamHint;
-
-  /// No description provided for @pleaseEnterPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter a password'**
-  String get pleaseEnterPassword;
-
-  /// No description provided for @welcomeTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome'**
-  String get welcomeTitle;
-
-  /// No description provided for @socialContinueWithEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue with email'**
-  String get socialContinueWithEmail;
-
-  /// No description provided for @orDivider.
-  ///
-  /// In en, this message translates to:
-  /// **'or'**
-  String get orDivider;
-
   /// No description provided for @privacyVisibilitySection.
   ///
   /// In en, this message translates to:
@@ -3763,18 +3445,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Data & security'**
   String get privacyDataSecuritySection;
-
-  /// No description provided for @socialCreateAccountSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Create your QMatch account'**
-  String get socialCreateAccountSubtitle;
-
-  /// No description provided for @socialAlreadyHaveAccountLogin.
-  ///
-  /// In en, this message translates to:
-  /// **'Already have an account? Log in'**
-  String get socialAlreadyHaveAccountLogin;
 }
 
 class _AppLocalizationsDelegate

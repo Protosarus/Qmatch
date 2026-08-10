@@ -12,6 +12,8 @@ Historical assets retained (not deleted):
 
 * `frequency_sets.json`
 * `FrequencyService` Likert helpers
-* `FrequencyResultScreen` (no longer navigated from canonical complete path)
+
+`FrequencyResultScreen` was removed from the codebase (canonical complete path
+uses `AssessmentFlowCompleteScreen`).
 
 Legacy aggregate totals are not the canonical 6D / 20D profile source.

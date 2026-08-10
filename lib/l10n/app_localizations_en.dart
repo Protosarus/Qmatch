@@ -107,27 +107,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iqQuestionLabel => 'IQ Question';
 
   @override
-  String get iqTestCompleted => 'IQ assessment complete';
-
-  @override
-  String get iqToEqMessage =>
-      'The first part of your cognitive profile is ready. Now let\'s continue with your emotional profile.';
-
-  @override
-  String get continueToEqAssessment => 'Continue to EQ assessment';
-
-  @override
-  String get iqReasoningProfileTitle => 'Reasoning Profile';
-
-  @override
-  String get iqReasoningProfileSubtitle =>
-      'Your uncalibrated multidimensional reasoning performance on this session.';
-
-  @override
-  String get iqUncalibratedDisclaimer =>
-      'Not a standardized IQ score · Not a population percentile';
-
-  @override
   String get iqCanonicalSessionError =>
       'We couldn\'t load your assessment session. Please try again.';
 
@@ -145,18 +124,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get assessmentPrerequisiteRepairError =>
       'A previous assessment needs to be repaired before you can continue. Please retry or restart that assessment.';
-
-  @override
-  String get iqDimLogicalReasoning => 'Logical Reasoning';
-
-  @override
-  String get iqDimPatternReasoning => 'Pattern Reasoning';
-
-  @override
-  String get iqDimVerbalReasoning => 'Verbal Reasoning';
-
-  @override
-  String get iqDimSpatialReasoning => 'Spatial Reasoning';
 
   @override
   String get eqTestTitle => 'EQ Test';
@@ -234,12 +201,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get eqTestCompleted => 'EQ Test Completed!';
 
   @override
-  String get assessmentStageIq => 'IQ';
-
-  @override
-  String get assessmentStageEq => 'EQ';
-
-  @override
   String get assessmentStageFrequency => 'Frequency';
 
   @override
@@ -267,18 +228,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get frequencyTestTitle => 'Frequency Test';
-
-  @override
-  String get yourFrequency => 'Your frequency';
-
-  @override
-  String get balancedFrequency => 'Balanced Frequency';
-
-  @override
-  String get frequencyScore => 'Score';
-
-  @override
-  String get seeMyFrequency => 'See My Frequency';
 
   @override
   String get stronglyDisagree => 'Strongly disagree';
@@ -1694,83 +1643,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mainAppComingSoon => 'Main app coming soon…';
 
   @override
-  String get emailSignupTitle => 'Create account';
-
-  @override
-  String get emailSignupSubtitle => 'with email';
-
-  @override
-  String get fullName => 'Full name';
-
-  @override
-  String get signUp => 'Sign up';
-
-  @override
-  String get signupJoinToday => 'Join QMatch today';
-
-  @override
-  String get signupCreateAccount => 'Create account';
-
-  @override
-  String get signupAlreadyHaveAccount => 'Already have an account? ';
-
-  @override
-  String get signupErrorWeakPassword => 'Password is too weak';
-
-  @override
-  String get signupErrorEmailInUse =>
-      'An account already exists with this email';
-
-  @override
-  String get signupErrorInvalidEmail => 'Invalid email address';
-
-  @override
-  String get signupErrorFailed => 'Signup failed. Please try again.';
-
-  @override
-  String get nameRequired => 'Please enter your name';
-
-  @override
-  String get nameMinLength => 'Name must be at least 2 characters';
-
-  @override
-  String get verifyEmailTitle => 'Verify email';
-
-  @override
-  String get verificationEmailSent => 'Verification email sent!';
-
-  @override
-  String get verificationTitle => 'Verification';
-
-  @override
-  String get verificationCodeSentEmail => 'Verification code sent to email';
-
-  @override
-  String get verificationCodeSentSms => 'Verification code sent via SMS';
-
-  @override
-  String verificationEnterEmailCode(String contact) {
-    return 'Enter the code sent to\n$contact';
-  }
-
-  @override
-  String verificationEnterSmsCode(String contact) {
-    return 'Enter the SMS code sent to\n$contact';
-  }
-
-  @override
-  String get resendCodeAction => 'Resend code';
-
-  @override
-  String get socialContinueGoogle => 'Continue with Google';
-
-  @override
-  String get socialContinueApple => 'Continue with Apple';
-
-  @override
-  String get socialOrEmail => 'Or continue with email';
-
-  @override
   String get interestCatSports => 'Sports';
 
   @override
@@ -1945,58 +1817,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get interestSoloTravel => 'Solo travel';
 
   @override
-  String emailVerificationSentTo(String email) {
-    return 'We sent a verification link to:\n$email';
-  }
-
-  @override
-  String get emailVerificationNextSteps => 'Next steps:';
-
-  @override
-  String get emailVerificationStepInbox => 'Check your email inbox';
-
-  @override
-  String get emailVerificationStepClick => 'Click the verification link';
-
-  @override
-  String get emailVerificationStepReturn => 'Return to this app';
-
-  @override
-  String get emailVerificationWaiting => 'Waiting for verification…';
-
-  @override
-  String emailVerificationResendIn(int seconds) {
-    return 'Resend in ${seconds}s';
-  }
-
-  @override
-  String get emailVerificationResend => 'Resend email';
-
-  @override
-  String get emailVerificationSpamHint =>
-      'Check your spam folder if you don\'t see it.';
-
-  @override
-  String get pleaseEnterPassword => 'Please enter a password';
-
-  @override
-  String get welcomeTitle => 'Welcome';
-
-  @override
-  String get socialContinueWithEmail => 'Continue with email';
-
-  @override
-  String get orDivider => 'or';
-
-  @override
   String get privacyVisibilitySection => 'Visibility';
 
   @override
   String get privacyDataSecuritySection => 'Data & security';
-
-  @override
-  String get socialCreateAccountSubtitle => 'Create your QMatch account';
-
-  @override
-  String get socialAlreadyHaveAccountLogin => 'Already have an account? Log in';
 }

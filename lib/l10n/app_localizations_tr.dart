@@ -108,27 +108,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get iqQuestionLabel => 'IQ Sorusu';
 
   @override
-  String get iqTestCompleted => 'IQ değerlendirmesi tamamlandı';
-
-  @override
-  String get iqToEqMessage =>
-      'Zihinsel profilinin ilk bölümü hazır. Şimdi duygusal profiline geçelim.';
-
-  @override
-  String get continueToEqAssessment => 'EQ değerlendirmesine geç';
-
-  @override
-  String get iqReasoningProfileTitle => 'Muhakeme Profili';
-
-  @override
-  String get iqReasoningProfileSubtitle =>
-      'Bu oturumdaki kalibre edilmemiş çok boyutlu muhakeme performansın.';
-
-  @override
-  String get iqUncalibratedDisclaimer =>
-      'Standart IQ skoru değildir · Nüfus yüzdeliği değildir';
-
-  @override
   String get iqCanonicalSessionError =>
       'Değerlendirme oturumu yüklenemedi. Lütfen tekrar dene.';
 
@@ -146,18 +125,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get assessmentPrerequisiteRepairError =>
       'Devam etmeden önce önceki bir değerlendirmenin onarılması gerekiyor. Lütfen o değerlendirmeyi yeniden dene veya yeniden başlat.';
-
-  @override
-  String get iqDimLogicalReasoning => 'Mantıksal Muhakeme';
-
-  @override
-  String get iqDimPatternReasoning => 'Örüntü Muhakemesi';
-
-  @override
-  String get iqDimVerbalReasoning => 'Sözel Muhakeme';
-
-  @override
-  String get iqDimSpatialReasoning => 'Uzamsal Muhakeme';
 
   @override
   String get eqTestTitle => 'EQ Testi';
@@ -235,12 +202,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get eqTestCompleted => 'EQ testi tamamlandı!';
 
   @override
-  String get assessmentStageIq => 'IQ';
-
-  @override
-  String get assessmentStageEq => 'EQ';
-
-  @override
   String get assessmentStageFrequency => 'Frekans';
 
   @override
@@ -268,18 +229,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get frequencyTestTitle => 'Frekans Testi';
-
-  @override
-  String get yourFrequency => 'Frekansın';
-
-  @override
-  String get balancedFrequency => 'Dengeli Frekans';
-
-  @override
-  String get frequencyScore => 'Skor';
-
-  @override
-  String get seeMyFrequency => 'Frekansımı Gör';
 
   @override
   String get stronglyDisagree => 'Kesinlikle katılmıyorum';
@@ -1688,82 +1637,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mainAppComingSoon => 'Ana uygulama yakında…';
 
   @override
-  String get emailSignupTitle => 'Hesap oluştur';
-
-  @override
-  String get emailSignupSubtitle => 'e-posta ile';
-
-  @override
-  String get fullName => 'Ad soyad';
-
-  @override
-  String get signUp => 'Kayıt ol';
-
-  @override
-  String get signupJoinToday => 'Bugün QMatch\'e katıl';
-
-  @override
-  String get signupCreateAccount => 'Hesap oluştur';
-
-  @override
-  String get signupAlreadyHaveAccount => 'Zaten hesabın var mı? ';
-
-  @override
-  String get signupErrorWeakPassword => 'Şifre çok zayıf';
-
-  @override
-  String get signupErrorEmailInUse => 'Bu e-posta ile zaten bir hesap var';
-
-  @override
-  String get signupErrorInvalidEmail => 'Geçersiz e-posta adresi';
-
-  @override
-  String get signupErrorFailed => 'Kayıt başarısız. Lütfen tekrar dene.';
-
-  @override
-  String get nameRequired => 'Lütfen adını gir';
-
-  @override
-  String get nameMinLength => 'Ad en az 2 karakter olmalı';
-
-  @override
-  String get verifyEmailTitle => 'E-postayı doğrula';
-
-  @override
-  String get verificationEmailSent => 'Doğrulama e-postası gönderildi!';
-
-  @override
-  String get verificationTitle => 'Doğrulama';
-
-  @override
-  String get verificationCodeSentEmail => 'Doğrulama kodu e-postaya gönderildi';
-
-  @override
-  String get verificationCodeSentSms => 'Doğrulama kodu SMS ile gönderildi';
-
-  @override
-  String verificationEnterEmailCode(String contact) {
-    return 'Şu adrese gönderilen kodu gir:\n$contact';
-  }
-
-  @override
-  String verificationEnterSmsCode(String contact) {
-    return 'Şu numaraya gönderilen SMS kodunu gir:\n$contact';
-  }
-
-  @override
-  String get resendCodeAction => 'Kodu yeniden gönder';
-
-  @override
-  String get socialContinueGoogle => 'Google ile devam et';
-
-  @override
-  String get socialContinueApple => 'Apple ile devam et';
-
-  @override
-  String get socialOrEmail => 'Veya e-posta ile devam et';
-
-  @override
   String get interestCatSports => 'Spor';
 
   @override
@@ -1938,58 +1811,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get interestSoloTravel => 'Solo seyahat';
 
   @override
-  String emailVerificationSentTo(String email) {
-    return 'Doğrulama bağlantısını şu adrese gönderdik:\n$email';
-  }
-
-  @override
-  String get emailVerificationNextSteps => 'Sonraki adımlar:';
-
-  @override
-  String get emailVerificationStepInbox => 'E-posta gelen kutunu kontrol et';
-
-  @override
-  String get emailVerificationStepClick => 'Doğrulama bağlantısına tıkla';
-
-  @override
-  String get emailVerificationStepReturn => 'Bu uygulamaya geri dön';
-
-  @override
-  String get emailVerificationWaiting => 'Doğrulama bekleniyor…';
-
-  @override
-  String emailVerificationResendIn(int seconds) {
-    return '$seconds sn içinde yeniden gönder';
-  }
-
-  @override
-  String get emailVerificationResend => 'E-postayı yeniden gönder';
-
-  @override
-  String get emailVerificationSpamHint =>
-      'Görmüyorsan spam klasörünü kontrol et.';
-
-  @override
-  String get pleaseEnterPassword => 'Lütfen bir şifre gir';
-
-  @override
-  String get welcomeTitle => 'Hoş geldin';
-
-  @override
-  String get socialContinueWithEmail => 'E-posta ile devam et';
-
-  @override
-  String get orDivider => 'veya';
-
-  @override
   String get privacyVisibilitySection => 'Görünürlük';
 
   @override
   String get privacyDataSecuritySection => 'Veri ve güvenlik';
-
-  @override
-  String get socialCreateAccountSubtitle => 'QMatch hesabını oluştur';
-
-  @override
-  String get socialAlreadyHaveAccountLogin => 'Zaten hesabın var mı? Giriş yap';
 }

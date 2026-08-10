@@ -17,10 +17,14 @@ IQTestIntroScreen
       → IqCanonicalScorer
       → users/{uid}/assessments/iq (qmatch_iq_live_result_v1)
       → markIqCompleted(rawScore: null)
-      → IqReasoningProfileScreen
-      → IqToEqTransitionScreen
-      → EQTestIntroScreen(iqScore: 0)
+      → EQTestIntroScreen
+      → EQTestScreen
+      → FrequencyIntroScreen → FrequencyTestScreen
+      → AssessmentFlowCompleteScreen
 ```
+
+Removed from live onboarding (deleted): `IqReasoningProfileScreen`,
+`IqToEqTransitionScreen`, `FrequencyResultScreen`.
 
 ## Invariants
 

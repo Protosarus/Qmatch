@@ -2,7 +2,10 @@
 
 **Phase:** P2C-2A-5 (pre-implementation audit)
 **Date:** 2026-08-09
-**Constraint:** Describes the live path **before** canonical wiring.
+**Constraint:** Sections 1–10 describe the live path **before** canonical wiring.
+**Current live onboarding (post orphan cleanup):**
+`IQ → EQ Intro → EQ → Frequency → AssessmentFlowCompleteScreen`
+(no Reasoning Profile / IQ→EQ transition / Frequency result screens).
 
 ---
 
@@ -12,8 +15,7 @@
 AuthWrapper (destination == iq)
   → IQTestIntroScreen
     → IQTestScreen
-      → (complete) IqToEqTransitionScreen
-        → EQTestIntroScreen(iqScore: correctCount)
+      → (complete) EQTestIntroScreen
           → EQTestScreen
 ```
 
@@ -91,16 +93,15 @@ Running correct-count; no per-item answer log; no 4D scoring.
 ## 8. Onboarding completion dependency
 
 `AssessmentProgressService` v2: IQ completed + EQ not → destination `eq`.
-In-session: immediate `pushReplacement` to `IqToEqTransitionScreen` → EQ intro.
+In-session: immediate `pushReplacement` to `EQTestIntroScreen`.
 Persona is **not** revealed after IQ.
 
 ---
 
 ## 9. Result screen dependency
 
-No dedicated IQ results UI. `IqToEqTransitionScreen` is presentation-only.
-`EQTestIntroScreen(iqScore:)` stores correct-count (not displayed); forwards to EQ.
-EQ may recover `iq_score` from Firestore if widget score ≤ 0.
+No dedicated IQ results UI. Onboarding goes IQ → EQ Intro directly.
+EQ intro no longer takes an `iqScore` constructor argument.
 
 ---
 
@@ -134,4 +135,4 @@ EQ may recover `iq_score` from Firestore if widget score ≤ 0.
 Replace active NEW session path with:
 
 canonical session manager → 25 items → selectedOptionId answers →
-4D uncalibrated scorer → versioned result persistence → Reasoning Profile → EQ.
+4D uncalibrated scorer → versioned result persistence → EQ Intro → EQ.

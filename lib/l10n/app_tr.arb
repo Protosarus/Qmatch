@@ -56,26 +56,20 @@
   "iqQuestionProgress": "IQ · {current} / {total}",
   "@iqQuestionProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "iqQuestionLabel": "IQ Sorusu",
-  "iqTestCompleted": "IQ değerlendirmesi tamamlandı",
-  "iqToEqMessage": "Zihinsel profilinin ilk bölümü hazır. Şimdi duygusal profiline geçelim.",
-  "continueToEqAssessment": "EQ değerlendirmesine geç",
-  "iqReasoningProfileTitle": "Muhakeme Profili",
-  "iqReasoningProfileSubtitle": "Bu oturumdaki kalibre edilmemiş çok boyutlu muhakeme performansın.",
-  "iqUncalibratedDisclaimer": "Standart IQ skoru değildir · Nüfus yüzdeliği değildir",
   "iqCanonicalSessionError": "Değerlendirme oturumu yüklenemedi. Lütfen tekrar dene.",
   "iqCanonicalAnswerError": "Yanıtın kaydedilemedi. Lütfen tekrar dene.",
   "iqCanonicalPersistError": "Sonucun kaydedilemedi. Yanıtların güvende; tekrar deneyebilirsin.",
   "iqCanonicalFinalizeRetry": "Sonucu kaydet",
   "assessmentPrerequisiteRepairError": "Devam etmeden önce önceki bir değerlendirmenin onarılması gerekiyor. Lütfen o değerlendirmeyi yeniden dene veya yeniden başlat.",
-  "iqDimLogicalReasoning": "Mantıksal Muhakeme",
-  "iqDimPatternReasoning": "Örüntü Muhakemesi",
-  "iqDimVerbalReasoning": "Sözel Muhakeme",
-  "iqDimSpatialReasoning": "Uzamsal Muhakeme",
   "eqTestTitle": "EQ Testi",
   "eqIntroLabel": "EQ Değerlendirmesi",
   "eqIntroMeta": "30 soru · Yaklaşık 15 dakika",
@@ -89,8 +83,12 @@
   "eqQuestionProgress": "EQ · {current} / {total}",
   "@eqQuestionProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "eqQuestionInsightLabel": "EQ",
@@ -106,8 +104,6 @@
   "eqBulletDuration": "Yaklaşık 15 dakika sürer",
   "startEqTest": "EQ Testine Başla",
   "eqTestCompleted": "EQ testi tamamlandı!",
-  "assessmentStageIq": "IQ",
-  "assessmentStageEq": "EQ",
   "assessmentStageFrequency": "Frekans",
   "frequencyIntroTitle": "Frekansını keşfet",
   "frequencyIntroDescription": "Frekans zeka ile ilgili değildir. Nasıl bağ kurduğun, iletişim kurduğun ve güven inşa ettiğinle ilgilidir.",
@@ -117,10 +113,6 @@
   "frequencyBulletRhythm": "Sana nasıl bir konuşma ritminin uyduğu",
   "startFrequencyTest": "Frekans Testine Başla",
   "frequencyTestTitle": "Frekans Testi",
-  "yourFrequency": "Frekansın",
-  "balancedFrequency": "Dengeli Frekans",
-  "frequencyScore": "Skor",
-  "seeMyFrequency": "Frekansımı Gör",
   "stronglyDisagree": "Kesinlikle katılmıyorum",
   "disagree": "Katılmıyorum",
   "neutral": "Kararsızım",
@@ -241,19 +233,25 @@
   "messagesAvatarSemanticLabel": "{name} fotoğrafı",
   "@messagesAvatarSemanticLabel": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "messagesUnreadSemanticLabel": "{count} okunmamış mesaj",
   "@messagesUnreadSemanticLabel": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "messagesConversationSemanticLabel": "{name} ile sohbet",
   "@messagesConversationSemanticLabel": {
     "placeholders": {
-      "name": { "type": "String" }
+      "name": {
+        "type": "String"
+      }
     }
   },
   "messagesSayHi": "Merhaba de 👋",
@@ -357,7 +355,9 @@
   "accountDeletionSupportHint": "Soruların mı var? {email} ile iletişime geç",
   "@accountDeletionSupportHint": {
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionAckIrreversible": "Bu talebin geçici deaktivasyon değil, kalıcı silme için olduğunu anlıyorum.",
@@ -365,7 +365,9 @@
   "accountDeletionTypeDeleteHint": "Onaylamak için {token} yaz",
   "@accountDeletionTypeDeleteHint": {
     "placeholders": {
-      "token": { "type": "String" }
+      "token": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionSubmit": "Silme talebini gönder",
@@ -375,7 +377,9 @@
   "accountDeletionPendingBody": "Silme talebin alındı ve beklemede. 30 gün içinde işleyeceğiz. Soruların için {email} ile iletişime geçebilirsin.",
   "@accountDeletionPendingBody": {
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionPendingNoResubmit": "Yeniden talep göndermene gerek yok. Bu talep beklerken tekrar gönderim kapalıdır.",
@@ -385,7 +389,9 @@
   "accountDeletionSuccessBody": "Silme talebin alındı. 30 gün içinde işleyeceğiz. Soruların için {email} ile iletişime geçebilirsin.",
   "@accountDeletionSuccessBody": {
     "placeholders": {
-      "email": { "type": "String" }
+      "email": {
+        "type": "String"
+      }
     }
   },
   "accountDeletionSuccessAction": "Tamam",
@@ -659,44 +665,6 @@
   "debugGoToAuthWrapper": "Auth Wrapper'a git",
   "mainAppWelcome": "QMatch'e hoş geldin!",
   "mainAppComingSoon": "Ana uygulama yakında…",
-  "emailSignupTitle": "Hesap oluştur",
-  "emailSignupSubtitle": "e-posta ile",
-  "fullName": "Ad soyad",
-  "signUp": "Kayıt ol",
-  "signupJoinToday": "Bugün QMatch'e katıl",
-  "signupCreateAccount": "Hesap oluştur",
-  "signupAlreadyHaveAccount": "Zaten hesabın var mı? ",
-  "signupErrorWeakPassword": "Şifre çok zayıf",
-  "signupErrorEmailInUse": "Bu e-posta ile zaten bir hesap var",
-  "signupErrorInvalidEmail": "Geçersiz e-posta adresi",
-  "signupErrorFailed": "Kayıt başarısız. Lütfen tekrar dene.",
-  "nameRequired": "Lütfen adını gir",
-  "nameMinLength": "Ad en az 2 karakter olmalı",
-  "verifyEmailTitle": "E-postayı doğrula",
-  "verificationEmailSent": "Doğrulama e-postası gönderildi!",
-  "verificationTitle": "Doğrulama",
-  "verificationCodeSentEmail": "Doğrulama kodu e-postaya gönderildi",
-  "verificationCodeSentSms": "Doğrulama kodu SMS ile gönderildi",
-  "verificationEnterEmailCode": "Şu adrese gönderilen kodu gir:\n{contact}",
-  "@verificationEnterEmailCode": {
-    "placeholders": {
-      "contact": {
-        "type": "String"
-      }
-    }
-  },
-  "verificationEnterSmsCode": "Şu numaraya gönderilen SMS kodunu gir:\n{contact}",
-  "@verificationEnterSmsCode": {
-    "placeholders": {
-      "contact": {
-        "type": "String"
-      }
-    }
-  },
-  "resendCodeAction": "Kodu yeniden gönder",
-  "socialContinueGoogle": "Google ile devam et",
-  "socialContinueApple": "Apple ile devam et",
-  "socialOrEmail": "Veya e-posta ile devam et",
   "interestCatSports": "Spor",
   "interestCatArts": "Sanat",
   "interestCatTech": "Teknoloji",
@@ -755,35 +723,6 @@
   "interestHistoricSites": "Tarihi yerler",
   "interestBeach": "Plaj tatili",
   "interestSoloTravel": "Solo seyahat",
-  "emailVerificationSentTo": "Doğrulama bağlantısını şu adrese gönderdik:\n{email}",
-  "@emailVerificationSentTo": {
-    "placeholders": {
-      "email": {
-        "type": "String"
-      }
-    }
-  },
-  "emailVerificationNextSteps": "Sonraki adımlar:",
-  "emailVerificationStepInbox": "E-posta gelen kutunu kontrol et",
-  "emailVerificationStepClick": "Doğrulama bağlantısına tıkla",
-  "emailVerificationStepReturn": "Bu uygulamaya geri dön",
-  "emailVerificationWaiting": "Doğrulama bekleniyor…",
-  "emailVerificationResendIn": "{seconds} sn içinde yeniden gönder",
-  "@emailVerificationResendIn": {
-    "placeholders": {
-      "seconds": {
-        "type": "int"
-      }
-    }
-  },
-  "emailVerificationResend": "E-postayı yeniden gönder",
-  "emailVerificationSpamHint": "Görmüyorsan spam klasörünü kontrol et.",
-  "pleaseEnterPassword": "Lütfen bir şifre gir",
-  "welcomeTitle": "Hoş geldin",
-  "socialContinueWithEmail": "E-posta ile devam et",
-  "orDivider": "veya",
   "privacyVisibilitySection": "Görünürlük",
-  "privacyDataSecuritySection": "Veri ve güvenlik",
-  "socialCreateAccountSubtitle": "QMatch hesabını oluştur",
-  "socialAlreadyHaveAccountLogin": "Zaten hesabın var mı? Giriş yap"
+  "privacyDataSecuritySection": "Veri ve güvenlik"
 }

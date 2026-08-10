@@ -17,7 +17,7 @@ QmatchCanonicalProfileFragment (partial)
         ↓
 users/{uid}/profiles/canonical_v1
         ↓
-onboarding continues → Reasoning Profile → EQ
+onboarding continues → EQ Intro → EQ → Frequency → Complete
 ```
 
 ## Input requirements
