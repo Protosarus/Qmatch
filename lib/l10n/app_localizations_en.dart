@@ -161,6 +161,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String frequencyQuestionProgress(int current, int total) {
+    return 'Frequency · $current / $total';
+  }
+
+  @override
   String get eqQuestionInsightLabel => 'EQ';
 
   @override

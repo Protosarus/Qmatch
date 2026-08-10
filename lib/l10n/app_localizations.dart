@@ -374,6 +374,12 @@ abstract class AppLocalizations {
   /// **'EQ · {current} / {total}'**
   String eqQuestionProgress(int current, int total);
 
+  /// No description provided for @frequencyQuestionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequency · {current} / {total}'**
+  String frequencyQuestionProgress(int current, int total);
+
   /// No description provided for @eqQuestionInsightLabel.
   ///
   /// In en, this message translates to:

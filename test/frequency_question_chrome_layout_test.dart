@@ -56,7 +56,7 @@ void main() {
                       children: [
                         FrequencyQuestionTopBar(onBack: () {}),
                         const FrequencyProgressHeader(
-                          label: 'Frequency • 2 / 12',
+                          label: 'Frequency · 2 / 12',
                           progress: 2 / 12,
                         ),
                         SizedBox(

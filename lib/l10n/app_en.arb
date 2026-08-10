@@ -91,6 +91,17 @@
       }
     }
   },
+  "frequencyQuestionProgress": "Frequency · {current} / {total}",
+  "@frequencyQuestionProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "eqQuestionInsightLabel": "EQ",
   "eqCategoryEmpathy": "Empathy",
   "eqCategorySelfAwareness": "Self-Awareness",

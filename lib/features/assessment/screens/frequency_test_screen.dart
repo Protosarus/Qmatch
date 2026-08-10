@@ -432,9 +432,12 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const FrequencyQuestionTopBar(),
+                  const SizedBox(height: 2),
                   FrequencyProgressHeader(
-                    label:
-                        '${l10n.assessmentStageFrequency} • ${session.currentQuestionIndex + 1} / ${session.itemPlans.length}',
+                    label: l10n.frequencyQuestionProgress(
+                      session.currentQuestionIndex + 1,
+                      session.itemPlans.length,
+                    ),
                     progress: progress,
                   ),
                   Padding(

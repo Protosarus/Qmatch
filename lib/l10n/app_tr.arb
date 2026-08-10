@@ -91,6 +91,17 @@
       }
     }
   },
+  "frequencyQuestionProgress": "Frekans · {current} / {total}",
+  "@frequencyQuestionProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "eqQuestionInsightLabel": "EQ",
   "eqCategoryEmpathy": "Empati",
   "eqCategorySelfAwareness": "Öz Farkındalık",

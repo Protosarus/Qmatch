@@ -82,16 +82,16 @@ class FrequencyProgressHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final clamped = progress.clamp(0.0, 1.0);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          label.toUpperCase(),
+          label,
           textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            color: const Color(0xFFDAC8ED),
-            fontSize: 10,
+          style: GoogleFonts.playfairDisplay(
+            color: Colors.white.withValues(alpha: 0.88),
+            fontSize: 13,
             fontWeight: FontWeight.w500,
-            letterSpacing: 2.2,
-            height: 1.1,
+            height: 1.2,
           ),
         ),
         const SizedBox(height: 8),
