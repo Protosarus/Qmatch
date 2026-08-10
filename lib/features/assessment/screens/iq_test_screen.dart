@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/iq_bank/iq_bank.dart';
 import '../domain/iq_session/iq_session.dart';
@@ -504,7 +502,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                     right: 0,
                     bottom: _continueButtonHeight + _warningAboveContinueGap,
                     child: IgnorePointer(
-                      child: _IqSelectAnswerWarningBanner(
+                      child: FrequencySelectAnswerWarning(
                         message: l10n.iqPleaseSelectAnswerToContinue,
                       ),
                     ),
@@ -517,72 +515,5 @@ class _IQTestScreenState extends State<IQTestScreen> {
     }
 
     return AssessmentCaptureGuard(child: body);
-  }
-}
-
-class _IqSelectAnswerWarningBanner extends StatelessWidget {
-  const _IqSelectAnswerWarningBanner({required this.message});
-
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: AppRadii.pillBorder,
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: Container(
-          height: 52,
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          decoration: BoxDecoration(
-            borderRadius: AppRadii.pillBorder,
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                AppColors.resonanceViolet.withValues(alpha: 0.55),
-                const Color(0xCC1A2240),
-                AppColors.softGold.withValues(alpha: 0.28),
-              ],
-              stops: const [0.0, 0.55, 1.0],
-            ),
-            border: Border.all(
-              color: AppColors.resonanceViolet.withValues(alpha: 0.72),
-              width: 1.1,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.resonanceViolet.withValues(alpha: 0.32),
-                blurRadius: 14,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Icon(
-                Icons.info_outline_rounded,
-                size: 15,
-                color: AppColors.softGold.withValues(alpha: 0.98),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  message,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.inter(
-                    color: Colors.white.withValues(alpha: 0.98),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    height: 1.2,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
