@@ -285,12 +285,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
             child: FrequencyContinueButton(
               key: const Key('qmatch-profile-setup-continue'),
-              // Same widget + resting glass look as Frequency question CTA.
+              // Same widget as Frequency CTA; active mirrors enabled (always).
               label: _currentStep < _totalSteps - 1
                   ? l10n.assessmentContinue
                   : l10n.profileSetupComplete,
               onPressed: _nextStep,
-              active: false,
+              active: true,
             ),
           ),
         ],
