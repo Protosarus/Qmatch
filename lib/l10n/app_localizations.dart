@@ -2918,6 +2918,12 @@ abstract class AppLocalizations {
   /// **'Spiritual (non-religious)'**
   String get optReligionSpiritual;
 
+  /// No description provided for @optReligionOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get optReligionOther;
+
   /// No description provided for @optPreferNotToSay.
   ///
   /// In en, this message translates to:

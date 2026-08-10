@@ -1544,6 +1544,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get optReligionSpiritual => 'Spiritual (non-religious)';
 
   @override
+  String get optReligionOther => 'Other';
+
+  @override
   String get optPreferNotToSay => 'Prefer not to say';
 
   @override

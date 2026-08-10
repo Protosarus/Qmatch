@@ -31,7 +31,8 @@ class ProfileOptionLabels {
       case 'Ciddi İlişki':
         return l10n.optLookingSerious;
       case 'Diğer':
-        return l10n.optGenderOther;
+        // Religion option stored as legacy TR "Diğer" — not gender.
+        return l10n.optReligionOther;
       case 'Doktora':
         return l10n.optEduDoctorate;
       case 'Düzenli':

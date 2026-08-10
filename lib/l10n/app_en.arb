@@ -577,6 +577,7 @@
   "optReligionAgnostic": "Agnostic",
   "optReligionAtheist": "Atheist",
   "optReligionSpiritual": "Spiritual (non-religious)",
+  "optReligionOther": "Other",
   "optPreferNotToSay": "Prefer not to say",
   "optPetsHave": "I have a pet",
   "optPetsNone": "No pets",
