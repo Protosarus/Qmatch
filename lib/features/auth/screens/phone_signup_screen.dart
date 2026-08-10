@@ -135,14 +135,17 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
     return digits.length >= 8 && digits.length <= 15;
   }
 
+  /// Cosmic lavender — matches Frequency / profile setup accents (not softGold).
+  static const Color _accentLavender = Color(0xFFDAC8ED);
+
   InputDecoration _fieldDecoration({
     required String label,
     String? hint,
     required bool focused,
   }) {
-    // Idle: soft violet. Focused: violet → gold glow edge.
+    // Idle: soft violet. Focused: lavender edge.
     final idleBorder = const Color(0x77A890D8);
-    final focusBorder = focused ? AppColors.softGold : idleBorder;
+    final focusBorder = focused ? _accentLavender : idleBorder;
     return InputDecoration(
       labelText: label,
       hintText: hint,
@@ -153,7 +156,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
         fontWeight: FontWeight.w500,
       ),
       floatingLabelStyle: GoogleFonts.inter(
-        color: focused ? AppColors.softGold : const Color(0xFFB8AED8),
+        color: focused ? _accentLavender : const Color(0xFFB8AED8),
         fontSize: 13,
         fontWeight: FontWeight.w600,
       ),
@@ -380,7 +383,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    const accent = AppColors.softGold;
+    const accent = _accentLavender;
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
     final displayedPhone = _e164Phone ?? '';
 
@@ -531,7 +534,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                                     blurRadius: 16,
                                                   ),
                                                   BoxShadow(
-                                                    color: AppColors.softGold
+                                                    color: _accentLavender
                                                         .withValues(
                                                             alpha: 0.28),
                                                     blurRadius: 14,
@@ -577,6 +580,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                               );
                                               if (mounted) setState(() {});
                                             },
+                                            cursorColor: accent,
                                             style: GoogleFonts.inter(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -642,8 +646,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                                 focusedBorder:
                                                     UnderlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: AppColors.softGold
-                                                        .withValues(alpha: 0.9),
+                                                    color: accent.withValues(
+                                                        alpha: 0.9),
                                                   ),
                                                 ),
                                               ),
@@ -678,7 +682,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                                     blurRadius: 16,
                                                   ),
                                                   BoxShadow(
-                                                    color: AppColors.softGold
+                                                    color: _accentLavender
                                                         .withValues(
                                                             alpha: 0.28),
                                                     blurRadius: 14,
@@ -691,6 +695,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                           focusNode: _codeFocus,
                                           keyboardType: TextInputType.number,
                                           textInputAction: TextInputAction.done,
+                                          cursorColor: _accentLavender,
                                           onFieldSubmitted: (_) =>
                                               _verifyCode(),
                                           inputFormatters: [

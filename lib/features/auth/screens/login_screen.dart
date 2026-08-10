@@ -57,13 +57,16 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  /// Cosmic lavender — matches Frequency / profile setup accents (not softGold).
+  static const Color _accentLavender = Color(0xFFDAC8ED);
+
   InputDecoration _fieldDecoration({
     required String label,
     required bool focused,
     Widget? suffixIcon,
   }) {
     final idleBorder = const Color(0x77A890D8);
-    final focusBorder = focused ? AppColors.softGold : idleBorder;
+    final focusBorder = focused ? _accentLavender : idleBorder;
     return InputDecoration(
       labelText: label,
       labelStyle: GoogleFonts.inter(
@@ -72,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         fontWeight: FontWeight.w500,
       ),
       floatingLabelStyle: GoogleFonts.inter(
-        color: focused ? AppColors.softGold : const Color(0xFFB8AED8),
+        color: focused ? _accentLavender : const Color(0xFFB8AED8),
         fontSize: 13,
         fontWeight: FontWeight.w600,
       ),
@@ -164,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   blurRadius: 16,
                 ),
                 BoxShadow(
-                  color: AppColors.softGold.withValues(alpha: 0.28),
+                  color: _accentLavender.withValues(alpha: 0.28),
                   blurRadius: 14,
                   offset: const Offset(2, 2),
                 ),
@@ -305,6 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           textInputAction: TextInputAction.next,
+                                          cursorColor: _accentLavender,
                                           style: GoogleFonts.inter(
                                             color: Colors.white,
                                             fontSize: 16,
@@ -340,6 +344,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           focusNode: _passwordFocus,
                                           obscureText: _obscurePassword,
                                           textInputAction: TextInputAction.done,
+                                          cursorColor: _accentLavender,
                                           onFieldSubmitted: (_) =>
                                               _handleLogin(),
                                           style: GoogleFonts.inter(
