@@ -56,11 +56,12 @@ test/failures/
 *.MP4
 
 # --- Qmatch safety (Phase 3Q-A2) ---
-# Secrets / env
+# Secrets / env — ignore local env files, but keep empty lib/.env tracked
+# so clones are not missing the placeholder path.
 .env
 *.env
-lib/.env
 **/.env
+!lib/.env
 
 # Local logs / device captures
 app_logs.txt
