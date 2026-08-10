@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/iq_bank/iq_bank.dart';
 import '../domain/iq_session/iq_session.dart';
@@ -352,7 +351,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
         backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
         child: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.vizIq),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
+            strokeWidth: 2.6,
           ),
         ),
       );

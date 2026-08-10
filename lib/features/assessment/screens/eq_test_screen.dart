@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/eq_bank/eq_bank.dart';
 import '../domain/eq_session/eq_session.dart';
@@ -350,7 +349,8 @@ class _EQTestScreenState extends State<EQTestScreen> {
         backgroundImageAsset: 'assets/images/eq_question_cosmic_bg.png',
         child: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.vizEq),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
+            strokeWidth: 2.6,
           ),
         ),
       );
