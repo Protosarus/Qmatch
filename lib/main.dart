@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'core/navigation/auth_wrapper.dart';
+import 'core/theme/app_theme.dart';
 import 'features/debug/debug_home_screen.dart';
 import 'features/debug/screens/assessment_admin_screen.dart';
 import 'l10n/app_localizations.dart';
@@ -24,10 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'QMatch',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE3C565)),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.darkTheme,
+      themeMode: ThemeMode.dark,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       // Global app: en/tr as supported; everything else falls back to English.

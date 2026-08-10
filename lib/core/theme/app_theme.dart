@@ -6,8 +6,8 @@ import 'app_spacing.dart';
 
 /// Centralized dark ThemeData for Premium Cosmic Minimal (DS-0).
 ///
-/// Token-ready only: [main.dart] still uses a seed [ThemeData] so wiring this
-/// in does not restyle screens until a later DS application phase.
+/// Wired from [main.dart] as the app root theme. Screen-level [AppColors] /
+/// lavender overrides remain authoritative for painted UI.
 class AppTheme {
   AppTheme._();
 
