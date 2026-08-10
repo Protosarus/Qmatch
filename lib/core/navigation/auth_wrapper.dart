@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../features/assessment/models/assessment_progress.dart';
 import '../../features/assessment/screens/eq_test_intro_screen.dart';
+import '../../features/assessment/screens/eq_test_screen.dart';
 import '../../features/assessment/screens/frequency_intro_screen.dart';
+import '../../features/assessment/screens/frequency_test_screen.dart';
 import '../../features/assessment/screens/iq_test_intro_screen.dart';
+import '../../features/assessment/screens/iq_test_screen.dart';
+import '../../features/assessment/services/assessment_cold_start_pending_reconciler.dart';
 import '../../features/assessment/services/assessment_progress_service.dart';
 import '../../features/auth/screens/welcome_screen.dart';
 import '../../features/profile/screens/display_name_completion_screen.dart';
@@ -16,6 +20,14 @@ import 'main_navigation_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
+
+  Future<AssessmentColdStartDecision> _resolveAssessmentRoute(String uid) async {
+    final progress = await AssessmentProgressService().resolveForUid(uid);
+    return AssessmentColdStartPendingReconciler().reconcile(
+      uid: uid,
+      progress: progress,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,27 +66,32 @@ class AuthWrapper extends StatelessWidget {
                       return const DisplayNameCompletionScreen();
                     }
 
-                    return FutureBuilder<AssessmentProgressSnapshot>(
-                      future:
-                          AssessmentProgressService().resolveForUid(user.uid),
-                      builder: (context, progressSnap) {
-                        if (progressSnap.connectionState ==
+                    return FutureBuilder<AssessmentColdStartDecision>(
+                      future: _resolveAssessmentRoute(user.uid),
+                      builder: (context, routeSnap) {
+                        if (routeSnap.connectionState ==
                             ConnectionState.waiting) {
                           return const _AuthLoadingScaffold();
                         }
 
-                        if (progressSnap.hasError || !progressSnap.hasData) {
+                        if (routeSnap.hasError || !routeSnap.hasData) {
                           return const IQTestIntroScreen();
                         }
 
-                        final progress = progressSnap.data!;
-                        switch (progress.destination) {
+                        final decision = routeSnap.data!;
+                        switch (decision.destination) {
                           case AssessmentFlowDestination.iq:
-                            return const IQTestIntroScreen();
+                            return decision.openAssessmentTestScreen
+                                ? const IQTestScreen()
+                                : const IQTestIntroScreen();
                           case AssessmentFlowDestination.eq:
-                            return const EQTestIntroScreen();
+                            return decision.openAssessmentTestScreen
+                                ? const EQTestScreen()
+                                : const EQTestIntroScreen();
                           case AssessmentFlowDestination.frequency:
-                            return const FrequencyIntroScreen();
+                            return decision.openAssessmentTestScreen
+                                ? const FrequencyTestScreen()
+                                : const FrequencyIntroScreen();
                           case AssessmentFlowDestination.profileSetup:
                             return const ProfileSetupScreen();
                           case AssessmentFlowDestination.main:
