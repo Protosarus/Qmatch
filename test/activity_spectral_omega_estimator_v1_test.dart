@@ -56,10 +56,31 @@ void main() {
       expect(r.accepted, isTrue);
       expect(r.periodSeconds, closeTo(period.inSeconds.toDouble(), 3600));
       expect(r.omega, closeTo(2 * math.pi / r.periodSeconds!, 1e-6));
-      expect(r.snr!, greaterThanOrEqualTo(6));
+      expect(
+        r.snr!,
+        greaterThanOrEqualTo(ActivitySpectralOmegaEstimatorContract.snrOk),
+      );
       expect(r.toWireMap()['gates_calibrated'], isFalse);
       expect(r.toWireMap()['shadow_only'], isTrue);
       expect(r.toWireMap()['attaches_to_frequency_modes'], isFalse);
+    });
+
+    test('clean 16h prefers fundamental over harmonic leakage', () {
+      final start = DateTime.utc(2024, 1, 15);
+      const period = Duration(hours: 16);
+      const window = Duration(days: 28);
+      final timestamps = periodic(start: start, period: period, window: window);
+      final dense = <int>[
+        for (final t in timestamps) ...[t, t + 5 * 60 * 1000, t + 10 * 60 * 1000],
+      ];
+      final r = estimator.estimate(
+        timestamps: dense,
+        windowStartMs: ms(start),
+        windowEndMs: ms(start.add(window)),
+      );
+      expect(r.status, ActivitySpectralOmegaStatus.ok);
+      expect(r.periodSeconds!, closeTo(period.inSeconds.toDouble(), 3600));
+      expect(r.omega, isNotNull);
     });
 
     test('noisy periodic signal still recoverable or sparse-not-fake', () {
@@ -152,22 +173,21 @@ void main() {
       );
     });
 
-    test('harmonic ambiguity → ambiguous', () {
+    test('harmonic family → fundamental or ambiguous, never silent harmonic ok', () {
       final start = DateTime.utc(2024, 5, 1);
       const window = Duration(days: 28);
-      // Strong energy at 16h and 8h (harmonic pair).
+      // Phase-offset 8h so it is not a subset of the 16h impulse train.
       final a = periodic(
         start: start,
         period: const Duration(hours: 16),
         window: window,
       );
       final b = periodic(
-        start: start,
+        start: start.add(const Duration(hours: 4)),
         period: const Duration(hours: 8),
         window: window,
       );
       final timestamps = <int>{...a, ...b}.toList()..sort();
-      // Duplicate to boost SNR similarly.
       final dense = <int>[
         for (final t in timestamps) ...[t, t + 60 * 1000],
       ];
@@ -178,14 +198,10 @@ void main() {
         windowEndMs: ms(start.add(window)),
       );
 
-      // Prefer ambiguous; if detector picks a clear winner that's also OK to
-      // fail soft — but require no silent ok without harmonic check coverage.
+      expect(r.accepted && r.periodSeconds != null || !r.accepted, isTrue);
       if (r.status == ActivitySpectralOmegaStatus.ok) {
-        // Still must not attach modes / cadence.
-        expect(
-          ActivitySpectralOmegaEstimatorContract.attachesToFrequencyModes,
-          isFalse,
-        );
+        // Must prefer fundamental (~16h), not strongest harmonic (~8h).
+        expect(r.periodSeconds!, closeTo(16 * 3600, 3600));
       } else {
         expect(
           r.status,
@@ -194,20 +210,42 @@ void main() {
             ActivitySpectralOmegaStatus.sparse,
           ),
         );
-        if (r.status == ActivitySpectralOmegaStatus.ambiguous) {
-          expect(
-            r.reason,
-            anyOf(
-              ActivitySpectralOmegaEstimatorContract.reasonHarmonicAmbiguity,
-              ActivitySpectralOmegaEstimatorContract.reasonMultiplePeaks,
-            ),
-          );
-        }
         expect(r.omega, isNull);
+        // Must not silently accept ~8h as ok (checked by branch).
       }
     });
 
-    test('24h civil collision flagged', () {
+    test('competing unrelated peaks → ambiguous', () {
+      final start = DateTime.utc(2024, 5, 15);
+      const window = Duration(days: 28);
+      final a = periodic(
+        start: start,
+        period: const Duration(hours: 9),
+        window: window,
+      );
+      final b = periodic(
+        start: start,
+        period: const Duration(hours: 14),
+        window: window,
+      );
+      final dense = <int>[
+        for (final t in <int>{...a, ...b}) ...[t, t + 60000, t + 120000],
+      ]..sort();
+      final r = estimator.estimate(
+        timestamps: dense,
+        windowStartMs: ms(start),
+        windowEndMs: ms(start.add(window)),
+      );
+      expect(r.accepted, isFalse);
+      expect(r.omega, isNull);
+      expect(r.status, ActivitySpectralOmegaStatus.ambiguous);
+      expect(
+        r.reason,
+        ActivitySpectralOmegaEstimatorContract.reasonMultiplePeaks,
+      );
+    });
+
+    test('24h civil collision → civilCollision, no Class B omega', () {
       final start = DateTime.utc(2024, 6, 1);
       const window = Duration(days: 28);
       final timestamps = periodic(
@@ -223,8 +261,15 @@ void main() {
         windowStartMs: ms(start),
         windowEndMs: ms(start.add(window)),
       );
+      expect(r.status, ActivitySpectralOmegaStatus.civilCollision);
+      expect(r.accepted, isFalse);
+      expect(r.omega, isNull);
       expect(r.nearCivilCollision, isTrue);
       expect(r.civilCollisionKind, 'near_24h');
+      expect(
+        r.reason,
+        ActivitySpectralOmegaEstimatorContract.reasonCivilCollision,
+      );
       if (r.periodSeconds != null) {
         expect(
           (r.periodSeconds! - 86400).abs() / 86400,

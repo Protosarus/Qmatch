@@ -5,6 +5,9 @@ enum ActivitySpectralOmegaStatus {
   ok,
   sparse,
   ambiguous,
+
+  /// Near-24h / near-7d — not Class B; Class A civil oscillator path only.
+  civilCollision,
   unavailable,
 }
 
@@ -52,10 +55,11 @@ class ActivitySpectralOmegaEstimate {
   final double windowSeconds;
   final double binWidthSeconds;
 
-  /// Accepted \(T^\star\) when status is [ActivitySpectralOmegaStatus.ok].
+  /// Detected \(T^\star\) when a peak was selected (may be non-ok diagnostic).
   final double? periodSeconds;
 
-  /// \(2\pi/T^\star\) when accepted.
+  /// \(2\pi/T^\star\) only when status is [ActivitySpectralOmegaStatus.ok].
+  /// Never set for [ActivitySpectralOmegaStatus.civilCollision].
   final double? omega;
 
   final double? snr;
