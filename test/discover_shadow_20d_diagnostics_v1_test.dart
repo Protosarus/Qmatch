@@ -43,7 +43,7 @@ void main() {
   final ids = Canonical20dShadowDistanceContract.dimensionIds;
 
   group('DiscoverCanonical20dShadowSubjectBuilder', () {
-    test('maps measured_dimensions; never invents missing scores', () {
+    test('maps measured_dimensions; never invents evidence_count', () {
       final subject = DiscoverCanonical20dShadowSubjectBuilder
           .fromCanonicalProfile(_canonicalProfile({
         ids[0]: 0.25,
@@ -51,8 +51,13 @@ void main() {
       }));
       expect(subject, isNotNull);
       expect(subject!.measuredScores.keys.toSet(), {ids[0], ids[1]});
-      expect(subject.evidenceCounts[ids[0]], 1);
-      expect(subject.measuredScores.containsKey(ids[2]), isFalse);
+      expect(subject.evidenceCounts, isEmpty);
+      final src = File(
+        'lib/features/discover/services/discover_canonical_20d_shadow.dart',
+      ).readAsStringSync();
+      expect(src.contains('evidence[dim.dimensionId]'), isFalse);
+      expect(src.contains('minEvidenceCount'), isFalse);
+      expect(src.contains('evidenceCounts: const {}'), isTrue);
     });
 
     test('null/empty profile → null subject', () {
@@ -63,6 +68,126 @@ void main() {
       expect(
         DiscoverCanonical20dShadowSubjectBuilder.fromCanonicalProfile(const {}),
         isNull,
+      );
+    });
+  });
+
+  group('result equivalence vs former evidence_count=1 fabrication', () {
+    test('measured-presence matches fabricate-1 numeric distance/coverage/order',
+        () {
+      const matcher = Canonical20dShadowDistanceMatcher();
+      final meScores = {for (final id in ids) id: 0.4};
+      final nearScores = {for (final id in ids) id: 0.4};
+      final farScores = {for (final id in ids) id: 1.0};
+      final partialScores = {
+        for (var i = 0; i < 6; i++) ids[i]: 0.2,
+      };
+
+      Canonical20dShadowSubject fabricated(Map<String, double> scores) {
+        return Canonical20dShadowSubject(
+          measuredScores: scores,
+          evidenceCounts: {
+            for (final id in scores.keys) id: 1,
+          },
+        );
+      }
+
+      Canonical20dShadowSubject presenceOnly(Map<String, double> scores) {
+        return Canonical20dShadowSubject(
+          measuredScores: scores,
+          evidenceCounts: const {},
+        );
+      }
+
+      void expectSame(
+        Canonical20dShadowDistanceResult legacy,
+        Canonical20dShadowDistanceResult fixed,
+      ) {
+        expect(fixed.available, legacy.available);
+        expect(fixed.distance, legacy.distance);
+        expect(fixed.distanceSquared, legacy.distanceSquared);
+        expect(
+          fixed.comparableDimensionCount,
+          legacy.comparableDimensionCount,
+        );
+        expect(fixed.unweightedCoverage, legacy.unweightedCoverage);
+        expect(fixed.comparableDimensionIds, legacy.comparableDimensionIds);
+      }
+
+      final meFab = fabricated(meScores);
+      final meFix = presenceOnly(meScores);
+
+      expectSame(
+        matcher.compare(a: meFab, b: fabricated(nearScores)),
+        matcher.compareMeasuredPresence(
+          a: meFix,
+          b: presenceOnly(nearScores),
+        ),
+      );
+      expectSame(
+        matcher.compare(a: meFab, b: fabricated(farScores)),
+        matcher.compareMeasuredPresence(
+          a: meFix,
+          b: presenceOnly(farScores),
+        ),
+      );
+      expectSame(
+        matcher.compare(a: meFab, b: fabricated(partialScores)),
+        matcher.compareMeasuredPresence(
+          a: meFix,
+          b: presenceOnly(partialScores),
+        ),
+      );
+
+      // Attacher order + diagnostics match legacy fabricate-1 numbers.
+      final ranked = [
+        _candidate(uid: 'near', score: 0.8),
+        _candidate(uid: 'far', score: 0.3),
+        _candidate(uid: 'partial', score: 0.1),
+      ];
+      final profiles = {
+        'near': _canonicalProfile(nearScores),
+        'far': _canonicalProfile(farScores),
+        'partial': _canonicalProfile(partialScores),
+      };
+      final attached = const DiscoverShadowDistanceAttacher().attach(
+        rankedCandidates: ranked,
+        meCanonicalProfile: _canonicalProfile(meScores),
+        candidateCanonicalProfiles: profiles,
+      );
+      expect(attached.candidates.map((c) => c.uid), ['near', 'far', 'partial']);
+      expect(attached.candidates.map((c) => c.compatibilityScore),
+          [0.8, 0.3, 0.1]);
+
+      expect(attached.diagnostics['near']!.distance, 0.0);
+      expect(attached.diagnostics['near']!.comparableDimensionCount, 20);
+      expect(attached.diagnostics['near']!.unweightedCoverage, 1.0);
+
+      final farLegacy = matcher.compare(
+        a: meFab,
+        b: fabricated(farScores),
+      );
+      expect(attached.diagnostics['far']!.distance, farLegacy.distance);
+      expect(
+        attached.diagnostics['far']!.comparableDimensionCount,
+        farLegacy.comparableDimensionCount,
+      );
+
+      final partialLegacy = matcher.compare(
+        a: meFab,
+        b: fabricated(partialScores),
+      );
+      expect(
+        attached.diagnostics['partial']!.distance,
+        partialLegacy.distance,
+      );
+      expect(
+        attached.diagnostics['partial']!.comparableDimensionCount,
+        6,
+      );
+      expect(
+        attached.diagnostics['partial']!.unweightedCoverage,
+        partialLegacy.unweightedCoverage,
       );
     });
   });

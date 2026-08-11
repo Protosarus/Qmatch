@@ -4,9 +4,9 @@ import '../../matching/domain/canonical_20d_shadow_distance.dart';
 
 /// Builds a shadow subject from `users/{uid}/profiles/canonical_v1` only.
 ///
-/// Measured rows supply scores. Each valid measured score is treated as
-/// `evidence_count = 1` for shadow diagnostics (profile load path does not
-/// fetch assessment evidence docs). Missing dims stay absent — never 0/0.5/50.
+/// Measured rows supply scores. Evidence counts are **not** fabricated —
+/// `canonical_v1` does not store them. Discover shadow uses measured-score
+/// presence as the comparability gate. Missing dims stay absent.
 class DiscoverCanonical20dShadowSubjectBuilder {
   DiscoverCanonical20dShadowSubjectBuilder._();
 
@@ -18,7 +18,6 @@ class DiscoverCanonical20dShadowSubjectBuilder {
     if (rows is! List || rows.isEmpty) return null;
 
     final scores = <String, double>{};
-    final evidence = <String, int>{};
     for (final row in rows) {
       if (row is! Map) continue;
       final dim = QmatchProfileDimension.fromJson(
@@ -35,12 +34,11 @@ class DiscoverCanonical20dShadowSubjectBuilder {
         continue;
       }
       scores[dim.dimensionId] = value;
-      evidence[dim.dimensionId] = Canonical20dShadowDistanceContract.minEvidenceCount;
     }
     if (scores.isEmpty) return null;
     return Canonical20dShadowSubject(
       measuredScores: scores,
-      evidenceCounts: evidence,
+      evidenceCounts: const {},
     );
   }
 }

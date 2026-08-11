@@ -34,7 +34,11 @@ class DiscoverShadowDistanceAttacher {
         final other = DiscoverCanonical20dShadowSubjectBuilder
             .fromCanonicalProfile(profile);
         if (other == null) continue;
-        final result = _matcher.compare(a: meSubject, b: other);
+        // Measured-presence gate only — never invent evidence_count from profile.
+        final result = _matcher.compareMeasuredPresence(
+          a: meSubject,
+          b: other,
+        );
         diagnostics[candidate.uid] =
             DiscoverShadowDistanceDiagnostic.fromResult(result);
       }

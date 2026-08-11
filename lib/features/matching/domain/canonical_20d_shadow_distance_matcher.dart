@@ -13,16 +13,47 @@ import 'canonical_20d_shadow_subject.dart';
 /// d = \sqrt{d^{2}}
 /// \]
 ///
-/// A dimension is comparable only when both subjects have a finite measured
-/// score in \([0,1]\) and `evidence_count >= 1`. Missing dims are excluded —
+/// Shared measured dims form comparable set \(K\). Missing dims are excluded —
 /// never imputed as 0 / 0.5 / 50. Equal weights only — no confidence scaling,
 /// no similarity transform, no Discover coupling.
+///
+/// [compare] also requires `evidence_count >= 1` on both sides when real
+/// assessment evidence is supplied. [compareMeasuredPresence] gates only on
+/// measured scores (for `canonical_v1` Discover shadow — no fabricated counts).
 class Canonical20dShadowDistanceMatcher {
   const Canonical20dShadowDistanceMatcher();
 
+  /// Pairwise distance when both subjects carry real evidence counts.
   Canonical20dShadowDistanceResult compare({
     required Canonical20dShadowSubject a,
     required Canonical20dShadowSubject b,
+  }) {
+    return _compare(
+      a: a,
+      b: b,
+      requireEvidenceCounts: true,
+    );
+  }
+
+  /// Pairwise distance gated only by shared measured scores in \([0,1]\).
+  ///
+  /// Used by Discover `canonical_v1` shadow diagnostics. Does not read or
+  /// invent `evidence_count`.
+  Canonical20dShadowDistanceResult compareMeasuredPresence({
+    required Canonical20dShadowSubject a,
+    required Canonical20dShadowSubject b,
+  }) {
+    return _compare(
+      a: a,
+      b: b,
+      requireEvidenceCounts: false,
+    );
+  }
+
+  Canonical20dShadowDistanceResult _compare({
+    required Canonical20dShadowSubject a,
+    required Canonical20dShadowSubject b,
+    required bool requireEvidenceCounts,
   }) {
     final comparableIds = <String>[];
     final excludedIds = <String>[];
@@ -31,11 +62,14 @@ class Canonical20dShadowDistanceMatcher {
     for (final id in Canonical20dShadowDistanceContract.dimensionIds) {
       final muA = _validMeasuredScore(a.measuredScores[id]);
       final muB = _validMeasuredScore(b.measuredScores[id]);
-      final nA = a.evidenceCounts[id] ?? 0;
-      final nB = b.evidenceCounts[id] ?? 0;
-      final evidenceOk =
-          nA >= Canonical20dShadowDistanceContract.minEvidenceCount &&
-              nB >= Canonical20dShadowDistanceContract.minEvidenceCount;
+      var evidenceOk = true;
+      if (requireEvidenceCounts) {
+        final nA = a.evidenceCounts[id] ?? 0;
+        final nB = b.evidenceCounts[id] ?? 0;
+        evidenceOk =
+            nA >= Canonical20dShadowDistanceContract.minEvidenceCount &&
+                nB >= Canonical20dShadowDistanceContract.minEvidenceCount;
+      }
 
       if (muA == null || muB == null || !evidenceOk) {
         excludedIds.add(id);
