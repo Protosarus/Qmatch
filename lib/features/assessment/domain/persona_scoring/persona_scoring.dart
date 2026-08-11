@@ -2,6 +2,7 @@ export 'canonical_persona_shadow_scorer.dart';
 export 'persona_candidate_score.dart';
 export 'persona_dimension_profile.dart';
 export 'persona_prototype.dart';
+export 'persona_runtime_handoff_persistence.dart';
 export 'persona_runtime_handoff_request.dart';
 export 'persona_runtime_handoff_result.dart';
 export 'persona_runtime_handoff_service.dart';
