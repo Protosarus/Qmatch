@@ -1,7 +1,11 @@
 import '../../assessment/domain/profile/qmatch_profile_contract.dart';
 import '../../assessment/domain/profile/qmatch_profile_models.dart';
 
-/// Frozen contracts for shadow-only canonical 20D pairwise distance.
+/// Equal-weight canonical 20D pairwise distance — **baseline only**.
+///
+/// Not the structural Matching production-candidate. That role is frozen on
+/// group-normalized 20D (`canonical_20d_group_normalized_shadow_distance_v1`,
+/// policy `production_candidate_not_live`).
 ///
 /// Explicit non-goals: archetype/category, IQ/EQ bands, quantum, RVI,
 /// Gaussian/RBF similarity %, Discover ranking, fake confidence / neutrals.

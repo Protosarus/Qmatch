@@ -4,7 +4,9 @@ import 'canonical_20d_group_normalized_shadow_contract.dart';
 import 'canonical_20d_group_normalized_shadow_result.dart';
 import 'canonical_20d_shadow_subject.dart';
 
-/// Shadow-only group-normalized structural matcher (IQ / EQ / Frequency).
+/// Structural Matching production-candidate matcher (group-normalized 20D).
+///
+/// Policy: `production_candidate_not_live` — frozen weights, not live ranking.
 ///
 /// Per available module \(m\) over shared measured dims \(K_m\):
 ///
@@ -12,7 +14,7 @@ import 'canonical_20d_shadow_subject.dart';
 /// d_m^{2}=\frac{1}{|K_m|}\sum_{k\in K_m}(\mu_{A,k}-\mu_{B,k})^{2}
 /// \]
 ///
-/// Combined over available modules \(A\) with provisional weights
+/// Combined over available modules \(A\) with frozen weights
 /// \(w_{\mathrm{IQ}}=0.133333\), \(w_{\mathrm{EQ}}=0.400000\),
 /// \(w_{\mathrm{F}}=0.466667\), renormalized when modules are omitted:
 ///
@@ -23,7 +25,7 @@ import 'canonical_20d_shadow_subject.dart';
 /// \]
 ///
 /// Missing dims are excluded — never 0 / 0.5 / 50. No Persona, archetype,
-/// quantum, RVI, similarity %, Discover ranking, or equal-20D replacement.
+/// quantum, RVI, similarity %, Discover ranking/UI, or equal-20D replacement.
 class Canonical20dGroupNormalizedShadowMatcher {
   const Canonical20dGroupNormalizedShadowMatcher();
 
@@ -82,6 +84,10 @@ class Canonical20dGroupNormalizedShadowMatcher {
             Canonical20dGroupNormalizedShadowContract.scoringVersion,
         registryVersion:
             Canonical20dGroupNormalizedShadowContract.registryVersion,
+        policyVersion: Canonical20dGroupNormalizedShadowContract.policyVersion,
+        policyStatus: Canonical20dGroupNormalizedShadowContract.policyStatus,
+        weightsFrozen:
+            Canonical20dGroupNormalizedShadowContract.weightsFrozen,
         provisional: Canonical20dGroupNormalizedShadowContract.provisional,
         shadowOnly: Canonical20dGroupNormalizedShadowContract.shadowOnly,
       );
@@ -130,6 +136,9 @@ class Canonical20dGroupNormalizedShadowMatcher {
       totalCoverage: totalCoverage,
       scoringVersion: Canonical20dGroupNormalizedShadowContract.scoringVersion,
       registryVersion: Canonical20dGroupNormalizedShadowContract.registryVersion,
+      policyVersion: Canonical20dGroupNormalizedShadowContract.policyVersion,
+      policyStatus: Canonical20dGroupNormalizedShadowContract.policyStatus,
+      weightsFrozen: Canonical20dGroupNormalizedShadowContract.weightsFrozen,
       provisional: Canonical20dGroupNormalizedShadowContract.provisional,
       shadowOnly: Canonical20dGroupNormalizedShadowContract.shadowOnly,
     );

@@ -22,7 +22,7 @@ class Canonical20dGroupModuleDistance {
   /// comparable / registry for this module.
   final double coverage;
 
-  /// Configured provisional weight before omission renormalization.
+  /// Configured frozen weight before omission renormalization.
   final double configuredWeight;
 
   /// Weight used in the combined mix (0 when omitted).
@@ -41,7 +41,7 @@ class Canonical20dGroupModuleDistance {
       };
 }
 
-/// Group-normalized structural shadow result (raw distances only).
+/// Group-normalized structural production-candidate result (raw distances only).
 class Canonical20dGroupNormalizedShadowResult {
   const Canonical20dGroupNormalizedShadowResult({
     required this.available,
@@ -55,6 +55,9 @@ class Canonical20dGroupNormalizedShadowResult {
     required this.totalCoverage,
     required this.scoringVersion,
     required this.registryVersion,
+    required this.policyVersion,
+    required this.policyStatus,
+    required this.weightsFrozen,
     required this.provisional,
     required this.shadowOnly,
   });
@@ -75,6 +78,9 @@ class Canonical20dGroupNormalizedShadowResult {
 
   final String scoringVersion;
   final String registryVersion;
+  final String policyVersion;
+  final String policyStatus;
+  final bool weightsFrozen;
   final bool provisional;
   final bool shadowOnly;
 
@@ -91,6 +97,9 @@ class Canonical20dGroupNormalizedShadowResult {
         'total_coverage': totalCoverage,
         'scoring_version': scoringVersion,
         'registry_version': registryVersion,
+        'policy_version': policyVersion,
+        'policy_status': policyStatus,
+        'weights_frozen': weightsFrozen,
         'provisional': provisional,
         'shadow_only': shadowOnly,
       };

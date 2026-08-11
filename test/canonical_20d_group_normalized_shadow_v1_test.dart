@@ -44,8 +44,21 @@ void main() {
       expect(r.frequency.distance, 0.0);
       expect(r.totalComparableDimensionCount, 20);
       expect(r.totalCoverage, 1.0);
-      expect(r.provisional, isTrue);
+      expect(r.provisional, isFalse);
       expect(r.shadowOnly, isTrue);
+      expect(r.weightsFrozen, isTrue);
+      expect(
+        r.policyStatus,
+        Canonical20dGroupNormalizedShadowContract.policyStatus,
+      );
+      expect(
+        r.policyStatus,
+        'production_candidate_not_live',
+      );
+      expect(
+        r.policyVersion,
+        Canonical20dGroupNormalizedShadowContract.policyVersion,
+      );
       expect(
         r.scoringVersion,
         Canonical20dGroupNormalizedShadowContract.scoringVersion,
@@ -186,7 +199,7 @@ void main() {
       expect(ab.totalCoverage, ba.totalCoverage);
     });
 
-    test('configured weights match CM structural renormalization target', () {
+    test('frozen production-candidate policy weights and status', () {
       final w = Canonical20dGroupNormalizedShadowContract.moduleWeights;
       expect(
         w['iq']! + w['eq']! + w['frequency']!,
@@ -195,6 +208,17 @@ void main() {
       expect(w['iq'], 0.133333);
       expect(w['eq'], 0.400000);
       expect(w['frequency'], 0.466667);
+      expect(
+        Canonical20dGroupNormalizedShadowContract.policyStatus,
+        'production_candidate_not_live',
+      );
+      expect(Canonical20dGroupNormalizedShadowContract.weightsFrozen, isTrue);
+      expect(Canonical20dGroupNormalizedShadowContract.shadowOnly, isTrue);
+      expect(
+        Canonical20dGroupNormalizedShadowContract.liveDiscoverRanking,
+        isFalse,
+      );
+      expect(Canonical20dGroupNormalizedShadowContract.provisional, isFalse);
     });
   });
 
@@ -217,7 +241,21 @@ void main() {
         equalContract.contains('canonical_20d_shadow_distance_v1'),
         isTrue,
       );
-      expect(equalContract.contains('group_normalized'), isFalse);
+      expect(equalContract.contains('baseline only'), isTrue);
+
+      final policy = File(
+        'docs/matching/'
+        'qmatch_structural_matching_production_candidate_policy_v1.md',
+      ).readAsStringSync();
+      expect(policy.contains('production_candidate_not_live'), isTrue);
+      expect(policy.contains('0.133333'), isTrue);
+      expect(policy.contains('0.400000'), isTrue);
+      expect(policy.contains('0.466667'), isTrue);
+      expect(policy.contains('Baseline only'), isTrue);
+      expect(policy.contains('Remains live'), isTrue);
+      expect(policy.toLowerCase().contains('persona'), isTrue);
+      expect(policy.toLowerCase().contains('quantum'), isTrue);
+      expect(policy.toLowerCase().contains('rvi'), isTrue);
 
       final equalSrc = File(
         'lib/features/matching/domain/canonical_20d_shadow_distance_matcher.dart',
