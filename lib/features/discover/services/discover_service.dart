@@ -1,24 +1,43 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../core/utils/compatibility_scoring.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../safety/services/safety_service.dart';
 import '../models/discover_user_model.dart';
+import 'discover_canonical_20d_shadow.dart';
+import 'discover_shadow_distance_attacher.dart';
 
 class DiscoverService {
-  final FirebaseAuth _auth;
-  final SwipeService _swipeService;
-  final SafetyService _safetyService;
-
   DiscoverService({
     FirebaseAuth? auth,
     SwipeService? swipeService,
     SafetyService? safetyService,
+    Future<Map<String, dynamic>?> Function(String uid)? loadCanonicalProfile,
+    DiscoverShadowDistanceAttacher? shadowAttacher,
+    bool enableShadowDiagnostics = true,
   })  : _auth = auth ?? FirebaseAuth.instance,
         _swipeService = swipeService ?? SwipeService(auth: auth),
-        _safetyService = safetyService ?? SafetyService(auth: auth);
+        _safetyService = safetyService ?? SafetyService(auth: auth),
+        _loadCanonicalProfile = loadCanonicalProfile,
+        _shadowAttacher =
+            shadowAttacher ?? const DiscoverShadowDistanceAttacher(),
+        _enableShadowDiagnostics = enableShadowDiagnostics;
+
+  final FirebaseAuth _auth;
+  final SwipeService _swipeService;
+  final SafetyService _safetyService;
+  final Future<Map<String, dynamic>?> Function(String uid)?
+      _loadCanonicalProfile;
+  final DiscoverShadowDistanceAttacher _shadowAttacher;
+  final bool _enableShadowDiagnostics;
+
+  /// In-memory shadow diagnostics from the last [getCandidates] call.
+  /// Not persisted. Not used for ranking or displayed compatibility.
+  Map<String, DiscoverShadowDistanceDiagnostic> lastShadowDiagnostics =
+      const {};
 
   /// Loads candidate profiles for Discover (simple query + local filters).
   Future<List<DiscoverUserModel>> getCandidates({int limit = 30}) async {
@@ -132,6 +151,76 @@ class DiscoverService {
       );
     });
 
+    // Shadow diagnostics AFTER legacy ranking — never reorder / rescore.
+    await _computeShadowDiagnostics(
+      meUid: currentUid,
+      rankedCandidates: out,
+    );
+
     return out;
+  }
+
+  Future<void> _computeShadowDiagnostics({
+    required String meUid,
+    required List<DiscoverUserModel> rankedCandidates,
+  }) async {
+    if (!_enableShadowDiagnostics || rankedCandidates.isEmpty) {
+      lastShadowDiagnostics = const {};
+      return;
+    }
+
+    try {
+      final meProfile = await _canonicalProfile(meUid);
+      final candidateProfiles = <String, Map<String, dynamic>?>{};
+
+      // Parallel reads only for already-selected candidates (not the raw query
+      // batch). Failures become null profiles → no diagnostic for that uid.
+      final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
+      final loaded = await Future.wait(
+        uids.map((uid) async {
+          try {
+            return MapEntry(uid, await _canonicalProfile(uid));
+          } catch (_) {
+            return MapEntry(uid, null);
+          }
+        }),
+      );
+      for (final e in loaded) {
+        candidateProfiles[e.key] = e.value;
+      }
+
+      final attached = _shadowAttacher.attach(
+        rankedCandidates: rankedCandidates,
+        meCanonicalProfile: meProfile,
+        candidateCanonicalProfiles: candidateProfiles,
+      );
+      lastShadowDiagnostics = attached.diagnostics;
+
+      // attached.candidates must keep live compat; assert in debug only.
+      assert(attached.candidates.length == rankedCandidates.length);
+      assert(() {
+        for (var i = 0; i < rankedCandidates.length; i++) {
+          final before = rankedCandidates[i];
+          final after = attached.candidates[i];
+          if (before.uid != after.uid ||
+              before.compatibilityScore != after.compatibilityScore ||
+              before.compatibilityLabel != after.compatibilityLabel) {
+            return false;
+          }
+        }
+        return true;
+      }());
+    } catch (e, st) {
+      debugPrint('Discover shadow 20D diagnostics skipped: $e\n$st');
+      lastShadowDiagnostics = const {};
+    }
+  }
+
+  Future<Map<String, dynamic>?> _canonicalProfile(String uid) async {
+    final custom = _loadCanonicalProfile;
+    if (custom != null) return custom(uid);
+    final snap = await FirestorePaths.userCanonicalProfileDoc(uid).get();
+    if (!snap.exists) return null;
+    return snap.data();
   }
 }
