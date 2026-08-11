@@ -19,6 +19,8 @@ enum AssessmentFlowDestination {
   iq,
   eq,
   frequency,
+  /// Distance-only Persona assign/reveal after complete 20D.
+  persona,
   profileSetup,
   main,
 }
@@ -49,7 +51,8 @@ class AssessmentProgressSnapshot {
   /// User-doc `assessment_flow_completed` or derived from modules.
   final bool assessmentFlowCompleted;
 
-  /// Always false until the 18-persona engine ships.
+  /// True when `users/{uid}/assessments/persona` holds a current-version
+  /// distance-only result (see [PersonaRuntimeResultPolicy]).
   final bool canonicalPersonaAvailable;
 
   final bool profileCompleted;

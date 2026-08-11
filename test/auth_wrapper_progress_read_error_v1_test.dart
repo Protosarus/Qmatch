@@ -115,6 +115,11 @@ void main() {
         reason: 'frequency_pending_finalization',
       ),
       const AssessmentColdStartDecision(
+        destination: AssessmentFlowDestination.persona,
+        openAssessmentTestScreen: false,
+        reason: 'progress_routing',
+      ),
+      const AssessmentColdStartDecision(
         destination: AssessmentFlowDestination.profileSetup,
         openAssessmentTestScreen: false,
         reason: 'progress_routing',

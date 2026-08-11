@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../core/utils/firestore_paths.dart';
+import '../domain/persona_scoring/persona_runtime_result_policy.dart';
 import '../models/assessment_progress.dart';
 import '../models/frequency_model.dart';
 import 'canonical_assessment_persistence.dart';
@@ -61,6 +62,10 @@ class AssessmentProgressService {
     final eqDoc = await FirestorePaths.userAssessmentDoc(uid, 'eq').get();
     final freqDoc =
         await FirestorePaths.userAssessmentDoc(uid, 'frequency').get();
+    final personaDoc = await FirestorePaths.userAssessmentDoc(
+      uid,
+      PersonaRuntimeResultPolicy.assessmentType,
+    ).get();
 
     final iqAsg =
         await FirestorePaths.userAssessmentAssignmentDoc(uid, 'iq').get();
@@ -76,6 +81,7 @@ class AssessmentProgressService {
       iqAssessment: iqDoc.data(),
       eqAssessment: eqDoc.data(),
       frequencyAssessment: freqDoc.data(),
+      personaAssessment: personaDoc.data(),
       iqAssignment: iqAsg.data(),
       eqAssignment: eqAsg.data(),
       frequencyAssignment: freqAsg.data(),
@@ -161,6 +167,7 @@ class AssessmentProgressService {
     Map<String, dynamic>? iqAssessment,
     Map<String, dynamic>? eqAssessment,
     Map<String, dynamic>? frequencyAssessment,
+    Map<String, dynamic>? personaAssessment,
     Map<String, dynamic>? iqAssignment,
     Map<String, dynamic>? eqAssignment,
     Map<String, dynamic>? frequencyAssignment,
@@ -213,8 +220,8 @@ class AssessmentProgressService {
     final assessmentFlowCompleted =
         flowCompletedMirror || allAssessmentsCompleted;
 
-    // Persona engine not shipped — always unavailable.
-    const canonicalPersonaAvailable = false;
+    final canonicalPersonaAvailable =
+        PersonaRuntimeResultPolicy.isCurrentValid(personaAssessment);
 
     final routed = _route(
       flowVersion: flowVersion,
@@ -224,6 +231,7 @@ class AssessmentProgressService {
       frequencyIncomplete: frequencyIncomplete,
       allAssessmentsCompleted: allAssessmentsCompleted,
       assessmentFlowCompleted: assessmentFlowCompleted,
+      canonicalPersonaAvailable: canonicalPersonaAvailable,
       profileCompleted: profileCompleted,
       legacyTestCompleted: legacyTestCompleted,
       iqSource: iq.source,
@@ -263,6 +271,7 @@ class AssessmentProgressService {
     required bool frequencyIncomplete,
     required bool allAssessmentsCompleted,
     required bool assessmentFlowCompleted,
+    required bool canonicalPersonaAvailable,
     required bool profileCompleted,
     required bool legacyTestCompleted,
     required String iqSource,
@@ -296,10 +305,17 @@ class AssessmentProgressService {
               : 'v2_frequency_required',
         );
       }
+      if (!canonicalPersonaAvailable) {
+        return (
+          destination: AssessmentFlowDestination.persona,
+          source: 'v2_assessments_complete',
+          reason: 'v2_persona_required',
+        );
+      }
       if (!profileCompleted) {
         return (
           destination: AssessmentFlowDestination.profileSetup,
-          source: 'v2_assessments_complete',
+          source: 'v2_persona_complete',
           reason: 'v2_profile_required',
         );
       }
@@ -315,6 +331,17 @@ class AssessmentProgressService {
     // Compatibility: if the user already has a completed profile and was able
     // to use the app historically, do not lock them out of Main when Frequency
     // is missing. Soft Frequency prompts are out of scope for P1B-2A.
+    //
+    // When the full 20D battery is complete, Persona reveal is required before
+    // profile/main — same as v2 — so cold start cannot skip it.
+    if (allAssessmentsCompleted && !canonicalPersonaAvailable) {
+      return (
+        destination: AssessmentFlowDestination.persona,
+        source: frequencySource,
+        reason: 'legacy_persona_required',
+      );
+    }
+
     if (profileCompleted) {
       return (
         destination: AssessmentFlowDestination.main,

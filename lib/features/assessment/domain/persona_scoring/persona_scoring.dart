@@ -1,11 +1,15 @@
 export 'canonical_persona_shadow_scorer.dart';
+export 'persona_assignment_coordinator.dart';
 export 'persona_candidate_score.dart';
 export 'persona_dimension_profile.dart';
+export 'persona_handoff_request_builder.dart';
 export 'persona_prototype.dart';
+export 'persona_runtime_asset_loader.dart';
 export 'persona_runtime_handoff_persistence.dart';
 export 'persona_runtime_handoff_request.dart';
 export 'persona_runtime_handoff_result.dart';
 export 'persona_runtime_handoff_service.dart';
+export 'persona_runtime_result_policy.dart';
 export 'persona_scoring_config.dart';
 export 'persona_scoring_input.dart';
 export 'persona_scoring_parsers.dart';

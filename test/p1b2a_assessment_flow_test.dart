@@ -61,7 +61,7 @@ void main() {
       expect(s.reason, 'v2_frequency_incomplete');
     });
 
-    test('5. all three complete + profile incomplete → profile setup', () {
+    test('5. all three complete without Persona → persona reveal', () {
       final s = AssessmentProgressService.resolveFromMaps(
         userDoc: {
           'assessment_flow_version': 2,
@@ -80,10 +80,45 @@ void main() {
         },
       );
       expect(s.allAssessmentsCompleted, isTrue);
+      expect(s.canonicalPersonaAvailable, isFalse);
+      expect(s.destination, AssessmentFlowDestination.persona);
+      expect(s.reason, 'v2_persona_required');
+    });
+
+    test('6. all three complete + Persona + profile incomplete → profile setup',
+        () {
+      final s = AssessmentProgressService.resolveFromMaps(
+        userDoc: {
+          'assessment_flow_version': 2,
+          'iq_completed': true,
+          'eq_completed': true,
+          'frequency_completed': true,
+          'assessment_flow_completed': true,
+          'profile_completed': false,
+        },
+        iqAssessment: {'status': 'completed'},
+        eqAssessment: {'status': 'completed'},
+        frequencyAssessment: {
+          'status': 'completed',
+          'canonical_profile_ready': true,
+          'missing_dimensions': <String>[],
+        },
+        personaAssessment: {
+          'primary_persona_id': 'kararli',
+          'secondary_persona_id': 'empat',
+          'raw_delta_d': 0.12,
+          'scoring_version': 'persona_20d_shadow_distance_v1',
+          'config_version': 'persona_shadow_scoring_config_v1',
+          'policy_version': 'persona_shadow_evidence_only_v1',
+          'prototype_version': 'persona_profiles_v2_20d.0',
+        },
+      );
+      expect(s.allAssessmentsCompleted, isTrue);
+      expect(s.canonicalPersonaAvailable, isTrue);
       expect(s.destination, AssessmentFlowDestination.profileSetup);
     });
 
-    test('6. all three complete + profile complete → main', () {
+    test('6b. all three complete + Persona + profile complete → main', () {
       final s = AssessmentProgressService.resolveFromMaps(
         userDoc: {
           'assessment_flow_version': 2,
@@ -99,8 +134,18 @@ void main() {
           'status': 'completed',
           'canonical_profile_ready': true,
         },
+        personaAssessment: {
+          'primary_persona_id': 'kararli',
+          'secondary_persona_id': 'empat',
+          'raw_delta_d': 0.12,
+          'scoring_version': 'persona_20d_shadow_distance_v1',
+          'config_version': 'persona_shadow_scoring_config_v1',
+          'policy_version': 'persona_shadow_evidence_only_v1',
+          'prototype_version': 'persona_profiles_v2_20d.0',
+        },
       );
       expect(s.destination, AssessmentFlowDestination.main);
+      expect(s.canonicalPersonaAvailable, isTrue);
     });
 
     test('10. Frequency completion marks full flow complete (mirror fields)',

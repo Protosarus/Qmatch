@@ -10,8 +10,9 @@ import '../utils/assessment_persona_reference_catalog.dart';
 /// Shows [primaryPersonaId] prominently and [secondaryPersonaId] as a subtle
 /// supporting pattern. No scores, %, confidence, Δ_D, RVI, or quantum.
 ///
-/// Navigation is intentionally unwired: pass [onContinue] only when a route
-/// exists. Matching/Discover are not coupled here.
+/// Live post-assessment wiring uses [onContinue] from
+/// [PersonaAssignmentGateScreen] into AssessmentFlowComplete / profile flow.
+/// Matching/Discover are not coupled here.
 class PersonaRevealScreen extends StatelessWidget {
   const PersonaRevealScreen({
     super.key,

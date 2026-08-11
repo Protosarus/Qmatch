@@ -8,6 +8,7 @@ import '../../features/assessment/screens/frequency_intro_screen.dart';
 import '../../features/assessment/screens/frequency_test_screen.dart';
 import '../../features/assessment/screens/iq_test_intro_screen.dart';
 import '../../features/assessment/screens/iq_test_screen.dart';
+import '../../features/assessment/screens/persona_assignment_gate_screen.dart';
 import '../../features/assessment/services/assessment_cold_start_pending_reconciler.dart';
 import '../../features/assessment/services/assessment_progress_service.dart';
 import '../../features/profile/screens/profile_setup_screen.dart';
@@ -124,6 +125,8 @@ Widget buildAssessmentDestination(AssessmentColdStartDecision decision) {
       return decision.openAssessmentTestScreen
           ? const FrequencyTestScreen()
           : const FrequencyIntroScreen();
+    case AssessmentFlowDestination.persona:
+      return const PersonaAssignmentGateScreen();
     case AssessmentFlowDestination.profileSetup:
       return const ProfileSetupScreen();
     case AssessmentFlowDestination.main:

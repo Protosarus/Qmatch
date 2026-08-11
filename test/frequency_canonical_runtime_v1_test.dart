@@ -417,7 +417,8 @@ void main() {
       ).readAsStringSync();
       expect(screen.contains('PersonaScoring'), isFalse);
       expect(screen.contains('FrequencyResultScreen'), isFalse);
-      expect(screen.contains('AssessmentFlowCompleteScreen'), isTrue);
+      expect(screen.contains('PersonaAssignmentGateScreen'), isTrue);
+      expect(screen.contains('AssessmentFlowCompleteScreen'), isFalse);
     });
   });
 

@@ -49,6 +49,8 @@ flutter:
     - assets/data/iq_questions.json
     - assets/data/eq_questions.json
     - assets/data/persona_profiles_v1.json
+    - assets/data/persona_profiles_v2_20d.json
+    - assets/data/persona_shadow_scoring_config_v1.json
     - assets/data/assessment_sets/
     - assets/data/assessment_v3/iq/iq_bank_tr_v1.json
     - assets/data/assessment_v3/iq/iq_bank_en_v1.json

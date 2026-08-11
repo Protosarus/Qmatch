@@ -18,12 +18,12 @@ import '../utils/assessment_language.dart';
 import '../widgets/assessment_capture_guard.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_scaffold.dart';
-import 'assessment_flow_complete_screen.dart';
+import 'persona_assignment_gate_screen.dart';
 
 /// Canonical 50-item Frequency session — behavioral tendency, not correctness.
 ///
-/// Completes the 20D measurement profile. Does NOT invoke Persona / Matching /
-/// QRCF / quantum / RVI gating.
+/// Completes the 20D measurement profile. Persona assign/reveal is the next
+/// live step (distance-only). Does NOT invoke Matching / QRCF / quantum / RVI.
 class FrequencyTestScreen extends StatefulWidget {
   const FrequencyTestScreen({super.key});
 
@@ -337,7 +337,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       } catch (_) {}
 
       debugPrint(
-        '✅ Canonical Frequency completed — 20D ready; navigating to flow complete (no Persona)',
+        '✅ Canonical Frequency completed — 20D ready; navigating to Persona gate',
       );
 
       if (!mounted) return;
@@ -347,7 +347,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => AssessmentFlowCompleteScreen(
+          builder: (_) => PersonaAssignmentGateScreen(
             profileCompleted: profileCompleted,
           ),
         ),
