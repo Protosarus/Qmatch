@@ -60,6 +60,18 @@ class PeriodicWaveStateResonanceResult {
         'c_abs_diagnostic_only': true,
         'c_abs_used_for_ranking':
             PeriodicWaveStateResonanceAdapterContract.cAbsUsedForRanking,
+        'c_abs_is_resonance':
+            PeriodicWaveStateResonanceAdapterContract.cAbsIsResonance,
+        'c_abs_is_amplitude_envelope_diagnostic_only':
+            PeriodicWaveStateResonanceAdapterContract
+                .cAbsIsAmplitudeEnvelopeDiagnosticOnly,
+        'research_envelope_diagnostic_only':
+            PeriodicWaveStateResonanceAdapterContract
+                .researchEnvelopeDiagnosticOnly,
+        'real_user_usable_path':
+            PeriodicWaveStateResonanceAdapterContract.realUserUsablePath,
+        'amplitude_semantics_version': PeriodicWaveStateResonanceAdapterContract
+            .amplitudeSemanticsVersion,
         'live_discover_ranking':
             PeriodicWaveStateResonanceAdapterContract.liveDiscoverRanking,
         'persona_enabled':

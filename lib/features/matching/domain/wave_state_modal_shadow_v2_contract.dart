@@ -5,12 +5,19 @@ import '../../assessment/domain/profile/qmatch_profile_models.dart';
 ///
 /// New shadow candidate beside v1. No Discover ranking/UI, Persona, RVI,
 /// density-matrix/fidelity, questionnaire φ/ω, or gauge-fixing of unanchored phase.
+///
+/// **Amplitude semantics v1:** multi-mode Frequency resonance is
+/// **research-only** for real users until mode-specific oscillators exist.
+/// Do not copy global activity phase into all six Frequency modes.
+/// See `wave_state_amplitude_semantics_v1`.
 class WaveStateModalShadowV2Contract {
   WaveStateModalShadowV2Contract._();
 
   static const String scoringVersion = 'wave_state_modal_shadow_v2';
   static const String policyVersion = 'wave_phase_reference_policy_v1';
   static const String policyStatus = 'shadow_only_not_live';
+  static const String amplitudeSemanticsVersion =
+      'wave_state_amplitude_semantics_v1';
   static const String registryVersion = QmatchProfileContract.registryVersion;
 
   static const bool shadowOnly = true;
@@ -24,6 +31,16 @@ class WaveStateModalShadowV2Contract {
   static const bool fabricatesMissingOmega = false;
   static const bool gaugeFixesUnanchoredPhase = false;
   static const bool cAbsUsedForRanking = false;
+
+  /// \(c_{\mathrm{abs}}\) is amplitude-envelope diagnostic only — not resonance.
+  static const bool cAbsIsResonance = false;
+  static const bool cAbsIsAmplitudeEnvelopeDiagnosticOnly = true;
+
+  /// Real-user multi-mode Frequency resonance remains gated (research only).
+  static const bool realUserMultimodeResonanceEnabled = false;
+  static const bool multimodeRequiresModeSpecificOscillators = true;
+  static const bool mayCopyGlobalActivityPhaseToFrequencyModes = false;
+  static const String multimodeRealUserStatus = 'research_only_unavailable';
 
   /// Signed overlap requires periodicity status `ok` (sparse not enough).
   static const bool signedRequiresPeriodicityOk = true;

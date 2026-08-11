@@ -238,6 +238,15 @@ class WaveStateModalShadowV2Result {
         'c_abs_diagnostic_only': cAbsDiagnosticOnly,
         'c_abs_used_for_ranking':
             WaveStateModalShadowV2Contract.cAbsUsedForRanking,
+        'c_abs_is_resonance': WaveStateModalShadowV2Contract.cAbsIsResonance,
+        'c_abs_is_amplitude_envelope_diagnostic_only':
+            WaveStateModalShadowV2Contract.cAbsIsAmplitudeEnvelopeDiagnosticOnly,
+        'real_user_multimode_resonance_enabled':
+            WaveStateModalShadowV2Contract.realUserMultimodeResonanceEnabled,
+        'multimode_real_user_status':
+            WaveStateModalShadowV2Contract.multimodeRealUserStatus,
+        'amplitude_semantics_version':
+            WaveStateModalShadowV2Contract.amplitudeSemanticsVersion,
         'phase_compatibility': phaseCompatibility.name,
         if (overlapReal != null) 'overlap_real': overlapReal,
         if (overlapImag != null) 'overlap_imag': overlapImag,

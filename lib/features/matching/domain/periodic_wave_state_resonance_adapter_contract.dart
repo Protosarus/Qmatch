@@ -3,6 +3,12 @@
 /// Uses [WavePhaseReferenceCompatibilityV2] + the v2 overlap formula.
 /// Does **not** attach Class-B activity phase to Frequency 6D mode slots,
 /// Discover, Persona, RVI, or density-matrix.
+///
+/// **Amplitude semantics v1:** this multi-amplitude envelope path is a
+/// **research diagnostic**. Usable real-user shadow for the global activity
+/// oscillator is [GlobalActivityPeriodicResonance] (phase alignment and
+/// activity levels returned separately). \(c_{\mathrm{abs}}\) is amplitude-
+/// envelope diagnostic only — never called resonance.
 class PeriodicWaveStateResonanceAdapterContract {
   PeriodicWaveStateResonanceAdapterContract._();
 
@@ -10,6 +16,8 @@ class PeriodicWaveStateResonanceAdapterContract {
       'periodic_wave_state_resonance_adapter_v1';
   static const String policyVersion = 'wave_phase_reference_policy_v1';
   static const String waveStateVersion = 'wave_state_modal_shadow_v2';
+  static const String amplitudeSemanticsVersion =
+      'wave_state_amplitude_semantics_v1';
   static const String policyStatus = 'shadow_only_not_live';
 
   static const bool shadowOnly = true;
@@ -21,6 +29,13 @@ class PeriodicWaveStateResonanceAdapterContract {
   static const bool rviEnabled = false;
   static const bool densityMatrixEnabled = false;
   static const bool cAbsUsedForRanking = false;
+  static const bool cAbsIsResonance = false;
+  static const bool cAbsIsAmplitudeEnvelopeDiagnosticOnly = true;
+
+  /// Multi-amplitude fused path is research diagnostic, not Tier-1 usable API.
+  static const bool researchEnvelopeDiagnosticOnly = true;
+  static const bool realUserUsablePath = false;
+
   static const bool fabricatesMissingPhase = false;
   static const bool fabricatesMissingOmega = false;
 
