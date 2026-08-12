@@ -183,10 +183,18 @@ void main() {
         src.contains('!candidate.testCompleted || !candidate.profileCompleted'),
         isFalse,
       );
-      // No preference wiring in this PR.
+      // No L1 preference filters (L3 soft shadow is post-rank diagnostics only).
       expect(src.contains('age_range'), isFalse);
       expect(src.contains('distance_preference'), isFalse);
       expect(src.contains('interested_in'), isFalse);
+      // L3 soft shadow must not participate in L1 gates.
+      expect(src.contains('DiscoverL3SoftPreference'), isTrue);
+      expect(
+        src.indexOf('passesLocalAccountGates') <
+            src.indexOf('_l3ShadowAttacher.attach'),
+        isTrue,
+      );
     });
   });
 }
+

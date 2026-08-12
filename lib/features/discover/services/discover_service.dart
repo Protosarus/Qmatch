@@ -9,6 +9,7 @@ import '../../safety/services/safety_service.dart';
 import '../models/discover_user_model.dart';
 import 'discover_canonical_20d_shadow.dart';
 import 'discover_l1_eligibility_gate.dart';
+import 'discover_l3_soft_preference_shadow.dart';
 import 'discover_shadow_distance_attacher.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
 
@@ -19,6 +20,7 @@ class DiscoverService {
     SafetyService? safetyService,
     Future<Map<String, dynamic>?> Function(String uid)? loadCanonicalProfile,
     DiscoverShadowDistanceAttacher? shadowAttacher,
+    DiscoverL3SoftPreferenceShadowAttacher? l3ShadowAttacher,
     bool enableShadowDiagnostics = true,
     DiscoverStageB2DualPathCollector? stageB2Collector,
     bool enableStageB2DualPathCollector = false,
@@ -29,6 +31,8 @@ class DiscoverService {
         _loadCanonicalProfile = loadCanonicalProfile,
         _shadowAttacher =
             shadowAttacher ?? const DiscoverShadowDistanceAttacher(),
+        _l3ShadowAttacher =
+            l3ShadowAttacher ?? const DiscoverL3SoftPreferenceShadowAttacher(),
         _enableShadowDiagnostics = enableShadowDiagnostics,
         _stageB2Collector = stageB2Collector ??
             DiscoverStageB2DualPathCollector(
@@ -43,6 +47,7 @@ class DiscoverService {
   final Future<Map<String, dynamic>?> Function(String uid)?
       _loadCanonicalProfile;
   final DiscoverShadowDistanceAttacher _shadowAttacher;
+  final DiscoverL3SoftPreferenceShadowAttacher _l3ShadowAttacher;
   final bool _enableShadowDiagnostics;
   final DiscoverStageB2DualPathCollector _stageB2Collector;
   final bool _allowStageB2OutsideDebug;
@@ -51,6 +56,13 @@ class DiscoverService {
   /// Not persisted. Not used for ranking or displayed compatibility.
   Map<String, DiscoverShadowDistanceDiagnostic> lastShadowDiagnostics =
       const {};
+
+  /// In-memory L3 soft preference shadow diagnostics (age / distance /
+  /// interests) from the last [getCandidates] call.
+  ///
+  /// Not persisted. Never used for ranking, L1 eligibility, or UI %.
+  Map<String, DiscoverL3SoftPreferencePairDiagnostic>
+      lastL3SoftPreferenceDiagnostics = const {};
 
   /// Last Stage B2 dual-path session (null when collector disabled).
   DiscoverStageB2Session? get lastStageB2Session =>
@@ -62,6 +74,25 @@ class DiscoverService {
   /// Export last Stage B2 session JSON (privacy-safe), or null.
   String? exportLastStageB2SessionJson({String indent = ' '}) =>
       _stageB2Collector.exportLastSessionJson(indent: indent);
+
+  /// Export last L3 soft preference shadow map (debug), or null if empty.
+  Map<String, dynamic>? exportLastL3SoftPreferenceDiagnosticsMap() {
+    if (lastL3SoftPreferenceDiagnostics.isEmpty) return null;
+    return {
+      'export_version': 'discover_l3_soft_preference_shadow_session_v1',
+      'shadow_only': true,
+      'affects_discover_ranking': false,
+      'is_l1_eligibility_gate': false,
+      'combined_l3_score': null,
+      'weights': false,
+      'looking_for_active': false,
+      'pair_count': lastL3SoftPreferenceDiagnostics.length,
+      'pairs': [
+        for (final d in lastL3SoftPreferenceDiagnostics.values)
+          d.toExportMap(),
+      ],
+    };
+  }
 
   /// Loads candidate profiles for Discover (simple query + local filters).
   Future<List<DiscoverUserModel>> getCandidates({int limit = 30}) async {
@@ -139,6 +170,8 @@ class DiscoverService {
     }
 
     final out = <DiscoverUserModel>[];
+    // Raw user-doc maps for post-rank L3 soft preference shadow only.
+    final candidateUserData = <String, Map<String, dynamic>>{};
     if (_stageB2Collector.enabled) {
       _stageB2Collector.beginSession(viewerUid: currentUid);
     } else {
@@ -188,6 +221,7 @@ class DiscoverService {
         );
       }
 
+      candidateUserData[doc.id] = Map<String, dynamic>.from(data);
       out.add(
         candidate.copyWith(
           // Unavailable → null (never 0.5 filler).
@@ -212,7 +246,9 @@ class DiscoverService {
     // Shadow diagnostics AFTER legacy ranking — never reorder / rescore.
     await _computeShadowDiagnostics(
       meUid: currentUid,
+      meUserData: meData,
       rankedCandidates: out,
+      candidateUserData: candidateUserData,
     );
 
     return out;
@@ -220,12 +256,15 @@ class DiscoverService {
 
   Future<void> _computeShadowDiagnostics({
     required String meUid,
+    required Map<String, dynamic> meUserData,
     required List<DiscoverUserModel> rankedCandidates,
+    required Map<String, Map<String, dynamic>> candidateUserData,
   }) async {
     final wantEqualShadow = _enableShadowDiagnostics;
     final wantStageB2 = _stageB2Collector.enabled;
     if ((!wantEqualShadow && !wantStageB2) || rankedCandidates.isEmpty) {
       lastShadowDiagnostics = const {};
+      lastL3SoftPreferenceDiagnostics = const {};
       if (!wantStageB2) _stageB2Collector.reset();
       return;
     }
@@ -258,15 +297,27 @@ class DiscoverService {
         );
         lastShadowDiagnostics = attached.diagnostics;
 
+        final l3Attached = _l3ShadowAttacher.attach(
+          meUserData: meUserData,
+          rankedCandidates: rankedCandidates,
+          candidateUserData: candidateUserData,
+        );
+        lastL3SoftPreferenceDiagnostics = l3Attached.diagnostics;
+
         // attached.candidates must keep live compat; assert in debug only.
         assert(attached.candidates.length == rankedCandidates.length);
+        assert(l3Attached.candidates.length == rankedCandidates.length);
         assert(() {
           for (var i = 0; i < rankedCandidates.length; i++) {
             final before = rankedCandidates[i];
             final after = attached.candidates[i];
+            final afterL3 = l3Attached.candidates[i];
             if (before.uid != after.uid ||
+                before.uid != afterL3.uid ||
                 before.compatibilityScore != after.compatibilityScore ||
-                before.compatibilityLabel != after.compatibilityLabel) {
+                before.compatibilityScore != afterL3.compatibilityScore ||
+                before.compatibilityLabel != after.compatibilityLabel ||
+                before.compatibilityLabel != afterL3.compatibilityLabel) {
               return false;
             }
           }
@@ -274,6 +325,7 @@ class DiscoverService {
         }());
       } else {
         lastShadowDiagnostics = const {};
+        lastL3SoftPreferenceDiagnostics = const {};
       }
 
       if (wantStageB2) {
@@ -286,6 +338,7 @@ class DiscoverService {
     } catch (e, st) {
       debugPrint('Discover shadow 20D diagnostics skipped: $e\n$st');
       lastShadowDiagnostics = const {};
+      lastL3SoftPreferenceDiagnostics = const {};
       if (wantStageB2) {
         _stageB2Collector.reset();
       }
