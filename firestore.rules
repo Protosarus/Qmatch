@@ -13,11 +13,20 @@ service cloud.firestore {
       return a < b ? a + '_' + b : b + '_' + a;
     }
 
-    function isMatchedWith(otherUid) {
-      return isSignedIn()
-        && exists(
-          /databases/$(database)/documents/matches/$(sortedPairId(request.auth.uid, otherUid))
-        );
+    function matchPath(matchId) {
+      return /databases/$(database)/documents/matches/$(matchId);
+    }
+
+    function blockPath(fromUid, toUid) {
+      return /databases/$(database)/documents/users/$(fromUid)/blocks/$(toUid);
+    }
+
+    function blockExists(fromUid, toUid) {
+      return exists(blockPath(fromUid, toUid));
+    }
+
+    function noBlocksBetween(a, b) {
+      return !blockExists(a, b) && !blockExists(b, a);
     }
 
     function likeExists(fromUid, toUid) {
@@ -29,10 +38,32 @@ service cloud.firestore {
         ).data.direction == 'like';
     }
 
+    /// Active match only — document existence alone is never enough.
+    function activeMatchExists(matchId) {
+      return exists(matchPath(matchId))
+        && get(matchPath(matchId)).data.state == 'active';
+    }
+
+    function activeMatchData(matchId) {
+      return get(matchPath(matchId)).data;
+    }
+
+    /// Peer profile / Discover “matched with” — requires ACTIVE membership.
+    function isMatchedWith(otherUid) {
+      let id = sortedPairId(request.auth.uid, otherUid);
+      return isSignedIn()
+        && activeMatchExists(id)
+        && request.auth.uid in activeMatchData(id).users;
+    }
+
     function isMatchMember() {
       return isSignedIn()
         && resource.data.keys().hasAny(['users'])
         && request.auth.uid in resource.data.users;
+    }
+
+    function isActiveMatchMember() {
+      return isMatchMember() && resource.data.state == 'active';
     }
 
     function isMatchMemberOnCreate() {
@@ -63,6 +94,25 @@ service cloud.firestore {
       return likeExists(a, b) && likeExists(b, a);
     }
 
+    function matchCreateBlocksClear() {
+      return noBlocksBetween(
+        request.resource.data.user_a,
+        request.resource.data.user_b
+      );
+    }
+
+    /// Client may close/block a match but must not rematch via update.
+    function matchStateUpdateAllowed() {
+      return request.resource.data.state == resource.data.state
+        || (
+          resource.data.state == 'active'
+          && (
+            request.resource.data.state == 'unmatched'
+            || request.resource.data.state == 'blocked'
+          )
+        );
+    }
+
     function isThreadParticipant() {
       return isSignedIn()
         && resource.data.keys().hasAny(['participants'])
@@ -84,6 +134,44 @@ service cloud.firestore {
       return isSignedIn()
         && exists(/databases/$(database)/documents/threads/$(threadId))
         && request.auth.uid in threadData(threadId).participants;
+    }
+
+    function threadParticipantsSortedOnCreate() {
+      return request.resource.data.participants[0] is string
+        && request.resource.data.participants[1] is string
+        && request.resource.data.participants[0]
+          < request.resource.data.participants[1];
+    }
+
+    /// Thread create requires corresponding ACTIVE match; matchId == threadId.
+    function threadCreateRequiresActiveMatch(threadId) {
+      return request.resource.data.match_id == threadId
+        && request.resource.data.status == 'active'
+        && activeMatchExists(threadId)
+        && activeMatchData(threadId).thread_id == threadId
+        && activeMatchData(threadId).users.hasAll(
+          request.resource.data.participants
+        )
+        && noBlocksBetween(
+          request.resource.data.participants[0],
+          request.resource.data.participants[1]
+        );
+    }
+
+    /// Soft consistency: thread may not be reopened unless match is active.
+    function threadStatusUpdateAllowed(threadId) {
+      return request.resource.data.status == resource.data.status
+        || request.resource.data.status == 'closed'
+        || (
+          request.resource.data.status == 'active'
+          && activeMatchExists(threadId)
+        );
+    }
+
+    function messageRequiresActiveConversation(threadId) {
+      return isParticipantOfThread(threadId)
+        && threadData(threadId).status == 'active'
+        && activeMatchExists(threadId);
     }
 
     // Server-owned / derived fields clients must not mutate after create.
@@ -121,7 +209,7 @@ service cloud.firestore {
 
     // users/{uid}
     match /users/{uid} {
-      // Owner full get; Discover candidates when eligible; matched peers for chat/profile.
+      // Owner full get; Discover candidates when eligible; ACTIVE matched peers.
       allow get: if isOwner(uid)
         || (isSignedIn() && resource.data.discover_eligible == true)
         || isMatchedWith(uid);
@@ -175,42 +263,58 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // matches/{matchId} — create only with mutual likes + deterministic id.
+    // matches/{matchId} — ACTIVE membership for read; create with mutual likes + no blocks.
     match /matches/{matchId} {
-      allow read: if isMatchMember();
+      allow read: if isActiveMatchMember();
       allow create: if isMatchMemberOnCreate()
         && matchUsersValid(matchId)
-        && mutualLikeForMatchCreate();
+        && mutualLikeForMatchCreate()
+        && matchCreateBlocksClear()
+        && request.resource.data.state == 'active'
+        && request.resource.data.thread_id == matchId;
       allow update: if isMatchMember()
         && request.resource.data.users == resource.data.users
         && request.resource.data.user_a == resource.data.user_a
         && request.resource.data.user_b == resource.data.user_b
+        && request.resource.data.thread_id == resource.data.thread_id
+        && matchStateUpdateAllowed()
         && !request.resource.data.diff(resource.data).affectedKeys()
           .hasAny(['compat', 'compatibility']);
       allow delete: if false;
     }
 
-    // threads/{threadId}
+    // threads/{threadId} — create only with corresponding ACTIVE match (id mirrored).
     match /threads/{threadId} {
       allow read: if isThreadParticipant();
       allow create: if isThreadParticipantOnCreate()
         && request.resource.data.participants.size() == 2
+        && threadParticipantsSortedOnCreate()
         && threadId == sortedPairId(
           request.resource.data.participants[0],
           request.resource.data.participants[1]
-        );
+        )
+        && threadCreateRequiresActiveMatch(threadId);
       allow update: if isThreadParticipant()
-        && request.resource.data.participants == resource.data.participants;
+        && request.resource.data.participants == resource.data.participants
+        && request.resource.data.match_id == resource.data.match_id
+        && threadStatusUpdateAllowed(threadId);
       allow delete: if false;
 
       match /messages/{messageId} {
         allow read: if isParticipantOfThread(threadId);
-        allow create: if isParticipantOfThread(threadId)
+        // Normal messages: auth uid only (no open system spoof).
+        // Bootstrap system message: fixed id system_match_v1 only.
+        allow create: if messageRequiresActiveConversation(threadId)
           && (
-            request.resource.data.sender_id == request.auth.uid
+            (
+              request.resource.data.sender_id == request.auth.uid
+              && request.resource.data.type == 'text'
+            )
             || (
-              request.resource.data.sender_id == 'system'
+              messageId == 'system_match_v1'
+              && request.resource.data.sender_id == 'system'
               && request.resource.data.type == 'system'
+              && request.resource.data.text == 'You matched!'
             )
           );
         allow update, delete: if false;

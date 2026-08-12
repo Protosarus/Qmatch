@@ -193,9 +193,16 @@ describe('Firestore rules', () => {
 
   it('10. non-member cannot send message', async () => {
     await testEnv.withSecurityRulesDisabled(async (ctx) => {
-      await setDoc(doc(ctx.firestore(), 'threads/userA_userB'), {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'matches/userA_userB'), {
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: 'userA_userB',
+      });
+      await setDoc(doc(db, 'threads/userA_userB'), {
         participants: ['userA', 'userB'],
         status: 'active',
+        match_id: 'userA_userB',
       });
     });
     await assertFails(
@@ -209,9 +216,16 @@ describe('Firestore rules', () => {
 
   it('11. member can send valid message', async () => {
     await testEnv.withSecurityRulesDisabled(async (ctx) => {
-      await setDoc(doc(ctx.firestore(), 'threads/userA_userB'), {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'matches/userA_userB'), {
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: 'userA_userB',
+      });
+      await setDoc(doc(db, 'threads/userA_userB'), {
         participants: ['userA', 'userB'],
         status: 'active',
+        match_id: 'userA_userB',
       });
     });
     await assertSucceeds(
@@ -294,6 +308,7 @@ describe('Firestore rules', () => {
         user_b: 'userB',
         users: ['userA', 'userB'],
         state: 'active',
+        thread_id: 'userA_userB',
         compat: {},
       }),
     );
@@ -304,6 +319,7 @@ describe('Firestore rules', () => {
         user_b: 'userC',
         users: ['userA', 'userC'],
         state: 'active',
+        thread_id: 'userA_userC',
       }),
     );
   });
@@ -529,6 +545,202 @@ describe('HOTFIX canonical_v1 profile rules', () => {
     const { deleteDoc } = require('firebase/firestore');
     await assertFails(
       deleteDoc(doc(authedFirestore('userA'), profilePath('userA'))),
+    );
+  });
+});
+
+describe('Match/thread lifecycle harden v1', () => {
+  const pair = 'userA_userB';
+
+  async function seedActiveMatchAndThread() {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, `matches/${pair}`), {
+        match_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+      });
+      await setDoc(doc(db, `threads/${pair}`), {
+        thread_id: pair,
+        match_id: pair,
+        participants: ['userA', 'userB'],
+        status: 'active',
+      });
+    });
+  }
+
+  it('active match member can read match', async () => {
+    await seedActiveMatchAndThread();
+    await assertSucceeds(getDoc(doc(authedFirestore('userA'), `matches/${pair}`)));
+  });
+
+  it('unmatched match read rejected', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), `matches/${pair}`), {
+        users: ['userA', 'userB'],
+        state: 'unmatched',
+        thread_id: pair,
+      });
+    });
+    await assertFails(getDoc(doc(authedFirestore('userA'), `matches/${pair}`)));
+  });
+
+  it('blocked match read rejected', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), `matches/${pair}`), {
+        users: ['userA', 'userB'],
+        state: 'blocked',
+        thread_id: pair,
+      });
+    });
+    await assertFails(getDoc(doc(authedFirestore('userA'), `matches/${pair}`)));
+  });
+
+  it('thread creation without valid active match rejected', async () => {
+    await seedMutualLikes('userA', 'userB');
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), `threads/${pair}`), {
+        thread_id: pair,
+        match_id: pair,
+        participants: ['userA', 'userB'],
+        status: 'active',
+      }),
+    );
+  });
+
+  it('thread creation succeeds when active match exists', async () => {
+    await seedMutualLikes('userA', 'userB');
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), `matches/${pair}`), {
+        match_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+        compat: {},
+      }),
+    );
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), `threads/${pair}`), {
+        thread_id: pair,
+        match_id: pair,
+        participants: ['userA', 'userB'],
+        status: 'active',
+      }),
+    );
+  });
+
+  it('viewer block prevents match create', async () => {
+    await seedMutualLikes('userA', 'userB');
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA/blocks/userB'), {
+        blocked_uid: 'userB',
+      });
+    });
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), `matches/${pair}`), {
+        match_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+      }),
+    );
+  });
+
+  it('candidate block prevents match create', async () => {
+    await seedMutualLikes('userA', 'userB');
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userB/blocks/userA'), {
+        blocked_uid: 'userA',
+      });
+    });
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), `matches/${pair}`), {
+        match_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+      }),
+    );
+  });
+
+  it('either-direction block prevents thread create even if match seeded', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, `matches/${pair}`), {
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+      });
+      await setDoc(doc(db, 'users/userB/blocks/userA'), {
+        blocked_uid: 'userA',
+      });
+    });
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), `threads/${pair}`), {
+        thread_id: pair,
+        match_id: pair,
+        participants: ['userA', 'userB'],
+        status: 'active',
+      }),
+    );
+  });
+
+  it('fake system sender on arbitrary message id rejected', async () => {
+    await seedActiveMatchAndThread();
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), `threads/${pair}/messages/fake1`), {
+        sender_id: 'system',
+        type: 'system',
+        text: 'You matched!',
+      }),
+    );
+  });
+
+  it('valid normal user text message allowed', async () => {
+    await seedActiveMatchAndThread();
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), `threads/${pair}/messages/m_ok`), {
+        sender_id: 'userA',
+        type: 'text',
+        text: 'hi there',
+      }),
+    );
+  });
+
+  it('fixed system_match_v1 bootstrap allowed; rematch reactivation denied', async () => {
+    await seedActiveMatchAndThread();
+    await assertSucceeds(
+      setDoc(
+        doc(authedFirestore('userA'), `threads/${pair}/messages/system_match_v1`),
+        {
+          sender_id: 'system',
+          type: 'system',
+          text: 'You matched!',
+        },
+      ),
+    );
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), `matches/${pair}`), {
+        users: ['userA', 'userB'],
+        state: 'unmatched',
+        thread_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), `matches/${pair}`), {
+        state: 'active',
+      }),
     );
   });
 });

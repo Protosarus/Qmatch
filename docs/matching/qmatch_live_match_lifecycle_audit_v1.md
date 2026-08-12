@@ -147,8 +147,8 @@ Messages entry (separate surface):
 either-direction block refuse; mutual likes required for new create).
 
 **Follow-ups (not this harden):** Messages deep-link after match; fold swipe
-write into the same transaction; tighten thread-create rules to require a match;
-restrict spoofable system messages.
+write into the same transaction; Cloud Function ownership for match bootstrap
+(optional); ops deploy of updated `firestore.rules`.
 
 ---
 
@@ -169,9 +169,27 @@ restrict spoofable system messages.
 
 ---
 
+## Security-rule follow-up (harden v1 — 2026-08-12)
+
+Implemented in `firestore.rules`:
+
+- Match **read** requires `state == active` (existence alone insufficient).
+- Match **create** requires mutual likes, `state == active`, `thread_id == matchId`, and **no blocks** either direction.
+- Match **update** may leave `active` → `unmatched`/`blocked` but **cannot** rematch to `active`.
+- Thread **create** requires corresponding **active** match with mirrored id + sorted participants + no blocks.
+- Thread **update** cannot reopen (`status=active`) unless match is active.
+- Messages: normal creates require `sender_id == auth.uid` + `type == text` + active thread + active match; system bootstrap only at fixed id `system_match_v1`.
+
+### Remaining match.state vs thread.status drift (accepted)
+
+Rules **cannot** atomically force the peer doc closed when match is unmatched/blocked in a single match update (separate documents). Client `MatchService.unmatch` / `SafetyService.blockUser` still perform the paired writes. Window of drift: match closed, thread still `active` (or the reverse) until the second write lands. Message create now requires **both** active thread and active match, which shrinks chat abuse during that window.
+
+---
+
 ## Changelog
 
 | Version | Date | Notes |
 | --- | --- | --- |
 | v1 | 2026-08-12 | Production-path audit only; no code changes |
 | v1.1 | 2026-08-12 | Noted `match_create_lifecycle_v1` harden (unmatched refuse, blocks, mutual likes) |
+| v1.2 | 2026-08-12 | Firestore rules harden v1 + remaining state/status drift documented |

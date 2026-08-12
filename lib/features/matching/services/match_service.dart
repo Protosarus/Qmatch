@@ -48,7 +48,9 @@ class MatchService {
     final reverseBlockRef = FirestorePaths.userBlockDoc(targetUid, currentUid);
     final matchRef = FirestorePaths.matchDoc(matchId);
     final threadRef = FirestorePaths.threadDoc(threadId);
-    final messageRef = FirestorePaths.threadMessages(threadId).doc();
+    // Fixed id so rules can allow bootstrap without open sender_id==system spoof.
+    final messageRef =
+        FirestorePaths.threadMessages(threadId).doc('system_match_v1');
 
     return _firestore.runTransaction((tx) async {
       final matchSnap = await tx.get(matchRef);
