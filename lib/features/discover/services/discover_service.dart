@@ -8,6 +8,7 @@ import '../../matching/services/swipe_service.dart';
 import '../../safety/services/safety_service.dart';
 import '../models/discover_user_model.dart';
 import 'discover_canonical_20d_shadow.dart';
+import 'discover_l1_eligibility_gate.dart';
 import 'discover_shadow_distance_attacher.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
 
@@ -112,13 +113,12 @@ class DiscoverService {
     }
 
     final swiped = await _swipeService.getMySwipedUserIds();
-    Set<String> blocked;
+    Set<String> blockedByMe;
     try {
-      blocked = await _safetyService.getMyBlockedUserIds();
+      blockedByMe = await _safetyService.getMyBlockedUserIds();
     } catch (_) {
-      blocked = <String>{};
+      blockedByMe = <String>{};
     }
-    // TODO: Server-side enforcement is needed later to fully exclude users who blocked the current user.
 
     // Prefer discover_eligible to avoid composite index needs.
     // TODO: Backfill discover_eligible for existing users if needed.
@@ -127,6 +127,16 @@ class DiscoverService {
         .where('discover_eligible', isEqualTo: true)
         .limit(batchSize)
         .get();
+
+    // L1 reverse-block: candidates who blocked the viewer (hard exclude).
+    Set<String> blockedMe;
+    try {
+      blockedMe = await _safetyService.getUidsWhoBlockedMe(
+        snapshot.docs.map((d) => d.id),
+      );
+    } catch (_) {
+      blockedMe = <String>{};
+    }
 
     final out = <DiscoverUserModel>[];
     if (_stageB2Collector.enabled) {
@@ -138,14 +148,25 @@ class DiscoverService {
     for (final doc in snapshot.docs) {
       if (doc.id == currentUid) continue;
       if (swiped.contains(doc.id)) continue;
-      if (blocked.contains(doc.id)) continue;
+      if (DiscoverL1EligibilityGate.excludedByBlocks(
+        viewerBlockedCandidate: blockedByMe.contains(doc.id),
+        candidateBlockedViewer: blockedMe.contains(doc.id),
+      )) {
+        continue;
+      }
 
       final data = doc.data();
       final candidate = DiscoverUserModel.fromFirestore(doc.id, data);
 
-      if (candidate.active == false) continue;
-      if (!candidate.testCompleted || !candidate.profileCompleted) continue;
-      if (!candidate.hasPhoto) continue;
+      if (!DiscoverL1EligibilityGate.passesLocalAccountGates(
+        active: candidate.active,
+        profileCompleted: candidate.profileCompleted,
+        testCompleted: candidate.testCompleted,
+        assessmentFlowCompleted: candidate.assessmentFlowCompleted,
+        hasPhoto: candidate.hasPhoto,
+      )) {
+        continue;
+      }
 
       final compat = CompatibilityScoring.calculateCompatibility(
         me: meData,

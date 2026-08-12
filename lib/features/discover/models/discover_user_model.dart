@@ -23,6 +23,9 @@ class DiscoverUserModel {
   final int? eqNormalized;
   final bool profileCompleted;
   final bool testCompleted;
+
+  /// Flow-v2 assessment battery completion (existing flag; not a new gate).
+  final bool assessmentFlowCompleted;
   final bool active;
 
   final double? compatibilityScore; // 0..1
@@ -49,6 +52,7 @@ class DiscoverUserModel {
     this.eqNormalized,
     this.profileCompleted = false,
     this.testCompleted = false,
+    this.assessmentFlowCompleted = false,
     this.active = true,
     this.compatibilityScore,
     this.compatibilityLabel,
@@ -75,6 +79,7 @@ class DiscoverUserModel {
     int? eqNormalized,
     bool? profileCompleted,
     bool? testCompleted,
+    bool? assessmentFlowCompleted,
     bool? active,
     double? compatibilityScore,
     String? compatibilityLabel,
@@ -100,6 +105,8 @@ class DiscoverUserModel {
       eqNormalized: eqNormalized ?? this.eqNormalized,
       profileCompleted: profileCompleted ?? this.profileCompleted,
       testCompleted: testCompleted ?? this.testCompleted,
+      assessmentFlowCompleted:
+          assessmentFlowCompleted ?? this.assessmentFlowCompleted,
       active: active ?? this.active,
       compatibilityScore: compatibilityScore ?? this.compatibilityScore,
       compatibilityLabel: compatibilityLabel ?? this.compatibilityLabel,
@@ -190,6 +197,8 @@ class DiscoverUserModel {
       eqNormalized: (data['eq_normalized'] as num?)?.toInt(),
       profileCompleted: data['profile_completed'] as bool? ?? false,
       testCompleted: data['test_completed'] as bool? ?? false,
+      assessmentFlowCompleted:
+          data['assessment_flow_completed'] as bool? ?? false,
       active: data['active'] as bool? ?? true,
     );
   }

@@ -136,4 +136,38 @@ class SafetyService {
     final doc = await FirestorePaths.userBlockDoc(me.uid, uid).get();
     return doc.exists;
   }
+
+  /// True when [otherUid] has blocked the current user (reverse-block).
+  ///
+  /// L1 hard safety gate — Discover must exclude such candidates.
+  Future<bool> isBlockedByUser(String otherUid) async {
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+    if (otherUid == me.uid) return false;
+    final doc = await FirestorePaths.userBlockDoc(otherUid, me.uid).get();
+    return doc.exists;
+  }
+
+  /// Returns the subset of [candidateUids] who have blocked the current user.
+  Future<Set<String>> getUidsWhoBlockedMe(
+    Iterable<String> candidateUids,
+  ) async {
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+    final uids = candidateUids.toList(growable: false);
+    if (uids.isEmpty) return <String>{};
+
+    final results = await Future.wait(
+      uids.map((uid) async {
+        if (uid == me.uid) return null;
+        final doc = await FirestorePaths.userBlockDoc(uid, me.uid).get();
+        return doc.exists ? uid : null;
+      }),
+    );
+    return results.whereType<String>().toSet();
+  }
 }
