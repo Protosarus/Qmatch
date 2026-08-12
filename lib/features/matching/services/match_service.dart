@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
 import '../models/match_model.dart';
+import 'match_close_lifecycle_gate.dart';
 import 'match_create_lifecycle_gate.dart';
 
 class MatchService {
@@ -155,41 +156,150 @@ class MatchService {
     );
   }
 
+  /// Atomically close match + thread as `unmatched` / `closed`.
+  ///
+  /// Idempotent if already closed. Never reactivates. Missing thread is OK
+  /// (match still closes). Uses deterministic `thread_id == matchId` fallback.
   Future<void> unmatch(String matchId) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
     }
+    if (matchId.trim().isEmpty) {
+      throw StateError('matchId is required.');
+    }
 
+    await _closeRelationshipInTransaction(
+      actorUid: me.uid,
+      matchId: matchId.trim(),
+      target: MatchCloseTarget.unmatched,
+      explicitThreadId: null,
+      includeBlockDoc: false,
+      blockedUid: null,
+      blockReason: null,
+    );
+  }
+
+  /// Shared atomic close used by unmatch and [SafetyService.blockUser].
+  ///
+  /// When [includeBlockDoc] is true, also writes `users/{actor}/blocks/{blockedUid}`
+  /// in the same transaction.
+  Future<void> closeRelationshipInTransaction({
+    required String actorUid,
+    required String matchId,
+    required MatchCloseTarget target,
+    String? explicitThreadId,
+    bool includeBlockDoc = false,
+    String? blockedUid,
+    String? blockReason,
+  }) {
+    return _closeRelationshipInTransaction(
+      actorUid: actorUid,
+      matchId: matchId,
+      target: target,
+      explicitThreadId: explicitThreadId,
+      includeBlockDoc: includeBlockDoc,
+      blockedUid: blockedUid,
+      blockReason: blockReason,
+    );
+  }
+
+  Future<void> _closeRelationshipInTransaction({
+    required String actorUid,
+    required String matchId,
+    required MatchCloseTarget target,
+    required String? explicitThreadId,
+    required bool includeBlockDoc,
+    required String? blockedUid,
+    required String? blockReason,
+  }) async {
     final matchRef = FirestorePaths.matchDoc(matchId);
-    final snap = await matchRef.get();
-    final data = snap.data();
-    if (data == null) return;
 
-    final users = List<String>.from((data['users'] as List?) ?? const []);
-    if (!users.contains(me.uid)) {
-      throw StateError('Current user is not a participant of this match.');
-    }
+    await _firestore.runTransaction((tx) async {
+      final matchSnap = await tx.get(matchRef);
+      final matchData = matchSnap.data();
+      final matchExists = matchSnap.exists && matchData != null;
 
-    final threadId = data['thread_id'] as String?;
+      final users = matchExists
+          ? List<String>.from((matchData!['users'] as List?) ?? const [])
+          : const <String>[];
+      final actorIsMatchMember = users.contains(actorUid);
 
-    await matchRef.set({
-      'state': MatchState.unmatched.name,
-      'last_activity_at': FieldValue.serverTimestamp(),
-      'unmatched_by': me.uid,
-      'unmatched_at': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
-
-    if (threadId != null && threadId.isNotEmpty) {
-      await FirestorePaths.threadDoc(threadId).set(
-        {
-          'status': 'closed',
-          'closed_at': FieldValue.serverTimestamp(),
-          'closed_by': me.uid,
-          'closed_reason': 'unmatched',
-        },
-        SetOptions(merge: true),
+      final resolvedThreadId = MatchCloseLifecycleGate.resolveThreadId(
+        matchId: matchId,
+        matchThreadId: matchExists ? matchData!['thread_id'] as String? : null,
+        explicitThreadId: explicitThreadId,
       );
-    }
+      final threadRef = FirestorePaths.threadDoc(resolvedThreadId);
+      final threadSnap = await tx.get(threadRef);
+      final threadData = threadSnap.data();
+      final threadExists = threadSnap.exists && threadData != null;
+      final participants = threadExists
+          ? List<String>.from(
+              (threadData!['participants'] as List?) ?? const [],
+            )
+          : const <String>[];
+      final actorIsThreadParticipant = participants.contains(actorUid);
+
+      final plan = MatchCloseLifecycleGate.plan(
+        matchExists: matchExists,
+        currentMatchState:
+            matchExists ? matchData!['state'] as String? : null,
+        actorIsMatchMember: actorIsMatchMember,
+        target: target,
+        threadExists: threadExists,
+        actorIsThreadParticipant: actorIsThreadParticipant,
+        currentThreadStatus:
+            threadExists ? threadData!['status'] as String? : null,
+      );
+
+      if (plan.refuseNotMember) {
+        throw StateError('Current user is not a participant of this match.');
+      }
+
+      if (includeBlockDoc) {
+        final targetUid = blockedUid;
+        if (targetUid == null || targetUid.isEmpty) {
+          throw StateError('blockedUid is required when writing a block.');
+        }
+        tx.set(
+          FirestorePaths.userBlockDoc(actorUid, targetUid),
+          {
+            'blocked_uid': targetUid,
+            'created_at': FieldValue.serverTimestamp(),
+            'reason': blockReason,
+          },
+          SetOptions(merge: true),
+        );
+      }
+
+      if (plan.updateMatch) {
+        final payload = <String, dynamic>{
+          'state': plan.newMatchState,
+          'last_activity_at': FieldValue.serverTimestamp(),
+        };
+        if (target == MatchCloseTarget.unmatched) {
+          payload['unmatched_by'] = actorUid;
+          payload['unmatched_at'] = FieldValue.serverTimestamp();
+        } else {
+          payload['blocked_by'] = actorUid;
+          payload['blocked_at'] = FieldValue.serverTimestamp();
+        }
+        tx.set(matchRef, payload, SetOptions(merge: true));
+      }
+
+      if (plan.updateThread) {
+        tx.set(
+          threadRef,
+          {
+            'status': 'closed',
+            'closed_at': FieldValue.serverTimestamp(),
+            'closed_by': actorUid,
+            'closed_reason': plan.threadClosedReason,
+          },
+          SetOptions(merge: true),
+        );
+      }
+    });
   }
 }

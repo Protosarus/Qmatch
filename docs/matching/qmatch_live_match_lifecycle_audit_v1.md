@@ -182,7 +182,15 @@ Implemented in `firestore.rules`:
 
 ### Remaining match.state vs thread.status drift (accepted)
 
-Rules **cannot** atomically force the peer doc closed when match is unmatched/blocked in a single match update (separate documents). Client `MatchService.unmatch` / `SafetyService.blockUser` still perform the paired writes. Window of drift: match closed, thread still `active` (or the reverse) until the second write lands. Message create now requires **both** active thread and active match, which shrinks chat abuse during that window.
+**Close path (2026-08-12 `match_close_lifecycle_v1`):** `MatchService.unmatch` and
+`SafetyService.blockUser` now close match + thread in **one Firestore transaction**
+(block doc included on block). Idempotent when already closed; never reactivates.
+Missing thread → match still closes. Rules allow `unmatched → blocked` (not rematch).
+
+**Still accepted residual:** If a legacy client writes only one of the two docs, or a
+write is rejected mid-flight by rules/membership edge cases, drift can still appear
+until the next successful close retry. Message create still requires both active
+match and active thread.
 
 ---
 
@@ -193,3 +201,4 @@ Rules **cannot** atomically force the peer doc closed when match is unmatched/bl
 | v1 | 2026-08-12 | Production-path audit only; no code changes |
 | v1.1 | 2026-08-12 | Noted `match_create_lifecycle_v1` harden (unmatched refuse, blocks, mutual likes) |
 | v1.2 | 2026-08-12 | Firestore rules harden v1 + remaining state/status drift documented |
+| v1.3 | 2026-08-12 | Atomic match/thread close lifecycle (`match_close_lifecycle_v1`) |

@@ -743,4 +743,38 @@ describe('Match/thread lifecycle harden v1', () => {
       }),
     );
   });
+
+  it('unmatched may upgrade to blocked; already-closed thread status stays closed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, `matches/${pair}`), {
+        users: ['userA', 'userB'],
+        state: 'unmatched',
+        thread_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+      });
+      await setDoc(doc(db, `threads/${pair}`), {
+        participants: ['userA', 'userB'],
+        status: 'closed',
+        match_id: pair,
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), `matches/${pair}`), {
+        state: 'blocked',
+      }),
+    );
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), `threads/${pair}`), {
+        status: 'closed',
+        closed_reason: 'blocked',
+      }),
+    );
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), `threads/${pair}`), {
+        status: 'active',
+      }),
+    );
+  });
 });

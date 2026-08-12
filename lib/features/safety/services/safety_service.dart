@@ -2,17 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
+import '../../matching/services/match_close_lifecycle_gate.dart';
+import '../../matching/services/match_service.dart';
 
 class SafetyService {
   final FirebaseAuth _auth;
-  final FirebaseFirestore _firestore;
+  final MatchService _matchService;
 
   SafetyService({
     FirebaseAuth? auth,
     FirebaseFirestore? firestore,
+    MatchService? matchService,
   })  : _auth = auth ?? FirebaseAuth.instance,
-        _firestore = firestore ?? FirebaseFirestore.instance;
+        _matchService = matchService ??
+            MatchService(auth: auth, firestore: firestore);
 
+  /// Block [blockedUid] and atomically close match+thread when known.
+  ///
+  /// Uses one Firestore transaction (block doc + match/thread close).
+  /// Idempotent if already blocked/closed. Never reactivates.
   Future<void> blockUser({
     required String blockedUid,
     String? reason,
@@ -27,11 +35,24 @@ class SafetyService {
       throw StateError('Cannot block yourself.');
     }
 
-    final batch = _firestore.batch();
+    // Deterministic ids: threadId mirrors matchId when present.
+    final effectiveMatchId = _effectiveMatchId(matchId, threadId);
 
-    // 1) Write block doc
-    batch.set(
-      FirestorePaths.userBlockDoc(me.uid, blockedUid),
+    if (effectiveMatchId != null) {
+      await _matchService.closeRelationshipInTransaction(
+        actorUid: me.uid,
+        matchId: effectiveMatchId,
+        target: MatchCloseTarget.blocked,
+        explicitThreadId: threadId,
+        includeBlockDoc: true,
+        blockedUid: blockedUid,
+        blockReason: reason,
+      );
+      return;
+    }
+
+    // No match/thread context — block doc only.
+    await FirestorePaths.userBlockDoc(me.uid, blockedUid).set(
       {
         'blocked_uid': blockedUid,
         'created_at': FieldValue.serverTimestamp(),
@@ -39,52 +60,14 @@ class SafetyService {
       },
       SetOptions(merge: true),
     );
+  }
 
-    // 2) Optionally update match state
-    if (matchId != null && matchId.isNotEmpty) {
-      final matchSnap = await FirestorePaths.matchDoc(matchId).get();
-      final matchData = matchSnap.data();
-      if (matchSnap.exists && matchData != null) {
-        final users = List<String>.from((matchData['users'] as List?) ?? const []);
-        if (!users.contains(me.uid)) {
-          throw StateError('Current user is not a participant of this match.');
-        }
-        batch.set(
-          FirestorePaths.matchDoc(matchId),
-          {
-            'state': 'blocked',
-            'blocked_by': me.uid,
-            'blocked_at': FieldValue.serverTimestamp(),
-          },
-          SetOptions(merge: true),
-        );
-      }
-    }
-
-    // 3) Optionally close thread
-    if (threadId != null && threadId.isNotEmpty) {
-      final threadSnap = await FirestorePaths.threadDoc(threadId).get();
-      final threadData = threadSnap.data();
-      if (threadSnap.exists && threadData != null) {
-        final participants =
-            List<String>.from((threadData['participants'] as List?) ?? const []);
-        if (!participants.contains(me.uid)) {
-          throw StateError('Current user is not a participant of this thread.');
-        }
-        batch.set(
-          FirestorePaths.threadDoc(threadId),
-          {
-            'status': 'closed',
-            'closed_by': me.uid,
-            'closed_reason': 'blocked',
-            'closed_at': FieldValue.serverTimestamp(),
-          },
-          SetOptions(merge: true),
-        );
-      }
-    }
-
-    await batch.commit();
+  static String? _effectiveMatchId(String? matchId, String? threadId) {
+    final m = matchId?.trim();
+    if (m != null && m.isNotEmpty) return m;
+    final t = threadId?.trim();
+    if (t != null && t.isNotEmpty) return t;
+    return null;
   }
 
   Future<void> reportUser({
@@ -110,9 +93,9 @@ class SafetyService {
       'match_id': matchId,
       'thread_id': threadId,
       'message_id': messageId,
+      'created_at': FieldValue.serverTimestamp(),
       'reason': reason,
       'details': details,
-      'created_at': FieldValue.serverTimestamp(),
       'status': 'new',
       'report_id': ref.id,
     });
