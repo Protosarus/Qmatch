@@ -5,15 +5,34 @@ import 'package:qmatch/features/matching/models/match_model.dart';
 import 'package:qmatch/features/matching/services/like_match_atomicity_gate.dart';
 import 'package:qmatch/features/matching/services/match_create_lifecycle_gate.dart';
 
+LikeMatchAtomicPlan _plan({
+  required bool matchExists,
+  String? matchState,
+  bool viewerBlockedCandidate = false,
+  bool candidateBlockedViewer = false,
+  bool viewerLikesCandidatePending = true,
+  bool candidateLikesViewer = false,
+  bool viewerLiveEligible = true,
+  bool targetLiveEligible = true,
+}) {
+  return LikeMatchAtomicityGate.planLike(
+    matchExists: matchExists,
+    matchState: matchState,
+    viewerBlockedCandidate: viewerBlockedCandidate,
+    candidateBlockedViewer: candidateBlockedViewer,
+    viewerLikesCandidatePending: viewerLikesCandidatePending,
+    candidateLikesViewer: candidateLikesViewer,
+    viewerLiveEligible: viewerLiveEligible,
+    targetLiveEligible: targetLiveEligible,
+  );
+}
+
 void main() {
   group('LikeMatchAtomicityGate', () {
     test('first Like (no reverse) persists Like, no match', () {
-      final plan = LikeMatchAtomicityGate.planLike(
+      final plan = _plan(
         matchExists: false,
         matchState: null,
-        viewerBlockedCandidate: false,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: false,
       );
       expect(plan.persistOwnLike, isTrue);
@@ -26,12 +45,9 @@ void main() {
     });
 
     test('mutual Like creates match artifacts', () {
-      final plan = LikeMatchAtomicityGate.planLike(
+      final plan = _plan(
         matchExists: false,
         matchState: null,
-        viewerBlockedCandidate: false,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: true,
       );
       expect(plan.persistOwnLike, isTrue);
@@ -41,12 +57,9 @@ void main() {
     });
 
     test('simultaneous/retry Like with active match is idempotent success', () {
-      final plan = LikeMatchAtomicityGate.planLike(
+      final plan = _plan(
         matchExists: true,
         matchState: MatchState.active.name,
-        viewerBlockedCandidate: false,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: true,
       );
       expect(plan.persistOwnLike, isTrue);
@@ -59,12 +72,10 @@ void main() {
     });
 
     test('block race — persist Like, refuse match', () {
-      final viewerBlock = LikeMatchAtomicityGate.planLike(
+      final viewerBlock = _plan(
         matchExists: false,
         matchState: null,
         viewerBlockedCandidate: true,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: true,
       );
       expect(viewerBlock.persistOwnLike, isTrue);
@@ -74,12 +85,10 @@ void main() {
         MatchCreateLifecycleDecision.refuseBlockEitherDirection,
       );
 
-      final reverseBlock = LikeMatchAtomicityGate.planLike(
+      final reverseBlock = _plan(
         matchExists: false,
         matchState: null,
-        viewerBlockedCandidate: false,
         candidateBlockedViewer: true,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: true,
       );
       expect(reverseBlock.persistOwnLike, isTrue);
@@ -87,12 +96,9 @@ void main() {
     });
 
     test('existing unmatched match — Like persists, no reactivate', () {
-      final plan = LikeMatchAtomicityGate.planLike(
+      final plan = _plan(
         matchExists: true,
         matchState: MatchState.unmatched.name,
-        viewerBlockedCandidate: false,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: true,
       );
       expect(plan.persistOwnLike, isTrue);
@@ -105,12 +111,9 @@ void main() {
     });
 
     test('existing blocked match — Like persists, no reactivate', () {
-      final plan = LikeMatchAtomicityGate.planLike(
+      final plan = _plan(
         matchExists: true,
         matchState: MatchState.blocked.name,
-        viewerBlockedCandidate: false,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
         candidateLikesViewer: true,
       );
       expect(plan.persistOwnLike, isTrue);
@@ -163,6 +166,7 @@ void main() {
       expect(src.contains('LikeMatchAtomicityGate.planLike'), isTrue);
       expect(src.contains("direction': 'like'"), isTrue);
       expect(src.contains('viewerLikesCandidatePending: true'), isTrue);
+      expect(src.contains('MatchLiveUserValidityGate'), isTrue);
       expect(src.contains('runTransaction'), isTrue);
       expect(src.contains('CompatibilityScoring'), isFalse);
       expect(src.contains('DiscoverService'), isFalse);

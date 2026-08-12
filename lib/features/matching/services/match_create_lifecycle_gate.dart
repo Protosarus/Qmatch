@@ -24,6 +24,9 @@ enum MatchCreateLifecycleDecision {
 
   /// Current mutual likes not present — refuse.
   refuseNonMutualLike,
+
+  /// Viewer or target fails live Discover L1 + `discover_eligible` — refuse.
+  refuseInvalidLiveUser,
 }
 
 /// Pure gate for [MatchService.createMatchIfMutualLike] (testable, no I/O).
@@ -79,6 +82,7 @@ class MatchCreateLifecycleGate {
       case MatchCreateLifecycleDecision.refuseExistingNonActive:
       case MatchCreateLifecycleDecision.refuseBlockEitherDirection:
       case MatchCreateLifecycleDecision.refuseNonMutualLike:
+      case MatchCreateLifecycleDecision.refuseInvalidLiveUser:
         return false;
     }
   }

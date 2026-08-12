@@ -74,11 +74,13 @@ class AccountDeletionRequestService {
 
       await requestRef.set(payload, SetOptions(merge: true));
 
-      // Soft marker on own user doc only — no data wipe.
+      // Soft marker on own user doc only — no data wipe / match close.
+      // Revoke Discover eligibility so the user leaves the live deck (S-02).
       await userRef.set(
         {
           'account_deletion_requested': true,
           'account_deletion_requested_at': FieldValue.serverTimestamp(),
+          'discover_eligible': false,
           'updated_at': FieldValue.serverTimestamp(),
         },
         SetOptions(merge: true),

@@ -369,6 +369,22 @@ describe('Firestore rules', () => {
       }),
     );
   });
+
+  it('stale_user_v1 owner may revoke discover_eligible to false', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: true,
+        name: 'Ada',
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        discover_eligible: false,
+        account_deletion_requested: true,
+      }),
+    );
+  });
 });
 
 describe('Storage rules', () => {

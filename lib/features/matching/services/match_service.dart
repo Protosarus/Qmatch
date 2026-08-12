@@ -6,6 +6,7 @@ import '../models/match_model.dart';
 import 'match_close_lifecycle_gate.dart';
 import 'match_create_lifecycle_gate.dart';
 import 'like_match_atomicity_gate.dart';
+import 'match_live_user_validity_gate.dart';
 
 class MatchService {
   final FirebaseAuth _auth;
@@ -18,13 +19,15 @@ class MatchService {
         _firestore = firestore ?? FirebaseFirestore.instance,
         super();
 
-  /// Atomically persist the viewer's Like and evaluate mutual match.
+  /// Atomically evaluate Like → mutual match with live user validity.
   ///
-  /// Transaction boundary (`like_match_atomicity_v1`):
-  /// 1. Read match, reverse swipe, both blocks, own swipe
-  /// 2. Always write own Like
-  /// 3. Create match/thread/system message only when mutual + no blocks + no
-  ///    existing non-active match
+  /// Transaction boundary (`like_match_atomicity_v1` +
+  /// `stale_user_match_eligibility_v1`):
+  /// 1. Read match, reverse swipe, both blocks, own swipe, **viewer + target users**
+  /// 2. If either user fails live Discover L1 + `discover_eligible`:
+  ///    do **not** persist Like, do **not** create match (existing active match
+  ///    remains untouched)
+  /// 3. Else persist own Like; create match/thread/system message when mutual
   ///
   /// Returns whether an **active** match exists after the call (new or prior).
   Future<bool> likeAndMaybeCreateMatch(String targetUid) async {
@@ -47,6 +50,8 @@ class MatchService {
     final reverseSwipeRef = FirestorePaths.userSwipeDoc(targetUid, currentUid);
     final viewerBlockRef = FirestorePaths.userBlockDoc(currentUid, targetUid);
     final reverseBlockRef = FirestorePaths.userBlockDoc(targetUid, currentUid);
+    final viewerUserRef = FirestorePaths.userDoc(currentUid);
+    final targetUserRef = FirestorePaths.userDoc(targetUid);
     final matchRef = FirestorePaths.matchDoc(matchId);
     final threadRef = FirestorePaths.threadDoc(threadId);
     // Fixed id so rules can allow bootstrap without open sender_id==system spoof.
@@ -59,32 +64,45 @@ class MatchService {
       final reverseSwipeSnap = await tx.get(reverseSwipeRef);
       final viewerBlockSnap = await tx.get(viewerBlockRef);
       final reverseBlockSnap = await tx.get(reverseBlockRef);
+      final viewerUserSnap = await tx.get(viewerUserRef);
+      final targetUserSnap = await tx.get(targetUserRef);
+
+      final viewerLiveEligible = MatchLiveUserValidityGate.isValidLiveUser(
+        exists: viewerUserSnap.exists,
+        data: viewerUserSnap.data(),
+      );
+      final targetLiveEligible = MatchLiveUserValidityGate.isValidLiveUser(
+        exists: targetUserSnap.exists,
+        data: targetUserSnap.data(),
+      );
 
       final plan = LikeMatchAtomicityGate.planLike(
         matchExists: matchSnap.exists,
         matchState: matchSnap.data()?['state'] as String?,
         viewerBlockedCandidate: viewerBlockSnap.exists,
         candidateBlockedViewer: reverseBlockSnap.exists,
-        // This transaction persists the viewer's Like before commit.
         viewerLikesCandidatePending: true,
         candidateLikesViewer: MatchCreateLifecycleGate.isLikeDirection(
           reverseSwipeSnap.data()?['direction'] as String?,
         ),
+        viewerLiveEligible: viewerLiveEligible,
+        targetLiveEligible: targetLiveEligible,
       );
 
-      // Always persist Like in the same transaction as evaluation.
-      final likePayload = <String, dynamic>{
-        'from_uid': currentUid,
-        'target_uid': targetUid,
-        'direction': 'like',
-        'source': 'discover',
-      };
-      if (!ownSwipeSnap.exists) {
-        likePayload['created_at'] = FieldValue.serverTimestamp();
-      } else {
-        likePayload['updated_at'] = FieldValue.serverTimestamp();
+      if (plan.persistOwnLike) {
+        final likePayload = <String, dynamic>{
+          'from_uid': currentUid,
+          'target_uid': targetUid,
+          'direction': 'like',
+          'source': 'discover',
+        };
+        if (!ownSwipeSnap.exists) {
+          likePayload['created_at'] = FieldValue.serverTimestamp();
+        } else {
+          likePayload['updated_at'] = FieldValue.serverTimestamp();
+        }
+        tx.set(ownSwipeRef, likePayload, SetOptions(merge: true));
       }
-      tx.set(ownSwipeRef, likePayload, SetOptions(merge: true));
 
       if (plan.matchDecision ==
           MatchCreateLifecycleDecision.idempotentActiveSuccess) {

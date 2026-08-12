@@ -186,8 +186,11 @@ service cloud.firestore {
     // Protected derived keys remain immutable via userProtectedKeysUnchanged().
     function userProtectedKeysUnchanged() {
       let affected = request.resource.data.diff(resource.data).affectedKeys();
-      return !affected.hasAny([
-        'discover_eligible',
+      // Owner may revoke discover_eligible to false (deletion / soft leave).
+      // Self-granting discover_eligible == true remains forbidden.
+      let eligibleOk = !affected.hasAny(['discover_eligible'])
+        || request.resource.data.discover_eligible == false;
+      return eligibleOk && !affected.hasAny([
         'iq_score',
         'eq_score',
         'compatibility',
