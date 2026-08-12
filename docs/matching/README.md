@@ -1,6 +1,7 @@
 # Matching docs
 
 - Final Matching Architecture v1 (frozen, not live): [qmatch_final_matching_architecture_v1.md](./qmatch_final_matching_architecture_v1.md)
+- Stage B dual-path audit (synthetic sanity; real Discover cohort unavailable): [reports/legacy_vs_structural_dual_path_audit_stage_b_v1.json](./reports/legacy_vs_structural_dual_path_audit_stage_b_v1.json)
 - Structural production-candidate policy: [qmatch_structural_matching_production_candidate_policy_v1.md](./qmatch_structural_matching_production_candidate_policy_v1.md)
 - Modal Resonance Model v1 specification (not live): [qmatch_modal_resonance_model_v1_specification.md](./qmatch_modal_resonance_model_v1_specification.md)
 - Temporal Observation Contract v1 (not live): [qmatch_temporal_observation_contract_v1.md](./qmatch_temporal_observation_contract_v1.md)
