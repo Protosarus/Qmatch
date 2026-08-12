@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'quantum_mixed_state_shadow_contract.dart';
 import 'quantum_mixed_state_shadow_models.dart';
 
-/// Shadow-only mixed-state quantum-inspired matcher v1.
+/// Validated shadow mixed-state quantum-inspired matcher v1.
 ///
 /// Equal-window ensemble on one Class-B oscillator:
 /// \[
@@ -18,6 +18,7 @@ import 'quantum_mixed_state_shadow_models.dart';
 ///
 /// Does **not** fuse with \(D_{\mathrm{structural}}\), `phase_alignment`, or
 /// `activity_level_gap`. No Discover / Persona / RVI / free \(\lambda\).
+/// Policy status: `validated_shadow_not_live`.
 class QuantumMixedStateShadowMatcher {
   const QuantumMixedStateShadowMatcher();
 

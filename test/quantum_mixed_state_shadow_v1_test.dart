@@ -37,9 +37,14 @@ void main() {
       expect(r.weightPolicyId, 'equal_window_v1');
       expect(r.ensembleCountA, 3);
       expect(r.toWireMap()['shadow_only'], isTrue);
-      expect(r.toWireMap()['specification_only_not_live'], isTrue);
+      expect(r.toWireMap()['policy_status'], 'validated_shadow_not_live');
+      expect(r.toWireMap()['validated_shadow_research_signal'], isTrue);
+      expect(r.toWireMap()['specification_only_not_live'], isFalse);
+      expect(r.toWireMap()['real_data_validation_pending'], isTrue);
       expect(r.toWireMap()['fuses_with_structural'], isFalse);
       expect(r.toWireMap()['free_lambda_allowed'], isFalse);
+      expect(r.toWireMap()['pure_state_qi_as_separate_signal'], isFalse);
+      expect(r.toWireMap()['ranking_weights_allowed'], isFalse);
     });
 
     test('identical dispersed ensembles → low purity, fidelity≈1, D_tr≈0', () {
@@ -179,13 +184,31 @@ void main() {
       }
     });
 
-    test('contract freezes no Discover / Persona / questionnaire / lambda', () {
+    test('contract freezes validated shadow / no Discover / Persona / pure QI', () {
+      expect(
+        QuantumMixedStateShadowContract.policyStatus,
+        'validated_shadow_not_live',
+      );
+      expect(QuantumMixedStateShadowContract.validatedShadowResearchSignal, isTrue);
+      expect(QuantumMixedStateShadowContract.specificationOnlyNotLive, isFalse);
+      expect(QuantumMixedStateShadowContract.realDataValidationPending, isTrue);
       expect(QuantumMixedStateShadowContract.liveDiscoverRanking, isFalse);
       expect(QuantumMixedStateShadowContract.personaEnabled, isFalse);
       expect(QuantumMixedStateShadowContract.rviEnabled, isFalse);
       expect(QuantumMixedStateShadowContract.questionnaireStatesAllowed, isFalse);
       expect(QuantumMixedStateShadowContract.freeLambdaAllowed, isFalse);
+      expect(QuantumMixedStateShadowContract.rankingWeightsAllowed, isFalse);
+      expect(QuantumMixedStateShadowContract.pureStateQiAsSeparateSignal, isFalse);
       expect(QuantumMixedStateShadowContract.weightPolicyId, 'equal_window_v1');
+      expect(
+        QuantumMixedStateShadowContract.frozenWireFields,
+        containsAll([
+          'purity_A',
+          'purity_B',
+          'qi_mixed_fidelity',
+          'qi_trace_distance',
+        ]),
+      );
       final paths = [
         'lib/features/matching/domain/quantum_mixed_state_shadow_matcher.dart',
         'lib/features/matching/domain/quantum_mixed_state_shadow_contract.dart',

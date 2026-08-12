@@ -85,8 +85,12 @@ class QuantumMixedStateShadowResult {
         'policy_version': QuantumMixedStateShadowContract.policyVersion,
         'policy_status': QuantumMixedStateShadowContract.policyStatus,
         'shadow_only': QuantumMixedStateShadowContract.shadowOnly,
+        'validated_shadow_research_signal':
+            QuantumMixedStateShadowContract.validatedShadowResearchSignal,
         'specification_only_not_live':
             QuantumMixedStateShadowContract.specificationOnlyNotLive,
+        'real_data_validation_pending':
+            QuantumMixedStateShadowContract.realDataValidationPending,
         'gates_calibrated': QuantumMixedStateShadowContract.gatesCalibrated,
         'live_discover_ranking':
             QuantumMixedStateShadowContract.liveDiscoverRanking,
@@ -104,6 +108,10 @@ class QuantumMixedStateShadowResult {
             QuantumMixedStateShadowContract.questionnaireStatesAllowed,
         'free_lambda_allowed':
             QuantumMixedStateShadowContract.freeLambdaAllowed,
+        'ranking_weights_allowed':
+            QuantumMixedStateShadowContract.rankingWeightsAllowed,
+        'pure_state_qi_as_separate_signal':
+            QuantumMixedStateShadowContract.pureStateQiAsSeparateSignal,
         'weight_policy_id': weightPolicyId,
         'available': available,
         if (unavailableReason != null) 'unavailable_reason': unavailableReason,

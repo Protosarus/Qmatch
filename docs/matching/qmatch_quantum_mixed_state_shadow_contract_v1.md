@@ -3,11 +3,12 @@
 | Field | Value |
 | --- | --- |
 | Contract id | `quantum_mixed_state_shadow_v1` |
-| Status | `specification_only_not_live` |
-| Scope | Docs/spec only. **No production code. No Discover ranking/UI.** |
+| Status | `validated_shadow_not_live` (see [policy freeze](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md)) |
+| Scope | Shadow research implementation + math contract. **No Discover ranking/UI.** |
 | Depends on | [Quantum-Inspired Matching Model v1](./qmatch_quantum_inspired_matching_model_v1.md), [Wave Phase Reference Policy v1](./qmatch_wave_phase_reference_policy_v1.md), [Periodicity/Omega Estimator Contract v1](./qmatch_periodicity_omega_estimator_contract_v1.md), Validated Periodic Phase Binder v1, Amplitude Semantics v1 |
-| Peer signals (remain separate) | \(D_{\mathrm{structural}}\), `phase_alignment`, `activity_level_gap`, pure-state QI (if ever emitted) |
-| Prohibited | Free \(\lambda\) / invented noise; questionnaire-derived states; Persona; RVI; Discover ranking; fake state completion; fusing mixed QI with structural/wave scores in this version |
+| Peer signals (remain separate) | \(D_{\mathrm{structural}}\), `phase_alignment`, `activity_level_gap` |
+| Prohibited | Pure-state QI as a separate Matching signal; free \(\lambda\); questionnaire-derived states; Persona; RVI; Discover ranking; fake state completion; fusing mixed QI with structural/wave scores; ranking weights |
+| Real-data validation | **Pending** |
 
 ---
 
@@ -363,3 +364,4 @@ Still out of scope for **this** task (spec only). When implemented:
 | Version | Date | Notes |
 | --- | --- | --- |
 | v1 | 2026-08-12 | Initial mixed-state shadow contract after pure-state QI redundancy audit |
+| v1 freeze | 2026-08-12 | Status → `validated_shadow_not_live`; equal-window implementation frozen; pure-state QI barred as separate signal |
