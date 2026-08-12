@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
 import '../models/match_model.dart';
+import 'match_create_lifecycle_gate.dart';
 
 class MatchService {
   final FirebaseAuth _auth;
@@ -15,6 +16,16 @@ class MatchService {
         _firestore = firestore ?? FirebaseFirestore.instance,
         super();
 
+  /// Creates a match+thread when mutual likes exist and no block applies.
+  ///
+  /// Lifecycle (`match_create_lifecycle_v1`):
+  /// - existing **active** match → idempotent `true`
+  /// - existing **unmatched** → `false` (no auto-reactivate)
+  /// - existing **blocked** / unknown state → `false`
+  /// - block either direction → `false`
+  /// - new create requires **both** current likes
+  ///
+  /// Document existence alone never means an active match.
   Future<bool> createMatchIfMutualLike(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
@@ -31,27 +42,42 @@ class MatchService {
     final matchId = FirestorePaths.deterministicMatchId(currentUid, targetUid);
     final threadId = FirestorePaths.deterministicThreadId(currentUid, targetUid);
 
+    final ownSwipeRef = FirestorePaths.userSwipeDoc(currentUid, targetUid);
     final reverseSwipeRef = FirestorePaths.userSwipeDoc(targetUid, currentUid);
+    final viewerBlockRef = FirestorePaths.userBlockDoc(currentUid, targetUid);
+    final reverseBlockRef = FirestorePaths.userBlockDoc(targetUid, currentUid);
     final matchRef = FirestorePaths.matchDoc(matchId);
     final threadRef = FirestorePaths.threadDoc(threadId);
     final messageRef = FirestorePaths.threadMessages(threadId).doc();
 
     return _firestore.runTransaction((tx) async {
-      // 1) Check if already matched
       final matchSnap = await tx.get(matchRef);
-      if (matchSnap.exists) {
+      final ownSwipeSnap = await tx.get(ownSwipeRef);
+      final reverseSwipeSnap = await tx.get(reverseSwipeRef);
+      final viewerBlockSnap = await tx.get(viewerBlockRef);
+      final reverseBlockSnap = await tx.get(reverseBlockRef);
+
+      final decision = MatchCreateLifecycleGate.decide(
+        matchExists: matchSnap.exists,
+        matchState: matchSnap.data()?['state'] as String?,
+        viewerBlockedCandidate: viewerBlockSnap.exists,
+        candidateBlockedViewer: reverseBlockSnap.exists,
+        viewerLikesCandidate: MatchCreateLifecycleGate.isLikeDirection(
+          ownSwipeSnap.data()?['direction'] as String?,
+        ),
+        candidateLikesViewer: MatchCreateLifecycleGate.isLikeDirection(
+          reverseSwipeSnap.data()?['direction'] as String?,
+        ),
+      );
+
+      if (decision == MatchCreateLifecycleDecision.idempotentActiveSuccess) {
         return true;
       }
-
-      // 2) Check mutual like (reverse swipe must exist and be "like")
-      final reverseSwipeSnap = await tx.get(reverseSwipeRef);
-      final reverseData = reverseSwipeSnap.data();
-      final reverseDirection = reverseData?['direction'] as String?;
-      if (reverseDirection != 'like') {
+      if (decision != MatchCreateLifecycleDecision.createNew) {
         return false;
       }
 
-      // 3) Create match doc
+      // Create match doc
       tx.set(matchRef, {
         'match_id': matchId,
         'user_a': userA,
@@ -73,7 +99,7 @@ class MatchService {
         },
       });
 
-      // 4) Create thread doc
+      // Create thread doc (deterministic id mirrors match id)
       tx.set(threadRef, {
         'thread_id': threadId,
         'match_id': matchId,
@@ -88,7 +114,7 @@ class MatchService {
         'status': 'active',
       }, SetOptions(merge: true));
 
-      // 5) Optional first system message
+      // First system message
       tx.set(messageRef, {
         'thread_id': threadId,
         'sender_id': 'system',

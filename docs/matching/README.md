@@ -2,6 +2,7 @@
 
 - Final Matching Architecture v1 (frozen, not live): [qmatch_final_matching_architecture_v1.md](./qmatch_final_matching_architecture_v1.md)
 - Matching Constraints Contract v1 (product ratified, not live): [qmatch_matching_constraints_contract_v1.md](./qmatch_matching_constraints_contract_v1.md)
+- Live Match Lifecycle Audit v1: [qmatch_live_match_lifecycle_audit_v1.md](./qmatch_live_match_lifecycle_audit_v1.md)
 - L3 Soft Preference Signal Contract v1 (shadow evaluators, not live): [qmatch_l3_soft_preference_signal_contract_v1.md](./qmatch_l3_soft_preference_signal_contract_v1.md)
 - Discover L3 soft preference shadow diagnostics (post-rank, not live ranking): `DiscoverService.lastL3SoftPreferenceDiagnostics` / `exportLastL3SoftPreferenceDiagnosticsMap()`
 - Preferences & hard constraints audit: [qmatch_preferences_constraints_audit_v1.md](./qmatch_preferences_constraints_audit_v1.md)
