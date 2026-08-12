@@ -170,11 +170,11 @@ void main() {
       final src = File(
         'lib/features/matching/services/match_service.dart',
       ).readAsStringSync();
-      expect(src.contains('MatchCreateLifecycleGate.decide'), isTrue);
+      expect(src.contains('LikeMatchAtomicityGate.planLike'), isTrue);
       expect(src.contains('userBlockDoc'), isTrue);
       expect(src.contains('ownSwipeRef'), isTrue);
       expect(src.contains('reverseSwipeRef'), isTrue);
-      expect(src.contains('match_create_lifecycle_v1'), isTrue);
+      expect(src.contains('like_match_atomicity_v1'), isTrue);
       // Fixed id so rules can allow bootstrap without open sender_id==system spoof.
       expect(src.contains("doc('system_match_v1')"), isTrue);
 

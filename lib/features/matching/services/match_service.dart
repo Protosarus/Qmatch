@@ -5,6 +5,7 @@ import '../../../core/utils/firestore_paths.dart';
 import '../models/match_model.dart';
 import 'match_close_lifecycle_gate.dart';
 import 'match_create_lifecycle_gate.dart';
+import 'like_match_atomicity_gate.dart';
 
 class MatchService {
   final FirebaseAuth _auth;
@@ -17,17 +18,16 @@ class MatchService {
         _firestore = firestore ?? FirebaseFirestore.instance,
         super();
 
-  /// Creates a match+thread when mutual likes exist and no block applies.
+  /// Atomically persist the viewer's Like and evaluate mutual match.
   ///
-  /// Lifecycle (`match_create_lifecycle_v1`):
-  /// - existing **active** match → idempotent `true`
-  /// - existing **unmatched** → `false` (no auto-reactivate)
-  /// - existing **blocked** / unknown state → `false`
-  /// - block either direction → `false`
-  /// - new create requires **both** current likes
+  /// Transaction boundary (`like_match_atomicity_v1`):
+  /// 1. Read match, reverse swipe, both blocks, own swipe
+  /// 2. Always write own Like
+  /// 3. Create match/thread/system message only when mutual + no blocks + no
+  ///    existing non-active match
   ///
-  /// Document existence alone never means an active match.
-  Future<bool> createMatchIfMutualLike(String targetUid) async {
+  /// Returns whether an **active** match exists after the call (new or prior).
+  Future<bool> likeAndMaybeCreateMatch(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
@@ -60,23 +60,37 @@ class MatchService {
       final viewerBlockSnap = await tx.get(viewerBlockRef);
       final reverseBlockSnap = await tx.get(reverseBlockRef);
 
-      final decision = MatchCreateLifecycleGate.decide(
+      final plan = LikeMatchAtomicityGate.planLike(
         matchExists: matchSnap.exists,
         matchState: matchSnap.data()?['state'] as String?,
         viewerBlockedCandidate: viewerBlockSnap.exists,
         candidateBlockedViewer: reverseBlockSnap.exists,
-        viewerLikesCandidate: MatchCreateLifecycleGate.isLikeDirection(
-          ownSwipeSnap.data()?['direction'] as String?,
-        ),
+        // This transaction persists the viewer's Like before commit.
+        viewerLikesCandidatePending: true,
         candidateLikesViewer: MatchCreateLifecycleGate.isLikeDirection(
           reverseSwipeSnap.data()?['direction'] as String?,
         ),
       );
 
-      if (decision == MatchCreateLifecycleDecision.idempotentActiveSuccess) {
+      // Always persist Like in the same transaction as evaluation.
+      final likePayload = <String, dynamic>{
+        'from_uid': currentUid,
+        'target_uid': targetUid,
+        'direction': 'like',
+        'source': 'discover',
+      };
+      if (!ownSwipeSnap.exists) {
+        likePayload['created_at'] = FieldValue.serverTimestamp();
+      } else {
+        likePayload['updated_at'] = FieldValue.serverTimestamp();
+      }
+      tx.set(ownSwipeRef, likePayload, SetOptions(merge: true));
+
+      if (plan.matchDecision ==
+          MatchCreateLifecycleDecision.idempotentActiveSuccess) {
         return true;
       }
-      if (decision != MatchCreateLifecycleDecision.createNew) {
+      if (!plan.writeMatchArtifacts) {
         return false;
       }
 
@@ -103,19 +117,23 @@ class MatchService {
       });
 
       // Create thread doc (deterministic id mirrors match id)
-      tx.set(threadRef, {
-        'thread_id': threadId,
-        'match_id': matchId,
-        'participants': [userA, userB],
-        'created_at': FieldValue.serverTimestamp(),
-        'last_message_at': FieldValue.serverTimestamp(),
-        'last_message_preview': 'You matched!',
-        'last_message_sender': 'system',
-        'unread_counts': {userA: 0, userB: 0},
-        'text_count_total': 0,
-        'text_count_by_uid': {userA: 0, userB: 0},
-        'status': 'active',
-      }, SetOptions(merge: true));
+      tx.set(
+        threadRef,
+        {
+          'thread_id': threadId,
+          'match_id': matchId,
+          'participants': [userA, userB],
+          'created_at': FieldValue.serverTimestamp(),
+          'last_message_at': FieldValue.serverTimestamp(),
+          'last_message_preview': 'You matched!',
+          'last_message_sender': 'system',
+          'unread_counts': {userA: 0, userB: 0},
+          'text_count_total': 0,
+          'text_count_by_uid': {userA: 0, userB: 0},
+          'status': 'active',
+        },
+        SetOptions(merge: true),
+      );
 
       // First system message
       tx.set(messageRef, {
@@ -132,6 +150,10 @@ class MatchService {
       return true;
     });
   }
+
+  /// Backward-compatible alias — prefer [likeAndMaybeCreateMatch].
+  Future<bool> createMatchIfMutualLike(String targetUid) =>
+      likeAndMaybeCreateMatch(targetUid);
 
   Stream<List<MatchModel>> getMyMatchesStream() {
     final me = _auth.currentUser;

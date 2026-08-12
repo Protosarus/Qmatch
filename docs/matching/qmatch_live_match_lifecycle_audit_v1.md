@@ -187,10 +187,16 @@ Implemented in `firestore.rules`:
 (block doc included on block). Idempotent when already closed; never reactivates.
 Missing thread → match still closes. Rules allow `unmatched → blocked` (not rematch).
 
+**Like path (2026-08-12 `like_match_atomicity_v1`):** `SwipeService.likeUser` →
+`MatchService.likeAndMaybeCreateMatch` writes the viewer Like **inside** the same
+transaction that reads reverse Like, both blocks, and match state, then optionally
+creates match/thread/`system_match_v1`. Pass remains swipe-only (never closes match).
+
 **Still accepted residual:** If a legacy client writes only one of the two docs, or a
 write is rejected mid-flight by rules/membership edge cases, drift can still appear
 until the next successful close retry. Message create still requires both active
-match and active thread.
+match and active thread. Pass-after-Like can leave swipe=`pass` while match stays
+active (by design — Pass must not mutate match).
 
 ---
 
@@ -202,3 +208,4 @@ match and active thread.
 | v1.1 | 2026-08-12 | Noted `match_create_lifecycle_v1` harden (unmatched refuse, blocks, mutual likes) |
 | v1.2 | 2026-08-12 | Firestore rules harden v1 + remaining state/status drift documented |
 | v1.3 | 2026-08-12 | Atomic match/thread close lifecycle (`match_close_lifecycle_v1`) |
+| v1.4 | 2026-08-12 | Atomic Like→match evaluation (`like_match_atomicity_v1`) |

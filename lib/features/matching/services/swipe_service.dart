@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/utils/firestore_paths.dart';
 import 'match_service.dart';
 import '../models/swipe_model.dart';
+import 'like_match_atomicity_gate.dart';
 
 class SwipeService {
   final FirebaseAuth _auth;
@@ -16,7 +17,12 @@ class SwipeService {
         _matchService = matchService ?? MatchService(auth: auth),
         super();
 
+  /// Pass: swipe-only write. Never mutates match/thread.
   Future<void> passUser(String targetUid) async {
+    assert(
+      !LikeMatchAtomicityGate.passMayMutateMatchOrThread(),
+      'Pass must never mutate match/thread',
+    );
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
@@ -34,6 +40,7 @@ class SwipeService {
     }, SetOptions(merge: true));
   }
 
+  /// Like: persist Like + evaluate mutual match in one transaction.
   Future<bool> likeUser(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
@@ -43,15 +50,7 @@ class SwipeService {
       throw StateError('Cannot swipe on yourself.');
     }
 
-    await FirestorePaths.userSwipeDoc(me.uid, targetUid).set({
-      'from_uid': me.uid,
-      'target_uid': targetUid,
-      'direction': SwipeDirection.like.name,
-      'source': 'discover',
-      'created_at': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
-
-    return _matchService.createMatchIfMutualLike(targetUid);
+    return _matchService.likeAndMaybeCreateMatch(targetUid);
   }
 
   Future<Set<String>> getMySwipedUserIds() async {
