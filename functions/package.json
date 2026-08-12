@@ -1,0 +1,21 @@
+{
+  "name": "qmatch-functions",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Trusted backend writers for QMatch (Discover eligibility authority v1).",
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "test": "mocha --timeout 10000 test/**/*.test.js",
+    "lint": "node -e \"require('./src/discover_eligibility'); console.log('ok')\""
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.8.2"
+  }
+}

@@ -71,32 +71,6 @@ class AuthService {
     }
   }
 
-  Future<void> _refreshDiscoverEligibility(String uid) async {
-    final doc = await _firestore.collection('users').doc(uid).get();
-    final data = doc.data() ?? <String, dynamic>{};
-
-    final testCompleted = data['test_completed'] as bool? ?? false;
-    final flowCompleted = data['assessment_flow_completed'] as bool? ?? false;
-    final assessmentsDone = testCompleted || flowCompleted;
-    final profileCompleted = data['profile_completed'] as bool? ?? false;
-    final active = data['active'] as bool? ?? true;
-    final profilePhotoUrl = (data['profile_photo_url'] as String?)?.trim();
-    final photos =
-        (data['photos'] as List?)?.cast<String>() ?? const <String>[];
-    final hasPhoto = (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty) ||
-        photos.isNotEmpty;
-
-    final eligible = active && assessmentsDone && profileCompleted && hasPhoto;
-
-    await _firestore.collection('users').doc(uid).set(
-      {
-        'discover_eligible': eligible,
-        'updated_at': FieldValue.serverTimestamp(),
-      },
-      SetOptions(merge: true),
-    );
-  }
-
   // Current user getter
   User? get currentUser => _auth.currentUser;
 
@@ -446,8 +420,8 @@ class AuthService {
 
       await _firestore.collection('users').doc(user.uid).update(payload);
 
-      // Safe MVP: recompute discover eligibility after tests complete.
-      await _refreshDiscoverEligibility(user.uid);
+      // discover_eligible is owned by trusted Cloud Function
+      // (`trusted_discover_eligibility_authority_v1`) — no client self-grant.
 
       debugPrint(
           '✅ Test results saved: IQ=$iqScore($iqNormalized), EQ=$eqScore($eqNormalized), Category=$category writePersona=$writePersona');

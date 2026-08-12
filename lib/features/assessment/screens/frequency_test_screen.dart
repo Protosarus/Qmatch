@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/services/auth_service.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../profile/services/profile_service.dart';
 import '../domain/frequency_bank/frequency_bank.dart';
 import '../domain/frequency_session/frequency_session.dart';
 import '../domain/profile/profile.dart';
@@ -332,9 +331,8 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       }
 
       final profileCompleted = await AuthService().hasCompletedProfile();
-      try {
-        await ProfileService().refreshDiscoverEligibility(uid);
-      } catch (_) {}
+      // discover_eligible is recomputed by trusted Cloud Function on the
+      // assessment completion write — no client self-grant.
 
       debugPrint(
         '✅ Canonical Frequency completed — 20D ready; navigating to Persona gate',

@@ -8,32 +8,15 @@ class ProfileService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  /// Discover eligibility is owned by the trusted Cloud Function
+  /// (`trusted_discover_eligibility_authority_v1`).
+  ///
+  /// Clients must not self-grant `discover_eligible=true`. Profile / assessment
+  /// completion writes the underlying fields; the backend recomputes the flag.
+  /// Kept as a no-op so existing call sites do not fail under production rules.
   Future<void> refreshDiscoverEligibility(String uid) async {
-    final doc = await _firestore.collection('users').doc(uid).get();
-    final data = doc.data() ?? <String, dynamic>{};
-
-    // Prefer full assessment battery: flow v2 sets both; legacy used
-    // test_completed after EQ-only.
-    final testCompleted = data['test_completed'] as bool? ?? false;
-    final flowCompleted = data['assessment_flow_completed'] as bool? ?? false;
-    final assessmentsDone = testCompleted || flowCompleted;
-    final profileCompleted = data['profile_completed'] as bool? ?? false;
-    final active = data['active'] as bool? ?? true;
-    final profilePhotoUrl = (data['profile_photo_url'] as String?)?.trim();
-    final photos =
-        (data['photos'] as List?)?.cast<String>() ?? const <String>[];
-    final hasPhoto = (profilePhotoUrl != null && profilePhotoUrl.isNotEmpty) ||
-        photos.isNotEmpty;
-
-    final eligible = active && assessmentsDone && profileCompleted && hasPhoto;
-
-    await _firestore.collection('users').doc(uid).set(
-      {
-        'discover_eligible': eligible,
-        'updated_at': FieldValue.serverTimestamp(),
-      },
-      SetOptions(merge: true),
-    );
+    assert(uid.isNotEmpty);
+    // No client write — Admin SDK CF is the sole true-grant authority.
   }
 
   Future<void> saveProfile(UserProfileModel profile) async {
@@ -43,14 +26,12 @@ class ProfileService {
     try {
       // Merge only profile payload. Assessment/persona fields are omitted when
       // null in [UserProfileModel.toFirestore], so setup cannot erase them.
+      // Does not write discover_eligible — backend recomputes on this write.
       await _firestore.collection('users').doc(user.uid).set({
         ...profile.toFirestore(),
         'profile_completed': true,
         'completed_at': FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
-
-      // Safe MVP: recompute discover eligibility after profile save.
-      await refreshDiscoverEligibility(user.uid);
 
       debugPrint('✅ Profile saved successfully');
     } catch (e) {

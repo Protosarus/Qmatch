@@ -15,7 +15,8 @@ class DiscoverL1EligibilityGate {
   }) =>
       testCompleted || assessmentFlowCompleted;
 
-  /// Local re-check aligned with `ProfileService.refreshDiscoverEligibility`.
+  /// Local re-check aligned with trusted Discover eligibility derivation
+  /// (`trusted_discover_eligibility_authority_v1` / Cloud Function).
   static bool passesLocalAccountGates({
     required bool active,
     required bool profileCompleted,
