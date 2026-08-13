@@ -7,6 +7,12 @@ const {
   deriveDiscoverEligible,
   planDiscoverEligibleWrite,
 } = require('./src/discover_eligibility');
+const {
+  shouldRunCloseAllOnUserWrite,
+} = require('./src/deletion_close_all');
+const {
+  closeAllActiveMatchesForDeletion,
+} = require('./src/deletion_close_all_runner');
 
 initializeApp();
 
@@ -50,6 +56,40 @@ exports.recomputeDiscoverEligibleOnUserWrite = onDocumentWritten(
   },
 );
 
+/**
+ * Deletion close-all (`deletion_close_all_backend_v1`).
+ *
+ * On `account_deletion_requested` false → true: close every ACTIVE match for
+ * the uid (match → unmatched, thread → closed). Preserve blocked/unmatched.
+ * Never deletes messages. Never reactivates.
+ */
+exports.closeMatchesOnAccountDeletionRequested = onDocumentWritten(
+  {
+    document: 'users/{uid}',
+    region: 'us-central1',
+  },
+  async (event) => {
+    const afterSnap = event.data && event.data.after;
+    if (!afterSnap || !afterSnap.exists) {
+      return null;
+    }
+
+    const beforeSnap = event.data && event.data.before;
+    const beforeData = beforeSnap && beforeSnap.exists ? beforeSnap.data() : null;
+    const afterData = afterSnap.data() || {};
+
+    if (!shouldRunCloseAllOnUserWrite(beforeData, afterData)) {
+      return null;
+    }
+
+    const uid = event.params.uid;
+    const summary = await closeAllActiveMatchesForDeletion(uid);
+    return summary;
+  },
+);
+
 // Re-export pure helpers for tests / tooling.
 exports.deriveDiscoverEligible = deriveDiscoverEligible;
 exports.planDiscoverEligibleWrite = planDiscoverEligibleWrite;
+exports.shouldRunCloseAllOnUserWrite = shouldRunCloseAllOnUserWrite;
+exports.closeAllActiveMatchesForDeletion = closeAllActiveMatchesForDeletion;
