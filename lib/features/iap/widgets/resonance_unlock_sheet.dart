@@ -7,7 +7,7 @@ import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/resonance_paywall_feature.dart';
 import '../services/ios_iap_client.dart';
-import 'resonance_paywall_screen.dart';
+import '../screens/resonance_paywall_screen.dart';
 
 /// Soft unlock sheet (no prices) → opens the production Resonance paywall.
 ///
