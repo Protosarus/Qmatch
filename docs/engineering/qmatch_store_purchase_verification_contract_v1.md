@@ -5,6 +5,7 @@
 | Document id | `qmatch_store_purchase_verification_contract_v1` |
 | Status | `store_purchase_verification_contract_v1` · `engineering_ratified_not_live` |
 | Parents | [Entitlement Firestore Schema](./qmatch_resonance_entitlement_firestore_schema_v1.md) · [Store Product Identity](../product/qmatch_store_product_identity_v1.md) · [Entitlement Engineering Contract](../product/qmatch_resonance_entitlement_engineering_contract_v1.md) |
+| Related | [Store Notification Backend v1](./qmatch_store_notification_backend_v1.md) (`engineering_validated_not_deployed`) |
 | Scope | Trusted App Store + Play verification → `entitlements/{uid}` + purchase ledger |
 | Non-goals | Credentials, store-console SKU creation, client Billing SDK, ASSN/RTDN deployment, fake verification |
 | Draft date | 2026-08-13 |
