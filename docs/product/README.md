@@ -25,14 +25,18 @@ Ratified and draft product contracts (not live app behavior unless a linked engi
   - Cache TTL / product IDs / grace mapping / cross-platform linking unresolved
 - Store Product Catalog Draft v1 (**draft catalog; launch set + identity ratified**): [qmatch_resonance_store_product_catalog_draft_v1.md](./qmatch_resonance_store_product_catalog_draft_v1.md)
   - Launch: Resonance Monthly/Annual + Super Resonance ×1 + Boost ×1
-  - Deferred: Quarterly, ×5 packs; display **Boost**; prices `TBD`
+  - Deferred: Quarterly, ×5 packs; display **Boost**; pricing via Launch Pricing Decision
 - Store Creation Readiness v1 (**ratified, not live**): [qmatch_store_creation_readiness_v1.md](./qmatch_store_creation_readiness_v1.md)
   - Status: `store_creation_readiness_v1` · `product_ratified_not_live`
-  - #4 Play model decided (external setup remains); #5 product IDs `ready`
+  - #5 IDs + #17 pricing `ready`; console creation still not authorized
 - Store Product Identity v1 (**ratified, not live**): [qmatch_store_product_identity_v1.md](./qmatch_store_product_identity_v1.md)
   - Status: `store_product_identity_v1` · `product_ratified_not_live`
   - Final IDs + Play `qmatch.resonance` + monthly/annual base plans; no console create yet
+- Launch Pricing Architecture v1 (**draft scenarios**): [qmatch_launch_pricing_architecture_v1.md](./qmatch_launch_pricing_architecture_v1.md)
+- Launch Pricing Decision v1 (**ratified, not live**): [qmatch_launch_pricing_decision_v1.md](./qmatch_launch_pricing_decision_v1.md)
+  - Status: `launch_pricing_decision_v1` · `product_ratified_not_live`
+  - Balanced Premium: TRY 599 / 4,799 / 199 / 149; USD 14.99 / 119.99 / 4.99 / 3.99; ~33% annual; no trial
 
 ## Next packaging (not written yet)
 
-- Pricing decision + named readiness owners + verification credentials / ASSN+RTDN (sandbox SKUs only when authorized)
+- Named readiness owners + verification credentials / ASSN+RTDN (sandbox SKUs when authorized)

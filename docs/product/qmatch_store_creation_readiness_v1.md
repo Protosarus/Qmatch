@@ -35,7 +35,7 @@ Status classes (preserved):
 | Launch consumables | Super Resonance ×1 · Boost ×1 |
 | Deferred | Resonance Quarterly · ×5 consumable packs |
 | Display name | **Boost** (not Spotlight) |
-| Prices | Remain `TBD` |
+| Prices | **Decided** — [Launch Pricing Decision v1](./qmatch_launch_pricing_decision_v1.md) (TRY/USD gross); territory tables unresolved |
 | Product IDs | **Final** per [Store Product Identity v1](./qmatch_store_product_identity_v1.md) — console creation still not authorized |
 | Console | **No** store-console creation yet |
 | External setup | Tracked by readiness matrix classifications |
@@ -76,8 +76,9 @@ Status classes (preserved):
 | --- | --- |
 | Final store product IDs | **Frozen** — see [Store Product Identity v1](./qmatch_store_product_identity_v1.md) |
 | Play subscription model | **Frozen** — one `qmatch.resonance` + `monthly`/`annual` base plans |
+| Launch gross pricing (TRY + USD ref) | **Frozen** — see [Launch Pricing Decision v1](./qmatch_launch_pricing_decision_v1.md) |
 | Subscription consumable allotments | **None** (no day-one allotments) |
-| Prices | Remain `TBD` |
+| Country-by-country / console territory pricing | **Unresolved** |
 | Store-console creation | **Not authorized yet** |
 
 ---
@@ -93,6 +94,7 @@ Owner column uses role placeholders until named assignees exist.
 | 3 | App Store subscription group | `needs_external_setup` | iOS ops | Create one **Resonance** group; attach Monthly + Annual only |
 | 4 | Play subscription / base-plan structure | `needs_external_setup` | Android ops | **Decided:** product `qmatch.resonance` + base plans `monthly`/`annual` ([Identity](./qmatch_store_product_identity_v1.md)). Remaining: create in Play Console when authorized |
 | 5 | Final product IDs | `ready` | Product + Eng | **Frozen** in [Store Product Identity v1](./qmatch_store_product_identity_v1.md). Console create still blocked on other items |
+| 17 | Launch gross pricing decision | `ready` | Product | **Frozen** in [Launch Pricing Decision v1](./qmatch_launch_pricing_decision_v1.md) (TRY + USD ref). Country/console territory tables unresolved; **store-console creation still not authorized** |
 | 6 | Product display names / descriptions | `needs_decision` | Product / Copy | EN/TR copy; no IQ caste / score-upgrade claims; Boost not Spotlight |
 | 7 | TR/EN localization | `needs_decision` | Product / L10n | Store listing + IAP display strings for launch SKUs |
 | 8 | Tax / category metadata | `needs_external_setup` | Store ops | Apple/Google tax category + business declarations |
@@ -109,7 +111,7 @@ Owner column uses role placeholders until named assignees exist.
 
 | Class | Items |
 | --- | --- |
-| `ready` | #1 iOS bundle identity (source), #2 Android package identity (source), **#5 final product IDs** |
+| `ready` | #1 iOS bundle identity (source), #2 Android package identity (source), **#5 final product IDs**, **#17 launch gross pricing** |
 | `needs_decision` | #6 names/descriptions, #7 localization, #13 (ops policy details), #14–16 plans/ownership |
 | `needs_external_setup` | #3, **#4** (model decided; console create pending), #8, #9, #10, #11, #12 |
 | `blocked` | #13 implementation until verification credentials + notifications exist; #14–15 **execution** until sandbox + backend verify |
@@ -135,13 +137,14 @@ Must be completed outside this repo before production-capable IAP:
 
 | Blocker | Why |
 | --- | --- |
-| Prices `TBD` | Cannot publish paid SKUs without pricing decision (sandbox may use placeholder prices later) |
-| Play / App Store products not created | #3/#4 still `needs_external_setup` (identity decided) |
+| Play / App Store products not created | #3/#4 still `needs_external_setup` (identity + pricing decided) |
+| Country / console territory price tables | Unresolved at create time |
 | No backend verification credentials | Entitlement contract forbids client self-grant |
 | No store server notifications | Renew/expire/revoke path incomplete |
 | Refund/revoke handling not implemented | Contract exists; code/ops path missing |
 | Named owners incomplete | Checklist #16 |
 | Display copy / localization | #6/#7 still `needs_decision` |
+| Net / tax / commission modeling | Finance unresolved (not a console blocker for sandbox) |
 
 **Allowed later without clearing all blockers:** writing test plans (#14–15 as documents), drafting EN/TR copy offline, sandbox-only experiments **after** explicit order — still **no** production console creation from this draft.
 
@@ -161,13 +164,12 @@ Deferred SKUs must not appear in first console creation set.
 
 ## 6. Exact next step
 
-**Pricing + credentials path (still no console create unless ordered):**
+**Credentials + sandbox path (pricing decided; console create still not authorized until ordered):**
 
-1. Open a **pricing** decision — keep `TBD` here until decided.
-2. Assign named owners for readiness matrix §2 (#16).
-3. Start App Store Connect API / Play service account + ASSN/RTDN setup (#10–12).
-4. Draft EN/TR display names (#6–7).
-5. Only when credentials path started and (for production) prices decided: create **sandbox** products using [Store Product Identity v1](./qmatch_store_product_identity_v1.md).
+1. Assign named owners for readiness matrix (§2 #16).
+2. Start App Store Connect API / Play service account + ASSN/RTDN setup (#10–12).
+3. Draft EN/TR display names (#6–7).
+4. When explicitly authorized: create **sandbox** products using [Store Product Identity v1](./qmatch_store_product_identity_v1.md) + [Launch Pricing Decision v1](./qmatch_launch_pricing_decision_v1.md).
 
 Do **not** create Quarterly or x5 packs. Do **not** implement app billing code unless explicitly ordered.
 
@@ -180,7 +182,7 @@ Do **not** create Quarterly or x5 packs. Do **not** implement app billing code u
 | Monthly + Annual launch; Quarterly deferred | Yes (§1.1) |
 | Super Resonance x1 + Boost x1 launch; x5 deferred | Yes (§1.2) |
 | Display name Boost; no Spotlight launch name | Yes (§1.3) |
-| Prices TBD; product IDs + Play model frozen | Yes (§1.4) |
+| Prices decided (gross TRY/USD); product IDs + Play model frozen; console not authorized | Yes (§1.4, #17) |
 | 16-item readiness matrix with classes | Yes (§2) |
 | No store-console / app code in this step | Yes |
 | Status | `store_creation_readiness_v1` · `product_ratified_not_live` |
