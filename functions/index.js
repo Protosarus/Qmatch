@@ -138,3 +138,6 @@ exports.mapPlaySubscriptionStatus = storeProductMap.mapPlaySubscriptionStatus;
 exports.verifyApplePurchase = storeVerifyApple.verifyApplePurchase;
 exports.verifyPlayPurchase = storeVerifyPlay.verifyPlayPurchase;
 exports.isTrustedVerified = storeVerificationResult.isTrustedVerified;
+exports.applyTrustedVerificationResult =
+  require('./src/apply_trusted_verification').applyTrustedVerificationResult;
+exports.loadAppleIapConfig = require('./src/apple_iap_config').loadAppleIapConfig;

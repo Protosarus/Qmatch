@@ -482,7 +482,8 @@ describe('store_verifier_foundation_v1', () => {
 
     it('maybeApplyVerifiedEntitlement skips repository when not trusted', async () => {
       let called = false;
-      const ok = await maybeApplyVerifiedEntitlement(
+      const gate = await maybeApplyVerifiedEntitlement(
+        'u1',
         { ok: false, trusted: false, verified: false, can_grant: false },
         {
           applyTrusted: async () => {
@@ -490,7 +491,7 @@ describe('store_verifier_foundation_v1', () => {
           },
         },
       );
-      assert.strictEqual(ok, false);
+      assert.strictEqual(gate.applied, false);
       assert.strictEqual(called, false);
     });
 
@@ -507,7 +508,7 @@ describe('store_verifier_foundation_v1', () => {
 
       const db = new MemoryFirestore();
       let applyCount = 0;
-      const applied = await maybeApplyVerifiedEntitlement(trusted, {
+      const gate = await maybeApplyVerifiedEntitlement('u1', trusted, {
         applyTrusted: async (r) => {
           applyCount += 1;
           await creditConsumableIdempotent(
@@ -522,7 +523,7 @@ describe('store_verifier_foundation_v1', () => {
           );
         },
       });
-      assert.strictEqual(applied, true);
+      assert.strictEqual(gate.applied, true);
       assert.strictEqual(applyCount, 1);
     });
   });

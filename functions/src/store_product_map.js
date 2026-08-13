@@ -118,7 +118,16 @@ function mapPlayProduct(productId, basePlanId) {
  * @returns {string} canonical subscription_state
  */
 function mapAppleSubscriptionStatus(status) {
-  const s = String(status || '').toLowerCase();
+  // Apple Status enum numeric values from @apple/app-store-server-library
+  if (status === 1 || status === '1') return 'active';
+  if (status === 2 || status === '2') return 'expired';
+  if (status === 3 || status === '3') return 'billing_retry';
+  if (status === 4 || status === '4') return 'grace';
+  if (status === 5 || status === '5') return 'revoked';
+
+  const s = String(status || '')
+    .toLowerCase()
+    .replace(/^subscription_state_/, '');
   switch (s) {
     case 'active':
     case 'subscribed':
@@ -126,6 +135,7 @@ function mapAppleSubscriptionStatus(status) {
     case 'grace':
     case 'grace_period':
     case 'graceperiod':
+    case 'billing_grace_period':
     case 'in_billing_grace_period':
       return 'grace';
     case 'billing_retry':

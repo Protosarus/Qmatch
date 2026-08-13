@@ -1,8 +1,8 @@
 /**
- * Entitlement callable scaffolds + store verifier routing.
+ * Entitlement callable scaffolds + Apple verification wiring.
  *
- * Never grants from client claims. Never calls entitlement repository unless
- * isTrustedVerified(result). Without store credentials → fail closed.
+ * Apple: verify via App Store Server library → apply repository only when
+ * isTrustedVerified(result). Google still fail-closed (not implemented).
  */
 
 'use strict';
@@ -16,9 +16,11 @@ const {
   clientClaimsCanGrant,
   failClosedNotConfigured,
 } = require('./store_verification_result');
+const {
+  applyTrustedVerificationResult,
+} = require('./apply_trusted_verification');
 
 /**
- * Shared unauthenticated / not-configured response builder.
  * @param {string} uid
  * @param {string} operation
  * @returns {Record<string, unknown>}
@@ -48,38 +50,36 @@ function requireAuthUid(request) {
 }
 
 /**
- * Apply trusted verification to repository — foundation gate only.
- * Returns false always until apply wiring is explicitly enabled with trusted result.
- * This step does not call the repository.
+ * Apply trusted verification to repository when isTrustedVerified.
  *
+ * @param {string} uid
  * @param {Record<string, unknown>} result
  * @param {object} [deps]
- * @returns {Promise<boolean>}
+ * @returns {Promise<{ applied: boolean, applyResult?: object }>}
  */
-async function maybeApplyVerifiedEntitlement(result, deps = {}) {
+async function maybeApplyVerifiedEntitlement(uid, result, deps = {}) {
   if (!isTrustedVerified(result)) {
-    return false;
+    return { applied: false };
   }
-  if (typeof deps.applyTrusted !== 'function') {
-    // Repository apply not wired in foundation v1 — still no grant side effects.
-    return false;
+  if (typeof deps.applyTrusted === 'function') {
+    const applyResult = await deps.applyTrusted(result);
+    return { applied: true, applyResult };
   }
-  await deps.applyTrusted(result);
-  return true;
+  // Default Apple wiring: apply to entitlement repository.
+  const applyResult = await applyTrustedVerificationResult(uid, result, {
+    db: deps.db,
+  });
+  return { applied: !!applyResult.applied, applyResult };
 }
 
 /**
- * verifyAndApplyPurchase — routes to Apple/Play verifier; fail closed without creds.
- * Does not trust client purchase claims. Does not grant without trusted verify.
- *
  * @param {import('firebase-functions/v2/https').CallableRequest} request
- * @param {object} [deps] optional verifier opts for tests
+ * @param {object} [deps]
  */
 async function handleVerifyAndApplyPurchase(request, deps = {}) {
   const uid = requireAuthUid(request);
   const data = (request && request.data) || {};
 
-  // Explicit policy: client claims never grant.
   if (clientClaimsCanGrant(data)) {
     return verificationNotConfiguredResult(uid, 'verifyAndApplyPurchase');
   }
@@ -97,6 +97,7 @@ async function handleVerifyAndApplyPurchase(request, deps = {}) {
       deps.apple || {},
     );
   } else if (platform === 'android') {
+    // Google Play verification not implemented in this step.
     result = await verifyPlayPurchase(
       {
         callerUid: uid,
@@ -108,35 +109,56 @@ async function handleVerifyAndApplyPurchase(request, deps = {}) {
       deps.play || {},
     );
   } else {
-    // Missing/unknown platform: still fail closed (no client grant).
     result = verificationNotConfiguredResult(uid, 'verifyAndApplyPurchase');
   }
 
-  const applied = await maybeApplyVerifiedEntitlement(result, deps);
+  const { applied, applyResult } = await maybeApplyVerifiedEntitlement(
+    uid,
+    result,
+    deps,
+  );
+
+  const snapshot = applyResult && applyResult.snapshot;
+  const accessGranted = !!(
+    applied &&
+    snapshot &&
+    snapshot.resonance_access === true
+  );
+  const balanceChanged = !!(
+    applied &&
+    applyResult &&
+    applyResult.status === 'applied' &&
+    result.kind === 'consumable'
+  );
+
   return {
     ...result,
     uid,
     operation: 'verifyAndApplyPurchase',
     repository_applied: applied,
-    // Foundation: never report grant until repository apply is wired + succeeded.
-    granted: false,
-    entitlement_changed: false,
-    balances_changed: false,
+    apply_status: applyResult ? applyResult.status : null,
+    granted: accessGranted,
+    entitlement_changed: !!(
+      applied &&
+      applyResult &&
+      applyResult.status === 'applied' &&
+      result.kind === 'subscription'
+    ),
+    balances_changed: balanceChanged,
+    resonance_access: snapshot
+      ? !!snapshot.resonance_access
+      : !!result.resonance_access && accessGranted,
   };
 }
 
 /**
- * restorePurchases — scaffold. Same fail-closed contract; no ASSN/RTDN.
- *
  * @param {import('firebase-functions/v2/https').CallableRequest} request
  * @param {object} [deps]
  */
 async function handleRestorePurchases(request, deps = {}) {
   const uid = requireAuthUid(request);
-  const data = (request && request.data) || {};
-  void data;
+  void request;
   void deps;
-  // Restore still requires store verification credentials — not configured.
   return {
     ...verificationNotConfiguredResult(uid, 'restorePurchases'),
     repository_applied: false,
