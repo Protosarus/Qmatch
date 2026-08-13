@@ -23,13 +23,16 @@ Ratified and draft product contracts (not live app behavior unless a linked engi
   - Status: `resonance_entitlement_engineering_contract_v1` · `engineering_ratified_not_live`
   - Store+backend SoT; no client self-grant; subscription ≠ consumable ledgers
   - Cache TTL / product IDs / grace mapping / cross-platform linking unresolved
-- Store Product Catalog Draft v1 (**draft IDs; launch set ratified**): [qmatch_resonance_store_product_catalog_draft_v1.md](./qmatch_resonance_store_product_catalog_draft_v1.md)
-  - Launch (ratified): Resonance Monthly/Annual + Super Resonance ×1 + Boost ×1
-  - Deferred: Quarterly, ×5 packs; display name **Boost**; prices `TBD`; IDs still `draft_ids_not_final`
+- Store Product Catalog Draft v1 (**draft catalog; launch set + identity ratified**): [qmatch_resonance_store_product_catalog_draft_v1.md](./qmatch_resonance_store_product_catalog_draft_v1.md)
+  - Launch: Resonance Monthly/Annual + Super Resonance ×1 + Boost ×1
+  - Deferred: Quarterly, ×5 packs; display **Boost**; prices `TBD`
 - Store Creation Readiness v1 (**ratified, not live**): [qmatch_store_creation_readiness_v1.md](./qmatch_store_creation_readiness_v1.md)
   - Status: `store_creation_readiness_v1` · `product_ratified_not_live`
-  - 16-item readiness matrix preserved; no console creation authorized yet
+  - #4 Play model decided (external setup remains); #5 product IDs `ready`
+- Store Product Identity v1 (**ratified, not live**): [qmatch_store_product_identity_v1.md](./qmatch_store_product_identity_v1.md)
+  - Status: `store_product_identity_v1` · `product_ratified_not_live`
+  - Final IDs + Play `qmatch.resonance` + monthly/annual base plans; no console create yet
 
 ## Next packaging (not written yet)
 
-- Final product ID freeze table + pricing decision (then sandbox SKUs only when authorized)
+- Pricing decision + named readiness owners + verification credentials / ASSN+RTDN (sandbox SKUs only when authorized)

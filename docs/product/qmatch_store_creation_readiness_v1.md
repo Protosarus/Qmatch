@@ -36,9 +36,10 @@ Status classes (preserved):
 | Deferred | Resonance Quarterly · ×5 consumable packs |
 | Display name | **Boost** (not Spotlight) |
 | Prices | Remain `TBD` |
-| Product IDs | Remain `draft_ids_not_final` — **not** frozen yet |
+| Product IDs | **Final** per [Store Product Identity v1](./qmatch_store_product_identity_v1.md) — console creation still not authorized |
 | Console | **No** store-console creation yet |
-| External setup | Tracked by readiness matrix classifications (unchanged) |
+| External setup | Tracked by readiness matrix classifications |
+| Play model | `qmatch.resonance` + base plans `monthly`/`annual` (**decided**) |
 
 ---
 
@@ -73,9 +74,9 @@ Status classes (preserved):
 
 | Item | Status |
 | --- | --- |
-| Prices | `TBD` |
-| Final store product IDs | Remain `draft_ids_not_final` until store creation freeze |
+| Final store product IDs | **Frozen** — see [Store Product Identity v1](./qmatch_store_product_identity_v1.md) |
 | Subscription consumable allotments | **None** (no day-one allotments) |
+| Play subscription model | **Frozen** — one `qmatch.resonance` + `monthly`/`annual` base plans |
 
 ---
 
@@ -88,8 +89,8 @@ Owner column uses role placeholders until named assignees exist.
 | 1 | Final iOS bundle identity | `ready` | Eng / Release | Source: `com.qmatch.app` (Runner). Confirm App Store Connect app record matches before SKU create |
 | 2 | Final Android package identity | `ready` | Eng / Release | Source: `com.qmatch.app`. Confirm Play app record + `google-services.json` match before SKU create |
 | 3 | App Store subscription group | `needs_external_setup` | iOS ops | Create one **Resonance** group; attach Monthly + Annual only |
-| 4 | Play subscription / base-plan structure | `needs_decision` + `needs_external_setup` | Android ops | Decide Play modeling (single subscription + base plans vs equivalent); then create Monthly + Annual only |
-| 5 | Final product IDs | `needs_decision` | Product + Eng | Replace `draft_ids_not_final` with store-final strings in a freeze review |
+| 4 | Play subscription / base-plan structure | `needs_external_setup` | Android ops | **Decided:** product `qmatch.resonance` + base plans `monthly`/`annual` ([Identity](./qmatch_store_product_identity_v1.md)). Remaining: create in Play Console when authorized |
+| 5 | Final product IDs | `ready` | Product + Eng | **Frozen** in [Store Product Identity v1](./qmatch_store_product_identity_v1.md). Console create still blocked on other items |
 | 6 | Product display names / descriptions | `needs_decision` | Product / Copy | EN/TR copy; no IQ caste / score-upgrade claims; Boost not Spotlight |
 | 7 | TR/EN localization | `needs_decision` | Product / L10n | Store listing + IAP display strings for launch SKUs |
 | 8 | Tax / category metadata | `needs_external_setup` | Store ops | Apple/Google tax category + business declarations |
@@ -106,9 +107,9 @@ Owner column uses role placeholders until named assignees exist.
 
 | Class | Items |
 | --- | --- |
-| `ready` | #1 iOS bundle identity (source), #2 Android package identity (source) |
-| `needs_decision` | #4 (Play modeling), #5 final IDs, #6 names/descriptions, #7 localization, #13 (ops policy details), #14–16 plans/ownership; #4 also needs external setup |
-| `needs_external_setup` | #3, #4, #8, #9, #10, #11, #12 |
+| `ready` | #1 iOS bundle identity (source), #2 Android package identity (source), **#5 final product IDs** |
+| `needs_decision` | #6 names/descriptions, #7 localization, #13 (ops policy details), #14–16 plans/ownership |
+| `needs_external_setup` | #3, **#4** (model decided; console create pending), #8, #9, #10, #11, #12 |
 | `blocked` | #13 implementation until verification credentials + notifications exist; #14–15 **execution** until sandbox + backend verify |
 
 ---
@@ -117,8 +118,8 @@ Owner column uses role placeholders until named assignees exist.
 
 Must be completed outside this repo before production-capable IAP:
 
-1. App Store Connect — app record, Resonance subscription group, Monthly + Annual products (after ID freeze)
-2. Google Play Console — app record, subscription + base plans for Monthly + Annual (after modeling decision)
+1. App Store Connect — app record, Resonance subscription group, Monthly + Annual products (IDs frozen)
+2. Google Play Console — app record, subscription `qmatch.resonance` + base plans `monthly`/`annual` (model frozen)
 3. Tax / merchant / paid-apps agreements
 4. Sandbox / license test accounts
 5. ASSN v2 URL + auth
@@ -132,13 +133,13 @@ Must be completed outside this repo before production-capable IAP:
 
 | Blocker | Why |
 | --- | --- |
-| Final product IDs not frozen | Still `draft_ids_not_final` |
 | Prices `TBD` | Cannot publish paid SKUs without pricing decision (sandbox may use placeholder prices later) |
-| Play subscription structure undecided | Needs modeling decision |
+| Play / App Store products not created | #3/#4 still `needs_external_setup` (identity decided) |
 | No backend verification credentials | Entitlement contract forbids client self-grant |
 | No store server notifications | Renew/expire/revoke path incomplete |
 | Refund/revoke handling not implemented | Contract exists; code/ops path missing |
 | Named owners incomplete | Checklist #16 |
+| Display copy / localization | #6/#7 still `needs_decision` |
 
 **Allowed later without clearing all blockers:** writing test plans (#14–15 as documents), drafting EN/TR copy offline, sandbox-only experiments **after** explicit order — still **no** production console creation from this draft.
 
@@ -158,15 +159,15 @@ Deferred SKUs must not appear in first console creation set.
 
 ## 6. Exact next step
 
-**Freeze final product ID strings + pricing track (still no console create unless ordered):**
+**Pricing + credentials path (still no console create unless ordered):**
 
-1. Product + Eng: replace draft IDs with proposed **final** ID table for the four launch SKUs only.
-2. Assign named owners for readiness matrix §2.
-3. Decide Play base-plan structure.
-4. Open a **pricing** decision (separate doc) — keep `TBD` here until decided.
-5. Only when #5 IDs decided and #12 credentials path started: create **sandbox** products for Monthly, Annual, Super Resonance ×1, Boost ×1.
+1. Open a **pricing** decision — keep `TBD` here until decided.
+2. Assign named owners for readiness matrix §2 (#16).
+3. Start App Store Connect API / Play service account + ASSN/RTDN setup (#10–12).
+4. Draft EN/TR display names (#6–7).
+5. Only when credentials path started and (for production) prices decided: create **sandbox** products using [Store Product Identity v1](./qmatch_store_product_identity_v1.md).
 
-Do **not** create Quarterly or x5 packs. Do **not** implement app billing code in that step unless explicitly ordered.
+Do **not** create Quarterly or x5 packs. Do **not** implement app billing code unless explicitly ordered.
 
 ---
 
