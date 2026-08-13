@@ -7,6 +7,23 @@
 const { SCHEMA_VERSION, EFFECTS } = require('./entitlement_schema');
 
 /**
+ * Android purchaseToken → stable ledger identity.
+ * Primary replay key is the purchaseToken (hashed for Firestore doc id safety).
+ * Never use orderId as the primary key.
+ *
+ * @param {string} purchaseToken
+ * @returns {string} e.g. token:<sha256hex>
+ */
+function androidStoreTransactionIdFromToken(purchaseToken) {
+  if (!purchaseToken || typeof purchaseToken !== 'string') {
+    throw new Error('purchase_token_required');
+  }
+  const crypto = require('crypto');
+  const hash = crypto.createHash('sha256').update(purchaseToken).digest('hex');
+  return `token:${hash}`;
+}
+
+/**
  * Purchase / restore / consumable credit idempotency key.
  * @param {string} platform ios|android
  * @param {string} storeTransactionId
@@ -130,6 +147,7 @@ function planLedgerApply({
 
 module.exports = {
   purchaseLedgerId,
+  androidStoreTransactionIdFromToken,
   subscriptionEventLedgerId,
   spendLedgerId,
   buildLedgerDocument,

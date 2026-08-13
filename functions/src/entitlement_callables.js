@@ -1,8 +1,7 @@
 /**
- * Entitlement callable scaffolds + Apple verification wiring.
+ * Entitlement callable scaffolds + Apple/Play verification wiring.
  *
- * Apple: verify via App Store Server library → apply repository only when
- * isTrustedVerified(result). Google still fail-closed (not implemented).
+ * Apply to repository only when isTrustedVerified(result).
  */
 
 'use strict';
@@ -50,8 +49,6 @@ function requireAuthUid(request) {
 }
 
 /**
- * Apply trusted verification to repository when isTrustedVerified.
- *
  * @param {string} uid
  * @param {Record<string, unknown>} result
  * @param {object} [deps]
@@ -65,9 +62,9 @@ async function maybeApplyVerifiedEntitlement(uid, result, deps = {}) {
     const applyResult = await deps.applyTrusted(result);
     return { applied: true, applyResult };
   }
-  // Default Apple wiring: apply to entitlement repository.
   const applyResult = await applyTrustedVerificationResult(uid, result, {
     db: deps.db,
+    playFinalizeHelpers: deps.playFinalizeHelpers,
   });
   return { applied: !!applyResult.applied, applyResult };
 }
@@ -97,7 +94,6 @@ async function handleVerifyAndApplyPurchase(request, deps = {}) {
       deps.apple || {},
     );
   } else if (platform === 'android') {
-    // Google Play verification not implemented in this step.
     result = await verifyPlayPurchase(
       {
         callerUid: uid,
@@ -112,10 +108,18 @@ async function handleVerifyAndApplyPurchase(request, deps = {}) {
     result = verificationNotConfiguredResult(uid, 'verifyAndApplyPurchase');
   }
 
+  const playHelpers = result && result._play_helpers;
+  if (result && result._play_helpers) {
+    delete result._play_helpers;
+  }
+
   const { applied, applyResult } = await maybeApplyVerifiedEntitlement(
     uid,
     result,
-    deps,
+    {
+      ...deps,
+      playFinalizeHelpers: deps.playFinalizeHelpers || playHelpers || null,
+    },
   );
 
   const snapshot = applyResult && applyResult.snapshot;
@@ -148,6 +152,8 @@ async function handleVerifyAndApplyPurchase(request, deps = {}) {
     resonance_access: snapshot
       ? !!snapshot.resonance_access
       : !!result.resonance_access && accessGranted,
+    acknowledged: !!(applyResult && applyResult.acknowledged),
+    consumed: !!(applyResult && applyResult.consumed),
   };
 }
 

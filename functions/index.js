@@ -141,3 +141,6 @@ exports.isTrustedVerified = storeVerificationResult.isTrustedVerified;
 exports.applyTrustedVerificationResult =
   require('./src/apply_trusted_verification').applyTrustedVerificationResult;
 exports.loadAppleIapConfig = require('./src/apple_iap_config').loadAppleIapConfig;
+exports.loadPlayIapConfig = require('./src/play_iap_config').loadPlayIapConfig;
+exports.finalizePlayPurchaseSideEffects =
+  require('./src/store_verify_play').finalizePlayPurchaseSideEffects;

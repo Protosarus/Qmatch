@@ -1,6 +1,8 @@
 /**
  * Apply a trusted store verification result to the entitlement repository.
  * Must only be called when isTrustedVerified(result) === true.
+ *
+ * Play: after successful ledger write, consume/acknowledge via Play API helpers.
  */
 
 'use strict';
@@ -17,6 +19,9 @@ const {
 const { purchaseLedgerId } = require('./entitlement_ledger');
 const { PRODUCT_KIND } = require('./store_product_map');
 const { isTrustedVerified } = require('./store_verification_result');
+const {
+  finalizePlayPurchaseSideEffects,
+} = require('./store_verify_play');
 
 function subscriptionEffectForState(state) {
   switch (state) {
@@ -53,8 +58,8 @@ function subscriptionEventTypeForState(state) {
 /**
  * @param {string} uid
  * @param {Record<string, unknown>} result trusted verification result
- * @param {{ db?: FirebaseFirestore.Firestore }} [opts]
- * @returns {Promise<{ applied: boolean, status?: string, snapshot?: object, reason?: string }>}
+ * @param {{ db?: FirebaseFirestore.Firestore, playFinalizeHelpers?: object }} [opts]
+ * @returns {Promise<object>}
  */
 async function applyTrustedVerificationResult(uid, result, opts = {}) {
   if (!isTrustedVerified(result)) {
@@ -64,8 +69,9 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
     return { applied: false, reason: 'uid_required' };
   }
 
+  let applyOut;
+
   if (result.kind === PRODUCT_KIND.CONSUMABLE) {
-    // Revoked consumables must not credit (verifier should failClosed already).
     if (!result.credit || !result.mapping) {
       return { applied: false, reason: 'no_credit_intent' };
     }
@@ -81,15 +87,13 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
       },
       opts,
     );
-    return {
+    applyOut = {
       applied: true,
       status: out.status,
       snapshot: out.snapshot,
       ledgerId: out.ledgerId,
     };
-  }
-
-  if (result.kind === PRODUCT_KIND.SUBSCRIPTION) {
+  } else if (result.kind === PRODUCT_KIND.SUBSCRIPTION) {
     const storeTransactionId = String(result.store_transaction_id || '');
     if (!storeTransactionId) {
       return { applied: false, reason: 'missing_transaction_id' };
@@ -126,15 +130,28 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
       },
       opts,
     );
-    return {
+    applyOut = {
       applied: true,
       status: out.status,
       snapshot: out.snapshot,
       ledgerId: out.ledgerId,
     };
+  } else {
+    return { applied: false, reason: 'unknown_kind' };
   }
 
-  return { applied: false, reason: 'unknown_kind' };
+  // Play server-side consume / acknowledge after ledger success (incl. noop retry).
+  if (result.platform === 'android' && applyOut.applied) {
+    const finalize = await finalizePlayPurchaseSideEffects(
+      result,
+      opts.playFinalizeHelpers || null,
+    );
+    applyOut.play_finalize = finalize;
+    applyOut.acknowledged = !!finalize.acknowledged;
+    applyOut.consumed = !!finalize.consumed;
+  }
+
+  return applyOut;
 }
 
 module.exports = {

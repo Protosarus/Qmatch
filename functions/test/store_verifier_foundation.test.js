@@ -345,6 +345,7 @@ describe('store_verifier_foundation_v1', () => {
       const monthly = mapTrustedPlayPurchase({
         callerUid: 'u1',
         productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
+        purchaseToken: 'tok-monthly',
         kindHint: PRODUCT_KIND.SUBSCRIPTION,
         purchase: {
           productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
@@ -360,10 +361,12 @@ describe('store_verifier_foundation_v1', () => {
         monthly.mapping.canonical_product_key,
         CANONICAL_PRODUCT_KEYS.RESONANCE_MONTHLY,
       );
+      assert.ok(String(monthly.store_transaction_id).startsWith('token:'));
 
       const annual = mapTrustedPlayPurchase({
         callerUid: 'u1',
         productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
+        purchaseToken: 'tok-annual',
         kindHint: PRODUCT_KIND.SUBSCRIPTION,
         purchase: {
           basePlanId: 'annual',
@@ -380,6 +383,7 @@ describe('store_verifier_foundation_v1', () => {
       const unknown = mapTrustedPlayPurchase({
         callerUid: 'u1',
         productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
+        purchaseToken: 'tok-u',
         kindHint: PRODUCT_KIND.SUBSCRIPTION,
         purchase: {
           basePlanId: 'weekly',
@@ -392,6 +396,7 @@ describe('store_verifier_foundation_v1', () => {
       const mismatch = mapTrustedPlayPurchase({
         callerUid: 'u1',
         productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
+        purchaseToken: 'tok-m',
         kindHint: PRODUCT_KIND.SUBSCRIPTION,
         purchase: {
           basePlanId: 'monthly',
@@ -406,6 +411,7 @@ describe('store_verifier_foundation_v1', () => {
       const revoked = mapTrustedPlayPurchase({
         callerUid: 'u1',
         productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
+        purchaseToken: 'tok-r',
         kindHint: PRODUCT_KIND.SUBSCRIPTION,
         purchase: {
           basePlanId: 'monthly',
@@ -419,6 +425,7 @@ describe('store_verifier_foundation_v1', () => {
       const expired = mapTrustedPlayPurchase({
         callerUid: 'u1',
         productId: STORE_PRODUCT_IDS.PLAY_RESONANCE,
+        purchaseToken: 'tok-e',
         kindHint: PRODUCT_KIND.SUBSCRIPTION,
         purchase: {
           basePlanId: 'annual',
