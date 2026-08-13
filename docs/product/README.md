@@ -15,6 +15,11 @@ Ratified and draft product contracts (not live app behavior unless a linked engi
   - Optional: advanced filters · higher Like allowance
   - Consumables remain separate (no day-one allotments)
   - Quotas: `candidate_not_frozen`
+- Resonance Paywall & Tease UX v1 (**ratified, not live**): [qmatch_resonance_paywall_tease_ux_v1.md](./qmatch_resonance_paywall_tease_ux_v1.md)
+  - Status: `resonance_paywall_tease_ux_v1` · `product_ratified_not_live`
+  - Honest teasers; soft unlock sheets; one auto-show/feature/session + cooldown; analytics names frozen
+  - Prices / exact quotas unresolved
+
 ## Next packaging (not written yet)
 
-- `qmatch_resonance_paywall_tease_ux_v1.md` — Free teaser states + unlock sheets (no prices / no code)
+- `qmatch_resonance_entitlement_engineering_contract_v1.md` — entitlement flags / restore / receipt source-of-truth (no UI code)
