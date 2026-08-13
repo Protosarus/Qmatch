@@ -9,9 +9,16 @@ const path = require('path');
 const {
   AppStoreServerAPIClient,
   SignedDataVerifier,
+  Environment,
 } = require('@apple/app-store-server-library');
 
 const DEFAULT_ROOT_CA_DIR = path.join(__dirname, '..', 'certs', 'apple');
+
+/** Known StoreKit API hosts (for tests / diagnostics; not secrets). */
+const APPLE_STOREKIT_API_HOST = Object.freeze({
+  [Environment.SANDBOX]: 'https://api.storekit-sandbox.itunes.apple.com',
+  [Environment.PRODUCTION]: 'https://api.storekit.itunes.apple.com',
+});
 
 /**
  * Load Apple root CA DER buffers.
@@ -42,12 +49,29 @@ function loadAppleRootCertificates(opts = {}) {
 /**
  * @param {object} config from loadAppleIapConfig().config
  * @param {object} [opts]
- * @returns {{ apiClient: AppStoreServerAPIClient, signedDataVerifier: SignedDataVerifier }}
+ * @param {import('@apple/app-store-server-library').Environment} [opts.environment]
+ * @returns {{
+ *   apiClient: AppStoreServerAPIClient,
+ *   signedDataVerifier: SignedDataVerifier,
+ *   environment: import('@apple/app-store-server-library').Environment,
+ *   apiHost: string,
+ * }}
  */
 function createAppleIapClients(config, opts = {}) {
   if (!config) {
     throw new Error('apple_iap_config_required');
   }
+  const environment = opts.environment || config.environment;
+  if (!environment) {
+    throw new Error('apple_iap_environment_required');
+  }
+  if (
+    environment === Environment.PRODUCTION &&
+    !Number.isFinite(config.appAppleId)
+  ) {
+    throw new Error('apple_iap_app_apple_id_required_for_production');
+  }
+
   const rootCertificates =
     opts.rootCertificates || loadAppleRootCertificates(opts);
   if (!rootCertificates.length) {
@@ -59,22 +83,68 @@ function createAppleIapClients(config, opts = {}) {
     config.keyId,
     config.issuerId,
     config.bundleId,
-    config.environment,
+    environment,
   );
 
   const signedDataVerifier = new SignedDataVerifier(
     rootCertificates,
     config.enableOnlineChecks !== false,
-    config.environment,
+    environment,
     config.bundleId,
     config.appAppleId,
   );
 
-  return { apiClient, signedDataVerifier };
+  return {
+    apiClient,
+    signedDataVerifier,
+    environment,
+    apiHost: APPLE_STOREKIT_API_HOST[environment] || null,
+  };
+}
+
+/**
+ * Build separate Sandbox + Production clients/verifiers for ASSN dual verify.
+ * Production requires config.appAppleId.
+ *
+ * @param {object} config
+ * @param {object} [opts]
+ * @returns {{
+ *   ok: true,
+ *   sandbox: object,
+ *   production: object,
+ * }|{ ok: false, code: string, missing?: string[] }}
+ */
+function createDualAppleAssnClients(config, opts = {}) {
+  if (!config) {
+    return { ok: false, code: 'verification_not_configured' };
+  }
+  if (!Number.isFinite(config.appAppleId)) {
+    return {
+      ok: false,
+      code: 'verification_not_configured',
+      missing: ['APPLE_IAP_APP_APPLE_ID'],
+    };
+  }
+
+  try {
+    const sandbox = createAppleIapClients(config, {
+      ...opts,
+      environment: Environment.SANDBOX,
+    });
+    const production = createAppleIapClients(config, {
+      ...opts,
+      environment: Environment.PRODUCTION,
+    });
+    return { ok: true, sandbox, production };
+  } catch (_err) {
+    return { ok: false, code: 'verification_not_configured' };
+  }
 }
 
 module.exports = {
   DEFAULT_ROOT_CA_DIR,
+  APPLE_STOREKIT_API_HOST,
   loadAppleRootCertificates,
   createAppleIapClients,
+  createDualAppleAssnClients,
 };

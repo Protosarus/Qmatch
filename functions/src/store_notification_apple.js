@@ -3,13 +3,21 @@
  *
  * Verify signedPayload → dedupe notificationUUID → resolve uid →
  * re-fetch authoritative Apple state → apply entitlement (idempotent).
+ *
+ * Dual-environment: Sandbox and Production SignedDataVerifier instances are
+ * both tried. Only a cryptographically verified match selects the API client.
  */
 
 'use strict';
 
-const { NotificationTypeV2 } = require('@apple/app-store-server-library');
+const {
+  NotificationTypeV2,
+  Environment,
+} = require('@apple/app-store-server-library');
 const { loadAppleIapConfig } = require('./apple_iap_config');
-const { createAppleIapClients } = require('./apple_iap_clients');
+const {
+  createDualAppleAssnClients,
+} = require('./apple_iap_clients');
 const { verifyApplePurchase } = require('./store_verify_apple');
 const {
   applyTrustedVerificationResult,
@@ -67,44 +75,121 @@ function mapAssnTypeToLifecycleHint(notificationType) {
 }
 
 /**
- * @param {object} [opts]
+ * Try one SignedDataVerifier; never treat decode-without-verify as success.
+ * @param {object} signedDataVerifier
+ * @param {string} signedPayload
+ * @returns {Promise<{ ok: true, decoded: object }|{ ok: false }>}
  */
-function resolveAppleNotificationVerifier(opts = {}) {
-  if (typeof opts.verifyAndDecodeNotification === 'function') {
-    return {
-      ok: true,
-      verifyAndDecodeNotification: opts.verifyAndDecodeNotification,
-    };
-  }
-  if (opts.signedDataVerifier) {
-    return {
-      ok: true,
-      verifyAndDecodeNotification: (payload) =>
-        opts.signedDataVerifier.verifyAndDecodeNotification(payload),
-    };
-  }
-  const loaded = loadAppleIapConfig(opts.env || process.env);
-  if (!loaded.ok) {
+async function tryVerifyNotification(signedDataVerifier, signedPayload) {
+  if (
+    !signedDataVerifier ||
+    typeof signedDataVerifier.verifyAndDecodeNotification !== 'function'
+  ) {
     return { ok: false };
   }
   try {
-    const { signedDataVerifier } = createAppleIapClients(loaded.config, opts);
-    return {
-      ok: true,
-      verifyAndDecodeNotification: (payload) =>
-        signedDataVerifier.verifyAndDecodeNotification(payload),
-    };
+    const decoded = await signedDataVerifier.verifyAndDecodeNotification(
+      signedPayload,
+    );
+    if (!decoded) return { ok: false };
+    return { ok: true, decoded };
   } catch (_err) {
     return { ok: false };
   }
 }
 
 /**
+ * Verify ASSN signedPayload against Sandbox and Production verifiers.
+ * Environment is selected only from which verifier cryptographically accepts.
+ *
+ * @param {string} signedPayload
+ * @param {object} [opts]
+ * @returns {Promise<object>}
+ */
+async function verifyAssnSignedPayload(signedPayload, opts = {}) {
+  if (typeof opts.verifyAssnDual === 'function') {
+    return opts.verifyAssnDual(signedPayload);
+  }
+
+  // Legacy single injector (existing foundation tests).
+  if (typeof opts.verifyAndDecodeNotification === 'function') {
+    try {
+      const decoded = await opts.verifyAndDecodeNotification(signedPayload);
+      return {
+        ok: true,
+        decoded,
+        environment: opts.assnEnvironment || Environment.SANDBOX,
+        apiClient: opts.apiClient || null,
+        signedDataVerifier: opts.signedDataVerifier || null,
+        apiHost: opts.apiHost || null,
+      };
+    } catch (_err) {
+      return { ok: false, code: 'invalid_jws' };
+    }
+  }
+
+  let dual = opts.dualAppleClients || null;
+  if (!dual) {
+    const loaded = loadAppleIapConfig(opts.env || process.env);
+    if (!loaded.ok) {
+      return { ok: false, code: 'verification_not_configured' };
+    }
+    const built = createDualAppleAssnClients(loaded.config, opts);
+    if (!built.ok) {
+      return { ok: false, code: 'verification_not_configured' };
+    }
+    dual = built;
+  }
+
+  if (!dual.sandbox || !dual.production) {
+    return { ok: false, code: 'verification_not_configured' };
+  }
+
+  const sandboxTry = await tryVerifyNotification(
+    dual.sandbox.signedDataVerifier,
+    signedPayload,
+  );
+  const productionTry = await tryVerifyNotification(
+    dual.production.signedDataVerifier,
+    signedPayload,
+  );
+
+  if (sandboxTry.ok && !productionTry.ok) {
+    return {
+      ok: true,
+      decoded: sandboxTry.decoded,
+      environment: Environment.SANDBOX,
+      apiClient: dual.sandbox.apiClient,
+      signedDataVerifier: dual.sandbox.signedDataVerifier,
+      apiHost: dual.sandbox.apiHost || null,
+    };
+  }
+  if (productionTry.ok && !sandboxTry.ok) {
+    return {
+      ok: true,
+      decoded: productionTry.decoded,
+      environment: Environment.PRODUCTION,
+      apiClient: dual.production.apiClient,
+      signedDataVerifier: dual.production.signedDataVerifier,
+      apiHost: dual.production.apiHost || null,
+    };
+  }
+
+  // Both failed, or ambiguous both-succeeded (should not happen for real Apple JWS).
+  return { ok: false, code: 'invalid_jws' };
+}
+
+/**
  * Decode signedTransactionInfo from notification data when present.
  * @param {object} decodedNotification
  * @param {object} opts
+ * @param {object} [matched]
  */
-async function decodeNotificationTransaction(decodedNotification, opts) {
+async function decodeNotificationTransaction(
+  decodedNotification,
+  opts,
+  matched = null,
+) {
   const signed =
     decodedNotification &&
     decodedNotification.data &&
@@ -113,10 +198,11 @@ async function decodeNotificationTransaction(decodedNotification, opts) {
   if (typeof opts.verifySignedTransaction === 'function') {
     return opts.verifySignedTransaction(signed);
   }
-  if (opts.signedDataVerifier) {
-    return opts.signedDataVerifier.verifyAndDecodeTransaction(signed);
+  const verifier =
+    (matched && matched.signedDataVerifier) || opts.signedDataVerifier;
+  if (verifier && typeof verifier.verifyAndDecodeTransaction === 'function') {
+    return verifier.verifyAndDecodeTransaction(signed);
   }
-  // Fall through: verifyApplePurchase will fetch by transactionId if provided.
   return null;
 }
 
@@ -133,18 +219,15 @@ async function handleAppleAssnNotification(input, opts = {}) {
     return failClosed('invalid_argument', { platform: 'ios' });
   }
 
-  const verifier = resolveAppleNotificationVerifier(opts);
-  if (!verifier.ok) {
-    return failClosedNotConfigured('ios');
-  }
-
-  let decoded;
-  try {
-    decoded = await verifier.verifyAndDecodeNotification(input.signedPayload);
-  } catch (_err) {
+  const verified = await verifyAssnSignedPayload(input.signedPayload, opts);
+  if (!verified.ok) {
+    if (verified.code === 'verification_not_configured') {
+      return failClosedNotConfigured('ios');
+    }
     return failClosed('invalid_jws', { platform: 'ios', source: 'assn' });
   }
 
+  const decoded = verified.decoded;
   if (!decoded || !decoded.notificationUUID) {
     return failClosed('invalid_argument', {
       platform: 'ios',
@@ -155,6 +238,7 @@ async function handleAppleAssnNotification(input, opts = {}) {
   const notificationType = decoded.notificationType;
   const notificationUUID = String(decoded.notificationUUID);
   const lifecycleHint = mapAssnTypeToLifecycleHint(notificationType);
+  const appleEnvironment = verified.environment;
 
   if (notificationType === NotificationTypeV2.TEST) {
     return {
@@ -166,6 +250,8 @@ async function handleAppleAssnNotification(input, opts = {}) {
       processed: false,
       notification_uuid: notificationUUID,
       platform: 'ios',
+      apple_environment: appleEnvironment,
+      api_host: verified.apiHost || null,
     };
   }
 
@@ -180,10 +266,12 @@ async function handleAppleAssnNotification(input, opts = {}) {
       notification_type: notificationType,
       notification_uuid: notificationUUID,
       platform: 'ios',
+      apple_environment: appleEnvironment,
+      api_host: verified.apiHost || null,
     };
   }
 
-  let txHint = await decodeNotificationTransaction(decoded, opts);
+  let txHint = await decodeNotificationTransaction(decoded, opts, verified);
   const transactionId =
     (txHint && (txHint.transactionId || txHint.transaction_id)) ||
     (decoded.data && decoded.data.transactionId) ||
@@ -201,7 +289,6 @@ async function handleAppleAssnNotification(input, opts = {}) {
     });
   }
 
-  // Product allowlist check on notification-decoded product when available.
   if (txHint && (txHint.productId || txHint.product_id)) {
     const mapped = mapAppleProduct(txHint.productId || txHint.product_id);
     if (!mapped.ok) {
@@ -212,7 +299,6 @@ async function handleAppleAssnNotification(input, opts = {}) {
     }
   }
 
-  // Resolve uid: prefer appAccountToken, else purchase index.
   let uid =
     (txHint && (txHint.appAccountToken || txHint.app_account_token)) || null;
   if (!uid && originalTransactionId) {
@@ -229,7 +315,12 @@ async function handleAppleAssnNotification(input, opts = {}) {
     });
   }
 
-  // Authoritative re-fetch — never mutate from notification fields alone.
+  // Authoritative re-fetch with the environment-matched API client only.
+  // Test injectors (fetchTransactionInfo / verifySignedTransaction) take
+  // precedence so matched clients do not shadow them in resolveAppleHelpers.
+  const useInjectedFetch =
+    typeof opts.fetchTransactionInfo === 'function' ||
+    typeof opts.verifySignedTransaction === 'function';
   const verifyResult = await verifyApplePurchase(
     {
       callerUid: String(uid),
@@ -244,30 +335,34 @@ async function handleAppleAssnNotification(input, opts = {}) {
       credentials: (opts.apple && opts.apple.credentials) || {
         configured: true,
       },
-      verifySignedTransaction: opts.verifySignedTransaction,
-      fetchTransactionInfo: opts.fetchTransactionInfo,
-      fetchSubscriptionStatuses: opts.fetchSubscriptionStatuses,
-      apiClient: opts.apiClient,
-      signedDataVerifier: opts.signedDataVerifier,
+      ...(useInjectedFetch
+        ? {
+            verifySignedTransaction: opts.verifySignedTransaction,
+            fetchTransactionInfo: opts.fetchTransactionInfo,
+            fetchSubscriptionStatuses: opts.fetchSubscriptionStatuses,
+          }
+        : {
+            apiClient: verified.apiClient || opts.apiClient,
+            signedDataVerifier:
+              verified.signedDataVerifier || opts.signedDataVerifier,
+          }),
       env: opts.env,
-      requireBinding: false, // uid already resolved via token/index
+      requireBinding: false,
     },
   );
 
   if (!isTrustedVerified(verifyResult)) {
-    // API failure / invalid product after re-fetch → fail closed
     return {
       ...verifyResult,
       notification_uuid: notificationUUID,
       notification_type: notificationType,
       lifecycle_hint: lifecycleHint,
+      apple_environment: appleEnvironment,
+      api_host: verified.apiHost || null,
       source: 'assn',
     };
   }
 
-  // Force revoke semantics when ASSN says REFUND/REVOKE and re-fetch still
-  // returned access (edge race): prefer store revoke signal only if re-fetch
-  // already denies OR status is revoked. Otherwise trust re-fetch.
   if (
     lifecycleHint === 'revoke' &&
     verifyResult.resonance_access === true &&
@@ -308,6 +403,8 @@ async function handleAppleAssnNotification(input, opts = {}) {
     notification_uuid: notificationUUID,
     notification_type: notificationType,
     lifecycle_hint: lifecycleHint,
+    apple_environment: appleEnvironment,
+    api_host: verified.apiHost || null,
     repository_applied: !!applyOut.applied,
     apply_status: applyOut.status || null,
     resonance_access: !!(
@@ -321,5 +418,7 @@ async function handleAppleAssnNotification(input, opts = {}) {
 module.exports = {
   HANDLED_TYPES,
   mapAssnTypeToLifecycleHint,
+  tryVerifyNotification,
+  verifyAssnSignedPayload,
   handleAppleAssnNotification,
 };

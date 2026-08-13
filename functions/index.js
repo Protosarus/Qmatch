@@ -184,5 +184,9 @@ exports.finalizePlayPurchaseSideEffects =
   require('./src/store_verify_play').finalizePlayPurchaseSideEffects;
 exports.handleAppleAssnNotification =
   require('./src/store_notification_apple').handleAppleAssnNotification;
+exports.verifyAssnSignedPayload =
+  require('./src/store_notification_apple').verifyAssnSignedPayload;
+exports.createDualAppleAssnClients =
+  require('./src/apple_iap_clients').createDualAppleAssnClients;
 exports.handlePlayRtdnNotification =
   require('./src/store_notification_play').handlePlayRtdnNotification;
