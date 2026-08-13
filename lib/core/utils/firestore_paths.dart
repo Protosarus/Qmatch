@@ -88,6 +88,13 @@ class FirestorePaths {
   ) =>
       userProfiles(uid).doc('canonical_v1');
 
+  /// Trusted Resonance entitlement snapshot: `entitlements/{uid}` (owner read only).
+  static CollectionReference<Map<String, dynamic>> entitlements() =>
+      _db.collection('entitlements');
+
+  static DocumentReference<Map<String, dynamic>> entitlementDoc(String uid) =>
+      entitlements().doc(uid);
+
   // matches/{matchId}
   static DocumentReference<Map<String, dynamic>> matchDoc(String matchId) =>
       matches().doc(matchId);

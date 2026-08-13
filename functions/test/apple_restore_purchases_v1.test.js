@@ -1,5 +1,7 @@
 'use strict';
 
+const { appleAppAccountTokenFromUid } = require('../src/apple_app_account_token');
+
 const assert = require('assert');
 const { Status } = require('@apple/app-store-server-library');
 const {
@@ -27,14 +29,14 @@ function appleRestoreDeps(db, overrides = {}) {
         productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
         transactionId: 'txn-restore-1',
         originalTransactionId: 'orig-restore-1',
-        appAccountToken: 'uid-restore',
+        appAccountToken: appleAppAccountTokenFromUid('uid-restore'),
         expiresDate: Date.now() + 86400000,
       }),
       fetchTransactionInfo: async () => ({
         productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
         transactionId: 'txn-restore-1',
         originalTransactionId: 'orig-restore-1',
-        appAccountToken: 'uid-restore',
+        appAccountToken: appleAppAccountTokenFromUid('uid-restore'),
         expiresDate: Date.now() + 86400000,
       }),
       fetchSubscriptionStatuses: async () => ({
@@ -181,13 +183,13 @@ describe('apple_restore_purchases_v1', () => {
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-restore-1',
             originalTransactionId: 'orig-restore-1',
-            appAccountToken: 'other-uid',
+            appAccountToken: appleAppAccountTokenFromUid('other-uid'),
           }),
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-restore-1',
             originalTransactionId: 'orig-restore-1',
-            appAccountToken: 'other-uid',
+            appAccountToken: appleAppAccountTokenFromUid('other-uid'),
             expiresDate: Date.now() + 86400000,
           }),
           fetchSubscriptionStatuses: async () => ({
@@ -218,13 +220,13 @@ describe('apple_restore_purchases_v1', () => {
             productId: 'qmatch.orbit.monthly',
             transactionId: 'txn-bad',
             originalTransactionId: 'orig-bad',
-            appAccountToken: 'uid-restore',
+            appAccountToken: appleAppAccountTokenFromUid('uid-restore'),
           }),
           fetchTransactionInfo: async () => ({
             productId: 'qmatch.orbit.monthly',
             transactionId: 'txn-bad',
             originalTransactionId: 'orig-bad',
-            appAccountToken: 'uid-restore',
+            appAccountToken: appleAppAccountTokenFromUid('uid-restore'),
           }),
           fetchSubscriptionStatuses: async () => ({ data: [] }),
         },
@@ -252,13 +254,13 @@ describe('apple_restore_purchases_v1', () => {
             productId: STORE_PRODUCT_IDS.BOOST_X1,
             transactionId: 'txn-boost-1',
             originalTransactionId: 'txn-boost-1',
-            appAccountToken: 'uid-restore',
+            appAccountToken: appleAppAccountTokenFromUid('uid-restore'),
           }),
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.BOOST_X1,
             transactionId: 'txn-boost-1',
             originalTransactionId: 'txn-boost-1',
-            appAccountToken: 'uid-restore',
+            appAccountToken: appleAppAccountTokenFromUid('uid-restore'),
           }),
         },
       }),

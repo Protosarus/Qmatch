@@ -1,5 +1,7 @@
 'use strict';
 
+const { appleAppAccountTokenFromUid } = require('../src/apple_app_account_token');
+
 const assert = require('assert');
 const { NotificationTypeV2, Status } = require('@apple/app-store-server-library');
 const {
@@ -40,13 +42,13 @@ function appleAssnOpts(db, overrides = {}) {
       productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
       transactionId: 'txn-100',
       originalTransactionId: 'orig-100',
-      appAccountToken: 'uid-assn',
+      appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
     }),
     fetchTransactionInfo: async () => ({
       productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
       transactionId: 'txn-100',
       originalTransactionId: 'orig-100',
-      appAccountToken: 'uid-assn',
+      appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
       expiresDate: Date.now() + 86400000,
     }),
     fetchSubscriptionStatuses: async () => ({
@@ -152,13 +154,13 @@ describe('store_notification_foundation_v1', () => {
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-exp',
             originalTransactionId: 'orig-exp',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
           }),
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-exp',
             originalTransactionId: 'orig-exp',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
             expiresDate: Date.now() - 1000,
           }),
           fetchSubscriptionStatuses: async () => ({
@@ -175,6 +177,14 @@ describe('store_notification_foundation_v1', () => {
 
     it('revoke/refund denies access', async () => {
       const db = new MemoryFirestore();
+      await upsertPurchaseIndex(
+        {
+          indexId: appleOriginalIndexId('orig-rev'),
+          uid: 'uid-assn',
+          platform: 'ios',
+        },
+        { db },
+      );
       const r = await handleAppleAssnNotification(
         { signedPayload: 'x' },
         appleAssnOpts(db, {
@@ -187,13 +197,13 @@ describe('store_notification_foundation_v1', () => {
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_ANNUAL,
             transactionId: 'txn-rev',
             originalTransactionId: 'orig-rev',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
           }),
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_ANNUAL,
             transactionId: 'txn-rev',
             originalTransactionId: 'orig-rev',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
             revocationDate: Date.now(),
           }),
           fetchSubscriptionStatuses: async () => ({
@@ -206,6 +216,14 @@ describe('store_notification_foundation_v1', () => {
 
     it('billing/grace maps from re-fetched status', async () => {
       const db = new MemoryFirestore();
+      await upsertPurchaseIndex(
+        {
+          indexId: appleOriginalIndexId('orig-g'),
+          uid: 'uid-assn',
+          platform: 'ios',
+        },
+        { db },
+      );
       const r = await handleAppleAssnNotification(
         { signedPayload: 'x' },
         appleAssnOpts(db, {
@@ -218,13 +236,13 @@ describe('store_notification_foundation_v1', () => {
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-g',
             originalTransactionId: 'orig-g',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
           }),
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-g',
             originalTransactionId: 'orig-g',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
           }),
           fetchSubscriptionStatuses: async () => ({
             data: [
@@ -263,7 +281,7 @@ describe('store_notification_foundation_v1', () => {
             productId: 'qmatch.orbit.monthly',
             transactionId: 't',
             originalTransactionId: 'o',
-            appAccountToken: 'uid-assn',
+            appAccountToken: appleAppAccountTokenFromUid('uid-assn'),
           }),
         }),
       );
@@ -272,6 +290,14 @@ describe('store_notification_foundation_v1', () => {
 
     it('API failure fails closed', async () => {
       const db = new MemoryFirestore();
+      await upsertPurchaseIndex(
+        {
+          indexId: appleOriginalIndexId('orig-100'),
+          uid: 'uid-assn',
+          platform: 'ios',
+        },
+        { db },
+      );
       const r = await handleAppleAssnNotification(
         { signedPayload: 'x' },
         appleAssnOpts(db, {

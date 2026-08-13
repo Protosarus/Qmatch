@@ -1,5 +1,7 @@
 'use strict';
 
+const { appleAppAccountTokenFromUid } = require('../src/apple_app_account_token');
+
 const assert = require('assert');
 const {
   mapAppleProduct,
@@ -179,13 +181,34 @@ describe('store_verifier_foundation_v1', () => {
   });
 
   describe('uid binding', () => {
-    it('accepts matching uid', () => {
+    it('accepts matching raw uid (Play mode)', () => {
       assert.strictEqual(
         validateUidBinding({
           callerUid: 'user-1',
           storeAccountToken: 'user-1',
         }).ok,
         true,
+      );
+    });
+
+    it('accepts Apple UUID derived from uid', () => {
+      const token = appleAppAccountTokenFromUid('user-1');
+      assert.strictEqual(
+        validateUidBinding({
+          callerUid: 'user-1',
+          storeAccountToken: token,
+          bindingMode: 'apple',
+        }).ok,
+        true,
+      );
+      // Raw Firebase uid must not pass as Apple appAccountToken.
+      assert.strictEqual(
+        validateUidBinding({
+          callerUid: 'user-1',
+          storeAccountToken: 'user-1',
+          bindingMode: 'apple',
+        }).ok,
+        false,
       );
     });
 
@@ -204,6 +227,14 @@ describe('store_verifier_foundation_v1', () => {
         }).code,
         'uid_binding_mismatch',
       );
+      assert.strictEqual(
+        validateUidBinding({
+          callerUid: 'user-1',
+          storeAccountToken: appleAppAccountTokenFromUid('user-2'),
+          bindingMode: 'apple',
+        }).ok,
+        false,
+      );
     });
 
     it('rejects missing binding when required', () => {
@@ -214,6 +245,20 @@ describe('store_verifier_foundation_v1', () => {
           requireBinding: true,
         }).ok,
         false,
+      );
+    });
+
+    it('never trusts a client-supplied expected token override', () => {
+      // validateUidBinding has no client expectedToken input — expected is
+      // derived only from callerUid + bindingMode.
+      const forged = appleAppAccountTokenFromUid('attacker');
+      assert.strictEqual(
+        validateUidBinding({
+          callerUid: 'user-1',
+          storeAccountToken: forged,
+          bindingMode: 'apple',
+        }).code,
+        'uid_binding_mismatch',
       );
     });
   });
@@ -238,7 +283,7 @@ describe('store_verifier_foundation_v1', () => {
           status: 'active',
           transactionId: 'txn-a',
           originalTransactionId: 'orig-a',
-          appAccountToken: 'u1',
+          appAccountToken: appleAppAccountTokenFromUid('u1'),
         },
       });
       assert.strictEqual(isTrustedVerified(r), true);
@@ -255,7 +300,7 @@ describe('store_verifier_foundation_v1', () => {
         transaction: {
           productId: 'qmatch.plus.monthly',
           status: 'active',
-          appAccountToken: 'u1',
+          appAccountToken: appleAppAccountTokenFromUid('u1'),
         },
       });
       assert.strictEqual(unknown.code, 'product_not_allowed');
@@ -266,7 +311,7 @@ describe('store_verifier_foundation_v1', () => {
         transaction: {
           productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
           status: 'active',
-          appAccountToken: 'other',
+          appAccountToken: appleAppAccountTokenFromUid('other'),
         },
       });
       assert.strictEqual(mismatch.code, 'uid_binding_mismatch');
@@ -278,7 +323,7 @@ describe('store_verifier_foundation_v1', () => {
         transaction: {
           productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
           status: 'expired',
-          appAccountToken: 'u1',
+          appAccountToken: appleAppAccountTokenFromUid('u1'),
         },
       });
       assert.strictEqual(isTrustedVerified(expired), true);
@@ -290,7 +335,7 @@ describe('store_verifier_foundation_v1', () => {
         transaction: {
           productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
           status: 'revoked',
-          appAccountToken: 'u1',
+          appAccountToken: appleAppAccountTokenFromUid('u1'),
         },
       });
       assert.strictEqual(revoked.resonance_access, false);
@@ -303,7 +348,7 @@ describe('store_verifier_foundation_v1', () => {
         transaction: {
           productId: STORE_PRODUCT_IDS.BOOST_X1,
           transactionId: 'c1',
-          appAccountToken: 'u1',
+          appAccountToken: appleAppAccountTokenFromUid('u1'),
         },
       });
       assert.strictEqual(isTrustedVerified(r), true);
@@ -320,7 +365,7 @@ describe('store_verifier_foundation_v1', () => {
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.SUPER_RESONANCE_X1,
             transactionId: 't9',
-            appAccountToken: 'u1',
+            appAccountToken: appleAppAccountTokenFromUid('u1'),
           }),
         },
       );
@@ -508,7 +553,7 @@ describe('store_verifier_foundation_v1', () => {
         transaction: {
           productId: STORE_PRODUCT_IDS.SUPER_RESONANCE_X1,
           transactionId: 'sr1',
-          appAccountToken: 'u1',
+          appAccountToken: appleAppAccountTokenFromUid('u1'),
         },
       });
       assert.strictEqual(isTrustedVerified(trusted), true);

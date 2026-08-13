@@ -1,5 +1,7 @@
 'use strict';
 
+const { appleAppAccountTokenFromUid } = require('../src/apple_app_account_token');
+
 const assert = require('assert');
 const { Status } = require('@apple/app-store-server-library');
 const { loadAppleIapConfig } = require('../src/apple_iap_config');
@@ -70,7 +72,7 @@ describe('apple_app_store_verification_v1', () => {
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 'txn-sub-1',
             originalTransactionId: 'orig-1',
-            appAccountToken: 'uid-1',
+            appAccountToken: appleAppAccountTokenFromUid('uid-1'),
             expiresDate: Date.now() + 86400000,
           }),
           fetchSubscriptionStatuses: async () => ({
@@ -108,12 +110,12 @@ describe('apple_app_store_verification_v1', () => {
           verifySignedTransaction: async () => ({
             productId: STORE_PRODUCT_IDS.SUPER_RESONANCE_X1,
             transactionId: 'txn-c-1',
-            appAccountToken: 'uid-1',
+            appAccountToken: appleAppAccountTokenFromUid('uid-1'),
           }),
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.SUPER_RESONANCE_X1,
             transactionId: 'txn-c-1',
-            appAccountToken: 'uid-1',
+            appAccountToken: appleAppAccountTokenFromUid('uid-1'),
           }),
         }),
       );
@@ -130,7 +132,7 @@ describe('apple_app_store_verification_v1', () => {
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_ANNUAL,
             transactionId: 'txn-1',
-            appAccountToken: 'other-uid',
+            appAccountToken: appleAppAccountTokenFromUid('other-uid'),
             status: 'active',
           }),
         }),
@@ -146,7 +148,7 @@ describe('apple_app_store_verification_v1', () => {
           fetchTransactionInfo: async () => ({
             productId: 'qmatch.orbit.monthly',
             transactionId: 'txn-1',
-            appAccountToken: 'uid-1',
+            appAccountToken: appleAppAccountTokenFromUid('uid-1'),
           }),
         }),
       );
@@ -160,7 +162,7 @@ describe('apple_app_store_verification_v1', () => {
         transaction: {
           productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
           transactionId: 't-r',
-          appAccountToken: 'uid-1',
+          appAccountToken: appleAppAccountTokenFromUid('uid-1'),
           revocationDate: Date.now(),
         },
         subscriptionStatus: Status.REVOKED,
@@ -175,7 +177,7 @@ describe('apple_app_store_verification_v1', () => {
           fetchTransactionInfo: async () => ({
             productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
             transactionId: 't-e',
-            appAccountToken: 'uid-1',
+            appAccountToken: appleAppAccountTokenFromUid('uid-1'),
             expiresDate: Date.now() - 1000,
           }),
           fetchSubscriptionStatuses: async () => ({
@@ -241,7 +243,7 @@ describe('apple_app_store_verification_v1', () => {
           productId: STORE_PRODUCT_IDS.IOS_RESONANCE_ANNUAL,
           transactionId: 'dup-1',
           originalTransactionId: 'orig-dup',
-          appAccountToken: 'uid-1',
+          appAccountToken: appleAppAccountTokenFromUid('uid-1'),
           expiresDate: Date.now() + 86400000,
         }),
         fetchSubscriptionStatuses: async () => ({
@@ -286,7 +288,7 @@ describe('apple_app_store_verification_v1', () => {
         fetchTransactionInfo: async () => ({
           productId: STORE_PRODUCT_IDS.BOOST_X1,
           transactionId: 'boost-1',
-          appAccountToken: 'uid-2',
+          appAccountToken: appleAppAccountTokenFromUid('uid-2'),
         }),
       });
 
@@ -344,7 +346,7 @@ describe('apple_app_store_verification_v1', () => {
         fetchTransactionInfo: async () => ({
           productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
           transactionId: 'exp-1',
-          appAccountToken: 'uid-4',
+          appAccountToken: appleAppAccountTokenFromUid('uid-4'),
           expiresDate: Date.now() - 1000,
         }),
         fetchSubscriptionStatuses: async () => ({

@@ -149,6 +149,7 @@ function mapTrustedAppleTransaction({
     storeAccountToken:
       transaction.appAccountToken || transaction.app_account_token,
     requireBinding,
+    bindingMode: 'apple',
   });
   if (!binding.ok) {
     return failClosed(binding.code, { platform: 'ios' });

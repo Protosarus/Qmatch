@@ -299,9 +299,10 @@ async function handleAppleAssnNotification(input, opts = {}) {
     }
   }
 
-  let uid =
-    (txHint && (txHint.appAccountToken || txHint.app_account_token)) || null;
-  if (!uid && originalTransactionId) {
+  // appAccountToken is a deterministic UUID derived from uid — never the uid.
+  // ASSN resolves uid only via trusted purchase index (fail closed otherwise).
+  let uid = null;
+  if (originalTransactionId) {
     const indexed = await lookupPurchaseIndex(
       appleOriginalIndexId(String(originalTransactionId)),
       { db: opts.db },

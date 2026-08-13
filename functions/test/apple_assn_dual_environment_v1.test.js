@@ -1,5 +1,7 @@
 'use strict';
 
+const { appleAppAccountTokenFromUid } = require('../src/apple_app_account_token');
+
 const assert = require('assert');
 const {
   Environment,
@@ -17,6 +19,10 @@ const {
   createDualAppleAssnClients,
 } = require('../src/apple_iap_clients');
 const { STORE_PRODUCT_IDS } = require('../src/entitlement_schema');
+const {
+  upsertPurchaseIndex,
+  appleOriginalIndexId,
+} = require('../src/store_purchase_index');
 const { MemoryFirestore } = require('./memory_firestore');
 
 function fakeDecoded(envLabel) {
@@ -171,10 +177,20 @@ describe('apple_assn_dual_environment_v1', () => {
       APPLE_STOREKIT_API_HOST[Environment.PRODUCTION],
     );
 
+    const db = new MemoryFirestore();
+    await upsertPurchaseIndex(
+      {
+        indexId: appleOriginalIndexId('orig-prod'),
+        uid: 'uid-prod',
+        platform: 'ios',
+      },
+      { db },
+    );
+
     const r = await handleAppleAssnNotification(
       { signedPayload: 'signed.production' },
       {
-        db: new MemoryFirestore(),
+        db,
         // No fetch injectors — re-fetch must use matched Production apiClient.
         verifyAssnDual: async () => ({
           ok: true,
@@ -199,7 +215,7 @@ describe('apple_assn_dual_environment_v1', () => {
               productId: STORE_PRODUCT_IDS.IOS_RESONANCE_MONTHLY,
               transactionId: 'txn-prod',
               originalTransactionId: 'orig-prod',
-              appAccountToken: 'uid-prod',
+              appAccountToken: appleAppAccountTokenFromUid('uid-prod'),
               expiresDate: Date.now() + 86400000,
             }),
           },
