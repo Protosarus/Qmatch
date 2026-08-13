@@ -19,7 +19,11 @@ Ratified and draft product contracts (not live app behavior unless a linked engi
   - Status: `resonance_paywall_tease_ux_v1` · `product_ratified_not_live`
   - Honest teasers; soft unlock sheets; one auto-show/feature/session + cooldown; analytics names frozen
   - Prices / exact quotas unresolved
+- Resonance Entitlement Engineering Contract v1 (**ratified, not live**): [qmatch_resonance_entitlement_engineering_contract_v1.md](./qmatch_resonance_entitlement_engineering_contract_v1.md)
+  - Status: `resonance_entitlement_engineering_contract_v1` · `engineering_ratified_not_live`
+  - Store+backend SoT; no client self-grant; subscription ≠ consumable ledgers
+  - Cache TTL / product IDs / grace mapping / cross-platform linking unresolved
 
 ## Next packaging (not written yet)
 
-- `qmatch_resonance_entitlement_engineering_contract_v1.md` — entitlement flags / restore / receipt source-of-truth (no UI code)
+- `qmatch_resonance_store_product_catalog_draft_v1.md` — placeholder product id patterns + store checklist (no prices locked / no code)
