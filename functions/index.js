@@ -115,8 +115,8 @@ exports.verifyAndApplyPurchase = onCall(
 );
 
 /**
- * Entitlement restore scaffold. Same not-configured contract as verify.
- * Secrets: Apple + Play (both platforms).
+ * Entitlement restore — Apple iOS restore path.
+ * Secrets: Apple + Play bound; Android restore remains fail-closed.
  */
 exports.restorePurchases = onCall(
   { region: 'us-central1', secrets: [...STORE_IAP_SECRETS] },

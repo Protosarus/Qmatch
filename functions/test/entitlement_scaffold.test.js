@@ -220,10 +220,10 @@ describe('resonance_entitlement_backend_scaffold_v1', () => {
       assert.strictEqual(result.balances_changed, false);
     });
 
-    it('restorePurchases returns verification_not_configured', async () => {
+    it('restorePurchases without ios platform returns verification_not_configured', async () => {
       const result = await handleRestorePurchases({
         auth: { uid: 'u1' },
-        data: { transactions: [{ id: 'x' }] },
+        data: { transactions: [{ transactionId: 'x' }] },
       });
       assert.strictEqual(result.code, VERIFICATION_NOT_CONFIGURED);
       assert.strictEqual(result.granted, false);

@@ -56,6 +56,33 @@ function subscriptionEventTypeForState(state) {
 }
 
 /**
+ * Prefer restore-specific ledger event types when verification_source=restore.
+ * @param {Record<string, unknown>} result
+ * @returns {string}
+ */
+function subscriptionEventTypeForResult(result) {
+  const state = result.subscription_state || 'none';
+  if (
+    result.verification_source === 'restore' &&
+    (state === 'active' || state === 'grace' || state === 'billing_retry')
+  ) {
+    return EVENT_TYPES.SUBSCRIPTION_RESTORE;
+  }
+  return subscriptionEventTypeForState(state);
+}
+
+/**
+ * @param {Record<string, unknown>} result
+ * @returns {string}
+ */
+function consumableEventTypeForResult(result) {
+  if (result.verification_source === 'restore') {
+    return EVENT_TYPES.CONSUMABLE_RESTORE_CREDIT;
+  }
+  return EVENT_TYPES.CONSUMABLE_PURCHASE;
+}
+
+/**
  * @param {string} uid
  * @param {Record<string, unknown>} result trusted verification result
  * @param {{ db?: FirebaseFirestore.Firestore, playFinalizeHelpers?: object }} [opts]
@@ -82,7 +109,7 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
         storeTransactionId: String(result.store_transaction_id),
         canonicalProductKey: result.mapping.canonical_product_key,
         productId: result.mapping.product_id,
-        eventType: EVENT_TYPES.CONSUMABLE_PURCHASE,
+        eventType: consumableEventTypeForResult(result),
         verificationSource: result.verification_source || 'app_store',
       },
       opts,
@@ -114,7 +141,7 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
           CANONICAL_PRODUCT_KEYS.RESONANCE_MONTHLY,
         productId: result.mapping && result.mapping.product_id,
         basePlanId: (result.mapping && result.mapping.base_plan_id) || null,
-        eventType: subscriptionEventTypeForState(state),
+        eventType: subscriptionEventTypeForResult(result),
         effect: subscriptionEffectForState(state),
         subscriptionPatch: {
           tier: result.tier,
@@ -174,4 +201,6 @@ module.exports = {
   applyTrustedVerificationResult,
   subscriptionEffectForState,
   subscriptionEventTypeForState,
+  subscriptionEventTypeForResult,
+  consumableEventTypeForResult,
 };
