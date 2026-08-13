@@ -28,7 +28,15 @@ const RELEVANT_KEYS = Object.freeze([
 ]);
 
 /**
- * Photo rule consistent with ProfileService / MatchLiveUserValidityGate.
+ * Photo rule consistent with MatchLiveUserValidityGate / profile writes.
+ *
+ * hasPhoto when either:
+ * - non-empty trimmed `profile_photo_url` (legacy photo-only profiles), or
+ * - `photos` list contains a non-empty trimmed string URL
+ *
+ * Empty string / whitespace-only URL does **not** count (client clears stale
+ * primary to `''` when all photos are removed).
+ *
  * @param {Record<string, unknown>|null|undefined} data
  * @returns {boolean}
  */

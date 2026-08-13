@@ -179,4 +179,72 @@ describe('trusted_discover_eligibility_authority_v1', () => {
     assert.strictEqual(plan.derived, true);
     assert.strictEqual(plan.shouldWrite, true);
   });
+
+  it('legacy valid photo-only profile (no photos list) stays eligible', () => {
+    assert.strictEqual(
+      hasValidPhoto({
+        profile_photo_url: 'https://example.com/legacy.jpg',
+        photos: [],
+      }),
+      true,
+    );
+    assert.strictEqual(
+      deriveDiscoverEligible(
+        validBase({
+          profile_photo_url: 'https://example.com/legacy.jpg',
+          photos: [],
+          discover_eligible: true,
+        }),
+      ),
+      true,
+    );
+  });
+
+  it('empty photos + cleared primary URL revokes eligibility', () => {
+    const before = validBase({
+      discover_eligible: true,
+      photos: ['https://example.com/a.jpg'],
+      profile_photo_url: 'https://example.com/a.jpg',
+    });
+    const after = validBase({
+      discover_eligible: true,
+      photos: [],
+      profile_photo_url: '',
+    });
+    assert.strictEqual(hasValidPhoto(after), false);
+    const plan = planDiscoverEligibleWrite(before, after);
+    assert.strictEqual(plan.derived, false);
+    assert.strictEqual(plan.shouldWrite, true);
+  });
+
+  it('empty photos + stale primary URL still counts as hasPhoto (until cleared)', () => {
+    // Client must clear primary; CF does not invent deletes.
+    assert.strictEqual(
+      hasValidPhoto({
+        photos: [],
+        profile_photo_url: 'https://example.com/stale.jpg',
+      }),
+      true,
+    );
+  });
+
+  it('removing one of multiple photos keeps hasPhoto', () => {
+    assert.strictEqual(
+      hasValidPhoto({
+        photos: ['https://example.com/b.jpg'],
+        profile_photo_url: 'https://example.com/b.jpg',
+      }),
+      true,
+    );
+    assert.strictEqual(
+      deriveDiscoverEligible(
+        validBase({
+          photos: ['https://example.com/b.jpg'],
+          profile_photo_url: 'https://example.com/b.jpg',
+          discover_eligible: true,
+        }),
+      ),
+      true,
+    );
+  });
 });

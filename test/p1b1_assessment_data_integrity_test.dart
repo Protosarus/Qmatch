@@ -27,7 +27,9 @@ void main() {
       expect(map.containsKey('archetype'), isFalse);
       expect(map.containsKey('category'), isFalse);
       expect(map.containsKey('location'), isFalse);
-      expect(map.containsKey('profile_photo_url'), isFalse);
+      // Empty photos + no primary → explicit clear string for merge revoke.
+      expect(map['profile_photo_url'], '');
+      expect(map['photos'], isEmpty);
       expect(map['name'], 'Ada');
       expect(map['profile_completed'], isFalse);
       expect(map['verified'], isFalse);

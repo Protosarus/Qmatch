@@ -68,11 +68,45 @@ class UserProfileModel {
     this.completedAt,
   });
 
+  /// Non-empty trimmed photo URLs in [photos].
+  static List<String> nonEmptyPhotoUrls(List<String> photos) {
+    return [
+      for (final p in photos)
+        if (p.trim().isNotEmpty) p.trim(),
+    ];
+  }
+
+  /// Primary photo field for Firestore merge writes.
+  ///
+  /// - Prefer non-empty [photos] (primary = [profilePhotoUrl] if still in list,
+  ///   else first photo).
+  /// - Else keep a non-empty [profilePhotoUrl] (legacy photo-only profiles).
+  /// - Else write `''` so merge clears a stale primary URL when all photos
+  ///   were removed (`photo_removal_eligibility_revoke_v1`).
+  static String profilePhotoUrlForWrite({
+    required List<String> photos,
+    required String? profilePhotoUrl,
+  }) {
+    final validPhotos = nonEmptyPhotoUrls(photos);
+    final primary = profilePhotoUrl?.trim() ?? '';
+    if (validPhotos.isNotEmpty) {
+      if (primary.isNotEmpty && validPhotos.contains(primary)) {
+        return primary;
+      }
+      return validPhotos.first;
+    }
+    if (primary.isNotEmpty) return primary;
+    return '';
+  }
+
   /// Profile setup / edit payload for `users/{uid}`.
   ///
   /// P1B-1: optional nulls are **omitted** so merge writes cannot erase
   /// assessment-derived fields (`archetype`, `category`, persona mirrors, etc.).
   /// Explicit `false` / `0` values are still written.
+  ///
+  /// Photo fields are always written: empty [photos] + null/empty primary
+  /// clears `profile_photo_url` to `''` so Discover eligibility can revoke.
   Map<String, dynamic> toFirestore() {
     // P2C-1C-4A: never merge-write an empty `name` (would erase the
     // canonical display name collected by DisplayNameService).
@@ -97,7 +131,10 @@ class UserProfileModel {
       'age_range': ageRange,
       'distance_preference': distancePreference,
       'photos': photos,
-      if (profilePhotoUrl != null) 'profile_photo_url': profilePhotoUrl,
+      'profile_photo_url': profilePhotoUrlForWrite(
+        photos: photos,
+        profilePhotoUrl: profilePhotoUrl,
+      ),
       // Assessment-derived legacy mirrors: never write null (omit instead).
       if (archetype != null) 'archetype': archetype,
       if (category != null) 'category': category,
@@ -143,6 +180,8 @@ class UserProfileModel {
     return GeoPoint(position.latitude, position.longitude);
   }
 
+  static const Object _unset = Object();
+
   UserProfileModel copyWith({
     String? name,
     int? age,
@@ -163,7 +202,7 @@ class UserProfileModel {
     List<int>? ageRange,
     int? distancePreference,
     List<String>? photos,
-    String? profilePhotoUrl,
+    Object? profilePhotoUrl = _unset,
     String? archetype,
     String? category,
     bool? profileCompleted,
@@ -191,7 +230,10 @@ class UserProfileModel {
       ageRange: ageRange ?? this.ageRange,
       distancePreference: distancePreference ?? this.distancePreference,
       photos: photos ?? this.photos,
-      profilePhotoUrl: profilePhotoUrl ?? this.profilePhotoUrl,
+      // Allow explicit null to clear primary after last-photo removal.
+      profilePhotoUrl: identical(profilePhotoUrl, _unset)
+          ? this.profilePhotoUrl
+          : profilePhotoUrl as String?,
       archetype: archetype ?? this.archetype,
       category: category ?? this.category,
       profileCompleted: profileCompleted ?? this.profileCompleted,
