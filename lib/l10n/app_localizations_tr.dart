@@ -1635,4 +1635,63 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get privacyDataSecuritySection => 'Veri ve güvenlik';
+
+  @override
+  String get settingsResonance => 'Resonance';
+
+  @override
+  String get settingsResonanceSubtitle =>
+      'Kim beğendi, Rewind ve daha derin uyum';
+
+  @override
+  String get resonancePaywallTitle => 'Resonance';
+
+  @override
+  String get resonancePaywallHeadline => 'Resonance\'ı aç';
+
+  @override
+  String get resonancePaywallBody =>
+      'Kimlerin seninle hizalandığını gör, bir geçişi geri al ve bağlantını daha net anla — eşleşme kaliten değişmeden.';
+
+  @override
+  String get resonancePaywallActive => 'Resonance bu hesapta aktif.';
+
+  @override
+  String get resonancePaywallPlansUnavailable =>
+      'Resonance planları şu an kullanılamıyor. Lütfen daha sonra tekrar dene.';
+
+  @override
+  String get resonancePaywallAndroidDisabled =>
+      'Resonance satın alma Android\'de henüz yok. iOS App Store satın almaları hazır olduğunda hesabını açacak.';
+
+  @override
+  String get resonancePlanMonthly => 'Resonance Aylık';
+
+  @override
+  String get resonancePlanAnnual => 'Resonance Yıllık';
+
+  @override
+  String get resonancePlanAnnualBadge => 'En avantajlı';
+
+  @override
+  String get resonancePaywallPurchase => 'Resonance satın al';
+
+  @override
+  String get resonancePaywallPurchasing => 'Satın alınıyor…';
+
+  @override
+  String get resonancePaywallRestore => 'Satın alımları geri yükle';
+
+  @override
+  String get resonancePaywallRestoring => 'Geri yükleniyor…';
+
+  @override
+  String get resonancePaywallLegalNote =>
+      'Ödeme Apple ID\'ne yansıtılır. Abonelik, dönem bitiminden en az 24 saat önce iptal edilmezse otomatik yenilenir. Yetki, mağaza doğrulamasından sonra QMatch tarafından onaylanır — yalnızca StoreKit başarısı Resonance açmaz.';
+
+  @override
+  String get resonanceUnlockCta => 'Resonance ile aç';
+
+  @override
+  String get resonanceUnlockNotNow => 'Şimdi değil';
 }

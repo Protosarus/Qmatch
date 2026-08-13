@@ -19,6 +19,8 @@ import 'blocked_users_screen.dart';
 import 'help_support_screen.dart';
 import 'notifications_settings_screen.dart';
 import 'privacy_settings_screen.dart';
+import '../../iap/screens/resonance_paywall_screen.dart';
+import '../../iap/domain/resonance_paywall_feature.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({
@@ -189,6 +191,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       _SettingsGroup(
                         title: l10n.settingsGroupPreferences,
                         children: [
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-resonance'),
+                            icon: Icons.auto_awesome_outlined,
+                            title: l10n.settingsResonance,
+                            subtitle: l10n.settingsResonanceSubtitle,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const ResonancePaywallScreen(
+                                    feature: ResonancePaywallFeature
+                                        .settingsResonance,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                           QMatchSettingsTile(
                             key: const Key('qmatch-settings-notifications'),
                             icon: Icons.notifications_outlined,

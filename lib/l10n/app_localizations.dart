@@ -3097,6 +3097,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Data & security'**
   String get privacyDataSecuritySection;
+
+  /// No description provided for @settingsResonance.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance'**
+  String get settingsResonance;
+
+  /// No description provided for @settingsResonanceSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who liked you, Rewind, and deeper alignment'**
+  String get settingsResonanceSubtitle;
+
+  /// No description provided for @resonancePaywallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance'**
+  String get resonancePaywallTitle;
+
+  /// No description provided for @resonancePaywallHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Resonance'**
+  String get resonancePaywallHeadline;
+
+  /// No description provided for @resonancePaywallBody.
+  ///
+  /// In en, this message translates to:
+  /// **'See who aligned with you, rewind a miss, and understand your connection more deeply — without changing who you match with.'**
+  String get resonancePaywallBody;
+
+  /// No description provided for @resonancePaywallActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance is active on this account.'**
+  String get resonancePaywallActive;
+
+  /// No description provided for @resonancePaywallPlansUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance plans are unavailable right now. Please try again later.'**
+  String get resonancePaywallPlansUnavailable;
+
+  /// No description provided for @resonancePaywallAndroidDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance purchases are not available on Android yet. iOS App Store purchases will unlock your account when ready.'**
+  String get resonancePaywallAndroidDisabled;
+
+  /// No description provided for @resonancePlanMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance Monthly'**
+  String get resonancePlanMonthly;
+
+  /// No description provided for @resonancePlanAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance Annual'**
+  String get resonancePlanAnnual;
+
+  /// No description provided for @resonancePlanAnnualBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Best value'**
+  String get resonancePlanAnnualBadge;
+
+  /// No description provided for @resonancePaywallPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Resonance'**
+  String get resonancePaywallPurchase;
+
+  /// No description provided for @resonancePaywallPurchasing.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchasing…'**
+  String get resonancePaywallPurchasing;
+
+  /// No description provided for @resonancePaywallRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get resonancePaywallRestore;
+
+  /// No description provided for @resonancePaywallRestoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring…'**
+  String get resonancePaywallRestoring;
+
+  /// No description provided for @resonancePaywallLegalNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment is charged to your Apple ID. Subscription renews automatically unless canceled at least 24 hours before the period ends. Entitlement is confirmed by QMatch after store verification — StoreKit success alone does not unlock Resonance.'**
+  String get resonancePaywallLegalNote;
+
+  /// No description provided for @resonanceUnlockCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with Resonance'**
+  String get resonanceUnlockCta;
+
+  /// No description provided for @resonanceUnlockNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get resonanceUnlockNotNow;
 }
 
 class _AppLocalizationsDelegate

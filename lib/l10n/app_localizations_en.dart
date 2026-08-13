@@ -1642,4 +1642,63 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyDataSecuritySection => 'Data & security';
+
+  @override
+  String get settingsResonance => 'Resonance';
+
+  @override
+  String get settingsResonanceSubtitle =>
+      'Who liked you, Rewind, and deeper alignment';
+
+  @override
+  String get resonancePaywallTitle => 'Resonance';
+
+  @override
+  String get resonancePaywallHeadline => 'Unlock Resonance';
+
+  @override
+  String get resonancePaywallBody =>
+      'See who aligned with you, rewind a miss, and understand your connection more deeply — without changing who you match with.';
+
+  @override
+  String get resonancePaywallActive => 'Resonance is active on this account.';
+
+  @override
+  String get resonancePaywallPlansUnavailable =>
+      'Resonance plans are unavailable right now. Please try again later.';
+
+  @override
+  String get resonancePaywallAndroidDisabled =>
+      'Resonance purchases are not available on Android yet. iOS App Store purchases will unlock your account when ready.';
+
+  @override
+  String get resonancePlanMonthly => 'Resonance Monthly';
+
+  @override
+  String get resonancePlanAnnual => 'Resonance Annual';
+
+  @override
+  String get resonancePlanAnnualBadge => 'Best value';
+
+  @override
+  String get resonancePaywallPurchase => 'Purchase Resonance';
+
+  @override
+  String get resonancePaywallPurchasing => 'Purchasing…';
+
+  @override
+  String get resonancePaywallRestore => 'Restore Purchases';
+
+  @override
+  String get resonancePaywallRestoring => 'Restoring…';
+
+  @override
+  String get resonancePaywallLegalNote =>
+      'Payment is charged to your Apple ID. Subscription renews automatically unless canceled at least 24 hours before the period ends. Entitlement is confirmed by QMatch after store verification — StoreKit success alone does not unlock Resonance.';
+
+  @override
+  String get resonanceUnlockCta => 'Unlock with Resonance';
+
+  @override
+  String get resonanceUnlockNotNow => 'Not now';
 }
