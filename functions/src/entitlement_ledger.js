@@ -57,6 +57,19 @@ function subscriptionEventLedgerId(
 }
 
 /**
+ * Notification dedupe key (ASSN notificationUUID / Pub/Sub message id).
+ * @param {string} platform
+ * @param {string} notificationId
+ * @returns {string}
+ */
+function notificationLedgerId(platform, notificationId) {
+  if (!platform || !notificationId) {
+    throw new Error('notification_ledger_id_incomplete');
+  }
+  return `${platform}:notif:${notificationId}`;
+}
+
+/**
  * Spend idempotency key — requires unique request_id.
  * @param {string} platform
  * @param {string} uid
@@ -149,6 +162,7 @@ module.exports = {
   purchaseLedgerId,
   androidStoreTransactionIdFromToken,
   subscriptionEventLedgerId,
+  notificationLedgerId,
   spendLedgerId,
   buildLedgerDocument,
   planLedgerApply,

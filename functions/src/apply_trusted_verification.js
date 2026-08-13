@@ -100,7 +100,9 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
     }
     const platform = result.platform || 'ios';
     const state = result.subscription_state || 'none';
-    const ledgerId = purchaseLedgerId(platform, storeTransactionId);
+    const ledgerId =
+      opts.ledgerIdOverride ||
+      purchaseLedgerId(platform, storeTransactionId);
     const out = await applySubscriptionLedgerEvent(
       {
         uid,
@@ -140,8 +142,22 @@ async function applyTrustedVerificationResult(uid, result, opts = {}) {
     return { applied: false, reason: 'unknown_kind' };
   }
 
+  // Keep ASSN/RTDN uid resolution index fresh.
+  try {
+    const {
+      upsertIndexFromVerificationResult,
+    } = require('./store_purchase_index');
+    await upsertIndexFromVerificationResult(uid, result, opts);
+  } catch (_err) {
+    // Index failure must not undo ledger apply.
+  }
+
   // Play server-side consume / acknowledge after ledger success (incl. noop retry).
-  if (result.platform === 'android' && applyOut.applied) {
+  if (
+    result.platform === 'android' &&
+    applyOut.applied &&
+    !opts.skipPlayFinalize
+  ) {
     const finalize = await finalizePlayPurchaseSideEffects(
       result,
       opts.playFinalizeHelpers || null,

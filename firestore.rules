@@ -364,5 +364,10 @@ service cloud.firestore {
     match /entitlements/{uid}/purchase_ledger/{ledgerId} {
       allow get, list, create, update, delete: if false;
     }
+
+    // store_purchase_index — ASSN/RTDN uid lookup. Admin-only.
+    match /store_purchase_index/{indexId} {
+      allow read, write: if false;
+    }
   }
 }

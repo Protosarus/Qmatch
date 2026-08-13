@@ -3,7 +3,7 @@
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { onDocumentWritten } = require('firebase-functions/v2/firestore');
-const { onCall } = require('firebase-functions/v2/https');
+const { onCall, onRequest } = require('firebase-functions/v2/https');
 const {
   deriveDiscoverEligible,
   planDiscoverEligibleWrite,
@@ -20,6 +20,10 @@ const {
 } = require('./src/entitlement_callables');
 const entitlementAccess = require('./src/entitlement_access');
 const entitlementRepository = require('./src/entitlement_repository');
+const {
+  appleAssnHttpHandler,
+  playRtdnHttpHandler,
+} = require('./src/store_notification_http');
 
 initializeApp();
 
@@ -112,6 +116,23 @@ exports.restorePurchases = onCall(
   handleRestorePurchases,
 );
 
+/**
+ * Apple App Store Server Notifications v2 HTTP endpoint (foundation).
+ * Deploy separately when credentials + SKUs are ready — not activated here.
+ */
+exports.appStoreServerNotification = onRequest(
+  { region: 'us-central1' },
+  (req, res) => appleAssnHttpHandler(req, res),
+);
+
+/**
+ * Google Play RTDN Pub/Sub push endpoint (foundation).
+ */
+exports.playRealtimeDeveloperNotification = onRequest(
+  { region: 'us-central1' },
+  (req, res) => playRtdnHttpHandler(req, res),
+);
+
 // Re-export pure helpers for tests / tooling.
 exports.deriveDiscoverEligible = deriveDiscoverEligible;
 exports.planDiscoverEligibleWrite = planDiscoverEligibleWrite;
@@ -144,3 +165,7 @@ exports.loadAppleIapConfig = require('./src/apple_iap_config').loadAppleIapConfi
 exports.loadPlayIapConfig = require('./src/play_iap_config').loadPlayIapConfig;
 exports.finalizePlayPurchaseSideEffects =
   require('./src/store_verify_play').finalizePlayPurchaseSideEffects;
+exports.handleAppleAssnNotification =
+  require('./src/store_notification_apple').handleAppleAssnNotification;
+exports.handlePlayRtdnNotification =
+  require('./src/store_notification_play').handlePlayRtdnNotification;
