@@ -352,5 +352,17 @@ service cloud.firestore {
         && resource.data.status == 'requested';
       allow delete: if false;
     }
+
+    // entitlements/{uid} — Resonance entitlement snapshot (`resonance_entitlement_firestore_schema_v1`).
+    // Owner GET only. Client never creates/updates/deletes. Ledger Admin-only.
+    match /entitlements/{uid} {
+      allow get: if isOwner(uid);
+      allow list: if false;
+      allow create, update, delete: if false;
+    }
+
+    match /entitlements/{uid}/purchase_ledger/{ledgerId} {
+      allow get, list, create, update, delete: if false;
+    }
   }
 }

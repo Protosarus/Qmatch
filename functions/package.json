@@ -2,14 +2,14 @@
   "name": "qmatch-functions",
   "private": true,
   "version": "1.0.0",
-  "description": "Trusted backend writers for QMatch (Discover eligibility authority v1).",
+  "description": "Trusted backend writers for QMatch (Discover eligibility + Resonance entitlement scaffold).",
   "main": "index.js",
   "engines": {
     "node": "20"
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/**/*.test.js",
-    "lint": "node -e \"require('./src/discover_eligibility'); console.log('ok')\""
+    "lint": "node -e \"require('./src/discover_eligibility'); require('./src/entitlement_repository'); console.log('ok')\""
   },
   "dependencies": {
     "firebase-admin": "^12.7.0",

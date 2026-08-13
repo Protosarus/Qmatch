@@ -20,8 +20,10 @@ const {
   getDoc,
   setDoc,
   updateDoc,
+  deleteDoc,
   collection,
   addDoc,
+  getDocs,
 } = require('firebase/firestore');
 const {
   ref,
@@ -791,6 +793,136 @@ describe('Match/thread lifecycle harden v1', () => {
       updateDoc(doc(authedFirestore('userA'), `threads/${pair}`), {
         status: 'active',
       }),
+    );
+  });
+});
+
+describe('Entitlement rules (resonance_entitlement_firestore_schema_v1)', () => {
+  const freeSnapshot = {
+    uid: 'userA',
+    tier: 'free',
+    subscription_state: 'none',
+    resonance_access: false,
+    super_resonance_balance: 0,
+    boost_balance: 0,
+    schema_version: 'resonance_entitlement_firestore_schema_v1',
+  };
+
+  it('owner may GET own entitlements snapshot', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'entitlements/userA'), freeSnapshot);
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'entitlements/userA')),
+    );
+  });
+
+  it('other user cannot GET entitlements snapshot', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'entitlements/userA'), freeSnapshot);
+    });
+    await assertFails(getDoc(doc(authedFirestore('userB'), 'entitlements/userA')));
+  });
+
+  it('client cannot create entitlements', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'entitlements/userA'), {
+        ...freeSnapshot,
+        resonance_access: true,
+        tier: 'resonance',
+      }),
+    );
+  });
+
+  it('client cannot update entitlements or balances', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'entitlements/userA'), freeSnapshot);
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'entitlements/userA'), {
+        resonance_access: true,
+        tier: 'resonance',
+        subscription_state: 'active',
+      }),
+    );
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'entitlements/userA'), {
+        super_resonance_balance: 99,
+        boost_balance: 99,
+      }),
+    );
+  });
+
+  it('client cannot delete entitlements', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'entitlements/userA'), freeSnapshot);
+    });
+    await assertFails(
+      deleteDoc(doc(authedFirestore('userA'), 'entitlements/userA')),
+    );
+  });
+
+  it('client cannot list entitlements collection', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'entitlements/userA'), freeSnapshot);
+    });
+    await assertFails(getDocs(collection(authedFirestore('userA'), 'entitlements')));
+  });
+
+  it('purchase_ledger get denied for owner', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'entitlements', 'userA'), freeSnapshot);
+      await setDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'txn1'), {
+        uid: 'userA',
+        ledger_id: 'txn1',
+        event_type: 'consumable_purchase',
+        effect: 'credit_boost',
+      });
+    });
+    const db = authedFirestore('userA');
+    await assertFails(
+      getDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'txn1')),
+    );
+  });
+
+  it('purchase_ledger list denied for owner', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'entitlements', 'userA'), freeSnapshot);
+      await setDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'txn1'), {
+        uid: 'userA',
+        ledger_id: 'txn1',
+      });
+    });
+    const db = authedFirestore('userA');
+    await assertFails(
+      getDocs(collection(db, 'entitlements', 'userA', 'purchase_ledger')),
+    );
+  });
+
+  it('purchase_ledger write/delete denied for owner', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'entitlements', 'userA'), freeSnapshot);
+      await setDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'txn1'), {
+        uid: 'userA',
+        ledger_id: 'txn1',
+      });
+    });
+    const db = authedFirestore('userA');
+    await assertFails(
+      setDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'fake'), {
+        effect: 'grant_resonance',
+      }),
+    );
+    await assertFails(
+      updateDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'txn1'), {
+        effect: 'noop',
+      }),
+    );
+    await assertFails(
+      deleteDoc(doc(db, 'entitlements', 'userA', 'purchase_ledger', 'txn1')),
     );
   });
 });

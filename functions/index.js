@@ -3,6 +3,7 @@
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const { onDocumentWritten } = require('firebase-functions/v2/firestore');
+const { onCall } = require('firebase-functions/v2/https');
 const {
   deriveDiscoverEligible,
   planDiscoverEligibleWrite,
@@ -13,6 +14,12 @@ const {
 const {
   closeAllActiveMatchesForDeletion,
 } = require('./src/deletion_close_all_runner');
+const {
+  handleVerifyAndApplyPurchase,
+  handleRestorePurchases,
+} = require('./src/entitlement_callables');
+const entitlementAccess = require('./src/entitlement_access');
+const entitlementRepository = require('./src/entitlement_repository');
 
 initializeApp();
 
@@ -88,8 +95,33 @@ exports.closeMatchesOnAccountDeletionRequested = onDocumentWritten(
   },
 );
 
+/**
+ * Entitlement purchase verify scaffold (`resonance_entitlement_firestore_schema_v1`).
+ * Does not trust client claims; returns verification_not_configured until stores wired.
+ */
+exports.verifyAndApplyPurchase = onCall(
+  { region: 'us-central1' },
+  handleVerifyAndApplyPurchase,
+);
+
+/**
+ * Entitlement restore scaffold. Same not-configured contract as verify.
+ */
+exports.restorePurchases = onCall(
+  { region: 'us-central1' },
+  handleRestorePurchases,
+);
+
 // Re-export pure helpers for tests / tooling.
 exports.deriveDiscoverEligible = deriveDiscoverEligible;
 exports.planDiscoverEligibleWrite = planDiscoverEligibleWrite;
 exports.shouldRunCloseAllOnUserWrite = shouldRunCloseAllOnUserWrite;
 exports.closeAllActiveMatchesForDeletion = closeAllActiveMatchesForDeletion;
+exports.deriveResonanceAccess = entitlementAccess.deriveResonanceAccess;
+exports.defaultFreeSnapshot = entitlementAccess.defaultFreeSnapshot;
+exports.normalizeSnapshot = entitlementAccess.normalizeSnapshot;
+exports.applySubscriptionState = entitlementAccess.applySubscriptionState;
+exports.getOrCreateEntitlementSnapshot =
+  entitlementRepository.getOrCreateEntitlementSnapshot;
+exports.creditConsumableIdempotent =
+  entitlementRepository.creditConsumableIdempotent;
