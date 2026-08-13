@@ -24,6 +24,11 @@ const {
   appleAssnHttpHandler,
   playRtdnHttpHandler,
 } = require('./src/store_notification_http');
+const {
+  APPLE_IAP_SECRETS,
+  PLAY_IAP_SECRETS,
+  STORE_IAP_SECRETS,
+} = require('./src/store_iap_secrets');
 
 initializeApp();
 
@@ -102,34 +107,38 @@ exports.closeMatchesOnAccountDeletionRequested = onDocumentWritten(
 /**
  * Entitlement purchase verify scaffold (`resonance_entitlement_firestore_schema_v1`).
  * Does not trust client claims; returns verification_not_configured until stores wired.
+ * Secrets: Apple + Play (both platforms).
  */
 exports.verifyAndApplyPurchase = onCall(
-  { region: 'us-central1' },
+  { region: 'us-central1', secrets: [...STORE_IAP_SECRETS] },
   handleVerifyAndApplyPurchase,
 );
 
 /**
  * Entitlement restore scaffold. Same not-configured contract as verify.
+ * Secrets: Apple + Play (both platforms).
  */
 exports.restorePurchases = onCall(
-  { region: 'us-central1' },
+  { region: 'us-central1', secrets: [...STORE_IAP_SECRETS] },
   handleRestorePurchases,
 );
 
 /**
  * Apple App Store Server Notifications v2 HTTP endpoint (foundation).
  * Deploy separately when credentials + SKUs are ready — not activated here.
+ * Secrets: Apple only (least privilege).
  */
 exports.appStoreServerNotification = onRequest(
-  { region: 'us-central1' },
+  { region: 'us-central1', secrets: [...APPLE_IAP_SECRETS] },
   (req, res) => appleAssnHttpHandler(req, res),
 );
 
 /**
  * Google Play RTDN Pub/Sub push endpoint (foundation).
+ * Secrets: Play only (least privilege).
  */
 exports.playRealtimeDeveloperNotification = onRequest(
-  { region: 'us-central1' },
+  { region: 'us-central1', secrets: [...PLAY_IAP_SECRETS] },
   (req, res) => playRtdnHttpHandler(req, res),
 );
 
@@ -163,6 +172,14 @@ exports.applyTrustedVerificationResult =
   require('./src/apply_trusted_verification').applyTrustedVerificationResult;
 exports.loadAppleIapConfig = require('./src/apple_iap_config').loadAppleIapConfig;
 exports.loadPlayIapConfig = require('./src/play_iap_config').loadPlayIapConfig;
+exports.STORE_IAP_SECRET_NAMES =
+  require('./src/store_iap_secrets').STORE_IAP_SECRET_NAMES;
+exports.APPLE_IAP_SECRET_NAMES =
+  require('./src/store_iap_secrets').APPLE_IAP_SECRET_NAMES;
+exports.PLAY_IAP_SECRET_NAMES =
+  require('./src/store_iap_secrets').PLAY_IAP_SECRET_NAMES;
+exports.secretKeysFromFunction =
+  require('./src/store_iap_secrets').secretKeysFromFunction;
 exports.finalizePlayPurchaseSideEffects =
   require('./src/store_verify_play').finalizePlayPurchaseSideEffects;
 exports.handleAppleAssnNotification =

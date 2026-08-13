@@ -1,6 +1,10 @@
 /**
  * Google Play IAP configuration from secrets/env.
  * Never commit real service-account keys.
+ *
+ * On Cloud Functions, values are mounted via `defineSecret` bindings
+ * (`store_iap_secrets.js`) into process.env with the same names. Missing
+ * package + credentials → verification_not_configured (fail closed).
  */
 
 'use strict';

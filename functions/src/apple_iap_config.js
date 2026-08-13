@@ -1,6 +1,10 @@
 /**
  * Apple IAP configuration from secrets/env.
  * Never commit real private keys.
+ *
+ * On Cloud Functions, values are mounted via `defineSecret` bindings
+ * (`store_iap_secrets.js`) into process.env with the same names. Missing
+ * required keys → verification_not_configured (fail closed).
  */
 
 'use strict';
