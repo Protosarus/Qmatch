@@ -125,3 +125,16 @@ exports.getOrCreateEntitlementSnapshot =
   entitlementRepository.getOrCreateEntitlementSnapshot;
 exports.creditConsumableIdempotent =
   entitlementRepository.creditConsumableIdempotent;
+
+// Store verifier foundation exports (no ASSN/RTDN; no fake verify).
+const storeProductMap = require('./src/store_product_map');
+const storeVerifyApple = require('./src/store_verify_apple');
+const storeVerifyPlay = require('./src/store_verify_play');
+const storeVerificationResult = require('./src/store_verification_result');
+exports.mapAppleProduct = storeProductMap.mapAppleProduct;
+exports.mapPlayProduct = storeProductMap.mapPlayProduct;
+exports.mapAppleSubscriptionStatus = storeProductMap.mapAppleSubscriptionStatus;
+exports.mapPlaySubscriptionStatus = storeProductMap.mapPlaySubscriptionStatus;
+exports.verifyApplePurchase = storeVerifyApple.verifyApplePurchase;
+exports.verifyPlayPurchase = storeVerifyPlay.verifyPlayPurchase;
+exports.isTrustedVerified = storeVerificationResult.isTrustedVerified;

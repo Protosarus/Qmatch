@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/**/*.test.js",
-    "lint": "node -e \"require('./src/discover_eligibility'); require('./src/entitlement_repository'); console.log('ok')\""
+    "lint": "node -e \"require('./src/discover_eligibility'); require('./src/entitlement_repository'); require('./src/store_verify_apple'); require('./src/store_verify_play'); console.log('ok')\""
   },
   "dependencies": {
     "firebase-admin": "^12.7.0",
