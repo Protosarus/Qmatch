@@ -556,6 +556,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatSendFailed => 'Mesaj gönderilemedi. Lütfen tekrar dene.';
 
   @override
+  String get chatConversationNoLongerActive => 'Bu sohbet artık aktif değil.';
+
+  @override
+  String get chatUnavailablePeerTitle => 'Kullanılamayan hesap';
+
+  @override
   String get chatActionFailed => 'Bir şeyler ters gitti. Lütfen tekrar dene.';
 
   @override

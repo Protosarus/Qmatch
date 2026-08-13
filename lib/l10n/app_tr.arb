@@ -249,6 +249,8 @@
   "chatMessagesLoadErrorSubtitle": "Lütfen biraz sonra tekrar dene.",
   "chatProfileLoadErrorSubtitle": "Profil bilgileri şu an kullanılamıyor.",
   "chatSendFailed": "Mesaj gönderilemedi. Lütfen tekrar dene.",
+  "chatConversationNoLongerActive": "Bu sohbet artık aktif değil.",
+  "chatUnavailablePeerTitle": "Kullanılamayan hesap",
   "chatActionFailed": "Bir şeyler ters gitti. Lütfen tekrar dene.",
   "chatDateToday": "Bugün",
   "chatSendSemanticLabel": "Mesaj gönder",

@@ -17,6 +17,7 @@ class QMatchConversationAppBar extends StatelessWidget
     this.avatarSemanticLabel,
     this.menuItems = const [],
     this.onMenuSelected,
+    this.onTitleTap,
   });
 
   final String title;
@@ -26,6 +27,8 @@ class QMatchConversationAppBar extends StatelessWidget
   final String? avatarSemanticLabel;
   final List<PopupMenuEntry<String>> menuItems;
   final ValueChanged<String>? onMenuSelected;
+  /// Optional title/avatar tap (e.g. profile). Null = not navigable.
+  final VoidCallback? onTitleTap;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -60,29 +63,34 @@ class QMatchConversationAppBar extends StatelessWidget
                 fontWeight: FontWeight.w600,
               ),
             )
-          : Row(
-              children: [
-                QMatchConversationAvatar(
-                  photoUrl: photoUrl,
-                  imageProvider: photoImageProvider,
-                  semanticLabel: avatarSemanticLabel ?? title,
-                  size: 36,
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                Expanded(
-                  child: Text(
-                    key: const Key('qmatch-chat-app-bar-title'),
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.playfairDisplay(
-                      color: AppColors.textPrimary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+          : InkWell(
+              key: const Key('qmatch-chat-app-bar-identity'),
+              onTap: onTitleTap,
+              borderRadius: BorderRadius.circular(8),
+              child: Row(
+                children: [
+                  QMatchConversationAvatar(
+                    photoUrl: photoUrl,
+                    imageProvider: photoImageProvider,
+                    semanticLabel: avatarSemanticLabel ?? title,
+                    size: 36,
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Expanded(
+                    child: Text(
+                      key: const Key('qmatch-chat-app-bar-title'),
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.playfairDisplay(
+                        color: AppColors.textPrimary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
     );
   }

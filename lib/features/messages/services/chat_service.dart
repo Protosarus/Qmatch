@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../models/chat_thread_model.dart';
 import '../models/message_model.dart';
+import '../utils/closed_account_chat_history.dart';
 
 class ChatService {
   final FirebaseAuth _auth;
@@ -29,7 +30,7 @@ class ChatService {
         .map((snapshot) {
           final threads = snapshot.docs
               .map((d) => ChatThreadModel.fromFirestore(d.id, d.data()))
-              .where((t) => t.status == ThreadStatus.active)
+              .where(ClosedAccountChatHistory.includeInMessagesList)
               .toList();
 
           threads.sort((a, b) {
@@ -89,7 +90,7 @@ class ChatService {
     if (!thread.participants.contains(me.uid)) {
       throw StateError('Current user is not a participant of this thread.');
     }
-    if (thread.status != ThreadStatus.active) {
+    if (!ClosedAccountChatHistory.allowMessageHistoryRead(thread)) {
       throw StateError('This conversation is closed.');
     }
 
@@ -124,7 +125,7 @@ class ChatService {
     if (!thread.participants.contains(me.uid)) {
       throw StateError('Current user is not a participant of this thread.');
     }
-    if (thread.status != ThreadStatus.active) {
+    if (!ClosedAccountChatHistory.allowSend(thread)) {
       throw StateError('This conversation is closed.');
     }
 

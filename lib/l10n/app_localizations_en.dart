@@ -556,6 +556,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatSendFailed => 'Message could not be sent. Please try again.';
 
   @override
+  String get chatConversationNoLongerActive =>
+      'This conversation is no longer active.';
+
+  @override
+  String get chatUnavailablePeerTitle => 'Unavailable account';
+
+  @override
   String get chatActionFailed => 'Something went wrong. Please try again.';
 
   @override

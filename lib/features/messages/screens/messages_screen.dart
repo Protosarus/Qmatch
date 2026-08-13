@@ -6,6 +6,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/chat_thread_model.dart';
 import '../services/chat_service.dart';
+import '../utils/closed_account_chat_history.dart';
 import '../utils/conversation_timestamp_format.dart';
 import '../widgets/messages_widgets.dart';
 import 'chat_detail_screen.dart';
@@ -149,6 +150,29 @@ class _MessagesThreadRow extends StatelessWidget {
       thread.lastMessageAt,
       localeCode: localeCode,
     );
+    final deletionClosed =
+        ClosedAccountChatHistory.isAccountDeletionClosed(thread);
+
+    if (deletionClosed) {
+      final displayName = l10n.chatUnavailablePeerTitle;
+      final preview = thread.lastMessagePreview?.trim().isNotEmpty == true
+          ? thread.lastMessagePreview!.trim()
+          : l10n.chatConversationNoLongerActive;
+      return QMatchConversationTile(
+        key: ValueKey('deletion-closed-${thread.threadId}'),
+        displayName: displayName,
+        age: null,
+        photoUrl: null,
+        previewText: preview,
+        timestampText: timeText,
+        unreadCount: unread,
+        avatarSemanticLabel: l10n.messagesAvatarSemanticLabel(displayName),
+        unreadSemanticLabel:
+            unread > 0 ? l10n.messagesUnreadSemanticLabel(unread) : null,
+        rowSemanticLabel: l10n.messagesConversationSemanticLabel(displayName),
+        onTap: () => onOpen(otherId, null),
+      );
+    }
 
     return FutureBuilder<Map<String, dynamic>?>(
       future: chatService.getUserPublicProfile(otherId),

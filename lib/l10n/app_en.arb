@@ -249,6 +249,8 @@
   "chatMessagesLoadErrorSubtitle": "Please try again in a moment.",
   "chatProfileLoadErrorSubtitle": "Profile details are unavailable right now.",
   "chatSendFailed": "Message could not be sent. Please try again.",
+  "chatConversationNoLongerActive": "This conversation is no longer active.",
+  "chatUnavailablePeerTitle": "Unavailable account",
   "chatActionFailed": "Something went wrong. Please try again.",
   "chatDateToday": "Today",
   "chatSendSemanticLabel": "Send message",

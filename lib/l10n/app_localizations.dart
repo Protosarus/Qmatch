@@ -1094,6 +1094,18 @@ abstract class AppLocalizations {
   /// **'Message could not be sent. Please try again.'**
   String get chatSendFailed;
 
+  /// No description provided for @chatConversationNoLongerActive.
+  ///
+  /// In en, this message translates to:
+  /// **'This conversation is no longer active.'**
+  String get chatConversationNoLongerActive;
+
+  /// No description provided for @chatUnavailablePeerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable account'**
+  String get chatUnavailablePeerTitle;
+
   /// No description provided for @chatActionFailed.
   ///
   /// In en, this message translates to:

@@ -13,6 +13,7 @@ class QMatchMessageComposer extends StatelessWidget {
     required this.hintText,
     required this.onSend,
     this.sending = false,
+    this.enabled = true,
     this.sendSemanticLabel,
   });
 
@@ -21,6 +22,8 @@ class QMatchMessageComposer extends StatelessWidget {
   final String hintText;
   final VoidCallback onSend;
   final bool sending;
+  /// When false, field and send are disabled (no send action).
+  final bool enabled;
   final String? sendSemanticLabel;
 
   @override
@@ -47,7 +50,7 @@ class QMatchMessageComposer extends StatelessWidget {
                     key: const Key('qmatch-chat-composer-field'),
                     controller: controller,
                     focusNode: focusNode,
-                    enabled: !sending,
+                    enabled: enabled && !sending,
                     minLines: 1,
                     maxLines: 5,
                     textInputAction: TextInputAction.newline,
@@ -103,7 +106,7 @@ class QMatchMessageComposer extends StatelessWidget {
                 label: sendSemanticLabel ?? 'Send',
                 child: IconButton.filled(
                   key: const Key('qmatch-chat-composer-send'),
-                  onPressed: sending ? null : onSend,
+                  onPressed: (!enabled || sending) ? null : onSend,
                   style: IconButton.styleFrom(
                     backgroundColor: AppColors.resonanceViolet,
                     foregroundColor: AppColors.textPrimary,

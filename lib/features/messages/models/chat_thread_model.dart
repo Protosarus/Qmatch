@@ -15,6 +15,9 @@ class ChatThreadModel {
   final String? lastMessageSender;
   final Map<String, int> unreadCounts;
   final ThreadStatus status;
+  /// Present when [status] is closed (e.g. `unmatched`, `blocked`,
+  /// `account_deletion_requested`).
+  final String? closedReason;
 
   const ChatThreadModel({
     required this.threadId,
@@ -26,6 +29,7 @@ class ChatThreadModel {
     this.lastMessageSender,
     this.unreadCounts = const {},
     this.status = ThreadStatus.active,
+    this.closedReason,
   });
 
   static ThreadStatus _statusFromString(String? value) {
@@ -46,6 +50,7 @@ class ChatThreadModel {
       unreadCounts[entry.key] = (entry.value as num?)?.toInt() ?? 0;
     }
 
+    final closedReasonRaw = (data['closed_reason'] as String?)?.trim();
     return ChatThreadModel(
       threadId: threadId,
       matchId: data['match_id'] as String?,
@@ -56,6 +61,8 @@ class ChatThreadModel {
       lastMessageSender: data['last_message_sender'] as String?,
       unreadCounts: unreadCounts,
       status: _statusFromString(data['status'] as String?),
+      closedReason:
+          (closedReasonRaw == null || closedReasonRaw.isEmpty) ? null : closedReasonRaw,
     );
   }
 
@@ -69,6 +76,7 @@ class ChatThreadModel {
       'last_message_sender': lastMessageSender,
       'unread_counts': unreadCounts,
       'status': status.name,
+      if (closedReason != null) 'closed_reason': closedReason,
     };
   }
 }

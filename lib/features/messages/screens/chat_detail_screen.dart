@@ -10,6 +10,7 @@ import '../../safety/services/safety_service.dart';
 import '../models/message_model.dart';
 import '../services/chat_service.dart';
 import '../utils/chat_message_timestamp_format.dart';
+import '../utils/closed_account_chat_history.dart';
 import '../widgets/chat_detail_widgets.dart';
 
 class ChatDetailScreen extends StatefulWidget {
@@ -41,6 +42,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   bool _sending = false;
   bool _bootstrapFailed = false;
   String? _matchId;
+  bool _accountDeletionClosed = false;
 
   /// Avoid jumping on every StreamBuilder rebuild while the user scrolls.
   int _lastAutoScrollCount = -1;
@@ -60,12 +62,20 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       await _chat.markThreadAsRead(widget.threadId);
       final thread = await _chat.getThreadById(widget.threadId);
       final matchId = thread?.matchId;
-      final p = await _chat.getUserPublicProfile(widget.otherUserId);
+      final deletionClosed = thread != null &&
+          ClosedAccountChatHistory.isAccountDeletionClosed(thread);
+
+      Map<String, dynamic>? p;
+      if (!deletionClosed) {
+        p = await _chat.getUserPublicProfile(widget.otherUserId);
+      }
+
       if (!mounted) return;
       setState(() {
         _profile = p;
         _profileLoading = false;
         _matchId = matchId;
+        _accountDeletionClosed = deletionClosed;
         _bootstrapFailed = false;
       });
     } catch (e, st) {
@@ -94,6 +104,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   }
 
   Future<void> _send() async {
+    if (_accountDeletionClosed) return;
     final text = _input.text;
     if (_sending) return;
     if (text.trim().isEmpty) return;
@@ -122,6 +133,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   }
 
   String _resolveTitle(AppLocalizations l10n) {
+    if (_accountDeletionClosed) {
+      return l10n.chatUnavailablePeerTitle;
+    }
     final fromProp = widget.otherUserName;
     if (fromProp != null) {
       final coerced = UserIdentityResolver.coerceForDisplay(fromProp);
@@ -133,6 +147,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   }
 
   String? _resolvePhotoUrl() {
+    if (_accountDeletionClosed) return null;
     final direct = (_profile?['profile_photo_url'] as String?)?.trim();
     if (direct != null && direct.isNotEmpty) return direct;
     final photos =
@@ -463,9 +478,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         loading: _profileLoading,
         photoUrl: _resolvePhotoUrl(),
         avatarSemanticLabel: l10n.messagesAvatarSemanticLabel(title),
+        // No profile deep-link from chat title (active or deletion-closed).
+        onTitleTap: null,
         menuItems: [
           PopupMenuItem(value: 'report', child: Text(l10n.chatMenuReport)),
-          PopupMenuItem(value: 'unmatch', child: Text(l10n.chatMenuUnmatch)),
+          if (!_accountDeletionClosed)
+            PopupMenuItem(value: 'unmatch', child: Text(l10n.chatMenuUnmatch)),
           PopupMenuItem(value: 'block', child: Text(l10n.chatMenuBlock)),
         ],
         onMenuSelected: (value) async {
@@ -568,14 +586,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       },
                     ),
             ),
-            QMatchMessageComposer(
-              controller: _input,
-              focusNode: _inputFocus,
-              hintText: l10n.chatMessageHint,
-              sending: _sending,
-              sendSemanticLabel: l10n.chatSendSemanticLabel,
-              onSend: _send,
-            ),
+            _accountDeletionClosed
+                ? QMatchConversationInactiveBanner(
+                    message: l10n.chatConversationNoLongerActive,
+                  )
+                : QMatchMessageComposer(
+                    controller: _input,
+                    focusNode: _inputFocus,
+                    hintText: l10n.chatMessageHint,
+                    sending: _sending,
+                    enabled: true,
+                    sendSemanticLabel: l10n.chatSendSemanticLabel,
+                    onSend: _send,
+                  ),
           ],
         ),
       ),
