@@ -1,4 +1,5 @@
 import '../models/match_model.dart';
+import 'like_match_outcome.dart';
 import 'match_create_lifecycle_gate.dart';
 
 /// Plan for atomic Like → mutual-match evaluation (`like_match_atomicity_v1` +
@@ -18,6 +19,30 @@ class LikeMatchAtomicPlan {
       matchDecision == MatchCreateLifecycleDecision.createNew;
 
   bool get matched => MatchCreateLifecycleGate.isSuccess(matchDecision);
+
+  /// Public UX/service outcome (dialog only for [LikeMatchOutcome.createdNewMatch]).
+  LikeMatchOutcome get outcome => LikeMatchOutcomeMapper.fromDecision(matchDecision);
+}
+
+/// Maps lifecycle decisions → [LikeMatchOutcome] for Discover UX.
+class LikeMatchOutcomeMapper {
+  LikeMatchOutcomeMapper._();
+
+  static LikeMatchOutcome fromDecision(MatchCreateLifecycleDecision decision) {
+    switch (decision) {
+      case MatchCreateLifecycleDecision.createNew:
+        return LikeMatchOutcome.createdNewMatch;
+      case MatchCreateLifecycleDecision.idempotentActiveSuccess:
+        return LikeMatchOutcome.existingActiveMatch;
+      case MatchCreateLifecycleDecision.refuseUnmatchedExists:
+      case MatchCreateLifecycleDecision.refuseBlockedExists:
+      case MatchCreateLifecycleDecision.refuseExistingNonActive:
+      case MatchCreateLifecycleDecision.refuseBlockEitherDirection:
+      case MatchCreateLifecycleDecision.refuseNonMutualLike:
+      case MatchCreateLifecycleDecision.refuseInvalidLiveUser:
+        return LikeMatchOutcome.noMatch;
+    }
+  }
 }
 
 /// Pure Like→match atomicity helper (testable, no I/O).

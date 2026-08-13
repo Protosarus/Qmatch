@@ -6,19 +6,29 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
 
+/// Result of the mutual-match success dialog.
+enum DiscoverMatchDialogAction {
+  openChat,
+  continueDiscover,
+}
+
 /// Mutual-match dialog body (presentation only).
 class QMatchDiscoverMatchDialogContent extends StatelessWidget {
   const QMatchDiscoverMatchDialogContent({
     super.key,
     required this.title,
     required this.body,
+    required this.openChatLabel,
     required this.continueLabel,
+    required this.onOpenChat,
     required this.onContinue,
   });
 
   final String title;
   final String body;
+  final String openChatLabel;
   final String continueLabel;
+  final VoidCallback onOpenChat;
   final VoidCallback onContinue;
 
   @override
@@ -65,10 +75,17 @@ class QMatchDiscoverMatchDialogContent extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.lg),
           QCosmicButton(
+            key: const Key('qmatch-discover-match-open-chat'),
+            label: openChatLabel,
+            onPressed: onOpenChat,
+            variant: QCosmicButtonVariant.gold,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          QCosmicButton(
             key: const Key('qmatch-discover-match-continue'),
             label: continueLabel,
             onPressed: onContinue,
-            variant: QCosmicButtonVariant.gold,
+            variant: QCosmicButtonVariant.ghost,
           ),
         ],
       ),
@@ -76,14 +93,15 @@ class QMatchDiscoverMatchDialogContent extends StatelessWidget {
   }
 }
 
-/// Mutual-match confirmation aligned to modern QMatch tokens.
-Future<void> showQMatchDiscoverMatchDialog({
+/// Mutual-match confirmation — Open chat (primary) or Continue (secondary).
+Future<DiscoverMatchDialogAction?> showQMatchDiscoverMatchDialog({
   required BuildContext context,
   required String title,
   required String body,
+  required String openChatLabel,
   required String continueLabel,
 }) {
-  return showDialog<void>(
+  return showDialog<DiscoverMatchDialogAction>(
     context: context,
     barrierDismissible: false,
     builder: (ctx) {
@@ -93,8 +111,12 @@ Future<void> showQMatchDiscoverMatchDialog({
         child: QMatchDiscoverMatchDialogContent(
           title: title,
           body: body,
+          openChatLabel: openChatLabel,
           continueLabel: continueLabel,
-          onContinue: () => Navigator.of(ctx).pop(),
+          onOpenChat: () =>
+              Navigator.of(ctx).pop(DiscoverMatchDialogAction.openChat),
+          onContinue: () =>
+              Navigator.of(ctx).pop(DiscoverMatchDialogAction.continueDiscover),
         ),
       );
     },

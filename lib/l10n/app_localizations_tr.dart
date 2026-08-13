@@ -369,6 +369,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverMatchDialogBody => 'Artık sohbete başlayabilirsiniz.';
 
   @override
+  String get discoverMatchOpenChat => 'Sohbete git';
+
+  @override
   String get discoverEmptyTitle =>
       'Şu anda gösterebileceğimiz yeni profil yok.';
 

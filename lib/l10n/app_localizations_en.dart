@@ -371,6 +371,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverMatchDialogBody => 'You can now start a conversation.';
 
   @override
+  String get discoverMatchOpenChat => 'Open chat';
+
+  @override
   String get discoverEmptyTitle => 'No new profiles to show right now.';
 
   @override

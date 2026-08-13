@@ -192,7 +192,7 @@ void main() {
       final src = File(
         'lib/features/matching/services/match_service.dart',
       ).readAsStringSync();
-      final likeIdx = src.indexOf('Future<bool> likeAndMaybeCreateMatch');
+      final likeIdx = src.indexOf('Future<LikeMatchOutcome> likeAndMaybeCreateMatch');
       final unmatchIdx = src.indexOf('Future<void> unmatch');
       expect(likeIdx, greaterThanOrEqualTo(0));
       expect(unmatchIdx, greaterThan(likeIdx));

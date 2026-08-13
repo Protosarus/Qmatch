@@ -1,10 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
+import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../matching/services/like_match_outcome.dart';
 import '../../matching/services/swipe_service.dart';
+import '../../messages/screens/chat_detail_screen.dart';
 import '../../settings/services/account_deletion_request_service.dart';
 import '../models/discover_user_model.dart';
 import '../services/discover_service.dart';
@@ -117,17 +121,36 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     if (c == null || _isActionLoading) return;
     setState(() => _isActionLoading = true);
     try {
-      final matched = await _swipeService.likeUser(c.uid);
+      final outcome = await _swipeService.likeUser(c.uid);
       if (!mounted) return;
-      if (matched) {
+      if (outcome == LikeMatchOutcome.createdNewMatch) {
         final l10n = AppLocalizations.of(context)!;
-        await showQMatchDiscoverMatchDialog(
+        final action = await showQMatchDiscoverMatchDialog(
           context: context,
           title: l10n.discoverItsAMatch,
           body: l10n.discoverMatchDialogBody,
+          openChatLabel: l10n.discoverMatchOpenChat,
           continueLabel: l10n.continueAction,
         );
+        if (!mounted) return;
+        if (action == DiscoverMatchDialogAction.openChat) {
+          final me = FirebaseAuth.instance.currentUser;
+          if (me != null) {
+            final threadId =
+                FirestorePaths.deterministicThreadId(me.uid, c.uid);
+            await Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => ChatDetailScreen(
+                  threadId: threadId,
+                  otherUserId: c.uid,
+                  otherUserName: c.name,
+                ),
+              ),
+            );
+          }
+        }
       }
+      // existing_active_match / no_match: no success dialog (idempotent).
       if (mounted) _advance();
     } catch (e, st) {
       debugPrint('Discover like failed: $e\n$st');

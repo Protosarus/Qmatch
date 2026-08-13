@@ -276,6 +276,10 @@ void main() {
         findsOneWidget,
       );
       expect(
+        find.byKey(const Key('qmatch-discover-match-open-chat')),
+        findsOneWidget,
+      );
+      expect(
         find.byKey(const Key('qmatch-discover-match-continue')),
         findsOneWidget,
       );

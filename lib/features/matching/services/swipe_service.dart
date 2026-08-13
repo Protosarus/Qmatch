@@ -5,6 +5,7 @@ import '../../../core/utils/firestore_paths.dart';
 import 'match_service.dart';
 import '../models/swipe_model.dart';
 import 'like_match_atomicity_gate.dart';
+import 'like_match_outcome.dart';
 
 class SwipeService {
   final FirebaseAuth _auth;
@@ -41,7 +42,7 @@ class SwipeService {
   }
 
   /// Like: persist Like + evaluate mutual match in one transaction.
-  Future<bool> likeUser(String targetUid) async {
+  Future<LikeMatchOutcome> likeUser(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');

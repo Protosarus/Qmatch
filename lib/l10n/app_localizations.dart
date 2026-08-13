@@ -758,6 +758,12 @@ abstract class AppLocalizations {
   /// **'You can now start a conversation.'**
   String get discoverMatchDialogBody;
 
+  /// No description provided for @discoverMatchOpenChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Open chat'**
+  String get discoverMatchOpenChat;
+
   /// No description provided for @discoverEmptyTitle.
   ///
   /// In en, this message translates to:

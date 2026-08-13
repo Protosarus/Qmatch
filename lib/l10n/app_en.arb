@@ -165,6 +165,7 @@
   "discoverTitle": "Discover",
   "discoverItsAMatch": "It's a match",
   "discoverMatchDialogBody": "You can now start a conversation.",
+  "discoverMatchOpenChat": "Open chat",
   "discoverEmptyTitle": "No new profiles to show right now.",
   "discoverEmptySubtitle": "You can check again in a little while.",
   "discoverPass": "Pass",

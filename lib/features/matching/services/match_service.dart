@@ -6,6 +6,7 @@ import '../models/match_model.dart';
 import 'match_close_lifecycle_gate.dart';
 import 'match_create_lifecycle_gate.dart';
 import 'like_match_atomicity_gate.dart';
+import 'like_match_outcome.dart';
 import 'match_live_user_validity_gate.dart';
 
 class MatchService {
@@ -29,8 +30,8 @@ class MatchService {
   ///    remains untouched)
   /// 3. Else persist own Like; create match/thread/system message when mutual
   ///
-  /// Returns whether an **active** match exists after the call (new or prior).
-  Future<bool> likeAndMaybeCreateMatch(String targetUid) async {
+  /// Returns a minimal outcome for Discover UX (new vs existing vs none).
+  Future<LikeMatchOutcome> likeAndMaybeCreateMatch(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
@@ -106,10 +107,10 @@ class MatchService {
 
       if (plan.matchDecision ==
           MatchCreateLifecycleDecision.idempotentActiveSuccess) {
-        return true;
+        return LikeMatchOutcome.existingActiveMatch;
       }
       if (!plan.writeMatchArtifacts) {
-        return false;
+        return LikeMatchOutcome.noMatch;
       }
 
       // Create match doc
@@ -165,12 +166,12 @@ class MatchService {
         'moderation': null,
       });
 
-      return true;
+      return LikeMatchOutcome.createdNewMatch;
     });
   }
 
   /// Backward-compatible alias — prefer [likeAndMaybeCreateMatch].
-  Future<bool> createMatchIfMutualLike(String targetUid) =>
+  Future<LikeMatchOutcome> createMatchIfMutualLike(String targetUid) =>
       likeAndMaybeCreateMatch(targetUid);
 
   Stream<List<MatchModel>> getMyMatchesStream() {

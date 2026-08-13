@@ -145,7 +145,7 @@ void main() {
         'lib/features/matching/services/swipe_service.dart',
       ).readAsStringSync();
       final passIdx = swipe.indexOf('Future<void> passUser');
-      final likeIdx = swipe.indexOf('Future<bool> likeUser');
+      final likeIdx = swipe.indexOf('Future<LikeMatchOutcome> likeUser');
       expect(passIdx, greaterThanOrEqualTo(0));
       expect(likeIdx, greaterThan(passIdx));
       final passBody = swipe.substring(passIdx, likeIdx);

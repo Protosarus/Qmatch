@@ -112,7 +112,9 @@ class DiscoverGoldenScene extends StatelessWidget {
                           child: QMatchDiscoverMatchDialogContent(
                             title: l10n.discoverItsAMatch,
                             body: l10n.discoverMatchDialogBody,
+                            openChatLabel: l10n.discoverMatchOpenChat,
                             continueLabel: l10n.continueAction,
+                            onOpenChat: () {},
                             onContinue: () {},
                           ),
                         ),
