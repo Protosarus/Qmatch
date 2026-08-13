@@ -70,13 +70,15 @@ Status classes (preserved):
 | “Spotlight” | **Not** used as launch display name |
 | Internal/family token | Prefer `boost` in new IDs; legacy `boost_spotlight` wording in older drafts is superseded for launch |
 
-### 1.4 Still not frozen
+### 1.4 Identity freeze vs still open
 
 | Item | Status |
 | --- | --- |
 | Final store product IDs | **Frozen** — see [Store Product Identity v1](./qmatch_store_product_identity_v1.md) |
-| Subscription consumable allotments | **None** (no day-one allotments) |
 | Play subscription model | **Frozen** — one `qmatch.resonance` + `monthly`/`annual` base plans |
+| Subscription consumable allotments | **None** (no day-one allotments) |
+| Prices | Remain `TBD` |
+| Store-console creation | **Not authorized yet** |
 
 ---
 
@@ -178,7 +180,7 @@ Do **not** create Quarterly or x5 packs. Do **not** implement app billing code u
 | Monthly + Annual launch; Quarterly deferred | Yes (§1.1) |
 | Super Resonance x1 + Boost x1 launch; x5 deferred | Yes (§1.2) |
 | Display name Boost; no Spotlight launch name | Yes (§1.3) |
-| Prices TBD; IDs draft until creation | Yes (§1.4) |
+| Prices TBD; product IDs + Play model frozen | Yes (§1.4) |
 | 16-item readiness matrix with classes | Yes (§2) |
 | No store-console / app code in this step | Yes |
 | Status | `store_creation_readiness_v1` · `product_ratified_not_live` |
