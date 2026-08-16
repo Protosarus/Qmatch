@@ -77,6 +77,7 @@ describe('compareStageB2Structural callable', () => {
       request('viewer', ['near', 'far']),
       { db },
     );
+    assert.deepStrictEqual(res.candidate_uids, ['near', 'far']);
     assert.strictEqual(res.pairs.length, 2);
     assert.strictEqual(res.pairs[0].available, true);
     assert.strictEqual(res.pairs[0].structural_distance, 0.0);
@@ -91,6 +92,8 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(blob.includes('sess-secret'), false);
     assert.strictEqual(blob.includes('source_session_id'), false);
     assert.strictEqual(blob.includes('should-not-leak'), false);
+    assert.strictEqual(blob.includes('omitted_uids'), false);
+    assert.strictEqual(blob.includes('reverse_block'), false);
     for (const pair of res.pairs) {
       for (const key of Object.keys(pair)) {
         assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
@@ -135,6 +138,44 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(res.pairs[1].structural_distance, 0.0);
   });
 
+  it('omits reverse-blocked candidates without block fields or reasons', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/ok/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/blocked_me/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db.doc('users/blocked_me/blocks/viewer').set({
+      blocked_uid: 'viewer',
+      reason: 'secret-block-reason',
+    });
+
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['blocked_me', 'ok']),
+      { db },
+    );
+    assert.deepStrictEqual(res.candidate_uids, ['ok']);
+    assert.strictEqual(res.pairs.length, 1);
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0.0);
+
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('blocked_me'), false);
+    assert.strictEqual(blob.includes('secret-block-reason'), false);
+    assert.strictEqual(blob.includes('omitted_uids'), false);
+    assert.strictEqual(blob.includes('reverse_block'), false);
+    assert.strictEqual(blob.includes('reason'), false);
+    for (const pair of res.pairs) {
+      for (const key of Object.keys(pair)) {
+        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
+      }
+    }
+  });
+
   it('does not accept oversized batches', async () => {
     const tooMany = Array.from({ length: MAX_CANDIDATE_UIDS + 1 }, (_, i) => `u${i}`);
     await assert.rejects(
@@ -144,5 +185,17 @@ describe('compareStageB2Structural callable', () => {
         }),
       (err) => err instanceof HttpsError && err.code === 'invalid-argument',
     );
+  });
+
+  it('Admin reverse-block check uses exists only — never block data()', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const src = fs.readFileSync(
+      path.resolve(__dirname, '../src/stage_b2_l2_callable.js'),
+      'utf8',
+    );
+    assert.ok(src.includes('reverseBlockSnaps[i].exists'));
+    assert.strictEqual(src.includes('reverseBlockSnaps[i].data'), false);
+    assert.strictEqual(src.includes('omitted_uids'), false);
   });
 });

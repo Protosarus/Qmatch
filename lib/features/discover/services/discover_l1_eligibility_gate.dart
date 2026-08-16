@@ -4,7 +4,9 @@
 /// Mirrors canonical `discover_eligible` assessment completion:
 /// `test_completed || assessment_flow_completed` (no new completion flag).
 ///
-/// Block-by-me and reverse-block are both hard L1 safety excludes.
+/// Block-by-me is a client L1 hard exclude (owner-readable).
+/// Reverse-block is Admin-omitted on the trusted L2 callable — clients
+/// must not GET peer block docs.
 class DiscoverL1EligibilityGate {
   DiscoverL1EligibilityGate._();
 
@@ -33,7 +35,8 @@ class DiscoverL1EligibilityGate {
     );
   }
 
-  /// Hard L1 safety: either direction excludes the pair for the viewer.
+  /// Viewer-block is a client L1 hard exclude. Reverse-block is Admin-omitted
+  /// on trusted L2; pass [candidateBlockedViewer] only when already known.
   static bool excludedByBlocks({
     required bool viewerBlockedCandidate,
     required bool candidateBlockedViewer,

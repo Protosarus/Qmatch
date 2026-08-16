@@ -2,7 +2,8 @@
  * Trusted Stage B2 L2 callable.
  *
  * Admin-reads owner-only canonical_v1 for viewer + L1 candidate UIDs.
- * Returns pair diagnostics only — never peer 20D vectors.
+ * Admin-omits reverse-blocked candidates (candidate blocked viewer).
+ * Returns pair diagnostics only — never peer 20D vectors or block docs.
  */
 
 'use strict';
@@ -42,6 +43,10 @@ function resolveDb(deps) {
 
 function canonicalPath(uid) {
   return `users/${uid}/profiles/canonical_v1`;
+}
+
+function reverseBlockPath(candidateUid, viewerUid) {
+  return `users/${candidateUid}/blocks/${viewerUid}`;
 }
 
 function publicUnavailable(reason) {
@@ -114,9 +119,20 @@ async function handleCompareStageB2Structural(request, deps = {}) {
   const candidateSnaps = await Promise.all(
     candidateUids.map((uid) => db.doc(canonicalPath(uid)).get()),
   );
+  const reverseBlockSnaps = await Promise.all(
+    candidateUids.map((uid) =>
+      db.doc(reverseBlockPath(uid, viewerUid)).get(),
+    ),
+  );
 
+  const includedUids = [];
   const pairs = [];
   for (let i = 0; i < candidateUids.length; i++) {
+    if (reverseBlockSnaps[i] && reverseBlockSnaps[i].exists) {
+      // Omit entirely. Do not return a pair, reason, or block fields.
+      continue;
+    }
+    includedUids.push(candidateUids[i]);
     if (!viewerScores) {
       pairs.push(publicUnavailable('viewer_canonical_profile_missing'));
       continue;
@@ -132,7 +148,7 @@ async function handleCompareStageB2Structural(request, deps = {}) {
     pairs.push(toPublicPair(compareMeasuredPresence(viewerScores, candScores)));
   }
 
-  return { pairs };
+  return { pairs, candidate_uids: includedUids };
 }
 
 module.exports = {

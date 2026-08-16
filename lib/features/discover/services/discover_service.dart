@@ -153,16 +153,6 @@ class DiscoverService {
         .limit(batchSize)
         .get();
 
-    // L1 reverse-block: candidates who blocked the viewer (hard exclude).
-    Set<String> blockedMe;
-    try {
-      blockedMe = await _safetyService.getUidsWhoBlockedMe(
-        snapshot.docs.map((d) => d.id),
-      );
-    } catch (_) {
-      blockedMe = <String>{};
-    }
-
     final out = <DiscoverUserModel>[];
     // Raw user-doc maps for post-rank L3 soft preference shadow only.
     final candidateUserData = <String, Map<String, dynamic>>{};
@@ -175,7 +165,6 @@ class DiscoverService {
     var excludedSelf = 0;
     var excludedSwiped = 0;
     var excludedBlockedByMe = 0;
-    var excludedReverseBlocked = 0;
     var excludedInactive = 0;
     var excludedIncompleteProfile = 0;
     var excludedAssessmentIncomplete = 0;
@@ -190,17 +179,13 @@ class DiscoverService {
         excludedSwiped++;
         continue;
       }
-      final viewerBlockedCandidate = blockedByMe.contains(doc.id);
-      final candidateBlockedViewer = blockedMe.contains(doc.id);
+      // Viewer-block only (owner-readable). Reverse-block is Admin-omitted
+      // on the trusted L2 callable — never GET peer block docs.
       if (DiscoverL1EligibilityGate.excludedByBlocks(
-        viewerBlockedCandidate: viewerBlockedCandidate,
-        candidateBlockedViewer: candidateBlockedViewer,
+        viewerBlockedCandidate: blockedByMe.contains(doc.id),
+        candidateBlockedViewer: false,
       )) {
-        if (viewerBlockedCandidate) {
-          excludedBlockedByMe++;
-        } else {
-          excludedReverseBlocked++;
-        }
+        excludedBlockedByMe++;
         continue;
       }
 
@@ -267,7 +252,6 @@ class DiscoverService {
         'Discover L1: fetched=${snapshot.docs.length} '
         'self=$excludedSelf swiped=$excludedSwiped '
         'blocked_by_me=$excludedBlockedByMe '
-        'reverse_blocked=$excludedReverseBlocked '
         'inactive=$excludedInactive '
         'incomplete_profile=$excludedIncompleteProfile '
         'assessment_incomplete=$excludedAssessmentIncomplete '
@@ -279,10 +263,21 @@ class DiscoverService {
     var ranked = out;
     Map<String, DiscoverStageB2TrustedPairResult> trustedByUid = const {};
 
+    // Trusted candidate_uids is authoritative for both structural_l2_v1
+    // and legacy_v1. Callable failure fail-closes (no unverified L1 batch).
+    final batch = await _trustedL2Batch(
+      ranked.map((c) => c.uid).toList(growable: false),
+    );
+    ranked = DiscoverStructuralL2Ranking.applyTrustedMembership(
+      candidates: ranked,
+      callableFailed: batch.callableFailed,
+      returnedUids: batch.returnedUids,
+    );
+    if (!batch.callableFailed) {
+      trustedByUid = batch.pairsByUid;
+    }
+
     if (_rankingMode.usesTrustedStructuralL2) {
-      trustedByUid = await _trustedL2PairsByUid(
-        ranked.map((c) => c.uid).toList(growable: false),
-      );
       ranked = DiscoverStructuralL2Ranking.rankL1Batch(
         l1Eligible: ranked,
         pairsByUid: trustedByUid,
@@ -350,28 +345,20 @@ class DiscoverService {
     }
   }
 
-  Future<Map<String, DiscoverStageB2TrustedPairResult>> _trustedL2PairsByUid(
-    List<String> uids,
-  ) async {
-    if (uids.isEmpty) return const {};
-    List<DiscoverStageB2TrustedPairResult> trusted;
-    try {
-      trusted = await _stageB2TrustedL2.compareForL1Batch(
-        candidateUids: uids,
+  Future<DiscoverStageB2TrustedBatch> _trustedL2Batch(List<String> uids) async {
+    if (uids.isEmpty) {
+      return const DiscoverStageB2TrustedBatch(
+        returnedUids: [],
+        pairs: [],
+        callableFailed: false,
       );
-    } catch (e, st) {
-      debugPrint('Discover trusted L2 ranking fallback (recency): $e\n$st');
-      trusted = [
-        for (final _ in uids)
-          DiscoverStageB2TrustedPairResult.unavailable(
-            'trusted_l2_callable_failed',
-          ),
-      ];
     }
-    return DiscoverStructuralL2Ranking.pairsByUid(
-      candidateUids: uids,
-      pairs: trusted,
-    );
+    try {
+      return await _stageB2TrustedL2.compareForL1Batch(candidateUids: uids);
+    } catch (e, st) {
+      debugPrint('Discover trusted membership fail-closed: $e\n$st');
+      return DiscoverStageB2TrustedBatch.callableFailed(uids);
+    }
   }
 
   Future<void> _computeShadowDiagnostics({
@@ -453,7 +440,8 @@ class DiscoverService {
         final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
         var byUid = trustedPairsByUid;
         if (byUid.isEmpty) {
-          byUid = await _trustedL2PairsByUid(uids);
+          final batch = await _trustedL2Batch(uids);
+          byUid = batch.pairsByUid;
         }
         final trusted = [
           for (final uid in uids)

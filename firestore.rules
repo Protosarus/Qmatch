@@ -38,6 +38,14 @@ service cloud.firestore {
         ).data.direction == 'like';
     }
 
+    /// Like write is denied when the target has blocked the viewer.
+    /// Pass and other non-like swipe writes are unchanged.
+    /// Uses rules-side exists() — clients must not GET peer block docs.
+    function likeWriteNotReverseBlocked(targetUid) {
+      return request.resource.data.direction != 'like'
+        || !blockExists(targetUid, request.auth.uid);
+    }
+
     /// Active match only — document existence alone is never enough.
     function activeMatchExists(matchId) {
       return exists(matchPath(matchId))
@@ -246,10 +254,13 @@ service cloud.firestore {
       }
 
       // Owner writes own swipes; target may read reverse swipe for mutual-like checks.
+      // Like toward a user who blocked the viewer is denied via exists()
+      // (clients must not GET peer block docs).
       match /swipes/{targetUid} {
         allow read: if isSignedIn()
           && (request.auth.uid == uid || request.auth.uid == targetUid);
-        allow create, update: if isOwner(uid);
+        allow create, update: if isOwner(uid)
+          && likeWriteNotReverseBlocked(targetUid);
         allow delete: if false;
       }
 

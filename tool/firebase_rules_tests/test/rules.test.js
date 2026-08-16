@@ -248,6 +248,61 @@ describe('Firestore rules', () => {
     await assertFails(
       getDoc(doc(authedFirestore('userB'), 'users/userA/blocks/userB')),
     );
+    await assertFails(
+      getDoc(doc(authedFirestore('userA'), 'users/userB/blocks/userA')),
+    );
+  });
+
+  it('two eligible users may write Like without permission-denied', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        from_uid: 'userA',
+        target_uid: 'userB',
+        direction: 'like',
+        source: 'discover',
+      }),
+    );
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userB'), 'users/userB/swipes/userA'), {
+        from_uid: 'userB',
+        target_uid: 'userA',
+        direction: 'like',
+        source: 'discover',
+      }),
+    );
+  });
+
+  it('blocked viewer cannot write Like toward the blocker', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userB/blocks/userA'), {
+        blocked_uid: 'userA',
+        reason: 'secret',
+      });
+    });
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        from_uid: 'userA',
+        target_uid: 'userB',
+        direction: 'like',
+        source: 'discover',
+      }),
+    );
+  });
+
+  it('blocked viewer may still write Pass', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userB/blocks/userA'), {
+        blocked_uid: 'userA',
+      });
+    });
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        from_uid: 'userA',
+        target_uid: 'userB',
+        direction: 'pass',
+        source: 'discover',
+      }),
+    );
   });
 
   it('13. report owner can create a valid report', async () => {

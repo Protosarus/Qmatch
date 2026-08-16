@@ -1,7 +1,8 @@
 /// Discover ranking cutover switch.
 ///
 /// Active production mode is [structuralL2V1]. [legacyV1] keeps
-/// [CompatibilityScoring] as a rollback-only path.
+/// [CompatibilityScoring] as a rollback-only *order* path. Both modes
+/// require trusted callable `candidate_uids` membership first.
 enum DiscoverRankingMode {
   legacyV1('legacy_v1'),
   structuralL2V1('structural_l2_v1');

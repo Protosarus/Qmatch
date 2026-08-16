@@ -49,6 +49,32 @@ class DiscoverStructuralL2Ranking {
     return ranked;
   }
 
+  /// Trusted candidate membership for both ranking modes.
+  ///
+  /// Callable failure fail-closes (empty). Success drops UIDs omitted by
+  /// `candidate_uids`. Does not change L2 distance or legacy score formulas.
+  static List<DiscoverUserModel> applyTrustedMembership({
+    required List<DiscoverUserModel> candidates,
+    required bool callableFailed,
+    required Iterable<String> returnedUids,
+  }) {
+    if (callableFailed) return const <DiscoverUserModel>[];
+    return dropOmittedUids(
+      candidates: candidates,
+      returnedUids: returnedUids,
+    );
+  }
+
+  /// Drop UIDs omitted by the trusted callable (reverse-blocked).
+  /// Membership filter only — does not change L2 distance order.
+  static List<DiscoverUserModel> dropOmittedUids({
+    required List<DiscoverUserModel> candidates,
+    required Iterable<String> returnedUids,
+  }) {
+    final keep = returnedUids.toSet();
+    return [for (final c in candidates) if (keep.contains(c.uid)) c];
+  }
+
   static int compare({
     required String aUid,
     required String bUid,

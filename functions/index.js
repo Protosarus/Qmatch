@@ -194,8 +194,10 @@ const stageB2L2 = require('./src/stage_b2_l2_callable');
 const canonical20dGroupNormalized = require('./src/canonical_20d_group_normalized_shadow');
 
 /**
- * Stage B2 trusted L2 shadow comparison (`canonical_20d_group_normalized_shadow_distance_v1`).
- * Admin-reads canonical_v1; returns pair diagnostics only. Does not rank Discover.
+ * Stage B2 trusted L2 comparison (`canonical_20d_group_normalized_shadow_distance_v1`).
+ * Admin-reads canonical_v1; Admin-omits reverse-blocked candidates.
+ * Returns pair diagnostics + included candidate_uids only. Never block docs.
+ * Client ranks Discover from the returned distances.
  */
 exports.compareStageB2Structural = onCall(
   { region: 'us-central1' },

@@ -24,7 +24,8 @@ class MatchService {
   ///
   /// Transaction boundary (`like_match_atomicity_v1` +
   /// `stale_user_match_eligibility_v1`):
-  /// 1. Read match, reverse swipe, both blocks, own swipe, **viewer + target users**
+  /// 1. Read match, reverse swipe, own block, own swipe, **viewer + target users**
+  ///    (never GET `users/{target}/blocks/{viewer}` — rules enforce reverse-block)
   /// 2. If either user fails live Discover L1 + `discover_eligible`:
   ///    do **not** persist Like, do **not** create match (existing active match
   ///    remains untouched)
@@ -50,7 +51,6 @@ class MatchService {
     final ownSwipeRef = FirestorePaths.userSwipeDoc(currentUid, targetUid);
     final reverseSwipeRef = FirestorePaths.userSwipeDoc(targetUid, currentUid);
     final viewerBlockRef = FirestorePaths.userBlockDoc(currentUid, targetUid);
-    final reverseBlockRef = FirestorePaths.userBlockDoc(targetUid, currentUid);
     final viewerUserRef = FirestorePaths.userDoc(currentUid);
     final targetUserRef = FirestorePaths.userDoc(targetUid);
     final matchRef = FirestorePaths.matchDoc(matchId);
@@ -64,7 +64,6 @@ class MatchService {
       final ownSwipeSnap = await tx.get(ownSwipeRef);
       final reverseSwipeSnap = await tx.get(reverseSwipeRef);
       final viewerBlockSnap = await tx.get(viewerBlockRef);
-      final reverseBlockSnap = await tx.get(reverseBlockRef);
       final viewerUserSnap = await tx.get(viewerUserRef);
       final targetUserSnap = await tx.get(targetUserRef);
 
@@ -81,7 +80,7 @@ class MatchService {
         matchExists: matchSnap.exists,
         matchState: matchSnap.data()?['state'] as String?,
         viewerBlockedCandidate: viewerBlockSnap.exists,
-        candidateBlockedViewer: reverseBlockSnap.exists,
+        candidateBlockedViewer: false,
         viewerLikesCandidatePending: true,
         candidateLikesViewer: MatchCreateLifecycleGate.isLikeDirection(
           reverseSwipeSnap.data()?['direction'] as String?,

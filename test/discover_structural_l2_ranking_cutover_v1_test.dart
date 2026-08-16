@@ -6,6 +6,7 @@ import 'package:qmatch/core/utils/compatibility_scoring.dart';
 import 'package:qmatch/features/discover/models/discover_user_model.dart';
 import 'package:qmatch/features/discover/services/discover_ranking_mode.dart';
 import 'package:qmatch/features/discover/services/discover_stage_b2_dual_path_collector.dart';
+import 'package:qmatch/features/discover/services/discover_stage_b2_trusted_l2_client.dart';
 import 'package:qmatch/features/discover/services/discover_structural_l2_ranking.dart';
 import 'package:qmatch/features/matching/domain/canonical_20d_group_normalized_shadow_contract.dart';
 
@@ -144,6 +145,102 @@ void main() {
       expect(ranked.map((c) => c.uid).toList(), ['new', 'old']);
     });
 
+    test('dropOmittedUids removes reverse-blocked UIDs; L2 order unchanged', () {
+      final l1 = [
+        _candidate(uid: 'far', lastActive: tFresh),
+        _candidate(uid: 'blocked_me', lastActive: tFresh),
+        _candidate(uid: 'near', lastActive: tStale),
+      ];
+      final dropped = DiscoverStructuralL2Ranking.dropOmittedUids(
+        candidates: l1,
+        returnedUids: ['far', 'near'],
+      );
+      expect(dropped.map((c) => c.uid).toList(), ['far', 'near']);
+      final ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+        l1Eligible: dropped,
+        pairsByUid: {
+          'far': _l2(available: true, distance: 0.40),
+          'near': _l2(available: true, distance: 0.0),
+        },
+      );
+      expect(ranked.map((c) => c.uid).toList(), ['near', 'far']);
+      expect(ranked.any((c) => c.uid == 'blocked_me'), isFalse);
+    });
+
+    test('callable failure fail-closes — no unverified L1 candidate is shown',
+        () {
+      final l1 = [
+        _candidate(uid: 'a', lastActive: tFresh, legacyScore: 0.9),
+        _candidate(uid: 'b', lastActive: tStale, legacyScore: 0.1),
+      ];
+      final failed = DiscoverStageB2TrustedBatch.callableFailed(
+        l1.map((c) => c.uid).toList(),
+      );
+      // Trap: failed batch still echoes request UIDs. Must not treat as verified.
+      expect(failed.returnedUids, ['a', 'b']);
+      final shown = DiscoverStructuralL2Ranking.applyTrustedMembership(
+        candidates: l1,
+        callableFailed: failed.callableFailed,
+        returnedUids: failed.returnedUids,
+      );
+      expect(shown, isEmpty);
+      expect(
+        DiscoverStructuralL2Ranking.rankL1Batch(
+          l1Eligible: shown,
+          pairsByUid: failed.pairsByUid,
+        ),
+        isEmpty,
+      );
+    });
+
+    test('legacy_v1 orders by CompatibilityScoring only after trusted omit', () {
+      final l1 = [
+        _candidate(uid: 'blocked_me', lastActive: tFresh, legacyScore: 0.95),
+        _candidate(uid: 'near', lastActive: tStale, legacyScore: 0.20),
+        _candidate(uid: 'mid', lastActive: tFresh, legacyScore: 0.50),
+      ];
+      final verified = DiscoverStructuralL2Ranking.applyTrustedMembership(
+        candidates: l1,
+        callableFailed: false,
+        returnedUids: ['near', 'mid'],
+      );
+      expect(verified.map((c) => c.uid).toList(), ['near', 'mid']);
+      expect(verified.any((c) => c.uid == 'blocked_me'), isFalse);
+
+      final legacy = List<DiscoverUserModel>.of(verified)
+        ..sort(
+          (a, b) => CompatibilityScoring.compareDiscoverCandidates(
+            aScore: a.compatibilityScore,
+            bScore: b.compatibilityScore,
+            aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+            bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+          ),
+        );
+      expect(legacy.map((c) => c.uid).toList(), ['mid', 'near']);
+    });
+
+    test('structural_l2_v1 success path still ranks by distance after omit', () {
+      final l1 = [
+        _candidate(uid: 'far', lastActive: tFresh),
+        _candidate(uid: 'blocked_me', lastActive: tFresh),
+        _candidate(uid: 'near', lastActive: tStale),
+      ];
+      final verified = DiscoverStructuralL2Ranking.applyTrustedMembership(
+        candidates: l1,
+        callableFailed: false,
+        returnedUids: ['far', 'near'],
+      );
+      final ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+        l1Eligible: verified,
+        pairsByUid: {
+          'far': _l2(available: true, distance: 0.40),
+          'near': _l2(available: true, distance: 0.0),
+        },
+      );
+      expect(ranked.map((c) => c.uid).toList(), ['near', 'far']);
+      expect(ranked.any((c) => c.uid == 'blocked_me'), isFalse);
+    });
+
     test('failed/missing pair for a uid is recency fallback, not dropped', () {
       final l1 = [
         _candidate(uid: 'a', lastActive: tStale),
@@ -210,6 +307,20 @@ void main() {
       expect(service.contains('usesTrustedStructuralL2'), isTrue);
       expect(service.contains('usesLegacyCompatibilityScoring'), isTrue);
       expect(service.contains('rankL1Batch'), isTrue);
+      expect(service.contains('applyTrustedMembership'), isTrue);
+      expect(service.contains('dropOmittedUids'), isFalse);
+      expect(
+        service.indexOf('applyTrustedMembership') <
+            service.indexOf('rankL1Batch'),
+        isTrue,
+      );
+      expect(
+        service.indexOf('applyTrustedMembership') <
+            service.indexOf('compareDiscoverCandidates'),
+        isTrue,
+      );
+      expect(service.contains('fail-closed'), isTrue);
+      expect(service.contains('ranking fallback (recency)'), isFalse);
       expect(
         service.contains('do not attach legacy % as if it were L2'),
         isTrue,

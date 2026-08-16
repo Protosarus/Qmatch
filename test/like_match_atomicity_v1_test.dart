@@ -170,6 +170,9 @@ void main() {
       expect(src.contains('runTransaction'), isTrue);
       expect(src.contains('CompatibilityScoring'), isFalse);
       expect(src.contains('DiscoverService'), isFalse);
+      // Reverse-block is rules-enforced; never GET peer block docs.
+      expect(src.contains('userBlockDoc(targetUid, currentUid)'), isFalse);
+      expect(src.contains('candidateBlockedViewer: false'), isTrue);
     });
 
     test('Like then Pass / Pass on matched — Pass never closes match (source)',

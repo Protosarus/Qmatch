@@ -169,12 +169,17 @@ void main() {
   });
 
   group('DiscoverService L1 wiring', () {
-    test('uses reverse-block + assessment OR gate; no preference filters', () {
+    test('uses owner-block + assessment OR gate; reverse-block via trusted omit',
+        () {
       final src = File(
         'lib/features/discover/services/discover_service.dart',
       ).readAsStringSync();
       expect(src.contains('DiscoverL1EligibilityGate'), isTrue);
-      expect(src.contains('getUidsWhoBlockedMe'), isTrue);
+      expect(src.contains('getMyBlockedUserIds'), isTrue);
+      expect(src.contains('getUidsWhoBlockedMe'), isFalse);
+      expect(src.contains('isBlockedByUser'), isFalse);
+      expect(src.contains('applyTrustedMembership'), isTrue);
+      expect(src.contains('candidateBlockedViewer: false'), isTrue);
       expect(src.contains('excludedByBlocks'), isTrue);
       expect(src.contains('passesLocalAccountGates'), isTrue);
       expect(src.contains('assessmentFlowCompleted'), isTrue);
@@ -194,6 +199,13 @@ void main() {
             src.indexOf('_l3ShadowAttacher.attach'),
         isTrue,
       );
+
+      final safety = File(
+        'lib/features/safety/services/safety_service.dart',
+      ).readAsStringSync();
+      expect(safety.contains('getUidsWhoBlockedMe'), isFalse);
+      expect(safety.contains('isBlockedByUser'), isFalse);
+      expect(safety.contains('getMyBlockedUserIds'), isTrue);
     });
   });
 }
