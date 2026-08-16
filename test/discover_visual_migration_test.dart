@@ -255,7 +255,7 @@ void main() {
                       child: QMatchDiscoverEmptyState(
                         title: l10n.discoverEmptyTitle,
                         body: l10n.discoverEmptySubtitle,
-                        retryLabel: l10n.retry,
+                        retryLabel: l10n.discoverEmptyRetry,
                         onRetry: () {},
                       ),
                     ),
@@ -268,9 +268,11 @@ void main() {
       );
 
       expect(find.text('Discover'), findsOneWidget);
-      expect(find.text('No new profiles to show right now.'), findsOneWidget);
+      expect(find.text('No new profiles for now'), findsOneWidget);
       expect(
-          find.text('You can check again in a little while.'), findsOneWidget);
+          find.text('New match candidates will appear here as they arrive.'),
+          findsOneWidget);
+      expect(find.text('Check again'), findsOneWidget);
     });
 
     testWidgets('bottom navigation does not cover Discover content inset',

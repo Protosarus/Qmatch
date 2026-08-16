@@ -374,16 +374,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverMatchOpenChat => 'Open chat';
 
   @override
-  String get discoverEmptyTitle => 'No new profiles to show right now.';
+  String get discoverEmptyTitle => 'No new profiles for now';
 
   @override
-  String get discoverEmptySubtitle => 'You can check again in a little while.';
+  String get discoverEmptySubtitle =>
+      'New match candidates will appear here as they arrive.';
+
+  @override
+  String get discoverEmptyRetry => 'Check again';
 
   @override
   String get discoverPass => 'Pass';
 
   @override
   String get discoverLike => 'Like';
+
+  @override
+  String get discoverGestureOnboardingSwipeRight => 'Swipe right to like.';
+
+  @override
+  String get discoverGestureOnboardingSwipeLeft => 'Swipe left to pass.';
+
+  @override
+  String get discoverGestureOnboardingGotIt => 'Got it';
 
   @override
   String discoverPercentCompatibility(int percent) {
@@ -1453,6 +1466,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get debugProfileSetupPreview => 'Profile Setup Preview';
+
+  @override
+  String get debugReplayDiscoverTutorial => 'Replay Discover swipe tutorial';
+
+  @override
+  String get debugReplayDiscoverTutorialHint =>
+      'Tutorial reset. Open the Discover tab.';
 
   @override
   String get debugGoToAuthWrapper => 'Go to Auth Wrapper';

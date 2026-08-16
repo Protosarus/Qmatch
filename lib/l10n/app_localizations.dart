@@ -767,14 +767,20 @@ abstract class AppLocalizations {
   /// No description provided for @discoverEmptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'No new profiles to show right now.'**
+  /// **'No new profiles for now'**
   String get discoverEmptyTitle;
 
   /// No description provided for @discoverEmptySubtitle.
   ///
   /// In en, this message translates to:
-  /// **'You can check again in a little while.'**
+  /// **'New match candidates will appear here as they arrive.'**
   String get discoverEmptySubtitle;
+
+  /// No description provided for @discoverEmptyRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Check again'**
+  String get discoverEmptyRetry;
 
   /// No description provided for @discoverPass.
   ///
@@ -787,6 +793,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Like'**
   String get discoverLike;
+
+  /// No description provided for @discoverGestureOnboardingSwipeRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe right to like.'**
+  String get discoverGestureOnboardingSwipeRight;
+
+  /// No description provided for @discoverGestureOnboardingSwipeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe left to pass.'**
+  String get discoverGestureOnboardingSwipeLeft;
+
+  /// No description provided for @discoverGestureOnboardingGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get discoverGestureOnboardingGotIt;
 
   /// No description provided for @discoverPercentCompatibility.
   ///
@@ -2719,6 +2743,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile Setup Preview'**
   String get debugProfileSetupPreview;
+
+  /// No description provided for @debugReplayDiscoverTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'Replay Discover swipe tutorial'**
+  String get debugReplayDiscoverTutorial;
+
+  /// No description provided for @debugReplayDiscoverTutorialHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutorial reset. Open the Discover tab.'**
+  String get debugReplayDiscoverTutorialHint;
 
   /// No description provided for @debugGoToAuthWrapper.
   ///

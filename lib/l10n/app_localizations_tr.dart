@@ -372,18 +372,30 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverMatchOpenChat => 'Sohbete git';
 
   @override
-  String get discoverEmptyTitle =>
-      'Şu anda gösterebileceğimiz yeni profil yok.';
+  String get discoverEmptyTitle => 'Şimdilik yeni profil yok';
 
   @override
   String get discoverEmptySubtitle =>
-      'Biraz sonra yeniden kontrol edebilirsin.';
+      'Yeni eşleşme adayları geldikçe burada görünecek.';
+
+  @override
+  String get discoverEmptyRetry => 'Tekrar kontrol et';
 
   @override
   String get discoverPass => 'Geç';
 
   @override
   String get discoverLike => 'Beğen';
+
+  @override
+  String get discoverGestureOnboardingSwipeRight =>
+      'Beğenmek için sağa kaydır.';
+
+  @override
+  String get discoverGestureOnboardingSwipeLeft => 'Geçmek için sola kaydır.';
+
+  @override
+  String get discoverGestureOnboardingGotIt => 'Anladım';
 
   @override
   String discoverPercentCompatibility(int percent) {
@@ -1446,6 +1458,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get debugProfileSetupPreview => 'Profil Oluşturma Önizleme';
+
+  @override
+  String get debugReplayDiscoverTutorial =>
+      'Keşfet kaydırma eğitimini tekrar göster';
+
+  @override
+  String get debugReplayDiscoverTutorialHint =>
+      'Eğitim sıfırlandı. Keşfet sekmesini aç.';
 
   @override
   String get debugGoToAuthWrapper => 'Auth Wrapper\'a git';

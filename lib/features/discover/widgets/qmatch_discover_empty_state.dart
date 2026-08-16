@@ -60,6 +60,17 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
                       border: Border.all(
                         color: QMatchGlassIconButton.coolBorder,
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.resonanceViolet
+                              .withValues(alpha: 0.28),
+                          blurRadius: 22,
+                        ),
+                        BoxShadow(
+                          color: AppColors.softGold.withValues(alpha: 0.16),
+                          blurRadius: 18,
+                        ),
+                      ],
                     ),
                     child: const Icon(
                       Icons.auto_awesome_outlined,

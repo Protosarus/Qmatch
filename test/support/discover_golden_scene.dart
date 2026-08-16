@@ -56,7 +56,7 @@ class DiscoverGoldenScene extends StatelessWidget {
                         child: QMatchDiscoverEmptyState(
                           title: l10n.discoverEmptyTitle,
                           body: l10n.discoverEmptySubtitle,
-                          retryLabel: l10n.retry,
+                          retryLabel: l10n.discoverEmptyRetry,
                           onRetry: () {},
                         ),
                       ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
-import '../../../core/widgets/cosmic/q_cosmic_button.dart';
+import '../../../core/widgets/qmatch_glass_icon_button.dart';
 
 /// Pass / Like action bar for Discover. Handlers are provided by the screen.
+///
+/// Icon-only: X (pass) on the left, heart (like) on the right.
+/// [passLabel] / [likeLabel] remain as semantic labels.
 class QMatchDiscoverActionBar extends StatelessWidget {
   const QMatchDiscoverActionBar({
     super.key,
@@ -15,6 +16,7 @@ class QMatchDiscoverActionBar extends StatelessWidget {
     required this.onPass,
     required this.onLike,
     required this.isActionLoading,
+    this.subdued = false,
   });
 
   final String passLabel;
@@ -22,98 +24,129 @@ class QMatchDiscoverActionBar extends StatelessWidget {
   final VoidCallback? onPass;
   final VoidCallback? onLike;
   final bool isActionLoading;
+  final bool subdued;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      key: const Key('qmatch-discover-action-bar'),
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.xs,
-        AppSpacing.md,
-        AppSpacing.sm,
+    return Opacity(
+      opacity: subdued ? 0.42 : 1,
+      child: Padding(
+        key: const Key('qmatch-discover-action-bar'),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.md,
+          AppSpacing.xs,
+          AppSpacing.md,
+          AppSpacing.sm,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _DiscoverIconButton(
+              buttonKey: const Key('qmatch-discover-pass'),
+              icon: Icons.close_rounded,
+              semanticLabel: passLabel,
+              onPressed: onPass,
+              like: false,
+              loading: false,
+            ),
+            const SizedBox(width: AppSpacing.xxl),
+            _DiscoverIconButton(
+              buttonKey: const Key('qmatch-discover-like'),
+              icon: Icons.favorite_rounded,
+              semanticLabel: likeLabel,
+              onPressed: onLike,
+              like: true,
+              loading: isActionLoading,
+            ),
+          ],
+        ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Semantics(
-              button: true,
-              enabled: onPass != null,
-              label: passLabel,
-              child: OutlinedButton(
-                key: const Key('qmatch-discover-pass'),
-                onPressed: onPass,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.textSecondary,
-                  disabledForegroundColor:
-                      AppColors.textMuted.withValues(alpha: 0.55),
-                  side: BorderSide(
-                    color: AppColors.borderSubtle.withValues(alpha: 0.9),
-                  ),
-                  minimumSize: const Size(48, 52),
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: AppRadii.buttonBorder,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.close_rounded, size: 20),
-                    const SizedBox(width: AppSpacing.xs),
-                    Flexible(
-                      child: Text(
-                        passLabel,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ],
+    );
+  }
+}
+
+class _DiscoverIconButton extends StatelessWidget {
+  const _DiscoverIconButton({
+    required this.buttonKey,
+    required this.icon,
+    required this.semanticLabel,
+    required this.onPressed,
+    required this.like,
+    required this.loading,
+  });
+
+  final Key buttonKey;
+  final IconData icon;
+  final String semanticLabel;
+  final VoidCallback? onPressed;
+  final bool like;
+  final bool loading;
+
+  @override
+  Widget build(BuildContext context) {
+    const size = 56.0;
+    final enabled = onPressed != null && !loading;
+
+    final face = loading
+        ? const Center(
+            child: SizedBox(
+              width: 22,
+              height: 22,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.2,
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  AppColors.textPrimary,
                 ),
               ),
             ),
-          ),
-          const SizedBox(width: AppSpacing.sm),
-          Expanded(
-            child: Semantics(
-              button: true,
-              enabled: onLike != null,
-              label: likeLabel,
-              child: SizedBox(
-                key: const Key('qmatch-discover-like'),
-                height: 52,
-                child: isActionLoading
-                    ? DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: AppRadii.buttonBorder,
-                          color: AppColors.resonanceViolet.withValues(
-                            alpha: 0.35,
-                          ),
-                        ),
-                        child: const Center(
-                          child: SizedBox(
-                            width: 22,
-                            height: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.textPrimary,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    : QCosmicButton(
-                        label: likeLabel,
-                        icon: Icons.favorite_rounded,
-                        onPressed: onLike,
-                        variant: QCosmicButtonVariant.cosmic,
-                        height: 52,
-                      ),
+          )
+        : Icon(
+            icon,
+            size: 26,
+            color: like ? AppColors.textPrimary : QMatchGlassIconButton.iconDefault,
+          );
+
+    final decoration = BoxDecoration(
+      shape: BoxShape.circle,
+      color: like
+          ? AppColors.resonanceViolet.withValues(alpha: enabled ? 0.88 : 0.35)
+          : QMatchGlassIconButton.glassFill,
+      border: Border.all(
+        color: like
+            ? AppColors.softGold.withValues(alpha: 0.42)
+            : QMatchGlassIconButton.coolBorder,
+      ),
+      boxShadow: like && enabled
+          ? [
+              BoxShadow(
+                color: AppColors.resonanceViolet.withValues(alpha: 0.45),
+                blurRadius: 22,
+                offset: const Offset(0, 8),
               ),
-            ),
+              BoxShadow(
+                color: AppColors.softGold.withValues(alpha: 0.22),
+                blurRadius: 16,
+              ),
+            ]
+          : null,
+    );
+
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: semanticLabel,
+      child: GestureDetector(
+        onTap: enabled ? onPressed : null,
+        behavior: HitTestBehavior.opaque,
+        child: SizedBox(
+          key: buttonKey,
+          width: size,
+          height: size,
+          child: DecoratedBox(
+            decoration: decoration,
+            child: Center(child: face),
           ),
-        ],
+        ),
       ),
     );
   }

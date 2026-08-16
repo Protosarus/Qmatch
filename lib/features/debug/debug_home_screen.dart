@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,7 @@ import '../../core/widgets/qmatch_primary_action.dart';
 import '../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../l10n/app_localizations.dart';
 import '../assessment/screens/frequency_test_screen.dart';
+import '../discover/services/discover_gesture_onboarding_store.dart';
 import '../profile/screens/profile_setup_screen.dart';
 import 'screens/assessment_admin_screen.dart';
 import 'screens/persona_result_preview_screen.dart';
@@ -139,6 +141,28 @@ class DebugHomeScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (_) => const ProfileSetupScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: AppSpacing.sm),
+                        _toolCard(
+                          key: const Key(
+                            'qmatch-debug-replay-discover-tutorial',
+                          ),
+                          label: l10n.debugReplayDiscoverTutorial,
+                          icon: Icons.swipe_outlined,
+                          onTap: () async {
+                            final store = DiscoverGestureOnboardingStore(
+                              viewerUid: FirebaseAuth.instance.currentUser?.uid,
+                            );
+                            await store.resetFirstUseGuidance();
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.debugReplayDiscoverTutorialHint,
+                                ),
                               ),
                             );
                           },
