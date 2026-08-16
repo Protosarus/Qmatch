@@ -12,6 +12,7 @@ import 'discover_l1_eligibility_gate.dart';
 import 'discover_l3_soft_preference_shadow.dart';
 import 'discover_shadow_distance_attacher.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
+import 'discover_stage_b2_trusted_l2_client.dart';
 
 class DiscoverService {
   DiscoverService({
@@ -25,6 +26,7 @@ class DiscoverService {
     DiscoverStageB2DualPathCollector? stageB2Collector,
     bool enableStageB2DualPathCollector = false,
     bool allowStageB2OutsideDebug = false,
+    DiscoverStageB2TrustedL2Client? stageB2TrustedL2Client,
   })  : _auth = auth ?? FirebaseAuth.instance,
         _swipeService = swipeService ?? SwipeService(auth: auth),
         _safetyService = safetyService ?? SafetyService(auth: auth),
@@ -39,7 +41,9 @@ class DiscoverService {
               enabled: enableStageB2DualPathCollector &&
                   (kDebugMode || allowStageB2OutsideDebug),
             ),
-        _allowStageB2OutsideDebug = allowStageB2OutsideDebug;
+        _allowStageB2OutsideDebug = allowStageB2OutsideDebug,
+        _stageB2TrustedL2 =
+            stageB2TrustedL2Client ?? DiscoverStageB2TrustedL2Client();
 
   final FirebaseAuth _auth;
   final SwipeService _swipeService;
@@ -51,6 +55,7 @@ class DiscoverService {
   final bool _enableShadowDiagnostics;
   final DiscoverStageB2DualPathCollector _stageB2Collector;
   final bool _allowStageB2OutsideDebug;
+  final DiscoverStageB2TrustedL2Client _stageB2TrustedL2;
 
   /// In-memory shadow diagnostics from the last [getCandidates] call.
   /// Not persisted. Not used for ranking or displayed compatibility.
@@ -178,13 +183,35 @@ class DiscoverService {
       _stageB2Collector.reset();
     }
 
+    var excludedSelf = 0;
+    var excludedSwiped = 0;
+    var excludedBlockedByMe = 0;
+    var excludedReverseBlocked = 0;
+    var excludedInactive = 0;
+    var excludedIncompleteProfile = 0;
+    var excludedAssessmentIncomplete = 0;
+    var excludedMissingPhoto = 0;
+
     for (final doc in snapshot.docs) {
-      if (doc.id == currentUid) continue;
-      if (swiped.contains(doc.id)) continue;
+      if (doc.id == currentUid) {
+        excludedSelf++;
+        continue;
+      }
+      if (swiped.contains(doc.id)) {
+        excludedSwiped++;
+        continue;
+      }
+      final viewerBlockedCandidate = blockedByMe.contains(doc.id);
+      final candidateBlockedViewer = blockedMe.contains(doc.id);
       if (DiscoverL1EligibilityGate.excludedByBlocks(
-        viewerBlockedCandidate: blockedByMe.contains(doc.id),
-        candidateBlockedViewer: blockedMe.contains(doc.id),
+        viewerBlockedCandidate: viewerBlockedCandidate,
+        candidateBlockedViewer: candidateBlockedViewer,
       )) {
+        if (viewerBlockedCandidate) {
+          excludedBlockedByMe++;
+        } else {
+          excludedReverseBlocked++;
+        }
         continue;
       }
 
@@ -198,6 +225,15 @@ class DiscoverService {
         assessmentFlowCompleted: candidate.assessmentFlowCompleted,
         hasPhoto: candidate.hasPhoto,
       )) {
+        if (!candidate.active) {
+          excludedInactive++;
+        } else if (!candidate.profileCompleted) {
+          excludedIncompleteProfile++;
+        } else if (!candidate.hasPhoto) {
+          excludedMissingPhoto++;
+        } else {
+          excludedAssessmentIncomplete++;
+        }
         continue;
       }
 
@@ -229,6 +265,20 @@ class DiscoverService {
           compatibilityLabel: compat.label,
           compatibilityReasons: compat.reasons,
         ),
+      );
+    }
+
+    if (kDebugMode) {
+      debugPrint(
+        'Discover L1: fetched=${snapshot.docs.length} '
+        'self=$excludedSelf swiped=$excludedSwiped '
+        'blocked_by_me=$excludedBlockedByMe '
+        'reverse_blocked=$excludedReverseBlocked '
+        'inactive=$excludedInactive '
+        'incomplete_profile=$excludedIncompleteProfile '
+        'assessment_incomplete=$excludedAssessmentIncomplete '
+        'missing_photo=$excludedMissingPhoto '
+        'l1_eligible=${out.length}',
       );
     }
 
@@ -329,10 +379,24 @@ class DiscoverService {
       }
 
       if (wantStageB2) {
-        _stageB2Collector.finalizeBatch(
+        final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
+        List<DiscoverStageB2TrustedPairResult> trusted;
+        try {
+          trusted = await _stageB2TrustedL2.compareForL1Batch(
+            candidateUids: uids,
+          );
+        } catch (e, st) {
+          debugPrint('Discover Stage B2 trusted L2 skipped: $e\n$st');
+          trusted = [
+            for (final _ in uids)
+              DiscoverStageB2TrustedPairResult.unavailable(
+                'trusted_l2_callable_failed',
+              ),
+          ];
+        }
+        _stageB2Collector.finalizeTrustedBatch(
           rankedCandidates: rankedCandidates,
-          meCanonicalProfile: meProfile,
-          candidateCanonicalProfiles: candidateProfiles,
+          trustedPairs: trusted,
         );
       }
     } catch (e, st) {

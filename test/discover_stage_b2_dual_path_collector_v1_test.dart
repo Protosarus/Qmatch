@@ -228,6 +228,69 @@ void main() {
       );
       expect(ranked.map((e) => e.uid).toList(), before);
       expect(c.lastSession!.pairs.map((p) => p.legacyRank).toList(), [1, 2]);
+
+      final comparison = DiscoverStageB2ComparisonLog.lines(c.lastSession!);
+      expect(comparison, hasLength(7));
+      expect(
+        comparison.every(
+          (line) => line.startsWith(DiscoverStageB2ComparisonLog.prefix),
+        ),
+        isTrue,
+      );
+      expect(comparison[0], contains('20D coverage:'));
+      expect(comparison[1], contains('legacy candidate order:'));
+      expect(comparison[2], contains('L2 group-normalized 20D order:'));
+      expect(comparison[3], contains('rank delta per candidate'));
+      expect(comparison[4], contains('top-3 overlap:'));
+      expect(comparison[5], contains('top-5 overlap:'));
+      expect(comparison[6], contains('pairwise disagreement:'));
+    });
+
+    test('finalizeTrustedBatch keeps L1 order and does not invent 0.5', () {
+      final c = DiscoverStageB2DualPathCollector(
+        enabled: true,
+        sessionSaltFactory: () => 'salt-trusted',
+      );
+      c.beginSession(viewerUid: 'v');
+      final ranked = [
+        _candidate(uid: 'b', score: 0.9),
+        _candidate(uid: 'a', score: 0.2),
+      ];
+      c.recordLegacyPair(
+        candidateUid: 'b',
+        legacyAvailable: true,
+        legacyScore: 0.9,
+        legacyMissingReason: null,
+      );
+      c.recordLegacyPair(
+        candidateUid: 'a',
+        legacyAvailable: true,
+        legacyScore: 0.2,
+        legacyMissingReason: null,
+      );
+      final before = ranked.map((e) => e.uid).toList();
+      c.finalizeTrustedBatch(
+        rankedCandidates: ranked,
+        trustedPairs: const [
+          DiscoverStageB2TrustedPairResult(
+            available: true,
+            structuralDistance: 0.4,
+            totalCoverage: 1.0,
+            comparableDimensions: 20,
+          ),
+          DiscoverStageB2TrustedPairResult(
+            available: false,
+            totalCoverage: 0.0,
+            comparableDimensions: 0,
+            unavailableReason: 'candidate_canonical_profile_missing',
+          ),
+        ],
+      );
+      expect(ranked.map((e) => e.uid).toList(), before);
+      expect(c.lastSession!.pairs[0].legacyRank, 1);
+      expect(c.lastSession!.pairs[0].structuralDistance, 0.4);
+      expect(c.lastSession!.pairs[1].structuralAvailable, isFalse);
+      expect(c.lastSession!.pairs[1].structuralDistance, isNull);
     });
   });
 
@@ -239,11 +302,13 @@ void main() {
       expect(service.contains('enableStageB2DualPathCollector = false'), isTrue);
       expect(service.contains('exportLastStageB2SessionJson'), isTrue);
       expect(service.contains('DiscoverStageB2DualPathCollector'), isTrue);
-      // Legacy sort still before shadow finalize.
+      // Legacy sort still before trusted Stage B2 finalize.
       final sortIdx = service.indexOf('out.sort(');
-      final stageB2Finalize = service.indexOf('finalizeBatch');
+      final stageB2Finalize = service.indexOf('finalizeTrustedBatch');
       expect(sortIdx, greaterThanOrEqualTo(0));
       expect(stageB2Finalize, greaterThan(sortIdx));
+      expect(service.contains('compareForL1Batch'), isTrue);
+      expect(service.contains('group_normalized'), isFalse);
       // No second sort after shadow.
       expect(service.indexOf('out.sort(', sortIdx + 1), -1);
       expect(service.contains('persona_scoring'), isFalse);
@@ -295,9 +360,9 @@ void main() {
       final screen = File(
         'lib/features/discover/screens/discover_screen.dart',
       ).readAsStringSync();
-      expect(screen.contains('StageB2'), isFalse);
       expect(screen.contains('exportLastStageB2'), isFalse);
       expect(screen.contains('lastStageB2Session'), isFalse);
+      expect(screen.contains('DiscoverStageB2ComparisonLog'), isFalse);
     });
   });
 }

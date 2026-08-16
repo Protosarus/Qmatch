@@ -190,3 +190,17 @@ exports.createDualAppleAssnClients =
   require('./src/apple_iap_clients').createDualAppleAssnClients;
 exports.handlePlayRtdnNotification =
   require('./src/store_notification_play').handlePlayRtdnNotification;
+const stageB2L2 = require('./src/stage_b2_l2_callable');
+const canonical20dGroupNormalized = require('./src/canonical_20d_group_normalized_shadow');
+
+/**
+ * Stage B2 trusted L2 shadow comparison (`canonical_20d_group_normalized_shadow_distance_v1`).
+ * Admin-reads canonical_v1; returns pair diagnostics only. Does not rank Discover.
+ */
+exports.compareStageB2Structural = onCall(
+  { region: 'us-central1' },
+  (request) => stageB2L2.handleCompareStageB2Structural(request),
+);
+exports.handleCompareStageB2Structural = stageB2L2.handleCompareStageB2Structural;
+exports.compareMeasuredPresenceGroupNormalized =
+  canonical20dGroupNormalized.compareMeasuredPresence;

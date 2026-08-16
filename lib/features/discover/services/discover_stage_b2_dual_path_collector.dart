@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../matching/domain/canonical_20d_group_normalized_shadow.dart';
 import '../models/discover_user_model.dart';
@@ -161,7 +162,86 @@ class DiscoverStageB2DualPathCollector {
       );
     }
 
-    // Structural ranks among structural-available pairs only (closer = better).
+    _storeFinalizedPairs(
+      pairs: pairs,
+      sessionId: sessionId,
+      viewerAnon: viewerAnon,
+    );
+  }
+
+  /// Attach trusted L2 pair diagnostics after legacy sort.
+  ///
+  /// [trustedPairs] must be 1:1 with [rankedCandidates] (L1 batch order).
+  /// Does not read canonical_v1 or reorder candidates.
+  void finalizeTrustedBatch({
+    required List<DiscoverUserModel> rankedCandidates,
+    required List<DiscoverStageB2TrustedPairResult> trustedPairs,
+  }) {
+    if (!enabled) {
+      reset();
+      return;
+    }
+    final salt = _sessionSalt;
+    final viewerUid = _viewerUid;
+    if (salt == null || viewerUid == null) {
+      reset();
+      return;
+    }
+
+    final sessionId = _hashId('session|$salt');
+    final viewerAnon = _anon(salt, viewerUid);
+    final pairs = <DiscoverStageB2PairDiagnostic>[];
+    for (var i = 0; i < rankedCandidates.length; i++) {
+      final candidate = rankedCandidates[i];
+      final legacy = _legacyByUid[candidate.uid];
+      final candidateAnon = _anon(salt, candidate.uid);
+      final pairId = _hashId('pair|$salt|$viewerUid|${candidate.uid}');
+      final trusted = i < trustedPairs.length ? trustedPairs[i] : null;
+
+      final legacyAvailable = legacy?.available ??
+          (candidate.compatibilityScore != null);
+      final legacyScore = legacy?.score ?? candidate.compatibilityScore;
+      final legacyMissing = legacyAvailable
+          ? null
+          : (legacy?.missingReason ??
+              candidate.compatibilityLabel ??
+              'legacy_unavailable');
+
+      pairs.add(
+        DiscoverStageB2PairDiagnostic(
+          pairId: pairId,
+          candidateAnonId: candidateAnon,
+          legacyAvailable: legacyAvailable,
+          legacyScore: legacyScore,
+          legacyMissingReason: legacyMissing,
+          legacyRank: i + 1,
+          structuralAvailable: trusted?.available ?? false,
+          structuralDistance: trusted?.available == true
+              ? trusted!.structuralDistance
+              : null,
+          structuralMissingReason: trusted?.available == true
+              ? null
+              : (trusted?.unavailableReason ??
+                  'candidate_canonical_profile_missing'),
+          structuralCoverage: trusted?.totalCoverage,
+          structuralComparableDims: trusted?.comparableDimensions,
+          structuralRank: null,
+        ),
+      );
+    }
+
+    _storeFinalizedPairs(
+      pairs: pairs,
+      sessionId: sessionId,
+      viewerAnon: viewerAnon,
+    );
+  }
+
+  void _storeFinalizedPairs({
+    required List<DiscoverStageB2PairDiagnostic> pairs,
+    required String sessionId,
+    required String viewerAnon,
+  }) {
     final availableIdx = <int>[];
     for (var i = 0; i < pairs.length; i++) {
       if (pairs[i].structuralAvailable &&
@@ -194,6 +274,7 @@ class DiscoverStageB2DualPathCollector {
       capturedAtIso: DateTime.now().toUtc().toIso8601String(),
     );
     _legacyByUid.clear();
+    DiscoverStageB2ComparisonLog.debugPrintSession(_session!);
   }
 
   /// JSON export of [lastSession], or null if none.
@@ -231,6 +312,59 @@ class _LegacyCapture {
   final bool available;
   final double? score;
   final String? missingReason;
+}
+
+/// Public pair payload from the trusted Stage B2 L2 callable.
+/// Never includes 20D vectors.
+class DiscoverStageB2TrustedPairResult {
+  const DiscoverStageB2TrustedPairResult({
+    required this.available,
+    this.structuralDistance,
+    required this.totalCoverage,
+    required this.comparableDimensions,
+    this.unavailableReason,
+  });
+
+  factory DiscoverStageB2TrustedPairResult.unavailable(String reason) {
+    return DiscoverStageB2TrustedPairResult(
+      available: false,
+      totalCoverage: 0,
+      comparableDimensions: 0,
+      unavailableReason: reason,
+    );
+  }
+
+  factory DiscoverStageB2TrustedPairResult.fromPublicMap(Object? raw) {
+    if (raw is! Map) {
+      return DiscoverStageB2TrustedPairResult.unavailable(
+        'trusted_l2_callable_failed',
+      );
+    }
+    final available = raw['available'] == true;
+    final coverage = (raw['total_coverage'] as num?)?.toDouble() ?? 0.0;
+    final dims = (raw['comparable_dimensions'] as num?)?.toInt() ?? 0;
+    if (!available) {
+      return DiscoverStageB2TrustedPairResult(
+        available: false,
+        totalCoverage: coverage,
+        comparableDimensions: dims,
+        unavailableReason: raw['unavailable_reason'] as String? ??
+            'candidate_canonical_profile_missing',
+      );
+    }
+    return DiscoverStageB2TrustedPairResult(
+      available: true,
+      structuralDistance: (raw['structural_distance'] as num?)?.toDouble(),
+      totalCoverage: coverage,
+      comparableDimensions: dims,
+    );
+  }
+
+  final bool available;
+  final double? structuralDistance;
+  final double totalCoverage;
+  final int comparableDimensions;
+  final String? unavailableReason;
 }
 
 /// One privacy-safe dual-path pair diagnostic.
@@ -350,4 +484,105 @@ class DiscoverStageB2Session {
         },
         'pairs': [for (final p in pairs) p.toExportMap()],
       };
+}
+
+/// DEBUG-only Stage B2 comparison printer. Does not affect ranking or scores.
+class DiscoverStageB2ComparisonLog {
+  DiscoverStageB2ComparisonLog._();
+
+  static const String prefix = 'Discover Stage B2 comparison:';
+
+  static void debugPrintSession(DiscoverStageB2Session session) {
+    if (!kDebugMode) return;
+    for (final line in lines(session)) {
+      debugPrint(line);
+    }
+  }
+
+  static List<String> lines(DiscoverStageB2Session session) {
+    final pairs = session.pairs;
+    final byLegacy = List<DiscoverStageB2PairDiagnostic>.of(pairs)
+      ..sort((a, b) => a.legacyRank.compareTo(b.legacyRank));
+    final byStructural = pairs
+        .where((p) => p.structuralAvailable && p.structuralRank != null)
+        .toList()
+      ..sort((a, b) => a.structuralRank!.compareTo(b.structuralRank!));
+
+    final coverages = <double>[];
+    final coverageParts = <String>[];
+    for (final p in byLegacy) {
+      final cov = p.structuralCoverage;
+      final dims = p.structuralComparableDims;
+      if (cov != null) coverages.add(cov);
+      coverageParts.add(
+        '${p.candidateAnonId}:'
+        'cov=${cov == null ? 'n/a' : _n(cov)}'
+        ' dims=${dims ?? 'n/a'}'
+        '${p.structuralAvailable ? '' : ' missing=${p.structuralMissingReason ?? 'n/a'}'}',
+      );
+    }
+    final coverageSummary = coverages.isEmpty
+        ? 'available=0/${pairs.length} mean=n/a min=n/a max=n/a'
+        : 'available=${coverages.length}/${pairs.length} '
+            'mean=${_n(coverages.reduce((a, b) => a + b) / coverages.length)} '
+            'min=${_n(coverages.reduce((a, b) => a < b ? a : b))} '
+            'max=${_n(coverages.reduce((a, b) => a > b ? a : b))}';
+
+    final rankDeltas = <String>[];
+    for (final p in byLegacy) {
+      final sr = p.structuralRank;
+      rankDeltas.add(
+        sr == null
+            ? '${p.candidateAnonId}:n/a'
+            : '${p.candidateAnonId}:${sr - p.legacyRank}',
+      );
+    }
+
+    String overlapLine(int k) {
+      final legacyTop = byLegacy.take(k).map((p) => p.candidateAnonId).toList();
+      final structTop =
+          byStructural.take(k).map((p) => p.candidateAnonId).toList();
+      final a = legacyTop.toSet();
+      final b = structTop.toSet();
+      if (a.isEmpty || b.isEmpty) {
+        return 'k=$k overlap=0/0 rate=n/a intersection=[] '
+            'legacy=$legacyTop l2=$structTop';
+      }
+      final inter = a.intersection(b).toList()..sort();
+      final denom = a.length < b.length ? a.length : b.length;
+      return 'k=$k overlap=${inter.length}/$denom '
+          'rate=${_n(inter.length / denom)} '
+          'intersection=$inter legacy=$legacyTop l2=$structTop';
+    }
+
+    var inversions = 0;
+    var compared = 0;
+    for (var i = 0; i < byStructural.length; i++) {
+      for (var j = i + 1; j < byStructural.length; j++) {
+        final a = byStructural[i];
+        final b = byStructural[j];
+        compared++;
+        final legacyPrefersA = a.legacyRank < b.legacyRank;
+        final structuralPrefersA = a.structuralRank! < b.structuralRank!;
+        if (legacyPrefersA != structuralPrefersA) inversions++;
+      }
+    }
+    final disagreement = compared == 0
+        ? 'inversions=0/0 rate=n/a'
+        : 'inversions=$inversions/$compared rate=${_n(inversions / compared)}';
+
+    return [
+      '$prefix 20D coverage: $coverageSummary pairs=[$coverageParts]',
+      '$prefix legacy candidate order: '
+          '${[for (final p in byLegacy) p.candidateAnonId]}',
+      '$prefix L2 group-normalized 20D order: '
+          '${[for (final p in byStructural) p.candidateAnonId]}',
+      '$prefix rank delta per candidate (l2-legacy): $rankDeltas',
+      '$prefix top-3 overlap: ${overlapLine(3)}',
+      '$prefix top-5 overlap: ${overlapLine(5)}',
+      '$prefix pairwise disagreement: $disagreement',
+    ];
+  }
+
+  static String _n(double v) => v.toStringAsFixed(3);
 }
