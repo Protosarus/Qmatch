@@ -3,11 +3,13 @@ import 'dart:math' as math;
 import 'temporal_shadow_extractor_contract.dart';
 import 'temporal_shadow_extractor_models.dart';
 
-/// Offline/shadow-only temporal feature extractor (v1).
+/// L4 v1 post-match temporal feature extractor.
 ///
 /// Consumes existing message metadata timestamps + sender ids only.
-/// No Discover ranking, Persona, quantum, RVI, omega estimation, questionnaire
-/// temporal maps, or message-content analysis.
+/// Production diagnostics: cadence / burstiness / regularity / reply-turn /
+/// participation. Circadian is conditional on timezone.
+/// No Discover ranking, Persona, quantum/L5, RVI, Class B omega, questionnaire
+/// temporal maps, or pre-match inference.
 class TemporalShadowExtractor {
   const TemporalShadowExtractor();
 

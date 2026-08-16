@@ -51,6 +51,11 @@ class CircadianActivityPhaseEstimate {
             CircadianActivityPhaseEstimatorContract.attachesToFrequencyModes,
         'feeds_six_mode_r_wave':
             CircadianActivityPhaseEstimatorContract.feedsSixModeRWave,
+        'l4_v1_role': CircadianActivityPhaseEstimatorContract.l4V1Role,
+        'production_promoted':
+            CircadianActivityPhaseEstimatorContract.productionPromoted,
+        'conditional_diagnostic':
+            CircadianActivityPhaseEstimatorContract.conditionalDiagnostic,
         'oscillator_id': CircadianActivityPhaseEstimatorContract.oscillatorId,
         'available': available,
         if (unavailableReason != null) 'unavailable_reason': unavailableReason,

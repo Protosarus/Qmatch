@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Contract id | `periodicity_omega_estimator_contract_v1` |
-| Status | `specification_only_not_live` |
+| Status | **Research shadow only** under L4 v1 — implemented, **not production-promoted**. `gates_calibrated=false`. |
 | Purpose | Define when timestamp-only temporal metadata justifies a real periodic angular frequency \(\omega\) |
 | Depends on | [Temporal Observation Contract v1](./qmatch_temporal_observation_contract_v1.md), [Wave Phase Reference Policy v1](./qmatch_wave_phase_reference_policy_v1.md), [Temporal Phase Estimator Contract v1](./qmatch_temporal_phase_estimator_contract_v1.md), `wave_state_modal_shadow_v2` |
 | Explicitly out of scope | Production code, Discover ranking/UI, Persona, RVI, density-matrix/fidelity, questionnaire→ω, cadence→ω, attaching estimated ω to Frequency modes without a mode-specific event stream |

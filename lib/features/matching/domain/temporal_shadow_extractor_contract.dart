@@ -1,17 +1,26 @@
-/// Shadow-only temporal feature extraction contract (v1).
+import 'l4_temporal_diagnostics_contract.dart';
+
+/// L4 v1 post-match temporal feature extraction.
 ///
-/// Offline diagnostics from existing thread message metadata only.
-/// No Discover ranking/UI, Persona, quantum, RVI, omega, or questionnaire
-/// temporal fabrication.
+/// Production diagnostics from existing thread message metadata only.
+/// Class B omega is out of scope here (always unavailable).
+/// No Discover ranking, Persona, questionnaire φ/ω, or pre-match inference.
 class TemporalShadowExtractorContract {
   TemporalShadowExtractorContract._();
 
   static const String scoringVersion = 'temporal_feature_extraction_v1';
-  static const String policyStatus = 'specification_only_not_live';
-  static const bool shadowOnly = true;
-  static const bool gatesCalibrated = false;
+  static const String policyVersion =
+      L4TemporalDiagnosticsContract.policyVersion;
+  static const String policyStatus =
+      L4TemporalDiagnosticsContract.policyStatus;
+  static const bool shadowOnly = L4TemporalDiagnosticsContract.shadowOnly;
+  static const bool gatesCalibrated =
+      L4TemporalDiagnosticsContract.gatesCalibrated;
   static const bool omegaEnabled = false;
-  static const String circadianOscillatorId = 'circadian_24h';
+  static const bool affectsDiscoverRanking =
+      L4TemporalDiagnosticsContract.affectsDiscoverRanking;
+  static const String circadianOscillatorId =
+      L4TemporalDiagnosticsContract.circadianOscillatorIdAlias;
   static const String systemSenderId = 'system';
 
   /// Provisional reply-gap timeout (not calibrated).

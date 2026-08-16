@@ -1,8 +1,9 @@
-/// Shadow-only Class-B validated periodic phase binder contract.
+import 'l4_temporal_diagnostics_contract.dart';
+
+/// Research-shadow Class-B validated periodic phase binder.
 ///
-/// Binds phase on the **same** accepted oscillator from
-/// [ActivitySpectralOmegaEstimator]. Never attaches to Frequency modes,
-/// Discover, Persona, RVI, or density-matrix.
+/// Not L4 v1 production-promoted. Binds phase on the same accepted oscillator
+/// from [ActivitySpectralOmegaEstimator]. Never Discover / Frequency modes.
 class ValidatedPeriodicPhaseBinderContract {
   ValidatedPeriodicPhaseBinderContract._();
 
@@ -10,9 +11,13 @@ class ValidatedPeriodicPhaseBinderContract {
       'validated_periodic_phase_binder_activity_spectral_v1';
   static const String policyVersion = 'periodicity_omega_estimator_contract_v1';
   static const String policyStatus = 'shadow_only_not_live';
+  static const String l4V1Role = 'research_shadow';
+  static const bool productionPromoted =
+      L4TemporalDiagnosticsContract.periodicPhaseProductionPromoted;
 
   static const bool shadowOnly = true;
-  static const bool gatesCalibrated = false;
+  static const bool gatesCalibrated =
+      L4TemporalDiagnosticsContract.gatesCalibrated;
   static const bool attachesToFrequencyModes = false;
   static const bool feedsSixModeRWave = false;
   static const bool liveDiscoverRanking = false;

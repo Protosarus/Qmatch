@@ -68,6 +68,12 @@ void main() {
       expect(r.toWireMap()['attaches_to_frequency_modes'], isFalse);
       expect(r.toWireMap()['feeds_six_mode_r_wave'], isFalse);
       expect(r.toWireMap()['gates_calibrated'], isFalse);
+      expect(
+        r.toWireMap()['policy_status'],
+        'production_diagnostics_non_ranking_v1',
+      );
+      expect(r.toWireMap()['conditional_diagnostic'], isTrue);
+      expect(r.toWireMap()['production_promoted'], isFalse);
     });
 
     test('evening cluster → phase near evening', () {

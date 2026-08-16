@@ -209,6 +209,14 @@ void main() {
         WaveStateAmplitudeSemanticsContract.tier1AttachesToFrequencyModes,
         isFalse,
       );
+      expect(
+        WaveStateAmplitudeSemanticsContract.tier1L4ProductionPromoted,
+        isFalse,
+      );
+      expect(
+        WaveStateAmplitudeSemanticsContract.tier1L4ResearchShadow,
+        isTrue,
+      );
       final paths = [
         'lib/features/matching/domain/global_activity_periodic_resonance.dart',
         'lib/features/matching/domain/wave_state_amplitude_semantics_contract.dart',

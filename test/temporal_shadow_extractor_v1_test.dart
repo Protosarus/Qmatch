@@ -51,6 +51,10 @@ void main() {
         TemporalFeatureStatus.sparse,
       );
       expect(TemporalShadowThreadResult.gatesCalibrated, isFalse);
+      expect(
+        TemporalShadowThreadResult.policyStatus,
+        'production_diagnostics_non_ranking_v1',
+      );
       expect(TemporalShadowThreadResult.omegaStatus,
           TemporalFeatureStatus.unavailable);
       expect(r.toWireMap()['omega'], {'status': 'unavailable'});

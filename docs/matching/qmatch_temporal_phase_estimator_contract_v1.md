@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Contract id | `temporal_phase_estimator_contract_v1` |
-| Status | `specification_only_not_live` |
+| Status | L4 v1: Class A circadian is a **conditional diagnostic** (`production_diagnostics_non_ranking_v1`). Copying that phase onto Frequency modes remains forbidden. |
 | Purpose | Define how real temporal metadata may produce valid `PhaseReferenceV2` for Wave-State Modal Shadow v2 |
 | Depends on | [Wave Phase Reference Policy v1](./qmatch_wave_phase_reference_policy_v1.md), [Temporal Observation Contract v1](./qmatch_temporal_observation_contract_v1.md), [Temporal Feature Extraction v1](./qmatch_temporal_feature_extraction_v1.md), implemented `wave_state_modal_shadow_v2` |
 | Explicitly out of scope | Production code changes, Discover ranking/UI, Persona, RVI, density-matrix/fidelity, questionnaire→φ/ω, copying one global circadian phase into all Frequency modes, fabricating ω |

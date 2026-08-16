@@ -1,12 +1,11 @@
+import 'l4_temporal_diagnostics_contract.dart';
+
 /// Wave-State amplitude semantics v1 — two-tier freeze.
 ///
-/// Tier 1: global periodic activity oscillator (usable shadow now).
-/// Tier 2: multi-mode Wave-State v2 (research only until mode-specific
-/// oscillators / phase provenance exist).
-///
-/// Never copy global activity phase into Frequency 6D modes.
-/// Never fuse activity level into phase alignment.
-/// Never call \(c_{\mathrm{abs}}\) “resonance”.
+/// L4 v1: Tier 1 global periodic activity oscillator is **research shadow**
+/// (`phase_alignment`, activity amplitude). Not production-promoted.
+/// Tier 2 multi-mode Wave-State remains **L5** research (do not copy global
+/// phase onto Frequency 6D).
 class WaveStateAmplitudeSemanticsContract {
   WaveStateAmplitudeSemanticsContract._();
 
@@ -20,10 +19,14 @@ class WaveStateAmplitudeSemanticsContract {
   static const bool rviEnabled = false;
   static const bool densityMatrixEnabled = false;
 
-  // --- Tier 1: global periodic activity oscillator ---
+  // --- Tier 1: global periodic activity oscillator (L4 research shadow) ---
 
   static const String tier1Id = 'global_activity_periodic_oscillator_v1';
   static const bool tier1UsableShadow = true;
+  static const bool tier1L4ProductionPromoted =
+      L4TemporalDiagnosticsContract
+          .globalActivityOscillatorComparisonProductionPromoted;
+  static const bool tier1L4ResearchShadow = true;
   static const bool tier1FusesActivityIntoPhaseAlignment = false;
   static const bool tier1AttachesToFrequencyModes = false;
 
@@ -33,7 +36,7 @@ class WaveStateAmplitudeSemanticsContract {
   /// Returned separately from activity levels — never fused.
   static const String tier1PhaseAlignmentFormula = 'cos(delta_phi)';
 
-  // --- Tier 2: multi-mode Wave-State v2 ---
+  // --- Tier 2: multi-mode Wave-State v2 (L5, not L4) ---
 
   static const String tier2Id = 'wave_state_modal_shadow_v2_multimode';
   static const bool tier2RealUserResonanceEnabled = false;

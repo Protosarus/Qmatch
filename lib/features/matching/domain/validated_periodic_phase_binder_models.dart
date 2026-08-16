@@ -54,6 +54,9 @@ class ValidatedPeriodicPhaseEstimate {
             ValidatedPeriodicPhaseBinderContract.attachesToFrequencyModes,
         'feeds_six_mode_r_wave':
             ValidatedPeriodicPhaseBinderContract.feedsSixModeRWave,
+        'l4_v1_role': ValidatedPeriodicPhaseBinderContract.l4V1Role,
+        'production_promoted':
+            ValidatedPeriodicPhaseBinderContract.productionPromoted,
         'reference_epoch_policy':
             ValidatedPeriodicPhaseBinderContract.referenceEpochPolicy,
         'available': available,

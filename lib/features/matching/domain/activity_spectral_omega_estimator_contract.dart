@@ -1,9 +1,9 @@
-/// Shadow-only global activity spectral omega estimator contract.
+import 'l4_temporal_diagnostics_contract.dart';
+
+/// Research-shadow Class B global activity spectral omega estimator.
 ///
-/// Detects Class B period \(T^\star\) from binned activity periodogram.
-/// Never attaches to Frequency modes; never uses cadence/questionnaire fallback.
-/// Near-24h / near-7d peaks are [ActivitySpectralOmegaStatus.civilCollision]
-/// and must not emit Class B \(\omega\) (Class A civil oscillator path).
+/// Not L4 v1 production-promoted. Never attaches to Frequency modes.
+/// Cadence/questionnaire fallback forbidden. Civil 24h/7d → civilCollision.
 class ActivitySpectralOmegaEstimatorContract {
   ActivitySpectralOmegaEstimatorContract._();
 
@@ -11,9 +11,13 @@ class ActivitySpectralOmegaEstimatorContract {
       'periodicity_omega_estimator_activity_spectral_v1';
   static const String policyVersion = 'periodicity_omega_estimator_contract_v1';
   static const String policyStatus = 'shadow_only_not_live';
+  static const String l4V1Role = 'research_shadow';
+  static const bool productionPromoted =
+      L4TemporalDiagnosticsContract.classBOmegaProductionPromoted;
 
   static const bool shadowOnly = true;
-  static const bool gatesCalibrated = false;
+  static const bool gatesCalibrated =
+      L4TemporalDiagnosticsContract.gatesCalibrated;
   static const bool attachesToFrequencyModes = false;
   static const bool cadenceFallbackAllowed = false;
   static const bool questionnaireOmegaAllowed = false;

@@ -5,7 +5,7 @@
 | Document id | `qmatch_final_matching_architecture_v1` |
 | Policy id | `final_matching_architecture_v1` |
 | Status | `architecture_frozen_not_live` (layer boundaries); Discover L2 ranking cut over separately |
-| Scope | **Architecture freeze** of layer boundaries and eligibility. Discover structural ranking is now live via trusted backend L2 (`structural_l2_v1`); this document still does not promote L3–L5 or invent fusion weights. |
+| Scope | **Architecture freeze** of layer boundaries and eligibility. Discover structural ranking is live via trusted backend L2 (`structural_l2_v1`). L3/L4 v1 are **non-ranking diagnostics**. This document does not invent fusion weights or promote L5. |
 | Depends on | Structural production-candidate policy; Wave-State amplitude semantics; Quantum mixed-state policy freeze; Temporal / phase / omega contracts |
 | Explicitly out of scope | Final fusion weights; single combined “match %”; Persona as Matching key; RVI; inventing missing values |
 
@@ -29,7 +29,7 @@ This document freezes **layer boundaries and eligibility**, not a weighted blend
 | L1 hard eligibility | Hard pass / fail / unknown — not a soft score |
 | L2 structural | Group-normalized 20D \(D_{\mathrm{structural}}\) — live Discover ranking via trusted backend `compareStageB2Structural` (`structural_l2_v1`) |
 | L3 preferences / values | Discover L3 v1 = **profile** soft-preference **diagnostics** (non-ranking). CM values = **future L3 extension**, not fused in v1 |
-| L4 temporal | Shadow only (`phase_alignment`, activity levels); real temporal data required |
+| L4 temporal | Post-match **diagnostics** (cadence family production; circadian conditional; Class B / `phase_alignment` research shadow). **Non-ranking.** Mixed-state / multi-mode = **L5** |
 | L5 mixed-state QI | Shadow only (`validated_shadow_not_live`) |
 | Persona / RVI / pure-state QI | **Prohibited** as Matching keys |
 | Client Dart 20D matcher | Formula replica only — `liveDiscoverRanking=false`; does **not** rank Discover |
@@ -64,11 +64,12 @@ Matching is a **pipeline of layers**, not one score. Each layer has its own inpu
 └────────────────────────────┬────────────────────────────────┘
                              │ diagnostics only in v1 (no rank)
 ┌────────────────────────────▼────────────────────────────────┐
-│ L4  Temporal behavioral signals                             │
-│     phase_alignment, activity_level_*, omega/phase gates    │
-│     (shadow; real temporal data required)                   │
-└────────────────────────────┬────────────────────────────────┐
-                             │ shadow diagnostics only
+│ L4  Temporal (post-match diagnostics, non-ranking)          │
+│     Production: cadence / burst / regularity / reply /      │
+│     participation. Circadian Class A if TZ+gates.           │
+│     Research shadow: Class B ω, periodic φ, phase_alignment │
+└────────────────────────────┬────────────────────────────────┘
+                             │ diagnostics only in v1 (no rank)
 ┌────────────────────────────▼────────────────────────────────┐
 │ L5  Quantum-inspired shadow diagnostics                     │
 │     mixed-state purity / fidelity / trace distance          │
@@ -125,16 +126,18 @@ Evaluated **after** trusted structural L2. Separate from L2. **Non-ranking in v1
 
 #### L4 — Temporal behavioral signals
 
-**Role:** Evidence-backed timing / activity dynamics on accepted oscillators.
+**L4 v1 freeze:** [qmatch_l4_temporal_diagnostics_contract_v1.md](./qmatch_l4_temporal_diagnostics_contract_v1.md) (`production_diagnostics_non_ranking_v1`).
 
-| Field | Status | Notes |
+**Post-match only** — observed thread/message metadata. **No pre-match inference.** **Does not affect Discover order.** No fusion with L2/L3. Missing = unavailable (never a fake neutral). `gates_calibrated=false`. No real cohort yet. `last_active_at` is **not** an L4 signal.
+
+| Field | L4 v1 role | Notes |
 | --- | --- | --- |
-| `phase_alignment` = \(\cos\Delta\phi\) | Shadow | Tier-1 global activity oscillator; **real temporal data required** |
-| `activity_level_A/B`, `activity_level_gap` | Shadow | Separate from phase; never fused into \(\cos\Delta\phi\) |
-| Spectral \(\omega\) / Class-B phase binder | Shadow | Provenance gates; civil-collision stays Class A civil path |
-| Multi-mode Frequency temporal attach | Research / unavailable | Requires mode-specific oscillators ([amplitude semantics](./qmatch_wave_state_amplitude_semantics_v1.md)) |
+| Cadence / burstiness / regularity / reply-turn / participation | **Production diagnostic** | `TemporalShadowExtractor` |
+| Class A circadian (`circadian_activity_24h`) | **Conditional diagnostic** | Requires valid TZ + evidence gates |
+| Class B ω, periodic phase, `phase_alignment=\cos\Delta\phi`, activity amplitude | **Research shadow only** | Not production-promoted |
+| Mixed-state QI / multi-window \(\rho\) / multi-mode Wave-State | **Not L4** | Remain **L5** |
 
-Policy anchors: Wave Phase Reference, Activity Spectral Omega, Validated Periodic Phase Binder, Amplitude Semantics v1.
+Do not copy global activity phase onto Frequency 6D. Do not treat cadence as \(\omega\).
 
 #### L5 — Quantum-inspired shadow diagnostics
 
@@ -164,7 +167,7 @@ Policy: [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum
 | Client Dart group-normalized matcher | **Not** Discover ranking | Formula replica / diagnostics (`production_candidate_not_live`) |
 | Legacy `CompatibilityScoring` | **Rollback only** | `legacy_v1` via `DiscoverRankingMode.legacyV1` |
 
-Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **diagnostics** (age + interests) are production-contracted and **non-ranking**. Distance diagnostics are not production-promoted. CM values remain a future L3 extension.
+Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **diagnostics** (age + interests) and L4 v1 **cadence-family diagnostics** (post-match) are production-contracted and **non-ranking**. L4 Class B / `phase_alignment` remain research shadow. CM values remain a future L3 extension.
 
 ### B. Must remain shadow / not live
 
@@ -172,8 +175,8 @@ Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **di
 | --- | --- | --- |
 | Client Dart \(D_{\mathrm{structural}}\) matcher | `production_candidate_not_live` | Replica only; does not rank Discover |
 | Equal-20D distance | Baseline only | Not the production ranking path |
-| `phase_alignment` | Shadow | Needs real temporal streams + calibrated gates |
-| `activity_level_*` / gap | Shadow | Separate diagnostic; no fusion |
+| `phase_alignment` | L4 research shadow | Needs real temporal streams + calibrated gates; **not** L4 v1 production |
+| `activity_level_*` / gap | L4 research shadow | Separate diagnostic; no fusion; no canonical live \(A_u\) |
 | Mixed-state QI fields | `validated_shadow_not_live` | Synthetic-validated; real multi-window data pending |
 | Wave-State multi-mode / \(c_{\mathrm{abs}}\) as “resonance” | Research / gated | Mode-specific oscillators missing |
 | Modal static amplitude / fused \(r_{\mathrm{wave}}\) | Spec / research | Envelope ≠ phase alignment |
@@ -189,10 +192,10 @@ Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **di
 | --- | --- | --- |
 | **Hard** | L1 | Fail → pair excluded (or held in `unknown`). No partial credit. |
 | **Soft ranking** | L2 (when promoted); L3 ranking **not in v1** | Ordered / scored among eligible pairs. Missing → omit / degrade gracefully, never invent. |
-| **Soft diagnostic** | Discover L3 v1 (profile prefs); L4, L5 | Inform QA / future RFCs. **Must not** enter Discover ranking until an explicit ranking RFC. |
+| **Soft diagnostic** | Discover L3 v1 (profile prefs); L4 v1 post-match temporal (cadence family; circadian conditional) | Inform QA / future RFCs. **Must not** enter Discover ranking until an explicit ranking RFC. L4 Class B / `phase_alignment` remain research shadow. |
 | **Forbidden pseudo-hard** | — | Do not treat low QI fidelity, low purity, or Persona mismatch as silent hard filters without an explicit future hard-constraint RFC. |
 
-**v1 ranking rule (Stage C cutover complete):** among L1-eligible pairs, order by trusted backend L2 (smaller \(D_{\mathrm{structural}}\) first). Discover L3 v1 is **non-ranking diagnostics**. Additional ranking use of L3 requires an explicit RFC. Rollback is `legacy_v1` CompatibilityScoring.
+**v1 ranking rule (Stage C cutover complete):** among L1-eligible pairs, order by trusted backend L2 (smaller \(D_{\mathrm{structural}}\) first). Discover L3 v1 and L4 v1 are **non-ranking diagnostics**. Additional ranking use requires an explicit RFC. Rollback is `legacy_v1` CompatibilityScoring.
 
 ---
 
@@ -205,7 +208,7 @@ Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **di
 | L1 | `unknown` or `ineligible` per product rule; do not pretend pass |
 | L2 | Per-module omit when no shared measured dims; renormalize remaining module weights; if no modules → structural unavailable |
 | L3 | Partial / unavailable statuses from existing preference/value services; **known mismatch ≠ unknown**; do not fill with neutral 0.5 “for ranking” |
-| L4 | `unavailable` when timestamps sparse, omega not `ok`, phase unbound, or provenance mismatch |
+| L4 | Production cadence family: sparse/unavailable per extractor gates. Circadian: unavailable without TZ. Class B research path: unavailable when ω not `ok` / provenance mismatch. Never impute; `last_active_at` is not L4 |
 | L5 | `unavailable` when \(K<2\), inconsistent ensemble, provenance mismatch, or invalid \(\rho\) |
 | Cross-layer | Absence of L4/L5 **must not** invent defaults that change L2 rank |
 
@@ -284,9 +287,9 @@ Trusted backend L2 is the active Discover ranking path (`structural_l2_v1`). The
 
 Historical promotion gates (dual-path audit, no Persona ranking key, missing-data never imputed, L4/L5 not required) remain the rationale; they are not reopened by this cutover.
 
-### G.2 Before promoting **temporal L4** (`phase_alignment` / activity levels)
+### G.2 Before promoting **temporal L4 ranking** or Class B `phase_alignment`
 
-All required:
+L4 v1 **cadence-family diagnostics** are already frozen (non-ranking, post-match). Promoting Class B ω / `phase_alignment` / activity amplitude, or any L4 **rank** key, still requires all of:
 
 1. Real temporal observation pipeline meeting Temporal Observation / Feature Extraction contracts  
 2. Omega + phase binder gates calibrated on real cohorts (`gates_calibrated` may flip only after study)  
@@ -294,6 +297,7 @@ All required:
 4. Demonstrated independence / value vs \(D_{\mathrm{structural}}\) on real data (keep fields separate)  
 5. Explicit fusion RFC if ever combined with L2 — **weights not invented here**  
 6. Civil-collision / sparse / ambiguous → unavailable, not imputed  
+7. Timezone persistence before unconditional circadian production use 
 
 ### G.3 Before promoting **QI L5** (mixed-state)
 
@@ -324,7 +328,8 @@ All required:
 | L2 client Dart matcher | `Canonical20dGroupNormalizedShadowMatcher` | Not Discover ranking (`production_candidate_not_live`) |
 | L3 Discover v1 | Profile age / interests diagnostics; distance evaluated not promoted | **Production diagnostics, non-ranking** (`production_diagnostics_non_ranking_v1`) |
 | L3 CM extension | Preference fit / values services | Assessment/research; not Discover L3 v1 |
-| L4 | `phase_alignment`, activity levels | Shadow; real temporal data required |
+| L4 Discover v1 | Post-match cadence family; circadian conditional | **Production diagnostics, non-ranking** (`production_diagnostics_non_ranking_v1`) |
+| L4 research shadow | Class B ω / periodic φ / `phase_alignment` / \(A_u\) | Implemented; **not** production-promoted |
 | L5 | Mixed-state QI | `validated_shadow_not_live` |
 | Rollback | Legacy CompatibilityScoring | `legacy_v1` only |
 
@@ -333,13 +338,14 @@ All required:
 ## 9. Exact next implementation step
 
 **Stage C structural cutover is complete.** Do not re-open L2 ranking.  
-**Discover L3 v1 diagnostics are frozen** (non-ranking). Do not add an L3 rank operator without a new RFC.
+**Discover L3 v1 diagnostics are frozen** (non-ranking). Do not add an L3 rank operator without a new RFC.  
+**L4 v1 diagnostics are frozen** (post-match, non-ranking). Do not add an L4 rank operator or pre-match temporal inference without a new RFC.
 
-Next matching work remains **shadow** except the frozen L3 diagnostics:
+Next matching work remains **shadow** except the frozen L3/L4 diagnostics:
 
-- Stage D — real temporal ingest → omega/phase → `phase_alignment` / activity levels (not ranking)
-- Stage E — QI ensemble shadow on real windows (not ranking)
-- Optional later RFCs for additional **ranking** use of L3 — weights not invented here; v1 L3 stays non-ranking diagnostics
+- L4 research: real metadata cohort + TZ + calibrated gates before promoting Class B / `phase_alignment`
+- Stage E — QI ensemble shadow on real windows (not ranking; **L5**)
+- Optional later RFCs for additional **ranking** use of L3/L4 — weights not invented here
 
 The client Dart matcher must stay decoupled from Discover ranking.
 
@@ -357,6 +363,7 @@ The client Dart matcher must stay decoupled from Discover ranking.
 
 ## 11. Related documents
 
+- [L4 temporal diagnostics contract](./qmatch_l4_temporal_diagnostics_contract_v1.md) (post-match diagnostics)  
 - [L3 soft preference signal contract](./qmatch_l3_soft_preference_signal_contract_v1.md) (Discover L3 v1 diagnostics)  
 - [Matching constraints contract](./qmatch_matching_constraints_contract_v1.md)  
 - [Structural production-candidate policy](./qmatch_structural_matching_production_candidate_policy_v1.md)  
@@ -375,3 +382,4 @@ The client Dart matcher must stay decoupled from Discover ranking.
 | v1 freeze | 2026-08-12 | Status → `architecture_frozen_not_live`; policy id `final_matching_architecture_v1` |
 | v1 Stage C | 2026-08-16 | Trusted backend L2 is live Discover ranking (`structural_l2_v1`); Dart matcher still not a ranker; `legacy_v1` rollback only |
 | v1 L3 freeze | 2026-08-16 | Discover L3 v1 = profile diagnostics (non-ranking); CM values = future extension; age mismatch ≠ unknown |
+| v1 L4 freeze | 2026-08-16 | L4 v1 = post-match cadence diagnostics; circadian conditional; Class B/`phase_alignment` research shadow; QI/multi-mode remain L5 |

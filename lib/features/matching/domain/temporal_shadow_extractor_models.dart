@@ -1,3 +1,4 @@
+import 'l4_temporal_diagnostics_contract.dart';
 import 'temporal_shadow_extractor_contract.dart';
 
 /// Lightweight message metadata event (no text / questionnaire fields).
@@ -169,9 +170,32 @@ class TemporalShadowThreadResult {
 
   Map<String, dynamic> toWireMap() => {
         'scoring_version': scoringVersion,
+        'policy_version': TemporalShadowExtractorContract.policyVersion,
         'policy_status': policyStatus,
         'gates_calibrated': gatesCalibrated,
         'shadow_only': shadowOnly,
+        'affects_discover_ranking':
+            L4TemporalDiagnosticsContract.affectsDiscoverRanking,
+        'fuses_with_l2': L4TemporalDiagnosticsContract.fusesWithL2,
+        'fuses_with_l3': L4TemporalDiagnosticsContract.fusesWithL3,
+        'scope': L4TemporalDiagnosticsContract.scope,
+        'real_cohort_exists': L4TemporalDiagnosticsContract.realCohortExists,
+        'last_active_at_is_l4_signal':
+            L4TemporalDiagnosticsContract.lastActiveAtIsL4Signal,
+        'cadence_production_promoted':
+            L4TemporalDiagnosticsContract.cadenceProductionPromoted,
+        'burstiness_production_promoted':
+            L4TemporalDiagnosticsContract.burstinessProductionPromoted,
+        'regularity_production_promoted':
+            L4TemporalDiagnosticsContract.regularityProductionPromoted,
+        'reply_turn_production_promoted':
+            L4TemporalDiagnosticsContract.replyTurnProductionPromoted,
+        'participation_count_production_promoted':
+            L4TemporalDiagnosticsContract.participationCountProductionPromoted,
+        'circadian_conditional_diagnostic':
+            L4TemporalDiagnosticsContract.circadianConditionalDiagnostic,
+        'class_b_omega_production_promoted':
+            L4TemporalDiagnosticsContract.classBOmegaProductionPromoted,
         'omega': {'status': omegaStatus.name},
         'local_timezone_available': localTimeZoneAvailable,
         'window': {

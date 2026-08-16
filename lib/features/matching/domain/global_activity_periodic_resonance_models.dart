@@ -50,6 +50,9 @@ class GlobalActivityPeriodicResonanceResult {
             .tier1AttachesToFrequencyModes,
         'live_discover_ranking':
             WaveStateAmplitudeSemanticsContract.liveDiscoverRanking,
+        'l4_v1_role': 'research_shadow',
+        'production_promoted': WaveStateAmplitudeSemanticsContract
+            .tier1L4ProductionPromoted,
         'state_form': WaveStateAmplitudeSemanticsContract.tier1StateForm,
         'phase_alignment_formula':
             WaveStateAmplitudeSemanticsContract.tier1PhaseAlignmentFormula,
@@ -76,6 +79,8 @@ class GlobalActivityPeriodicResonanceContract {
 
   static const String scoringVersion =
       'global_activity_periodic_resonance_v1';
+  static const String l4V1Role = 'research_shadow';
+  static const bool productionPromoted = false;
 
   static const String reasonNonPositiveActivityLevel =
       'non_positive_activity_level';

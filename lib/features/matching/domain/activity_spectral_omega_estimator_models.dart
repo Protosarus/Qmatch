@@ -87,6 +87,9 @@ class ActivitySpectralOmegaEstimate {
             ActivitySpectralOmegaEstimatorContract.attachesToFrequencyModes,
         'cadence_fallback_allowed':
             ActivitySpectralOmegaEstimatorContract.cadenceFallbackAllowed,
+        'l4_v1_role': ActivitySpectralOmegaEstimatorContract.l4V1Role,
+        'production_promoted':
+            ActivitySpectralOmegaEstimatorContract.productionPromoted,
         'stream_id': ActivitySpectralOmegaEstimatorContract.streamId,
         'status': status.name,
         if (reason != null) 'reason': reason,

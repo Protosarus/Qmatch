@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Policy id | `wave_state_amplitude_semantics_v1` |
-| Status | `shadow_only_not_live` |
+| Status | `shadow_only_not_live` — L4 v1: Tier 1 is **research shadow** (not production-promoted). Tier 2 multi-mode remains **L5**. |
 | Purpose | Freeze two distinct Wave-State tiers after periodic resonance stress |
 | Depends on | Wave Phase Reference Policy v1, Activity Spectral Omega v1, Validated Periodic Phase Binder v1, Wave-State Modal Shadow v1/v2 |
 | Explicitly out of scope | Discover ranking, Persona, RVI, density-matrix, copying global activity φ into Frequency 6D |
@@ -25,7 +25,9 @@ This policy separates tiers.
 
 ---
 
-## 1. Tier 1 — Global periodic activity oscillator (usable shadow now)
+## 1. Tier 1 — Global periodic activity oscillator (L4 **research shadow**)
+
+Not an L4 v1 production diagnostic. `phase_alignment` and activity amplitude stay research-only until a real cohort + calibrated gates exist.
 
 ### 1.1 State
 
@@ -63,7 +65,7 @@ where \(\omega,\phi_u\) come from the **same** accepted Class-B oscillator (`Act
 
 ---
 
-## 2. Tier 2 — Multi-mode Wave-State v2 (future research only)
+## 2. Tier 2 — Multi-mode Wave-State v2 (**L5**, not L4)
 
 ### 2.1 Status
 
@@ -98,11 +100,11 @@ Global activity spectral / circadian phase **must not** be duplicated onto `dept
 
 | Path | Real-user shadow? | Role |
 | --- | --- | --- |
-| Tier 1 scalar global activity oscillator | **Yes** (shadow) | Separated \(\cos\Delta\phi\) + activity levels |
-| Class A `circadian_activity_24h` | Separate diagnostic | Civil / external-anchored clock |
+| Tier 1 scalar global activity oscillator | Research shadow (not L4 v1 production) | Separated \(\cos\Delta\phi\) + activity levels |
+| Class A `circadian_activity_24h` | L4 **conditional diagnostic** | Civil / external-anchored clock |
 | Wave-State v1 bare φ | Lab / math | No provenance |
-| Wave-State v2 multi-mode | Research only | Gated until mode-specific oscillators |
-| Multi-amp periodic adapter | Research diagnostic | Envelope geometry; not Tier-1 API |
+| Wave-State v2 multi-mode | **L5** research only | Gated until mode-specific oscillators |
+| Multi-amp periodic adapter | **L5**-adjacent research diagnostic | Envelope geometry; not Tier-1 API |
 
 ---
 
