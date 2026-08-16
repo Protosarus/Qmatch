@@ -1022,7 +1022,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get helpFaqRankingA =>
-      'Keşfet önerileri Frequency kalıpları, arketip, ilgi alanları ve destekleyici IQ/EQ bantları gibi uyumluluk sinyallerini kullanır. Sıralama uygulama önerisidir; mutlak doğru değildir.';
+      'Keşfet, kişileri ölçülen IQ, EQ ve Frequency profillerinin yakınlığına göre sıralar (kanonik 20D yapısal uzaklık). Bu bir sıralamadır; uyumluluk yüzdesi değildir. Persona ve arketip eşleştirme anahtarı değildir. Sıralama uygulama önerisidir; ilişki garantisi değildir.';
 
   @override
   String get helpFaqFrequencyQ => 'Frequency ne anlama gelir?';

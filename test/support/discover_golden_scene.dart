@@ -86,6 +86,7 @@ class DiscoverGoldenScene extends StatelessWidget {
                           child: QMatchCandidateCard(
                             candidate: candidate!,
                             photoImageProvider: photoImageProvider,
+                            showLegacyCompatibilityUi: true,
                           ),
                         ),
                       ),

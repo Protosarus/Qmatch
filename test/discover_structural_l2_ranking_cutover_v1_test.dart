@@ -233,6 +233,32 @@ void main() {
       expect(card.contains('structural_distance'), isTrue);
       expect(card.contains('structuralDistance'), isFalse);
       expect(card.contains('discoverPercentCompatibility'), isTrue);
+      expect(card.contains('showLegacyCompatibilityUi = false'), isTrue);
+    });
+
+    test('Frequency hydrate and legacy UI are gated off the L2 path', () {
+      final service = File(
+        'lib/features/discover/services/discover_service.dart',
+      ).readAsStringSync();
+      expect(service.contains('needLegacyCompat'), isTrue);
+      expect(
+        service.contains('_hydrateViewerLegacyFrequencyMirrors'),
+        isTrue,
+      );
+      final needIdx = service.indexOf(
+        'final needLegacyCompat = attachLegacyUi || _stageB2Collector.enabled;',
+      );
+      final hydrateIdx = service.indexOf(
+        'if (needLegacyCompat) {\n      await _hydrateViewerLegacyFrequencyMirrors(',
+      );
+      expect(needIdx, greaterThanOrEqualTo(0));
+      expect(hydrateIdx, greaterThan(needIdx));
+
+      final screen = File(
+        'lib/features/discover/screens/discover_screen.dart',
+      ).readAsStringSync();
+      expect(screen.contains('showLegacyCompatibilityUi:'), isTrue);
+      expect(screen.contains('usesLegacyCompatibilityScoring'), isTrue);
     });
   });
 }

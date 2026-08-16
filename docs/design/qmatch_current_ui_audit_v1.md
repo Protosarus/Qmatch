@@ -112,7 +112,7 @@ Barrel: `lib/core/widgets/cosmic/cosmic_widgets.dart`.
 
 - Gold-primary Material buttons on flat black/surface cards.
 - Has empty / loading / error / deletion banner (l10n) — good state coverage relative to Profile.
-- Compatibility chips use legacy `CompatibilityScoring` (product, not visual).
+- Compatibility % / archetype chips are **not** live L2 ranking UI (product). Live order is trusted structural L2 without a percentage.
 - Visual language: **black + gold**, weak violet/purple atmosphere.
 
 ### 4.3 Messages — `messages_screen.dart`

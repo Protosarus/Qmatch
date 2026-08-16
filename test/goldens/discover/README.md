@@ -23,18 +23,16 @@ Text scales: `1.0` (all states) and `1.3` (candidate + empty).
 Goldens load Inter/Playfair via `test/fonts/google_fonts/` stand-ins (Roboto copies)
 so tests stay offline-deterministic. Device UI still uses real google_fonts families.
 
-## Legacy presentation risk (release-blocking)
+## Legacy presentation (goldens / rollback only)
 
-Candidate goldens may intentionally include **legacy** CompatibilityScoring fields:
+Candidate goldens may intentionally include **rollback** CompatibilityScoring fields:
 
 - compatibility label
 - compatibility score (% chip)
 - compatibility reasons
 - archetype / category chips (when present on the runtime model)
 
-These are **temporary runtime outputs**, not Core Method v2 results.
-They must be replaced or removed when CM v2 is production-wired.
-Tracked as **G-041** in the release gap register.
+These are **not** live `structural_l2_v1` ranking outputs and must not be read as a product compatibility percentage. Live L2 does not attach a % and does not show archetype as a matching key. Tracked as **G-041**.
 
 ## P2C-1C-2B loading refinement
 

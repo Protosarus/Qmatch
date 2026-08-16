@@ -216,7 +216,7 @@ No viewer/candidate direction.
 | `jaccard` | double? | \(J\in[0,1]\) when union &gt; 0 |
 | `unavailable_reason` | string? | See §4.4 |
 
-**Note:** Live Discover already folds interests into CompatibilityScoring with a legacy weight. This contract defines the **standalone L3 diagnostic**. It does **not** authorize changing that legacy blend weight here.
+**Note:** Live Discover ranking is trusted structural L2 (`structural_l2_v1`) and does **not** use this Jaccard as a rank key. Interests Jaccard inside `CompatibilityScoring` is **rollback only** (`legacy_v1`). This contract defines the **standalone L3 diagnostic** (not live ranking) and does **not** invent a combined score or percentage.
 
 ### 4.4 Unavailable conditions
 
@@ -286,7 +286,7 @@ Implement a **shadow-only** pure Dart matcher (`L3SoftPreferenceSignalMatcher` u
 - interests Jaccard / empty_union  
 - no DiscoverService ranking/UI wiring yet  
 
-**Status:** implemented as shadow-only; Discover ranking still unchanged.
+**Status:** implemented as shadow-only; L3 is **not** live Discover ranking. Live order remains trusted structural L2 (`structural_l2_v1`). L4/L5 are not live.
 
 ---
 

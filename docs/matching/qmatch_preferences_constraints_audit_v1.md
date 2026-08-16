@@ -52,17 +52,17 @@ Primary models:
 | `location` | `location` (`GeoPoint?`) | Attribute | **Unsuitable until wired** | Optional GPS; unused for distance |
 | `location_text` | `locationText` | Attribute / display | **Display / unused in Discover** | — |
 | `religion` | `religion` | Attribute | **Unsuitable for Matching as-is** (no partner-religion pref) | Lifestyle setup; not Discover |
-| `interests` | `interests` | Attribute (tags) | **Soft preference/value signal** | Jaccard in CompatibilityScoring + Discover chips |
+| `interests` | `interests` | Attribute (tags) | **Display on Discover**; L3 shadow only | Not a live L2 rank key. Jaccard in CompatibilityScoring is `legacy_v1` rollback only |
 | `education` | `education` | Attribute | **Display / unused for Matching** | Own profile |
 | `bio` / `name` | same | Attribute / identity | **Display-only** | Not scoring inputs |
 | `occupation` | `occupation` | Attribute | **Unsuitable / unused** | — |
 | `drinking` / `smoking` / `pets` / `animal_love` | same | Attribute | **Unsuitable / unused** for Discover Matching | Lifestyle self-status |
 | `children` | `children` | Attribute (self status) | **Ambiguous / unsuitable as preference** | Not CM `children_preference` |
 | `photos` / `profile_photo_url` | same | Attribute + gate | **Hard eligibility** (must have photo) | — |
-| `archetype` / `category` | same | Assessment attribute | **Soft signal** (+ display chips) | CompatibilityScoring |
-| `iq_normalized` / `eq_normalized` | same | Assessment attribute | **Soft signal** (band closeness) | Not shown as raw % |
-| `frequency_type` / `frequency_tags` / `frequency_vector` | same | Assessment attribute | **Soft signal** (primary cold-start) | May hydrate from `assessments/frequency` |
-| `last_active_at` | `lastActiveAt` | Activity attribute | **Soft signal** + sort tiebreak | Candidate-only |
+| `archetype` / `category` | same | Assessment attribute | **Not a Matching key** | Rollback CompatibilityScoring only; live L2 does not rank or show these chips |
+| `iq_normalized` / `eq_normalized` | same | Assessment attribute | **Not live L2 inputs** | Band closeness is `legacy_v1` only. Live L2 uses canonical 20D, not these bands |
+| `frequency_type` / `frequency_tags` / `frequency_vector` | same | Assessment attribute | **Not live L2 inputs** | Legacy Frequency scoring is `legacy_v1` only. Live L2 uses canonical Frequency 6D inside 20D |
+| `last_active_at` | `lastActiveAt` | Activity attribute | L2 tie-break / unavailable fallback | Not CompatibilityScoring `recencyScore` |
 | `profile_completed` / `test_completed` / `active` | same | Eligibility | **Hard eligibility** | See §3 |
 | `discover_eligible` | (bool) | Derived eligibility | **Hard eligibility** | Firestore query gate |
 | `assessment_flow_completed` | (user doc) | Eligibility input | **Hard (via derivation)** | Not on Discover model |
@@ -126,22 +126,24 @@ Source: `DiscoverService.getCandidates` + eligibility refresh in `ProfileService
 
 ## 4. Soft preferences / value signals (as used today)
 
-Live soft ranking — `CompatibilityScoring` (`lib/core/utils/compatibility_scoring.dart`):
+Live Discover ranking is trusted backend L2 (`structural_l2_v1`): canonical 20D IQ/EQ/Frequency structural distance. No compatibility percentage. Persona/archetype are not Matching keys. L3/L4/L5 are not live.
 
-| Signal | Inputs | Role |
+`CompatibilityScoring` (`lib/core/utils/compatibility_scoring.dart`) is **rollback only** (`legacy_v1`):
+
+| Signal | Inputs | Role when `legacy_v1` |
 | --- | --- | --- |
 | Frequency vector similarity | `frequency_vector` / `vector` | Soft (required ≥3 shared dims or score unavailable) |
 | Frequency type / tags | `frequency_type`, `frequency_tags` | Soft |
-| Archetype / category affinity | `archetype`, `category` | Soft |
+| Archetype / category affinity | `archetype`, `category` | Soft — **not** a live Matching key |
 | IQ / EQ band closeness | `iq_normalized`, `eq_normalized` | Soft |
 | Interests Jaccard | `interests` | Soft + display |
 | Recency | candidate `last_active_at` | Soft + sort tiebreak |
 
-**Collected but unused soft-preference candidates (not scored):** `looking_for`, `age_range`, `distance_preference`.
+**Collected but unused L3 preference candidates (not live ranking):** `looking_for`, `age_range`, `distance_preference`.
 
-**Architecture note:** Final Matching Architecture places future L3 (preferences/values) **separate** from L2 structural 20D. This audit does **not** assign weights.
+**Architecture note:** Final Matching Architecture places L3 (preferences/values) **separate** from L2 structural 20D. This audit does **not** assign weights.
 
-Shadow diagnostics (equal-20D / Stage B2 group-normalized 20D) are **not** preference fields and do not reorder Discover.
+Shadow diagnostics (equal-20D / Stage B2) are **not** preference fields and do not reorder Discover.
 
 ---
 
@@ -151,9 +153,9 @@ Shadow diagnostics (equal-20D / Stage B2 group-normalized 20D) are **not** prefe
 | --- | --- |
 | `name` + `age` | Discover card identity |
 | `bio` | Discover details |
-| `interests` | Discover chips (also soft-scored) |
-| Compatibility score / label / reasons | Discover UI (legacy soft score) |
-| Archetype / category chips | Discover presentation |
+| `interests` | Discover chips (profile tags; not a live L2 rank key) |
+| Compatibility score / label / reasons | **Rollback UI only** (`legacy_v1`). Live L2 does not show a % |
+| Archetype / category chips | **Rollback UI only**. Not Matching keys |
 | Own `gender`, `looking_for`, education, drinking, smoking | Own profile presentation |
 | `religion`, `children`, `pets`, `age_range`, `distance_preference` | Collected in setup; generally **not** Discover-card content |
 
@@ -197,7 +199,7 @@ Shadow diagnostics (equal-20D / Stage B2 group-normalized 20D) are **not** prefe
 | Architecture layer | What exists today |
 | --- | --- |
 | **L1 Hard eligibility** | `discover_eligible`, active, profile/test completion, photo, swipe exclude, block-by-me |
-| **L2 Structural** | Group-normalized 20D production candidate (not live ranking) |
+| **L2 Structural** | Trusted backend group-normalized 20D — **live** Discover ranking (`structural_l2_v1`) |
 | **L3 Preferences / values** | Partial collection (`age_range`, `distance_preference`, `looking_for`); CM offline preference-fit / values; **not Discover-wired** |
 | **L4 / L5** | Out of scope (temporal / QI) |
 

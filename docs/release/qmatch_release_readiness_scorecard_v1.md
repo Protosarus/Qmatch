@@ -36,7 +36,7 @@ Category score = weight × credit.
 | 3 | Trait scoring / 20D canonical profile | 10 | DESIGNED_ONLY (adapter) | 10 | **1.0** |
 | 4 | Partner prefs / values / hard constraints | 8 | NOT_STARTED | 0 | **0.0** |
 | 5 | Core Method v2 matching engine | 12 | IMPLEMENTED_OFFLINE | 25 | **3.0** |
-| 6 | Discover & ranking | 10 | LEGACY_ACTIVE | 40 | **4.0** |
+| 6 | Discover & ranking | 10 | `structural_l2_v1` live (canonical 20D); CompatibilityScoring rollback-only | 70 | **7.0** |
 | 7 | Like / pass / match | 8 | RUNTIME_WIRED_UNVERIFIED | 50 | **4.0** |
 | 8 | Messaging | 8 | RUNTIME_WIRED_UNVERIFIED | 50 | **4.0** |
 | 9 | Profile & photos | 6 | RUNTIME_WIRED_UNVERIFIED | 50 | **3.0** |
@@ -44,7 +44,7 @@ Category score = weight × credit.
 | 11 | Safety / moderation | 4 | RUNTIME_WIRED_UNVERIFIED | 50 | **2.0** |
 | 12 | Firebase security & backend ops | 10 | IMPLEMENTED_OFFLINE (rules/storage/indexes in repo, not deployed; runtime conflicts) | 25 | **2.5** |
 | 13 | Store packaging & legal | 5 | RUNTIME_WIRED_UNVERIFIED (canonical ids aligned; Android Firebase JSON + signing/legal still open) | 50 | **2.5** |
-| | **Total** | **100** | | | **34.5** |
+| | **Total** | **100** | | | **37.5** |
 
 \*Auth blend: phone + email login RUNTIME_WIRED_UNVERIFIED (~50 of half the weight) and Google/Apple/reset/deletion gaps at 0 → documented as **2.5/10**.
 
@@ -53,10 +53,10 @@ Category score = weight × credit.
 ## Derived release-readiness percentage
 
 \[
-\mathbf{34.5\%}
+\mathbf{37.5\%}
 \]
 
-Interpretation: **not release-ready**. Core social MVP pieces exist as unverified runtime wiring; assessment/matching product targets (v3 banks, CM v2, prefs/values) remain offline or absent; packaging and security versioning are blocking.
+Interpretation: **not release-ready**. Discover ranking is trusted structural L2 (`structural_l2_v1`); remaining gaps are banks, CM v2, prefs/values, packaging, and security. Do not treat CompatibilityScoring as the live ranker.
 
 ---
 
@@ -66,7 +66,7 @@ Interpretation: **not release-ready**. Core social MVP pieces exist as unverifie
 |-------|------:|-------|
 | Runtime-wired features (unverified) | **11** | phone/email login, assessment flow screens, Discover load, swipe/match, chat, photos, block/report, sign-out, deletion *request*, progress routing, eligibility field writes |
 | Offline-only features | **12+** | CM v2 ×7 services, TraitScoring, PersonaScoring, v3 pilots/candidates, offline harnesses |
-| Legacy-active features | **6** | assessment_sets banks, CompatibilityScoring, archetype affinity, flat JSON fallbacks, Frequency constants, grandfather routing |
+| Legacy-active features | **5** | assessment_sets banks, flat JSON fallbacks, Frequency constants, grandfather routing, CompatibilityScoring **rollback-only** (`legacy_v1`; not live Discover ranking) |
 | Placeholders / designed-only UI | **8+** | Google/Apple stubs, MainAppScreen, notification toggles (local), privacy toggles (local), legal drafts, monetization docs |
 | Unknown/unverified | **4+** | remote Firestore bank contents, live Console rules, multi-env, signing secrets |
 | Question banks found (major artifacts) | **18+** | see inventory |

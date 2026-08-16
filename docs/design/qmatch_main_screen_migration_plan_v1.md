@@ -56,7 +56,7 @@ Do **not** redesign CM v2 / preference / values / hard-constraint / structured-e
 | Runtime | Load candidates; like/pass; match dialog; deletion banner |
 | Data | `DiscoverService`, `SwipeService`, `MatchService`, user doc |
 | Visual | **P2C-1C-2:** modern header, glass candidate card, photo scrim, cosmic action bar, loading/empty/error states, modernized match dialog |
-| Functional problems to fix **separately if in scope** | SnackBar raw exceptions mitigated to localized copy + debugPrint; reverse-block still client TODO (backend_dependency — do not pretend visual fix); legacy CompatibilityScoring / CM v2 offline / filter gaps remain |
+| Functional problems to fix **separately if in scope** | SnackBar raw exceptions mitigated to localized copy + debugPrint; reverse-block still client TODO (backend_dependency — do not pretend visual fix); CM v2 still offline / filter gaps remain. Live ranking is structural L2, not CompatibilityScoring |
 | Components | QMatchDiscoverHeader, QMatchCandidateCard, QMatchCandidatePhoto, QMatchDiscoverActionBar, Empty/Error/Loading, match dialog |
 | Acceptance | Like/pass/match handlers unchanged; empty/error/loading styled; no overflow on small phones; **not** release-ready until ranking/filter work |
 | Dependencies | Shell + cosmic buttons / glass card |
@@ -127,4 +127,4 @@ See `qmatch_visual_regression_checklist_v1.md`.
 |---------------|------|
 | Partner preference / values / hard constraints | Design with runtime contracts later |
 | CM v2 compatibility + structured explanation | Offline engines only today |
-| Final Discover ranking card copy | Depends on scoring product decision |
+| Final Discover ranking card copy | Live L2 does not show a compatibility %. Do not present Persona/archetype as matching keys |

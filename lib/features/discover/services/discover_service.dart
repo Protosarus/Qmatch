@@ -118,41 +118,13 @@ class DiscoverService {
     final meData =
         Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
 
-    // Frequency fallback: hydrate type/tags/score/vector from assessments/frequency
-    // when user-doc mirrors are missing (legacy users).
-    if (meData['frequency_type'] == null ||
-        meData['frequency_tags'] == null ||
-        meData['frequency_vector'] == null) {
-      try {
-        final freqDoc = await FirestorePaths.userDoc(currentUid)
-            .collection('assessments')
-            .doc('frequency')
-            .get();
-        final freq = freqDoc.data();
-        if (freq != null) {
-          final status = freq['status'] as String?;
-          final ready = freq['canonical_profile_ready'] as bool? ?? false;
-          final type = freq['type'] ?? freq['frequency_type'];
-          // Never hydrate "Incomplete Frequency" / null type into mirrors.
-          if (status != 'incomplete' &&
-              ready &&
-              type is String &&
-              type.isNotEmpty &&
-              type != 'Incomplete Frequency') {
-            meData['frequency_type'] ??= type;
-          }
-          meData['frequency_tags'] ??= freq['tags'] ?? freq['frequency_tags'];
-          if (status != 'incomplete' && ready) {
-            meData['frequency_score'] ??= freq['scoreTotal'] ??
-                freq['score_total'] ??
-                freq['frequency_score'];
-          }
-          meData['frequency_vector'] ??=
-              freq['vector'] ?? freq['frequency_vector'];
-        }
-      } catch (_) {
-        // ignore for MVP
-      }
+    final attachLegacyUi = _rankingMode.usesLegacyCompatibilityScoring;
+    final needLegacyCompat = attachLegacyUi || _stageB2Collector.enabled;
+    if (needLegacyCompat) {
+      await _hydrateViewerLegacyFrequencyMirrors(
+        meData: meData,
+        currentUid: currentUid,
+      );
     }
 
     final swiped = await _swipeService.getMySwipedUserIds();
@@ -244,8 +216,6 @@ class DiscoverService {
         continue;
       }
 
-      final attachLegacyUi = _rankingMode.usesLegacyCompatibilityScoring;
-      final needLegacyCompat = attachLegacyUi || _stageB2Collector.enabled;
       CompatibilityResult? compat;
       if (needLegacyCompat) {
         compat = CompatibilityScoring.calculateCompatibility(
@@ -328,6 +298,46 @@ class DiscoverService {
     );
 
     return ranked;
+  }
+
+  /// Legacy CompatibilityScoring only: fill missing user-doc Frequency mirrors
+  /// from `assessments/frequency`. Not used for L1 gates or trusted L2.
+  Future<void> _hydrateViewerLegacyFrequencyMirrors({
+    required Map<String, dynamic> meData,
+    required String currentUid,
+  }) async {
+    if (meData['frequency_type'] != null &&
+        meData['frequency_tags'] != null &&
+        meData['frequency_vector'] != null) {
+      return;
+    }
+    try {
+      final freqDoc = await FirestorePaths.userDoc(currentUid)
+          .collection('assessments')
+          .doc('frequency')
+          .get();
+      final freq = freqDoc.data();
+      if (freq == null) return;
+      final status = freq['status'] as String?;
+      final ready = freq['canonical_profile_ready'] as bool? ?? false;
+      final type = freq['type'] ?? freq['frequency_type'];
+      // Never hydrate "Incomplete Frequency" / null type into mirrors.
+      if (status != 'incomplete' &&
+          ready &&
+          type is String &&
+          type.isNotEmpty &&
+          type != 'Incomplete Frequency') {
+        meData['frequency_type'] ??= type;
+      }
+      meData['frequency_tags'] ??= freq['tags'] ?? freq['frequency_tags'];
+      if (status != 'incomplete' && ready) {
+        meData['frequency_score'] ??=
+            freq['scoreTotal'] ?? freq['score_total'] ?? freq['frequency_score'];
+      }
+      meData['frequency_vector'] ??= freq['vector'] ?? freq['frequency_vector'];
+    } catch (_) {
+      // ignore for MVP
+    }
   }
 
   Future<Map<String, DiscoverStageB2TrustedPairResult>> _trustedL2PairsByUid(

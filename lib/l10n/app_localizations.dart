@@ -1937,7 +1937,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqRankingA.
   ///
   /// In en, this message translates to:
-  /// **'Discover suggestions use compatibility signals (including Frequency patterns, archetype, interests, and supporting IQ/EQ bands). Rankings are app suggestions, not absolute truth.'**
+  /// **'Discover ranks people by how close their measured IQ, EQ, and Frequency profiles are (canonical 20D structural distance). This is an ordering, not a compatibility percentage. Persona and archetype are not matching keys. Rankings are app suggestions, not a guarantee.'**
   String get helpFaqRankingA;
 
   /// No description provided for @helpFaqFrequencyQ.

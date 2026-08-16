@@ -39,10 +39,10 @@ These are **contract names**, not deployed runtime constants yet:
 | `normalization_version` | `norm_v0_missing_explicit` |
 | `persona_profile_version` | `profiles_invalid_until_20d_remap` for current JSON; next valid `profiles_v2_20d` |
 | `persona_scoring_version` | `persona_engine_unscored` until implemented |
-| `matching_scoring_version` | `compat_coldstart_v1` (current CompatibilityScoring) |
+| `matching_scoring_version` | Live Discover: `canonical_20d_group_normalized_shadow_distance_v1` via trusted L2. Rollback: `compat_coldstart_v1` (CompatibilityScoring, `legacy_v1` only) |
 | `feature_version` | `features_coldstart_v1` |
 | `explanation_prompt_version` | `explain_v0` |
-| `ranking_model_version` | `none` |
+| `ranking_model_version` | `structural_l2_v1` (live); `legacy_v1` rollback |
 
 ## 3. When a version must change
 

@@ -120,7 +120,7 @@ typically **10 IQ / 10 EQ / 12 Frequency** per assigned set via
 | `TraitScoringService` | Domain pure service; not imported by screens | IMPLEMENTED_OFFLINE |
 | Adapter → `CanonicalUserAssessmentProfile` | `trait_scoring_adapter_plan.dart`: `planned_not_wired`, `productionWired=false` | DESIGNED_ONLY |
 | Live persistence | `CanonicalAssessmentPersistence` writes assessment docs on completion | RUNTIME_WIRED_UNVERIFIED |
-| Live scoring shown to users | Legacy totals / archetype / Frequency vectors | LEGACY_ACTIVE |
+| Live scoring shown to users | Live Discover does **not** show a compatibility %. Assessment totals / Frequency vectors may still appear on own-profile surfaces | LEGACY_ACTIVE (profile/assessment display, not Discover rank) |
 
 ---
 
@@ -130,7 +130,7 @@ typically **10 IQ / 10 EQ / 12 Frequency** per assigned set via
 |-------|--------|
 | Canonical persona scoring engine | IMPLEMENTED_OFFLINE (`PersonaScoringService`) |
 | Runtime invoke from assessments/Discover | NOT_STARTED (guards assert non-import) |
-| Discover uses coarse `archetype` affinity | LEGACY_ACTIVE (weight 0.15 in `CompatibilityScoring`) |
+| Discover uses coarse `archetype` affinity | **Not live ranking.** Rollback-only inside `CompatibilityScoring` (`legacy_v1`). Persona is not a Matching key |
 
 ---
 
@@ -170,7 +170,7 @@ CM v2 assets under `assets/data/core_method_v2/` are **not** listed in
 | Area | Evidence | Status |
 |------|----------|--------|
 | Discover load | `discover_eligible == true` query; local filters | RUNTIME_WIRED_UNVERIFIED |
-| Discover ranking | Legacy `CompatibilityScoring` (Frequency/archetype/IQ/EQ/interests/recency) | LEGACY_ACTIVE |
+| Discover ranking | Trusted structural L2 (`structural_l2_v1`, canonical 20D). `CompatibilityScoring` is **rollback only** (`legacy_v1`). No live %. Persona/archetype are not Matching keys. L3/L4/L5 not live | RUNTIME_WIRED |
 | Age/gender/orientation/distance filters | Profile fields unused in Discover query | NOT_STARTED |
 | Pagination cursor | Over-fetch batch only | RUNTIME_WIRED_UNVERIFIED |
 | Like/pass | `SwipeService` → `users/{uid}/swipes` | RUNTIME_WIRED_UNVERIFIED |
@@ -247,7 +247,7 @@ Do **not** delete in this phase — see gap register for migration requirements.
 2. Users on legacy 10/10/12 banks; no 340 IQ bank; no dynamic 25-session composer.  
 3. Trait→Canonical adapter not wired; 20D CM profile not production.  
 4. Partner prefs / values / hard constraints not collectable in UI.  
-5. Discover ranking legacy; preference filters unused.  
+5. Preference filters unused; L3/L4/L5 not live. Discover ranking is structural L2 (not CompatibilityScoring).  
 6. Android package still `com.example.qmatch` (vs iOS `com.qmatch.app`).  
 7. No versioned Firestore/Storage rules/indexes in repo.  
 8. Account deletion is request-only (not full wipe).  

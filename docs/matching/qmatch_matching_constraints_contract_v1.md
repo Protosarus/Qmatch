@@ -71,7 +71,7 @@ Map **existing** profile / eligibility / safety fields onto Matching layers:
 | `distance_preference` | **L3 soft preference** | Not hard in v1. Mutual / \(\min\) of both prefs when both locations+prefs present; else unknown. |
 | `interests` | **L3 soft signal** | Symmetric overlap; never hard-fail on empty overlap. |
 | `looking_for` | **Intent-only soft candidate — inactive** | Not gender preference. No soft-match matrix until intent semantics RFC. |
-| Legacy CompatibilityScoring mirrors (`frequency_*`, archetype/category, IQ/EQ bands, recency) | Live legacy soft path | Unchanged by this freeze; not re-weighted here |
+| Legacy CompatibilityScoring mirrors (`frequency_*`, archetype/category, IQ/EQ bands, recency) | **Rollback only** (`legacy_v1`) | Not live Discover ranking; live order is trusted structural L2 (`structural_l2_v1`) |
 
 Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC** amending this contract.
 
@@ -84,7 +84,7 @@ Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC*
 | `name`, `bio` | Identity / presentation |
 | `age` on card | Display of attribute (Matching use only via soft `age_range` rules if wired later) |
 | Own-profile `gender`, `looking_for`, education, drinking, smoking | Display |
-| Compatibility chips | Display of legacy soft score |
+| Compatibility chips | Live L2 does **not** show a compatibility %. Rollback (`legacy_v1`) may still attach legacy label/score/reasons |
 
 ---
 

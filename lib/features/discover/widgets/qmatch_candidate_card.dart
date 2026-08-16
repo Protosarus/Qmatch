@@ -18,17 +18,25 @@ import 'qmatch_candidate_photo.dart';
 /// Compatibility % chips render only when [DiscoverUserModel.compatibilityScore]
 /// is already set (legacy rollback). Structural L2 ranking does not attach a
 /// percentage, so this card must not invent one from `structural_distance`.
+///
+/// [showLegacyCompatibilityUi] is the `legacy_v1` presentation switch:
+/// category/archetype chips and the compatibility hint. `structural_l2_v1`
+/// keeps this false.
 class QMatchCandidateCard extends StatelessWidget {
   const QMatchCandidateCard({
     super.key,
     required this.candidate,
     this.photoImageProvider,
+    this.showLegacyCompatibilityUi = false,
   });
 
   final DiscoverUserModel candidate;
 
   /// Test-only deterministic photo (goldens). Production never sets this.
   final ImageProvider? photoImageProvider;
+
+  /// When true (`legacy_v1`), show category/archetype chips and hint text.
+  final bool showLegacyCompatibilityUi;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +119,10 @@ class QMatchCandidateCard extends StatelessWidget {
                     AppSpacing.md,
                     AppSpacing.md,
                   ),
-                  child: _CandidateDetails(candidate: candidate),
+                  child: _CandidateDetails(
+                    candidate: candidate,
+                    showLegacyCompatibilityUi: showLegacyCompatibilityUi,
+                  ),
                 ),
               ),
             ],
@@ -182,9 +193,13 @@ class _IdentityOverlay extends StatelessWidget {
 }
 
 class _CandidateDetails extends StatelessWidget {
-  const _CandidateDetails({required this.candidate});
+  const _CandidateDetails({
+    required this.candidate,
+    required this.showLegacyCompatibilityUi,
+  });
 
   final DiscoverUserModel candidate;
+  final bool showLegacyCompatibilityUi;
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +223,7 @@ class _CandidateDetails extends StatelessWidget {
                 languageCode: languageCode,
               )
             : null;
-    final primary = fromCategory ?? fromName;
+    final primary = showLegacyCompatibilityUi ? fromCategory ?? fromName : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,6 +244,7 @@ class _CandidateDetails extends StatelessWidget {
         if (primary != null) ...[
           if (reasons.isNotEmpty) const SizedBox(height: AppSpacing.sm),
           Wrap(
+            key: const Key('qmatch-candidate-legacy-archetype-chips'),
             spacing: AppSpacing.xs,
             runSpacing: AppSpacing.xs,
             children: [
@@ -272,17 +288,19 @@ class _CandidateDetails extends StatelessWidget {
             }).toList(),
           ),
         ],
-        const SizedBox(height: AppSpacing.sm),
-        Text(
-          key: const Key('qmatch-candidate-hint'),
-          candidate.compatibilityHintLocalized(languageCode),
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 13,
-            fontStyle: FontStyle.italic,
-            height: 1.35,
+        if (showLegacyCompatibilityUi) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Text(
+            key: const Key('qmatch-candidate-hint'),
+            candidate.compatibilityHintLocalized(languageCode),
+            style: GoogleFonts.inter(
+              color: AppColors.textSecondary,
+              fontSize: 13,
+              fontStyle: FontStyle.italic,
+              height: 1.35,
+            ),
           ),
-        ),
+        ],
       ],
     );
   }

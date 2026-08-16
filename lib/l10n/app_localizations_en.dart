@@ -1029,7 +1029,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpFaqRankingA =>
-      'Discover suggestions use compatibility signals (including Frequency patterns, archetype, interests, and supporting IQ/EQ bands). Rankings are app suggestions, not absolute truth.';
+      'Discover ranks people by how close their measured IQ, EQ, and Frequency profiles are (canonical 20D structural distance). This is an ordering, not a compatibility percentage. Persona and archetype are not matching keys. Rankings are app suggestions, not a guarantee.';
 
   @override
   String get helpFaqFrequencyQ => 'What does Frequency mean?';

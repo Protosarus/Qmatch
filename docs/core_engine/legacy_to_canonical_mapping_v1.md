@@ -64,15 +64,17 @@
 
 ## 4. Compatibility / Discover legacy
 
+Live Discover ranking is trusted structural L2 (`structural_l2_v1`) on canonical 20D. The rows below describe **rollback-only** CompatibilityScoring (`legacy_v1`), not the live path. Persona/archetype are not Matching keys. Do not invent a live %.
+
 | Legacy | Writer | Reader | Meaning | Canonical | Action |
 |---|---|---|---|---|---|
-| `CompatibilityScoring.calculateCompatibility` weighted sum | DiscoverService | Discover UI | Soft rank 0–1 | New matching engine + hard gates | deprecate formula |
-| `archetype` weight 0.15 | same | rank | Persona-like signal | **Must go to 0** | retire |
-| `missingSignalNeutral = 0.42` | same | rank | Missing filler | Missing = absent; lower confidence | retire |
-| `compatibilityScore ?? 0.5` sort fallback | DiscoverService | sort | Fake mid | Treat as missing / exclude | retire |
+| `CompatibilityScoring.calculateCompatibility` weighted sum | DiscoverService (`legacy_v1` only) | Rollback UI | Soft rank 0–1 | Trusted L2 20D distance | keep as rollback; not live |
+| `archetype` weight 0.15 | same | rollback rank | Not a Matching key | **Must stay 0 on live L2** | retire from live ranking |
+| `missingSignalNeutral = 0.42` | same | rollback rank | Missing filler | Missing = absent; never fill live L2 | retire from live ranking |
+| `compatibilityScore ?? 0.5` sort fallback | DiscoverService | sort | Fake mid | Live L2 never imputes 0.5 | retire from live ranking |
 | `closenessScore` raw | helper | optional | Raw IQ/EQ closeness | Prefer reliability-weighted dims; hard gates | deprecate |
-| Interests / recency | same | rank | Soft signals | Allowed as soft rerank after gates | retain conceptually |
-| `looking_for` | profile | **not in scoring today** | Intent | Values/intent layer | activate in matching later |
+| Interests / recency | same | rollback rank | Soft signals | L3 interests shadow-only; L2 recency is timestamp tie-break only | retain conceptually as later RFC |
+| `looking_for` | profile | **not in live ranking** | Intent | Values/intent layer | activate in matching later |
 
 ---
 

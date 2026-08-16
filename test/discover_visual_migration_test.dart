@@ -357,7 +357,8 @@ void main() {
       expect(source.contains('showQMatchDiscoverMatchDialog'), isTrue);
       expect(source.contains('core_method'), isFalse);
       expect(source.contains('TraitScoring'), isFalse);
-      expect(source.contains('CompatibilityScoring'), isFalse);
+      expect(source.contains('compatibility_scoring'), isFalse);
+      expect(source.contains('calculateCompatibility'), isFalse);
     });
 
     test('presentation widgets do not duplicate Firebase queries', () {

@@ -424,7 +424,7 @@
   "helpFaqHowWorksQ": "Qmatch nasıl çalışır?",
   "helpFaqHowWorksA": "Qmatch; düşünme (IQ), hissetme (EQ), bağ kurma tarzı (Frequency) ve profiline göre kişi önerir. Amaç uyumlu bağlantılar keşfetmektir—herhangi bir ilişkinin başarı garantisi değildir.",
   "helpFaqRankingQ": "Eşleşmeler nasıl sıralanır?",
-  "helpFaqRankingA": "Keşfet önerileri Frequency kalıpları, arketip, ilgi alanları ve destekleyici IQ/EQ bantları gibi uyumluluk sinyallerini kullanır. Sıralama uygulama önerisidir; mutlak doğru değildir.",
+  "helpFaqRankingA": "Keşfet, kişileri ölçülen IQ, EQ ve Frequency profillerinin yakınlığına göre sıralar (kanonik 20D yapısal uzaklık). Bu bir sıralamadır; uyumluluk yüzdesi değildir. Persona ve arketip eşleştirme anahtarı değildir. Sıralama uygulama önerisidir; ilişki garantisi değildir.",
   "helpFaqFrequencyQ": "Frequency ne anlama gelir?",
   "helpFaqFrequencyA": "Frequency; derinlik, sosyal enerji ve tempo gibi bağ kurma ritmini anlatır. Klinik bir etiket değil, uygulama içi bir stil sinyalidir.",
   "helpFaqScoresQ": "IQ ve EQ tıbbi veya resmi test midir?",

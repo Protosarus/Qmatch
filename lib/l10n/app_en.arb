@@ -424,7 +424,7 @@
   "helpFaqHowWorksQ": "How does Qmatch work?",
   "helpFaqHowWorksA": "Qmatch suggests people based on how you think (IQ), feel (EQ), and connect (Frequency), plus your profile. It is for discovering compatible connections—not a guarantee that any relationship will work out.",
   "helpFaqRankingQ": "How are matches ranked?",
-  "helpFaqRankingA": "Discover suggestions use compatibility signals (including Frequency patterns, archetype, interests, and supporting IQ/EQ bands). Rankings are app suggestions, not absolute truth.",
+  "helpFaqRankingA": "Discover ranks people by how close their measured IQ, EQ, and Frequency profiles are (canonical 20D structural distance). This is an ordering, not a compatibility percentage. Persona and archetype are not matching keys. Rankings are app suggestions, not a guarantee.",
   "helpFaqFrequencyQ": "What does Frequency mean?",
   "helpFaqFrequencyA": "Frequency describes how someone builds connection and communication rhythm—things like depth, social energy, and pace. It is an in-app style signal, not a clinical label.",
   "helpFaqScoresQ": "Are IQ and EQ real medical or official tests?",

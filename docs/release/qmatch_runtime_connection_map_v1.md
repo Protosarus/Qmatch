@@ -42,13 +42,18 @@ FrequencyTestScreen → FrequencyService.loadAssignedFrequencyAssessment
 
 ## 3. Matching (current vs intended)
 
-### Current (LEGACY_ACTIVE)
+### Current (`structural_l2_v1`)
 
 ```
 DiscoverScreen
   → DiscoverService.getCandidates
        → users where discover_eligible==true
-       → filter swipes/blocks/active/photo/tests
+       → L1: filter swipes/blocks/active/photo/assessments
+       → trusted backend compareStageB2Structural
+            (canonical 20D IQ/EQ/Frequency structural distance)
+       → DiscoverStructuralL2Ranking (smaller distance first; no %)
+
+Rollback only (`legacy_v1`):
        → CompatibilityScoring.calculateCompatibility / compareDiscoverCandidates
             (Frequency vector, type/tag, archetype, IQ/EQ bands, interests, recency)
 
@@ -56,6 +61,8 @@ DiscoverScreen
 × PartnerPreferenceProfile
 × RelationshipValueProfile
 × HardConstraintEvaluation
+× Persona / archetype as Matching keys
+× L3 / L4 / L5 ranking
 ```
 
 ### Intended CM v2 (IMPLEMENTED_OFFLINE only)

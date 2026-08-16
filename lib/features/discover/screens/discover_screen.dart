@@ -280,7 +280,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-            child: QMatchCandidateCard(candidate: c),
+            child: QMatchCandidateCard(
+              candidate: c,
+              showLegacyCompatibilityUi:
+                  _discoverService.rankingMode.usesLegacyCompatibilityScoring,
+            ),
           ),
         ),
         QMatchDiscoverActionBar(
