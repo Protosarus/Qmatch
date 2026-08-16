@@ -39,7 +39,8 @@ class DiscoverService {
             shadowAttacher ?? const DiscoverShadowDistanceAttacher(),
         _l3ShadowAttacher =
             l3ShadowAttacher ?? const DiscoverL3SoftPreferenceShadowAttacher(),
-        _enableShadowDiagnostics = enableShadowDiagnostics,
+        // Peer canonical_v1 GETs are debug-only. Release never attempts them.
+        _enableShadowDiagnostics = enableShadowDiagnostics && kDebugMode,
         _stageB2Collector = stageB2Collector ??
             DiscoverStageB2DualPathCollector(
               enabled: enableStageB2DualPathCollector &&
@@ -336,8 +337,9 @@ class DiscoverService {
       }
       meData['frequency_tags'] ??= freq['tags'] ?? freq['frequency_tags'];
       if (status != 'incomplete' && ready) {
-        meData['frequency_score'] ??=
-            freq['scoreTotal'] ?? freq['score_total'] ?? freq['frequency_score'];
+        meData['frequency_score'] ??= freq['scoreTotal'] ??
+            freq['score_total'] ??
+            freq['frequency_score'];
       }
       meData['frequency_vector'] ??= freq['vector'] ?? freq['frequency_vector'];
     } catch (_) {
@@ -378,26 +380,25 @@ class DiscoverService {
     }
 
     try {
-      final meProfile = await _canonicalProfile(meUid);
-      final candidateProfiles = <String, Map<String, dynamic>?>{};
-
-      // Parallel reads only for already-selected candidates (not the raw query
-      // batch). Failures become null profiles → no diagnostic for that uid.
-      final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
-      final loaded = await Future.wait(
-        uids.map((uid) async {
-          try {
-            return MapEntry(uid, await _canonicalProfile(uid));
-          } catch (_) {
-            return MapEntry(uid, null);
-          }
-        }),
-      );
-      for (final e in loaded) {
-        candidateProfiles[e.key] = e.value;
-      }
-
       if (wantEqualShadow) {
+        final meProfile = await _canonicalProfile(meUid);
+        final candidateProfiles = <String, Map<String, dynamic>?>{};
+
+        // Debug-only peer canonical_v1 reads for already-selected candidates.
+        // Production (kDebugMode == false) never enters this branch.
+        final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
+        final loaded = await Future.wait(
+          uids.map((uid) async {
+            try {
+              return MapEntry(uid, await _canonicalProfile(uid));
+            } catch (_) {
+              return MapEntry(uid, null);
+            }
+          }),
+        );
+        for (final e in loaded) {
+          candidateProfiles[e.key] = e.value;
+        }
         final attached = _shadowAttacher.attach(
           rankedCandidates: rankedCandidates,
           meCanonicalProfile: meProfile,

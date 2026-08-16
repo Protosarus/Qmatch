@@ -34,9 +34,7 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  final DiscoverService _discoverService = DiscoverService(
-    enableStageB2DualPathCollector: true,
-  );
+  final DiscoverService _discoverService = DiscoverService();
   final SwipeService _swipeService = SwipeService();
   final AccountDeletionRequestService _deletionService =
       AccountDeletionRequestService();

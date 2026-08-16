@@ -44,8 +44,9 @@ void main() {
 
   group('DiscoverCanonical20dShadowSubjectBuilder', () {
     test('maps measured_dimensions; never invents evidence_count', () {
-      final subject = DiscoverCanonical20dShadowSubjectBuilder
-          .fromCanonicalProfile(_canonicalProfile({
+      final subject =
+          DiscoverCanonical20dShadowSubjectBuilder.fromCanonicalProfile(
+              _canonicalProfile({
         ids[0]: 0.25,
         ids[1]: 0.75,
       }));
@@ -73,7 +74,8 @@ void main() {
   });
 
   group('result equivalence vs former evidence_count=1 fabrication', () {
-    test('measured-presence matches fabricate-1 numeric distance/coverage/order',
+    test(
+        'measured-presence matches fabricate-1 numeric distance/coverage/order',
         () {
       const matcher = Canonical20dShadowDistanceMatcher();
       final meScores = {for (final id in ids) id: 0.4};
@@ -252,8 +254,8 @@ void main() {
       );
       expect(order, greaterThan(0)); // b (0.9) before a
 
-      final src = File('lib/core/utils/compatibility_scoring.dart')
-          .readAsStringSync();
+      final src =
+          File('lib/core/utils/compatibility_scoring.dart').readAsStringSync();
       expect(src.contains('shadow'), isFalse);
       expect(src.contains('canonical_20d'), isFalse);
     });
@@ -264,15 +266,21 @@ void main() {
       final service = File(
         'lib/features/discover/services/discover_service.dart',
       ).readAsStringSync();
-      final sortIdx = service.indexOf('out.sort(');
+      final sortIdx = service.indexOf('ranked.sort(');
       final shadowIdx = service.indexOf('_computeShadowDiagnostics');
       expect(sortIdx, greaterThanOrEqualTo(0));
       expect(shadowIdx, greaterThan(sortIdx));
       expect(service.contains('lastShadowDiagnostics'), isTrue);
       // Must not re-sort after shadow.
       expect(
-        service.indexOf('out.sort(', sortIdx + 1),
+        service.indexOf('ranked.sort(', sortIdx + 1),
         -1,
+      );
+      expect(
+        service.contains(
+          '_enableShadowDiagnostics = enableShadowDiagnostics && kDebugMode',
+        ),
+        isTrue,
       );
       expect(service.contains('CompatibilityScoring.calculateCompatibility'),
           isTrue);
@@ -281,8 +289,8 @@ void main() {
       expect(service.contains('primary_persona_id'), isFalse);
       expect(service.contains('quantum'), isFalse);
       expect(service.contains('RVI'), isFalse);
-      expect(RegExp(r'\brvi\b', caseSensitive: false).hasMatch(service),
-          isFalse);
+      expect(
+          RegExp(r'\brvi\b', caseSensitive: false).hasMatch(service), isFalse);
 
       final card = File(
         'lib/features/discover/widgets/qmatch_candidate_card.dart',
@@ -298,7 +306,30 @@ void main() {
       expect(screen.contains('DiscoverShadowDistance'), isFalse);
     });
 
-    test('attacher computes distance/coverage without mutating list identity order',
+    test('peer canonical_v1 client reads are debug-only', () {
+      final service = File(
+        'lib/features/discover/services/discover_service.dart',
+      ).readAsStringSync();
+      expect(
+        service.contains(
+          '_enableShadowDiagnostics = enableShadowDiagnostics && kDebugMode',
+        ),
+        isTrue,
+      );
+      final wantIdx = service.indexOf('if (wantEqualShadow) {');
+      final peerIdx = service.indexOf('await _canonicalProfile(uid)');
+      expect(wantIdx, greaterThanOrEqualTo(0));
+      expect(peerIdx, greaterThan(wantIdx));
+      expect(
+        service.contains(
+          'Production (kDebugMode == false) never enters this branch',
+        ),
+        isTrue,
+      );
+    });
+
+    test(
+        'attacher computes distance/coverage without mutating list identity order',
         () {
       final ranked = [
         _candidate(uid: 'x', score: 0.55),

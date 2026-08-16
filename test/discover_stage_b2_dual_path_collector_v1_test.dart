@@ -430,6 +430,7 @@ void main() {
       expect(screen.contains('exportLastStageB2'), isFalse);
       expect(screen.contains('lastStageB2Session'), isFalse);
       expect(screen.contains('DiscoverStageB2ComparisonLog'), isFalse);
+      expect(screen.contains('enableStageB2DualPathCollector: true'), isFalse);
     });
   });
 }
