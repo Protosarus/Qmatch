@@ -28,7 +28,7 @@ This document freezes **layer boundaries and eligibility**, not a weighted blend
 | --- | --- |
 | L1 hard eligibility | Hard pass / fail / unknown — not a soft score |
 | L2 structural | Group-normalized 20D \(D_{\mathrm{structural}}\) — live Discover ranking via trusted backend `compareStageB2Structural` (`structural_l2_v1`) |
-| L3 preferences / values | Separate from L2; not fused in v1 |
+| L3 preferences / values | Discover L3 v1 = **profile** soft-preference **diagnostics** (non-ranking). CM values = **future L3 extension**, not fused in v1 |
 | L4 temporal | Shadow only (`phase_alignment`, activity levels); real temporal data required |
 | L5 mixed-state QI | Shadow only (`validated_shadow_not_live`) |
 | Persona / RVI / pure-state QI | **Prohibited** as Matching keys |
@@ -56,11 +56,13 @@ Matching is a **pipeline of layers**, not one score. Each layer has its own inpu
 └────────────────────────────┬────────────────────────────────┘
                              │ soft ranking signal (live)
 ┌────────────────────────────▼────────────────────────────────┐
-│ L3  Preferences / values                                    │
-│     directional preference fit + relationship values        │
-│     (separate from L2; not fused in v1)                     │
+│ L3  Preferences                                             │
+│     Discover v1: profile soft-preference diagnostics        │
+│     (age + interests production diagnostics; distance       │
+│      evaluated, not production-promoted; non-ranking)       │
+│     Future extension: CM values / directional pref-fit      │
 └────────────────────────────┬────────────────────────────────┘
-                             │ soft diagnostics / future soft rank
+                             │ diagnostics only in v1 (no rank)
 ┌────────────────────────────▼────────────────────────────────┐
 │ L4  Temporal behavioral signals                             │
 │     phase_alignment, activity_level_*, omega/phase gates    │
@@ -111,18 +113,15 @@ Examples (product-configured; not scored as similarity):
 Structural answers: “how close are trait / static Frequency preference coordinates?”  
 It does **not** answer temporal co-timing or value-alignment by itself.
 
-#### L3 — Preferences / values
+#### L3 — Preferences
 
-**Role:** Soft signals for **declared / directional** preference fit and relationship-value agreement.
+**Discover L3 v1 (this freeze):** explicit **profile** soft-preference diagnostics — `age`/`age_range`, `interests`, and (evaluated but not production-promoted) `location`/`distance_preference`. Contract: [qmatch_l3_soft_preference_signal_contract_v1.md](./qmatch_l3_soft_preference_signal_contract_v1.md) (`production_diagnostics_non_ranking_v1`).
 
-| Family | Notes |
-| --- | --- |
-| Directional preference fit | Partner-preference vs other profile; directional (A←B / B←A remain distinct) |
-| Relationship values | Value-layer comparison services (Core Method); separate from structural MSE |
+Evaluated **after** trusted structural L2. Separate from L2. **Non-ranking in v1.** No fusion, no weights, no hard filtering. Missing = unknown (never a fake neutral). Known age mismatch ≠ unknown.
 
-**Status in this architecture:** Implemented in Core Method assessment domain for explanation / aggregation research; **not** wired as Discover ranking and **not** given fusion weights here.
+**Future L3 extension (not current Discover L3):** Core Method directional preference fit and relationship-value comparison. Offline today; requires live persistence + content review before any Discover use.
 
-**Hard rule:** L3 must not be collapsed into L2 or replaced by Persona labels.
+**Hard rule:** L3 must not be collapsed into L2 or replaced by Persona labels. CM values must not be treated as Discover L3 v1.
 
 #### L4 — Temporal behavioral signals
 
@@ -165,7 +164,7 @@ Policy: [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum
 | Client Dart group-normalized matcher | **Not** Discover ranking | Formula replica / diagnostics (`production_candidate_not_live`) |
 | Legacy `CompatibilityScoring` | **Rollback only** | `legacy_v1` via `DiscoverRankingMode.legacyV1` |
 
-Nothing in L3–L5 is production-ranking-eligible today.
+Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **diagnostics** (age + interests) are production-contracted and **non-ranking**. Distance diagnostics are not production-promoted. CM values remain a future L3 extension.
 
 ### B. Must remain shadow / not live
 
@@ -189,11 +188,11 @@ Nothing in L3–L5 is production-ranking-eligible today.
 | Kind | Layers | Behavior |
 | --- | --- | --- |
 | **Hard** | L1 | Fail → pair excluded (or held in `unknown`). No partial credit. |
-| **Soft ranking** | L2 (when promoted); later optionally L3 | Ordered / scored among eligible pairs. Missing → omit / degrade gracefully, never invent. |
-| **Soft diagnostic** | L4, L5 | Inform research, QA, future gates. **Must not** enter Discover ranking until promotion criteria in §7 are met. |
+| **Soft ranking** | L2 (when promoted); L3 ranking **not in v1** | Ordered / scored among eligible pairs. Missing → omit / degrade gracefully, never invent. |
+| **Soft diagnostic** | Discover L3 v1 (profile prefs); L4, L5 | Inform QA / future RFCs. **Must not** enter Discover ranking until an explicit ranking RFC. |
 | **Forbidden pseudo-hard** | — | Do not treat low QI fidelity, low purity, or Persona mismatch as silent hard filters without an explicit future hard-constraint RFC. |
 
-**v1 ranking rule (Stage C cutover complete):** among L1-eligible pairs, order by trusted backend L2 (smaller \(D_{\mathrm{structural}}\) first). Additional soft layers (L3+) require an explicit RFC. Rollback is `legacy_v1` CompatibilityScoring.
+**v1 ranking rule (Stage C cutover complete):** among L1-eligible pairs, order by trusted backend L2 (smaller \(D_{\mathrm{structural}}\) first). Discover L3 v1 is **non-ranking diagnostics**. Additional ranking use of L3 requires an explicit RFC. Rollback is `legacy_v1` CompatibilityScoring.
 
 ---
 
@@ -205,7 +204,7 @@ Nothing in L3–L5 is production-ranking-eligible today.
 | --- | --- |
 | L1 | `unknown` or `ineligible` per product rule; do not pretend pass |
 | L2 | Per-module omit when no shared measured dims; renormalize remaining module weights; if no modules → structural unavailable |
-| L3 | Partial / unavailable statuses from existing preference/value services; do not fill with neutral 0.5 “for ranking” |
+| L3 | Partial / unavailable statuses from existing preference/value services; **known mismatch ≠ unknown**; do not fill with neutral 0.5 “for ranking” |
 | L4 | `unavailable` when timestamps sparse, omega not `ok`, phase unbound, or provenance mismatch |
 | L5 | `unavailable` when \(K<2\), inconsistent ensemble, provenance mismatch, or invalid \(\rho\) |
 | Cross-layer | Absence of L4/L5 **must not** invent defaults that change L2 rank |
@@ -263,7 +262,7 @@ Keep at least these families as **separate fields** forever until an explicit fu
 | **C — Structural cutover** | **Complete.** Discover soft ranking is trusted backend L2; legacy is explicit rollback | L2 live; `legacy_v1` rollback |
 | **D — Temporal shadow on real data** | Ingest real timestamps → omega/phase → `phase_alignment` / activity levels in shadow stores | Still no L4 in ranking |
 | **E — QI ensemble shadow on real windows** | Multi-window Class-B ensembles → purity / mixed fidelity | Still no L5 in ranking |
-| **F — Optional soft-layer RFCs** | Only after real-data calibration: consider L3 and/or gated L4 as **additional** soft signals with published weights | Requires new RFC; not defined here |
+| **F — Optional soft-layer RFCs** | Only after real-data calibration: consider L3 **ranking** and/or gated L4 as **additional** soft signals with published weights | Requires new RFC; Discover L3 v1 ranking is **not** defined here (diagnostics only) |
 
 Persona remains prohibited as a Matching key at every stage.
 
@@ -323,7 +322,8 @@ All required:
 | L1 | Product hard filters | Live (product) |
 | L2 | Trusted backend group-normalized 20D | **Live** Discover ranking (`structural_l2_v1`) |
 | L2 client Dart matcher | `Canonical20dGroupNormalizedShadowMatcher` | Not Discover ranking (`production_candidate_not_live`) |
-| L3 | Preference fit / values services | Assessment/research; not Discover ranking |
+| L3 Discover v1 | Profile age / interests diagnostics; distance evaluated not promoted | **Production diagnostics, non-ranking** (`production_diagnostics_non_ranking_v1`) |
+| L3 CM extension | Preference fit / values services | Assessment/research; not Discover L3 v1 |
 | L4 | `phase_alignment`, activity levels | Shadow; real temporal data required |
 | L5 | Mixed-state QI | `validated_shadow_not_live` |
 | Rollback | Legacy CompatibilityScoring | `legacy_v1` only |
@@ -332,13 +332,14 @@ All required:
 
 ## 9. Exact next implementation step
 
-**Stage C structural cutover is complete.** Do not re-open L2 ranking.
+**Stage C structural cutover is complete.** Do not re-open L2 ranking.  
+**Discover L3 v1 diagnostics are frozen** (non-ranking). Do not add an L3 rank operator without a new RFC.
 
-Next matching work remains **shadow**:
+Next matching work remains **shadow** except the frozen L3 diagnostics:
 
 - Stage D — real temporal ingest → omega/phase → `phase_alignment` / activity levels (not ranking)
 - Stage E — QI ensemble shadow on real windows (not ranking)
-- Optional later RFCs for additional soft layers — weights not invented here
+- Optional later RFCs for additional **ranking** use of L3 — weights not invented here; v1 L3 stays non-ranking diagnostics
 
 The client Dart matcher must stay decoupled from Discover ranking.
 
@@ -356,6 +357,8 @@ The client Dart matcher must stay decoupled from Discover ranking.
 
 ## 11. Related documents
 
+- [L3 soft preference signal contract](./qmatch_l3_soft_preference_signal_contract_v1.md) (Discover L3 v1 diagnostics)  
+- [Matching constraints contract](./qmatch_matching_constraints_contract_v1.md)  
 - [Structural production-candidate policy](./qmatch_structural_matching_production_candidate_policy_v1.md)  
 - [Wave-State amplitude semantics](./qmatch_wave_state_amplitude_semantics_v1.md)  
 - [Quantum mixed-state policy freeze](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md)  
@@ -371,3 +374,4 @@ The client Dart matcher must stay decoupled from Discover ranking.
 | v1 | 2026-08-12 | Initial final layered Matching architecture; legacy remains live; no fusion weights |
 | v1 freeze | 2026-08-12 | Status → `architecture_frozen_not_live`; policy id `final_matching_architecture_v1` |
 | v1 Stage C | 2026-08-16 | Trusted backend L2 is live Discover ranking (`structural_l2_v1`); Dart matcher still not a ranker; `legacy_v1` rollback only |
+| v1 L3 freeze | 2026-08-16 | Discover L3 v1 = profile diagnostics (non-ranking); CM values = future extension; age mismatch ≠ unknown |

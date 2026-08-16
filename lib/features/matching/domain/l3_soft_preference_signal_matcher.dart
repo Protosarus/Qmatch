@@ -3,9 +3,10 @@ import 'dart:math' as math;
 import 'l3_soft_preference_signal_contract.dart';
 import 'l3_soft_preference_signal_models.dart';
 
-/// Shadow-only L3 soft preference evaluators (separate signals, no fusion).
+/// L3 v1 profile soft-preference evaluators (separate signals, no fusion).
 ///
-/// Does **not** affect L1 eligibility or Discover ranking.
+/// Production diagnostics for age + interests; distance is evaluated but not
+/// production-promoted. Does **not** affect L1 eligibility or Discover ranking.
 class L3SoftPreferenceSignalMatcher {
   const L3SoftPreferenceSignalMatcher();
 

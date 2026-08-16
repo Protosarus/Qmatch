@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../core/utils/compatibility_scoring.dart';
 import '../../../core/utils/firestore_paths.dart';
+import '../../matching/domain/l3_soft_preference_signal.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../safety/services/safety_service.dart';
 import '../models/discover_user_model.dart';
@@ -70,8 +71,9 @@ class DiscoverService {
   Map<String, DiscoverShadowDistanceDiagnostic> lastShadowDiagnostics =
       const {};
 
-  /// In-memory L3 soft preference shadow diagnostics (age / distance /
-  /// interests) from the last [getCandidates] call.
+  /// In-memory L3 v1 profile soft-preference diagnostics (age / interests
+  /// production diagnostics; distance evaluated but not production-promoted)
+  /// from the last [getCandidates] call.
   ///
   /// Not persisted. Never used for ranking, L1 eligibility, or UI %.
   Map<String, DiscoverL3SoftPreferencePairDiagnostic>
@@ -88,17 +90,25 @@ class DiscoverService {
   String? exportLastStageB2SessionJson({String indent = ' '}) =>
       _stageB2Collector.exportLastSessionJson(indent: indent);
 
-  /// Export last L3 soft preference shadow map (debug), or null if empty.
+  /// Export last L3 v1 diagnostic map (debug), or null if empty.
   Map<String, dynamic>? exportLastL3SoftPreferenceDiagnosticsMap() {
     if (lastL3SoftPreferenceDiagnostics.isEmpty) return null;
     return {
       'export_version': 'discover_l3_soft_preference_shadow_session_v1',
+      'policy_status': L3SoftPreferenceSignalContract.policyStatus,
       'shadow_only': true,
       'affects_discover_ranking': false,
       'is_l1_eligibility_gate': false,
       'combined_l3_score': null,
       'weights': false,
       'looking_for_active': false,
+      'relationship_values_active': false,
+      'age_production_promoted':
+          L3SoftPreferenceSignalContract.ageProductionPromoted,
+      'interests_production_promoted':
+          L3SoftPreferenceSignalContract.interestsProductionPromoted,
+      'distance_production_promoted':
+          L3SoftPreferenceSignalContract.distanceProductionPromoted,
       'pair_count': lastL3SoftPreferenceDiagnostics.length,
       'pairs': [
         for (final d in lastL3SoftPreferenceDiagnostics.values) d.toExportMap(),

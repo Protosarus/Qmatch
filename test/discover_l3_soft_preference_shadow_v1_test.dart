@@ -106,6 +106,7 @@ void main() {
       expect(far.age.aAcceptsB, isFalse);
       expect(far.age.bAcceptsA, isTrue);
       expect(far.age.mutualFit, isFalse);
+      expect(far.age.diagnosticClass, 'known_mismatch');
       expect(far.distance.available, isTrue);
       expect(far.distance.withinMutualCap, isFalse);
       expect(far.interests.available, isTrue);
@@ -115,8 +116,20 @@ void main() {
       expect(export.containsKey('combined_l3_score'), isTrue);
       expect(export['combined_l3_score'], isNull);
       expect(export['looking_for_active'], isFalse);
+      expect(export['relationship_values_active'], isFalse);
       expect(export['affects_discover_ranking'], isFalse);
       expect(export['is_l1_eligibility_gate'], isFalse);
+      expect(export['age_production_promoted'], isTrue);
+      expect(export['interests_production_promoted'], isTrue);
+      expect(export['distance_production_promoted'], isFalse);
+      expect(
+        (export['l3_age_preference_soft_v1'] as Map)['diagnostic_class'],
+        'mutual_fit',
+      );
+      expect(
+        (export['l3_distance_preference_soft_v1'] as Map)['production_promoted'],
+        isFalse,
+      );
     });
 
     test('missing data stays unavailable with reason', () {
@@ -141,6 +154,7 @@ void main() {
           .diagnostics['c1']!;
 
       expect(d.age.available, isFalse);
+      expect(d.age.diagnosticClass, 'unknown');
       expect(
         d.age.unavailableReason,
         L3SoftPreferenceSignalContract.reasonMissingAgeB,
@@ -239,6 +253,7 @@ void main() {
 
       expect(d.age.available, isTrue);
       expect(d.age.mutualFit, isFalse);
+      expect(d.age.diagnosticClass, 'known_mismatch');
       // Candidate remains in ranked list (L3 is diagnostic only).
       expect(ranked.length, 1);
       expect(
@@ -288,6 +303,7 @@ void main() {
       expect(shadowSrc.contains('temporal'), isFalse);
       expect(shadowSrc.contains('quantum'), isFalse);
       expect(shadowSrc.contains("'looking_for_active': false"), isTrue);
+      expect(shadowSrc.contains("'relationship_values_active': false"), isTrue);
 
       final serviceSrc = File(
         'lib/features/discover/services/discover_service.dart',

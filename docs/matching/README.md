@@ -3,8 +3,8 @@
 - Final Matching Architecture v1 (layer freeze; Discover L2 ranking live via trusted backend): [qmatch_final_matching_architecture_v1.md](./qmatch_final_matching_architecture_v1.md)
 - Matching Constraints Contract v1 (product ratified, not live): [qmatch_matching_constraints_contract_v1.md](./qmatch_matching_constraints_contract_v1.md)
 - Live Match Lifecycle Audit v1: [qmatch_live_match_lifecycle_audit_v1.md](./qmatch_live_match_lifecycle_audit_v1.md)
-- L3 Soft Preference Signal Contract v1 (shadow evaluators, not live): [qmatch_l3_soft_preference_signal_contract_v1.md](./qmatch_l3_soft_preference_signal_contract_v1.md)
-- Discover L3 soft preference shadow diagnostics (post-rank, not live ranking): `DiscoverService.lastL3SoftPreferenceDiagnostics` / `exportLastL3SoftPreferenceDiagnosticsMap()`
+- L3 Soft Preference Signal Contract v1 (Discover L3 v1 production diagnostics, non-ranking): [qmatch_l3_soft_preference_signal_contract_v1.md](./qmatch_l3_soft_preference_signal_contract_v1.md)
+- Discover L3 v1 diagnostics (post-L2, not ranking): `DiscoverService.lastL3SoftPreferenceDiagnostics` / `exportLastL3SoftPreferenceDiagnosticsMap()`
 - Preferences & hard constraints audit: [qmatch_preferences_constraints_audit_v1.md](./qmatch_preferences_constraints_audit_v1.md)
 - Stage B dual-path audit (synthetic sanity; real Discover cohort unavailable): [reports/legacy_vs_structural_dual_path_audit_stage_b_v1.json](./reports/legacy_vs_structural_dual_path_audit_stage_b_v1.json)
 - Stage B2 real Discover shadow collector (debug/internal, off by default): `DiscoverStageB2DualPathCollector` / `DiscoverService.exportLastStageB2SessionJson()`

@@ -94,13 +94,20 @@ class DiscoverL3SoftPreferencePairDiagnostic {
         'is_l1_eligibility_gate': false,
         'combined_l3_score': null,
         'looking_for_active': false,
+        'relationship_values_active': false,
+        'age_production_promoted':
+            L3SoftPreferenceSignalContract.ageProductionPromoted,
+        'interests_production_promoted':
+            L3SoftPreferenceSignalContract.interestsProductionPromoted,
+        'distance_production_promoted':
+            L3SoftPreferenceSignalContract.distanceProductionPromoted,
         'l3_age_preference_soft_v1': age.toWireMap(),
         'l3_distance_preference_soft_v1': distance.toWireMap(),
         'l3_interests_overlap_soft_v1': interests.toWireMap(),
       };
 }
 
-/// Attaches L3 soft preference shadow diagnostics **after** legacy ranking.
+/// Attaches L3 v1 profile soft-preference diagnostics **after** L2 ranking.
 ///
 /// Never reorders candidates and never touches live compatibility scores / L1.
 class DiscoverL3SoftPreferenceShadowAttacher {

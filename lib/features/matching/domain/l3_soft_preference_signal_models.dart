@@ -31,6 +31,18 @@ class L3AgePreferenceSoftResult {
   final List<int>? rangeA;
   final List<int>? rangeB;
 
+  /// Frozen diagnostic taxonomy: mutual fit vs known mismatch vs unknown.
+  /// Not a ranking key.
+  String get diagnosticClass {
+    if (!available) {
+      return L3SoftPreferenceSignalContract.ageDiagnosticUnknown;
+    }
+    if (mutualFit == true) {
+      return L3SoftPreferenceSignalContract.ageDiagnosticMutualFit;
+    }
+    return L3SoftPreferenceSignalContract.ageDiagnosticKnownMismatch;
+  }
+
   Map<String, dynamic> toWireMap() => {
         'scoring_version': L3SoftPreferenceSignalContract.ageScoringVersion,
         'policy_version': L3SoftPreferenceSignalContract.policyVersion,
@@ -40,7 +52,10 @@ class L3AgePreferenceSoftResult {
             L3SoftPreferenceSignalContract.affectsDiscoverRanking,
         'is_l1_eligibility_gate':
             L3SoftPreferenceSignalContract.isL1EligibilityGate,
+        'production_promoted':
+            L3SoftPreferenceSignalContract.ageProductionPromoted,
         'available': available,
+        'diagnostic_class': diagnosticClass,
         if (unavailableReason != null) 'unavailable_reason': unavailableReason,
         if (aAcceptsB != null) 'a_accepts_b': aAcceptsB,
         if (bAcceptsA != null) 'b_accepts_a': bAcceptsA,
@@ -85,6 +100,8 @@ class L3DistancePreferenceSoftResult {
             L3SoftPreferenceSignalContract.affectsDiscoverRanking,
         'is_l1_eligibility_gate':
             L3SoftPreferenceSignalContract.isL1EligibilityGate,
+        'production_promoted':
+            L3SoftPreferenceSignalContract.distanceProductionPromoted,
         'available': available,
         if (unavailableReason != null) 'unavailable_reason': unavailableReason,
         if (distanceKm != null) 'distance_km': distanceKm,
@@ -122,6 +139,8 @@ class L3InterestsOverlapSoftResult {
             L3SoftPreferenceSignalContract.affectsDiscoverRanking,
         'is_l1_eligibility_gate':
             L3SoftPreferenceSignalContract.isL1EligibilityGate,
+        'production_promoted':
+            L3SoftPreferenceSignalContract.interestsProductionPromoted,
         'available': available,
         if (unavailableReason != null) 'unavailable_reason': unavailableReason,
         if (overlapCount != null) 'overlap_count': overlapCount,

@@ -20,6 +20,13 @@ void main() {
       expect(r.mutualFit, isTrue);
       expect(r.toWireMap()['scoring_version'], 'l3_age_preference_soft_v1');
       expect(r.toWireMap()['is_l1_eligibility_gate'], isFalse);
+      expect(r.diagnosticClass, 'mutual_fit');
+      expect(r.toWireMap()['diagnostic_class'], 'mutual_fit');
+      expect(r.toWireMap()['production_promoted'], isTrue);
+      expect(
+        r.toWireMap()['policy_status'],
+        'production_diagnostics_non_ranking_v1',
+      );
     });
 
     test('boundary inclusive min==max', () {
@@ -42,6 +49,7 @@ void main() {
       expect(miss.aAcceptsB, isFalse);
       expect(miss.bAcceptsA, isTrue);
       expect(miss.mutualFit, isFalse);
+      expect(miss.diagnosticClass, 'known_mismatch');
     });
 
     test('asymmetric one-way only', () {
@@ -55,6 +63,7 @@ void main() {
       expect(r.aAcceptsB, isTrue);
       expect(r.bAcceptsA, isFalse);
       expect(r.mutualFit, isFalse);
+      expect(r.diagnosticClass, 'known_mismatch');
     });
 
     test('missing age / range / partial / invalid', () {
@@ -68,6 +77,17 @@ void main() {
             )
             .unavailableReason,
         L3SoftPreferenceSignalContract.reasonMissingAgeA,
+      );
+      expect(
+        matcher
+            .compareAge(
+              ageA: null,
+              ageB: 28,
+              ageRangeA: const [25, 35],
+              ageRangeB: const [25, 35],
+            )
+            .diagnosticClass,
+        L3SoftPreferenceSignalContract.ageDiagnosticUnknown,
       );
       expect(
         matcher
@@ -135,6 +155,7 @@ void main() {
       expect(r.withinMutualCap, isTrue);
       expect(r.withinACap, isTrue);
       expect(r.withinBCap, isTrue);
+      expect(r.toWireMap()['production_promoted'], isFalse);
     });
 
     test('boundary: distance exactly at mutual cap counts within', () {
@@ -245,6 +266,7 @@ void main() {
       expect(r.overlapCount, 1);
       expect(r.unionCount, 4);
       expect(r.jaccard, closeTo(0.25, 1e-12));
+      expect(r.toWireMap()['production_promoted'], isTrue);
     });
 
     test('zero overlap nonempty', () {
@@ -291,10 +313,22 @@ void main() {
   group('contract isolation', () {
     test('no Discover ranking / looking_for / combined score', () {
       expect(L3SoftPreferenceSignalContract.lookingForActive, isFalse);
+      expect(L3SoftPreferenceSignalContract.relationshipValuesActive, isFalse);
+      expect(
+        L3SoftPreferenceSignalContract.lifestyleSelfAttributesAreMatchingInputs,
+        isFalse,
+      );
       expect(L3SoftPreferenceSignalContract.combinedScoreAllowed, isFalse);
       expect(L3SoftPreferenceSignalContract.weightsAllowed, isFalse);
       expect(L3SoftPreferenceSignalContract.affectsDiscoverRanking, isFalse);
       expect(L3SoftPreferenceSignalContract.isL1EligibilityGate, isFalse);
+      expect(L3SoftPreferenceSignalContract.ageProductionPromoted, isTrue);
+      expect(L3SoftPreferenceSignalContract.interestsProductionPromoted, isTrue);
+      expect(L3SoftPreferenceSignalContract.distanceProductionPromoted, isFalse);
+      expect(
+        L3SoftPreferenceSignalContract.policyStatus,
+        'production_diagnostics_non_ranking_v1',
+      );
 
       final matcherSrc = File(
         'lib/features/matching/domain/l3_soft_preference_signal_matcher.dart',

@@ -63,6 +63,7 @@ Rollback only (`legacy_v1`):
 × HardConstraintEvaluation
 × Persona / archetype as Matching keys
 × L3 / L4 / L5 ranking
+  (Discover L3 v1 = post-L2 diagnostics only; not a ranker)
 ```
 
 ### Intended CM v2 (IMPLEMENTED_OFFLINE only)

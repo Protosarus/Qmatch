@@ -7,7 +7,7 @@
 | Status | `product_ratified_not_live` |
 | Scope | **Docs only.** Ratified product decisions. No Discover wiring, scoring weights, Persona/RVI/temporal/QI, or production code in this freeze. |
 | Depends on | [Preferences & constraints audit](./qmatch_preferences_constraints_audit_v1.md), [Final Matching Architecture](./qmatch_final_matching_architecture_v1.md) |
-| Explicit non-goals | Inventing `interested_in`; treating `looking_for` as gender preference; inventing fusion weights; creating a new completion flag |
+| Explicit non-goals | Inventing `interested_in`; treating `looking_for` as gender preference; inventing fusion weights; creating a new completion flag; L3 ranking operators in v1 |
 
 ---
 
@@ -18,9 +18,9 @@ Product-ratified v1 decisions (locked):
 | Decision | Ratified value |
 | --- | --- |
 | Reverse-block | **Mandatory L1** hard safety gate |
-| `age_range` | **L3 soft preference** — not hard in v1 |
-| `distance_preference` | **L3 soft preference** — not hard in v1 |
-| `interests` | **L3 soft signal** |
+| `age_range` | **L3 soft preference** — Discover L3 v1 **active diagnostic**, not hard, not a rank key |
+| `distance_preference` | **L3 diagnostic only** — not production-promoted until location privacy is solved; not hard in v1 |
+| `interests` | **L3 soft signal** — Discover L3 v1 **active diagnostic**, not a rank key |
 | `looking_for` | Intent-only **soft candidate**, **inactive** until intent semantics are defined |
 | `religion` / lifestyle / `children` | **Not Matching inputs** without explicit partner-preference fields |
 | `gender` attribute alone | **Must never filter** |
@@ -39,7 +39,7 @@ Map **existing** profile / eligibility / safety fields onto Matching layers:
 | Class | Layer | Behavior |
 | --- | --- | --- |
 | **L1 hard constraint** | Architecture L1 | Pass / fail / unknown. Fail ⇒ pair excluded. Not a soft score. |
-| **L3 soft preference** | Architecture L3 | Soft signal among L1-eligible pairs. Separate from L2. **No weights here.** |
+| **L3 soft preference** | Architecture Discover L3 v1 | Profile soft-preference **diagnostic** among L1-eligible pairs, **after** L2. Separate from L2. **Non-ranking in v1. No weights. No hard filter.** |
 | **Display-only** | UI | Shown; not L1; not L3 under this contract (unless also listed as L3). |
 | **Out of Matching** | — | Must not drive L1 or L3 until a later RFC. |
 
@@ -65,15 +65,18 @@ Map **existing** profile / eligibility / safety fields onto Matching layers:
 
 ## 3. Ratified L3 soft preferences
 
+Discover L3 v1 = **profile** signals in [L3 signal contract](./qmatch_l3_soft_preference_signal_contract_v1.md). CM relationship/value fit is a **future L3 extension**, not current Discover L3.
+
 | Field | Status | Notes |
 | --- | --- | --- |
-| `age_range` | **L3 soft preference** | Not hard in v1. Mutual reciprocity **if/when applied**. Missing → unknown; no imputation. |
-| `distance_preference` | **L3 soft preference** | Not hard in v1. Mutual / \(\min\) of both prefs when both locations+prefs present; else unknown. |
-| `interests` | **L3 soft signal** | Symmetric overlap; never hard-fail on empty overlap. |
+| `age_range` | **L3 active diagnostic** | Not hard. Not a rank key. Mutual when evaluable. **Known mismatch ≠ unknown.** Missing → unknown; no imputation. |
+| `distance_preference` | **L3 diagnostic, not production-promoted** | Not hard. Mutual / \(\min\) of both prefs when both locations+prefs present; else unknown. Held back until location privacy is solved. |
+| `interests` | **L3 active diagnostic** | Symmetric overlap; never hard-fail on empty overlap; not a rank key. |
 | `looking_for` | **Intent-only soft candidate — inactive** | Not gender preference. No soft-match matrix until intent semantics RFC. |
+| CM relationship values / directional preference fit | **Future L3 extension — inactive** | Offline only until live persistence + content review. |
 | Legacy CompatibilityScoring mirrors (`frequency_*`, archetype/category, IQ/EQ bands, recency) | **Rollback only** (`legacy_v1`) | Not live Discover ranking; live order is trusted structural L2 (`structural_l2_v1`) |
 
-Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC** amending this contract.
+Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC** amending this contract. Promoting distance diagnostics to production requires a **location-privacy RFC**. Any L3 **ranking** operator requires a **ranking RFC** (not defined here).
 
 ---
 
@@ -82,7 +85,7 @@ Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC*
 | Field | Notes |
 | --- | --- |
 | `name`, `bio` | Identity / presentation |
-| `age` on card | Display of attribute (Matching use only via soft `age_range` rules if wired later) |
+| `age` on card | Display of attribute (Matching diagnostic via soft `age_range`; not a rank key) |
 | Own-profile `gender`, `looking_for`, education, drinking, smoking | Display |
 | Compatibility chips | Live L2 does **not** show a compatibility %. Rollback (`legacy_v1`) may still attach legacy label/score/reasons |
 
@@ -96,7 +99,7 @@ Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC*
 | `interested_in` (fake or invented) | **Forbidden**; separate RFC required to add |
 | `looking_for` as gender preference | **Forbidden** |
 | `religion`, lifestyle (`drinking`, `smoking`, `pets`, `occupation`, `animal_love`), `children` | **Out of Matching** without explicit partner-preference fields |
-| CM offline preference-fit / hard constraints | Out of live Matching until persistence + mapping RFC |
+| CM offline preference-fit / hard constraints | Out of live Matching until persistence + mapping RFC — **not Discover L3 v1** |
 | Persona / RVI / temporal L4 / QI L5 | Prohibited as Matching keys per architecture |
 
 **Deferred (need later RFC, not invented here):**
@@ -115,9 +118,9 @@ Promoting `age_range` or `distance_preference` to L1 requires an **additive RFC*
 | --- | --- | --- |
 | Account eligibility | N/A | Each user independently eligible |
 | Swipe / block-by-me / reverse-block | One-way safety | Fail pair for viewer when any applies |
-| `age_range` (when soft-applied) | **Mutual** | \(B.\mathrm{age}\in A.\mathrm{age\_range}\) and \(A.\mathrm{age}\in B.\mathrm{age\_range}\); else unknown |
-| `distance_preference` (when soft-applied) | **Mutual / stricter** | distance \(\le\min(A,B)\) prefs when both geo+prefs present; else unknown |
-| `interests` | Symmetric soft | Overlap only |
+| `age_range` (when evaluated) | **Mutual diagnostic** | \(B.\mathrm{age}\in A.\mathrm{age\_range}\) and \(A.\mathrm{age}\in B.\mathrm{age\_range}\) → `mutual_fit`. Evaluable but not mutual → **`known_mismatch`** (not unknown). Missing/invalid/partial → **`unknown`**. Never a rank key or L1 fail. |
+| `distance_preference` (when evaluated) | **Mutual / stricter diagnostic** | distance \(\le\min(A,B)\) prefs when both geo+prefs present; else unknown. **Not production-promoted** in v1. |
+| `interests` | Symmetric diagnostic | Overlap only; empty overlap is not a hard-fail; not a rank key |
 | Gender / interested-in | **N/A** | No preference field — must not filter |
 | `looking_for` | Inactive | No reciprocity matrix until intent RFC |
 | Missing prefs | Unknown | **Never impute** defaults for Matching |
@@ -132,11 +135,11 @@ Self **relationship intent** only. Not L1. Soft candidate **inactive** until int
 
 ### 7.2 `age_range`
 
-`[min, max]` preference over partner `age`. **L3 soft, not hard in v1.** Mutual if applied. Missing/malformed → unknown; never impute.
+`[min, max]` preference over partner `age`. **L3 active diagnostic, not hard, not a rank key.** Mutual when both ages+ranges valid. **Known mismatch ≠ unknown.** Missing/malformed → unknown; never impute.
 
 ### 7.3 `distance_preference`
 
-Max km preference. **L3 soft, not hard in v1.** Mutual min-of-two when both locations+prefs exist. `location_text` is not a distance engine. Missing → unknown; never impute.
+Max km preference. **L3 diagnostic only in v1 — not production-promoted** until location privacy is solved. Not hard. Mutual min-of-two when both locations+prefs exist. `location_text` is not a distance engine. Missing → unknown; never impute. Do not sort by km.
 
 ### 7.4 Gender vs `interested_in`
 
@@ -148,7 +151,7 @@ Self attributes / status only. **Not Matching inputs** without explicit partner-
 
 ### 7.6 Interests
 
-**L3 soft signal.** Display allowed. Never hard-fail.
+**L3 active diagnostic.** Display allowed. Never hard-fail. Not a Discover rank key.
 
 ### 7.7 Blocks
 
@@ -179,7 +182,7 @@ Before wiring:
 | --- | --- |
 | Reverse-block readable + enforced on Discover path | Mandatory L1 |
 | Align Discover local assessment check with §8 OR | Eligibility consistency |
-| If applying L3 age/distance soft signals: expose viewer prefs + candidate age/location on evaluate path | Prefs missing from Discover model today |
+| If applying L3 age/distance diagnostics: read viewer prefs + candidate age/location from `users/{uid}` maps (not `DiscoverUserModel`) | Discover L3 v1 attach path already uses raw maps; `DiscoverUserModel` still omits `age_range` / geo |
 | Intent RFC before activating `looking_for` soft-match | Semantics undefined |
 | Separate RFC before any `interested_in` | Must not invent |
 
@@ -195,8 +198,9 @@ Do **not** wire age/distance soft scoring, intent match, or gender filters in th
 
 ## 11. Non-goals (restated)
 
-- No Discover preference soft-scoring in this freeze  
+- No Discover preference **ranking** or fusion in this freeze  
 - No scoring weights  
+- No treating Discover L3 v1 as CM values  
 - No Persona / RVI / temporal / QI  
 - No fake `interested_in`  
 - No new assessment-completion flag  
@@ -209,3 +213,4 @@ Do **not** wire age/distance soft scoring, intent match, or gender filters in th
 | --- | --- | --- |
 | v1 | 2026-08-12 | Initial constraints contract from preferences audit |
 | v1 ratify | 2026-08-12 | Status → `product_ratified_not_live`; reverse-block L1; age/distance L3 soft; looking_for inactive; eligibility OR canonical; no fake interested_in |
+| v1 L3 freeze | 2026-08-16 | Align with Discover L3 v1 production diagnostics (non-ranking): age/interests active; distance not promoted; known age mismatch ≠ unknown; CM values = future extension |

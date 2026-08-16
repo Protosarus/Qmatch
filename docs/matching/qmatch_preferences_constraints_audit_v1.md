@@ -47,12 +47,12 @@ Primary models:
 | `gender` | `gender` | Attribute | **Display-capable / unused in Discover filter & score** | Setup: `Erkek` / `Kadın` only. On Discover model but **not** card-rendered; **not** filtered |
 | `looking_for` | `lookingFor` | **Ambiguous** (self relationship intent) | **Soft-preference candidate / unused** | Prefs step TR intents (“Ciddi İlişki”, “Evlilik”, …). Own-profile display; Discover unused |
 | `age` | `age` | Attribute | **Display-only** on Discover (name+age) | Not filtered by viewer `age_range` |
-| `age_range` | `ageRange` `[min,max]` | Preference | **Unsuitable until wired** (collected, unused) | On `UserProfileModel` only; **not** on `DiscoverUserModel`; Discover never reads |
-| `distance_preference` | `distancePreference` (km) | Preference | **Unsuitable until wired** | Unused; needs geo |
-| `location` | `location` (`GeoPoint?`) | Attribute | **Unsuitable until wired** | Optional GPS; unused for distance |
+| `age_range` | `ageRange` `[min,max]` | Preference | **Discover L3 v1 active diagnostic** (non-ranking) | On `UserProfileModel`; L3 reads raw `users/{uid}` maps, not `DiscoverUserModel` |
+| `distance_preference` | `distancePreference` (km) | Preference | **L3 diagnostic, not production-promoted** | Evaluated; held for location privacy. Needs geo |
+| `location` | `location` (`GeoPoint?`) | Attribute | **L3 distance input; not production-promoted** | Optional GPS; precise geo on peer-readable docs |
 | `location_text` | `locationText` | Attribute / display | **Display / unused in Discover** | — |
 | `religion` | `religion` | Attribute | **Unsuitable for Matching as-is** (no partner-religion pref) | Lifestyle setup; not Discover |
-| `interests` | `interests` | Attribute (tags) | **Display on Discover**; L3 shadow only | Not a live L2 rank key. Jaccard in CompatibilityScoring is `legacy_v1` rollback only |
+| `interests` | `interests` | Attribute (tags) | **Display on Discover**; L3 v1 **active diagnostic** | Not a live L2 rank key. Jaccard in CompatibilityScoring is `legacy_v1` rollback only |
 | `education` | `education` | Attribute | **Display / unused for Matching** | Own profile |
 | `bio` / `name` | same | Attribute / identity | **Display-only** | Not scoring inputs |
 | `occupation` | `occupation` | Attribute | **Unsuitable / unused** | — |
@@ -126,7 +126,7 @@ Source: `DiscoverService.getCandidates` + eligibility refresh in `ProfileService
 
 ## 4. Soft preferences / value signals (as used today)
 
-Live Discover ranking is trusted backend L2 (`structural_l2_v1`): canonical 20D IQ/EQ/Frequency structural distance. No compatibility percentage. Persona/archetype are not Matching keys. L3/L4/L5 are not live.
+Live Discover ranking is trusted backend L2 (`structural_l2_v1`): canonical 20D IQ/EQ/Frequency structural distance. No compatibility percentage. Persona/archetype are not Matching keys. Discover L3 v1 is **non-ranking production diagnostics** (age + interests). Distance L3 is evaluated but not production-promoted. L4/L5 are not live.
 
 `CompatibilityScoring` (`lib/core/utils/compatibility_scoring.dart`) is **rollback only** (`legacy_v1`):
 
@@ -139,9 +139,9 @@ Live Discover ranking is trusted backend L2 (`structural_l2_v1`): canonical 20D 
 | Interests Jaccard | `interests` | Soft + display |
 | Recency | candidate `last_active_at` | Soft + sort tiebreak |
 
-**Collected but unused L3 preference candidates (not live ranking):** `looking_for`, `age_range`, `distance_preference`.
+**Discover L3 v1 (profile diagnostics, not ranking):** `age_range` + `age` (active), `interests` (active). `distance_preference` + `location` evaluated but **not production-promoted**. `looking_for` remains **inactive**.
 
-**Architecture note:** Final Matching Architecture places L3 (preferences/values) **separate** from L2 structural 20D. This audit does **not** assign weights.
+**Architecture note:** Final Matching Architecture Discover L3 v1 is **profile** soft-preferences, **separate** from L2. CM directional preference-fit / relationship values are a **future L3 extension**, not current Discover L3. This audit does **not** assign weights.
 
 Shadow diagnostics (equal-20D / Stage B2) are **not** preference fields and do not reorder Discover.
 
@@ -183,9 +183,9 @@ Shadow diagnostics (equal-20D / Stage B2) are **not** preference fields and do n
 | Gap | Detail |
 | --- | --- |
 | **No interested-in / gender preference** | Only self `gender`; cannot express mutual gender eligibility |
-| **`looking_for` ≠ gender preference** | Stores relationship intent; Discover does not compare A↔B intents |
-| **`age_range` unused** | Preference collected; no “B.age ∈ A.age_range” and no mutual reciprocity |
-| **`distance_preference` + `location` unused** | No geo radius filter |
+| **`looking_for` ≠ gender preference** | Stores relationship intent; Discover L3 v1 does not compare A↔B intents (**inactive**) |
+| **`age_range` diagnostic** | L3 v1 evaluates mutual fit; **known mismatch ≠ unknown**; **does not rank** |
+| **`distance_preference` + `location`** | Evaluated as L3 diagnostic; **not production-promoted** (location privacy) |
 | **No partner-religion preference** | Self `religion` only; CM `religion_importance` offline only |
 | **`children` vs `children_preference`** | Profile self-status vs CM preference vocabulary; unmapped |
 | **Legacy `looking_for` vs CM `relationship_intent`** | Different vocabularies (TR UI strings vs registry enums); no Discover mapping |
@@ -200,7 +200,7 @@ Shadow diagnostics (equal-20D / Stage B2) are **not** preference fields and do n
 | --- | --- |
 | **L1 Hard eligibility** | `discover_eligible`, active, profile/test completion, photo, swipe exclude, block-by-me |
 | **L2 Structural** | Trusted backend group-normalized 20D — **live** Discover ranking (`structural_l2_v1`) |
-| **L3 Preferences / values** | Partial collection (`age_range`, `distance_preference`, `looking_for`); CM offline preference-fit / values; **not Discover-wired** |
+| **L3 Preferences** | Discover L3 v1: profile age/interests **diagnostics** (non-ranking); distance not production-promoted; CM values **future extension** (offline) |
 | **L4 / L5** | Out of scope (temporal / QI) |
 
 ---
@@ -216,6 +216,8 @@ Shadow diagnostics (equal-20D / Stage B2) are **not** preference fields and do n
 5. Does **not** invent scoring weights or change Discover.
 
 Until that contract exists, treat unused profile prefs as **collected but not Matching-authoritative**.
+
+**Update (2026-08-16):** Constraints + L3 signal contracts now freeze Discover L3 v1 as **non-ranking production diagnostics**. This audit row is historical inventory plus that freeze.
 
 ---
 
@@ -236,3 +238,4 @@ Until that contract exists, treat unused profile prefs as **collected but not Ma
 | Version | Date | Notes |
 | --- | --- | --- |
 | v1 | 2026-08-12 | Initial preferences / hard-constraints audit from repo data model |
+| v1 L3 freeze | 2026-08-16 | Align inventory with Discover L3 v1 production diagnostics (non-ranking); CM values remain a future extension |

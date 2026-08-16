@@ -73,8 +73,8 @@ Live Discover ranking is trusted structural L2 (`structural_l2_v1`) on canonical
 | `missingSignalNeutral = 0.42` | same | rollback rank | Missing filler | Missing = absent; never fill live L2 | retire from live ranking |
 | `compatibilityScore ?? 0.5` sort fallback | DiscoverService | sort | Fake mid | Live L2 never imputes 0.5 | retire from live ranking |
 | `closenessScore` raw | helper | optional | Raw IQ/EQ closeness | Prefer reliability-weighted dims; hard gates | deprecate |
-| Interests / recency | same | rollback rank | Soft signals | L3 interests shadow-only; L2 recency is timestamp tie-break only | retain conceptually as later RFC |
-| `looking_for` | profile | **not in live ranking** | Intent | Values/intent layer | activate in matching later |
+| Interests / recency | same | rollback rank | Soft signals | L3 interests = v1 **active diagnostic** (non-ranking); L2 recency is timestamp tie-break only | retain conceptually as later RFC |
+| `looking_for` | profile | **inactive in Discover L3 v1** | Intent | Future L3 extension / intent RFC | activate only after intent RFC |
 
 ---
 

@@ -170,8 +170,8 @@ CM v2 assets under `assets/data/core_method_v2/` are **not** listed in
 | Area | Evidence | Status |
 |------|----------|--------|
 | Discover load | `discover_eligible == true` query; local filters | RUNTIME_WIRED_UNVERIFIED |
-| Discover ranking | Trusted structural L2 (`structural_l2_v1`, canonical 20D). `CompatibilityScoring` is **rollback only** (`legacy_v1`). No live %. Persona/archetype are not Matching keys. L3/L4/L5 not live | RUNTIME_WIRED |
-| Age/gender/orientation/distance filters | Profile fields unused in Discover query | NOT_STARTED |
+| Discover ranking | Trusted structural L2 (`structural_l2_v1`, canonical 20D). `CompatibilityScoring` is **rollback only** (`legacy_v1`). No live %. Persona/archetype are not Matching keys. Discover L3 v1 = **non-ranking diagnostics**; L4/L5 not live | RUNTIME_WIRED |
+| Age/gender/orientation/distance filters | Gender must never filter. Age/interests = L3 **diagnostics** (non-ranking). Distance not production-promoted. `looking_for` inactive | L3_V1_DIAGNOSTICS |
 | Pagination cursor | Over-fetch batch only | RUNTIME_WIRED_UNVERIFIED |
 | Like/pass | `SwipeService` → `users/{uid}/swipes` | RUNTIME_WIRED_UNVERIFIED |
 | Mutual match | `MatchService.createMatchIfMutualLike` transaction | RUNTIME_WIRED_UNVERIFIED |
@@ -247,7 +247,7 @@ Do **not** delete in this phase — see gap register for migration requirements.
 2. Users on legacy 10/10/12 banks; no 340 IQ bank; no dynamic 25-session composer.  
 3. Trait→Canonical adapter not wired; 20D CM profile not production.  
 4. Partner prefs / values / hard constraints not collectable in UI.  
-5. Preference filters unused; L3/L4/L5 not live. Discover ranking is structural L2 (not CompatibilityScoring).  
+5. Discover L3 v1 is non-ranking diagnostics (not L1 filters). Distance not production-promoted. L4/L5 not live. Discover ranking is structural L2 (not CompatibilityScoring).  
 6. Android package still `com.example.qmatch` (vs iOS `com.qmatch.app`).  
 7. No versioned Firestore/Storage rules/indexes in repo.  
 8. Account deletion is request-only (not full wipe).  
