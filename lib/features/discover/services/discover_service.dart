@@ -10,9 +10,11 @@ import '../models/discover_user_model.dart';
 import 'discover_canonical_20d_shadow.dart';
 import 'discover_l1_eligibility_gate.dart';
 import 'discover_l3_soft_preference_shadow.dart';
+import 'discover_ranking_mode.dart';
 import 'discover_shadow_distance_attacher.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
 import 'discover_stage_b2_trusted_l2_client.dart';
+import 'discover_structural_l2_ranking.dart';
 
 class DiscoverService {
   DiscoverService({
@@ -27,6 +29,7 @@ class DiscoverService {
     bool enableStageB2DualPathCollector = false,
     bool allowStageB2OutsideDebug = false,
     DiscoverStageB2TrustedL2Client? stageB2TrustedL2Client,
+    DiscoverRankingMode rankingMode = DiscoverRankingMode.active,
   })  : _auth = auth ?? FirebaseAuth.instance,
         _swipeService = swipeService ?? SwipeService(auth: auth),
         _safetyService = safetyService ?? SafetyService(auth: auth),
@@ -43,7 +46,8 @@ class DiscoverService {
             ),
         _allowStageB2OutsideDebug = allowStageB2OutsideDebug,
         _stageB2TrustedL2 =
-            stageB2TrustedL2Client ?? DiscoverStageB2TrustedL2Client();
+            stageB2TrustedL2Client ?? DiscoverStageB2TrustedL2Client(),
+        _rankingMode = rankingMode;
 
   final FirebaseAuth _auth;
   final SwipeService _swipeService;
@@ -56,6 +60,10 @@ class DiscoverService {
   final DiscoverStageB2DualPathCollector _stageB2Collector;
   final bool _allowStageB2OutsideDebug;
   final DiscoverStageB2TrustedL2Client _stageB2TrustedL2;
+  final DiscoverRankingMode _rankingMode;
+
+  /// Active ranking mode for this service instance.
+  DiscoverRankingMode get rankingMode => _rankingMode;
 
   /// In-memory shadow diagnostics from the last [getCandidates] call.
   /// Not persisted. Not used for ranking or displayed compatibility.
@@ -93,8 +101,7 @@ class DiscoverService {
       'looking_for_active': false,
       'pair_count': lastL3SoftPreferenceDiagnostics.length,
       'pairs': [
-        for (final d in lastL3SoftPreferenceDiagnostics.values)
-          d.toExportMap(),
+        for (final d in lastL3SoftPreferenceDiagnostics.values) d.toExportMap(),
       ],
     };
   }
@@ -237,35 +244,42 @@ class DiscoverService {
         continue;
       }
 
-      final compat = CompatibilityScoring.calculateCompatibility(
-        me: meData,
-        candidate: {
-          ...data,
-          // Provide DateTime for recencyScore helper
-          'last_active_at': (data['last_active_at'] is Timestamp)
-              ? (data['last_active_at'] as Timestamp).toDate()
-              : null,
-        },
-      );
-
-      if (_stageB2Collector.enabled) {
-        _stageB2Collector.recordLegacyPair(
-          candidateUid: doc.id,
-          legacyAvailable: compat.available,
-          legacyScore: compat.scoreTotal,
-          legacyMissingReason: compat.reason,
+      final attachLegacyUi = _rankingMode.usesLegacyCompatibilityScoring;
+      final needLegacyCompat = attachLegacyUi || _stageB2Collector.enabled;
+      CompatibilityResult? compat;
+      if (needLegacyCompat) {
+        compat = CompatibilityScoring.calculateCompatibility(
+          me: meData,
+          candidate: {
+            ...data,
+            'last_active_at': (data['last_active_at'] is Timestamp)
+                ? (data['last_active_at'] as Timestamp).toDate()
+                : null,
+          },
         );
+        if (_stageB2Collector.enabled) {
+          _stageB2Collector.recordLegacyPair(
+            candidateUid: doc.id,
+            legacyAvailable: compat.available,
+            legacyScore: compat.scoreTotal,
+            legacyMissingReason: compat.reason,
+          );
+        }
       }
 
       candidateUserData[doc.id] = Map<String, dynamic>.from(data);
-      out.add(
-        candidate.copyWith(
-          // Unavailable → null (never 0.5 filler).
-          compatibilityScore: compat.available ? compat.scoreTotal : null,
-          compatibilityLabel: compat.label,
-          compatibilityReasons: compat.reasons,
-        ),
-      );
+      if (attachLegacyUi && compat != null) {
+        out.add(
+          candidate.copyWith(
+            compatibilityScore: compat.available ? compat.scoreTotal : null,
+            compatibilityLabel: compat.label,
+            compatibilityReasons: compat.reasons,
+          ),
+        );
+      } else {
+        // structural_l2_v1: do not attach legacy % as if it were L2.
+        out.add(candidate);
+      }
     }
 
     if (kDebugMode) {
@@ -282,26 +296,62 @@ class DiscoverService {
       );
     }
 
-    // Temporary ordering (P1B-1.1): available compat first (desc), then
-    // unavailable by recency. Does not pretend 50% compatibility.
-    out.sort((a, b) {
-      return CompatibilityScoring.compareDiscoverCandidates(
-        aScore: a.compatibilityScore,
-        bScore: b.compatibilityScore,
-        aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
-        bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
-      );
-    });
+    var ranked = out;
+    Map<String, DiscoverStageB2TrustedPairResult> trustedByUid = const {};
 
-    // Shadow diagnostics AFTER legacy ranking — never reorder / rescore.
+    if (_rankingMode.usesTrustedStructuralL2) {
+      trustedByUid = await _trustedL2PairsByUid(
+        ranked.map((c) => c.uid).toList(growable: false),
+      );
+      ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+        l1Eligible: ranked,
+        pairsByUid: trustedByUid,
+      );
+    } else {
+      ranked.sort((a, b) {
+        return CompatibilityScoring.compareDiscoverCandidates(
+          aScore: a.compatibilityScore,
+          bScore: b.compatibilityScore,
+          aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+          bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+        );
+      });
+    }
+
+    // Shadow diagnostics AFTER ranking — never reorder / rescore.
     await _computeShadowDiagnostics(
       meUid: currentUid,
       meUserData: meData,
-      rankedCandidates: out,
+      rankedCandidates: ranked,
       candidateUserData: candidateUserData,
+      trustedPairsByUid: trustedByUid,
     );
 
-    return out;
+    return ranked;
+  }
+
+  Future<Map<String, DiscoverStageB2TrustedPairResult>> _trustedL2PairsByUid(
+    List<String> uids,
+  ) async {
+    if (uids.isEmpty) return const {};
+    List<DiscoverStageB2TrustedPairResult> trusted;
+    try {
+      trusted = await _stageB2TrustedL2.compareForL1Batch(
+        candidateUids: uids,
+      );
+    } catch (e, st) {
+      debugPrint('Discover trusted L2 ranking fallback (recency): $e\n$st');
+      trusted = [
+        for (final _ in uids)
+          DiscoverStageB2TrustedPairResult.unavailable(
+            'trusted_l2_callable_failed',
+          ),
+      ];
+    }
+    return DiscoverStructuralL2Ranking.pairsByUid(
+      candidateUids: uids,
+      pairs: trusted,
+    );
   }
 
   Future<void> _computeShadowDiagnostics({
@@ -309,6 +359,7 @@ class DiscoverService {
     required Map<String, dynamic> meUserData,
     required List<DiscoverUserModel> rankedCandidates,
     required Map<String, Map<String, dynamic>> candidateUserData,
+    Map<String, DiscoverStageB2TrustedPairResult> trustedPairsByUid = const {},
   }) async {
     final wantEqualShadow = _enableShadowDiagnostics;
     final wantStageB2 = _stageB2Collector.enabled;
@@ -380,20 +431,17 @@ class DiscoverService {
 
       if (wantStageB2) {
         final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
-        List<DiscoverStageB2TrustedPairResult> trusted;
-        try {
-          trusted = await _stageB2TrustedL2.compareForL1Batch(
-            candidateUids: uids,
-          );
-        } catch (e, st) {
-          debugPrint('Discover Stage B2 trusted L2 skipped: $e\n$st');
-          trusted = [
-            for (final _ in uids)
-              DiscoverStageB2TrustedPairResult.unavailable(
-                'trusted_l2_callable_failed',
-              ),
-          ];
+        var byUid = trustedPairsByUid;
+        if (byUid.isEmpty) {
+          byUid = await _trustedL2PairsByUid(uids);
         }
+        final trusted = [
+          for (final uid in uids)
+            byUid[uid] ??
+                DiscoverStageB2TrustedPairResult.unavailable(
+                  'trusted_l2_callable_failed',
+                ),
+        ];
         _stageB2Collector.finalizeTrustedBatch(
           rankedCandidates: rankedCandidates,
           trustedPairs: trusted,

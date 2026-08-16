@@ -2,10 +2,15 @@
 
 ## Status
 
-`production_candidate_not_live`
+| Path | Status |
+| --- | --- |
+| Discover ranking | **Live** — trusted backend `compareStageB2Structural` under `structural_l2_v1` |
+| Client Dart matcher (`Canonical20dGroupNormalizedShadowMatcher`) | **Not live ranking** — `production_candidate_not_live`, `liveDiscoverRanking=false` |
+| Legacy `CompatibilityScoring` | **Rollback only** — `legacy_v1` via `DiscoverService(rankingMode: DiscoverRankingMode.legacyV1)` |
 
-Group-normalized canonical 20D is the **structural Matching production-candidate**.
-It is **not** live in Discover ranking or UI.
+Group-normalized canonical 20D is the structural Matching formula.
+
+Discover orders L1-eligible candidates by trusted backend \(D_{\mathrm{structural}}\) (smaller distance first). The in-app Dart matcher is a frozen formula replica for tests and diagnostics; it does **not** rank Discover and does **not** read peer `canonical_v1`.
 
 ## Scoring version
 
@@ -49,9 +54,10 @@ Rules:
 
 | System | Role |
 | --- | --- |
-| Group-normalized 20D | Structural production-candidate (this policy) — **not live** |
+| Trusted backend `compareStageB2Structural` | **Live** Discover structural ranking (`structural_l2_v1`) |
+| Client Dart group-normalized matcher | Formula replica / diagnostics — **not** live ranking (`production_candidate_not_live`) |
 | Equal-20D shadow (`canonical_20d_shadow_distance_v1`) | **Baseline only** for comparison / regression |
-| Legacy `CompatibilityScoring` | **Remains live** Discover ranking |
+| Legacy `CompatibilityScoring` | **Rollback only** Discover ranking (`legacy_v1`) |
 
 ## Prohibited in this structural core
 
@@ -59,14 +65,19 @@ Rules:
 - Quantum layers
 - RVI
 - Similarity percentages / soft thresholds as the structural score
-- Discover ranking or UI wiring under this policy status
+- Wiring the **client Dart matcher** into Discover ranking or UI
+- Inventing an L2 percentage from `structural_distance`
 
 ## Implementation
 
 - Contract: `lib/features/matching/domain/canonical_20d_group_normalized_shadow_contract.dart`
-- Matcher: `lib/features/matching/domain/canonical_20d_group_normalized_shadow_matcher.dart`
+- Client matcher (not Discover ranking): `lib/features/matching/domain/canonical_20d_group_normalized_shadow_matcher.dart`
+- Trusted backend formula port: `functions/src/canonical_20d_group_normalized_shadow.js`
+- Trusted callable: `functions/src/stage_b2_l2_callable.js` (`compareStageB2Structural`)
+- Discover ranking: `DiscoverRankingMode.structuralL2V1` + `DiscoverStructuralL2Ranking`
+- Rollback: `DiscoverRankingMode.legacyV1`
 - Offline comparison report (historical): `docs/matching/reports/legacy_vs_both_20d_shadow_diagnostic_v1.json`
 
 ## Non-goals
 
-Does not change live Discover ranking, Discover UI, Persona assignment, or legacy CompatibilityScoring behavior.
+Does not make the client Dart matcher rank Discover. Does not change Persona assignment. Does not attach a fake L2 % on candidate cards. Does not promote L3–L5 into ranking.

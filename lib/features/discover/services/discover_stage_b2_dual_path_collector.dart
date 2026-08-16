@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../../core/utils/compatibility_scoring.dart';
 import '../../matching/domain/canonical_20d_group_normalized_shadow.dart';
 import '../models/discover_user_model.dart';
 import 'discover_canonical_20d_shadow.dart';
@@ -10,8 +11,9 @@ import 'discover_canonical_20d_shadow.dart';
 /// Stage B2 dual-path shadow collector (legacy vs group-normalized 20D).
 ///
 /// Privacy-safe, in-memory only. Disabled unless [enabled] is true.
-/// Never affects Discover ranking/UI. No fusion, temporal, QI, Persona, RVI,
-/// or imputation of missing 20D values.
+/// Diagnostic only — never reorders Discover. Live ranking is trusted
+/// backend L2; this collector's Dart matcher is not the ranking path.
+/// No fusion, temporal, QI, Persona, RVI, or imputation of missing 20D.
 class DiscoverStageB2DualPathCollector {
   DiscoverStageB2DualPathCollector({
     this.enabled = false,
@@ -75,9 +77,36 @@ class DiscoverStageB2DualPathCollector {
     );
   }
 
-  /// Attach structural distances + ranks after legacy sort (authoritative order).
+  /// Independent diagnostic ranks from stored CompatibilityScoring captures.
   ///
-  /// [rankedCandidates] must already be sorted by live CompatibilityScoring.
+  /// Same comparator as live rollback: available scores first (desc), then
+  /// recency. Never uses the live Discover / L2 batch index.
+  Map<String, int> _independentLegacyRanks(
+    List<DiscoverUserModel> l1Candidates,
+  ) {
+    final order = List<DiscoverUserModel>.of(l1Candidates);
+    order.sort((a, b) {
+      return CompatibilityScoring.compareDiscoverCandidates(
+        aScore: _legacyScoreForRank(a),
+        bScore: _legacyScoreForRank(b),
+        aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+        bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+      );
+    });
+    return {
+      for (var i = 0; i < order.length; i++) order[i].uid: i + 1,
+    };
+  }
+
+  double? _legacyScoreForRank(DiscoverUserModel candidate) {
+    final captured = _legacyByUid[candidate.uid];
+    if (captured != null) {
+      return captured.available ? captured.score : null;
+    }
+    return candidate.compatibilityScore;
+  }
+
+  /// Attach structural distances + ranks. Does not reorder Discover.
   void finalizeBatch({
     required List<DiscoverUserModel> rankedCandidates,
     required Map<String, dynamic>? meCanonicalProfile,
@@ -96,8 +125,10 @@ class DiscoverStageB2DualPathCollector {
 
     final sessionId = _hashId('session|$salt');
     final viewerAnon = _anon(salt, viewerUid);
-    final meSubject = DiscoverCanonical20dShadowSubjectBuilder
-        .fromCanonicalProfile(meCanonicalProfile);
+    final legacyRankByUid = _independentLegacyRanks(rankedCandidates);
+    final meSubject =
+        DiscoverCanonical20dShadowSubjectBuilder.fromCanonicalProfile(
+            meCanonicalProfile);
 
     final pairs = <DiscoverStageB2PairDiagnostic>[];
     for (var i = 0; i < rankedCandidates.length; i++) {
@@ -106,8 +137,8 @@ class DiscoverStageB2DualPathCollector {
       final candidateAnon = _anon(salt, candidate.uid);
       final pairId = _hashId('pair|$salt|$viewerUid|${candidate.uid}');
 
-      final legacyAvailable = legacy?.available ??
-          (candidate.compatibilityScore != null);
+      final legacyAvailable =
+          legacy?.available ?? (candidate.compatibilityScore != null);
       final legacyScore = legacy?.score ?? candidate.compatibilityScore;
       final legacyMissing = legacyAvailable
           ? null
@@ -125,8 +156,9 @@ class DiscoverStageB2DualPathCollector {
         structuralMissing = 'viewer_canonical_profile_missing';
       } else {
         final profile = candidateCanonicalProfiles[candidate.uid];
-        final other = DiscoverCanonical20dShadowSubjectBuilder
-            .fromCanonicalProfile(profile);
+        final other =
+            DiscoverCanonical20dShadowSubjectBuilder.fromCanonicalProfile(
+                profile);
         if (other == null) {
           structuralMissing = 'candidate_canonical_profile_missing';
         } else {
@@ -151,7 +183,7 @@ class DiscoverStageB2DualPathCollector {
           legacyAvailable: legacyAvailable,
           legacyScore: legacyScore,
           legacyMissingReason: legacyMissing,
-          legacyRank: i + 1,
+          legacyRank: legacyRankByUid[candidate.uid]!,
           structuralAvailable: structuralAvailable,
           structuralDistance: dStructural,
           structuralMissingReason: structuralMissing,
@@ -169,10 +201,10 @@ class DiscoverStageB2DualPathCollector {
     );
   }
 
-  /// Attach trusted L2 pair diagnostics after legacy sort.
+  /// Attach trusted L2 pair diagnostics. Does not reorder Discover.
   ///
-  /// [trustedPairs] must be 1:1 with [rankedCandidates] (L1 batch order).
-  /// Does not read canonical_v1 or reorder candidates.
+  /// [trustedPairs] must be 1:1 with [rankedCandidates].
+  /// [legacyRank] is independent of that list's current order.
   void finalizeTrustedBatch({
     required List<DiscoverUserModel> rankedCandidates,
     required List<DiscoverStageB2TrustedPairResult> trustedPairs,
@@ -190,6 +222,7 @@ class DiscoverStageB2DualPathCollector {
 
     final sessionId = _hashId('session|$salt');
     final viewerAnon = _anon(salt, viewerUid);
+    final legacyRankByUid = _independentLegacyRanks(rankedCandidates);
     final pairs = <DiscoverStageB2PairDiagnostic>[];
     for (var i = 0; i < rankedCandidates.length; i++) {
       final candidate = rankedCandidates[i];
@@ -198,8 +231,8 @@ class DiscoverStageB2DualPathCollector {
       final pairId = _hashId('pair|$salt|$viewerUid|${candidate.uid}');
       final trusted = i < trustedPairs.length ? trustedPairs[i] : null;
 
-      final legacyAvailable = legacy?.available ??
-          (candidate.compatibilityScore != null);
+      final legacyAvailable =
+          legacy?.available ?? (candidate.compatibilityScore != null);
       final legacyScore = legacy?.score ?? candidate.compatibilityScore;
       final legacyMissing = legacyAvailable
           ? null
@@ -214,11 +247,10 @@ class DiscoverStageB2DualPathCollector {
           legacyAvailable: legacyAvailable,
           legacyScore: legacyScore,
           legacyMissingReason: legacyMissing,
-          legacyRank: i + 1,
+          legacyRank: legacyRankByUid[candidate.uid]!,
           structuralAvailable: trusted?.available ?? false,
-          structuralDistance: trusted?.available == true
-              ? trusted!.structuralDistance
-              : null,
+          structuralDistance:
+              trusted?.available == true ? trusted!.structuralDistance : null,
           structuralMissingReason: trusted?.available == true
               ? null
               : (trusted?.unavailableReason ??
@@ -244,8 +276,7 @@ class DiscoverStageB2DualPathCollector {
   }) {
     final availableIdx = <int>[];
     for (var i = 0; i < pairs.length; i++) {
-      if (pairs[i].structuralAvailable &&
-          pairs[i].structuralDistance != null) {
+      if (pairs[i].structuralAvailable && pairs[i].structuralDistance != null) {
         availableIdx.add(i);
       }
     }
@@ -293,8 +324,7 @@ class DiscoverStageB2DualPathCollector {
   static String _defaultSalt() =>
       '${DateTime.now().toUtc().microsecondsSinceEpoch}|${DateTime.now().timeZoneName}';
 
-  static String _anon(String salt, String uid) =>
-      _hashId('anon|$salt|$uid');
+  static String _anon(String salt, String uid) => _hashId('anon|$salt|$uid');
 
   static String _hashId(String material) {
     final digest = sha256.convert(utf8.encode(material));
@@ -365,6 +395,15 @@ class DiscoverStageB2TrustedPairResult {
   final double totalCoverage;
   final int comparableDimensions;
   final String? unavailableReason;
+
+  /// Rankable only when the trusted callable returned a finite distance.
+  /// Missing / failed L2 is never treated as 0, 0.5, or 0.42.
+  bool get isRankable {
+    if (!available) return false;
+    final d = structuralDistance;
+    if (d == null || d.isNaN || d.isInfinite || d < 0) return false;
+    return true;
+  }
 }
 
 /// One privacy-safe dual-path pair diagnostic.
@@ -450,8 +489,7 @@ class DiscoverStageB2Session {
   final List<DiscoverStageB2PairDiagnostic> pairs;
   final String capturedAtIso;
 
-  static const String exportVersion =
-      'discover_stage_b2_dual_path_session_v1';
+  static const String exportVersion = 'discover_stage_b2_dual_path_session_v1';
 
   Map<String, dynamic> toExportMap() => {
         'export_version': exportVersion,

@@ -252,7 +252,14 @@ void main() {
       expect(policy.contains('0.400000'), isTrue);
       expect(policy.contains('0.466667'), isTrue);
       expect(policy.contains('Baseline only'), isTrue);
-      expect(policy.contains('Remains live'), isTrue);
+      expect(policy.contains('structural_l2_v1'), isTrue);
+      expect(policy.contains('compareStageB2Structural'), isTrue);
+      expect(policy.contains('Rollback only'), isTrue);
+      expect(policy.contains('legacy_v1'), isTrue);
+      expect(
+        policy.contains('does **not** rank Discover'),
+        isTrue,
+      );
       expect(policy.toLowerCase().contains('persona'), isTrue);
       expect(policy.toLowerCase().contains('quantum'), isTrue);
       expect(policy.toLowerCase().contains('rvi'), isTrue);

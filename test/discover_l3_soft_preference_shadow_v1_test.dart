@@ -264,11 +264,14 @@ void main() {
       expect(serviceSrc.contains('_l3ShadowAttacher.attach'), isTrue);
       expect(serviceSrc.contains('enableShadowDiagnostics = true'), isTrue);
 
-      final sortIdx = serviceSrc.indexOf('out.sort(');
+      final rankIdx = serviceSrc.indexOf('rankL1Batch');
+      final sortIdx = serviceSrc.indexOf('ranked.sort(');
       final l3AttachIdx = serviceSrc.indexOf('_l3ShadowAttacher.attach');
+      expect(rankIdx, greaterThanOrEqualTo(0));
       expect(sortIdx, greaterThanOrEqualTo(0));
+      expect(l3AttachIdx, greaterThan(rankIdx));
       expect(l3AttachIdx, greaterThan(sortIdx));
-      expect(serviceSrc.indexOf('out.sort(', sortIdx + 1), -1);
+      expect(serviceSrc.indexOf('ranked.sort(', sortIdx + 1), -1);
     });
 
     test('source isolation — no L3 ranking / CompatibilityScoring / looking_for',
@@ -289,15 +292,14 @@ void main() {
       final serviceSrc = File(
         'lib/features/discover/services/discover_service.dart',
       ).readAsStringSync();
-      // Hook exists after ranking.
       expect(serviceSrc.contains('_l3ShadowAttacher.attach'), isTrue);
       expect(serviceSrc.contains('lastL3SoftPreferenceDiagnostics'), isTrue);
-      // Sort still only CompatibilityScoring.
+      expect(serviceSrc.contains('DiscoverStructuralL2Ranking.rankL1Batch'),
+          isTrue);
       expect(
         serviceSrc.contains('CompatibilityScoring.compareDiscoverCandidates'),
         isTrue,
       );
-      // L3 must not appear inside the sort comparator block as a key.
       expect(serviceSrc.contains('l3Attached.candidates.sort'), isFalse);
       expect(serviceSrc.contains('mutualFit'), isFalse);
       expect(serviceSrc.contains('withinMutualCap'), isFalse);

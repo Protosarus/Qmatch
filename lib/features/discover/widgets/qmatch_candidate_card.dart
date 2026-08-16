@@ -15,9 +15,9 @@ import 'qmatch_candidate_photo.dart';
 
 /// Modern Discover candidate card. Presentation only — no Firebase / scoring.
 ///
-/// Legacy CompatibilityScoring label/score/reasons and archetype chips may
-/// still appear when the runtime model already carries them. They are not
-/// Core Method v2 outputs and must be replaced when CM v2 is production-wired.
+/// Compatibility % chips render only when [DiscoverUserModel.compatibilityScore]
+/// is already set (legacy rollback). Structural L2 ranking does not attach a
+/// percentage, so this card must not invent one from `structural_distance`.
 class QMatchCandidateCard extends StatelessWidget {
   const QMatchCandidateCard({
     super.key,

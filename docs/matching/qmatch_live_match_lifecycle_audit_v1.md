@@ -18,7 +18,7 @@ DiscoverScreen._loadCandidates
   → DiscoverService.getCandidates
        → users where discover_eligible == true
        → exclude self / already-swiped / L1 blocks / L1 account gates
-       → CompatibilityScoring (live rank) + optional shadow diagnostics
+       → trusted backend L2 (`compareStageB2Structural`, `structural_l2_v1`) + optional shadow diagnostics
   → local deck (_candidates / _currentIndex)
 
 DiscoverScreen._onPass / _onLike  (UI serializes via _isActionLoading)

@@ -4,8 +4,8 @@
 | --- | --- |
 | Document id | `qmatch_final_matching_architecture_v1` |
 | Policy id | `final_matching_architecture_v1` |
-| Status | `architecture_frozen_not_live` |
-| Scope | **Architecture freeze (docs only).** Does **not** change Discover ranking, Discover UI, or live scoring. |
+| Status | `architecture_frozen_not_live` (layer boundaries); Discover L2 ranking cut over separately |
+| Scope | **Architecture freeze** of layer boundaries and eligibility. Discover structural ranking is now live via trusted backend L2 (`structural_l2_v1`); this document still does not promote L3–L5 or invent fusion weights. |
 | Depends on | Structural production-candidate policy; Wave-State amplitude semantics; Quantum mixed-state policy freeze; Temporal / phase / omega contracts |
 | Explicitly out of scope | Final fusion weights; single combined “match %”; Persona as Matching key; RVI; inventing missing values |
 
@@ -27,14 +27,15 @@ This document freezes **layer boundaries and eligibility**, not a weighted blend
 | Rule | Frozen value |
 | --- | --- |
 | L1 hard eligibility | Hard pass / fail / unknown — not a soft score |
-| L2 structural | Group-normalized 20D \(D_{\mathrm{structural}}\) — `production_candidate_not_live` |
+| L2 structural | Group-normalized 20D \(D_{\mathrm{structural}}\) — live Discover ranking via trusted backend `compareStageB2Structural` (`structural_l2_v1`) |
 | L3 preferences / values | Separate from L2; not fused in v1 |
 | L4 temporal | Shadow only (`phase_alignment`, activity levels); real temporal data required |
 | L5 mixed-state QI | Shadow only (`validated_shadow_not_live`) |
 | Persona / RVI / pure-state QI | **Prohibited** as Matching keys |
-| Legacy Discover | `CompatibilityScoring` **remains live** until Stage C cutover |
+| Client Dart 20D matcher | Formula replica only — `liveDiscoverRanking=false`; does **not** rank Discover |
+| Legacy Discover | `CompatibilityScoring` **rollback only** (`legacy_v1`) |
 | Fusion weights | **Not invented yet**; no combined shadow score |
-| Rollback | Required for any live cutover (feature flag → legacy) |
+| Rollback | `DiscoverRankingMode.legacyV1` → CompatibilityScoring |
 
 ---
 
@@ -51,9 +52,9 @@ Matching is a **pipeline of layers**, not one score. Each layer has its own inpu
 ┌────────────────────────────▼────────────────────────────────┐
 │ L2  Structural compatibility                                │
 │     group-normalized canonical 20D distance (traits/rhythm  │
-│     coordinates) — production_candidate_not_live            │
+│     coordinates) — live via trusted backend L2              │
 └────────────────────────────┬────────────────────────────────┘
-                             │ soft ranking signal (when live)
+                             │ soft ranking signal (live)
 ┌────────────────────────────▼────────────────────────────────┐
 │ L3  Preferences / values                                    │
 │     directional preference fit + relationship values        │
@@ -72,7 +73,8 @@ Matching is a **pipeline of layers**, not one score. Each layer has its own inpu
 │     (validated_shadow_not_live; not compatibility alone)    │
 └─────────────────────────────────────────────────────────────┘
 
-Live Discover today: legacy CompatibilityScoring (outside this stack)
+Live Discover today: trusted backend L2 (`structural_l2_v1`); client Dart matcher does not rank
+Legacy CompatibilityScoring: rollback only (`legacy_v1`)
 Persona / RVI / pure-state QI: prohibited as Matching keys
 ```
 
@@ -100,7 +102,8 @@ Examples (product-configured; not scored as similarity):
 | Item | Value |
 | --- | --- |
 | Signal | \(D_{\mathrm{structural}}\) from `canonical_20d_group_normalized_shadow_distance_v1` |
-| Status | `production_candidate_not_live` |
+| Discover ranking | **Live** via trusted backend `compareStageB2Structural` (`structural_l2_v1`) |
+| Client Dart matcher | **Not** live ranking (`production_candidate_not_live`, `liveDiscoverRanking=false`) |
 | Policy | [qmatch_structural_matching_production_candidate_policy_v1.md](./qmatch_structural_matching_production_candidate_policy_v1.md) |
 | Module weights | Frozen IQ / EQ / Frequency (0.133333 / 0.400000 / 0.466667) |
 | Baseline (not candidate) | Equal-20D `canonical_20d_shadow_distance_v1` — regression only |
@@ -157,9 +160,10 @@ Policy: [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum
 
 | Signal / system | Production role **now** | Caveat |
 | --- | --- | --- |
-| Legacy `CompatibilityScoring` | **Live** Discover ranking / UI chips | Temporary; migration target is L2 (+ later layers) |
+| Trusted backend L2 (`compareStageB2Structural`) | **Live** Discover structural ranking | `structural_l2_v1`; missing L2 never imputed as 0 / 0.5 / 0.42 |
 | L1 hard constraints already enforced in product | Live gates | Keep as hard filters; do not convert to soft % |
-| Group-normalized 20D \(D_{\mathrm{structural}}\) | **Not live ranking** | Status `production_candidate_not_live` — eligible to **prepare** for promotion only after §7 conditions |
+| Client Dart group-normalized matcher | **Not** Discover ranking | Formula replica / diagnostics (`production_candidate_not_live`) |
+| Legacy `CompatibilityScoring` | **Rollback only** | `legacy_v1` via `DiscoverRankingMode.legacyV1` |
 
 Nothing in L3–L5 is production-ranking-eligible today.
 
@@ -167,8 +171,8 @@ Nothing in L3–L5 is production-ranking-eligible today.
 
 | Signal | Status | Why |
 | --- | --- | --- |
-| \(D_{\mathrm{structural}}\) (group-normalized 20D) | `production_candidate_not_live` | Candidate, not cut over |
-| Equal-20D distance | Baseline only | Not the production candidate |
+| Client Dart \(D_{\mathrm{structural}}\) matcher | `production_candidate_not_live` | Replica only; does not rank Discover |
+| Equal-20D distance | Baseline only | Not the production ranking path |
 | `phase_alignment` | Shadow | Needs real temporal streams + calibrated gates |
 | `activity_level_*` / gap | Shadow | Separate diagnostic; no fusion |
 | Mixed-state QI fields | `validated_shadow_not_live` | Synthetic-validated; real multi-window data pending |
@@ -189,7 +193,7 @@ Nothing in L3–L5 is production-ranking-eligible today.
 | **Soft diagnostic** | L4, L5 | Inform research, QA, future gates. **Must not** enter Discover ranking until promotion criteria in §7 are met. |
 | **Forbidden pseudo-hard** | — | Do not treat low QI fidelity, low purity, or Persona mismatch as silent hard filters without an explicit future hard-constraint RFC. |
 
-**v1 ranking rule (when L2 goes live):** among L1-eligible pairs, order by soft L2 (and only later by explicitly approved additional soft layers). Until then, live order remains legacy CompatibilityScoring.
+**v1 ranking rule (Stage C cutover complete):** among L1-eligible pairs, order by trusted backend L2 (smaller \(D_{\mathrm{structural}}\) first). Additional soft layers (L3+) require an explicit RFC. Rollback is `legacy_v1` CompatibilityScoring.
 
 ---
 
@@ -245,17 +249,18 @@ Keep at least these families as **separate fields** forever until an explicit fu
 
 | Path | Role |
 | --- | --- |
-| Live | `CompatibilityScoring` drives Discover ordering / chips |
-| Shadow candidate | Group-normalized 20D structural matcher |
+| Live | Trusted backend `compareStageB2Structural` orders Discover (`structural_l2_v1`) |
+| Client Dart matcher | Formula replica / diagnostics — does **not** rank Discover |
+| Rollback | `CompatibilityScoring` via `DiscoverRankingMode.legacyV1` |
 | Shadow temporal / QI | Diagnostics only; no Discover import |
 
-### F.2 Migration stages (ranking unchanged until Stage C)
+### F.2 Migration stages
 
 | Stage | Action | Discover ranking |
 | --- | --- | --- |
-| **A — Architecture freeze** | This document | Unchanged (legacy) |
-| **B — Dual-path shadow audit** | For the same L1-eligible pairs, compute legacy score **and** \(D_{\mathrm{structural}}\) offline / debug; report disagreement, coverage, missing-module rates | Unchanged |
-| **C — Structural cutover candidate** | After Stage B acceptance (§7.1), switch Discover soft ranking to L2 under feature flag; keep legacy as fallback | L2 live; legacy fallback |
+| **A — Architecture freeze** | This document | Historical: legacy |
+| **B — Dual-path shadow audit** | For the same L1-eligible pairs, compute legacy score **and** \(D_{\mathrm{structural}}\) offline / debug; report disagreement, coverage, missing-module rates | Historical: unchanged |
+| **C — Structural cutover** | **Complete.** Discover soft ranking is trusted backend L2; legacy is explicit rollback | L2 live; `legacy_v1` rollback |
 | **D — Temporal shadow on real data** | Ingest real timestamps → omega/phase → `phase_alignment` / activity levels in shadow stores | Still no L4 in ranking |
 | **E — QI ensemble shadow on real windows** | Multi-window Class-B ensembles → purity / mixed fidelity | Still no L5 in ranking |
 | **F — Optional soft-layer RFCs** | Only after real-data calibration: consider L3 and/or gated L4 as **additional** soft signals with published weights | Requires new RFC; not defined here |
@@ -266,7 +271,7 @@ Persona remains prohibited as a Matching key at every stage.
 
 Any live cutover (Stage C+) must retain:
 
-- feature flag off → legacy CompatibilityScoring,
+- `DiscoverRankingMode.legacyV1` → legacy CompatibilityScoring,
 - parity dashboards for rank disagreement,
 - no silent imputation when rolling forward.
 
@@ -274,15 +279,11 @@ Any live cutover (Stage C+) must retain:
 
 ## 7. Promotion conditions (G)
 
-### G.1 Before promoting **structural L2** to live Discover ranking
+### G.1 Structural L2 Discover ranking (Stage C — complete)
 
-All required:
+Trusted backend L2 is the active Discover ranking path (`structural_l2_v1`). The client Dart matcher remains `liveDiscoverRanking=false`. Rollback is `legacy_v1`.
 
-1. Dual-path cohort report on **real** Discover-eligible pairs (Stage B) reviewed  
-2. Missing-module / coverage rates acceptable under product SLA  
-3. Explicit product sign-off that Persona is not used as ranking key  
-4. Feature-flagged cutover + rollback plan  
-5. No dependency on L4/L5 being present  
+Historical promotion gates (dual-path audit, no Persona ranking key, missing-data never imputed, L4/L5 not required) remain the rationale; they are not reopened by this cutover.
 
 ### G.2 Before promoting **temporal L4** (`phase_alignment` / activity levels)
 
@@ -320,27 +321,26 @@ All required:
 | Layer | Primary artifact | Status |
 | --- | --- | --- |
 | L1 | Product hard filters | Live (product) |
-| L2 | Group-normalized 20D | `production_candidate_not_live` |
+| L2 | Trusted backend group-normalized 20D | **Live** Discover ranking (`structural_l2_v1`) |
+| L2 client Dart matcher | `Canonical20dGroupNormalizedShadowMatcher` | Not Discover ranking (`production_candidate_not_live`) |
 | L3 | Preference fit / values services | Assessment/research; not Discover ranking |
 | L4 | `phase_alignment`, activity levels | Shadow; real temporal data required |
 | L5 | Mixed-state QI | `validated_shadow_not_live` |
-| Live Discover | Legacy CompatibilityScoring | Live until Stage C |
+| Rollback | Legacy CompatibilityScoring | `legacy_v1` only |
 
 ---
 
 ## 9. Exact next implementation step
 
-**Stage B dual-path shadow audit (no Discover ranking change):**
+**Stage C structural cutover is complete.** Do not re-open L2 ranking.
 
-Implement an offline / debug-only runner that, for real (or fixture-backed real-shaped) Discover-eligible pairs:
+Next matching work remains **shadow**:
 
-1. Applies existing L1 eligibility as used by Discover today  
-2. Computes live legacy `CompatibilityScoring` result (read-only)  
-3. Computes \(D_{\mathrm{structural}}\) via `canonical_20d_group_normalized_shadow_distance_v1` with missing-module reporting  
-4. Writes a cohort report under `docs/matching/reports/` (coverage, rank disagreement, unavailable reasons)  
-5. Touches **no** Discover UI and invents **no** fusion with L4/L5  
+- Stage D — real temporal ingest → omega/phase → `phase_alignment` / activity levels (not ranking)
+- Stage E — QI ensemble shadow on real windows (not ranking)
+- Optional later RFCs for additional soft layers — weights not invented here
 
-That is the only production-candidate signal’s next gate before any live cutover. Temporal ingest and QI real-window ensembles proceed in parallel as **shadow** workstreams, not as ranking prerequisites for Stage B.
+The client Dart matcher must stay decoupled from Discover ranking.
 
 ---
 
@@ -349,7 +349,7 @@ That is the only production-candidate signal’s next gate before any live cutov
 - No final blend weights  
 - No single combined shadow score  
 - No Persona / RVI  
-- No production ranking code changes under this document alone  
+- No production ranking code changes **from this document alone** (cutover lives in Discover + trusted callable)  
 - No questionnaire→\(\phi/\omega/\rho\)  
 
 ---
@@ -370,3 +370,4 @@ That is the only production-candidate signal’s next gate before any live cutov
 | --- | --- | --- |
 | v1 | 2026-08-12 | Initial final layered Matching architecture; legacy remains live; no fusion weights |
 | v1 freeze | 2026-08-12 | Status → `architecture_frozen_not_live`; policy id `final_matching_architecture_v1` |
+| v1 Stage C | 2026-08-16 | Trusted backend L2 is live Discover ranking (`structural_l2_v1`); Dart matcher still not a ranker; `legacy_v1` rollback only |

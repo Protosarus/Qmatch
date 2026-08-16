@@ -133,9 +133,11 @@ void main() {
       // Near should be structurally closer than far → structural_rank 1.
       expect(session.pairs[0].structuralAvailable, isTrue);
       expect(session.pairs[1].structuralAvailable, isTrue);
-      expect(session.pairs[0].structuralDistance, lessThan(
-        session.pairs[1].structuralDistance!,
-      ));
+      expect(
+          session.pairs[0].structuralDistance,
+          lessThan(
+            session.pairs[1].structuralDistance!,
+          ));
       expect(session.pairs[0].structuralRank, 1);
 
       final json = c.exportLastSessionJson();
@@ -292,25 +294,90 @@ void main() {
       expect(c.lastSession!.pairs[1].structuralAvailable, isFalse);
       expect(c.lastSession!.pairs[1].structuralDistance, isNull);
     });
+
+    test('legacyRank is independent of L2-sorted Discover batch after cutover',
+        () {
+      final c = DiscoverStageB2DualPathCollector(
+        enabled: true,
+        sessionSaltFactory: () => 'salt-legacy-independent',
+      );
+      c.beginSession(viewerUid: 'v');
+      c.recordLegacyPair(
+        candidateUid: 'stale_clone',
+        legacyAvailable: true,
+        legacyScore: 0.40,
+        legacyMissingReason: null,
+      );
+      c.recordLegacyPair(
+        candidateUid: 'fresh_far',
+        legacyAvailable: true,
+        legacyScore: 0.80,
+        legacyMissingReason: null,
+      );
+      // Live Discover order after structural_l2_v1: closer first.
+      final l2Sorted = [
+        _candidate(uid: 'stale_clone', score: null),
+        _candidate(uid: 'fresh_far', score: null),
+      ];
+      final before = l2Sorted.map((e) => e.uid).toList();
+      c.finalizeTrustedBatch(
+        rankedCandidates: l2Sorted,
+        trustedPairs: const [
+          DiscoverStageB2TrustedPairResult(
+            available: true,
+            structuralDistance: 0.0,
+            totalCoverage: 1.0,
+            comparableDimensions: 20,
+          ),
+          DiscoverStageB2TrustedPairResult(
+            available: true,
+            structuralDistance: 0.40,
+            totalCoverage: 1.0,
+            comparableDimensions: 20,
+          ),
+        ],
+      );
+      expect(l2Sorted.map((e) => e.uid).toList(), before);
+      expect(c.lastSession!.pairs[0].legacyScore, 0.40);
+      expect(c.lastSession!.pairs[1].legacyScore, 0.80);
+      expect(c.lastSession!.pairs[0].legacyRank, 2);
+      expect(c.lastSession!.pairs[1].legacyRank, 1);
+      expect(c.lastSession!.pairs[0].structuralRank, 1);
+      expect(c.lastSession!.pairs[1].structuralRank, 2);
+      final pairs = c.lastSession!.pairs;
+      final byLegacy = List.of(pairs)
+        ..sort((a, b) => a.legacyRank.compareTo(b.legacyRank));
+      final byL2 = List.of(pairs)
+        ..sort((a, b) => a.structuralRank!.compareTo(b.structuralRank!));
+      expect(
+        byLegacy.map((p) => p.candidateAnonId).toList(),
+        isNot(equals(byL2.map((p) => p.candidateAnonId).toList())),
+      );
+      expect(byLegacy.map((p) => p.legacyScore).toList(), [0.80, 0.40]);
+      expect(byL2.map((p) => p.structuralDistance).toList(), [0.0, 0.40]);
+    });
   });
 
   group('Discover Stage B2 wiring isolation', () {
-    test('DiscoverService gates Stage B2 off by default; export API present', () {
+    test('DiscoverService gates Stage B2 off by default; export API present',
+        () {
       final service = File(
         'lib/features/discover/services/discover_service.dart',
       ).readAsStringSync();
-      expect(service.contains('enableStageB2DualPathCollector = false'), isTrue);
+      expect(
+          service.contains('enableStageB2DualPathCollector = false'), isTrue);
       expect(service.contains('exportLastStageB2SessionJson'), isTrue);
       expect(service.contains('DiscoverStageB2DualPathCollector'), isTrue);
-      // Legacy sort still before trusted Stage B2 finalize.
-      final sortIdx = service.indexOf('out.sort(');
+      final rankIdx = service.indexOf('rankL1Batch');
+      final sortIdx = service.indexOf('ranked.sort(');
       final stageB2Finalize = service.indexOf('finalizeTrustedBatch');
+      expect(rankIdx, greaterThanOrEqualTo(0));
       expect(sortIdx, greaterThanOrEqualTo(0));
+      expect(stageB2Finalize, greaterThan(rankIdx));
       expect(stageB2Finalize, greaterThan(sortIdx));
       expect(service.contains('compareForL1Batch'), isTrue);
       expect(service.contains('group_normalized'), isFalse);
-      // No second sort after shadow.
-      expect(service.indexOf('out.sort(', sortIdx + 1), -1);
+      expect(service.indexOf('ranked.sort(', sortIdx + 1), -1);
       expect(service.contains('persona_scoring'), isFalse);
       expect(service.contains('quantum_mixed_state'), isFalse);
       expect(service.contains('phase_alignment'), isFalse);

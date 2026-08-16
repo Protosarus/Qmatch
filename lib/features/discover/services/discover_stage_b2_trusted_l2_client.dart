@@ -4,8 +4,8 @@ import 'discover_stage_b2_dual_path_collector.dart';
 
 /// Calls trusted Stage B2 L2 (`compareStageB2Structural`).
 ///
-/// Supplies L1 Discover candidate UIDs only. Does not read peer canonical_v1
-/// and does not change Discover ranking.
+/// Supplies L1 Discover candidate UIDs only. Does not read peer canonical_v1.
+/// Production ranking (`structural_l2_v1`) uses the returned distances.
 class DiscoverStageB2TrustedL2Client {
   DiscoverStageB2TrustedL2Client({
     FirebaseFunctions? functions,

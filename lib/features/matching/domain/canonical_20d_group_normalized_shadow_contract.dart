@@ -1,19 +1,24 @@
 import '../../assessment/domain/profile/qmatch_profile_contract.dart';
 import '../../assessment/domain/profile/qmatch_profile_models.dart';
 
-/// Frozen structural Matching production-candidate (group-normalized 20D).
+/// Frozen structural Matching formula replica (group-normalized 20D).
 ///
-/// Status: [policyStatus] = `production_candidate_not_live`.
+/// This Dart matcher does **not** rank Discover ([liveDiscoverRanking] is
+/// false). Discover ranking uses trusted backend `compareStageB2Structural`
+/// under `structural_l2_v1`. [policyStatus] remains
+/// `production_candidate_not_live` for this client module.
+///
 /// Weights are frozen. Formula is group-normalized per-module MSE with
 /// missing-module omission + weight renormalization and no imputation.
 ///
 /// Explicit non-goals / prohibited in this structural core:
 /// Persona, archetype, quantum, RVI, similarity %, thresholds,
-/// Discover ranking/UI coupling.
+/// Discover ranking/UI coupling from this Dart matcher.
 ///
 /// Related roles (outside this core):
+/// - trusted backend L2 = live Discover structural ranking
 /// - equal-20D shadow (`canonical_20d_shadow_distance_v1`) = baseline only
-/// - legacy `CompatibilityScoring` = remains live Discover ranking
+/// - legacy `CompatibilityScoring` = rollback-only Discover path (`legacy_v1`)
 class Canonical20dGroupNormalizedShadowContract {
   Canonical20dGroupNormalizedShadowContract._();
 
@@ -23,7 +28,8 @@ class Canonical20dGroupNormalizedShadowContract {
   static const String policyVersion =
       'structural_matching_production_candidate_policy_v1';
 
-  /// Frozen rollout status. Not live in Discover ranking/UI.
+  /// Status of **this Dart matcher**, not of Discover ranking.
+  /// Discover ranking is trusted backend L2 (`structural_l2_v1`).
   static const String policyStatus = 'production_candidate_not_live';
 
   static const String registryVersion =
@@ -32,7 +38,7 @@ class Canonical20dGroupNormalizedShadowContract {
   /// Weights are frozen under [policyVersion]; not open for ad-hoc tuning.
   static const bool weightsFrozen = true;
 
-  /// Still shadow-only — must not drive Discover ranking or UI.
+  /// This Dart matcher remains a replica — must not drive Discover ranking.
   static const bool shadowOnly = true;
 
   /// Wire alias: candidate is not live; weights are frozen (not tunable).

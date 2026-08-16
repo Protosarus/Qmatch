@@ -14,7 +14,7 @@
 
 Discover **today** hard-filters only **eligibility / photo / swipe / block**. Profile setup already collects several preference-like fields (`looking_for`, `age_range`, `distance_preference`) and attributes (`gender`, `age`, `location`, `religion`, lifestyle), but **most are not applied as reciprocal Matching constraints**.
 
-Soft ranking remains legacy `CompatibilityScoring` (Frequency / archetype / IQ·EQ bands / interests / recency). Core Method v2 preference-fit and hard-constraint models exist **offline only** and are **not** persisted on live Discover user docs.
+Soft ranking is trusted backend L2 (`structural_l2_v1`). Legacy `CompatibilityScoring` is **rollback only** (`legacy_v1`). Core Method v2 preference-fit and hard-constraint models exist **offline only** and are **not** persisted on live Discover user docs.
 
 ---
 

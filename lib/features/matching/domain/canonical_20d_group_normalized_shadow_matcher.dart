@@ -4,9 +4,10 @@ import 'canonical_20d_group_normalized_shadow_contract.dart';
 import 'canonical_20d_group_normalized_shadow_result.dart';
 import 'canonical_20d_shadow_subject.dart';
 
-/// Structural Matching production-candidate matcher (group-normalized 20D).
+/// Structural Matching formula replica (group-normalized 20D).
 ///
-/// Policy: `production_candidate_not_live` — frozen weights, not live ranking.
+/// Policy: `production_candidate_not_live` — frozen weights; this Dart
+/// matcher does not rank Discover. Live ranking is trusted backend L2.
 ///
 /// Per available module \(m\) over shared measured dims \(K_m\):
 ///
