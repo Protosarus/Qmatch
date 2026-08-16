@@ -1,3 +1,4 @@
+import 'l5_mixed_state_qi_contract.dart';
 import 'quantum_mixed_state_shadow_contract.dart';
 
 /// One accepted Class-B phase estimate (one temporal window / member).
@@ -81,6 +82,8 @@ class QuantumMixedStateShadowResult {
   final String weightPolicyId;
 
   Map<String, dynamic> toWireMap() => {
+        'layer': 'L5',
+        'layer_contract': QuantumMixedStateShadowContract.layerContractVersion,
         'scoring_version': QuantumMixedStateShadowContract.scoringVersion,
         'policy_version': QuantumMixedStateShadowContract.policyVersion,
         'policy_status': QuantumMixedStateShadowContract.policyStatus,
@@ -92,12 +95,21 @@ class QuantumMixedStateShadowResult {
         'real_data_validation_pending':
             QuantumMixedStateShadowContract.realDataValidationPending,
         'gates_calibrated': QuantumMixedStateShadowContract.gatesCalibrated,
+        'real_multi_window_cohort_exists':
+            L5MixedStateQiContract.realMultiWindowCohortExists,
+        'ranking_requires_separate_rfc':
+            L5MixedStateQiContract.rankingRequiresSeparateRfc,
+        'affects_discover_ranking':
+            L5MixedStateQiContract.affectsDiscoverRanking,
         'live_discover_ranking':
             QuantumMixedStateShadowContract.liveDiscoverRanking,
         'persona_enabled': QuantumMixedStateShadowContract.personaEnabled,
         'rvi_enabled': QuantumMixedStateShadowContract.rviEnabled,
         'density_matrix_enabled_for_ranking': QuantumMixedStateShadowContract
             .densityMatrixEnabledForRanking,
+        'fuses_with_l2': QuantumMixedStateShadowContract.fusesWithL2,
+        'fuses_with_l3': QuantumMixedStateShadowContract.fusesWithL3,
+        'fuses_with_l4': QuantumMixedStateShadowContract.fusesWithL4,
         'fuses_with_structural':
             QuantumMixedStateShadowContract.fusesWithStructural,
         'fuses_with_phase_alignment':
@@ -112,6 +124,15 @@ class QuantumMixedStateShadowResult {
             QuantumMixedStateShadowContract.rankingWeightsAllowed,
         'pure_state_qi_as_separate_signal':
             QuantumMixedStateShadowContract.pureStateQiAsSeparateSignal,
+        'fidelity_is_compatibility_percentage':
+            QuantumMixedStateShadowContract.fidelityIsCompatibilityPercentage,
+        'fused_r_wave_is_l5_score':
+            QuantumMixedStateShadowContract.fusedRWaveIsL5Score,
+        'multimode_wave_state_in_production':
+            QuantumMixedStateShadowContract.multimodeWaveStateInProduction,
+        'copies_global_activity_phase_to_frequency_6d':
+            QuantumMixedStateShadowContract
+                .copiesGlobalActivityPhaseToFrequency6d,
         'weight_policy_id': weightPolicyId,
         'available': available,
         if (unavailableReason != null) 'unavailable_reason': unavailableReason,

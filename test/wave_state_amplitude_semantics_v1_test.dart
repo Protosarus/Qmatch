@@ -198,6 +198,16 @@ void main() {
         PeriodicWaveStateResonanceAdapterContract.realUserUsablePath,
         isFalse,
       );
+      expect(
+        WaveStateAmplitudeSemanticsContract.tier2L5V1RetainedCandidate,
+        isFalse,
+      );
+      expect(WaveStateAmplitudeSemanticsContract.fusedRWaveIsL5Score, isFalse);
+      expect(WaveStateModalShadowV2Contract.l5V1RetainedCandidate, isFalse);
+      expect(
+        PeriodicWaveStateResonanceAdapterContract.fusedRWaveIsL5Score,
+        isFalse,
+      );
     });
   });
 

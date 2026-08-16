@@ -35,6 +35,8 @@ class PeriodicWaveStateResonanceAdapterContract {
   /// Multi-amplitude fused path is research diagnostic, not Tier-1 usable API.
   static const bool researchEnvelopeDiagnosticOnly = true;
   static const bool realUserUsablePath = false;
+  static const bool l5V1RetainedCandidate = false;
+  static const bool fusedRWaveIsL5Score = false;
 
   static const bool fabricatesMissingPhase = false;
   static const bool fabricatesMissingOmega = false;

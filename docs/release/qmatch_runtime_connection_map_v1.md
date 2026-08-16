@@ -65,6 +65,7 @@ Rollback only (`legacy_v1`):
 × L3 / L4 / L5 ranking
   (Discover L3 v1 = post-L2 diagnostics only; not a ranker)
   (L4 v1 = post-match cadence diagnostics only; not a ranker)
+  (L5 v1 = mixed-state QI validated research shadow; not a ranker)
 ```
 
 ### Intended CM v2 (IMPLEMENTED_OFFLINE only)

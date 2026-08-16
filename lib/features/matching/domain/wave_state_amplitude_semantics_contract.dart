@@ -4,8 +4,8 @@ import 'l4_temporal_diagnostics_contract.dart';
 ///
 /// L4 v1: Tier 1 global periodic activity oscillator is **research shadow**
 /// (`phase_alignment`, activity amplitude). Not production-promoted.
-/// Tier 2 multi-mode Wave-State remains **L5** research (do not copy global
-/// phase onto Frequency 6D).
+/// Tier 2 multi-mode Wave-State is **research-only**, rejected from L5 v1
+/// (do not copy global phase onto Frequency 6D).
 class WaveStateAmplitudeSemanticsContract {
   WaveStateAmplitudeSemanticsContract._();
 
@@ -36,13 +36,15 @@ class WaveStateAmplitudeSemanticsContract {
   /// Returned separately from activity levels — never fused.
   static const String tier1PhaseAlignmentFormula = 'cos(delta_phi)';
 
-  // --- Tier 2: multi-mode Wave-State v2 (L5, not L4) ---
+  // --- Tier 2: multi-mode Wave-State v2 (research-only; not L5 v1) ---
 
   static const String tier2Id = 'wave_state_modal_shadow_v2_multimode';
   static const bool tier2RealUserResonanceEnabled = false;
   static const bool tier2RequiresModeSpecificOscillators = true;
   static const bool tier2MayCopyGlobalPhaseToFrequencyModes = false;
   static const String tier2RealUserStatus = 'research_only_unavailable';
+  static const bool tier2L5V1RetainedCandidate = false;
+  static const bool fusedRWaveIsL5Score = false;
 
   /// \(c_{\mathrm{abs}}\) is amplitude-envelope diagnostic only — not resonance.
   static const bool cAbsIsResonance = false;

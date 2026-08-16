@@ -36,6 +36,8 @@ void main() {
       expect(r.qiTraceDistance, closeTo(0.0, 1e-12));
       expect(r.weightPolicyId, 'equal_window_v1');
       expect(r.ensembleCountA, 3);
+      expect(r.toWireMap()['layer'], 'L5');
+      expect(r.toWireMap()['layer_contract'], 'l5_mixed_state_qi_contract_v1');
       expect(r.toWireMap()['shadow_only'], isTrue);
       expect(r.toWireMap()['policy_status'], 'validated_shadow_not_live');
       expect(r.toWireMap()['validated_shadow_research_signal'], isTrue);
@@ -199,6 +201,19 @@ void main() {
       expect(QuantumMixedStateShadowContract.freeLambdaAllowed, isFalse);
       expect(QuantumMixedStateShadowContract.rankingWeightsAllowed, isFalse);
       expect(QuantumMixedStateShadowContract.pureStateQiAsSeparateSignal, isFalse);
+      expect(
+        QuantumMixedStateShadowContract.fidelityIsCompatibilityPercentage,
+        isFalse,
+      );
+      expect(QuantumMixedStateShadowContract.fusedRWaveIsL5Score, isFalse);
+      expect(
+        QuantumMixedStateShadowContract.multimodeWaveStateInProduction,
+        isFalse,
+      );
+      expect(
+        QuantumMixedStateShadowContract.layerContractVersion,
+        'l5_mixed_state_qi_contract_v1',
+      );
       expect(QuantumMixedStateShadowContract.weightPolicyId, 'equal_window_v1');
       expect(
         QuantumMixedStateShadowContract.frozenWireFields,

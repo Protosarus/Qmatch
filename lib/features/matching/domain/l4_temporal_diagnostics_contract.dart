@@ -4,7 +4,8 @@
 /// Production diagnostics are cadence / burstiness / regularity / reply-turn /
 /// participation counts from observed thread metadata only.
 /// Class A circadian is conditional. Class B ω / phase_alignment stay research
-/// shadow. Mixed-state QI / multi-window ρ / multi-mode Wave-State are L5.
+/// shadow. Mixed-state QI is L5 v1. Multi-mode Wave-State is research-only,
+/// not L5 v1.
 class L4TemporalDiagnosticsContract {
   L4TemporalDiagnosticsContract._();
 

@@ -7,7 +7,7 @@
 | Status | `production_diagnostics_non_ranking_v1` |
 | Scope | **Post-match** temporal diagnostics from observed thread/message metadata. **Non-ranking.** No Discover order change. No fusion with L2/L3. |
 | Inputs | `threads/{id}` `participants`; `threads/{id}/messages/{id}` `sender_id` + `created_at` / `client_created_at` |
-| Explicitly out of scope | Pre-match inference; `last_active_at` as L4; questionnaire→φ/ω; Discover ranking; L1/L2/L3; L5 mixed-state QI / multi-window ρ / multi-mode Wave-State |
+| Explicitly out of scope | Pre-match inference; `last_active_at` as L4; questionnaire→φ/ω; Discover ranking; L1/L2/L3; L5 mixed-state QI / multi-window ρ; multi-mode Wave-State (research-only, not L5 v1) |
 
 ---
 
@@ -32,7 +32,7 @@
 | **Production diagnostic** | Cadence (`λ_mean`, `λ_med`); burstiness \(B\); regularity \(R\); reply/turn timing; participation / count diagnostics |
 | **Conditional diagnostic** | Class A circadian (`circadian_activity_24h` / alias `circadian_24h`) **only** when valid timezone **and** evidence gates pass |
 | **Research shadow only** | Class B ω; periodic phase binder; `phase_alignment=\cos\Delta\phi`; activity amplitude \(A_u\); global activity oscillator pairwise comparisons |
-| **Not L4 (remain L5)** | Mixed-state QI; multi-window density matrices; multi-mode Wave-State |
+| **Not L4** | Mixed-state QI / multi-window \(\rho\) (**L5 v1**). Multi-mode Wave-State / fused \(r_{\mathrm{wave}}\) (research-only, **not** L5 v1) |
 
 Formulas are those already specified in [Temporal Feature Extraction v1](./qmatch_temporal_feature_extraction_v1.md) and existing shadow estimators. **No new math in this freeze.**
 
@@ -94,11 +94,14 @@ Civil 24h/7d spectral peaks stay `civil_collision` — Class A path, not Class B
 
 | System | Layer |
 | --- | --- |
-| Mixed-state QI (`purity`, mixed fidelity, trace distance) | **L5** |
-| Multi-window density matrices (\(K\ge 2\) ensembles) | **L5** |
-| Multi-mode Wave-State \(\Psi_u(s,t)\) / six-mode `r_wave` | **L5** (research; mode-specific oscillators missing) |
+| Mixed-state QI (`purity`, mixed fidelity, trace distance) | **L5 v1** retained candidate (`validated_shadow_not_live`) |
+| Multi-window density matrices (\(K\ge 2\) ensembles) | **L5 v1** carrier (same contract) |
+| Multi-mode Wave-State \(\Psi_u(s,t)\) / six-mode `r_wave` | Research-only; **rejected from L5 v1** |
+| Fused \(r_{\mathrm{wave}}=\cos\Delta\phi\cdot\cos\angle(A,B)\) | Research-only; **not an L5 score** |
 
 Do not copy global activity phase onto Frequency 6D modes.
+
+See [L5 mixed-state QI contract](./qmatch_l5_mixed_state_qi_contract_v1.md).
 
 ---
 
@@ -116,3 +119,4 @@ Do not copy global activity phase onto Frequency 6D modes.
 | Version | Date | Notes |
 | --- | --- | --- |
 | v1 production freeze | 2026-08-16 | Post-match diagnostics; production cadence family; conditional circadian; Class B / phase_alignment research shadow; L5 remains L5 |
+| v1 L5 boundary | 2026-08-16 | Mixed-state QI = L5 v1; multi-mode Wave-State / fused \(r_{\mathrm{wave}}\) rejected from L5 v1 (L4 logic unchanged) |

@@ -3,21 +3,24 @@
 | Field | Value |
 | --- | --- |
 | Policy id | `quantum_mixed_state_shadow_policy_freeze_v1` |
+| Layer contract | [`l5_mixed_state_qi_contract_v1`](./qmatch_l5_mixed_state_qi_contract_v1.md) |
 | Scoring version | `quantum_mixed_state_shadow_v1` |
 | Status | `validated_shadow_not_live` |
 | Weight policy | `equal_window_v1` (\(p_k=1/K\), \(K\ge 2\)) |
 | Stress evidence | [`reports/quantum_mixed_state_shadow_stress_v1.json`](./reports/quantum_mixed_state_shadow_stress_v1.json) |
-| Explicitly out of scope | Discover ranking/UI, Persona, RVI, fusion weights, free \(\lambda\), questionnaire states |
+| Explicitly out of scope | Discover ranking/UI, Persona, RVI, fusion weights, free \(\lambda\), questionnaire states, multi-mode Wave-State, fused \(r_{\mathrm{wave}}\) as L5 |
 
 ---
 
 ## 0. Freeze decision
 
+This scoring freeze is the **L5 v1 retained candidate**. Mixed-state QI is a **validated research shadow**, non-ranking.
+
 Synthetic stress showed that **mixed-state** QI fidelity varies materially at fixed mean-phase alignment when purity/spread differ (residual vs \(\cos\Delta\bar\phi\) ~63% on the stress draw). The mixed-state layer is therefore retained as a **validated shadow research signal**.
 
-It is **not** live Matching, not Discover-ranked, and not fused with \(D_{\mathrm{structural}}\), `phase_alignment`, or `activity_level_gap`.
+It is **not** live Matching, not Discover-ranked, and not fused with \(D_{\mathrm{structural}}\), L3, L4, `phase_alignment`, or `activity_level_gap`.
 
-**Real-data validation is still pending.**
+**Real-data validation is still pending.** Promotion requires calibrated L4 Class-B gates, a real multi-window cohort, replication on real data, and a separate ranking RFC.
 
 ---
 
@@ -59,14 +62,18 @@ Same-oscillator provenance gates remain mandatory (`oscillator_id`, \(\omega\), 
 | `persona_enabled` / `rvi_enabled` | `false` |
 | `ranking_weights_allowed` | `false` |
 | `pure_state_qi_as_separate_signal` | `false` |
-| `fuses_with_*` | all `false` |
+| `fidelity_is_compatibility_percentage` | `false` |
+| `fused_r_wave_is_l5_score` | `false` |
+| `multimode_wave_state_in_production` | `false` |
+| `fuses_with_*` | all `false` (L2 / L3 / L4 included) |
 
 ---
 
 ## 4. Implementation pointer
 
-- Dart: `QuantumMixedStateShadowMatcher` / `QuantumMixedStateShadowContract`
-- Unit tests: `test/quantum_mixed_state_shadow_v1_test.dart`
+- Layer freeze: [`qmatch_l5_mixed_state_qi_contract_v1.md`](./qmatch_l5_mixed_state_qi_contract_v1.md)
+- Dart: `L5MixedStateQiContract` / `QuantumMixedStateShadowMatcher` / `QuantumMixedStateShadowContract`
+- Unit tests: `test/l5_mixed_state_qi_contract_v1_test.dart`, `test/quantum_mixed_state_shadow_v1_test.dart`
 - Stress harness (kept): `test/quantum_mixed_state_shadow_stress_v1_test.dart`
 - Prior contract math: [`qmatch_quantum_mixed_state_shadow_contract_v1.md`](./qmatch_quantum_mixed_state_shadow_contract_v1.md)
 
@@ -77,3 +84,4 @@ Same-oscillator provenance gates remain mandatory (`oscillator_id`, \(\omega\), 
 | Version | Date | Notes |
 | --- | --- | --- |
 | v1 | 2026-08-12 | Freeze after synthetic stress; status → `validated_shadow_not_live` |
+| v1 L5 | 2026-08-16 | Adopted as L5 v1 retained candidate; Wave-State / fused \(r_{\mathrm{wave}}\) / pure-state QI remain out of L5 |

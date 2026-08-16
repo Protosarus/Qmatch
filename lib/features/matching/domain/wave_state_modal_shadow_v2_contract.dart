@@ -9,6 +9,7 @@ import '../../assessment/domain/profile/qmatch_profile_models.dart';
 /// **Amplitude semantics v1:** multi-mode Frequency resonance is
 /// **research-only** for real users until mode-specific oscillators exist.
 /// Do not copy global activity phase into all six Frequency modes.
+/// **Not** an L5 v1 retained candidate (`l5_mixed_state_qi_contract_v1`).
 /// See `wave_state_amplitude_semantics_v1`.
 class WaveStateModalShadowV2Contract {
   WaveStateModalShadowV2Contract._();
@@ -41,6 +42,8 @@ class WaveStateModalShadowV2Contract {
   static const bool multimodeRequiresModeSpecificOscillators = true;
   static const bool mayCopyGlobalActivityPhaseToFrequencyModes = false;
   static const String multimodeRealUserStatus = 'research_only_unavailable';
+  static const bool l5V1RetainedCandidate = false;
+  static const bool fusedRWaveIsL5Score = false;
 
   /// Signed overlap requires periodicity status `ok` (sparse not enough).
   static const bool signedRequiresPeriodicityOk = true;

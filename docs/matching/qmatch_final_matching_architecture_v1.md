@@ -5,7 +5,7 @@
 | Document id | `qmatch_final_matching_architecture_v1` |
 | Policy id | `final_matching_architecture_v1` |
 | Status | `architecture_frozen_not_live` (layer boundaries); Discover L2 ranking cut over separately |
-| Scope | **Architecture freeze** of layer boundaries and eligibility. Discover structural ranking is live via trusted backend L2 (`structural_l2_v1`). L3/L4 v1 are **non-ranking diagnostics**. This document does not invent fusion weights or promote L5. |
+| Scope | **Architecture freeze** of layer boundaries and eligibility. Discover structural ranking is live via trusted backend L2 (`structural_l2_v1`). L3/L4 v1 are **non-ranking diagnostics**. L5 v1 is **validated research shadow** (mixed-state QI only). This document does not invent fusion weights. |
 | Depends on | Structural production-candidate policy; Wave-State amplitude semantics; Quantum mixed-state policy freeze; Temporal / phase / omega contracts |
 | Explicitly out of scope | Final fusion weights; single combined “match %”; Persona as Matching key; RVI; inventing missing values |
 
@@ -29,8 +29,8 @@ This document freezes **layer boundaries and eligibility**, not a weighted blend
 | L1 hard eligibility | Hard pass / fail / unknown — not a soft score |
 | L2 structural | Group-normalized 20D \(D_{\mathrm{structural}}\) — live Discover ranking via trusted backend `compareStageB2Structural` (`structural_l2_v1`) |
 | L3 preferences / values | Discover L3 v1 = **profile** soft-preference **diagnostics** (non-ranking). CM values = **future L3 extension**, not fused in v1 |
-| L4 temporal | Post-match **diagnostics** (cadence family production; circadian conditional; Class B / `phase_alignment` research shadow). **Non-ranking.** Mixed-state / multi-mode = **L5** |
-| L5 mixed-state QI | Shadow only (`validated_shadow_not_live`) |
+| L4 temporal | Post-match **diagnostics** (cadence family production; circadian conditional; Class B / `phase_alignment` research shadow). **Non-ranking.** Mixed-state QI = **L5 v1** (shadow). Multi-mode Wave-State is **not** L5 v1 |
+| L5 mixed-state QI | Validated research shadow (`validated_shadow_not_live`); mixed-state only; \(K\ge 2\) Class-B windows |
 | Persona / RVI / pure-state QI | **Prohibited** as Matching keys |
 | Client Dart 20D matcher | Formula replica only — `liveDiscoverRanking=false`; does **not** rank Discover |
 | Legacy Discover | `CompatibilityScoring` **rollback only** (`legacy_v1`) |
@@ -73,7 +73,7 @@ Matching is a **pipeline of layers**, not one score. Each layer has its own inpu
 ┌────────────────────────────▼────────────────────────────────┐
 │ L5  Quantum-inspired shadow diagnostics                     │
 │     mixed-state purity / fidelity / trace distance          │
-│     (validated_shadow_not_live; not compatibility alone)    │
+│     (validated_shadow_not_live; only retained L5 candidate) │
 └─────────────────────────────────────────────────────────────┘
 
 Live Discover today: trusted backend L2 (`structural_l2_v1`); client Dart matcher does not rank
@@ -135,24 +135,36 @@ Evaluated **after** trusted structural L2. Separate from L2. **Non-ranking in v1
 | Cadence / burstiness / regularity / reply-turn / participation | **Production diagnostic** | `TemporalShadowExtractor` |
 | Class A circadian (`circadian_activity_24h`) | **Conditional diagnostic** | Requires valid TZ + evidence gates |
 | Class B ω, periodic phase, `phase_alignment=\cos\Delta\phi`, activity amplitude | **Research shadow only** | Not production-promoted |
-| Mixed-state QI / multi-window \(\rho\) / multi-mode Wave-State | **Not L4** | Remain **L5** |
+| Mixed-state QI / multi-window \(\rho\) | **Not L4** | **L5 v1** retained candidate (`validated_shadow_not_live`) |
+| Multi-mode Wave-State / fused \(r_{\mathrm{wave}}\) | **Not L4** | Research-only; **rejected from L5 v1** |
 
 Do not copy global activity phase onto Frequency 6D. Do not treat cadence as \(\omega\).
 
 #### L5 — Quantum-inspired shadow diagnostics
 
-**Role:** Multi-window **state-distribution** diagnostics on the **same** Class-B oscillator.
+**L5 v1 freeze:** [qmatch_l5_mixed_state_qi_contract_v1.md](./qmatch_l5_mixed_state_qi_contract_v1.md) (`validated_shadow_not_live`).
+
+**Role:** Multi-window **state-distribution** diagnostics on the **same** Class-B oscillator. **Validated research shadow. Non-ranking.** Mixed-state QI is the **only** retained L5 candidate.
+
+Requires \(K\ge 2\) accepted Class-B windows with shared oscillator provenance. L4 v1 production diagnostics do **not** emit these windows.
 
 | Field | Status |
 | --- | --- |
 | `purity_A` / `purity_B` | `validated_shadow_not_live` — must stay visible |
-| `qi_mixed_fidelity` | `validated_shadow_not_live` — similarity of ensembles, **not** compatibility alone |
+| `qi_mixed_fidelity` | `validated_shadow_not_live` — similarity of ensembles, **not** a compatibility % |
 | `qi_trace_distance` | `validated_shadow_not_live` |
 | Weight policy | Frozen `equal_window_v1` |
 
-Policy: [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md).
+Scoring math: [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md).
 
-**Hard rule:** Pure-state equatorial QI (\(F=\frac{1+\cos\Delta\phi}{2}\)) is **redundant** with `phase_alignment` and **must not** be a separate Matching signal.
+**Hard rules:**
+
+- Pure-state equatorial QI (\(F=\frac{1+\cos\Delta\phi}{2}\)) is **redundant** with `phase_alignment` and **must not** be a separate Matching signal.
+- Multi-mode Wave-State is **not** in L5 v1 production.
+- Fused \(r_{\mathrm{wave}}\) / amplitude×phase is **not** an L5 score.
+- Do not copy global activity phase onto Frequency 6D.
+- Questionnaire \(\phi/\omega\) forbidden.
+- No fusion with L2/L3/L4.
 
 ---
 
@@ -177,9 +189,9 @@ Nothing in L3–L5 is production-**ranking**-eligible today. Discover L3 v1 **di
 | Equal-20D distance | Baseline only | Not the production ranking path |
 | `phase_alignment` | L4 research shadow | Needs real temporal streams + calibrated gates; **not** L4 v1 production |
 | `activity_level_*` / gap | L4 research shadow | Separate diagnostic; no fusion; no canonical live \(A_u\) |
-| Mixed-state QI fields | `validated_shadow_not_live` | Synthetic-validated; real multi-window data pending |
-| Wave-State multi-mode / \(c_{\mathrm{abs}}\) as “resonance” | Research / gated | Mode-specific oscillators missing |
-| Modal static amplitude / fused \(r_{\mathrm{wave}}\) | Spec / research | Envelope ≠ phase alignment |
+| Mixed-state QI fields | `validated_shadow_not_live` | L5 v1 retained candidate; synthetic-validated; real multi-window data pending |
+| Wave-State multi-mode / \(c_{\mathrm{abs}}\) as “resonance” | Research / gated | **Rejected from L5 v1**; mode-specific oscillators missing |
+| Modal static amplitude / fused \(r_{\mathrm{wave}}\) | Spec / research | **Not an L5 score**; envelope ≠ phase alignment |
 | Persona prototypes | **Prohibited** as Matching key | Narrative only, if anywhere |
 | RVI | **Prohibited** | Out of Matching architecture |
 | Pure-state QI as separate wire field | **Prohibited** | Algebraically redundant with \(\cos\Delta\phi\) |
@@ -301,14 +313,15 @@ L4 v1 **cadence-family diagnostics** are already frozen (non-ranking, post-match
 
 ### G.3 Before promoting **QI L5** (mixed-state)
 
-All required:
+L5 v1 is frozen as `validated_shadow_not_live`. Promotion requires **all** of:
 
-1. L4 real-data path stable enough to yield \(K\ge 2\) accepted Class-B windows per user at meaningful rates  
-2. Real-cohort study reproducing “information beyond mean phase” (synthetic stress is necessary but not sufficient)  
-3. Purity kept as a visible separate diagnostic  
-4. Product agreement that fidelity is **distribution similarity**, not a compatibility score  
-5. Still no free \(\lambda\); weight policy changes require a new scoring_version  
-6. Separate RFC for any ranking use; default remains shadow  
+1. **Calibrated L4 Class-B gates**
+2. **Real multi-window cohort** yielding \(K\ge 2\) accepted Class-B windows per user at meaningful rates
+3. **Replication on real data** of “information beyond mean phase” (synthetic stress is necessary but not sufficient)
+4. Purity kept as a visible separate diagnostic
+5. Product agreement that fidelity is **distribution similarity**, not a compatibility percentage
+6. Still no free \(\lambda\); weight policy changes require a new scoring_version
+7. **Separate ranking RFC**; default remains shadow
 
 ### G.4 Never promote
 
@@ -316,6 +329,8 @@ All required:
 - RVI as Matching signal  
 - Pure-state QI as a separate live field  
 - Multi-mode Wave-State resonance without mode-specific oscillators  
+- Fused \(r_{\mathrm{wave}}\) / amplitude×phase as an L5 score  
+- Copying global activity phase onto Frequency 6D  
 
 ---
 
@@ -330,7 +345,7 @@ All required:
 | L3 CM extension | Preference fit / values services | Assessment/research; not Discover L3 v1 |
 | L4 Discover v1 | Post-match cadence family; circadian conditional | **Production diagnostics, non-ranking** (`production_diagnostics_non_ranking_v1`) |
 | L4 research shadow | Class B ω / periodic φ / `phase_alignment` / \(A_u\) | Implemented; **not** production-promoted |
-| L5 | Mixed-state QI | `validated_shadow_not_live` |
+| L5 | Mixed-state QI only (`purity_*`, `qi_mixed_fidelity`, `qi_trace_distance`) | `validated_shadow_not_live` |
 | Rollback | Legacy CompatibilityScoring | `legacy_v1` only |
 
 ---
@@ -339,13 +354,14 @@ All required:
 
 **Stage C structural cutover is complete.** Do not re-open L2 ranking.  
 **Discover L3 v1 diagnostics are frozen** (non-ranking). Do not add an L3 rank operator without a new RFC.  
-**L4 v1 diagnostics are frozen** (post-match, non-ranking). Do not add an L4 rank operator or pre-match temporal inference without a new RFC.
+**L4 v1 diagnostics are frozen** (post-match, non-ranking). Do not add an L4 rank operator or pre-match temporal inference without a new RFC.  
+**L5 v1 is frozen** as validated research shadow (mixed-state QI only). Do not add an L5 rank operator without a new RFC.
 
 Next matching work remains **shadow** except the frozen L3/L4 diagnostics:
 
 - L4 research: real metadata cohort + TZ + calibrated gates before promoting Class B / `phase_alignment`
-- Stage E — QI ensemble shadow on real windows (not ranking; **L5**)
-- Optional later RFCs for additional **ranking** use of L3/L4 — weights not invented here
+- Stage E — QI ensemble shadow on real windows (not ranking; **L5 v1**)
+- Optional later RFCs for additional **ranking** use of L3/L4/L5 — weights not invented here
 
 The client Dart matcher must stay decoupled from Discover ranking.
 
@@ -363,6 +379,7 @@ The client Dart matcher must stay decoupled from Discover ranking.
 
 ## 11. Related documents
 
+- [L5 mixed-state QI contract](./qmatch_l5_mixed_state_qi_contract_v1.md) (validated research shadow)  
 - [L4 temporal diagnostics contract](./qmatch_l4_temporal_diagnostics_contract_v1.md) (post-match diagnostics)  
 - [L3 soft preference signal contract](./qmatch_l3_soft_preference_signal_contract_v1.md) (Discover L3 v1 diagnostics)  
 - [Matching constraints contract](./qmatch_matching_constraints_contract_v1.md)  
@@ -382,4 +399,5 @@ The client Dart matcher must stay decoupled from Discover ranking.
 | v1 freeze | 2026-08-12 | Status → `architecture_frozen_not_live`; policy id `final_matching_architecture_v1` |
 | v1 Stage C | 2026-08-16 | Trusted backend L2 is live Discover ranking (`structural_l2_v1`); Dart matcher still not a ranker; `legacy_v1` rollback only |
 | v1 L3 freeze | 2026-08-16 | Discover L3 v1 = profile diagnostics (non-ranking); CM values = future extension; age mismatch ≠ unknown |
-| v1 L4 freeze | 2026-08-16 | L4 v1 = post-match cadence diagnostics; circadian conditional; Class B/`phase_alignment` research shadow; QI/multi-mode remain L5 |
+| v1 L4 freeze | 2026-08-16 | L4 v1 = post-match cadence diagnostics; circadian conditional; Class B/`phase_alignment` research shadow; QI/multi-mode remain out of L4 |
+| v1 L5 freeze | 2026-08-16 | L5 v1 = mixed-state QI validated shadow (`validated_shadow_not_live`); \(K\ge 2\) Class-B windows; Wave-State / fused \(r_{\mathrm{wave}}\) / pure-state QI rejected |

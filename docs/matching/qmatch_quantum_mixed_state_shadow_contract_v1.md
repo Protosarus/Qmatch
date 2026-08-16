@@ -3,11 +3,11 @@
 | Field | Value |
 | --- | --- |
 | Contract id | `quantum_mixed_state_shadow_v1` |
-| Status | `validated_shadow_not_live` (see [policy freeze](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md)) |
-| Scope | Shadow research implementation + math contract. **No Discover ranking/UI.** |
+| Status | `validated_shadow_not_live` — **L5 v1 retained candidate** (see [L5 contract](./qmatch_l5_mixed_state_qi_contract_v1.md) and [policy freeze](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md)) |
+| Scope | Shadow research implementation + math contract. **No Discover ranking/UI.** Mixed-state QI only. |
 | Depends on | [Quantum-Inspired Matching Model v1](./qmatch_quantum_inspired_matching_model_v1.md), [Wave Phase Reference Policy v1](./qmatch_wave_phase_reference_policy_v1.md), [Periodicity/Omega Estimator Contract v1](./qmatch_periodicity_omega_estimator_contract_v1.md), Validated Periodic Phase Binder v1, Amplitude Semantics v1 |
 | Peer signals (remain separate) | \(D_{\mathrm{structural}}\), `phase_alignment`, `activity_level_gap` |
-| Prohibited | Pure-state QI as a separate Matching signal; free \(\lambda\); questionnaire-derived states; Persona; RVI; Discover ranking; fake state completion; fusing mixed QI with structural/wave scores; ranking weights |
+| Prohibited | Pure-state QI as a separate Matching signal; free \(\lambda\); questionnaire-derived states; Persona; RVI; Discover ranking; fake state completion; fusing mixed QI with L2/L3/L4; ranking weights; treating fidelity as a compatibility %; multi-mode Wave-State in production; fused \(r_{\mathrm{wave}}\) as an L5 score |
 | Real-data validation | **Pending** |
 
 ---
@@ -365,3 +365,4 @@ Still out of scope for **this** task (spec only). When implemented:
 | --- | --- | --- |
 | v1 | 2026-08-12 | Initial mixed-state shadow contract after pure-state QI redundancy audit |
 | v1 freeze | 2026-08-12 | Status → `validated_shadow_not_live`; equal-window implementation frozen; pure-state QI barred as separate signal |
+| v1 L5 | 2026-08-16 | Scoring contract adopted as L5 v1 retained candidate (`l5_mixed_state_qi_contract_v1`) |

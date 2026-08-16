@@ -11,10 +11,11 @@
 - Structural matching policy (trusted backend L2 live in Discover; client Dart matcher not a ranker): [qmatch_structural_matching_production_candidate_policy_v1.md](./qmatch_structural_matching_production_candidate_policy_v1.md)
 - Modal Resonance Model v1 specification (not live): [qmatch_modal_resonance_model_v1_specification.md](./qmatch_modal_resonance_model_v1_specification.md)
 - L4 Temporal Diagnostics Contract v1 (post-match, non-ranking): [qmatch_l4_temporal_diagnostics_contract_v1.md](./qmatch_l4_temporal_diagnostics_contract_v1.md)
+- L5 Mixed-State QI Contract v1 (validated research shadow, non-ranking): [qmatch_l5_mixed_state_qi_contract_v1.md](./qmatch_l5_mixed_state_qi_contract_v1.md)
+- Quantum mixed-state scoring policy (L5 v1 implementation): [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md)
 - Temporal Observation Contract v1 (instrumentation gaps; L4 v1 cadence frozen separately): [qmatch_temporal_observation_contract_v1.md](./qmatch_temporal_observation_contract_v1.md)
 - Temporal Feature Extraction v1 (L4 production cadence family): [qmatch_temporal_feature_extraction_v1.md](./qmatch_temporal_feature_extraction_v1.md)
 - Temporal Shadow Extractor v1: `temporal_feature_extraction_v1` under `lib/features/matching/domain/temporal_shadow*.dart`
 - Static modal amplitude shadow (implemented, not live): `modal_static_amplitude_shadow_v1` under `lib/features/matching/domain/`
 - Amplitude-cosine stress test (offline synthetic): [reports/modal_resonance_amp_cosine_stress_v1.json](./reports/modal_resonance_amp_cosine_stress_v1.json)
 - Offline three-way comparison report (historical fixture run): [reports/legacy_vs_both_20d_shadow_diagnostic_v1.json](./reports/legacy_vs_both_20d_shadow_diagnostic_v1.json)
-- Quantum mixed-state policy freeze: [qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md](./qmatch_quantum_mixed_state_shadow_policy_freeze_v1.md)

@@ -21,6 +21,7 @@ class WaveStateModalShadowContract {
   static const bool densityMatrixEnabled = false;
   static const bool fabricatesMissingPhase = false;
   static const bool fabricatesMissingOmega = false;
+  static const bool l5V1RetainedCandidate = false;
 
   /// Canonical Frequency 6D ids (registry order → harmonic index m = 1..6).
   static const List<String> frequencyDimensionIds =
