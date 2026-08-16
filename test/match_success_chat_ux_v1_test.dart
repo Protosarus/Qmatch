@@ -218,9 +218,7 @@ void main() {
       ).readAsStringSync();
       expect(match.contains('Future<LikeMatchOutcome> likeAndMaybeCreateMatch'),
           isTrue);
-      expect(match.contains('LikeMatchOutcome.createdNewMatch'), isTrue);
-      expect(match.contains('LikeMatchOutcome.existingActiveMatch'), isTrue);
-      expect(match.contains('LikeMatchOutcome.noMatch'), isTrue);
+      expect(match.contains('LikeMatchOutcomeMapper.fromWire'), isTrue);
       expect(swipe.contains('Future<LikeMatchOutcome> likeUser'), isTrue);
     });
   });

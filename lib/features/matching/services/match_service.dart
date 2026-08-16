@@ -1,37 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
 import '../models/match_model.dart';
 import 'match_close_lifecycle_gate.dart';
-import 'match_create_lifecycle_gate.dart';
 import 'like_match_atomicity_gate.dart';
 import 'like_match_outcome.dart';
-import 'match_live_user_validity_gate.dart';
 
 class MatchService {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
+  final FirebaseFunctions? _functions;
+  final Future<Map<String, dynamic>> Function(
+    String name,
+    Map<String, dynamic> data,
+  )? _call;
 
   MatchService({
     FirebaseAuth? auth,
     FirebaseFirestore? firestore,
+    FirebaseFunctions? functions,
+    Future<Map<String, dynamic>> Function(
+      String name,
+      Map<String, dynamic> data,
+    )? call,
   })  : _auth = auth ?? FirebaseAuth.instance,
         _firestore = firestore ?? FirebaseFirestore.instance,
+        _functions = functions,
+        _call = call,
         super();
 
-  /// Atomically evaluate Like → mutual match with live user validity.
+  static const String likeCallableName = 'likeAndMaybeCreateMatch';
+
+  /// Trusted Like → mutual-match evaluation (`like_match_atomicity_v1`).
   ///
-  /// Transaction boundary (`like_match_atomicity_v1` +
-  /// `stale_user_match_eligibility_v1`):
-  /// 1. Read match, reverse swipe, own block, own swipe, **viewer + target users**
-  ///    (never GET `users/{target}/blocks/{viewer}` — rules enforce reverse-block)
-  /// 2. If either user fails live Discover L1 + `discover_eligible`:
-  ///    do **not** persist Like, do **not** create match (existing active match
-  ///    remains untouched)
-  /// 3. Else persist own Like; create match/thread/system message when mutual
-  ///
-  /// Returns a minimal outcome for Discover UX (new vs existing vs none).
+  /// Client does not run the Firestore transaction. Admin callable reads
+  /// match, swipes, both blocks, and both user docs; writes Like and
+  /// match/thread/system_match_v1 when gates pass. Returns public outcome
+  /// only — never block existence or reason.
   Future<LikeMatchOutcome> likeAndMaybeCreateMatch(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
@@ -41,132 +48,26 @@ class MatchService {
       throw StateError('Cannot create a match with yourself.');
     }
 
-    final currentUid = me.uid;
-    final userA = currentUid.compareTo(targetUid) <= 0 ? currentUid : targetUid;
-    final userB = currentUid.compareTo(targetUid) <= 0 ? targetUid : currentUid;
-
-    final matchId = FirestorePaths.deterministicMatchId(currentUid, targetUid);
-    final threadId = FirestorePaths.deterministicThreadId(currentUid, targetUid);
-
-    final ownSwipeRef = FirestorePaths.userSwipeDoc(currentUid, targetUid);
-    final reverseSwipeRef = FirestorePaths.userSwipeDoc(targetUid, currentUid);
-    final viewerBlockRef = FirestorePaths.userBlockDoc(currentUid, targetUid);
-    final viewerUserRef = FirestorePaths.userDoc(currentUid);
-    final targetUserRef = FirestorePaths.userDoc(targetUid);
-    final matchRef = FirestorePaths.matchDoc(matchId);
-    final threadRef = FirestorePaths.threadDoc(threadId);
-    // Fixed id so rules can allow bootstrap without open sender_id==system spoof.
-    final messageRef =
-        FirestorePaths.threadMessages(threadId).doc('system_match_v1');
-
-    return _firestore.runTransaction((tx) async {
-      final matchSnap = await tx.get(matchRef);
-      final ownSwipeSnap = await tx.get(ownSwipeRef);
-      final reverseSwipeSnap = await tx.get(reverseSwipeRef);
-      final viewerBlockSnap = await tx.get(viewerBlockRef);
-      final viewerUserSnap = await tx.get(viewerUserRef);
-      final targetUserSnap = await tx.get(targetUserRef);
-
-      final viewerLiveEligible = MatchLiveUserValidityGate.isValidLiveUser(
-        exists: viewerUserSnap.exists,
-        data: viewerUserSnap.data(),
-      );
-      final targetLiveEligible = MatchLiveUserValidityGate.isValidLiveUser(
-        exists: targetUserSnap.exists,
-        data: targetUserSnap.data(),
-      );
-
-      final plan = LikeMatchAtomicityGate.planLike(
-        matchExists: matchSnap.exists,
-        matchState: matchSnap.data()?['state'] as String?,
-        viewerBlockedCandidate: viewerBlockSnap.exists,
-        candidateBlockedViewer: false,
-        viewerLikesCandidatePending: true,
-        candidateLikesViewer: MatchCreateLifecycleGate.isLikeDirection(
-          reverseSwipeSnap.data()?['direction'] as String?,
-        ),
-        viewerLiveEligible: viewerLiveEligible,
-        targetLiveEligible: targetLiveEligible,
-      );
-
-      if (plan.persistOwnLike) {
-        final likePayload = <String, dynamic>{
-          'from_uid': currentUid,
-          'target_uid': targetUid,
-          'direction': 'like',
-          'source': 'discover',
-        };
-        if (!ownSwipeSnap.exists) {
-          likePayload['created_at'] = FieldValue.serverTimestamp();
-        } else {
-          likePayload['updated_at'] = FieldValue.serverTimestamp();
-        }
-        tx.set(ownSwipeRef, likePayload, SetOptions(merge: true));
-      }
-
-      if (plan.matchDecision ==
-          MatchCreateLifecycleDecision.idempotentActiveSuccess) {
-        return LikeMatchOutcome.existingActiveMatch;
-      }
-      if (!plan.writeMatchArtifacts) {
-        return LikeMatchOutcome.noMatch;
-      }
-
-      // Create match doc
-      tx.set(matchRef, {
-        'match_id': matchId,
-        'user_a': userA,
-        'user_b': userB,
-        'users': [userA, userB],
-        'created_at': FieldValue.serverTimestamp(),
-        'created_by': 'system',
-        'thread_id': threadId,
-        'state': MatchState.active.name,
-        'last_activity_at': FieldValue.serverTimestamp(),
-        'compat': <String, dynamic>{},
-        'reveal': {
-          'blur_level': 3,
-          'consent_a': false,
-          'consent_b': false,
-          'requested_by': null,
-          'requested_at': null,
-          'revealed_at': null,
-        },
-      });
-
-      // Create thread doc (deterministic id mirrors match id)
-      tx.set(
-        threadRef,
-        {
-          'thread_id': threadId,
-          'match_id': matchId,
-          'participants': [userA, userB],
-          'created_at': FieldValue.serverTimestamp(),
-          'last_message_at': FieldValue.serverTimestamp(),
-          'last_message_preview': 'You matched!',
-          'last_message_sender': 'system',
-          'unread_counts': {userA: 0, userB: 0},
-          'text_count_total': 0,
-          'text_count_by_uid': {userA: 0, userB: 0},
-          'status': 'active',
-        },
-        SetOptions(merge: true),
-      );
-
-      // First system message
-      tx.set(messageRef, {
-        'thread_id': threadId,
-        'sender_id': 'system',
-        'type': 'system',
-        'text': 'You matched!',
-        'created_at': FieldValue.serverTimestamp(),
-        'client_created_at': DateTime.now().millisecondsSinceEpoch,
-        'read_by': <String, dynamic>{},
-        'moderation': null,
-      });
-
-      return LikeMatchOutcome.createdNewMatch;
+    final raw = await _invokeLikeCallable({
+      'target_uid': targetUid,
     });
+    return LikeMatchOutcomeMapper.fromWire(raw['outcome']);
+  }
+
+  Future<Map<String, dynamic>> _invokeLikeCallable(
+    Map<String, dynamic> data,
+  ) async {
+    final custom = _call;
+    if (custom != null) {
+      return custom(likeCallableName, data);
+    }
+    final functions = _functions ?? FirebaseFunctions.instance;
+    final result = await functions.httpsCallable(likeCallableName).call(data);
+    final payload = result.data;
+    if (payload is Map) {
+      return Map<String, dynamic>.from(payload);
+    }
+    throw StateError('Callable $likeCallableName returned a non-map payload.');
   }
 
   /// Backward-compatible alias — prefer [likeAndMaybeCreateMatch].

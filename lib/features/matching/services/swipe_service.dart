@@ -41,7 +41,7 @@ class SwipeService {
     }, SetOptions(merge: true));
   }
 
-  /// Like: persist Like + evaluate mutual match in one transaction.
+  /// Like: trusted callable persists Like + evaluates mutual match.
   Future<LikeMatchOutcome> likeUser(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {

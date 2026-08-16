@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qmatch/features/matching/models/match_model.dart';
 import 'package:qmatch/features/matching/services/like_match_atomicity_gate.dart';
+import 'package:qmatch/features/matching/services/like_match_outcome.dart';
 import 'package:qmatch/features/matching/services/match_create_lifecycle_gate.dart';
 
 LikeMatchAtomicPlan _plan({
@@ -71,14 +72,14 @@ void main() {
       );
     });
 
-    test('block race — persist Like, refuse match', () {
+    test('block race — no Like persist, refuse match', () {
       final viewerBlock = _plan(
         matchExists: false,
         matchState: null,
         viewerBlockedCandidate: true,
         candidateLikesViewer: true,
       );
-      expect(viewerBlock.persistOwnLike, isTrue);
+      expect(viewerBlock.persistOwnLike, isFalse);
       expect(viewerBlock.writeMatchArtifacts, isFalse);
       expect(
         viewerBlock.matchDecision,
@@ -91,7 +92,7 @@ void main() {
         candidateBlockedViewer: true,
         candidateLikesViewer: true,
       );
-      expect(reverseBlock.persistOwnLike, isTrue);
+      expect(reverseBlock.persistOwnLike, isFalse);
       expect(reverseBlock.writeMatchArtifacts, isFalse);
     });
 
@@ -122,6 +123,17 @@ void main() {
         plan.matchDecision,
         MatchCreateLifecycleDecision.refuseBlockedExists,
       );
+    });
+
+    test('fromWire maps public callable outcomes only', () {
+      expect(LikeMatchOutcomeMapper.fromWire('created_new_match'),
+          LikeMatchOutcome.createdNewMatch);
+      expect(LikeMatchOutcomeMapper.fromWire('existing_active_match'),
+          LikeMatchOutcome.existingActiveMatch);
+      expect(LikeMatchOutcomeMapper.fromWire('no_match'),
+          LikeMatchOutcome.noMatch);
+      expect(LikeMatchOutcomeMapper.fromWire('secret-block-reason'),
+          LikeMatchOutcome.noMatch);
     });
 
     test('Pass must never mutate match/thread', () {
@@ -159,20 +171,25 @@ void main() {
       expect(passBody.contains('threadDoc'), isFalse);
     });
 
-    test('MatchService writes own Like inside the match transaction', () {
+    test('MatchService Like goes through trusted callable, not a client tx', () {
       final src = File(
         'lib/features/matching/services/match_service.dart',
       ).readAsStringSync();
-      expect(src.contains('LikeMatchAtomicityGate.planLike'), isTrue);
-      expect(src.contains("direction': 'like'"), isTrue);
-      expect(src.contains('viewerLikesCandidatePending: true'), isTrue);
-      expect(src.contains('MatchLiveUserValidityGate'), isTrue);
-      expect(src.contains('runTransaction'), isTrue);
+      expect(src.contains('likeCallableName'), isTrue);
+      expect(src.contains("'likeAndMaybeCreateMatch'"), isTrue);
+      expect(src.contains('LikeMatchOutcomeMapper.fromWire'), isTrue);
       expect(src.contains('CompatibilityScoring'), isFalse);
       expect(src.contains('DiscoverService'), isFalse);
-      // Reverse-block is rules-enforced; never GET peer block docs.
-      expect(src.contains('userBlockDoc(targetUid, currentUid)'), isFalse);
-      expect(src.contains('candidateBlockedViewer: false'), isTrue);
+      final likeIdx = src.indexOf(
+        'Future<LikeMatchOutcome> likeAndMaybeCreateMatch',
+      );
+      final unmatchIdx = src.indexOf('Future<void> unmatch');
+      expect(likeIdx, greaterThanOrEqualTo(0));
+      expect(unmatchIdx, greaterThan(likeIdx));
+      final likeBody = src.substring(likeIdx, unmatchIdx);
+      expect(likeBody.contains('runTransaction'), isFalse);
+      expect(likeBody.contains('userBlockDoc'), isFalse);
+      expect(likeBody.contains('MatchLiveUserValidityGate'), isFalse);
     });
 
     test('Like then Pass / Pass on matched — Pass never closes match (source)',

@@ -253,8 +253,8 @@ describe('Firestore rules', () => {
     );
   });
 
-  it('two eligible users may write Like without permission-denied', async () => {
-    await assertSucceeds(
+  it('client Like write is denied for eligible users', async () => {
+    await assertFails(
       setDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
         from_uid: 'userA',
         target_uid: 'userB',
@@ -262,7 +262,7 @@ describe('Firestore rules', () => {
         source: 'discover',
       }),
     );
-    await assertSucceeds(
+    await assertFails(
       setDoc(doc(authedFirestore('userB'), 'users/userB/swipes/userA'), {
         from_uid: 'userB',
         target_uid: 'userA',

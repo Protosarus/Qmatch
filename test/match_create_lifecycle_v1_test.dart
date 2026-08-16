@@ -166,26 +166,22 @@ void main() {
       );
     });
 
-    test('createMatchIfMutualLike uses lifecycle gate + both swipes + blocks', () {
+    test('createMatchIfMutualLike uses trusted Like callable', () {
       final src = File(
         'lib/features/matching/services/match_service.dart',
       ).readAsStringSync();
-      expect(src.contains('LikeMatchAtomicityGate.planLike'), isTrue);
-      expect(src.contains('userBlockDoc'), isTrue);
-      expect(src.contains('ownSwipeRef'), isTrue);
-      expect(src.contains('reverseSwipeRef'), isTrue);
+      expect(src.contains('createMatchIfMutualLike'), isTrue);
+      expect(src.contains('likeAndMaybeCreateMatch'), isTrue);
+      expect(src.contains("'likeAndMaybeCreateMatch'"), isTrue);
       expect(src.contains('like_match_atomicity_v1'), isTrue);
-      // Fixed id so rules can allow bootstrap without open sender_id==system spoof.
-      expect(src.contains("doc('system_match_v1')"), isTrue);
-
-      // Create path must not treat bare existence as success.
-      expect(src.contains('if (matchSnap.exists) {\n        return true;'), isFalse);
-      // Must not auto-reactivate: no write of active over unmatched in create path.
-      expect(src.contains("state': 'active'"), isFalse);
-      expect(
-        src.contains("'state': MatchState.active.name"),
-        isTrue,
-      ); // only on fresh create
+      expect(src.contains('LikeMatchOutcomeMapper.fromWire'), isTrue);
+      expect(src.contains('LikeMatchAtomicityGate.planLike'), isFalse);
+      expect(src.contains("doc('system_match_v1')"), isFalse);
+      expect(src.contains('ownSwipeRef'), isFalse);
+      expect(src.contains('reverseSwipeRef'), isFalse);
+      expect(src.contains('if (matchSnap.exists) {\n        return true;'),
+          isFalse);
+      expect(src.contains("'state': MatchState.active.name"), isFalse);
     });
 
     test('no Discover ranking / CompatibilityScoring in match create path', () {

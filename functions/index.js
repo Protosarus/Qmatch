@@ -206,3 +206,15 @@ exports.compareStageB2Structural = onCall(
 exports.handleCompareStageB2Structural = stageB2L2.handleCompareStageB2Structural;
 exports.compareMeasuredPresenceGroupNormalized =
   canonical20dGroupNormalized.compareMeasuredPresence;
+const likeAndMaybeCreateMatch = require('./src/like_and_maybe_create_match_callable');
+
+/**
+ * Trusted Like + match create (`like_match_atomicity_v1`).
+ * Admin-reads swipes, blocks, users, and match. Returns public outcome only.
+ */
+exports.likeAndMaybeCreateMatch = onCall(
+  { region: 'us-central1' },
+  (request) => likeAndMaybeCreateMatch.handleLikeAndMaybeCreateMatch(request),
+);
+exports.handleLikeAndMaybeCreateMatch =
+  likeAndMaybeCreateMatch.handleLikeAndMaybeCreateMatch;

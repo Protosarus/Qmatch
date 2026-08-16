@@ -197,8 +197,10 @@ void main() {
       expect(likeIdx, greaterThanOrEqualTo(0));
       expect(unmatchIdx, greaterThan(likeIdx));
       final likeBody = src.substring(likeIdx, unmatchIdx);
-      expect(likeBody.contains('MatchLiveUserValidityGate'), isTrue);
-      expect(likeBody.contains('persistOwnLike'), isTrue);
+      expect(likeBody.contains('likeCallableName'), isTrue);
+      expect(likeBody.contains('runTransaction'), isFalse);
+      expect(likeBody.contains('MatchLiveUserValidityGate'), isFalse);
+      expect(likeBody.contains('persistOwnLike'), isFalse);
       expect(likeBody.contains('MatchCloseLifecycleGate'), isFalse);
       expect(likeBody.contains("state': 'unmatched'"), isFalse);
       expect(likeBody.contains("status': 'closed'"), isFalse);

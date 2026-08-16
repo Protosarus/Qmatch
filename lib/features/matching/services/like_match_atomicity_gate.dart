@@ -43,6 +43,17 @@ class LikeMatchOutcomeMapper {
         return LikeMatchOutcome.noMatch;
     }
   }
+
+  static LikeMatchOutcome fromWire(Object? raw) {
+    switch (raw) {
+      case 'created_new_match':
+        return LikeMatchOutcome.createdNewMatch;
+      case 'existing_active_match':
+        return LikeMatchOutcome.existingActiveMatch;
+      default:
+        return LikeMatchOutcome.noMatch;
+    }
+  }
 }
 
 /// Pure Like→match atomicity helper (testable, no I/O).
@@ -88,7 +99,8 @@ class LikeMatchAtomicityGate {
       candidateLikesViewer: candidateLikesViewer,
     );
     return LikeMatchAtomicPlan(
-      persistOwnLike: true,
+      persistOwnLike:
+          decision != MatchCreateLifecycleDecision.refuseBlockEitherDirection,
       matchDecision: decision,
     );
   }
