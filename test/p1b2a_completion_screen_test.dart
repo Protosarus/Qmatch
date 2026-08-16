@@ -15,10 +15,13 @@ void main() {
     expect(find.textContaining('HH', findRichText: true), findsNothing);
     expect(find.textContaining('persona', findRichText: true), findsNothing);
     expect(find.textContaining('Persona', findRichText: true), findsNothing);
-    expect(find.text('Your assessments are complete'), findsOneWidget);
+    expect(find.textContaining('Your assessments', findRichText: true), findsOneWidget);
+    expect(find.textContaining('are complete', findRichText: true), findsOneWidget);
     expect(find.text('IQ completed'), findsOneWidget);
     expect(find.text('EQ completed'), findsOneWidget);
     expect(find.text('Frequency completed'), findsOneWidget);
     expect(find.text('Create My Profile'), findsOneWidget);
+    // Cosmic CTA (FrequencyContinueButton), not flat Material gold fill.
+    expect(find.byType(FilledButton), findsNothing);
   });
 }

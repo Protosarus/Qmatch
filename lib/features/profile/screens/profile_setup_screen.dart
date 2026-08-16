@@ -148,7 +148,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           context: context,
           barrierDismissible: false,
           builder: (context) => SuccessDialog(
-            icon: '✨',
             title: readyL10n.profileSetupReadyTitle,
             message: readyL10n.profileSetupReadyMessage,
             onContinue: () {
