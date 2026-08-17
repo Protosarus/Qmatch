@@ -18,6 +18,7 @@ import '../domain/resonance_paywall_feature.dart';
 import '../services/ios_iap_client.dart';
 import '../services/resonance_paywall_controller.dart';
 import '../services/resonance_paywall_iap_port.dart';
+import '../../settings/screens/legal_document_screen.dart';
 
 /// Production Resonance subscription paywall (Monthly + Annual).
 ///
@@ -129,6 +130,20 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
     }
   }
 
+  Future<void> _openLegal({
+    required String title,
+    required String body,
+  }) {
+    return Navigator.of(context).push<void>(
+      MaterialPageRoute<void>(
+        builder: (_) => LegalDocumentScreen(
+          title: title,
+          body: body,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -147,8 +162,7 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                 title: l10n.resonancePaywallTitle,
                 backButtonKey: const Key('qmatch-resonance-paywall-back'),
                 titleKey: const Key('qmatch-resonance-paywall-title'),
-                onBack: () =>
-                    Navigator.of(context).pop(c.hasResonanceAccess),
+                onBack: () => Navigator.of(context).pop(c.hasResonanceAccess),
               ),
               Expanded(
                 child: c.loading
@@ -190,6 +204,34 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                                     height: 1.5,
                                   ),
                                 ),
+                                const SizedBox(height: AppSpacing.md),
+                                _BenefitRow(
+                                  key: const Key(
+                                    'qmatch-resonance-paywall-benefit-who-liked-you',
+                                  ),
+                                  title:
+                                      l10n.resonancePaywallBenefitWhoLikedYou,
+                                  status: l10n.resonancePaywallIncludedNow,
+                                  live: true,
+                                ),
+                                const SizedBox(height: AppSpacing.xs),
+                                _BenefitRow(
+                                  key: const Key(
+                                    'qmatch-resonance-paywall-benefit-rewind',
+                                  ),
+                                  title: l10n.resonancePaywallBenefitRewind,
+                                  status: l10n.resonancePaywallComingLater,
+                                  live: false,
+                                ),
+                                const SizedBox(height: AppSpacing.xs),
+                                _BenefitRow(
+                                  key: const Key(
+                                    'qmatch-resonance-paywall-benefit-deeper',
+                                  ),
+                                  title: l10n.resonancePaywallBenefitDeeper,
+                                  status: l10n.resonancePaywallComingLater,
+                                  live: false,
+                                ),
                                 if (c.hasResonanceAccess) ...[
                                   const SizedBox(height: AppSpacing.md),
                                   Text(
@@ -209,8 +251,7 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                           ),
                           if (!c.hasResonanceAccess) ...[
                             const SizedBox(height: AppSpacing.md),
-                            if (c.availablePlans.isEmpty &&
-                                c.purchasesEnabled)
+                            if (c.availablePlans.isEmpty && c.purchasesEnabled)
                               QGlassCard(
                                 child: Text(
                                   l10n.resonancePaywallPlansUnavailable,
@@ -331,6 +372,51 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                               height: 1.4,
                             ),
                           ),
+                          const SizedBox(height: AppSpacing.sm),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: AppSpacing.md,
+                            children: [
+                              TextButton(
+                                key: const Key(
+                                  'qmatch-resonance-paywall-terms',
+                                ),
+                                onPressed: () => _openLegal(
+                                  title: l10n.termsOfUseTitle,
+                                  body: l10n.termsOfUseBody,
+                                ),
+                                child: Text(
+                                  l10n.termsOfUseTitle,
+                                  style: GoogleFonts.inter(
+                                    color: AppColors.softGold,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.softGold,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                key: const Key(
+                                  'qmatch-resonance-paywall-privacy',
+                                ),
+                                onPressed: () => _openLegal(
+                                  title: l10n.privacyPolicyTitle,
+                                  body: l10n.privacyPolicyBody,
+                                ),
+                                child: Text(
+                                  l10n.privacyPolicyTitle,
+                                  style: GoogleFonts.inter(
+                                    color: AppColors.softGold,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.softGold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
               ),
@@ -338,6 +424,57 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _BenefitRow extends StatelessWidget {
+  const _BenefitRow({
+    super.key,
+    required this.title,
+    required this.status,
+    required this.live,
+  });
+
+  final String title;
+  final String status;
+  final bool live;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          live ? Icons.check_circle_outline : Icons.schedule,
+          size: 18,
+          color: live ? AppColors.softGold : AppColors.textMuted,
+        ),
+        const SizedBox(width: AppSpacing.sm),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.inter(
+                  color: AppColors.textPrimary,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                status,
+                style: GoogleFonts.inter(
+                  color: live ? AppColors.softGold : AppColors.textMuted,
+                  fontSize: 12,
+                  height: 1.35,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -366,9 +503,7 @@ class _PlanTile extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            selected
-                ? Icons.radio_button_checked
-                : Icons.radio_button_off,
+            selected ? Icons.radio_button_checked : Icons.radio_button_off,
             color: selected ? AppColors.softGold : AppColors.textMuted,
           ),
           const SizedBox(width: AppSpacing.sm),

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:qmatch/features/iap/domain/entitlement_snapshot.dart';
 import 'package:qmatch/features/iap/domain/iap_exceptions.dart';
@@ -8,9 +11,16 @@ import 'package:qmatch/features/iap/screens/resonance_paywall_screen.dart';
 import 'package:qmatch/features/iap/services/ios_iap_client.dart';
 import 'package:qmatch/features/iap/services/resonance_paywall_controller.dart';
 import 'package:qmatch/features/iap/services/resonance_paywall_iap_port.dart';
+import 'package:qmatch/features/settings/screens/legal_document_screen.dart';
 import 'package:qmatch/l10n/app_localizations.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    GoogleFonts.config.allowRuntimeFetching = false;
+  });
+
   group('ResonancePaywallController', () {
     late FakePaywallIap iap;
 
@@ -174,14 +184,19 @@ void main() {
         ];
       final controller = ResonancePaywallController(iap: iap);
 
+      await tester.binding.setSurfaceSize(const Size(390, 1600));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(
         MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: ResonancePaywallScreen(
-            controller: controller,
-            purchasesEnabledOverride: true,
-            animateBackground: false,
+          home: MediaQuery(
+            data: const MediaQueryData(size: Size(390, 1600)),
+            child: ResonancePaywallScreen(
+              controller: controller,
+              purchasesEnabledOverride: true,
+              animateBackground: false,
+            ),
           ),
         ),
       );
@@ -195,8 +210,110 @@ void main() {
           findsOneWidget);
       expect(find.byKey(const Key('qmatch-resonance-paywall-restore')),
           findsOneWidget);
+      expect(find.text('Unlock Resonance'), findsWidgets);
       expect(
         find.byKey(const Key('qmatch-resonance-paywall-android-disabled')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('EN copy marks Who Liked You live and later benefits as coming',
+        (tester) async {
+      await _pumpPaywall(tester);
+
+      expect(find.text('Unlock Resonance'), findsWidgets);
+      expect(
+        find.text(
+          'Who Liked You is included with Resonance now. Resonance does not change who you match with or how ranking works.',
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('qmatch-resonance-paywall-benefit-who-liked-you')),
+        findsOneWidget,
+      );
+      expect(find.text('Who liked you'), findsOneWidget);
+      expect(find.text('Included now'), findsOneWidget);
+      expect(find.text('Rewind'), findsOneWidget);
+      expect(find.text('Deeper compatibility explanations'), findsOneWidget);
+      expect(find.text('Coming later — not available yet'), findsNWidgets(2));
+      expect(
+        find.textContaining('renews automatically'),
+        findsOneWidget,
+      );
+      expect(find.text('Terms of Use'), findsOneWidget);
+      expect(find.text('Privacy Policy'), findsOneWidget);
+      expect(find.text('Restore Purchases'), findsOneWidget);
+      expect(find.textContaining('Super Resonance'), findsNothing);
+      expect(find.textContaining('Boost'), findsNothing);
+    });
+
+    testWidgets('TR copy uses Unlock Resonance equivalent and later labels',
+        (tester) async {
+      await _pumpPaywall(tester, locale: const Locale('tr'));
+
+      expect(find.text("Resonance'ı aç"), findsWidgets);
+      expect(
+        find.text(
+          'Seni beğenenler Resonance ile şimdi dahil. Resonance kimi eşleştireceğini veya sıralamayı değiştirmez.',
+        ),
+        findsOneWidget,
+      );
+      expect(find.text('Seni beğenenler'), findsOneWidget);
+      expect(find.text('Şimdi dahil'), findsOneWidget);
+      expect(find.text('Rewind'), findsOneWidget);
+      expect(find.text('Daha derin uyumluluk açıklamaları'), findsOneWidget);
+      expect(find.text('Daha sonra gelecek — henüz yok'), findsNWidgets(2));
+      expect(find.text('Kullanım Şartları'), findsOneWidget);
+      expect(find.text('Gizlilik Politikası'), findsOneWidget);
+    });
+
+    testWidgets('Terms of Use opens LegalDocumentScreen', (tester) async {
+      await _pumpPaywall(tester);
+      final terms = find.byKey(const Key('qmatch-resonance-paywall-terms'));
+      await tester.ensureVisible(terms);
+      await tester.tap(terms);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.byType(LegalDocumentScreen), findsOneWidget);
+      expect(find.byKey(const Key('qmatch-legal-title')), findsOneWidget);
+      expect(find.text('Terms of Use'), findsWidgets);
+    });
+
+    testWidgets('Privacy Policy opens LegalDocumentScreen', (tester) async {
+      await _pumpPaywall(tester);
+      final privacy = find.byKey(const Key('qmatch-resonance-paywall-privacy'));
+      await tester.ensureVisible(privacy);
+      await tester.tap(privacy);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.byType(LegalDocumentScreen), findsOneWidget);
+      expect(find.byKey(const Key('qmatch-legal-title')), findsOneWidget);
+      expect(find.text('Privacy Policy'), findsWidgets);
+    });
+
+    testWidgets('active entitlement still shows Resonance active copy',
+        (tester) async {
+      final iap = FakePaywallIap()
+        ..entitlement = const EntitlementSnapshot(
+          uid: 'u1',
+          tier: 'resonance',
+          subscriptionState: 'active',
+          resonanceAccess: true,
+          superResonanceBalance: 0,
+          boostBalance: 0,
+        );
+      await _pumpPaywall(tester, iap: iap);
+
+      expect(
+        find.byKey(const Key('qmatch-resonance-paywall-active')),
+        findsOneWidget,
+      );
+      expect(find.text('Resonance is active on this account.'), findsOneWidget);
+      expect(
+        find.byKey(const Key('qmatch-resonance-paywall-purchase')),
         findsNothing,
       );
     });
@@ -231,6 +348,57 @@ void main() {
           findsNothing);
     });
   });
+
+  group('paywall copy wiring (source)', () {
+    test('does not offer Super Resonance or Boost and uses legal documents',
+        () {
+      final src = File(
+        'lib/features/iap/screens/resonance_paywall_screen.dart',
+      ).readAsStringSync();
+      expect(src.contains('LegalDocumentScreen'), isTrue);
+      expect(src.contains('termsOfUseTitle'), isTrue);
+      expect(src.contains('privacyPolicyTitle'), isTrue);
+      expect(src.contains('Super Resonance'), isFalse);
+      expect(src.contains('superResonance'), isFalse);
+      expect(src.contains('Boost'), isFalse);
+      expect(src.contains('resonancePaywallComingLater'), isTrue);
+      expect(src.contains('resonancePaywallBenefitWhoLikedYou'), isTrue);
+    });
+  });
+}
+
+Future<void> _pumpPaywall(
+  WidgetTester tester, {
+  Locale locale = const Locale('en'),
+  FakePaywallIap? iap,
+}) async {
+  final resolved = iap ??
+      (FakePaywallIap()
+        ..products = [
+          _product(QmatchIapProductIds.resonanceMonthly, '₺499.99'),
+          _product(QmatchIapProductIds.resonanceAnnual, '₺3.999,99'),
+        ]);
+  final controller = ResonancePaywallController(iap: resolved);
+  await tester.binding.setSurfaceSize(const Size(390, 1600));
+  addTearDown(() => tester.binding.setSurfaceSize(null));
+  await tester.pumpWidget(
+    MaterialApp(
+      locale: locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: MediaQuery(
+        data: const MediaQueryData(size: Size(390, 1600)),
+        child: ResonancePaywallScreen(
+          controller: controller,
+          purchasesEnabledOverride: true,
+          animateBackground: false,
+        ),
+      ),
+    ),
+  );
+  await tester.pump();
+  await controller.load();
+  await tester.pumpAndSettle();
 }
 
 ProductDetails _product(String id, String price) => ProductDetails(

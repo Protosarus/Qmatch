@@ -3161,8 +3161,38 @@ abstract class AppLocalizations {
   /// No description provided for @resonancePaywallBody.
   ///
   /// In en, this message translates to:
-  /// **'See who aligned with you, rewind a miss, and understand your connection more deeply — without changing who you match with.'**
+  /// **'Who Liked You is included with Resonance now. Resonance does not change who you match with or how ranking works.'**
   String get resonancePaywallBody;
+
+  /// No description provided for @resonancePaywallIncludedNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Included now'**
+  String get resonancePaywallIncludedNow;
+
+  /// No description provided for @resonancePaywallComingLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming later — not available yet'**
+  String get resonancePaywallComingLater;
+
+  /// No description provided for @resonancePaywallBenefitWhoLikedYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Who liked you'**
+  String get resonancePaywallBenefitWhoLikedYou;
+
+  /// No description provided for @resonancePaywallBenefitRewind.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewind'**
+  String get resonancePaywallBenefitRewind;
+
+  /// No description provided for @resonancePaywallBenefitDeeper.
+  ///
+  /// In en, this message translates to:
+  /// **'Deeper compatibility explanations'**
+  String get resonancePaywallBenefitDeeper;
 
   /// No description provided for @resonancePaywallActive.
   ///
@@ -3203,7 +3233,7 @@ abstract class AppLocalizations {
   /// No description provided for @resonancePaywallPurchase.
   ///
   /// In en, this message translates to:
-  /// **'Purchase Resonance'**
+  /// **'Unlock Resonance'**
   String get resonancePaywallPurchase;
 
   /// No description provided for @resonancePaywallPurchasing.

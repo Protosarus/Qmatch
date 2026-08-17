@@ -1671,7 +1671,23 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get resonancePaywallBody =>
-      'Kimlerin seninle hizalandığını gör, bir geçişi geri al ve bağlantını daha net anla — eşleşme kaliten değişmeden.';
+      'Seni beğenenler Resonance ile şimdi dahil. Resonance kimi eşleştireceğini veya sıralamayı değiştirmez.';
+
+  @override
+  String get resonancePaywallIncludedNow => 'Şimdi dahil';
+
+  @override
+  String get resonancePaywallComingLater => 'Daha sonra gelecek — henüz yok';
+
+  @override
+  String get resonancePaywallBenefitWhoLikedYou => 'Seni beğenenler';
+
+  @override
+  String get resonancePaywallBenefitRewind => 'Rewind';
+
+  @override
+  String get resonancePaywallBenefitDeeper =>
+      'Daha derin uyumluluk açıklamaları';
 
   @override
   String get resonancePaywallActive => 'Resonance bu hesapta aktif.';
@@ -1694,7 +1710,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get resonancePlanAnnualBadge => 'En avantajlı';
 
   @override
-  String get resonancePaywallPurchase => 'Resonance satın al';
+  String get resonancePaywallPurchase => 'Resonance\'ı aç';
 
   @override
   String get resonancePaywallPurchasing => 'Satın alınıyor…';

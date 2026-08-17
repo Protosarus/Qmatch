@@ -1678,7 +1678,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resonancePaywallBody =>
-      'See who aligned with you, rewind a miss, and understand your connection more deeply — without changing who you match with.';
+      'Who Liked You is included with Resonance now. Resonance does not change who you match with or how ranking works.';
+
+  @override
+  String get resonancePaywallIncludedNow => 'Included now';
+
+  @override
+  String get resonancePaywallComingLater => 'Coming later — not available yet';
+
+  @override
+  String get resonancePaywallBenefitWhoLikedYou => 'Who liked you';
+
+  @override
+  String get resonancePaywallBenefitRewind => 'Rewind';
+
+  @override
+  String get resonancePaywallBenefitDeeper =>
+      'Deeper compatibility explanations';
 
   @override
   String get resonancePaywallActive => 'Resonance is active on this account.';
@@ -1701,7 +1717,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resonancePlanAnnualBadge => 'Best value';
 
   @override
-  String get resonancePaywallPurchase => 'Purchase Resonance';
+  String get resonancePaywallPurchase => 'Unlock Resonance';
 
   @override
   String get resonancePaywallPurchasing => 'Purchasing…';
