@@ -218,3 +218,14 @@ exports.likeAndMaybeCreateMatch = onCall(
 );
 exports.handleLikeAndMaybeCreateMatch =
   likeAndMaybeCreateMatch.handleLikeAndMaybeCreateMatch;
+const listWhoLikedYou = require('./src/list_who_liked_you_callable');
+
+/**
+ * Trusted Who Liked You list. Admin-reads inbound likes + entitlement.
+ * Returns public cards only when resonance_access is true.
+ */
+exports.listWhoLikedYou = onCall(
+  { region: 'us-central1' },
+  (request) => listWhoLikedYou.handleListWhoLikedYou(request),
+);
+exports.handleListWhoLikedYou = listWhoLikedYou.handleListWhoLikedYou;

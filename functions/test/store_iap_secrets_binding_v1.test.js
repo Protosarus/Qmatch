@@ -59,11 +59,14 @@ describe('store_iap_secrets_binding_v1', () => {
     const deletionKeys = secretKeysFromFunction(
       idx.closeMatchesOnAccountDeletionRequested,
     );
+    const whoLikedKeys = secretKeysFromFunction(idx.listWhoLikedYou);
     assert.deepStrictEqual(discoverKeys, []);
     assert.deepStrictEqual(deletionKeys, []);
+    assert.deepStrictEqual(whoLikedKeys, []);
     for (const name of STORE_IAP_SECRET_NAMES) {
       assert.strictEqual(discoverKeys.includes(name), false);
       assert.strictEqual(deletionKeys.includes(name), false);
+      assert.strictEqual(whoLikedKeys.includes(name), false);
     }
   });
 

@@ -85,12 +85,103 @@ class MemoryTransaction {
   }
 }
 
+function collectionIdFromPath(path) {
+  const parts = String(path || '').split('/').filter(Boolean);
+  if (parts.length < 2 || parts.length % 2 !== 0) return null;
+  return parts[parts.length - 2];
+}
+
+function toSortable(value) {
+  if (value == null) return 0;
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value === 'string') {
+    const parsed = Date.parse(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  if (typeof value === 'object') {
+    if (typeof value.toMillis === 'function') return value.toMillis();
+    if (typeof value.seconds === 'number') return value.seconds * 1000;
+    if (typeof value._seconds === 'number') return value._seconds * 1000;
+  }
+  return 0;
+}
+
+class MemoryQuerySnapshot {
+  constructor(docs) {
+    this.docs = docs;
+    this.empty = docs.length === 0;
+    this.size = docs.length;
+  }
+}
+
+class MemoryQuery {
+  constructor(db, collectionId) {
+    this._db = db;
+    this._collectionId = collectionId;
+    this._filters = [];
+    this._order = null;
+    this._limit = null;
+  }
+  where(field, op, value) {
+    this._filters.push({ field, op, value });
+    return this;
+  }
+  orderBy(field, direction) {
+    this._order = { field, direction: direction || 'asc' };
+    return this;
+  }
+  limit(n) {
+    this._limit = n;
+    return this;
+  }
+  async get() {
+    const docs = [];
+    for (const [path, data] of this._db._store.entries()) {
+      if (collectionIdFromPath(path) !== this._collectionId) continue;
+      const snap = new MemoryDocSnapshot(path, data);
+      const row = snap.data() || {};
+      let ok = true;
+      for (const filter of this._filters) {
+        if (filter.op === '==' && row[filter.field] !== filter.value) {
+          ok = false;
+          break;
+        }
+      }
+      if (
+        ok &&
+        this._order &&
+        (row[this._order.field] === undefined || row[this._order.field] === null)
+      ) {
+        ok = false;
+      }
+      if (ok) docs.push(snap);
+    }
+    if (this._order) {
+      const field = this._order.field;
+      const mul = this._order.direction === 'desc' ? -1 : 1;
+      docs.sort((a, b) => {
+        const av = toSortable((a.data() || {})[field]);
+        const bv = toSortable((b.data() || {})[field]);
+        if (av < bv) return -1 * mul;
+        if (av > bv) return 1 * mul;
+        return 0;
+      });
+    }
+    const limited =
+      this._limit != null ? docs.slice(0, this._limit) : docs;
+    return new MemoryQuerySnapshot(limited);
+  }
+}
+
 class MemoryFirestore {
   constructor() {
     this._store = new Map();
   }
   doc(path) {
     return new MemoryDocRef(this, path);
+  }
+  collectionGroup(collectionId) {
+    return new MemoryQuery(this, collectionId);
   }
   async runTransaction(fn) {
     // Simple single-attempt transaction for unit tests.
