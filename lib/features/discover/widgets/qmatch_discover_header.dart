@@ -10,10 +10,14 @@ class QMatchDiscoverHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.subtitle,
+    this.trailing,
   });
 
   final String title;
   final String? subtitle;
+
+  /// Optional compact action (Who Liked You). Never a liker count/badge.
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -25,30 +29,41 @@ class QMatchDiscoverHeader extends StatelessWidget {
         AppSpacing.md,
         AppSpacing.xs,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            title,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.textPrimary,
-              fontSize: 26,
-              fontWeight: FontWeight.w600,
-              height: 1.15,
-              letterSpacing: 0.2,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.playfairDisplay(
+                    color: AppColors.textPrimary,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    height: 1.15,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+                if (subtitle != null && subtitle!.trim().isNotEmpty) ...[
+                  const SizedBox(height: AppSpacing.xxs),
+                  Text(
+                    subtitle!,
+                    style: GoogleFonts.inter(
+                      color: AppColors.textSecondary,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
-          if (subtitle != null && subtitle!.trim().isNotEmpty) ...[
-            const SizedBox(height: AppSpacing.xxs),
-            Text(
-              subtitle!,
-              style: GoogleFonts.inter(
-                color: AppColors.textSecondary,
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-                height: 1.35,
-              ),
-            ),
+          if (trailing != null) ...[
+            const SizedBox(width: AppSpacing.sm),
+            trailing!,
           ],
         ],
       ),

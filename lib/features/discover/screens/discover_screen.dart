@@ -6,11 +6,13 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../matching/services/like_match_outcome.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../messages/screens/chat_detail_screen.dart';
 import '../../settings/services/account_deletion_request_service.dart';
+import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../models/discover_user_model.dart';
 import '../services/discover_gesture_onboarding_store.dart';
 import '../services/discover_service.dart';
@@ -21,6 +23,7 @@ class DiscoverScreen extends StatefulWidget {
     super.key,
     this.animateBackground,
     this.gestureOnboardingStore,
+    this.whoLikedYouEntry,
   });
 
   /// Goldens / reduced-motion: freeze cosmic breathing when false.
@@ -28,6 +31,9 @@ class DiscoverScreen extends StatefulWidget {
 
   /// Test injection for gesture tutorial persistence.
   final DiscoverGestureOnboardingStore? gestureOnboardingStore;
+
+  /// UX routing for the header Who Liked You control. Tests inject a fake.
+  final WhoLikedYouEntry? whoLikedYouEntry;
 
   @override
   State<DiscoverScreen> createState() => _DiscoverScreenState();
@@ -305,6 +311,35 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     );
   }
 
+  Future<void> _openWhoLikedYou() async {
+    final entry = widget.whoLikedYouEntry ?? WhoLikedYouEntry();
+    await entry.openFromDiscover(context);
+  }
+
+  Widget _buildHeader(
+    AppLocalizations l10n, {
+    bool debugReplay = false,
+  }) {
+    final header = QMatchDiscoverHeader(
+      title: l10n.discoverTitle,
+      trailing: QMatchGlassIconButton(
+        key: const Key('qmatch-discover-who-liked-you'),
+        icon: Icons.favorite_border,
+        tooltip: l10n.whoLikedYouTitle,
+        semanticLabel: l10n.whoLikedYouTitle,
+        onPressed: _openWhoLikedYou,
+      ),
+    );
+    if (debugReplay && kDebugMode) {
+      return GestureDetector(
+        key: const Key('qmatch-discover-debug-replay-tutorial'),
+        onLongPress: _debugReplayGestureOnboarding,
+        child: header,
+      );
+    }
+    return header;
+  }
+
   Widget _buildDeletionPendingBanner(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Material(
@@ -341,7 +376,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QMatchDiscoverHeader(title: l10n.discoverTitle),
+          _buildHeader(l10n),
           Expanded(
             child: QMatchDiscoverLoadingState(message: l10n.discoverLoading),
           ),
@@ -353,7 +388,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QMatchDiscoverHeader(title: l10n.discoverTitle),
+          _buildHeader(l10n),
           Expanded(
             child: QMatchDiscoverErrorState(
               title: l10n.discoverErrorTitle,
@@ -371,7 +406,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          QMatchDiscoverHeader(title: l10n.discoverTitle),
+          _buildHeader(l10n),
           Expanded(
             child: QMatchDiscoverEmptyState(
               title: l10n.discoverEmptyTitle,
@@ -387,13 +422,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        kDebugMode
-            ? GestureDetector(
-                key: const Key('qmatch-discover-debug-replay-tutorial'),
-                onLongPress: _debugReplayGestureOnboarding,
-                child: QMatchDiscoverHeader(title: l10n.discoverTitle),
-              )
-            : QMatchDiscoverHeader(title: l10n.discoverTitle),
+        _buildHeader(l10n, debugReplay: true),
         Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),

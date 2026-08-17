@@ -3241,6 +3241,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not now'**
   String get resonanceUnlockNotNow;
+
+  /// No description provided for @whoLikedYouTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who liked you'**
+  String get whoLikedYouTitle;
+
+  /// No description provided for @whoLikedYouLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for people who aligned with you…'**
+  String get whoLikedYouLoading;
+
+  /// No description provided for @whoLikedYouEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No one has liked you yet'**
+  String get whoLikedYouEmptyTitle;
+
+  /// No description provided for @whoLikedYouEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When someone Likes you, they\'ll appear here.'**
+  String get whoLikedYouEmptyBody;
+
+  /// No description provided for @whoLikedYouLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See who aligned with you'**
+  String get whoLikedYouLockedTitle;
+
+  /// No description provided for @whoLikedYouLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'When someone Likes you, Resonance lets you see them — without changing who you match with.'**
+  String get whoLikedYouLockedBody;
+
+  /// No description provided for @whoLikedYouErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load Who liked you'**
+  String get whoLikedYouErrorTitle;
+
+  /// No description provided for @whoLikedYouErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get whoLikedYouErrorBody;
 }
 
 class _AppLocalizationsDelegate

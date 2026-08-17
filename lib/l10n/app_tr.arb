@@ -693,5 +693,13 @@
   "resonancePaywallRestoring": "Geri yükleniyor…",
   "resonancePaywallLegalNote": "Ödeme Apple ID'ne yansıtılır. Abonelik, dönem bitiminden en az 24 saat önce iptal edilmezse otomatik yenilenir. Yetki, mağaza doğrulamasından sonra QMatch tarafından onaylanır — yalnızca StoreKit başarısı Resonance açmaz.",
   "resonanceUnlockCta": "Resonance ile aç",
-  "resonanceUnlockNotNow": "Şimdi değil"
+  "resonanceUnlockNotNow": "Şimdi değil",
+  "whoLikedYouTitle": "Seni beğenenler",
+  "whoLikedYouLoading": "Seninle hizalananlar aranıyor…",
+  "whoLikedYouEmptyTitle": "Henüz kimse seni beğenmedi",
+  "whoLikedYouEmptyBody": "Biri seni Beğendiğinde burada görünecek.",
+  "whoLikedYouLockedTitle": "Seni kim hizaladı",
+  "whoLikedYouLockedBody": "Biri seni Beğendiğinde Resonance onları görmeni sağlar — kimi eşleştireceğini değiştirmeden.",
+  "whoLikedYouErrorTitle": "Seni beğenenler yüklenemedi",
+  "whoLikedYouErrorBody": "Bir sorun oluştu. Lütfen tekrar dene."
 }

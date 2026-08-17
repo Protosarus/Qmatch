@@ -12,6 +12,7 @@ import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../debug/debug_home_screen.dart';
+import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../services/account_deletion_request_service.dart';
 import 'about_screen.dart';
 import 'account_deletion_request_screen.dart';
@@ -19,8 +20,6 @@ import 'blocked_users_screen.dart';
 import 'help_support_screen.dart';
 import 'notifications_settings_screen.dart';
 import 'privacy_settings_screen.dart';
-import '../../iap/screens/resonance_paywall_screen.dart';
-import '../../iap/domain/resonance_paywall_feature.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({
@@ -29,6 +28,7 @@ class SettingsScreen extends StatefulWidget {
     this.animateBackground,
     this.deletionService,
     this.debugDeletionPending,
+    this.whoLikedYouEntry,
   });
 
   /// Test override: when non-null, forces Debug row visibility.
@@ -41,6 +41,9 @@ class SettingsScreen extends StatefulWidget {
 
   /// When non-null, skips Firestore and uses this pending flag (tests).
   final bool? debugDeletionPending;
+
+  /// UX routing for Resonance → Who Liked You. Tests inject a fake.
+  final WhoLikedYouEntry? whoLikedYouEntry;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -75,6 +78,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _deletionPending = pending;
       _deletionPendingLoaded = true;
     });
+  }
+
+  Future<void> _openResonance() async {
+    final entry = widget.whoLikedYouEntry ?? WhoLikedYouEntry();
+    await entry.openFromSettings(context);
   }
 
   Future<void> _openDeleteAccount() async {
@@ -196,16 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             icon: Icons.auto_awesome_outlined,
                             title: l10n.settingsResonance,
                             subtitle: l10n.settingsResonanceSubtitle,
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => const ResonancePaywallScreen(
-                                    feature: ResonancePaywallFeature
-                                        .settingsResonance,
-                                  ),
-                                ),
-                              );
-                            },
+                            onTap: _openResonance,
                           ),
                           QMatchSettingsTile(
                             key: const Key('qmatch-settings-notifications'),

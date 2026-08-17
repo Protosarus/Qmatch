@@ -1714,4 +1714,29 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get resonanceUnlockNotNow => 'Şimdi değil';
+
+  @override
+  String get whoLikedYouTitle => 'Seni beğenenler';
+
+  @override
+  String get whoLikedYouLoading => 'Seninle hizalananlar aranıyor…';
+
+  @override
+  String get whoLikedYouEmptyTitle => 'Henüz kimse seni beğenmedi';
+
+  @override
+  String get whoLikedYouEmptyBody => 'Biri seni Beğendiğinde burada görünecek.';
+
+  @override
+  String get whoLikedYouLockedTitle => 'Seni kim hizaladı';
+
+  @override
+  String get whoLikedYouLockedBody =>
+      'Biri seni Beğendiğinde Resonance onları görmeni sağlar — kimi eşleştireceğini değiştirmeden.';
+
+  @override
+  String get whoLikedYouErrorTitle => 'Seni beğenenler yüklenemedi';
+
+  @override
+  String get whoLikedYouErrorBody => 'Bir sorun oluştu. Lütfen tekrar dene.';
 }

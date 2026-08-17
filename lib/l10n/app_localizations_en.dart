@@ -1721,4 +1721,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resonanceUnlockNotNow => 'Not now';
+
+  @override
+  String get whoLikedYouTitle => 'Who liked you';
+
+  @override
+  String get whoLikedYouLoading => 'Looking for people who aligned with you…';
+
+  @override
+  String get whoLikedYouEmptyTitle => 'No one has liked you yet';
+
+  @override
+  String get whoLikedYouEmptyBody =>
+      'When someone Likes you, they\'ll appear here.';
+
+  @override
+  String get whoLikedYouLockedTitle => 'See who aligned with you';
+
+  @override
+  String get whoLikedYouLockedBody =>
+      'When someone Likes you, Resonance lets you see them — without changing who you match with.';
+
+  @override
+  String get whoLikedYouErrorTitle => 'Couldn\'t load Who liked you';
+
+  @override
+  String get whoLikedYouErrorBody => 'Something went wrong. Please try again.';
 }

@@ -693,5 +693,13 @@
   "resonancePaywallRestoring": "Restoring…",
   "resonancePaywallLegalNote": "Payment is charged to your Apple ID. Subscription renews automatically unless canceled at least 24 hours before the period ends. Entitlement is confirmed by QMatch after store verification — StoreKit success alone does not unlock Resonance.",
   "resonanceUnlockCta": "Unlock with Resonance",
-  "resonanceUnlockNotNow": "Not now"
+  "resonanceUnlockNotNow": "Not now",
+  "whoLikedYouTitle": "Who liked you",
+  "whoLikedYouLoading": "Looking for people who aligned with you…",
+  "whoLikedYouEmptyTitle": "No one has liked you yet",
+  "whoLikedYouEmptyBody": "When someone Likes you, they'll appear here.",
+  "whoLikedYouLockedTitle": "See who aligned with you",
+  "whoLikedYouLockedBody": "When someone Likes you, Resonance lets you see them — without changing who you match with.",
+  "whoLikedYouErrorTitle": "Couldn't load Who liked you",
+  "whoLikedYouErrorBody": "Something went wrong. Please try again."
 }
