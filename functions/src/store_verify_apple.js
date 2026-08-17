@@ -6,15 +6,27 @@
  * - AppStoreServerAPIClient.getTransactionInfo / getAllSubscriptionStatuses
  * - SignedDataVerifier.verifyAndDecodeTransaction
  *
+ * Dual-environment: Sandbox and Production clients/verifiers are built with
+ * the same `createDualAppleAssnClients` pattern as ASSN. Try one environment,
+ * then the other only on environment / verification mismatch.
+ *
  * No fake verification. Fail closed without config/API/JWS.
- * ASSN v2 not implemented here.
+ * Never grant unless JWS + App Store API verification succeeds.
  */
 
 'use strict';
 
-const { Status } = require('@apple/app-store-server-library');
+const {
+  Status,
+  Environment,
+  VerificationException,
+  VerificationStatus,
+} = require('@apple/app-store-server-library');
 const { loadAppleIapConfig } = require('./apple_iap_config');
-const { createAppleIapClients } = require('./apple_iap_clients');
+const {
+  createAppleIapClients,
+  createDualAppleAssnClients,
+} = require('./apple_iap_clients');
 const {
   mapAppleProduct,
   mapAppleSubscriptionStatus,
@@ -29,11 +41,19 @@ const {
   trustedVerifiedResult,
 } = require('./store_verification_result');
 
+/** Apple Get Transaction Info: txn exists in the other environment. */
+const APPLE_TRANSACTION_ID_NOT_FOUND = 4040010;
+/** Apple Get Transaction Info: original txn exists in the other environment. */
+const APPLE_ORIGINAL_TRANSACTION_ID_NOT_FOUND = 4040011;
+
 /**
  * @param {object} [opts]
  * @returns {boolean}
  */
 function hasAppleVerifier(opts = {}) {
+  if (hasDualAppleClients(opts)) {
+    return true;
+  }
   if (
     typeof opts.verifySignedTransaction === 'function' ||
     typeof opts.fetchTransactionInfo === 'function' ||
@@ -116,6 +136,108 @@ function pickSubscriptionStatus(statusResponse, productId) {
     if (last[0] && last[0].status != null) return last[0].status;
   }
   return null;
+}
+
+/**
+ * True when Apple rejected this environment (try the other one).
+ * Not used for invalid JWS, 5xx, or uid/product failures.
+ *
+ * @param {unknown} err
+ * @returns {boolean}
+ */
+function isAppleEnvironmentMismatchError(err) {
+  if (!err || typeof err !== 'object') return false;
+  if (
+    err instanceof VerificationException &&
+    err.status === VerificationStatus.INVALID_ENVIRONMENT
+  ) {
+    return true;
+  }
+  if (err.status === VerificationStatus.INVALID_ENVIRONMENT) {
+    return true;
+  }
+  const apiError = err.apiError != null ? err.apiError : err.errorCode;
+  if (
+    apiError === APPLE_TRANSACTION_ID_NOT_FOUND ||
+    apiError === APPLE_ORIGINAL_TRANSACTION_ID_NOT_FOUND
+  ) {
+    return true;
+  }
+  const msg = `${err.message || ''} ${apiError || ''} ${err.status || ''}`;
+  if (/INVALID_ENVIRONMENT/i.test(msg)) return true;
+  if (/4040010|4040011/.test(msg)) return true;
+  if (/TransactionIdNotFound/i.test(msg)) return true;
+  return false;
+}
+
+/**
+ * @param {object} [opts]
+ * @returns {boolean}
+ */
+function hasDualAppleClients(opts = {}) {
+  const dual = opts.dualAppleClients;
+  return !!(dual && dual.sandbox && dual.production);
+}
+
+/**
+ * @param {object} [opts]
+ * @returns {boolean}
+ */
+function hasSingleAppleInjectors(opts = {}) {
+  return !!(
+    (opts.apiClient && opts.signedDataVerifier) ||
+    typeof opts.verifySignedTransaction === 'function' ||
+    typeof opts.fetchTransactionInfo === 'function'
+  );
+}
+
+/**
+ * Dual Sandbox + Production clients, reusing the ASSN builder.
+ * Single injectors (tests / already-matched ASSN client) skip dual.
+ *
+ * @param {object} [opts]
+ * @returns {{ mode: 'dual', dual: object, preferredEnvironment?: object }|{ mode: 'single' }}
+ */
+function resolveDualApplePurchasePlan(opts = {}) {
+  // ASSN already-matched client / unit-test injectors stay single-env.
+  if (hasSingleAppleInjectors(opts)) {
+    return { mode: 'single' };
+  }
+  if (hasDualAppleClients(opts)) {
+    return {
+      mode: 'dual',
+      dual: opts.dualAppleClients,
+      preferredEnvironment: opts.preferredEnvironment || null,
+    };
+  }
+  const loaded = loadAppleIapConfig(opts.env || process.env);
+  if (!loaded.ok) {
+    return { mode: 'single' };
+  }
+  const built = createDualAppleAssnClients(loaded.config, opts);
+  if (!built.ok) {
+    return { mode: 'single' };
+  }
+  return {
+    mode: 'dual',
+    dual: built,
+    preferredEnvironment:
+      opts.preferredEnvironment || loaded.config.environment,
+  };
+}
+
+/**
+ * @param {object} dual
+ * @param {string|null} [preferredEnvironment]
+ * @returns {object[]}
+ */
+function dualEnvironmentOrder(dual, preferredEnvironment) {
+  const sandbox = dual.sandbox;
+  const production = dual.production;
+  if (preferredEnvironment === Environment.PRODUCTION) {
+    return [production, sandbox];
+  }
+  return [sandbox, production];
 }
 
 /**
@@ -321,44 +443,33 @@ async function fetchSubscriptionStatuses(originalTransactionId, helpers) {
 }
 
 /**
- * Verify an Apple purchase with official library (or injected test doubles).
+ * JWS + App Store API fetch on one environment. Does not map/grant.
  *
  * @param {object} input
- * @param {string} input.callerUid
- * @param {string} [input.signedTransaction]
- * @param {string} [input.transactionId]
- * @param {object} [opts]
- * @returns {Promise<Record<string, unknown>>}
+ * @param {object} helpers
+ * @returns {Promise<
+ *   | { status: 'ok', transaction: object }
+ *   | { status: 'mismatch', stage: string }
+ *   | { status: 'fail', result: Record<string, unknown> }
+ * >}
  */
-async function verifyApplePurchase(input, opts = {}) {
-  const callerUid = input && input.callerUid;
-  if (!callerUid) {
-    return failClosed('unauthenticated', { platform: 'ios' });
-  }
-
-  const resolved = resolveAppleHelpers(opts);
-  if (!resolved.ok) {
-    return resolved.result;
-  }
-  const helpers = resolved.helpers;
-
-  if (!input.signedTransaction && !input.transactionId) {
-    return failClosed('invalid_argument', { platform: 'ios' });
-  }
-
+async function tryVerifyAppleOnEnvironment(input, helpers) {
   let clientDecoded = null;
-  let transaction = null;
-
   try {
-    // Always verify client-supplied JWS if present (reject invalid JWS).
     if (input.signedTransaction) {
       try {
         clientDecoded = await verifyJwsTransaction(
           input.signedTransaction,
           helpers,
         );
-      } catch (_err) {
-        return failClosed('invalid_jws', { platform: 'ios' });
+      } catch (err) {
+        if (isAppleEnvironmentMismatchError(err)) {
+          return { status: 'mismatch', stage: 'jws' };
+        }
+        return {
+          status: 'fail',
+          result: failClosed('invalid_jws', { platform: 'ios' }),
+        };
       }
     }
 
@@ -368,14 +479,30 @@ async function verifyApplePurchase(input, opts = {}) {
         (clientDecoded.transactionId || clientDecoded.transaction_id));
 
     if (!transactionId) {
-      return failClosed('invalid_argument', { platform: 'ios' });
+      return {
+        status: 'fail',
+        result: failClosed('invalid_argument', { platform: 'ios' }),
+      };
     }
 
-    // Authoritative fetch from Apple API + JWS verify of response.
+    let transaction;
     try {
       transaction = await fetchAndVerifyTransactionInfo(transactionId, helpers);
-    } catch (_err) {
-      return failClosed('store_verification_failed', { platform: 'ios' });
+    } catch (err) {
+      if (isAppleEnvironmentMismatchError(err)) {
+        return { status: 'mismatch', stage: 'api' };
+      }
+      return {
+        status: 'fail',
+        result: failClosed('store_verification_failed', { platform: 'ios' }),
+      };
+    }
+
+    if (!transaction) {
+      return {
+        status: 'fail',
+        result: failClosed('store_verification_failed', { platform: 'ios' }),
+      };
     }
 
     if (
@@ -384,19 +511,38 @@ async function verifyApplePurchase(input, opts = {}) {
       transaction.transactionId &&
       String(clientDecoded.transactionId) !== String(transaction.transactionId)
     ) {
-      return failClosed('store_verification_failed', {
-        platform: 'ios',
-        reason: 'transaction_id_mismatch',
-      });
+      return {
+        status: 'fail',
+        result: failClosed('store_verification_failed', {
+          platform: 'ios',
+          reason: 'transaction_id_mismatch',
+        }),
+      };
     }
-  } catch (_err) {
-    return failClosed('store_verification_failed', { platform: 'ios' });
-  }
 
-  if (!transaction) {
-    return failClosed('store_verification_failed', { platform: 'ios' });
+    return { status: 'ok', transaction };
+  } catch (err) {
+    if (isAppleEnvironmentMismatchError(err)) {
+      return { status: 'mismatch', stage: 'unknown' };
+    }
+    return {
+      status: 'fail',
+      result: failClosed('store_verification_failed', { platform: 'ios' }),
+    };
   }
+}
 
+/**
+ * Map a successfully fetched Apple transaction (bundle/product/token/status).
+ * @param {object} args
+ * @returns {Promise<Record<string, unknown>>}
+ */
+async function finalizeAppleTransaction({
+  callerUid,
+  transaction,
+  helpers,
+  opts,
+}) {
   let subscriptionStatus = null;
   const mappedProduct = mapAppleProduct(
     transaction.productId || transaction.product_id,
@@ -411,30 +557,127 @@ async function verifyApplePurchase(input, opts = {}) {
       statusResponse,
       transaction.productId,
     );
-    // Map library Status constants if present on lastTransactions items.
     if (
       subscriptionStatus == null &&
       statusResponse &&
       Array.isArray(statusResponse.data)
     ) {
-      // Fallback: if only Status.ACTIVE style available via enum compare later.
       void Status;
     }
   }
 
-  return mapTrustedAppleTransaction({
+  const result = mapTrustedAppleTransaction({
     callerUid,
     transaction,
     requireBinding: opts.requireBinding !== false,
     subscriptionStatus,
   });
+  if (helpers && helpers.environment) {
+    result.apple_environment = helpers.environment;
+  }
+  if (helpers && helpers.apiHost) {
+    result.api_host = helpers.apiHost;
+  }
+  return result;
+}
+
+/**
+ * Try Sandbox then Production (or preferred first) only on env mismatch.
+ *
+ * @param {object} input
+ * @param {object} dual
+ * @param {object} opts
+ * @returns {Promise<Record<string, unknown>>}
+ */
+async function verifyApplePurchaseDual(input, dual, opts = {}) {
+  const order = dualEnvironmentOrder(
+    dual,
+    opts.preferredEnvironment || null,
+  );
+  for (const helpers of order) {
+    const attempt = await tryVerifyAppleOnEnvironment(input, helpers);
+    if (attempt.status === 'ok') {
+      return finalizeAppleTransaction({
+        callerUid: input.callerUid,
+        transaction: attempt.transaction,
+        helpers,
+        opts,
+      });
+    }
+    if (attempt.status === 'fail') {
+      return attempt.result;
+    }
+  }
+  return failClosed('store_verification_failed', {
+    platform: 'ios',
+    reason: 'environment_mismatch',
+  });
+}
+
+/**
+ * Verify an Apple purchase with official library (or injected test doubles).
+ *
+ * Dual-environment by default when dual clients can be built. Restore uses
+ * this same function. Entitlement is never granted here — only after
+ * isTrustedVerified + repository apply.
+ *
+ * @param {object} input
+ * @param {string} input.callerUid
+ * @param {string} [input.signedTransaction]
+ * @param {string} [input.transactionId]
+ * @param {object} [opts]
+ * @returns {Promise<Record<string, unknown>>}
+ */
+async function verifyApplePurchase(input, opts = {}) {
+  const callerUid = input && input.callerUid;
+  if (!callerUid) {
+    return failClosed('unauthenticated', { platform: 'ios' });
+  }
+
+  if (!input.signedTransaction && !input.transactionId) {
+    return failClosed('invalid_argument', { platform: 'ios' });
+  }
+
+  const plan = resolveDualApplePurchasePlan(opts);
+  if (plan.mode === 'dual') {
+    return verifyApplePurchaseDual(input, plan.dual, {
+      ...opts,
+      preferredEnvironment:
+        opts.preferredEnvironment || plan.preferredEnvironment || null,
+    });
+  }
+
+  const resolved = resolveAppleHelpers(opts);
+  if (!resolved.ok) {
+    return resolved.result;
+  }
+
+  const attempt = await tryVerifyAppleOnEnvironment(input, resolved.helpers);
+  if (attempt.status === 'ok') {
+    return finalizeAppleTransaction({
+      callerUid,
+      transaction: attempt.transaction,
+      helpers: resolved.helpers,
+      opts,
+    });
+  }
+  if (attempt.status === 'fail') {
+    return attempt.result;
+  }
+  return failClosed('store_verification_failed', { platform: 'ios' });
 }
 
 module.exports = {
+  APPLE_TRANSACTION_ID_NOT_FOUND,
+  APPLE_ORIGINAL_TRANSACTION_ID_NOT_FOUND,
   hasAppleVerifier,
+  hasDualAppleClients,
+  isAppleEnvironmentMismatchError,
   mapTrustedAppleTransaction,
   verifyApplePurchase,
   inferSubscriptionStateFromTransaction,
   pickSubscriptionStatus,
   resolveAppleHelpers,
+  resolveDualApplePurchasePlan,
+  tryVerifyAppleOnEnvironment,
 };
