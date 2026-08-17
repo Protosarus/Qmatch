@@ -16,6 +16,7 @@ import '../../../l10n/app_localizations.dart';
 import '../domain/qmatch_iap_product_ids.dart';
 import '../domain/resonance_paywall_feature.dart';
 import '../services/ios_iap_client.dart';
+import '../services/ios_iap_session.dart';
 import '../services/resonance_paywall_controller.dart';
 import '../services/resonance_paywall_iap_port.dart';
 import '../../settings/screens/legal_document_screen.dart';
@@ -58,7 +59,7 @@ class ResonancePaywallScreen extends StatefulWidget {
       MaterialPageRoute(
         builder: (_) => ResonancePaywallScreen(
           feature: feature,
-          iapClient: iapClient,
+          iapClient: iapClient ?? IosIapSession.instance.client,
         ),
       ),
     );
@@ -88,7 +89,7 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
       _controller = widget.controller!;
       _ownsController = false;
     } else {
-      final client = widget.iapClient ?? IosIapClient();
+      final client = widget.iapClient ?? IosIapSession.instance.client;
       _controller = ResonancePaywallController(
         iap: IosResonancePaywallIap(client),
         purchasesEnabled: _purchasesEnabled,

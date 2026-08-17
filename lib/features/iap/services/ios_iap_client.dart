@@ -66,6 +66,7 @@ class IosIapClient {
   final _pendingPurchases = <String, Completer<PurchaseDetails>>{};
   final _restoreBuffer = <PurchaseDetails>[];
   Completer<List<PurchaseDetails>>? _restoreCompleter;
+  final _inFlightRecovery = <String>{};
 
   bool get _isIos {
     if (_isIosOverride != null) return _isIosOverride!;
@@ -81,7 +82,8 @@ class IosIapClient {
 
   void _ensureIos() {
     if (!_isIos) {
-      throw IapPlatformDisabledException(kIsWeb ? 'web' : Platform.operatingSystem);
+      throw IapPlatformDisabledException(
+          kIsWeb ? 'web' : Platform.operatingSystem);
     }
   }
 
@@ -93,7 +95,9 @@ class IosIapClient {
     return uid;
   }
 
-  /// Start listening to StoreKit updates (call once after auth on iOS).
+  bool get isListening => _purchaseSub != null;
+
+  /// Start listening to StoreKit updates. Idempotent — one subscription.
   void startListening() {
     _ensureIos();
     _purchaseSub ??= _store.purchaseStream.listen(_onPurchaseUpdates);
@@ -102,12 +106,17 @@ class IosIapClient {
   Future<void> dispose() async {
     await _purchaseSub?.cancel();
     _purchaseSub = null;
+    _inFlightRecovery.clear();
+    _pendingPurchases.clear();
+    _restoreCompleter = null;
+    _restoreBuffer.clear();
   }
 
   void _onPurchaseUpdates(List<PurchaseDetails> purchases) {
     for (final purchase in purchases) {
       final completer = _pendingPurchases.remove(purchase.productID);
-      if (completer != null && !completer.isCompleted) {
+      final ownedByPaywallFlow = completer != null && !completer.isCompleted;
+      if (ownedByPaywallFlow) {
         completer.complete(purchase);
       }
 
@@ -116,6 +125,13 @@ class IosIapClient {
           (purchase.status == PurchaseStatus.restored ||
               purchase.status == PurchaseStatus.purchased)) {
         _restoreBuffer.add(purchase);
+        continue;
+      }
+
+      if (!ownedByPaywallFlow &&
+          (purchase.status == PurchaseStatus.purchased ||
+              purchase.status == PurchaseStatus.restored)) {
+        unawaited(_recoverUnfinished(purchase));
       }
     }
 
@@ -136,6 +152,86 @@ class IosIapClient {
           restoreWait.complete(List<PurchaseDetails>.from(_restoreBuffer));
         }
       });
+    }
+  }
+
+  String _recoveryKey(PurchaseDetails purchase) {
+    final txnId = purchase.purchaseID ?? '';
+    final signed = purchase.verificationData.serverVerificationData;
+    return '$txnId|$signed|${purchase.productID}';
+  }
+
+  /// Unfinished StoreKit txn with no active paywall purchase/restore.
+  ///
+  /// Verify → re-read trusted entitlement → complete only after verify.
+  /// Never grants access locally.
+  Future<void> _recoverUnfinished(PurchaseDetails purchase) async {
+    if (!QmatchIapProductIds.isKnownAppleProduct(purchase.productID)) {
+      return;
+    }
+    if (currentUid == null || currentUid!.isEmpty) {
+      return;
+    }
+    try {
+      await _settleVerifiedPurchase(purchase);
+    } catch (_) {
+      // Leave unfinished for a later session. Never complete or self-grant.
+    }
+  }
+
+  Future<IapClientResult> _settleVerifiedPurchase(
+    PurchaseDetails purchase,
+  ) async {
+    final uid = _requireUid();
+    final key = _recoveryKey(purchase);
+    if (!_inFlightRecovery.add(key)) {
+      throw IapPurchaseFailedException(
+        'Purchase is already being verified.',
+      );
+    }
+    try {
+      final signed = purchase.verificationData.serverVerificationData;
+      final txnId = purchase.purchaseID ?? '';
+      if (signed.isEmpty && txnId.isEmpty) {
+        throw IapVerificationFailedException(
+          code: 'missing_transaction_proof',
+          message: 'StoreKit returned no signed transaction or transaction id.',
+        );
+      }
+
+      Map<String, dynamic> backendResponse;
+      try {
+        backendResponse = await _backend.verifyAndApplyPurchase(
+          signedTransaction: signed,
+          transactionId: txnId,
+        );
+      } catch (e) {
+        throw IapVerificationFailedException(
+          code: 'verify_callable_failed',
+          message: e.toString(),
+        );
+      }
+
+      if (!IapBackendClient.isTrustedVerified(backendResponse)) {
+        throw IapVerificationFailedException(
+          code: (backendResponse['code'] as String?) ?? 'verification_failed',
+          message: (backendResponse['message'] as String?) ??
+              'Backend rejected purchase verification.',
+          response: backendResponse,
+        );
+      }
+
+      final entitlement = await _entitlements.fetch(uid);
+      if (purchase.pendingCompletePurchase) {
+        await _store.completePurchase(purchase);
+      }
+      return IapClientResult(
+        backendResponse: backendResponse,
+        entitlement: entitlement,
+        productId: purchase.productID,
+      );
+    } finally {
+      _inFlightRecovery.remove(key);
     }
   }
 
@@ -199,7 +295,8 @@ class IosIapClient {
 
     if (!initiated) {
       _pendingPurchases.remove(productId);
-      throw IapPurchaseFailedException('StoreKit rejected purchase initiation.');
+      throw IapPurchaseFailedException(
+          'StoreKit rejected purchase initiation.');
     }
 
     late final PurchaseDetails purchase;
@@ -207,7 +304,8 @@ class IosIapClient {
       purchase = await completer.future.timeout(_purchaseTimeout);
     } on TimeoutException {
       _pendingPurchases.remove(productId);
-      throw IapPurchaseFailedException('Timed out waiting for StoreKit update.');
+      throw IapPurchaseFailedException(
+          'Timed out waiting for StoreKit update.');
     }
 
     if (purchase.status == PurchaseStatus.canceled) {
@@ -227,47 +325,7 @@ class IosIapClient {
     }
 
     // NEVER grant from StoreKit alone — verify with trusted backend.
-    final signed = purchase.verificationData.serverVerificationData;
-    final txnId = purchase.purchaseID ?? '';
-    if (signed.isEmpty && txnId.isEmpty) {
-      throw IapVerificationFailedException(
-        code: 'missing_transaction_proof',
-        message: 'StoreKit returned no signed transaction or transaction id.',
-      );
-    }
-
-    Map<String, dynamic> backendResponse;
-    try {
-      backendResponse = await _backend.verifyAndApplyPurchase(
-        signedTransaction: signed,
-        transactionId: txnId,
-      );
-    } catch (e) {
-      throw IapVerificationFailedException(
-        code: 'verify_callable_failed',
-        message: e.toString(),
-      );
-    }
-
-    if (!IapBackendClient.isTrustedVerified(backendResponse)) {
-      throw IapVerificationFailedException(
-        code: (backendResponse['code'] as String?) ?? 'verification_failed',
-        message: (backendResponse['message'] as String?) ??
-            'Backend rejected purchase verification.',
-        response: backendResponse,
-      );
-    }
-
-    if (purchase.pendingCompletePurchase) {
-      await _store.completePurchase(purchase);
-    }
-
-    final entitlement = await _entitlements.fetch(uid);
-    return IapClientResult(
-      backendResponse: backendResponse,
-      entitlement: entitlement,
-      productId: productId,
-    );
+    return _settleVerifiedPurchase(purchase);
   }
 
   /// Restore Purchases → collect StoreKit txns → `restorePurchases` callable.

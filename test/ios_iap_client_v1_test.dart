@@ -128,8 +128,7 @@ void main() {
     IosIapClient buildClient({
       String? uid = 'uid-1',
       bool isIos = true,
-      Future<Map<String, dynamic>> Function(String, Map<String, dynamic>)?
-          call,
+      Future<Map<String, dynamic>> Function(String, Map<String, dynamic>)? call,
     }) {
       return IosIapClient(
         store: store,
@@ -143,8 +142,7 @@ void main() {
                   tier: entitlementState.tier,
                   subscriptionState: entitlementState.subscriptionState,
                   resonanceAccess: entitlementState.resonanceAccess,
-                  superResonanceBalance:
-                      entitlementState.superResonanceBalance,
+                  superResonanceBalance: entitlementState.superResonanceBalance,
                   boostBalance: entitlementState.boostBalance,
                 ),
         ),
@@ -297,8 +295,7 @@ void main() {
       );
 
       final client = buildClient();
-      final result =
-          await client.purchase(QmatchIapProductIds.resonanceAnnual);
+      final result = await client.purchase(QmatchIapProductIds.resonanceAnnual);
 
       expect(result.backendResponse['trusted'], isTrue);
       expect(result.entitlement.resonanceAccess, isFalse);
@@ -398,6 +395,159 @@ void main() {
       expect(store.lastBuyMode, 'consumable');
       expect(store.lastAutoConsume, isFalse);
     });
+
+    test('startListening is idempotent — one StoreKit subscription', () {
+      final client = buildClient();
+      client.startListening();
+      client.startListening();
+      expect(client.isListening, isTrue);
+      expect(store.listenCount, 1);
+    });
+
+    test(
+        'unfinished purchased txn verifies, rereads entitlement, then completes',
+        () async {
+      entitlementState = const EntitlementSnapshot(
+        uid: 'uid-1',
+        tier: 'resonance',
+        subscriptionState: 'active',
+        resonanceAccess: true,
+        superResonanceBalance: 0,
+        boostBalance: 0,
+      );
+      final client = buildClient();
+      client.startListening();
+
+      store.emit([
+        _purchase(
+          productId: QmatchIapProductIds.resonanceAnnual,
+          status: PurchaseStatus.purchased,
+          signed: 'jws-unfinished',
+          purchaseId: 'txn-unfinished',
+          pendingComplete: true,
+        ),
+      ]);
+      await Future<void>.delayed(Duration.zero);
+
+      expect(verifyCalls, hasLength(1));
+      expect(verifyCalls.single['signedTransaction'], 'jws-unfinished');
+      expect(verifyCalls.single['transactionId'], 'txn-unfinished');
+      expect(restoreCalls, isEmpty);
+      expect(store.completedPurchaseIds, ['txn-unfinished']);
+    });
+
+    test('unfinished restored txn uses verifyAndApplyPurchase not restore',
+        () async {
+      final client = buildClient();
+      client.startListening();
+      store.emit([
+        _purchase(
+          productId: QmatchIapProductIds.resonanceMonthly,
+          status: PurchaseStatus.restored,
+          signed: 'jws-orphaned-restore',
+          purchaseId: 'txn-orphaned',
+          pendingComplete: true,
+        ),
+      ]);
+      await Future<void>.delayed(Duration.zero);
+
+      expect(verifyCalls, hasLength(1));
+      expect(restoreCalls, isEmpty);
+      expect(store.completedPurchaseIds, ['txn-orphaned']);
+    });
+
+    test('unfinished verify failure does not completePurchase or self-grant',
+        () async {
+      final client = buildClient(
+        call: (name, data) async {
+          verifyCalls.add(data);
+          return {
+            'ok': false,
+            'trusted': false,
+            'verified': false,
+            'code': 'verification_failed',
+            'resonance_access': true,
+          };
+        },
+      );
+      client.startListening();
+      store.emit([
+        _purchase(
+          productId: QmatchIapProductIds.resonanceMonthly,
+          status: PurchaseStatus.purchased,
+          signed: 'jws-bad',
+          purchaseId: 'txn-bad',
+          pendingComplete: true,
+        ),
+      ]);
+      await Future<void>.delayed(Duration.zero);
+
+      expect(verifyCalls, hasLength(1));
+      expect(store.completedPurchaseIds, isEmpty);
+      expect(entitlementState.resonanceAccess, isFalse);
+    });
+
+    test('duplicate unfinished events do not double-verify', () async {
+      final started = Completer<void>();
+      final release = Completer<void>();
+      final client = buildClient(
+        call: (name, data) async {
+          verifyCalls.add(data);
+          started.complete();
+          await release.future;
+          return {
+            'ok': true,
+            'trusted': true,
+            'verified': true,
+          };
+        },
+      );
+      client.startListening();
+      final unfinished = _purchase(
+        productId: QmatchIapProductIds.resonanceMonthly,
+        status: PurchaseStatus.purchased,
+        signed: 'jws-dup',
+        purchaseId: 'txn-dup',
+        pendingComplete: true,
+      );
+      store.emit([unfinished]);
+      await started.future;
+      store.emit([unfinished]);
+      await Future<void>.delayed(Duration.zero);
+      expect(verifyCalls, hasLength(1));
+      release.complete();
+      await Future<void>.delayed(Duration.zero);
+      expect(verifyCalls, hasLength(1));
+      expect(store.completedPurchaseIds, ['txn-dup']);
+    });
+
+    test(
+        'unfinished recovery never grants from StoreKit if entitlement is free',
+        () async {
+      entitlementState = const EntitlementSnapshot(
+        uid: 'uid-1',
+        tier: 'free',
+        subscriptionState: 'none',
+        resonanceAccess: false,
+        superResonanceBalance: 0,
+        boostBalance: 0,
+      );
+      final client = buildClient();
+      client.startListening();
+      store.emit([
+        _purchase(
+          productId: QmatchIapProductIds.resonanceAnnual,
+          status: PurchaseStatus.purchased,
+          signed: 'jws-lag',
+          purchaseId: 'txn-lag',
+          pendingComplete: true,
+        ),
+      ]);
+      await Future<void>.delayed(Duration.zero);
+      expect(verifyCalls, hasLength(1));
+      expect(store.completedPurchaseIds, ['txn-lag']);
+      expect(entitlementState.resonanceAccess, isFalse);
+    });
   });
 }
 
@@ -443,9 +593,15 @@ class FakeIapStore implements IapStorePort {
   String? lastBuyMode;
   bool? lastAutoConsume;
   final completedPurchaseIds = <String>[];
+  int listenCount = 0;
+
+  void emit(List<PurchaseDetails> purchases) => _controller.add(purchases);
 
   @override
-  Stream<List<PurchaseDetails>> get purchaseStream => _controller.stream;
+  Stream<List<PurchaseDetails>> get purchaseStream {
+    listenCount++;
+    return _controller.stream;
+  }
 
   @override
   Future<bool> isAvailable() async => true;
@@ -458,9 +614,8 @@ class FakeIapStore implements IapStorePort {
       productDetails: products
           .where((p) => identifiers.contains(p.id))
           .toList(growable: false),
-      notFoundIDs: identifiers
-          .where((id) => products.every((p) => p.id != id))
-          .toList(),
+      notFoundIDs:
+          identifiers.where((id) => products.every((p) => p.id != id)).toList(),
     );
   }
 

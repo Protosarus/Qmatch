@@ -5,6 +5,7 @@ import '../../features/assessment/services/assessment_cold_start_pending_reconci
 import '../../features/auth/screens/welcome_screen.dart';
 import '../../features/profile/screens/display_name_completion_screen.dart';
 import '../../features/profile/services/display_name_service.dart';
+import '../../features/iap/widgets/ios_iap_session_host.dart';
 import '../services/auth_service.dart';
 import 'assessment_progress_route_gate.dart';
 import 'auth_routing_refresh.dart';
@@ -42,34 +43,37 @@ class AuthWrapper extends StatelessWidget {
 
             final user = snapshot.data!;
 
-            return FutureBuilder<void>(
-              future: AuthService().ensureUserDocumentExists(),
-              builder: (context, ensureSnap) {
-                if (ensureSnap.connectionState == ConnectionState.waiting) {
-                  return const AuthAssessmentLoadingScaffold();
-                }
+            return IosIapSessionHost(
+              key: ValueKey('qmatch-iap-session-${user.uid}'),
+              child: FutureBuilder<void>(
+                future: AuthService().ensureUserDocumentExists(),
+                builder: (context, ensureSnap) {
+                  if (ensureSnap.connectionState == ConnectionState.waiting) {
+                    return const AuthAssessmentLoadingScaffold();
+                  }
 
-                return FutureBuilder<bool>(
-                  future: DisplayNameService()
-                      .hasValidCanonicalDisplayName(user.uid),
-                  builder: (context, nameSnap) {
-                    if (nameSnap.connectionState == ConnectionState.waiting) {
-                      return const AuthAssessmentLoadingScaffold();
-                    }
+                  return FutureBuilder<bool>(
+                    future: DisplayNameService()
+                        .hasValidCanonicalDisplayName(user.uid),
+                    builder: (context, nameSnap) {
+                      if (nameSnap.connectionState == ConnectionState.waiting) {
+                        return const AuthAssessmentLoadingScaffold();
+                      }
 
-                    if (nameSnap.data != true) {
-                      return const DisplayNameCompletionScreen();
-                    }
+                      if (nameSnap.data != true) {
+                        return const DisplayNameCompletionScreen();
+                      }
 
-                    return AssessmentProgressRouteGate(
-                      uid: user.uid,
-                      refreshToken: refreshToken,
-                      resolveRoute: resolveAssessmentRoute,
-                      buildDestination: buildAssessmentDestinationOverride,
-                    );
-                  },
-                );
-              },
+                      return AssessmentProgressRouteGate(
+                        uid: user.uid,
+                        refreshToken: refreshToken,
+                        resolveRoute: resolveAssessmentRoute,
+                        buildDestination: buildAssessmentDestinationOverride,
+                      );
+                    },
+                  );
+                },
+              ),
             );
           },
         );
