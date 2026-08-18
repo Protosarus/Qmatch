@@ -250,6 +250,32 @@ describe('listWhoLikedYou callable', () => {
     );
   });
 
+  it('failed liker lookup is omitted and does not expose the person', async () => {
+    const db = new MemoryFirestore();
+    await seedEntitledViewer(db);
+    await seedInboundLike(db, 'liker_ok', 'viewer', 200, { name: 'Ok' });
+    await seedInboundLike(db, 'liker_boom', 'viewer', 100, { name: 'Boom' });
+    const realDoc = db.doc.bind(db);
+    db.doc = (path) => {
+      if (path === 'users/liker_boom') {
+        return {
+          get: async () => {
+            throw new Error('unavailable');
+          },
+        };
+      }
+      return realDoc(path);
+    };
+    const res = await handleListWhoLikedYou(request('viewer'), { db });
+    assert.strictEqual(res.resonance_access, true);
+    assert.strictEqual(res.items.length, 1);
+    assert.strictEqual(res.items[0].uid, 'liker_ok');
+    assert.strictEqual(
+      res.items.some((item) => item.uid === 'liker_boom'),
+      false,
+    );
+  });
+
   it('toPublicCard never copies sensitive fields', () => {
     const card = toPublicCard('u1', {
       name: 'Ada',

@@ -285,6 +285,31 @@ describe('listSuperResonanceInbox callable', () => {
     );
   });
 
+  it('failed sender lookup is omitted and does not expose the person', async () => {
+    const db = new MemoryFirestore();
+    await seedViewer(db);
+    await seedSignal(db, 'sender_ok', 'viewer', 200, { name: 'Ok' });
+    await seedSignal(db, 'sender_boom', 'viewer', 100, { name: 'Boom' });
+    const realDoc = db.doc.bind(db);
+    db.doc = (path) => {
+      if (path === 'users/sender_boom') {
+        return {
+          get: async () => {
+            throw new Error('unavailable');
+          },
+        };
+      }
+      return realDoc(path);
+    };
+    const res = await handleListSuperResonanceInbox(request('viewer'), { db });
+    assert.strictEqual(res.items.length, 1);
+    assert.strictEqual(res.items[0].uid, 'sender_ok');
+    assert.strictEqual(
+      res.items.some((item) => item.uid === 'sender_boom'),
+      false,
+    );
+  });
+
   it('never leaks private fields', async () => {
     const db = new MemoryFirestore();
     await seedViewer(db);

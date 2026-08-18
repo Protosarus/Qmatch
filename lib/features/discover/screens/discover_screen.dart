@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/firestore_paths.dart';
@@ -176,7 +179,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       _likeDispatchedUids.clear();
     });
     try {
-      final list = await _discoverService.getCandidates(limit: 30);
+      final list = await QmatchPerf.trace(
+        'discover.first_card',
+        () => _discoverService.getCandidates(limit: 30),
+      );
       if (!mounted) return;
       setState(() {
         _candidates = list;
@@ -186,6 +192,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         _isLoading = false;
         _hasError = false;
       });
+      _precacheUpcomingCandidatePhotos();
       await _syncFirstUseGuidanceFromStore();
     } catch (e, st) {
       debugPrint('Discover load failed: $e\n$st');
@@ -217,6 +224,20 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       _currentIndex++;
       _swipeFeedback = 0;
     });
+    _precacheUpcomingCandidatePhotos();
+  }
+
+  /// Warm the next 1–2 card photos only. Never the whole deck.
+  void _precacheUpcomingCandidatePhotos() {
+    if (!mounted) return;
+    final ctx = context;
+    for (var i = 1; i <= 2; i++) {
+      final idx = _currentIndex + i;
+      if (idx < 0 || idx >= _candidates.length) break;
+      final url = _candidates[idx].primaryPhotoUrl?.trim();
+      if (url == null || url.isEmpty) continue;
+      precacheImage(NetworkImage(url), ctx).ignore();
+    }
   }
 
   void _onSwipeFeedback(double value) {

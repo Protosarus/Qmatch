@@ -311,10 +311,12 @@ class AuthService {
     }
   }
 
-  // Kullanıcı dokümanının var olduğundan emin ol
-  Future<void> ensureUserDocumentExists() async {
+  // Kullanıcı dokümanının var olduğundan emin ol.
+  // Returns the existing user map (or a name-only map after create) so the
+  // auth gate can skip a second `users/{uid}` GET.
+  Future<Map<String, dynamic>?> ensureUserDocumentExists() async {
     final user = _auth.currentUser;
-    if (user == null) return;
+    if (user == null) return null;
 
     final doc = await _firestore.collection('users').doc(user.uid).get();
     if (!doc.exists) {
@@ -328,8 +330,12 @@ class AuthService {
           email: user.email ?? '',
         );
       }
-    } else {
-      // Keep last active fresh without overwriting onboarding fields.
+      final seededName = user.displayName?.trim() ?? '';
+      if (seededName.isEmpty) return <String, dynamic>{};
+      return <String, dynamic>{'name': seededName};
+    }
+    // Keep last active fresh without overwriting onboarding fields.
+    try {
       await _firestore.collection('users').doc(user.uid).set(
         {
           'updated_at': FieldValue.serverTimestamp(),
@@ -337,7 +343,10 @@ class AuthService {
         },
         SetOptions(merge: true),
       );
+    } catch (e) {
+      debugPrint('Error updating last_active: $e');
     }
+    return doc.data();
   }
 
   // Kullanıcı test durumunu kontrol et.

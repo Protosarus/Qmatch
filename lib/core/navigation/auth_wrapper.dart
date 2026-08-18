@@ -10,7 +10,7 @@ import '../services/auth_service.dart';
 import 'assessment_progress_route_gate.dart';
 import 'auth_routing_refresh.dart';
 
-class AuthWrapper extends StatelessWidget {
+class AuthWrapper extends StatefulWidget {
   const AuthWrapper({
     super.key,
     this.resolveAssessmentRoute,
@@ -26,6 +26,40 @@ class AuthWrapper extends StatelessWidget {
       buildAssessmentDestinationOverride;
 
   @override
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  String? _startupUid;
+  int? _startupTick;
+  Future<_AuthStartup>? _startupFuture;
+
+  void _clearStartupCache() {
+    _startupUid = null;
+    _startupTick = null;
+    _startupFuture = null;
+  }
+
+  Future<_AuthStartup> _startupFor(String uid, int refreshToken) {
+    if (_startupFuture != null &&
+        _startupUid == uid &&
+        _startupTick == refreshToken) {
+      return _startupFuture!;
+    }
+    _startupUid = uid;
+    _startupTick = refreshToken;
+    _startupFuture = _runStartup(uid);
+    return _startupFuture!;
+  }
+
+  Future<_AuthStartup> _runStartup(String uid) async {
+    final userDoc = await AuthService().ensureUserDocumentExists();
+    final nameOk =
+        DisplayNameService.isValidCanonicalDisplayNameFromMap(userDoc);
+    return _AuthStartup(userDoc: userDoc, hasValidDisplayName: nameOk);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<int>(
       valueListenable: AuthRoutingRefresh.tick,
@@ -38,6 +72,7 @@ class AuthWrapper extends StatelessWidget {
             }
 
             if (!snapshot.hasData || snapshot.data == null) {
+              _clearStartupCache();
               return const WelcomeScreen();
             }
 
@@ -45,32 +80,32 @@ class AuthWrapper extends StatelessWidget {
 
             return IosIapSessionHost(
               key: ValueKey('qmatch-iap-session-${user.uid}'),
-              child: FutureBuilder<void>(
-                future: AuthService().ensureUserDocumentExists(),
+              child: FutureBuilder<_AuthStartup>(
+                future: _startupFor(user.uid, refreshToken),
                 builder: (context, ensureSnap) {
                   if (ensureSnap.connectionState == ConnectionState.waiting) {
                     return const AuthAssessmentLoadingScaffold();
                   }
 
-                  return FutureBuilder<bool>(
-                    future: DisplayNameService()
-                        .hasValidCanonicalDisplayName(user.uid),
-                    builder: (context, nameSnap) {
-                      if (nameSnap.connectionState == ConnectionState.waiting) {
-                        return const AuthAssessmentLoadingScaffold();
-                      }
+                  if (ensureSnap.hasError) {
+                    return AuthAssessmentProgressErrorScaffold(
+                      onRetry: () {
+                        setState(_clearStartupCache);
+                      },
+                    );
+                  }
 
-                      if (nameSnap.data != true) {
-                        return const DisplayNameCompletionScreen();
-                      }
+                  final startup = ensureSnap.data;
+                  if (startup == null || !startup.hasValidDisplayName) {
+                    return const DisplayNameCompletionScreen();
+                  }
 
-                      return AssessmentProgressRouteGate(
-                        uid: user.uid,
-                        refreshToken: refreshToken,
-                        resolveRoute: resolveAssessmentRoute,
-                        buildDestination: buildAssessmentDestinationOverride,
-                      );
-                    },
+                  return AssessmentProgressRouteGate(
+                    uid: user.uid,
+                    refreshToken: refreshToken,
+                    initialUserDoc: startup.userDoc,
+                    resolveRoute: widget.resolveAssessmentRoute,
+                    buildDestination: widget.buildAssessmentDestinationOverride,
                   );
                 },
               ),
@@ -80,4 +115,14 @@ class AuthWrapper extends StatelessWidget {
       },
     );
   }
+}
+
+class _AuthStartup {
+  const _AuthStartup({
+    required this.userDoc,
+    required this.hasValidDisplayName,
+  });
+
+  final Map<String, dynamic>? userDoc;
+  final bool hasValidDisplayName;
 }

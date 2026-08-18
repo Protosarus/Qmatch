@@ -9,6 +9,10 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const {
+  DEFAULT_CONCURRENCY,
+  mapWithConcurrency,
+} = require('./bounded_map');
 const { normalizeSnapshot } = require('./entitlement_access');
 const {
   isValidLiveUser,
@@ -188,41 +192,52 @@ async function handleListWhoLikedYou(request, deps = {}) {
     likerUids.push(likerUid);
   }
 
+  const maybeItems = await mapWithConcurrency(
+    likerUids,
+    DEFAULT_CONCURRENCY,
+    async (likerUid) => {
+      try {
+        const matchId = deterministicMatchId(viewerUid, likerUid);
+        const [
+          likerSnap,
+          viewerSwipeSnap,
+          matchSnap,
+          viewerBlockSnap,
+          reverseBlockSnap,
+        ] = await Promise.all([
+          db.doc(`users/${likerUid}`).get(),
+          db.doc(`users/${viewerUid}/swipes/${likerUid}`).get(),
+          db.doc(`matches/${matchId}`).get(),
+          db.doc(`users/${viewerUid}/blocks/${likerUid}`).get(),
+          db.doc(`users/${likerUid}/blocks/${viewerUid}`).get(),
+        ]);
+
+        const likerData =
+          likerSnap && likerSnap.exists ? likerSnap.data() : null;
+        if (
+          !shouldIncludeLiker({
+            likerUid,
+            viewerUid,
+            likerExists: !!(likerSnap && likerSnap.exists),
+            likerData,
+            viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
+            matchExists: !!(matchSnap && matchSnap.exists),
+            viewerBlockedLiker: !!(viewerBlockSnap && viewerBlockSnap.exists),
+            likerBlockedViewer: !!(reverseBlockSnap && reverseBlockSnap.exists),
+          })
+        ) {
+          return null;
+        }
+
+        return toPublicCard(likerUid, likerData);
+      } catch (_) {
+        return null;
+      }
+    },
+  );
+
   const items = [];
-  for (const likerUid of likerUids) {
-    const matchId = deterministicMatchId(viewerUid, likerUid);
-    const [
-      likerSnap,
-      viewerSwipeSnap,
-      matchSnap,
-      viewerBlockSnap,
-      reverseBlockSnap,
-    ] = await Promise.all([
-      db.doc(`users/${likerUid}`).get(),
-      db.doc(`users/${viewerUid}/swipes/${likerUid}`).get(),
-      db.doc(`matches/${matchId}`).get(),
-      db.doc(`users/${viewerUid}/blocks/${likerUid}`).get(),
-      db.doc(`users/${likerUid}/blocks/${viewerUid}`).get(),
-    ]);
-
-    const likerData =
-      likerSnap && likerSnap.exists ? likerSnap.data() : null;
-    if (
-      !shouldIncludeLiker({
-        likerUid,
-        viewerUid,
-        likerExists: !!(likerSnap && likerSnap.exists),
-        likerData,
-        viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
-        matchExists: !!(matchSnap && matchSnap.exists),
-        viewerBlockedLiker: !!(viewerBlockSnap && viewerBlockSnap.exists),
-        likerBlockedViewer: !!(reverseBlockSnap && reverseBlockSnap.exists),
-      })
-    ) {
-      continue;
-    }
-
-    const card = toPublicCard(likerUid, likerData);
+  for (const card of maybeItems) {
     if (card) items.push(card);
   }
 

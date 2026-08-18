@@ -109,7 +109,7 @@ class AssessmentResultFrame extends StatelessWidget {
                         displayTitle,
                         maxLines: 1,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.cinzel(
+                        style: GoogleFonts.playfairDisplay(
                           color: const Color(0xFFFFD967),
                           fontSize: 27 * scale,
                           fontWeight: FontWeight.w600,

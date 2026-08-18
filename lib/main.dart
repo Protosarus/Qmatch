@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 import 'core/navigation/auth_wrapper.dart';
 import 'core/theme/app_theme.dart';
@@ -11,6 +12,9 @@ import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Inter / Playfair are bundled under test/fonts/google_fonts/.
+  // First paint must not wait on fonts.google.com.
+  GoogleFonts.config.allowRuntimeFetching = false;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -44,8 +48,7 @@ class MyApp extends StatelessWidget {
       routes: {
         if (kDebugMode) ...{
           DebugHomeScreen.routeName: (_) => const DebugHomeScreen(),
-          AssessmentAdminScreen.routeName: (_) =>
-              const AssessmentAdminScreen(),
+          AssessmentAdminScreen.routeName: (_) => const AssessmentAdminScreen(),
         },
       },
     );

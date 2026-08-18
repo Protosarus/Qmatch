@@ -125,9 +125,25 @@ class DiscoverService {
     }
     final currentUid = me.uid;
 
-    final meDoc = await FirestorePaths.userDoc(currentUid).get();
+    // Prefer discover_eligible to avoid composite index needs.
+    // TODO: Backfill discover_eligible for existing users if needed.
+    final batchSize = (limit * 3).clamp(30, 120);
+    final started = await Future.wait<Object?>([
+      FirestorePaths.userDoc(currentUid).get(),
+      _swipeService.getMySwipedUserIds(),
+      _loadBlockedByMe(),
+      FirestorePaths.users()
+          .where('discover_eligible', isEqualTo: true)
+          .limit(batchSize)
+          .get(),
+    ]);
+
+    final meDoc = started[0] as DocumentSnapshot<Map<String, dynamic>>;
     final meData =
         Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
+    final swiped = started[1] as Set<String>;
+    final blockedByMe = started[2] as Set<String>;
+    final snapshot = started[3] as QuerySnapshot<Map<String, dynamic>>;
 
     final attachLegacyUi = _rankingMode.usesLegacyCompatibilityScoring;
     final needLegacyCompat = attachLegacyUi || _stageB2Collector.enabled;
@@ -137,22 +153,6 @@ class DiscoverService {
         currentUid: currentUid,
       );
     }
-
-    final swiped = await _swipeService.getMySwipedUserIds();
-    Set<String> blockedByMe;
-    try {
-      blockedByMe = await _safetyService.getMyBlockedUserIds();
-    } catch (_) {
-      blockedByMe = <String>{};
-    }
-
-    // Prefer discover_eligible to avoid composite index needs.
-    // TODO: Backfill discover_eligible for existing users if needed.
-    final batchSize = (limit * 3).clamp(30, 120);
-    final snapshot = await FirestorePaths.users()
-        .where('discover_eligible', isEqualTo: true)
-        .limit(batchSize)
-        .get();
 
     final out = <DiscoverUserModel>[];
     // Raw user-doc maps for post-rank L3 soft preference shadow only.
@@ -463,6 +463,14 @@ class DiscoverService {
       if (wantStageB2) {
         _stageB2Collector.reset();
       }
+    }
+  }
+
+  Future<Set<String>> _loadBlockedByMe() async {
+    try {
+      return await _safetyService.getMyBlockedUserIds();
+    } catch (_) {
+      return <String>{};
     }
   }
 

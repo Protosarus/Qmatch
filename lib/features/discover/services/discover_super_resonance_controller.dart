@@ -1,3 +1,4 @@
+import '../../../core/debug/qmatch_perf.dart';
 import '../../iap/domain/qmatch_iap_product_ids.dart';
 import '../../iap/services/entitlement_repository.dart';
 import '../../iap/services/ios_iap_client.dart';
@@ -55,40 +56,42 @@ class DiscoverSuperResonanceController {
   }
 
   /// Trusted availability. Fail-closed daily remaining if the callable fails.
-  Future<SuperResonanceAvailability> readTrustedAvailability() async {
-    final customAvailability = _readAvailabilityOverride;
-    if (customAvailability != null) {
-      try {
-        return _clampAvailability(await customAvailability());
-      } catch (_) {
-        return SuperResonanceAvailability.empty;
+  Future<SuperResonanceAvailability> readTrustedAvailability() {
+    return QmatchPerf.trace('super_resonance.availability', () async {
+      final customAvailability = _readAvailabilityOverride;
+      if (customAvailability != null) {
+        try {
+          return _clampAvailability(await customAvailability());
+        } catch (_) {
+          return SuperResonanceAvailability.empty;
+        }
       }
-    }
-    final customBalance = _readBalanceOverride;
-    if (customBalance != null) {
+      final customBalance = _readBalanceOverride;
+      if (customBalance != null) {
+        try {
+          final purchased = _clampBalance(await customBalance());
+          return SuperResonanceAvailability(
+            dailyRemaining: 0,
+            dailyLimit: 0,
+            purchasedBalance: purchased,
+            totalAvailable: purchased,
+          );
+        } catch (_) {
+          return SuperResonanceAvailability.empty;
+        }
+      }
       try {
-        final purchased = _clampBalance(await customBalance());
+        return _clampAvailability(await _sendClient.availability());
+      } catch (_) {
+        final purchased = await _readPurchasedBalance();
         return SuperResonanceAvailability(
           dailyRemaining: 0,
           dailyLimit: 0,
           purchasedBalance: purchased,
           totalAvailable: purchased,
         );
-      } catch (_) {
-        return SuperResonanceAvailability.empty;
       }
-    }
-    try {
-      return _clampAvailability(await _sendClient.availability());
-    } catch (_) {
-      final purchased = await _readPurchasedBalance();
-      return SuperResonanceAvailability(
-        dailyRemaining: 0,
-        dailyLimit: 0,
-        purchasedBalance: purchased,
-        totalAvailable: purchased,
-      );
-    }
+    });
   }
 
   Future<int> _readPurchasedBalance() async {

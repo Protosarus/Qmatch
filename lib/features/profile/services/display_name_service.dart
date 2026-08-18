@@ -35,13 +35,17 @@ class DisplayNameService implements DisplayNameStore {
     return resolved.displayName;
   }
 
+  /// Same write-path validation as [hasValidCanonicalDisplayName], no GET.
+  static bool isValidCanonicalDisplayNameFromMap(Map<String, dynamic>? data) {
+    final raw = data?[DisplayNameContract.firestoreField];
+    final rawName = raw is String ? raw : (raw?.toString() ?? '');
+    return DisplayNameValidator.validate(rawName).isValid;
+  }
+
   @override
   Future<bool> hasValidCanonicalDisplayName(String uid) async {
     final snap = await _userRef(uid).get();
-    final raw = snap.data()?[DisplayNameContract.firestoreField];
-    final rawName = raw is String ? raw : (raw?.toString() ?? '');
-    // Gate uses write-path validation (2–24 graphemes), not display coercion.
-    return DisplayNameValidator.validate(rawName).isValid;
+    return isValidCanonicalDisplayNameFromMap(snap.data());
   }
 
   @override

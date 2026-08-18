@@ -10,6 +10,10 @@
 
 const { HttpsError } = require('firebase-functions/v2/https');
 const {
+  DEFAULT_CONCURRENCY,
+  mapWithConcurrency,
+} = require('./bounded_map');
+const {
   isValidLiveUser,
   deterministicMatchId,
 } = require('./like_match_atomicity');
@@ -195,45 +199,56 @@ async function handleListSuperResonanceInbox(request, deps = {}) {
     });
   }
 
+  const maybeItems = await mapWithConcurrency(
+    senders,
+    DEFAULT_CONCURRENCY,
+    async (row) => {
+      try {
+        const { senderUid, createdAt } = row;
+        const matchId = deterministicMatchId(viewerUid, senderUid);
+        const [
+          senderSnap,
+          viewerSwipeSnap,
+          senderSwipeSnap,
+          matchSnap,
+          viewerBlockSnap,
+          reverseBlockSnap,
+        ] = await Promise.all([
+          db.doc(`users/${senderUid}`).get(),
+          db.doc(`users/${viewerUid}/swipes/${senderUid}`).get(),
+          db.doc(`users/${senderUid}/swipes/${viewerUid}`).get(),
+          db.doc(`matches/${matchId}`).get(),
+          db.doc(`users/${viewerUid}/blocks/${senderUid}`).get(),
+          db.doc(`users/${senderUid}/blocks/${viewerUid}`).get(),
+        ]);
+
+        const senderData =
+          senderSnap && senderSnap.exists ? senderSnap.data() : null;
+        if (
+          !shouldIncludeSender({
+            senderUid,
+            viewerUid,
+            senderExists: !!(senderSnap && senderSnap.exists),
+            senderData,
+            viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
+            senderPassed: senderPassedViewer(senderSwipeSnap),
+            matchExists: !!(matchSnap && matchSnap.exists),
+            viewerBlockedSender: !!(viewerBlockSnap && viewerBlockSnap.exists),
+            senderBlockedViewer: !!(reverseBlockSnap && reverseBlockSnap.exists),
+          })
+        ) {
+          return null;
+        }
+
+        return toPublicInboxCard(senderUid, senderData, createdAt);
+      } catch (_) {
+        return null;
+      }
+    },
+  );
+
   const items = [];
-  for (const row of senders) {
-    const { senderUid, createdAt } = row;
-    const matchId = deterministicMatchId(viewerUid, senderUid);
-    const [
-      senderSnap,
-      viewerSwipeSnap,
-      senderSwipeSnap,
-      matchSnap,
-      viewerBlockSnap,
-      reverseBlockSnap,
-    ] = await Promise.all([
-      db.doc(`users/${senderUid}`).get(),
-      db.doc(`users/${viewerUid}/swipes/${senderUid}`).get(),
-      db.doc(`users/${senderUid}/swipes/${viewerUid}`).get(),
-      db.doc(`matches/${matchId}`).get(),
-      db.doc(`users/${viewerUid}/blocks/${senderUid}`).get(),
-      db.doc(`users/${senderUid}/blocks/${viewerUid}`).get(),
-    ]);
-
-    const senderData =
-      senderSnap && senderSnap.exists ? senderSnap.data() : null;
-    if (
-      !shouldIncludeSender({
-        senderUid,
-        viewerUid,
-        senderExists: !!(senderSnap && senderSnap.exists),
-        senderData,
-        viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
-        senderPassed: senderPassedViewer(senderSwipeSnap),
-        matchExists: !!(matchSnap && matchSnap.exists),
-        viewerBlockedSender: !!(viewerBlockSnap && viewerBlockSnap.exists),
-        senderBlockedViewer: !!(reverseBlockSnap && reverseBlockSnap.exists),
-      })
-    ) {
-      continue;
-    }
-
-    const card = toPublicInboxCard(senderUid, senderData, createdAt);
+  for (const card of maybeItems) {
     if (card) items.push(card);
   }
 

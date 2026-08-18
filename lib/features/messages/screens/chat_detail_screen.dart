@@ -44,13 +44,25 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   String? _matchId;
   bool _accountDeletionClosed = false;
 
+  late Stream<List<MessageModel>> _messages;
+
   /// Avoid jumping on every StreamBuilder rebuild while the user scrolls.
   int _lastAutoScrollCount = -1;
 
   @override
   void initState() {
     super.initState();
+    _messages = _chat.getMessagesStream(widget.threadId);
     _bootstrap();
+  }
+
+  @override
+  void didUpdateWidget(covariant ChatDetailScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.threadId != widget.threadId) {
+      _messages = _chat.getMessagesStream(widget.threadId);
+      _bootstrap();
+    }
   }
 
   Future<void> _bootstrap() async {
@@ -59,10 +71,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       _bootstrapFailed = false;
     });
     try {
-      await _chat.markThreadAsRead(widget.threadId);
-      final thread = await _chat.getThreadById(widget.threadId);
-      final matchId = thread?.matchId;
-      final deletionClosed = thread != null &&
+      final thread = await _chat.markThreadAsRead(widget.threadId);
+      final matchId = thread.matchId;
+      final deletionClosed =
           ClosedAccountChatHistory.isAccountDeletionClosed(thread);
 
       Map<String, dynamic>? p;
@@ -550,7 +561,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       ),
                     )
                   : StreamBuilder<List<MessageModel>>(
-                      stream: _chat.getMessagesStream(widget.threadId),
+                      stream: _messages,
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                                 ConnectionState.waiting &&

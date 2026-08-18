@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -102,29 +103,32 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     List<WhoLikedYouCard>? superItems;
     Object? superError;
 
-    await Future.wait<void>([
-      () async {
-        try {
-          ordinary = await _client.list();
-        } catch (e) {
-          ordinaryError = e;
-        }
-      }(),
-      () async {
-        try {
-          superItems = await _inbox.list();
-        } catch (e) {
-          superError = e;
-        }
-      }(),
-    ]);
+    await QmatchPerf.trace('alignment_signals', () async {
+      await Future.wait<void>([
+        () async {
+          try {
+            ordinary = await _client.list();
+          } catch (e) {
+            ordinaryError = e;
+          }
+        }(),
+        () async {
+          try {
+            superItems = await _inbox.list();
+          } catch (e) {
+            superError = e;
+          }
+        }(),
+      ]);
+    });
 
     if (!mounted) return;
 
     final superList = superItems ?? const <WhoLikedYouCard>[];
     final access = ordinary?.resonanceAccess == true;
-    final ordinaryItems =
-        access ? List<WhoLikedYouCard>.from(ordinary!.items) : const <WhoLikedYouCard>[];
+    final ordinaryItems = access
+        ? List<WhoLikedYouCard>.from(ordinary!.items)
+        : const <WhoLikedYouCard>[];
     final merged = mergeAlignmentSignals(
       superResonance: superList,
       ordinary: ordinaryItems,

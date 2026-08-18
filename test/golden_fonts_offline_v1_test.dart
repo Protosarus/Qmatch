@@ -46,8 +46,7 @@ void main() {
     }
   });
 
-  testWidgets(
-      'Playfair/Inter golden variants load without runtime fetch',
+  testWidgets('Playfair/Inter golden variants load without runtime fetch',
       (tester) async {
     final loadErrors = <String>[];
 

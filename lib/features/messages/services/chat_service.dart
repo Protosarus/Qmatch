@@ -28,19 +28,19 @@ class ChatService {
         .where('participants', arrayContains: me.uid)
         .snapshots()
         .map((snapshot) {
-          final threads = snapshot.docs
-              .map((d) => ChatThreadModel.fromFirestore(d.id, d.data()))
-              .where(ClosedAccountChatHistory.includeInMessagesList)
-              .toList();
+      final threads = snapshot.docs
+          .map((d) => ChatThreadModel.fromFirestore(d.id, d.data()))
+          .where(ClosedAccountChatHistory.includeInMessagesList)
+          .toList();
 
-          threads.sort((a, b) {
-            final aTs = a.lastMessageAt?.millisecondsSinceEpoch ?? 0;
-            final bTs = b.lastMessageAt?.millisecondsSinceEpoch ?? 0;
-            return bTs.compareTo(aTs);
-          });
+      threads.sort((a, b) {
+        final aTs = a.lastMessageAt?.millisecondsSinceEpoch ?? 0;
+        final bTs = b.lastMessageAt?.millisecondsSinceEpoch ?? 0;
+        return bTs.compareTo(aTs);
+      });
 
-          return threads;
-        });
+      return threads;
+    });
   }
 
   Future<ChatThreadModel?> getThreadById(String threadId) async {
@@ -169,7 +169,7 @@ class ChatService {
     await batch.commit();
   }
 
-  Future<void> markThreadAsRead(String threadId) async {
+  Future<ChatThreadModel> markThreadAsRead(String threadId) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
@@ -186,5 +186,6 @@ class ChatService {
     await FirestorePaths.threadDoc(threadId).update({
       'unread_counts.${me.uid}': 0,
     });
+    return thread;
   }
 }

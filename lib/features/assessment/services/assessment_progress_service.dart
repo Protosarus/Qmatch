@@ -54,30 +54,40 @@ class AssessmentProgressService {
     return resolveForUid(uid);
   }
 
-  Future<AssessmentProgressSnapshot> resolveForUid(String uid) async {
-    final userSnap = await FirestorePaths.userDoc(uid).get();
-    final userDoc = userSnap.data();
+  Future<AssessmentProgressSnapshot> resolveForUid(
+    String uid, {
+    Map<String, dynamic>? userDoc,
+  }) async {
+    final persistence = CanonicalAssessmentPersistence();
+    final fetched = await Future.wait<Object?>([
+      userDoc == null
+          ? FirestorePaths.userDoc(uid).get()
+          : Future<DocumentSnapshot<Map<String, dynamic>>?>.value(null),
+      FirestorePaths.userAssessmentDoc(uid, 'iq').get(),
+      FirestorePaths.userAssessmentDoc(uid, 'eq').get(),
+      FirestorePaths.userAssessmentDoc(uid, 'frequency').get(),
+      FirestorePaths.userAssessmentDoc(
+        uid,
+        PersonaRuntimeResultPolicy.assessmentType,
+      ).get(),
+      FirestorePaths.userAssessmentAssignmentDoc(uid, 'iq').get(),
+      FirestorePaths.userAssessmentAssignmentDoc(uid, 'eq').get(),
+      FirestorePaths.userAssessmentAssignmentDoc(uid, 'frequency').get(),
+      persistence.getCanonicalProfile(uid: uid),
+    ]);
 
-    final iqDoc = await FirestorePaths.userAssessmentDoc(uid, 'iq').get();
-    final eqDoc = await FirestorePaths.userAssessmentDoc(uid, 'eq').get();
-    final freqDoc =
-        await FirestorePaths.userAssessmentDoc(uid, 'frequency').get();
-    final personaDoc = await FirestorePaths.userAssessmentDoc(
-      uid,
-      PersonaRuntimeResultPolicy.assessmentType,
-    ).get();
-
-    final iqAsg =
-        await FirestorePaths.userAssessmentAssignmentDoc(uid, 'iq').get();
-    final eqAsg =
-        await FirestorePaths.userAssessmentAssignmentDoc(uid, 'eq').get();
-    final freqAsg = await FirestorePaths.userAssessmentAssignmentDoc(
-      uid,
-      'frequency',
-    ).get();
+    final resolvedUserDoc = userDoc ??
+        (fetched[0] as DocumentSnapshot<Map<String, dynamic>>?)?.data();
+    final iqDoc = fetched[1] as DocumentSnapshot<Map<String, dynamic>>;
+    final eqDoc = fetched[2] as DocumentSnapshot<Map<String, dynamic>>;
+    final freqDoc = fetched[3] as DocumentSnapshot<Map<String, dynamic>>;
+    final personaDoc = fetched[4] as DocumentSnapshot<Map<String, dynamic>>;
+    final iqAsg = fetched[5] as DocumentSnapshot<Map<String, dynamic>>;
+    final eqAsg = fetched[6] as DocumentSnapshot<Map<String, dynamic>>;
+    final freqAsg = fetched[7] as DocumentSnapshot<Map<String, dynamic>>;
 
     final snapshot = resolveFromMaps(
-      userDoc: userDoc,
+      userDoc: resolvedUserDoc,
       iqAssessment: iqDoc.data(),
       eqAssessment: eqDoc.data(),
       frequencyAssessment: freqDoc.data(),
@@ -89,12 +99,11 @@ class AssessmentProgressService {
 
     // Canonical profile gate: completion mirrors alone are not enough to
     // advance past missing IQ4 / 14/20 fragments.
-    final persistence = CanonicalAssessmentPersistence();
     final reconciler = CanonicalAssessmentProfileReconciler(
       persistence: persistence,
     );
     var check = reconciler.inspectProfileMap(
-      await persistence.getCanonicalProfile(uid: uid),
+      fetched[8] as Map<String, dynamic>?,
     );
 
     if (snapshot.iqCompleted && !check.hasExactIq4) {

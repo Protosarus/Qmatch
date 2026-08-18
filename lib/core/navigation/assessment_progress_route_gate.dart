@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../debug/qmatch_perf.dart';
 import '../../features/assessment/models/assessment_progress.dart';
 import '../../features/assessment/screens/eq_test_intro_screen.dart';
 import '../../features/assessment/screens/eq_test_screen.dart';
@@ -25,6 +26,7 @@ class AssessmentProgressRouteGate extends StatefulWidget {
     super.key,
     required this.uid,
     this.refreshToken = 0,
+    this.initialUserDoc,
     this.resolveRoute,
     this.buildDestination,
   });
@@ -33,6 +35,9 @@ class AssessmentProgressRouteGate extends StatefulWidget {
 
   /// Bumped by [AuthRoutingRefresh] so progress is re-resolved after flow steps.
   final int refreshToken;
+
+  /// Prefetched `users/{uid}` from the auth gate. Used only on first resolve.
+  final Map<String, dynamic>? initialUserDoc;
 
   /// Tests inject failures / staged successes. Production uses progress +
   /// [AssessmentColdStartPendingReconciler].
@@ -53,7 +58,7 @@ class _AssessmentProgressRouteGateState
   @override
   void initState() {
     super.initState();
-    _future = _resolve();
+    _future = _resolve(userDoc: widget.initialUserDoc);
   }
 
   @override
@@ -61,14 +66,19 @@ class _AssessmentProgressRouteGateState
     super.didUpdateWidget(oldWidget);
     if (oldWidget.uid != widget.uid ||
         oldWidget.refreshToken != widget.refreshToken) {
-      _future = _resolve();
+      _future = _resolve(
+        userDoc: oldWidget.refreshToken != widget.refreshToken
+            ? null
+            : widget.initialUserDoc,
+      );
     }
   }
 
-  Future<AssessmentColdStartDecision> _resolve() {
+  Future<AssessmentColdStartDecision> _resolve(
+      {Map<String, dynamic>? userDoc}) {
     final custom = widget.resolveRoute;
     if (custom != null) return custom(widget.uid);
-    return defaultResolveAssessmentRoute(widget.uid);
+    return defaultResolveAssessmentRoute(widget.uid, userDoc: userDoc);
   }
 
   void _retry() {
@@ -101,13 +111,19 @@ class _AssessmentProgressRouteGateState
 
 /// Default AuthWrapper resolve path (progress → cold-start reconcile).
 Future<AssessmentColdStartDecision> defaultResolveAssessmentRoute(
-  String uid,
-) async {
-  final progress = await AssessmentProgressService().resolveForUid(uid);
-  return AssessmentColdStartPendingReconciler().reconcile(
-    uid: uid,
-    progress: progress,
-  );
+  String uid, {
+  Map<String, dynamic>? userDoc,
+}) {
+  return QmatchPerf.trace('auth.gate', () async {
+    final progress = await AssessmentProgressService().resolveForUid(
+      uid,
+      userDoc: userDoc,
+    );
+    return AssessmentColdStartPendingReconciler().reconcile(
+      uid: uid,
+      progress: progress,
+    );
+  });
 }
 
 /// Maps a successful cold-start decision to the live onboarding screen.
@@ -169,9 +185,7 @@ class AuthAssessmentProgressErrorScaffold extends StatelessWidget {
     final isTr =
         Localizations.maybeLocaleOf(context)?.languageCode.startsWith('tr') ??
             false;
-    final title = isTr
-        ? 'İlerleme yüklenemedi'
-        : "Couldn't load your progress";
+    final title = isTr ? 'İlerleme yüklenemedi' : "Couldn't load your progress";
     final body = isTr
         ? 'Bağlantını kontrol edip yeniden dene. Bu, değerlendirmeyi baştan '
             'başlatmaz.'

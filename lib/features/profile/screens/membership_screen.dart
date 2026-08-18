@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
@@ -84,11 +85,25 @@ class _MembershipScreenState extends State<MembershipScreen> {
       _error = null;
     });
     try {
-      final snap = await _read();
-      if (!mounted) return;
-      _snapshot = snap;
-      _applySnapshot(snap);
-      await _refreshAvailability();
+      await QmatchPerf.trace('membership', () async {
+        late EntitlementSnapshot snap;
+        SuperResonanceAvailability? availability;
+        await Future.wait<void>([
+          () async {
+            snap = await _read();
+          }(),
+          () async {
+            availability = await _tryAvailability();
+          }(),
+        ]);
+        if (!mounted) return;
+        _snapshot = snap;
+        _applySnapshot(snap);
+        final trustedAvailability = availability;
+        if (trustedAvailability != null) {
+          _applyAvailabilityValues(trustedAvailability);
+        }
+      });
       if (!mounted) return;
       setState(() {
         _loading = false;
@@ -117,22 +132,33 @@ class _MembershipScreenState extends State<MembershipScreen> {
     _dailyLimit = snap.superResonanceDailyLimit;
   }
 
-  Future<void> _refreshAvailability() async {
-    if (widget.skipFetch && widget.readAvailability == null) return;
+  void _applyAvailabilityValues(SuperResonanceAvailability availability) {
+    _dailyRemaining = availability.dailyRemaining;
+    _dailyLimit = availability.dailyLimit;
+    _purchasedBalance = availability.purchasedBalance;
+  }
+
+  Future<SuperResonanceAvailability?> _tryAvailability() async {
+    if (widget.skipFetch && widget.readAvailability == null) return null;
     try {
       final custom = widget.readAvailability;
-      final availability = custom != null
+      return custom != null
           ? await custom()
-          : await SuperResonanceSendClient().availability();
-      if (!mounted) return;
-      setState(() {
-        _dailyRemaining = availability.dailyRemaining;
-        _dailyLimit = availability.dailyLimit;
-        _purchasedBalance = availability.purchasedBalance;
-      });
+          : await QmatchPerf.trace(
+              'super_resonance.availability',
+              SuperResonanceSendClient().availability,
+            );
     } catch (_) {
-      // Fail closed: keep purchased from entitlement, no invented daily grant.
+      return null;
     }
+  }
+
+  Future<void> _refreshAvailability() async {
+    final availability = await _tryAvailability();
+    if (!mounted || availability == null) return;
+    setState(() {
+      _applyAvailabilityValues(availability);
+    });
   }
 
   Future<void> _restore() async {
