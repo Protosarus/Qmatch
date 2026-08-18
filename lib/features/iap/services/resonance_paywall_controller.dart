@@ -30,6 +30,7 @@ class ResonancePaywallController extends ChangeNotifier {
   ProductDetails? monthly;
   ProductDetails? annual;
   String selectedProductId = QmatchIapProductIds.resonanceAnnual;
+  bool _disposed = false;
 
   bool get busy => loading || purchasing || restoring;
 
@@ -173,6 +174,18 @@ class ResonancePaywallController extends ChangeNotifier {
       notifyListeners();
       return false;
     }
+  }
+
+  @override
+  void notifyListeners() {
+    if (_disposed) return;
+    super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
   }
 
   static ProductDetails? _find(List<ProductDetails> products, String id) {

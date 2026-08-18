@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:qmatch/core/theme/app_colors.dart';
 import 'package:qmatch/features/iap/domain/entitlement_snapshot.dart';
 import 'package:qmatch/features/iap/domain/iap_exceptions.dart';
 import 'package:qmatch/features/iap/domain/qmatch_iap_product_ids.dart';
@@ -172,6 +174,155 @@ void main() {
       expect(unlocked, isFalse);
       expect(c.hasResonanceAccess, isFalse);
     });
+
+    test('dispose during purchase does not notify after dispose', () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.purchaseHold = Completer<IapClientResult>();
+      iap.purchaseResult = IapClientResult(
+        backendResponse: const {
+          'ok': true,
+          'trusted': true,
+          'verified': true,
+        },
+        entitlement: const EntitlementSnapshot(
+          uid: 'u1',
+          tier: 'resonance',
+          subscriptionState: 'active',
+          resonanceAccess: true,
+          superResonanceBalance: 0,
+          boostBalance: 0,
+        ),
+        productId: QmatchIapProductIds.resonanceAnnual,
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      var disposed = false;
+      var notifiedAfterDispose = false;
+      c.addListener(() {
+        if (disposed) notifiedAfterDispose = true;
+      });
+
+      final pending = c.purchaseSelected();
+      await Future<void>.value();
+      expect(c.purchasing, isTrue);
+
+      disposed = true;
+      c.dispose();
+      iap.purchaseHold!.complete(iap.purchaseResult!);
+
+      expect(await pending, isTrue);
+      expect(c.hasResonanceAccess, isTrue);
+      expect(c.purchasing, isFalse);
+      expect(notifiedAfterDispose, isFalse);
+      expect(iap.purchasedIds, [QmatchIapProductIds.resonanceAnnual]);
+    });
+
+    test('dispose during restore does not notify after dispose', () async {
+      iap.restoreHold = Completer<IapClientResult>();
+      iap.restoreResult = IapClientResult(
+        backendResponse: const {
+          'ok': true,
+          'trusted': true,
+          'verified': true,
+        },
+        entitlement: const EntitlementSnapshot(
+          uid: 'u1',
+          tier: 'resonance',
+          subscriptionState: 'active',
+          resonanceAccess: true,
+          superResonanceBalance: 0,
+          boostBalance: 0,
+        ),
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      var disposed = false;
+      var notifiedAfterDispose = false;
+      c.addListener(() {
+        if (disposed) notifiedAfterDispose = true;
+      });
+
+      final pending = c.restore();
+      await Future<void>.value();
+      expect(c.restoring, isTrue);
+
+      disposed = true;
+      c.dispose();
+      iap.restoreHold!.complete(iap.restoreResult!);
+
+      expect(await pending, isTrue);
+      expect(c.hasResonanceAccess, isTrue);
+      expect(c.restoring, isFalse);
+      expect(notifiedAfterDispose, isFalse);
+      expect(iap.restoreCalls, 1);
+    });
+
+    test('dispose during load does not notify after dispose', () async {
+      iap.entitlementHold = Completer<EntitlementSnapshot>();
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+
+      final c = ResonancePaywallController(iap: iap);
+      var disposed = false;
+      var notifiedAfterDispose = false;
+      c.addListener(() {
+        if (disposed) notifiedAfterDispose = true;
+      });
+
+      final pending = c.load();
+      await Future<void>.value();
+      expect(c.loading, isTrue);
+
+      disposed = true;
+      c.dispose();
+      iap.entitlementHold!.complete(EntitlementSnapshot.free);
+
+      await pending;
+      expect(c.loading, isFalse);
+      expect(c.annual?.id, QmatchIapProductIds.resonanceAnnual);
+      expect(notifiedAfterDispose, isFalse);
+    });
+
+    test('successful active-screen purchase still notifies and unlocks',
+        () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.purchaseResult = IapClientResult(
+        backendResponse: const {
+          'ok': true,
+          'trusted': true,
+          'verified': true,
+        },
+        entitlement: const EntitlementSnapshot(
+          uid: 'u1',
+          tier: 'resonance',
+          subscriptionState: 'active',
+          resonanceAccess: true,
+          superResonanceBalance: 0,
+          boostBalance: 0,
+        ),
+        productId: QmatchIapProductIds.resonanceAnnual,
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      var ticks = 0;
+      c.addListener(() => ticks++);
+      await c.load();
+      final beforePurchase = ticks;
+      final unlocked = await c.purchaseSelected();
+
+      expect(unlocked, isTrue);
+      expect(c.hasResonanceAccess, isTrue);
+      expect(c.purchasing, isFalse);
+      expect(ticks, greaterThan(beforePurchase));
+      c.dispose();
+    });
   });
 
   group('ResonancePaywallScreen', () {
@@ -215,6 +366,29 @@ void main() {
         find.byKey(const Key('qmatch-resonance-paywall-android-disabled')),
         findsNothing,
       );
+    });
+
+    testWidgets('loading spinner uses lilac not gold', (tester) async {
+      final iap = FakePaywallIap()
+        ..entitlementHold = Completer<EntitlementSnapshot>();
+      final controller = ResonancePaywallController(iap: iap);
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: ResonancePaywallScreen(
+            controller: controller,
+            purchasesEnabledOverride: true,
+            animateBackground: false,
+          ),
+        ),
+      );
+      await tester.pump();
+      final indicator = tester.widget<CircularProgressIndicator>(
+        find.byKey(const Key('qmatch-resonance-paywall-loading')),
+      );
+      expect(indicator.color, const Color(0xFFDAC8ED));
+      expect(indicator.color, isNot(AppColors.softGold));
     });
 
     testWidgets('EN copy marks Who Liked You live and later benefits as coming',
@@ -364,6 +538,17 @@ void main() {
       expect(src.contains('resonancePaywallComingLater'), isTrue);
       expect(src.contains('resonancePaywallBenefitWhoLikedYou'), isTrue);
     });
+
+    test('loading spinner uses lilac not gold', () {
+      final src = File(
+        'lib/features/iap/screens/resonance_paywall_screen.dart',
+      ).readAsStringSync();
+      final idx = src.indexOf('qmatch-resonance-paywall-loading');
+      expect(idx, greaterThanOrEqualTo(0));
+      final snippet = src.substring(idx, idx + 180);
+      expect(snippet.contains('0xFFDAC8ED'), isTrue);
+      expect(snippet.contains('softGold'), isFalse);
+    });
   });
 }
 
@@ -412,6 +597,9 @@ ProductDetails _product(String id, String price) => ProductDetails(
 
 class FakePaywallIap implements ResonancePaywallIapPort {
   EntitlementSnapshot entitlement = EntitlementSnapshot.free;
+  Completer<EntitlementSnapshot>? entitlementHold;
+  Completer<IapClientResult>? purchaseHold;
+  Completer<IapClientResult>? restoreHold;
   List<ProductDetails> products = [];
   IapClientResult? purchaseResult;
   IapClientResult? restoreResult;
@@ -421,7 +609,11 @@ class FakePaywallIap implements ResonancePaywallIapPort {
   int restoreCalls = 0;
 
   @override
-  Future<EntitlementSnapshot> fetchEntitlement() async => entitlement;
+  Future<EntitlementSnapshot> fetchEntitlement() {
+    final hold = entitlementHold;
+    if (hold != null) return hold.future;
+    return Future.value(entitlement);
+  }
 
   @override
   Future<List<ProductDetails>> loadProducts() async => products;
@@ -429,6 +621,13 @@ class FakePaywallIap implements ResonancePaywallIapPort {
   @override
   Future<IapClientResult> purchase(String productId) async {
     purchasedIds.add(productId);
+    final hold = purchaseHold;
+    if (hold != null) {
+      final result = await hold.future;
+      final err = purchaseError;
+      if (err != null) throw err;
+      return result;
+    }
     final err = purchaseError;
     if (err != null) throw err;
     return purchaseResult ??
@@ -442,6 +641,13 @@ class FakePaywallIap implements ResonancePaywallIapPort {
   @override
   Future<IapClientResult> restorePurchases() async {
     restoreCalls += 1;
+    final hold = restoreHold;
+    if (hold != null) {
+      final result = await hold.future;
+      final err = restoreError;
+      if (err != null) throw err;
+      return result;
+    }
     final err = restoreError;
     if (err != null) throw err;
     return restoreResult ??

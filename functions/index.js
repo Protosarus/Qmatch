@@ -204,7 +204,7 @@ const canonical20dGroupNormalized = require('./src/canonical_20d_group_normalize
  * Client ranks Discover from the returned distances.
  */
 exports.compareStageB2Structural = onCall(
-  { region: 'us-central1' },
+  { region: 'us-central1', minInstances: 1 },
   (request) => stageB2L2.handleCompareStageB2Structural(request),
 );
 exports.handleCompareStageB2Structural = stageB2L2.handleCompareStageB2Structural;

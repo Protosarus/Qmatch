@@ -198,4 +198,37 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(src.includes('reverseBlockSnaps[i].data'), false);
     assert.strictEqual(src.includes('omitted_uids'), false);
   });
+
+  it('keeps minInstances 1 on compareStageB2Structural only', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const index = fs.readFileSync(
+      path.resolve(__dirname, '../index.js'),
+      'utf8',
+    );
+    const start = index.indexOf('exports.compareStageB2Structural = onCall(');
+    const end = index.indexOf('exports.handleCompareStageB2Structural');
+    assert.ok(start >= 0 && end > start);
+    const block = index.slice(start, end);
+    assert.ok(block.includes("region: 'us-central1'"));
+    assert.ok(block.includes('minInstances: 1'));
+    assert.strictEqual(block.includes('memory'), false);
+    assert.strictEqual(block.includes('cpu'), false);
+
+    function assertNoMinInstances(exportName) {
+      const idx = index.indexOf(`exports.${exportName} = onCall(`);
+      assert.ok(idx >= 0, exportName);
+      const snippet = index.slice(idx, idx + 280);
+      assert.strictEqual(
+        snippet.includes('minInstances'),
+        false,
+        exportName,
+      );
+    }
+    assertNoMinInstances('getSuperResonanceAvailability');
+    assertNoMinInstances('listWhoLikedYou');
+    assertNoMinInstances('listSuperResonanceInbox');
+    assertNoMinInstances('likeAndMaybeCreateMatch');
+    assertNoMinInstances('sendSuperResonance');
+  });
 });
