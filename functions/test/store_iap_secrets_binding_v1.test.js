@@ -61,17 +61,22 @@ describe('store_iap_secrets_binding_v1', () => {
     );
     const whoLikedKeys = secretKeysFromFunction(idx.listWhoLikedYou);
     const sendSuperKeys = secretKeysFromFunction(idx.sendSuperResonance);
+    const availabilitySuperKeys = secretKeysFromFunction(
+      idx.getSuperResonanceAvailability,
+    );
     const inboxSuperKeys = secretKeysFromFunction(idx.listSuperResonanceInbox);
     assert.deepStrictEqual(discoverKeys, []);
     assert.deepStrictEqual(deletionKeys, []);
     assert.deepStrictEqual(whoLikedKeys, []);
     assert.deepStrictEqual(sendSuperKeys, []);
+    assert.deepStrictEqual(availabilitySuperKeys, []);
     assert.deepStrictEqual(inboxSuperKeys, []);
     for (const name of STORE_IAP_SECRET_NAMES) {
       assert.strictEqual(discoverKeys.includes(name), false);
       assert.strictEqual(deletionKeys.includes(name), false);
       assert.strictEqual(whoLikedKeys.includes(name), false);
       assert.strictEqual(sendSuperKeys.includes(name), false);
+      assert.strictEqual(availabilitySuperKeys.includes(name), false);
       assert.strictEqual(inboxSuperKeys.includes(name), false);
     }
   });

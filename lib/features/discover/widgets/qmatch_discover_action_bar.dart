@@ -50,7 +50,8 @@ class QMatchDiscoverActionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final likeAmount = swipeFeedback > 0 ? swipeFeedback.clamp(0.0, 1.0) : 0.0;
-    final passAmount = swipeFeedback < 0 ? (-swipeFeedback).clamp(0.0, 1.0) : 0.0;
+    final passAmount =
+        swipeFeedback < 0 ? (-swipeFeedback).clamp(0.0, 1.0) : 0.0;
 
     return Opacity(
       opacity: subdued ? 0.42 : 1,
@@ -168,9 +169,7 @@ class _DiscoverIconButton extends StatelessWidget {
       boxShadow: active
           ? [
               BoxShadow(
-                color: (like
-                        ? AppColors.resonanceViolet
-                        : AppColors.danger)
+                color: (like ? AppColors.resonanceViolet : AppColors.danger)
                     .withValues(alpha: 0.18 + 0.32 * t),
                 blurRadius: 10 + 12 * t,
                 offset: Offset(0, 4 + 4 * t),
@@ -232,42 +231,87 @@ class _SuperResonanceButton extends StatelessWidget {
       button: true,
       enabled: enabled,
       label: semanticLabel,
-      value: balance > 0 ? '$balance' : '0',
+      value: '$balance',
       child: GestureDetector(
         onTap: enabled ? onPressed : null,
         behavior: HitTestBehavior.opaque,
         child: SizedBox(
-          key: const Key('qmatch-discover-super-resonance'),
-          width: size,
-          height: size,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: AppColors.cosmicPurple.withValues(alpha: 0.42),
-              border: Border.all(color: _lilac.withValues(alpha: 0.72)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.resonanceViolet.withValues(alpha: 0.28),
-                  blurRadius: 10,
-                ),
-              ],
-            ),
-            child: Center(
-              child: loading
-                  ? const SizedBox(
-                      width: 16,
-                      height: 16,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(_lilac),
+          width: size + 8,
+          height: size + 8,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              SizedBox(
+                key: const Key('qmatch-discover-super-resonance'),
+                width: size,
+                height: size,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.cosmicPurple.withValues(alpha: 0.42),
+                    border: Border.all(color: _lilac.withValues(alpha: 0.72)),
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            AppColors.resonanceViolet.withValues(alpha: 0.28),
+                        blurRadius: 10,
                       ),
-                    )
-                  : const Icon(
-                      Icons.auto_awesome,
-                      size: 18,
-                      color: _lilac,
+                    ],
+                  ),
+                  child: Center(
+                    child: loading
+                        ? const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(_lilac),
+                            ),
+                          )
+                        : const Icon(
+                            Icons.auto_awesome,
+                            size: 18,
+                            color: _lilac,
+                          ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: DecoratedBox(
+                  key: const Key('qmatch-discover-super-resonance-balance'),
+                  decoration: BoxDecoration(
+                    color: balance > 0
+                        ? AppColors.cosmicPurple
+                        : AppColors.surfaceElevated,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color:
+                          balance > 0 ? _lilac : _lilac.withValues(alpha: 0.45),
                     ),
-            ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 5,
+                      vertical: 1,
+                    ),
+                    child: Text(
+                      '$balance',
+                      style: TextStyle(
+                        color: balance > 0
+                            ? _lilac
+                            : _lilac.withValues(alpha: 0.72),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

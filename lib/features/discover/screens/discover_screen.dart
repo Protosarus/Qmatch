@@ -16,6 +16,8 @@ import '../../messages/screens/chat_detail_screen.dart';
 import '../../settings/services/account_deletion_request_service.dart';
 import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../models/discover_user_model.dart';
+import '../domain/super_resonance_availability.dart';
+import '../domain/super_resonance_send_result.dart';
 import '../services/discover_gesture_onboarding_store.dart';
 import '../services/discover_service.dart';
 import '../services/discover_super_resonance_controller.dart';
@@ -65,6 +67,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   int _committedSwipeCount = 0;
   double _swipeFeedback = 0;
   int _superResonanceBalance = 0;
+  int _superResonanceDailyRemaining = 0;
+  int _superResonanceDailyLimit = 0;
+  int _superResonancePurchased = 0;
   bool _superResonanceBusy = false;
   bool _superResonanceSheetOpen = false;
   List<DiscoverUserModel> _candidates = [];
@@ -220,9 +225,26 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   Future<void> _refreshSuperResonanceBalance() async {
-    final balance = await _superResonance.readTrustedBalance();
+    final availability = await _superResonance.readTrustedAvailability();
     if (!mounted) return;
-    setState(() => _superResonanceBalance = balance);
+    _applyAvailability(availability);
+  }
+
+  void _applyAvailability(SuperResonanceAvailability availability) {
+    setState(() {
+      _superResonanceDailyRemaining = availability.dailyRemaining;
+      _superResonanceDailyLimit = availability.dailyLimit;
+      _superResonancePurchased = availability.purchasedBalance;
+      _superResonanceBalance = availability.totalAvailable;
+    });
+  }
+
+  void _applySendResult(SuperResonanceSendResult result) {
+    setState(() {
+      _superResonanceDailyRemaining = result.dailyRemaining;
+      _superResonancePurchased = result.purchasedBalance;
+      _superResonanceBalance = result.totalAvailable;
+    });
   }
 
   void _showSuperResonanceError(String message) {
@@ -246,24 +268,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
     _superResonanceSheetOpen = true;
     try {
-      final balance = await _superResonance.readTrustedBalance();
+      final availability = await _superResonance.readTrustedAvailability();
       if (!mounted) return;
-      setState(() => _superResonanceBalance = balance);
+      _applyAvailability(availability);
 
-      if (balance > 0) {
+      if (availability.totalAvailable > 0) {
         final confirmed = await showQMatchSuperResonanceConfirmSheet(
           context,
           candidateName: c.name,
-          balance: balance,
+          purchasedBalance: availability.purchasedBalance,
+          dailyRemaining: availability.dailyRemaining,
+          dailyLimit: availability.dailyLimit,
         );
         if (!confirmed || !mounted) return;
         setState(() => _superResonanceBusy = true);
         try {
           final result = await _superResonance.send(targetUid: c.uid);
           if (!mounted) return;
-          setState(() {
-            _superResonanceBalance = result.superResonanceBalance;
-          });
+          _applySendResult(result);
         } catch (e, st) {
           debugPrint('Discover Super Resonance send failed: $e\n$st');
           if (!mounted) return;
@@ -277,16 +299,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         return;
       }
 
-      final purchasedBalance = await showQMatchSuperResonancePurchaseSheet(
+      await showQMatchSuperResonancePurchaseSheet(
         context,
+        trustedBalance: availability.purchasedBalance,
         purchaseThenReadBalance: _superResonance.purchaseThenReadBalance,
+        loadLocalizedPrice: _superResonance.loadLocalizedPrice,
       );
       if (!mounted) return;
-      if (purchasedBalance != null) {
-        setState(() => _superResonanceBalance = purchasedBalance);
-      } else {
-        await _refreshSuperResonanceBalance();
-      }
+      await _refreshSuperResonanceBalance();
     } catch (e, st) {
       debugPrint('Discover Super Resonance failed: $e\n$st');
       if (!mounted) return;

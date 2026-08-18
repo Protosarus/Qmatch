@@ -189,11 +189,38 @@
     }
   },
   "discoverSuperResonanceUsesOne": "Uses 1 Super Resonance",
+  "discoverSuperResonanceDailyAllowance": "Today's Resonance allowance: {remaining} / {limit}",
+  "@discoverSuperResonanceDailyAllowance": {
+    "placeholders": {
+      "remaining": { "type": "int" },
+      "limit": { "type": "int" }
+    }
+  },
+  "discoverSuperResonancePurchased": "Purchased: {count}",
+  "@discoverSuperResonancePurchased": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "membershipSuperResonanceDaily": "Today's included uses: {remaining} / {limit}",
+  "@membershipSuperResonanceDaily": {
+    "placeholders": {
+      "remaining": { "type": "int" },
+      "limit": { "type": "int" }
+    }
+  },
+  "membershipSuperResonancePurchased": "Purchased: {count}",
+  "@membershipSuperResonancePurchased": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "discoverSuperResonanceQuantity": "1 Super Resonance",
   "discoverSuperResonanceConfirmBody": "This sends a stronger alignment signal. It does not Like them and does not create a match.",
   "discoverSuperResonanceConfirm": "Send",
   "discoverSuperResonanceCancel": "Cancel",
   "discoverSuperResonancePurchaseTitle": "Get Super Resonance",
-  "discoverSuperResonancePurchaseBody": "Add Super Resonance to send a stronger alignment signal. This does not unlock Resonance.",
+  "discoverSuperResonancePurchaseBody": "Send a stronger, more personal alignment signal with Super Resonance. Super Resonance is a separate feature and does not activate Resonance membership.",
   "discoverSuperResonancePurchaseCta": "Get Super Resonance",
   "discoverSuperResonancePurchaseNotNow": "Not now",
   "discoverSuperResonanceSendFailed": "Super Resonance couldn't be sent. Please try again.",
@@ -734,8 +761,8 @@
   "whoLikedYouLockedBody": "When a new alignment forms around you, Resonance lets you see them — without changing who you match with.",
   "whoLikedYouErrorTitle": "Couldn't load Alignment Signals",
   "whoLikedYouErrorBody": "Something went wrong. Please try again.",
-  "whoLikedYouFreeDiscoveryTitle": "A stronger alignment can appear here",
-  "whoLikedYouFreeDiscoveryBody": "If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.",
+  "whoLikedYouFreeDiscoveryTitle": "A special alignment signal can appear here",
+  "whoLikedYouFreeDiscoveryBody": "When someone sends you Super Resonance, you can see them here. Resonance membership also lets you discover other Alignment Signals.",
   "profileMembershipResonanceActive": "Resonance active",
   "profileMembershipFree": "QMatch Free",
   "profileResonanceBadgeSemantic": "Resonance active",

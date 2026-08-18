@@ -18,8 +18,14 @@ const {
   CANONICAL_PRODUCT_KEYS,
   EFFECTS,
   EVENT_TYPES,
+  SUPER_RESONANCE_DAILY,
 } = require('./entitlement_schema');
 const { spendLedgerId, buildLedgerDocument } = require('./entitlement_ledger');
+const {
+  resolveDailyAllowance,
+  spendDailyAllowance,
+  withDailyBucket,
+} = require('./super_resonance_daily_allowance');
 const {
   isValidLiveUser,
   deterministicMatchId,
@@ -39,6 +45,9 @@ const PUBLIC_RESULT_KEYS = Object.freeze([
   'ok',
   'already_sent',
   'super_resonance_balance',
+  'purchased_balance',
+  'daily_remaining',
+  'total_available',
   'signal_id',
 ]);
 
@@ -171,12 +180,12 @@ async function handleSendSuperResonance(request, deps = {}) {
     const snapshot = entitlementSnap.exists
       ? normalizeSnapshot(fromUid, entitlementSnap.data())
       : defaultFreeSnapshot(fromUid);
-    const balance = snapshot[BALANCE_FIELDS.SUPER_RESONANCE];
+    const daily = resolveDailyAllowance(snapshot, at);
 
     if (signalSnap.exists) {
       return publicSendResult({
         alreadySent: true,
-        balance,
+        daily,
         id,
       });
     }
@@ -189,7 +198,7 @@ async function handleSendSuperResonance(request, deps = {}) {
           : targetUid;
       return publicSendResult({
         alreadySent: true,
-        balance,
+        daily,
         id: signalId(fromUid, priorTarget),
       });
     }
@@ -208,31 +217,50 @@ async function handleSendSuperResonance(request, deps = {}) {
     if (matchSnap && matchSnap.exists) refuseUnavailable();
     if (senderPassedTarget(senderSwipeSnap)) refuseUnavailable();
 
-    if (typeof balance !== 'number' || balance < 1) {
+    let nextSnapshot;
+    let ledgerDoc;
+    if (daily.remaining > 0) {
+      nextSnapshot = spendDailyAllowance(snapshot, daily);
+      ledgerDoc = buildLedgerDocument({
+        uid: fromUid,
+        ledgerId,
+        storeTransactionId: requestId,
+        platform: SPEND_PLATFORM,
+        canonicalProductKey: SUPER_RESONANCE_DAILY.PRODUCT_KEY,
+        productId: null,
+        eventType: EVENT_TYPES.DAILY_ALLOWANCE_SPEND,
+        effect: EFFECTS.SPEND_SUPER_RESONANCE_DAILY,
+        subscriptionStateAfter: nextSnapshot.subscription_state,
+        balanceDeltaSuperResonance: 0,
+        balanceDeltaBoost: 0,
+        verificationSource: 'spend',
+        processedAt: at,
+        targetUid,
+      });
+    } else if (daily.purchased >= 1) {
+      nextSnapshot = withDailyBucket(
+        debitBalance(snapshot, BALANCE_FIELDS.SUPER_RESONANCE, 1),
+        daily,
+      );
+      ledgerDoc = buildLedgerDocument({
+        uid: fromUid,
+        ledgerId,
+        storeTransactionId: requestId,
+        platform: SPEND_PLATFORM,
+        canonicalProductKey: CANONICAL_PRODUCT_KEYS.SUPER_RESONANCE_X1,
+        productId: null,
+        eventType: EVENT_TYPES.CONSUMABLE_SPEND,
+        effect: EFFECTS.DEBIT_SUPER_RESONANCE,
+        subscriptionStateAfter: nextSnapshot.subscription_state,
+        balanceDeltaSuperResonance: -1,
+        balanceDeltaBoost: 0,
+        verificationSource: 'spend',
+        processedAt: at,
+        targetUid,
+      });
+    } else {
       refuseInsufficient();
     }
-
-    const nextSnapshot = debitBalance(
-      snapshot,
-      BALANCE_FIELDS.SUPER_RESONANCE,
-      1,
-    );
-    const ledgerDoc = buildLedgerDocument({
-      uid: fromUid,
-      ledgerId,
-      storeTransactionId: requestId,
-      platform: SPEND_PLATFORM,
-      canonicalProductKey: CANONICAL_PRODUCT_KEYS.SUPER_RESONANCE_X1,
-      productId: null,
-      eventType: EVENT_TYPES.CONSUMABLE_SPEND,
-      effect: EFFECTS.DEBIT_SUPER_RESONANCE,
-      subscriptionStateAfter: nextSnapshot.subscription_state,
-      balanceDeltaSuperResonance: -1,
-      balanceDeltaBoost: 0,
-      verificationSource: 'spend',
-      processedAt: at,
-      targetUid,
-    });
 
     tx.set(ledgerRef, ledgerDoc);
     tx.set(entitlementRef, nextSnapshot, { merge: true });
@@ -249,7 +277,7 @@ async function handleSendSuperResonance(request, deps = {}) {
 
     return publicSendResult({
       alreadySent: false,
-      balance: nextSnapshot[BALANCE_FIELDS.SUPER_RESONANCE],
+      daily: resolveDailyAllowance(nextSnapshot, at),
       id,
     });
   });

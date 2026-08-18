@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qmatch/features/discover/domain/super_resonance_availability.dart';
 import 'package:qmatch/features/discover/domain/super_resonance_send_result.dart';
 import 'package:qmatch/features/discover/services/discover_super_resonance_controller.dart';
 import 'package:qmatch/features/discover/services/super_resonance_send_client.dart';
@@ -27,6 +28,9 @@ void main() {
         'ok': true,
         'already_sent': true,
         'super_resonance_balance': 3,
+        'purchased_balance': 3,
+        'daily_remaining': 2,
+        'total_available': 5,
         'signal_id': 'a_b',
         'block_reason': 'secret',
         'email': 'x@y.z',
@@ -35,6 +39,9 @@ void main() {
       expect(parsed!.ok, isTrue);
       expect(parsed.alreadySent, isTrue);
       expect(parsed.superResonanceBalance, 3);
+      expect(parsed.purchasedBalance, 3);
+      expect(parsed.dailyRemaining, 2);
+      expect(parsed.totalAvailable, 5);
       expect(parsed.signalId, 'a_b');
     });
 
@@ -110,7 +117,26 @@ void main() {
       expect(await c.purchaseThenReadBalance(), 1);
       expect(purchases, 1);
       expect(await c.readTrustedBalance(), 1);
-      expect(reads, 2);
+      expect(reads, 3);
+    });
+
+    test('localized price uses StoreKit string and never the product id',
+        () async {
+      final priced = DiscoverSuperResonanceController(
+        localizedPriceOverride: () async => '\$2.99',
+      );
+      expect(await priced.loadLocalizedPrice(), '\$2.99');
+
+      final sku = DiscoverSuperResonanceController(
+        localizedPriceOverride: () async =>
+            QmatchIapProductIds.superResonanceX1,
+      );
+      expect(await sku.loadLocalizedPrice(), isNull);
+
+      final failed = DiscoverSuperResonanceController(
+        localizedPriceOverride: () async => throw StateError('store'),
+      );
+      expect(await failed.loadLocalizedPrice(), isNull);
     });
   });
 
@@ -118,12 +144,18 @@ void main() {
     testWidgets('balance > 0 opens confirm', (tester) async {
       final harness = _Harness(balance: 2);
       await _pump(tester, harness);
+      expect(
+        find.byKey(const Key('qmatch-discover-super-resonance-balance')),
+        findsOneWidget,
+      );
+      expect(find.text('2'), findsWidgets);
       await tester.tap(find.byKey(superButton));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('qmatch-super-resonance-confirm-sheet')),
           findsOneWidget);
       expect(find.text('Send Super Resonance to Ada?'), findsOneWidget);
-      expect(find.text('Balance: 2'), findsOneWidget);
+      expect(find.text('Purchased: 2'), findsOneWidget);
+      expect(find.text('Today\'s Resonance allowance: 2 / 2'), findsNothing);
       expect(find.text('Uses 1 Super Resonance'), findsOneWidget);
       expect(
         find.text(
@@ -134,6 +166,38 @@ void main() {
       expect(harness.sendCount, 0);
       expect(find.byKey(const Key('qmatch-super-resonance-purchase-sheet')),
           findsNothing);
+    });
+
+    testWidgets('badge shows total usable and confirm splits daily/purchased',
+        (tester) async {
+      final harness = _Harness(
+        balance: 3,
+        dailyRemaining: 2,
+        dailyLimit: 2,
+      );
+      await _pump(tester, harness);
+      expect(find.text('5'), findsWidgets);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Today\'s Resonance allowance: 2 / 2'),
+        findsOneWidget,
+      );
+      expect(find.text('Purchased: 3'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('qmatch-super-resonance-confirm')));
+      await tester.pumpAndSettle();
+      expect(harness.sendCount, 1);
+      expect(harness.displayedBalance, 4);
+    });
+
+    testWidgets('Free confirm does not invent a daily allowance',
+        (tester) async {
+      final harness = _Harness(balance: 2);
+      await _pump(tester, harness);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Today\'s Resonance allowance'), findsNothing);
+      expect(find.text('Purchased: 2'), findsOneWidget);
     });
 
     testWidgets('confirm sends once and card stays', (tester) async {
@@ -166,23 +230,41 @@ void main() {
 
     testWidgets('balance 0 opens purchase sheet and does not send',
         (tester) async {
-      final harness = _Harness(balance: 0);
+      final harness = _Harness(balance: 0, localizedPrice: '₺129,99');
       await _pump(tester, harness);
+      expect(find.text('0'), findsWidgets);
       await tester.tap(find.byKey(superButton));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('qmatch-super-resonance-purchase-sheet')),
           findsOneWidget);
       expect(find.text('Get Super Resonance'), findsWidgets);
+      expect(find.text('Balance: 0'), findsOneWidget);
+      expect(find.text('1 Super Resonance'), findsOneWidget);
+      expect(find.text('₺129,99'), findsOneWidget);
       expect(
         find.text(QmatchIapProductIds.superResonanceX1),
-        findsOneWidget,
+        findsNothing,
       );
-      expect(find.byKey(const Key('qmatch-resonance-unlock-title')),
+      expect(find.byKey(const Key('qmatch-super-resonance-purchase-sku')),
           findsNothing);
+      expect(
+          find.byKey(const Key('qmatch-resonance-unlock-title')), findsNothing);
       expect(harness.sendCount, 0);
     });
 
-    testWidgets('successful purchase re-reads trusted balance and does not send',
+    testWidgets('missing StoreKit price hides product id', (tester) async {
+      final harness = _Harness(balance: 0);
+      await _pump(tester, harness);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(find.text('1 Super Resonance'), findsOneWidget);
+      expect(find.byKey(const Key('qmatch-super-resonance-purchase-price')),
+          findsNothing);
+      expect(find.text(QmatchIapProductIds.superResonanceX1), findsNothing);
+    });
+
+    testWidgets(
+        'successful purchase re-reads trusted balance and does not send',
         (tester) async {
       final harness = _Harness(balance: 0);
       await _pump(tester, harness);
@@ -323,6 +405,30 @@ void main() {
         ).readAsStringSync().contains('resonance_paywall_screen'),
         isFalse,
       );
+      expect(
+        File(
+          'lib/features/discover/widgets/qmatch_super_resonance_purchase_sheet.dart',
+        ).readAsStringSync().contains('qmatch.super_resonance.x1'),
+        isFalse,
+      );
+      expect(
+        File(
+          'lib/features/discover/services/super_resonance_send_client.dart',
+        ).readAsStringSync().contains('getSuperResonanceAvailability'),
+        isTrue,
+      );
+      expect(
+        File(
+          'lib/features/discover/services/discover_super_resonance_controller.dart',
+        ).readAsStringSync().contains('readTrustedAvailability'),
+        isTrue,
+      );
+      expect(
+        File(
+          'lib/features/discover/screens/discover_screen.dart',
+        ).readAsStringSync().contains('DateTime.now()'),
+        isFalse,
+      );
     });
   });
 }
@@ -347,11 +453,17 @@ Future<void> _pump(WidgetTester tester, _Harness harness) async {
 class _Harness extends StatefulWidget {
   _Harness({
     required this.balance,
+    this.dailyRemaining = 0,
+    this.dailyLimit = 0,
     this.sendShouldFail = false,
+    this.localizedPrice,
   });
 
   final int balance;
+  final int dailyRemaining;
+  final int dailyLimit;
   final bool sendShouldFail;
+  final String? localizedPrice;
   int sendCount = 0;
   int purchaseCount = 0;
   int likes = 0;
@@ -365,17 +477,30 @@ class _Harness extends StatefulWidget {
 }
 
 class _HarnessState extends State<_Harness> {
-  late int _balance;
+  late int _purchased;
+  late int _dailyRemaining;
+  late int _dailyLimit;
   late final DiscoverSuperResonanceController _controller;
   bool _busy = false;
+
+  int get _total => _dailyRemaining + _purchased;
+
+  SuperResonanceAvailability get _availability => SuperResonanceAvailability(
+        dailyRemaining: _dailyRemaining,
+        dailyLimit: _dailyLimit,
+        purchasedBalance: _purchased,
+        totalAvailable: _total,
+      );
 
   @override
   void initState() {
     super.initState();
-    _balance = widget.balance;
-    widget.displayedBalance = _balance;
+    _purchased = widget.balance;
+    _dailyRemaining = widget.dailyRemaining;
+    _dailyLimit = widget.dailyLimit;
+    widget.displayedBalance = _total;
     _controller = DiscoverSuperResonanceController(
-      readBalanceOverride: () async => _balance,
+      readAvailabilityOverride: () async => _availability,
       sendOverride: (targetUid, requestId) async {
         widget.sendCount += 1;
         widget.lastRequestId = requestId;
@@ -383,42 +508,54 @@ class _HarnessState extends State<_Harness> {
         if (widget.sendShouldFail) {
           throw StateError('unavailable');
         }
-        _balance -= 1;
+        if (_dailyRemaining > 0) {
+          _dailyRemaining -= 1;
+        } else {
+          _purchased -= 1;
+        }
         return SuperResonanceSendResult(
           ok: true,
           alreadySent: false,
-          superResonanceBalance: _balance,
+          superResonanceBalance: _purchased,
           signalId: 'cand-from_$targetUid',
+          dailyRemaining: _dailyRemaining,
+          purchasedBalance: _purchased,
+          totalAvailable: _total,
         );
       },
       purchaseOverride: () async {
         widget.purchaseCount += 1;
-        _balance = 1;
+        _purchased = 1;
         return 1;
       },
+      localizedPriceOverride: widget.localizedPrice == null
+          ? null
+          : () async => widget.localizedPrice,
     );
   }
 
   Future<void> _onSuperResonance() async {
     if (_busy) return;
     try {
-      final balance = await _controller.readTrustedBalance();
+      final availability = await _controller.readTrustedAvailability();
       if (!mounted) return;
       setState(() {
-        widget.displayedBalance = balance;
+        widget.displayedBalance = availability.totalAvailable;
       });
-      if (balance > 0) {
+      if (availability.totalAvailable > 0) {
         final confirmed = await showQMatchSuperResonanceConfirmSheet(
           context,
           candidateName: 'Ada',
-          balance: balance,
+          purchasedBalance: availability.purchasedBalance,
+          dailyRemaining: availability.dailyRemaining,
+          dailyLimit: availability.dailyLimit,
         );
         if (!confirmed || !mounted) return;
         setState(() => _busy = true);
         try {
           final result = await _controller.send(targetUid: 'cand-1');
           if (!mounted) return;
-          setState(() => widget.displayedBalance = result.superResonanceBalance);
+          setState(() => widget.displayedBalance = result.totalAvailable);
         } catch (_) {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
@@ -428,21 +565,24 @@ class _HarnessState extends State<_Harness> {
               ),
             ),
           );
-          final next = await _controller.readTrustedBalance();
-          if (mounted) setState(() => widget.displayedBalance = next);
+          final next = await _controller.readTrustedAvailability();
+          if (mounted) {
+            setState(() => widget.displayedBalance = next.totalAvailable);
+          }
         } finally {
           if (mounted) setState(() => _busy = false);
         }
         return;
       }
-      final purchased = await showQMatchSuperResonancePurchaseSheet(
+      await showQMatchSuperResonancePurchaseSheet(
         context,
+        trustedBalance: availability.purchasedBalance,
         purchaseThenReadBalance: _controller.purchaseThenReadBalance,
+        loadLocalizedPrice: _controller.loadLocalizedPrice,
       );
       if (!mounted) return;
-      if (purchased != null) {
-        setState(() => widget.displayedBalance = purchased);
-      }
+      final next = await _controller.readTrustedAvailability();
+      setState(() => widget.displayedBalance = next.totalAvailable);
     } finally {
       if (mounted && _busy) setState(() => _busy = false);
     }

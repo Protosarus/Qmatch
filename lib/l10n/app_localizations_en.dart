@@ -406,6 +406,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverSuperResonanceUsesOne => 'Uses 1 Super Resonance';
 
   @override
+  String discoverSuperResonanceDailyAllowance(int remaining, int limit) {
+    return 'Today\'s Resonance allowance: $remaining / $limit';
+  }
+
+  @override
+  String discoverSuperResonancePurchased(int count) {
+    return 'Purchased: $count';
+  }
+
+  @override
+  String membershipSuperResonanceDaily(int remaining, int limit) {
+    return 'Today\'s included uses: $remaining / $limit';
+  }
+
+  @override
+  String membershipSuperResonancePurchased(int count) {
+    return 'Purchased: $count';
+  }
+
+  @override
+  String get discoverSuperResonanceQuantity => '1 Super Resonance';
+
+  @override
   String get discoverSuperResonanceConfirmBody =>
       'This sends a stronger alignment signal. It does not Like them and does not create a match.';
 
@@ -420,7 +443,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get discoverSuperResonancePurchaseBody =>
-      'Add Super Resonance to send a stronger alignment signal. This does not unlock Resonance.';
+      'Send a stronger, more personal alignment signal with Super Resonance. Super Resonance is a separate feature and does not activate Resonance membership.';
 
   @override
   String get discoverSuperResonancePurchaseCta => 'Get Super Resonance';
@@ -1813,11 +1836,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whoLikedYouFreeDiscoveryTitle =>
-      'A stronger alignment can appear here';
+      'A special alignment signal can appear here';
 
   @override
   String get whoLikedYouFreeDiscoveryBody =>
-      'If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.';
+      'When someone sends you Super Resonance, you can see them here. Resonance membership also lets you discover other Alignment Signals.';
 
   @override
   String get profileMembershipResonanceActive => 'Resonance active';

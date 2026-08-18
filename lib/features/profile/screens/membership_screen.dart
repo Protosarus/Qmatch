@@ -12,6 +12,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/entitlement_snapshot.dart';
 import '../../iap/domain/iap_exceptions.dart';
 import '../../iap/services/entitlement_repository.dart';
+import '../../discover/domain/super_resonance_availability.dart';
+import '../../discover/services/super_resonance_send_client.dart';
 import '../domain/membership_plan.dart';
 import '../services/membership_defaults.dart';
 
@@ -28,6 +30,7 @@ class MembershipScreen extends StatefulWidget {
     this.openUpgrade,
     this.skipFetch = false,
     this.animateBackground,
+    this.readAvailability,
   });
 
   /// Last known snapshot (Profile). Not inferred from local store state.
@@ -43,6 +46,9 @@ class MembershipScreen extends StatefulWidget {
   /// Tests / synthetic Profile: do not hit Firestore.
   final bool skipFetch;
 
+  /// Trusted Super Resonance daily/purchased availability. Tests inject.
+  final Future<SuperResonanceAvailability> Function()? readAvailability;
+
   final bool? animateBackground;
 
   @override
@@ -54,6 +60,9 @@ class _MembershipScreenState extends State<MembershipScreen> {
   bool _loading = true;
   bool _restoring = false;
   String? _error;
+  int _dailyRemaining = 0;
+  int _dailyLimit = 0;
+  int _purchasedBalance = 0;
 
   bool get _resonance => _snapshot.resonanceAccess == true;
 
@@ -61,6 +70,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
   void initState() {
     super.initState();
     _snapshot = widget.initialSnapshot ?? EntitlementSnapshot.free;
+    _applySnapshot(_snapshot);
     if (widget.skipFetch) {
       _loading = false;
     } else {
@@ -76,14 +86,18 @@ class _MembershipScreenState extends State<MembershipScreen> {
     try {
       final snap = await _read();
       if (!mounted) return;
+      _snapshot = snap;
+      _applySnapshot(snap);
+      await _refreshAvailability();
+      if (!mounted) return;
       setState(() {
-        _snapshot = snap;
         _loading = false;
       });
     } catch (_) {
       if (!mounted) return;
       setState(() {
         _snapshot = EntitlementSnapshot.free;
+        _applySnapshot(EntitlementSnapshot.free);
         _loading = false;
       });
     }
@@ -97,6 +111,30 @@ class _MembershipScreenState extends State<MembershipScreen> {
     return EntitlementRepository().fetch(uid);
   }
 
+  void _applySnapshot(EntitlementSnapshot snap) {
+    _purchasedBalance = snap.superResonanceBalance;
+    _dailyRemaining = snap.superResonanceDailyRemaining;
+    _dailyLimit = snap.superResonanceDailyLimit;
+  }
+
+  Future<void> _refreshAvailability() async {
+    if (widget.skipFetch && widget.readAvailability == null) return;
+    try {
+      final custom = widget.readAvailability;
+      final availability = custom != null
+          ? await custom()
+          : await SuperResonanceSendClient().availability();
+      if (!mounted) return;
+      setState(() {
+        _dailyRemaining = availability.dailyRemaining;
+        _dailyLimit = availability.dailyLimit;
+        _purchasedBalance = availability.purchasedBalance;
+      });
+    } catch (_) {
+      // Fail closed: keep purchased from entitlement, no invented daily grant.
+    }
+  }
+
   Future<void> _restore() async {
     if (_restoring) return;
     setState(() {
@@ -108,8 +146,11 @@ class _MembershipScreenState extends State<MembershipScreen> {
           widget.restorePurchases ?? MembershipDefaults.restorePurchases;
       final snap = await restore();
       if (!mounted) return;
+      _snapshot = snap;
+      _applySnapshot(snap);
+      await _refreshAvailability();
+      if (!mounted) return;
       setState(() {
-        _snapshot = snap;
         _restoring = false;
       });
     } on IapException catch (e) {
@@ -129,6 +170,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
     if (!mounted) return;
     setState(() {
       _snapshot = next;
+      _applySnapshot(next);
       _error = message;
       _restoring = false;
     });
@@ -197,6 +239,13 @@ class _MembershipScreenState extends State<MembershipScreen> {
                             )
                           else
                             _FreeCard(l10n: l10n, onUpgrade: _upgrade),
+                          const SizedBox(height: AppSpacing.md),
+                          _SuperResonanceBalanceRow(
+                            l10n: l10n,
+                            purchasedBalance: _purchasedBalance,
+                            dailyRemaining: _dailyRemaining,
+                            dailyLimit: _dailyLimit,
+                          ),
                           if (_error != null) ...[
                             const SizedBox(height: AppSpacing.md),
                             QGlassCard(
@@ -404,6 +453,62 @@ class _ResonanceCard extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _SuperResonanceBalanceRow extends StatelessWidget {
+  const _SuperResonanceBalanceRow({
+    required this.l10n,
+    required this.purchasedBalance,
+    required this.dailyRemaining,
+    required this.dailyLimit,
+  });
+
+  final AppLocalizations l10n;
+  final int purchasedBalance;
+  final int dailyRemaining;
+  final int dailyLimit;
+
+  @override
+  Widget build(BuildContext context) {
+    return QGlassCard(
+      key: const Key('qmatch-membership-super-resonance'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.discoverSuperResonance,
+            style: GoogleFonts.inter(
+              color: AppColors.textPrimary,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          if (dailyLimit > 0) ...[
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              key: const Key('qmatch-membership-super-resonance-daily'),
+              l10n.membershipSuperResonanceDaily(dailyRemaining, dailyLimit),
+              style: GoogleFonts.inter(
+                color: _lilac,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+          const SizedBox(height: AppSpacing.xs),
+          Text(
+            key: const Key('qmatch-membership-super-resonance-purchased'),
+            l10n.membershipSuperResonancePurchased(purchasedBalance),
+            style: GoogleFonts.inter(
+              color: dailyLimit > 0 ? AppColors.textSecondary : _lilac,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -404,8 +404,31 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverSuperResonanceUsesOne => '1 Super Resonance kullanır';
 
   @override
+  String discoverSuperResonanceDailyAllowance(int remaining, int limit) {
+    return 'Bugünkü Resonance hakkı: $remaining / $limit';
+  }
+
+  @override
+  String discoverSuperResonancePurchased(int count) {
+    return 'Satın alınan: $count';
+  }
+
+  @override
+  String membershipSuperResonanceDaily(int remaining, int limit) {
+    return 'Bugünkü dahil kullanımlar: $remaining / $limit';
+  }
+
+  @override
+  String membershipSuperResonancePurchased(int count) {
+    return 'Satın alınan: $count';
+  }
+
+  @override
+  String get discoverSuperResonanceQuantity => '1 Super Resonance';
+
+  @override
   String get discoverSuperResonanceConfirmBody =>
-      'Bu daha güçlü bir hizalanma sinyali gönderir. Onları beğenmez ve eşleşme oluşturmaz.';
+      'Bu daha güçlü bir uyum sinyali gönderir. Onları beğenmez ve eşleşme oluşturmaz.';
 
   @override
   String get discoverSuperResonanceConfirm => 'Gönder';
@@ -418,7 +441,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get discoverSuperResonancePurchaseBody =>
-      'Daha güçlü bir hizalanma sinyali göndermek için Super Resonance ekle. Bu Resonance aboneliğini açmaz.';
+      'Super Resonance ile daha güçlü ve özel bir uyum sinyali gönder. Super Resonance ayrı bir özelliktir ve Resonance üyeliğini etkinleştirmez.';
 
   @override
   String get discoverSuperResonancePurchaseCta => 'Super Resonance al';
@@ -1782,7 +1805,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get whoLikedYouTitle => 'Uyum Sinyalleri';
 
   @override
-  String get whoLikedYouLoading => 'Seninle hizalananlar aranıyor…';
+  String get whoLikedYouLoading => 'Uyum sinyalleri aranıyor…';
 
   @override
   String get whoLikedYouEmptyTitle => 'Yeni uyum sinyalleri burada görünecek';
@@ -1792,7 +1815,7 @@ class AppLocalizationsTr extends AppLocalizations {
       'Sana yönelik yeni bir uyum oluştuğunda burada keşfedebilirsin.';
 
   @override
-  String get whoLikedYouLockedTitle => 'Seni kim hizaladı';
+  String get whoLikedYouLockedTitle => 'Uyum Sinyallerini gör';
 
   @override
   String get whoLikedYouLockedBody =>
@@ -1806,11 +1829,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get whoLikedYouFreeDiscoveryTitle =>
-      'Daha güçlü bir hizalanma burada görünebilir';
+      'Özel bir uyum sinyali burada görünebilir';
 
   @override
   String get whoLikedYouFreeDiscoveryBody =>
-      'Biri sana Super Resonance gönderirse burada görürsün. Resonance, sıradan uyum sinyallerini de gösterir.';
+      'Biri sana Super Resonance gönderdiğinde burada görebilirsin. Resonance üyeliği, diğer Uyum Sinyallerini de keşfetmeni sağlar.';
 
   @override
   String get profileMembershipResonanceActive => 'Resonance aktif';

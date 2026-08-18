@@ -12,7 +12,9 @@ const _lilac = Color(0xFFDAC8ED);
 Future<bool> showQMatchSuperResonanceConfirmSheet(
   BuildContext context, {
   required String candidateName,
-  required int balance,
+  required int purchasedBalance,
+  int dailyRemaining = 0,
+  int dailyLimit = 0,
 }) async {
   final l10n = AppLocalizations.of(context)!;
   final confirmed = await showModalBottomSheet<bool>(
@@ -44,12 +46,27 @@ Future<bool> showQMatchSuperResonanceConfirmSheet(
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: AppSpacing.sm),
+              if (dailyLimit > 0) ...[
+                const SizedBox(height: AppSpacing.sm),
+                Text(
+                  key: const Key('qmatch-super-resonance-confirm-daily'),
+                  l10n.discoverSuperResonanceDailyAllowance(
+                    dailyRemaining,
+                    dailyLimit,
+                  ),
+                  style: GoogleFonts.inter(
+                    color: _lilac,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+              SizedBox(height: dailyLimit > 0 ? AppSpacing.xs : AppSpacing.sm),
               Text(
-                key: const Key('qmatch-super-resonance-confirm-balance'),
-                l10n.discoverSuperResonanceBalance(balance),
+                key: const Key('qmatch-super-resonance-confirm-purchased'),
+                l10n.discoverSuperResonancePurchased(purchasedBalance),
                 style: GoogleFonts.inter(
-                  color: _lilac,
+                  color: dailyLimit > 0 ? AppColors.textSecondary : _lilac,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),

@@ -11,6 +11,7 @@ const {
   SUBSCRIPTION_STATES,
   TIERS,
   BALANCE_FIELDS,
+  SUPER_RESONANCE_DAILY,
 } = require('./entitlement_schema');
 
 /**
@@ -50,6 +51,8 @@ function defaultFreeSnapshot(uid) {
     latest_transaction_ref: null,
     [BALANCE_FIELDS.SUPER_RESONANCE]: 0,
     [BALANCE_FIELDS.BOOST]: 0,
+    [SUPER_RESONANCE_DAILY.UTC_DATE]: null,
+    [SUPER_RESONANCE_DAILY.USED]: 0,
     schema_version: SCHEMA_VERSION,
   };
 }
@@ -74,6 +77,10 @@ function normalizeSnapshot(uid, raw) {
 
   const superBal = nonNegInt(raw[BALANCE_FIELDS.SUPER_RESONANCE]);
   const boostBal = nonNegInt(raw[BALANCE_FIELDS.BOOST]);
+  const dailyDate = isUtcDate(raw[SUPER_RESONANCE_DAILY.UTC_DATE])
+    ? raw[SUPER_RESONANCE_DAILY.UTC_DATE]
+    : null;
+  const dailyUsed = nonNegInt(raw[SUPER_RESONANCE_DAILY.USED]);
 
   return {
     ...base,
@@ -84,8 +91,14 @@ function normalizeSnapshot(uid, raw) {
     resonance_access: deriveResonanceAccess(tier, subscription_state),
     [BALANCE_FIELDS.SUPER_RESONANCE]: superBal,
     [BALANCE_FIELDS.BOOST]: boostBal,
+    [SUPER_RESONANCE_DAILY.UTC_DATE]: dailyDate,
+    [SUPER_RESONANCE_DAILY.USED]: dailyUsed,
     schema_version: SCHEMA_VERSION,
   };
+}
+
+function isUtcDate(value) {
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value);
 }
 
 function nonNegInt(v) {

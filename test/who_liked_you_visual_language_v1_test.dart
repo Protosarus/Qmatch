@@ -69,6 +69,45 @@ void main() {
     expect(featureCopy.contains('seni beğenenler'), isFalse);
   });
 
+  test('TR Super Resonance / Alignment Signals copy drops hizalama', () {
+    final tr = AppLocalizationsTr();
+    final copy = [
+      tr.discoverSuperResonance,
+      tr.discoverSuperResonanceConfirmTitle('Ada'),
+      tr.discoverSuperResonancePurchased(2),
+      tr.discoverSuperResonanceDailyAllowance(2, 2),
+      tr.membershipSuperResonanceDaily(2, 2),
+      tr.membershipSuperResonancePurchased(2),
+      tr.discoverSuperResonanceUsesOne,
+      tr.discoverSuperResonanceQuantity,
+      tr.discoverSuperResonanceConfirmBody,
+      tr.discoverSuperResonancePurchaseTitle,
+      tr.discoverSuperResonancePurchaseBody,
+      tr.discoverSuperResonancePurchaseCta,
+      tr.whoLikedYouTitle,
+      tr.whoLikedYouLoading,
+      tr.whoLikedYouEmptyTitle,
+      tr.whoLikedYouEmptyBody,
+      tr.whoLikedYouLockedTitle,
+      tr.whoLikedYouLockedBody,
+      tr.whoLikedYouErrorTitle,
+      tr.whoLikedYouFreeDiscoveryTitle,
+      tr.whoLikedYouFreeDiscoveryBody,
+    ].join('\n').toLowerCase();
+    expect(copy.contains('hizalama'), isFalse);
+    expect(copy.contains('hizalanma'), isFalse);
+    expect(tr.whoLikedYouFreeDiscoveryTitle,
+        'Özel bir uyum sinyali burada görünebilir');
+    expect(
+      tr.whoLikedYouFreeDiscoveryBody,
+      'Biri sana Super Resonance gönderdiğinde burada görebilirsin. Resonance üyeliği, diğer Uyum Sinyallerini de keşfetmeni sağlar.',
+    );
+    expect(
+      tr.discoverSuperResonancePurchaseBody,
+      'Super Resonance ile daha güçlü ve özel bir uyum sinyali gönder. Super Resonance ayrı bir özelliktir ve Resonance üyeliğini etkinleştirmez.',
+    );
+  });
+
   testWidgets('EN empty inbox shows alignment-signal copy', (tester) async {
     await _pumpWhoLikedYou(tester, locale: const Locale('en'));
     await tester.pumpAndSettle();

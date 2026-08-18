@@ -55,6 +55,14 @@ const BALANCE_FIELDS = Object.freeze({
   BOOST: 'boost_balance',
 });
 
+/** Purchased consumable only. Daily allowance is a separate UTC bucket. */
+const SUPER_RESONANCE_DAILY = Object.freeze({
+  UTC_DATE: 'super_resonance_daily_utc_date',
+  USED: 'super_resonance_daily_used',
+  LIMIT: 2,
+  PRODUCT_KEY: 'super_resonance_daily',
+});
+
 const EVENT_TYPES = Object.freeze({
   SUBSCRIPTION_PURCHASE: 'subscription_purchase',
   SUBSCRIPTION_RESTORE: 'subscription_restore',
@@ -66,6 +74,7 @@ const EVENT_TYPES = Object.freeze({
   CONSUMABLE_PURCHASE: 'consumable_purchase',
   CONSUMABLE_RESTORE_CREDIT: 'consumable_restore_credit',
   CONSUMABLE_SPEND: 'consumable_spend',
+  DAILY_ALLOWANCE_SPEND: 'daily_allowance_spend',
 });
 
 const EFFECTS = Object.freeze({
@@ -77,6 +86,7 @@ const EFFECTS = Object.freeze({
   CREDIT_BOOST: 'credit_boost',
   DEBIT_SUPER_RESONANCE: 'debit_super_resonance',
   DEBIT_BOOST: 'debit_boost',
+  SPEND_SUPER_RESONANCE_DAILY: 'spend_super_resonance_daily',
   NOOP: 'noop',
 });
 
@@ -92,6 +102,7 @@ module.exports = {
   STORE_PRODUCT_IDS,
   PLAY_BASE_PLANS,
   BALANCE_FIELDS,
+  SUPER_RESONANCE_DAILY,
   EVENT_TYPES,
   EFFECTS,
   VERIFICATION_NOT_CONFIGURED,

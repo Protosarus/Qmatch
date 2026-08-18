@@ -244,6 +244,19 @@ exports.sendSuperResonance = onCall(
   (request) => sendSuperResonance.handleSendSuperResonance(request),
 );
 exports.handleSendSuperResonance = sendSuperResonance.handleSendSuperResonance;
+const getSuperResonanceAvailability = require('./src/get_super_resonance_availability_callable');
+
+/**
+ * Trusted Super Resonance availability. Server UTC day only.
+ * Read-only. Never spends. Never trusts a client clock.
+ */
+exports.getSuperResonanceAvailability = onCall(
+  { region: 'us-central1' },
+  (request) =>
+    getSuperResonanceAvailability.handleGetSuperResonanceAvailability(request),
+);
+exports.handleGetSuperResonanceAvailability =
+  getSuperResonanceAvailability.handleGetSuperResonanceAvailability;
 const listSuperResonanceInbox = require('./src/list_super_resonance_inbox_callable');
 
 /**

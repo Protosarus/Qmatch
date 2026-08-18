@@ -189,11 +189,38 @@
     }
   },
   "discoverSuperResonanceUsesOne": "1 Super Resonance kullanır",
-  "discoverSuperResonanceConfirmBody": "Bu daha güçlü bir hizalanma sinyali gönderir. Onları beğenmez ve eşleşme oluşturmaz.",
+  "discoverSuperResonanceDailyAllowance": "Bugünkü Resonance hakkı: {remaining} / {limit}",
+  "@discoverSuperResonanceDailyAllowance": {
+    "placeholders": {
+      "remaining": { "type": "int" },
+      "limit": { "type": "int" }
+    }
+  },
+  "discoverSuperResonancePurchased": "Satın alınan: {count}",
+  "@discoverSuperResonancePurchased": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "membershipSuperResonanceDaily": "Bugünkü dahil kullanımlar: {remaining} / {limit}",
+  "@membershipSuperResonanceDaily": {
+    "placeholders": {
+      "remaining": { "type": "int" },
+      "limit": { "type": "int" }
+    }
+  },
+  "membershipSuperResonancePurchased": "Satın alınan: {count}",
+  "@membershipSuperResonancePurchased": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "discoverSuperResonanceQuantity": "1 Super Resonance",
+  "discoverSuperResonanceConfirmBody": "Bu daha güçlü bir uyum sinyali gönderir. Onları beğenmez ve eşleşme oluşturmaz.",
   "discoverSuperResonanceConfirm": "Gönder",
   "discoverSuperResonanceCancel": "Vazgeç",
   "discoverSuperResonancePurchaseTitle": "Super Resonance al",
-  "discoverSuperResonancePurchaseBody": "Daha güçlü bir hizalanma sinyali göndermek için Super Resonance ekle. Bu Resonance aboneliğini açmaz.",
+  "discoverSuperResonancePurchaseBody": "Super Resonance ile daha güçlü ve özel bir uyum sinyali gönder. Super Resonance ayrı bir özelliktir ve Resonance üyeliğini etkinleştirmez.",
   "discoverSuperResonancePurchaseCta": "Super Resonance al",
   "discoverSuperResonancePurchaseNotNow": "Şimdi değil",
   "discoverSuperResonanceSendFailed": "Super Resonance gönderilemedi. Lütfen tekrar dene.",
@@ -727,15 +754,15 @@
   "resonanceUnlockCta": "Resonance ile aç",
   "resonanceUnlockNotNow": "Şimdi değil",
   "whoLikedYouTitle": "Uyum Sinyalleri",
-  "whoLikedYouLoading": "Seninle hizalananlar aranıyor…",
+  "whoLikedYouLoading": "Uyum sinyalleri aranıyor…",
   "whoLikedYouEmptyTitle": "Yeni uyum sinyalleri burada görünecek",
   "whoLikedYouEmptyBody": "Sana yönelik yeni bir uyum oluştuğunda burada keşfedebilirsin.",
-  "whoLikedYouLockedTitle": "Seni kim hizaladı",
+  "whoLikedYouLockedTitle": "Uyum Sinyallerini gör",
   "whoLikedYouLockedBody": "Sana yönelik yeni bir uyum oluştuğunda Resonance onları görmeni sağlar — kimi eşleştireceğini değiştirmeden.",
   "whoLikedYouErrorTitle": "Uyum sinyalleri yüklenemedi",
   "whoLikedYouErrorBody": "Bir sorun oluştu. Lütfen tekrar dene.",
-  "whoLikedYouFreeDiscoveryTitle": "Daha güçlü bir hizalanma burada görünebilir",
-  "whoLikedYouFreeDiscoveryBody": "Biri sana Super Resonance gönderirse burada görürsün. Resonance, sıradan uyum sinyallerini de gösterir.",
+  "whoLikedYouFreeDiscoveryTitle": "Özel bir uyum sinyali burada görünebilir",
+  "whoLikedYouFreeDiscoveryBody": "Biri sana Super Resonance gönderdiğinde burada görebilirsin. Resonance üyeliği, diğer Uyum Sinyallerini de keşfetmeni sağlar.",
   "profileMembershipResonanceActive": "Resonance aktif",
   "profileMembershipFree": "QMatch Free",
   "profileResonanceBadgeSemantic": "Resonance aktif",

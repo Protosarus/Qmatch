@@ -34,6 +34,8 @@ void main() {
       subscriptionState: 'active',
       resonanceAccess: true,
       superResonanceBalance: 0,
+      superResonanceDailyRemaining: 2,
+      superResonanceDailyLimit: 2,
       boostBalance: 0,
       productId: productId,
       canonicalProductKey: canonicalProductKey,
@@ -176,6 +178,66 @@ void main() {
     expect(find.text('Resonance\'a yükselt'), findsOneWidget);
   });
 
+  testWidgets('Membership shows trusted Super Resonance balance for Free',
+      (tester) async {
+    await pumpMembership(
+      tester,
+      snapshot: const EntitlementSnapshot(
+        uid: 'u1',
+        tier: 'free',
+        subscriptionState: 'none',
+        resonanceAccess: false,
+        superResonanceBalance: 0,
+        boostBalance: 0,
+      ),
+      openUpgrade: (_) async {},
+    );
+    expect(
+      find.byKey(const Key('qmatch-membership-super-resonance')),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(const Key('qmatch-membership-super-resonance-purchased')),
+      findsOneWidget,
+    );
+    expect(
+      find.byKey(const Key('qmatch-membership-super-resonance-daily')),
+      findsNothing,
+    );
+    expect(find.text('Purchased: 0'), findsOneWidget);
+    expect(find.textContaining("Today's included uses"), findsNothing);
+    expect(find.text('Super Resonance'), findsOneWidget);
+  });
+
+  testWidgets('Membership Super Resonance balance is independent of Resonance',
+      (tester) async {
+    await pumpMembership(
+      tester,
+      snapshot: const EntitlementSnapshot(
+        uid: 'u1',
+        tier: 'resonance',
+        subscriptionState: 'active',
+        resonanceAccess: true,
+        superResonanceBalance: 4,
+        superResonanceDailyRemaining: 2,
+        superResonanceDailyLimit: 2,
+        boostBalance: 0,
+        productId: 'qmatch.resonance.monthly',
+      ),
+      restorePurchases: () async => resonance(),
+      manageSubscription: () async {},
+    );
+    expect(
+      find.text("Today's included uses: 2 / 2"),
+      findsOneWidget,
+    );
+    expect(find.text('Purchased: 4'), findsOneWidget);
+    expect(
+      find.byKey(const Key('qmatch-membership-super-resonance-daily')),
+      findsOneWidget,
+    );
+  });
+
   testWidgets('Resonance monthly shows live Alignment Signals and later items',
       (tester) async {
     var restores = 0;
@@ -306,6 +368,8 @@ void main() {
     expect(screen.toLowerCase().contains('storekit'), isFalse);
     expect(screen.contains('resonanceAccess == true'), isTrue);
     expect(screen.contains('EntitlementRepository'), isTrue);
+    expect(screen.contains('DateTime.now()'), isFalse);
+    expect(screen.contains('SuperResonanceSendClient'), isTrue);
 
     final plan = File(
       'lib/features/profile/domain/membership_plan.dart',

@@ -10,6 +10,8 @@ class EntitlementSnapshot {
     required this.resonanceAccess,
     required this.superResonanceBalance,
     required this.boostBalance,
+    this.superResonanceDailyRemaining = 0,
+    this.superResonanceDailyLimit = 0,
     this.platform,
     this.canonicalProductKey,
     this.productId,
@@ -25,6 +27,11 @@ class EntitlementSnapshot {
 
   final int superResonanceBalance;
   final int boostBalance;
+
+  /// Trusted daily remaining. 0 unless the backend populated it.
+  /// Never inferred from the device clock.
+  final int superResonanceDailyRemaining;
+  final int superResonanceDailyLimit;
   final String? platform;
   final String? canonicalProductKey;
   final String? productId;
@@ -37,6 +44,8 @@ class EntitlementSnapshot {
     resonanceAccess: false,
     superResonanceBalance: 0,
     boostBalance: 0,
+    superResonanceDailyRemaining: 0,
+    superResonanceDailyLimit: 0,
   );
 
   /// Parse Firestore map. Missing / invalid access fields fail closed to false.

@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:cloud_functions/cloud_functions.dart';
 
+import '../domain/super_resonance_availability.dart';
 import '../domain/super_resonance_send_result.dart';
 
-/// Client for trusted `sendSuperResonance`. Never writes peer/signal docs.
+/// Client for trusted Super Resonance send + availability.
+/// Never writes peer/signal docs. Never trusts the device clock for remaining.
 class SuperResonanceSendClient {
   SuperResonanceSendClient({
     FirebaseFunctions? functions,
@@ -25,6 +27,8 @@ class SuperResonanceSendClient {
   final String Function()? _requestIdFactory;
 
   static const String callableName = 'sendSuperResonance';
+  static const String availabilityCallableName =
+      'getSuperResonanceAvailability';
 
   String newRequestId() {
     final custom = _requestIdFactory;
@@ -39,7 +43,7 @@ class SuperResonanceSendClient {
     final id = (requestId == null || requestId.trim().isEmpty)
         ? newRequestId()
         : requestId.trim();
-    final raw = await _invoke({
+    final raw = await _invoke(callableName, {
       'target_uid': targetUid,
       'request_id': id,
     });
@@ -50,16 +54,30 @@ class SuperResonanceSendClient {
     return parsed;
   }
 
-  Future<Map<String, dynamic>> _invoke(Map<String, dynamic> data) async {
+  Future<SuperResonanceAvailability> availability() async {
+    final raw = await _invoke(availabilityCallableName, const {});
+    final parsed = SuperResonanceAvailability.fromPublicMap(raw);
+    if (parsed == null) {
+      throw StateError(
+        'Callable $availabilityCallableName returned an invalid payload.',
+      );
+    }
+    return parsed;
+  }
+
+  Future<Map<String, dynamic>> _invoke(
+    String name,
+    Map<String, dynamic> data,
+  ) async {
     final custom = _call;
-    if (custom != null) return custom(callableName, data);
+    if (custom != null) return custom(name, data);
     final functions = _functions ?? FirebaseFunctions.instance;
-    final result = await functions.httpsCallable(callableName).call(data);
+    final result = await functions.httpsCallable(name).call(data);
     final payload = result.data;
     if (payload is Map) {
       return Map<String, dynamic>.from(payload);
     }
-    throw StateError('Callable $callableName returned a non-map payload.');
+    throw StateError('Callable $name returned a non-map payload.');
   }
 }
 

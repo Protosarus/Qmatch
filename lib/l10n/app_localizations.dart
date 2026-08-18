@@ -818,6 +818,36 @@ abstract class AppLocalizations {
   /// **'Uses 1 Super Resonance'**
   String get discoverSuperResonanceUsesOne;
 
+  /// No description provided for @discoverSuperResonanceDailyAllowance.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Resonance allowance: {remaining} / {limit}'**
+  String discoverSuperResonanceDailyAllowance(int remaining, int limit);
+
+  /// No description provided for @discoverSuperResonancePurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased: {count}'**
+  String discoverSuperResonancePurchased(int count);
+
+  /// No description provided for @membershipSuperResonanceDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s included uses: {remaining} / {limit}'**
+  String membershipSuperResonanceDaily(int remaining, int limit);
+
+  /// No description provided for @membershipSuperResonancePurchased.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased: {count}'**
+  String membershipSuperResonancePurchased(int count);
+
+  /// No description provided for @discoverSuperResonanceQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'1 Super Resonance'**
+  String get discoverSuperResonanceQuantity;
+
   /// No description provided for @discoverSuperResonanceConfirmBody.
   ///
   /// In en, this message translates to:
@@ -845,7 +875,7 @@ abstract class AppLocalizations {
   /// No description provided for @discoverSuperResonancePurchaseBody.
   ///
   /// In en, this message translates to:
-  /// **'Add Super Resonance to send a stronger alignment signal. This does not unlock Resonance.'**
+  /// **'Send a stronger, more personal alignment signal with Super Resonance. Super Resonance is a separate feature and does not activate Resonance membership.'**
   String get discoverSuperResonancePurchaseBody;
 
   /// No description provided for @discoverSuperResonancePurchaseCta.
@@ -3401,13 +3431,13 @@ abstract class AppLocalizations {
   /// No description provided for @whoLikedYouFreeDiscoveryTitle.
   ///
   /// In en, this message translates to:
-  /// **'A stronger alignment can appear here'**
+  /// **'A special alignment signal can appear here'**
   String get whoLikedYouFreeDiscoveryTitle;
 
   /// No description provided for @whoLikedYouFreeDiscoveryBody.
   ///
   /// In en, this message translates to:
-  /// **'If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.'**
+  /// **'When someone sends you Super Resonance, you can see them here. Resonance membership also lets you discover other Alignment Signals.'**
   String get whoLikedYouFreeDiscoveryBody;
 
   /// No description provided for @profileMembershipResonanceActive.

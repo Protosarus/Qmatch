@@ -27,14 +27,26 @@ function isSafeRequestId(requestId) {
   return true;
 }
 
-function publicSendResult({ alreadySent, balance, id }) {
+function publicSendResult({ alreadySent, daily, balance, id }) {
+  const purchased = publicNonNeg(
+    daily && daily.purchased !== undefined ? daily.purchased : balance,
+  );
+  const remaining = publicNonNeg(daily && daily.remaining);
   return {
     ok: true,
     already_sent: !!alreadySent,
-    super_resonance_balance:
-      typeof balance === 'number' && Number.isFinite(balance) ? balance : 0,
+    super_resonance_balance: purchased,
+    purchased_balance: purchased,
+    daily_remaining: remaining,
+    total_available: remaining + purchased,
     signal_id: id,
   };
+}
+
+function publicNonNeg(value) {
+  return typeof value === 'number' && Number.isFinite(value) && value > 0
+    ? Math.floor(value)
+    : 0;
 }
 
 function buildSignalDocument({

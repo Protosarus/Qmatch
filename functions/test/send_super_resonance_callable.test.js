@@ -91,7 +91,10 @@ describe('sendSuperResonance callable', () => {
 
     assert.strictEqual(res.ok, true);
     assert.strictEqual(res.already_sent, false);
-    assert.strictEqual(res.super_resonance_balance, 1);
+    assert.strictEqual(res.super_resonance_balance, 2);
+    assert.strictEqual(res.purchased_balance, 2);
+    assert.strictEqual(res.daily_remaining, 1);
+    assert.strictEqual(res.total_available, 3);
     assert.strictEqual(res.signal_id, signalId(from, to));
     assert.deepStrictEqual(Object.keys(res).sort(), [...PUBLIC_RESULT_KEYS].sort());
 
@@ -115,13 +118,16 @@ describe('sendSuperResonance callable', () => {
       )
       .get();
     assert.strictEqual(ledger.exists, true);
-    assert.strictEqual(ledger.data().event_type, EVENT_TYPES.CONSUMABLE_SPEND);
-    assert.strictEqual(ledger.data().effect, EFFECTS.DEBIT_SUPER_RESONANCE);
+    assert.strictEqual(ledger.data().event_type, EVENT_TYPES.DAILY_ALLOWANCE_SPEND);
+    assert.strictEqual(ledger.data().effect, EFFECTS.SPEND_SUPER_RESONANCE_DAILY);
     assert.strictEqual(ledger.data().verification_source, 'spend');
     assert.strictEqual(ledger.data().target_uid, to);
+    assert.strictEqual(ledger.data().balance_delta_super_resonance, 0);
 
     const ent = await db.doc(`entitlements/${from}`).get();
-    assert.strictEqual(ent.data().super_resonance_balance, 1);
+    assert.strictEqual(ent.data().super_resonance_balance, 2);
+    assert.strictEqual(ent.data().super_resonance_daily_utc_date, '2026-08-17');
+    assert.strictEqual(ent.data().super_resonance_daily_used, 1);
     assert.strictEqual(ent.data().boost_balance, 5);
     assert.strictEqual(ent.data().tier, 'resonance');
     assert.strictEqual(ent.data().resonance_access, true);
@@ -150,14 +156,17 @@ describe('sendSuperResonance callable', () => {
       deps(db),
     );
     assert.strictEqual(first.already_sent, false);
-    assert.strictEqual(first.super_resonance_balance, 1);
+    assert.strictEqual(first.super_resonance_balance, 2);
+    assert.strictEqual(first.daily_remaining, 1);
     assert.strictEqual(second.ok, true);
     assert.strictEqual(second.already_sent, true);
-    assert.strictEqual(second.super_resonance_balance, 1);
+    assert.strictEqual(second.super_resonance_balance, 2);
+    assert.strictEqual(second.daily_remaining, 1);
     assert.strictEqual(second.signal_id, first.signal_id);
 
     const ent = await db.doc(`entitlements/${from}`).get();
-    assert.strictEqual(ent.data().super_resonance_balance, 1);
+    assert.strictEqual(ent.data().super_resonance_balance, 2);
+    assert.strictEqual(ent.data().super_resonance_daily_used, 1);
   });
 
   it('duplicate request_id is idempotent', async () => {
@@ -176,7 +185,8 @@ describe('sendSuperResonance callable', () => {
     assert.strictEqual(first.already_sent, false);
     assert.strictEqual(second.ok, true);
     assert.strictEqual(second.already_sent, true);
-    assert.strictEqual(second.super_resonance_balance, 1);
+    assert.strictEqual(second.super_resonance_balance, 2);
+    assert.strictEqual(second.daily_remaining, 1);
     assert.strictEqual(second.signal_id, first.signal_id);
   });
 
@@ -329,7 +339,8 @@ describe('sendSuperResonance callable', () => {
     );
     assert.strictEqual(res.ok, true);
     assert.strictEqual(res.already_sent, false);
-    assert.strictEqual(res.super_resonance_balance, 1);
+    assert.strictEqual(res.super_resonance_balance, 2);
+    assert.strictEqual(res.daily_remaining, 1);
     const swipe = await db.doc(`users/${from}/swipes/${to}`).get();
     assert.strictEqual(swipe.data().direction, 'like');
     const match = await db.doc('matches/userA_userB').get();
@@ -339,7 +350,11 @@ describe('sendSuperResonance callable', () => {
   it('insufficient balance refuses', async () => {
     const db = new MemoryFirestore();
     const { from, to } = await seedReady(db, {
-      entitlement: { super_resonance_balance: 0 },
+      entitlement: {
+        super_resonance_balance: 0,
+        super_resonance_daily_utc_date: '2026-08-17',
+        super_resonance_daily_used: 2,
+      },
     });
     await assert.rejects(
       () =>
