@@ -55,15 +55,17 @@ class AboutScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: AppSpacing.lg),
                           Text(
+                            key: const Key('qmatch-about-tagline'),
                             l10n.aboutTagline,
                             style: GoogleFonts.playfairDisplay(
-                              color: AppColors.softGold,
+                              color: const Color(0xFFDAC8ED),
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(height: AppSpacing.sm),
                           Text(
+                            key: const Key('qmatch-about-description'),
                             l10n.aboutDescription,
                             style: GoogleFonts.inter(
                               color: Colors.white,

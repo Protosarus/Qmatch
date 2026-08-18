@@ -10,6 +10,7 @@ import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
 import '../models/user_profile_model.dart';
 import '../utils/profile_option_labels.dart';
+import 'qmatch_profile_resonance.dart';
 
 /// Compact Profile title + Settings action (44×44 tap target).
 class QMatchProfileHeader extends StatelessWidget {
@@ -71,6 +72,8 @@ class QMatchProfileIdentityCard extends StatelessWidget {
     required this.editPhotoSemanticLabel,
     this.onPhotoTap,
     this.photoImageProvider,
+    this.showResonanceBadge = false,
+    this.resonanceBadgeSemanticLabel,
   });
 
   final UserProfileModel profile;
@@ -78,6 +81,10 @@ class QMatchProfileIdentityCard extends StatelessWidget {
   final String editPhotoSemanticLabel;
   final VoidCallback? onPhotoTap;
   final ImageProvider? photoImageProvider;
+
+  /// Trusted `resonance_access == true` only. Never inferred from StoreKit.
+  final bool showResonanceBadge;
+  final String? resonanceBadgeSemanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +144,14 @@ class QMatchProfileIdentityCard extends StatelessWidget {
                               ),
                       ),
                     ),
+                    if (showResonanceBadge)
+                      Positioned(
+                        right: 0,
+                        bottom: 34,
+                        child: QMatchResonancePhotoBadge(
+                          semanticLabel: resonanceBadgeSemanticLabel ?? '',
+                        ),
+                      ),
                     if (onPhotoTap != null)
                       Positioned(
                         right: -2,
@@ -710,6 +725,10 @@ class QMatchProfileReadyView extends StatelessWidget {
     this.onPhotoTap,
     this.photoImageProvider,
     this.bottomInset = 0,
+    this.showResonanceBadge = false,
+    this.resonanceBadgeSemanticLabel,
+    this.membershipLabel,
+    this.onMembershipTap,
   });
 
   final UserProfileModel profile;
@@ -721,6 +740,10 @@ class QMatchProfileReadyView extends StatelessWidget {
   final VoidCallback? onPhotoTap;
   final ImageProvider? photoImageProvider;
   final double bottomInset;
+  final bool showResonanceBadge;
+  final String? resonanceBadgeSemanticLabel;
+  final String? membershipLabel;
+  final VoidCallback? onMembershipTap;
 
   @override
   Widget build(BuildContext context) {
@@ -747,7 +770,16 @@ class QMatchProfileReadyView extends StatelessWidget {
                 editPhotoSemanticLabel: editPhotoSemanticLabel,
                 onPhotoTap: onPhotoTap,
                 photoImageProvider: photoImageProvider,
+                showResonanceBadge: showResonanceBadge,
+                resonanceBadgeSemanticLabel: resonanceBadgeSemanticLabel,
               ),
+              if (membershipLabel != null && membershipLabel!.isNotEmpty) ...[
+                const SizedBox(height: AppSpacing.md),
+                QMatchProfileMembershipCard(
+                  label: membershipLabel!,
+                  onTap: onMembershipTap,
+                ),
+              ],
               const SizedBox(height: AppSpacing.md),
               QMatchProfileInfoSections(profile: profile),
             ],

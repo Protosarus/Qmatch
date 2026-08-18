@@ -135,7 +135,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('qmatch-who-liked-you-empty')), findsOneWidget);
-    expect(find.text('No one has liked you yet'), findsOneWidget);
+    expect(
+      find.text('New alignment signals will appear here'),
+      findsOneWidget,
+    );
     expect(find.byKey(const Key('qmatch-who-liked-you-unlock')), findsNothing);
     expect(find.text('Like'), findsNothing);
   });

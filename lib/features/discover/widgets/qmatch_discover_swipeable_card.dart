@@ -20,6 +20,7 @@ class QMatchDiscoverSwipeableCard extends StatefulWidget {
     this.enabled = true,
     this.showSwipeStamps = true,
     this.dragThreshold = defaultDragThreshold,
+    this.onSwipeFeedback,
   });
 
   static const double defaultDragThreshold = 120;
@@ -37,6 +38,10 @@ class QMatchDiscoverSwipeableCard extends StatefulWidget {
   final bool showSwipeStamps;
   final double dragThreshold;
 
+  /// Signed drag progress from this card: `+` like/right, `-` pass/left, `0` center.
+  /// Clamped to `-1..1`. Uses the same threshold and overlay deadzone as stamps.
+  final ValueChanged<double>? onSwipeFeedback;
+
   @override
   State<QMatchDiscoverSwipeableCard> createState() =>
       _QMatchDiscoverSwipeableCardState();
@@ -47,6 +52,7 @@ class _QMatchDiscoverSwipeableCardState
     with SingleTickerProviderStateMixin {
   Offset _offset = Offset.zero;
   bool _actionDispatched = false;
+  double _lastEmittedFeedback = 0;
   late final AnimationController _controller;
   Animation<Offset>? _offsetAnimation;
 
@@ -60,6 +66,7 @@ class _QMatchDiscoverSwipeableCardState
         final anim = _offsetAnimation;
         if (anim == null) return;
         setState(() => _offset = anim.value);
+        _emitFeedback();
       });
   }
 
@@ -71,6 +78,8 @@ class _QMatchDiscoverSwipeableCardState
       _offsetAnimation = null;
       _offset = Offset.zero;
       _actionDispatched = false;
+      _lastEmittedFeedback = 0;
+      widget.onSwipeFeedback?.call(0);
       return;
     }
     if (!oldWidget.enabled && widget.enabled && _actionDispatched) {
@@ -95,10 +104,26 @@ class _QMatchDiscoverSwipeableCardState
     return t.clamp(0.0, 1.0);
   }
 
+  /// Same direction split as the Like/Pass stamps (`overlayStartPx` deadzone).
+  double get _signedFeedback {
+    final dx = _offset.dx;
+    if (dx > QMatchDiscoverSwipeableCard.overlayStartPx) return _progress;
+    if (dx < -QMatchDiscoverSwipeableCard.overlayStartPx) return -_progress;
+    return 0.0;
+  }
+
+  void _emitFeedback() {
+    final next = _signedFeedback;
+    if ((next - _lastEmittedFeedback).abs() < 0.0008) return;
+    _lastEmittedFeedback = next;
+    widget.onSwipeFeedback?.call(next);
+  }
+
   void _onDragUpdate(DragUpdateDetails details) {
     if (!_gesturesActive) return;
     setState(
         () => _offset += Offset(details.delta.dx, details.delta.dy * 0.28));
+    _emitFeedback();
   }
 
   void _onDragEnd(DragEndDetails details) {

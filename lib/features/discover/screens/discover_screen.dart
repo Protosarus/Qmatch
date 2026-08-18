@@ -63,6 +63,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   bool _lastCardCommitted = false;
   bool _showGestureOnboarding = false;
   int _committedSwipeCount = 0;
+  double _swipeFeedback = 0;
   int _superResonanceBalance = 0;
   bool _superResonanceBusy = false;
   bool _superResonanceSheetOpen = false;
@@ -175,6 +176,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       setState(() {
         _candidates = list;
         _currentIndex = 0;
+        _swipeFeedback = 0;
         _lastCardCommitted = false;
         _isLoading = false;
         _hasError = false;
@@ -187,6 +189,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         _hasError = true;
         _candidates = [];
         _currentIndex = 0;
+        _swipeFeedback = 0;
         _lastCardCommitted = false;
         _isLoading = false;
       });
@@ -207,7 +210,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   void _advance() {
     setState(() {
       _currentIndex++;
+      _swipeFeedback = 0;
     });
+  }
+
+  void _onSwipeFeedback(double value) {
+    if (_swipeFeedback == value) return;
+    setState(() => _swipeFeedback = value);
   }
 
   Future<void> _refreshSuperResonanceBalance() async {
@@ -543,6 +552,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   passLabel: l10n.discoverPass,
                   onLike: _onLike,
                   onPass: _onPass,
+                  onSwipeFeedback: _onSwipeFeedback,
                   child: QMatchCandidateCard(
                     candidate: c,
                     showLegacyCompatibilityUi: _discoverService
@@ -571,6 +581,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 (_isActionLoading || _showGestureOnboarding) ? null : _onLike,
             isActionLoading: _isActionLoading,
             subdued: _showGestureOnboarding,
+            swipeFeedback: _swipeFeedback,
             showSuperResonance: true,
             superResonanceLabel: l10n.discoverSuperResonance,
             isSuperResonanceLoading: _superResonanceBusy,

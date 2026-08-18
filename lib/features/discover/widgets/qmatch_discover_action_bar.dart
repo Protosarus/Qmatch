@@ -11,6 +11,9 @@ import '../../../core/widgets/qmatch_glass_icon_button.dart';
 /// This is not a Tinder-style 5-button row.
 ///
 /// [passLabel] / [likeLabel] remain as semantic labels.
+///
+/// [swipeFeedback] is signed card drag progress (`+` like/right, `-` pass/left).
+/// Only the matching Like/Pass button animates; Super Resonance stays idle.
 class QMatchDiscoverActionBar extends StatelessWidget {
   const QMatchDiscoverActionBar({
     super.key,
@@ -20,6 +23,7 @@ class QMatchDiscoverActionBar extends StatelessWidget {
     required this.onLike,
     required this.isActionLoading,
     this.subdued = false,
+    this.swipeFeedback = 0,
     this.superResonanceLabel,
     this.onSuperResonance,
     this.isSuperResonanceLoading = false,
@@ -34,6 +38,9 @@ class QMatchDiscoverActionBar extends StatelessWidget {
   final bool isActionLoading;
   final bool subdued;
 
+  /// `-1..1` from [QMatchDiscoverSwipeableCard] drag progress.
+  final double swipeFeedback;
+
   final String? superResonanceLabel;
   final VoidCallback? onSuperResonance;
   final bool isSuperResonanceLoading;
@@ -42,6 +49,9 @@ class QMatchDiscoverActionBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final likeAmount = swipeFeedback > 0 ? swipeFeedback.clamp(0.0, 1.0) : 0.0;
+    final passAmount = swipeFeedback < 0 ? (-swipeFeedback).clamp(0.0, 1.0) : 0.0;
+
     return Opacity(
       opacity: subdued ? 0.42 : 1,
       child: Padding(
@@ -53,7 +63,7 @@ class QMatchDiscoverActionBar extends StatelessWidget {
           AppSpacing.sm,
         ),
         child: Row(
-          mainAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _DiscoverIconButton(
               buttonKey: const Key('qmatch-discover-pass'),
@@ -62,6 +72,7 @@ class QMatchDiscoverActionBar extends StatelessWidget {
               onPressed: onPass,
               like: false,
               loading: false,
+              activation: passAmount,
             ),
             if (showSuperResonance ||
                 onSuperResonance != null ||
@@ -83,6 +94,7 @@ class QMatchDiscoverActionBar extends StatelessWidget {
               onPressed: onLike,
               like: true,
               loading: isActionLoading,
+              activation: likeAmount,
             ),
           ],
         ),
@@ -99,6 +111,7 @@ class _DiscoverIconButton extends StatelessWidget {
     required this.onPressed,
     required this.like,
     required this.loading,
+    required this.activation,
   });
 
   final Key buttonKey;
@@ -107,11 +120,25 @@ class _DiscoverIconButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool like;
   final bool loading;
+  final double activation;
 
   @override
   Widget build(BuildContext context) {
     const size = 56.0;
     final enabled = onPressed != null && !loading;
+    final t = loading ? 0.0 : activation.clamp(0.0, 1.0);
+    final active = t > 0.05;
+
+    final idleFill = QMatchGlassIconButton.glassFill;
+    final activeFill = like
+        ? AppColors.resonanceViolet.withValues(alpha: 0.88)
+        : AppColors.danger.withValues(alpha: 0.72);
+    final idleBorder = QMatchGlassIconButton.coolBorder;
+    final activeBorder = like
+        ? AppColors.softGold.withValues(alpha: 0.42)
+        : AppColors.danger.withValues(alpha: 0.78);
+    final idleIcon = QMatchGlassIconButton.iconDefault;
+    final activeIcon = AppColors.textPrimary;
 
     final face = loading
         ? const Center(
@@ -129,30 +156,30 @@ class _DiscoverIconButton extends StatelessWidget {
         : Icon(
             icon,
             size: 26,
-            color: like ? AppColors.textPrimary : QMatchGlassIconButton.iconDefault,
+            color: Color.lerp(idleIcon, activeIcon, t),
           );
 
     final decoration = BoxDecoration(
       shape: BoxShape.circle,
-      color: like
-          ? AppColors.resonanceViolet.withValues(alpha: enabled ? 0.88 : 0.35)
-          : QMatchGlassIconButton.glassFill,
+      color: Color.lerp(idleFill, activeFill, t),
       border: Border.all(
-        color: like
-            ? AppColors.softGold.withValues(alpha: 0.42)
-            : QMatchGlassIconButton.coolBorder,
+        color: Color.lerp(idleBorder, activeBorder, t)!,
       ),
-      boxShadow: like && enabled
+      boxShadow: active
           ? [
               BoxShadow(
-                color: AppColors.resonanceViolet.withValues(alpha: 0.45),
-                blurRadius: 22,
-                offset: const Offset(0, 8),
+                color: (like
+                        ? AppColors.resonanceViolet
+                        : AppColors.danger)
+                    .withValues(alpha: 0.18 + 0.32 * t),
+                blurRadius: 10 + 12 * t,
+                offset: Offset(0, 4 + 4 * t),
               ),
-              BoxShadow(
-                color: AppColors.softGold.withValues(alpha: 0.22),
-                blurRadius: 16,
-              ),
+              if (like)
+                BoxShadow(
+                  color: AppColors.softGold.withValues(alpha: 0.22 * t),
+                  blurRadius: 16 * t,
+                ),
             ]
           : null,
     );
@@ -160,17 +187,21 @@ class _DiscoverIconButton extends StatelessWidget {
     return Semantics(
       button: true,
       enabled: enabled,
+      selected: active,
       label: semanticLabel,
       child: GestureDetector(
         onTap: enabled ? onPressed : null,
         behavior: HitTestBehavior.opaque,
-        child: SizedBox(
-          key: buttonKey,
-          width: size,
-          height: size,
-          child: DecoratedBox(
-            decoration: decoration,
-            child: Center(child: face),
+        child: Transform.scale(
+          scale: 1.0 + 0.10 * t,
+          child: SizedBox(
+            key: buttonKey,
+            width: size,
+            height: size,
+            child: DecoratedBox(
+              decoration: decoration,
+              child: Center(child: face),
+            ),
           ),
         ),
       ),

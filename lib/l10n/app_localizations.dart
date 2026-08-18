@@ -1445,7 +1445,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutDescription.
   ///
   /// In en, this message translates to:
-  /// **'Qmatch helps people discover compatible connections based on how they think, feel, and connect—not looks alone. Compatibility insights are meant to support discovery; they do not guarantee a relationship.'**
+  /// **'QMatch helps people discover compatible connections based on how they think, feel, and connect — not looks alone. Compatibility insights are meant to support discovery; they do not guarantee the success of any relationship.'**
   String get aboutDescription;
 
   /// No description provided for @aboutLegal.
@@ -3353,7 +3353,7 @@ abstract class AppLocalizations {
   /// No description provided for @whoLikedYouTitle.
   ///
   /// In en, this message translates to:
-  /// **'Who liked you'**
+  /// **'Alignment Signals'**
   String get whoLikedYouTitle;
 
   /// No description provided for @whoLikedYouLoading.
@@ -3365,13 +3365,13 @@ abstract class AppLocalizations {
   /// No description provided for @whoLikedYouEmptyTitle.
   ///
   /// In en, this message translates to:
-  /// **'No one has liked you yet'**
+  /// **'New alignment signals will appear here'**
   String get whoLikedYouEmptyTitle;
 
   /// No description provided for @whoLikedYouEmptyBody.
   ///
   /// In en, this message translates to:
-  /// **'When someone Likes you, they\'ll appear here.'**
+  /// **'When a new alignment forms around you, you can discover it here.'**
   String get whoLikedYouEmptyBody;
 
   /// No description provided for @whoLikedYouLockedTitle.
@@ -3383,13 +3383,13 @@ abstract class AppLocalizations {
   /// No description provided for @whoLikedYouLockedBody.
   ///
   /// In en, this message translates to:
-  /// **'When someone Likes you, Resonance lets you see them — without changing who you match with.'**
+  /// **'When a new alignment forms around you, Resonance lets you see them — without changing who you match with.'**
   String get whoLikedYouLockedBody;
 
   /// No description provided for @whoLikedYouErrorTitle.
   ///
   /// In en, this message translates to:
-  /// **'Couldn\'t load Who liked you'**
+  /// **'Couldn\'t load Alignment Signals'**
   String get whoLikedYouErrorTitle;
 
   /// No description provided for @whoLikedYouErrorBody.
@@ -3409,6 +3409,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.'**
   String get whoLikedYouFreeDiscoveryBody;
+
+  /// No description provided for @profileMembershipResonanceActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance active'**
+  String get profileMembershipResonanceActive;
+
+  /// No description provided for @profileMembershipFree.
+  ///
+  /// In en, this message translates to:
+  /// **'QMatch Free'**
+  String get profileMembershipFree;
+
+  /// No description provided for @profileResonanceBadgeSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance active'**
+  String get profileResonanceBadgeSemantic;
+
+  /// No description provided for @membershipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Membership'**
+  String get membershipTitle;
+
+  /// No description provided for @membershipFreeName.
+  ///
+  /// In en, this message translates to:
+  /// **'QMatch Free'**
+  String get membershipFreeName;
+
+  /// No description provided for @membershipFreeIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessments, Discover, match, and chat included'**
+  String get membershipFreeIncluded;
+
+  /// No description provided for @membershipUpgradeCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Resonance'**
+  String get membershipUpgradeCta;
+
+  /// No description provided for @membershipResonanceName.
+  ///
+  /// In en, this message translates to:
+  /// **'Resonance'**
+  String get membershipResonanceName;
+
+  /// No description provided for @membershipStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get membershipStatusActive;
+
+  /// No description provided for @membershipPlanMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get membershipPlanMonthly;
+
+  /// No description provided for @membershipPlanAnnual.
+  ///
+  /// In en, this message translates to:
+  /// **'Annual'**
+  String get membershipPlanAnnual;
+
+  /// No description provided for @membershipComingLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming later'**
+  String get membershipComingLater;
+
+  /// No description provided for @membershipManageSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Subscription'**
+  String get membershipManageSubscription;
 }
 
 class _AppLocalizationsDelegate

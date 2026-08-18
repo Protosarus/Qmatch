@@ -749,7 +749,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutDescription =>
-      'Qmatch helps people discover compatible connections based on how they think, feel, and connect—not looks alone. Compatibility insights are meant to support discovery; they do not guarantee a relationship.';
+      'QMatch helps people discover compatible connections based on how they think, feel, and connect — not looks alone. Compatibility insights are meant to support discovery; they do not guarantee the success of any relationship.';
 
   @override
   String get aboutLegal => 'Legal';
@@ -1786,27 +1786,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resonanceUnlockNotNow => 'Not now';
 
   @override
-  String get whoLikedYouTitle => 'Who liked you';
+  String get whoLikedYouTitle => 'Alignment Signals';
 
   @override
   String get whoLikedYouLoading => 'Looking for people who aligned with you…';
 
   @override
-  String get whoLikedYouEmptyTitle => 'No one has liked you yet';
+  String get whoLikedYouEmptyTitle => 'New alignment signals will appear here';
 
   @override
   String get whoLikedYouEmptyBody =>
-      'When someone Likes you, they\'ll appear here.';
+      'When a new alignment forms around you, you can discover it here.';
 
   @override
   String get whoLikedYouLockedTitle => 'See who aligned with you';
 
   @override
   String get whoLikedYouLockedBody =>
-      'When someone Likes you, Resonance lets you see them — without changing who you match with.';
+      'When a new alignment forms around you, Resonance lets you see them — without changing who you match with.';
 
   @override
-  String get whoLikedYouErrorTitle => 'Couldn\'t load Who liked you';
+  String get whoLikedYouErrorTitle => 'Couldn\'t load Alignment Signals';
 
   @override
   String get whoLikedYouErrorBody => 'Something went wrong. Please try again.';
@@ -1818,4 +1818,44 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get whoLikedYouFreeDiscoveryBody =>
       'If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.';
+
+  @override
+  String get profileMembershipResonanceActive => 'Resonance active';
+
+  @override
+  String get profileMembershipFree => 'QMatch Free';
+
+  @override
+  String get profileResonanceBadgeSemantic => 'Resonance active';
+
+  @override
+  String get membershipTitle => 'Membership';
+
+  @override
+  String get membershipFreeName => 'QMatch Free';
+
+  @override
+  String get membershipFreeIncluded =>
+      'Assessments, Discover, match, and chat included';
+
+  @override
+  String get membershipUpgradeCta => 'Upgrade to Resonance';
+
+  @override
+  String get membershipResonanceName => 'Resonance';
+
+  @override
+  String get membershipStatusActive => 'Active';
+
+  @override
+  String get membershipPlanMonthly => 'Monthly';
+
+  @override
+  String get membershipPlanAnnual => 'Annual';
+
+  @override
+  String get membershipComingLater => 'Coming later';
+
+  @override
+  String get membershipManageSubscription => 'Manage Subscription';
 }

@@ -746,7 +746,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aboutDescription =>
-      'Qmatch; düşünme, hissetme ve bağ kurma tarzına göre uyumlu bağlantılar keşfetmene yardımcı olur—yalnızca görünüme göre değil. Uyumluluk içgörüleri keşfi desteklemek içindir; bir ilişkinin başarı garantisi değildir.';
+      'QMatch; düşünme, hissetme ve bağ kurma biçimine göre anlamlı bağlantılar keşfetmene yardımcı olur — yalnızca görünüşe göre değil. Uyumluluk içgörüleri keşfi desteklemek içindir; herhangi bir ilişkinin başarısını garanti etmez.';
 
   @override
   String get aboutLegal => 'Yasal';
@@ -1779,26 +1779,27 @@ class AppLocalizationsTr extends AppLocalizations {
   String get resonanceUnlockNotNow => 'Şimdi değil';
 
   @override
-  String get whoLikedYouTitle => 'Seni beğenenler';
+  String get whoLikedYouTitle => 'Uyum Sinyalleri';
 
   @override
   String get whoLikedYouLoading => 'Seninle hizalananlar aranıyor…';
 
   @override
-  String get whoLikedYouEmptyTitle => 'Henüz kimse seni beğenmedi';
+  String get whoLikedYouEmptyTitle => 'Yeni uyum sinyalleri burada görünecek';
 
   @override
-  String get whoLikedYouEmptyBody => 'Biri seni Beğendiğinde burada görünecek.';
+  String get whoLikedYouEmptyBody =>
+      'Sana yönelik yeni bir uyum oluştuğunda burada keşfedebilirsin.';
 
   @override
   String get whoLikedYouLockedTitle => 'Seni kim hizaladı';
 
   @override
   String get whoLikedYouLockedBody =>
-      'Biri seni Beğendiğinde Resonance onları görmeni sağlar — kimi eşleştireceğini değiştirmeden.';
+      'Sana yönelik yeni bir uyum oluştuğunda Resonance onları görmeni sağlar — kimi eşleştireceğini değiştirmeden.';
 
   @override
-  String get whoLikedYouErrorTitle => 'Seni beğenenler yüklenemedi';
+  String get whoLikedYouErrorTitle => 'Uyum sinyalleri yüklenemedi';
 
   @override
   String get whoLikedYouErrorBody => 'Bir sorun oluştu. Lütfen tekrar dene.';
@@ -1810,4 +1811,44 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get whoLikedYouFreeDiscoveryBody =>
       'Biri sana Super Resonance gönderirse burada görürsün. Resonance, sıradan uyum sinyallerini de gösterir.';
+
+  @override
+  String get profileMembershipResonanceActive => 'Resonance aktif';
+
+  @override
+  String get profileMembershipFree => 'QMatch Free';
+
+  @override
+  String get profileResonanceBadgeSemantic => 'Resonance aktif';
+
+  @override
+  String get membershipTitle => 'Üyelik';
+
+  @override
+  String get membershipFreeName => 'QMatch Free';
+
+  @override
+  String get membershipFreeIncluded =>
+      'Değerlendirmeler, Keşfet, eşleşme ve sohbet dahil';
+
+  @override
+  String get membershipUpgradeCta => 'Resonance\'a yükselt';
+
+  @override
+  String get membershipResonanceName => 'Resonance';
+
+  @override
+  String get membershipStatusActive => 'Aktif';
+
+  @override
+  String get membershipPlanMonthly => 'Aylık';
+
+  @override
+  String get membershipPlanAnnual => 'Yıllık';
+
+  @override
+  String get membershipComingLater => 'Daha sonra gelecek';
+
+  @override
+  String get membershipManageSubscription => 'Aboneliği yönet';
 }

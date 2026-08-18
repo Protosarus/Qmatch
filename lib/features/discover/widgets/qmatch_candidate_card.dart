@@ -270,9 +270,10 @@ class _CandidateDetails extends StatelessWidget {
         if (candidate.interests.isNotEmpty) ...[
           const SizedBox(height: AppSpacing.sm),
           Text(
+            key: const Key('qmatch-candidate-interests-heading'),
             l10n.discoverInterests,
             style: GoogleFonts.playfairDisplay(
-              color: AppColors.softGold,
+              color: const Color(0xFFDAC8ED),
               fontSize: 15,
               fontWeight: FontWeight.w600,
             ),
