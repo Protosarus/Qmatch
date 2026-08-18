@@ -124,7 +124,7 @@ void main() {
       expect(paywall, 0);
     });
 
-    testWidgets('Discover free uses who_liked_you unlock sheet, not identities',
+    testWidgets('Discover free opens Alignment Signals without unlock sheet',
         (tester) async {
       var inbox = 0;
       var sheet = 0;
@@ -148,16 +148,16 @@ void main() {
       await tester.tap(find.text('go'));
       await tester.pumpAndSettle();
 
-      expect(sheet, 1);
+      expect(inbox, 1);
+      expect(sheet, 0);
       expect(paywall, 0);
-      expect(inbox, 0);
     });
 
-    testWidgets('Discover purchase success then opens Who Liked You',
+    testWidgets('Discover opens inbox regardless of Resonance access',
         (tester) async {
       var inbox = 0;
       final entry = WhoLikedYouEntry(
-        readResonanceAccess: () async => false,
+        readResonanceAccess: () async => true,
         openInbox: (_) async {
           inbox++;
         },
@@ -324,21 +324,16 @@ void main() {
       expect(discover.toLowerCase().contains('badge'), isFalse);
     });
 
-    test('Discover unlock sheet is feature-specific who_liked_you', () {
+    test('Discover always opens Alignment Signals; ordinary likes stay callable-gated',
+        () {
       final entry = File(
         'lib/features/who_liked_you/navigation/who_liked_you_entry.dart',
       ).readAsStringSync();
-      expect(entry.contains('ResonancePaywallFeature.whoLikedYou'), isTrue);
-      expect(entry.contains('showResonanceUnlockSheet'), isTrue);
-      expect(
-        entry.contains('ResonancePaywallFeature.settingsResonance'),
-        isTrue,
-      );
+      expect(entry.contains('openFromDiscover'), isTrue);
+      expect(entry.contains('_openInboxAlways'), isTrue);
+      expect(entry.contains('ResonancePaywallFeature.settingsResonance'), isTrue);
       expect(RegExp(r'listWhoLikedYou\(').hasMatch(entry), isFalse);
-      expect(
-        entry.contains('Client [resonance_access] is a navigation hint only'),
-        isTrue,
-      );
+      expect(entry.contains('listSuperResonanceInbox'), isTrue);
     });
 
     test('bottom tabs still do not include Who Liked You', () {

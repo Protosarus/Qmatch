@@ -794,6 +794,84 @@ abstract class AppLocalizations {
   /// **'Like'**
   String get discoverLike;
 
+  /// No description provided for @discoverSuperResonance.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Resonance'**
+  String get discoverSuperResonance;
+
+  /// No description provided for @discoverSuperResonanceConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Super Resonance to {name}?'**
+  String discoverSuperResonanceConfirmTitle(String name);
+
+  /// No description provided for @discoverSuperResonanceBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance: {count}'**
+  String discoverSuperResonanceBalance(int count);
+
+  /// No description provided for @discoverSuperResonanceUsesOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses 1 Super Resonance'**
+  String get discoverSuperResonanceUsesOne;
+
+  /// No description provided for @discoverSuperResonanceConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This sends a stronger alignment signal. It does not Like them and does not create a match.'**
+  String get discoverSuperResonanceConfirmBody;
+
+  /// No description provided for @discoverSuperResonanceConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get discoverSuperResonanceConfirm;
+
+  /// No description provided for @discoverSuperResonanceCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get discoverSuperResonanceCancel;
+
+  /// No description provided for @discoverSuperResonancePurchaseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Super Resonance'**
+  String get discoverSuperResonancePurchaseTitle;
+
+  /// No description provided for @discoverSuperResonancePurchaseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Super Resonance to send a stronger alignment signal. This does not unlock Resonance.'**
+  String get discoverSuperResonancePurchaseBody;
+
+  /// No description provided for @discoverSuperResonancePurchaseCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Super Resonance'**
+  String get discoverSuperResonancePurchaseCta;
+
+  /// No description provided for @discoverSuperResonancePurchaseNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get discoverSuperResonancePurchaseNotNow;
+
+  /// No description provided for @discoverSuperResonanceSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Resonance couldn\'t be sent. Please try again.'**
+  String get discoverSuperResonanceSendFailed;
+
+  /// No description provided for @discoverSuperResonancePurchaseFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase couldn\'t be completed. Please try again.'**
+  String get discoverSuperResonancePurchaseFailed;
+
   /// No description provided for @discoverGestureOnboardingSwipeRight.
   ///
   /// In en, this message translates to:
@@ -3319,6 +3397,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get whoLikedYouErrorBody;
+
+  /// No description provided for @whoLikedYouFreeDiscoveryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A stronger alignment can appear here'**
+  String get whoLikedYouFreeDiscoveryTitle;
+
+  /// No description provided for @whoLikedYouFreeDiscoveryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.'**
+  String get whoLikedYouFreeDiscoveryBody;
 }
 
 class _AppLocalizationsDelegate

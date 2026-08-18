@@ -7,6 +7,9 @@ import '../../../core/widgets/qmatch_glass_icon_button.dart';
 /// Pass / Like action bar for Discover. Handlers are provided by the screen.
 ///
 /// Icon-only: X (pass) on the left, heart (like) on the right.
+/// Optional Super Resonance sits between them as a smaller distinct control.
+/// This is not a Tinder-style 5-button row.
+///
 /// [passLabel] / [likeLabel] remain as semantic labels.
 class QMatchDiscoverActionBar extends StatelessWidget {
   const QMatchDiscoverActionBar({
@@ -17,6 +20,11 @@ class QMatchDiscoverActionBar extends StatelessWidget {
     required this.onLike,
     required this.isActionLoading,
     this.subdued = false,
+    this.superResonanceLabel,
+    this.onSuperResonance,
+    this.isSuperResonanceLoading = false,
+    this.showSuperResonance = false,
+    this.superResonanceBalance = 0,
   });
 
   final String passLabel;
@@ -25,6 +33,12 @@ class QMatchDiscoverActionBar extends StatelessWidget {
   final VoidCallback? onLike;
   final bool isActionLoading;
   final bool subdued;
+
+  final String? superResonanceLabel;
+  final VoidCallback? onSuperResonance;
+  final bool isSuperResonanceLoading;
+  final bool showSuperResonance;
+  final int superResonanceBalance;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +53,7 @@ class QMatchDiscoverActionBar extends StatelessWidget {
           AppSpacing.sm,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAlignment: MainAxisAlignment.center,
           children: [
             _DiscoverIconButton(
               buttonKey: const Key('qmatch-discover-pass'),
@@ -49,7 +63,19 @@ class QMatchDiscoverActionBar extends StatelessWidget {
               like: false,
               loading: false,
             ),
-            const SizedBox(width: AppSpacing.xxl),
+            if (showSuperResonance ||
+                onSuperResonance != null ||
+                isSuperResonanceLoading) ...[
+              const SizedBox(width: AppSpacing.md),
+              _SuperResonanceButton(
+                semanticLabel: superResonanceLabel ?? '',
+                onPressed: onSuperResonance,
+                loading: isSuperResonanceLoading,
+                balance: superResonanceBalance,
+              ),
+              const SizedBox(width: AppSpacing.md),
+            ] else
+              const SizedBox(width: AppSpacing.xxl),
             _DiscoverIconButton(
               buttonKey: const Key('qmatch-discover-like'),
               icon: Icons.favorite_rounded,
@@ -145,6 +171,72 @@ class _DiscoverIconButton extends StatelessWidget {
           child: DecoratedBox(
             decoration: decoration,
             child: Center(child: face),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+const _lilac = Color(0xFFDAC8ED);
+
+class _SuperResonanceButton extends StatelessWidget {
+  const _SuperResonanceButton({
+    required this.semanticLabel,
+    required this.onPressed,
+    required this.loading,
+    required this.balance,
+  });
+
+  final String semanticLabel;
+  final VoidCallback? onPressed;
+  final bool loading;
+  final int balance;
+
+  @override
+  Widget build(BuildContext context) {
+    const size = 40.0;
+    final enabled = onPressed != null && !loading;
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: semanticLabel,
+      value: balance > 0 ? '$balance' : '0',
+      child: GestureDetector(
+        onTap: enabled ? onPressed : null,
+        behavior: HitTestBehavior.opaque,
+        child: SizedBox(
+          key: const Key('qmatch-discover-super-resonance'),
+          width: size,
+          height: size,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.cosmicPurple.withValues(alpha: 0.42),
+              border: Border.all(color: _lilac.withValues(alpha: 0.72)),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.28),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: Center(
+              child: loading
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(_lilac),
+                      ),
+                    )
+                  : const Icon(
+                      Icons.auto_awesome,
+                      size: 18,
+                      color: _lilac,
+                    ),
+            ),
           ),
         ),
       ),

@@ -9,3 +9,5 @@ export 'qmatch_discover_error_state.dart';
 export 'qmatch_discover_header.dart';
 export 'qmatch_discover_loading_state.dart';
 export 'qmatch_discover_match_dialog.dart';
+export 'qmatch_super_resonance_confirm_sheet.dart';
+export 'qmatch_super_resonance_purchase_sheet.dart';

@@ -171,6 +171,33 @@
   "discoverEmptyRetry": "Check again",
   "discoverPass": "Pass",
   "discoverLike": "Like",
+  "discoverSuperResonance": "Super Resonance",
+  "discoverSuperResonanceConfirmTitle": "Send Super Resonance to {name}?",
+  "@discoverSuperResonanceConfirmTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverSuperResonanceBalance": "Balance: {count}",
+  "@discoverSuperResonanceBalance": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "discoverSuperResonanceUsesOne": "Uses 1 Super Resonance",
+  "discoverSuperResonanceConfirmBody": "This sends a stronger alignment signal. It does not Like them and does not create a match.",
+  "discoverSuperResonanceConfirm": "Send",
+  "discoverSuperResonanceCancel": "Cancel",
+  "discoverSuperResonancePurchaseTitle": "Get Super Resonance",
+  "discoverSuperResonancePurchaseBody": "Add Super Resonance to send a stronger alignment signal. This does not unlock Resonance.",
+  "discoverSuperResonancePurchaseCta": "Get Super Resonance",
+  "discoverSuperResonancePurchaseNotNow": "Not now",
+  "discoverSuperResonanceSendFailed": "Super Resonance couldn't be sent. Please try again.",
+  "discoverSuperResonancePurchaseFailed": "Purchase couldn't be completed. Please try again.",
   "discoverGestureOnboardingSwipeRight": "Swipe right to like.",
   "discoverGestureOnboardingSwipeLeft": "Swipe left to pass.",
   "discoverGestureOnboardingGotIt": "Got it",
@@ -706,5 +733,7 @@
   "whoLikedYouLockedTitle": "See who aligned with you",
   "whoLikedYouLockedBody": "When someone Likes you, Resonance lets you see them — without changing who you match with.",
   "whoLikedYouErrorTitle": "Couldn't load Who liked you",
-  "whoLikedYouErrorBody": "Something went wrong. Please try again."
+  "whoLikedYouErrorBody": "Something went wrong. Please try again.",
+  "whoLikedYouFreeDiscoveryTitle": "A stronger alignment can appear here",
+  "whoLikedYouFreeDiscoveryBody": "If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals."
 }

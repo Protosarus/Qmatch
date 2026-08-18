@@ -20,10 +20,12 @@ const {
   normalizeSnapshot,
   applySubscriptionState,
   creditBalance,
+  debitBalance,
   deriveResonanceAccess,
 } = require('./entitlement_access');
 const {
   purchaseLedgerId,
+  spendLedgerId,
   buildLedgerDocument,
   planLedgerApply,
 } = require('./entitlement_ledger');
@@ -289,6 +291,154 @@ async function applySubscriptionLedgerEvent(args, opts = {}) {
   };
 }
 
+function isSafeRequestId(requestId) {
+  if (typeof requestId !== 'string') return false;
+  const trimmed = requestId.trim();
+  if (!trimmed) return false;
+  if (trimmed.includes('/') || trimmed.includes(':')) return false;
+  return true;
+}
+
+function trustedSpendResult({ ok, status, snapshot, ledgerId, code }) {
+  const balance = snapshot
+    ? snapshot[BALANCE_FIELDS.SUPER_RESONANCE]
+    : 0;
+  return {
+    ok: !!ok,
+    status,
+    super_resonance_balance: typeof balance === 'number' ? balance : 0,
+    ledgerId: ledgerId || null,
+    snapshot: snapshot || null,
+    code: code || null,
+  };
+}
+
+/**
+ * Idempotent Super Resonance spend: debit 1 + spend ledger in one transaction.
+ * Never writes peer-facing signal docs. Never grants/revokes Resonance.
+ *
+ * Duplicate request_id → noop (no second debit).
+ * Balance < 1 → fail closed (no ledger row).
+ *
+ * @param {object} args
+ * @param {string} args.uid authenticated owner uid
+ * @param {string} args.requestId required client UUID / spend id
+ * @param {string} [args.platform]
+ * @param {string} [args.targetUid] audit metadata only — not a signal
+ * @param {{ db?: FirebaseFirestore.Firestore, now?: () => Date }} [opts]
+ */
+async function spendSuperResonanceIdempotent(args, opts = {}) {
+  const uid = args && args.uid;
+  const requestId = args && args.requestId;
+  const platform = (args && args.platform) || 'unknown';
+  const targetUid =
+    args && typeof args.targetUid === 'string' && args.targetUid.trim()
+      ? args.targetUid.trim()
+      : null;
+
+  if (!uid || typeof uid !== 'string') {
+    throw new Error('spend_args_incomplete');
+  }
+  if (!isSafeRequestId(requestId)) {
+    throw new Error('spend_request_id_required');
+  }
+
+  const ledgerId = spendLedgerId(platform, uid, requestId.trim());
+  const db = opts.db || getFirestore();
+  const now = opts.now ? opts.now() : new Date();
+  const processedAt =
+    typeof Timestamp !== 'undefined' && Timestamp.fromDate
+      ? Timestamp.fromDate(now)
+      : now;
+
+  const eRef = entitlementRef(db, uid);
+  const lRef = ledgerRef(db, uid, ledgerId);
+
+  const result = await db.runTransaction(async (tx) => {
+    const [ledgerSnap, entSnap] = await Promise.all([
+      tx.get(lRef),
+      tx.get(eRef),
+    ]);
+
+    const existingLedger = ledgerSnap.exists ? ledgerSnap.data() : null;
+    const current = entSnap.exists
+      ? normalizeSnapshot(uid, entSnap.data())
+      : defaultFreeSnapshot(uid);
+
+    if (existingLedger) {
+      return {
+        ...planLedgerApply({
+          existingLedger,
+          snapshot: current,
+          ledgerDoc: existingLedger,
+          nextSnapshot: current,
+        }),
+        failClosed: false,
+      };
+    }
+
+    const currentBalance = current[BALANCE_FIELDS.SUPER_RESONANCE];
+    if (typeof currentBalance !== 'number' || currentBalance < 1) {
+      return {
+        status: 'failed',
+        failClosed: true,
+        snapshot: current,
+        ledger: null,
+      };
+    }
+
+    const nextSnapshot = debitBalance(
+      current,
+      BALANCE_FIELDS.SUPER_RESONANCE,
+      1,
+    );
+    const ledgerDoc = buildLedgerDocument({
+      uid,
+      ledgerId,
+      storeTransactionId: requestId.trim(),
+      platform,
+      canonicalProductKey: CANONICAL_PRODUCT_KEYS.SUPER_RESONANCE_X1,
+      productId: null,
+      eventType: EVENT_TYPES.CONSUMABLE_SPEND,
+      effect: EFFECTS.DEBIT_SUPER_RESONANCE,
+      subscriptionStateAfter: nextSnapshot.subscription_state,
+      balanceDeltaSuperResonance: -1,
+      balanceDeltaBoost: 0,
+      verificationSource: 'spend',
+      processedAt,
+      targetUid,
+    });
+
+    const planned = planLedgerApply({
+      existingLedger: null,
+      snapshot: current,
+      ledgerDoc,
+      nextSnapshot,
+    });
+
+    tx.set(lRef, planned.ledger);
+    tx.set(eRef, planned.snapshot, { merge: true });
+    return { ...planned, failClosed: false };
+  });
+
+  if (result.failClosed) {
+    return trustedSpendResult({
+      ok: false,
+      status: 'failed',
+      snapshot: result.snapshot,
+      ledgerId,
+      code: 'insufficient_balance',
+    });
+  }
+
+  return trustedSpendResult({
+    ok: true,
+    status: result.status,
+    snapshot: result.snapshot,
+    ledgerId,
+  });
+}
+
 module.exports = {
   SCHEMA_VERSION,
   FieldValue,
@@ -299,6 +449,7 @@ module.exports = {
   getOrCreateEntitlementSnapshot,
   applySubscriptionStateForUid,
   creditConsumableIdempotent,
+  spendSuperResonanceIdempotent,
   applySubscriptionLedgerEvent,
   entitlementRef,
   ledgerRef,

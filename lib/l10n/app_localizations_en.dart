@@ -390,6 +390,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverLike => 'Like';
 
   @override
+  String get discoverSuperResonance => 'Super Resonance';
+
+  @override
+  String discoverSuperResonanceConfirmTitle(String name) {
+    return 'Send Super Resonance to $name?';
+  }
+
+  @override
+  String discoverSuperResonanceBalance(int count) {
+    return 'Balance: $count';
+  }
+
+  @override
+  String get discoverSuperResonanceUsesOne => 'Uses 1 Super Resonance';
+
+  @override
+  String get discoverSuperResonanceConfirmBody =>
+      'This sends a stronger alignment signal. It does not Like them and does not create a match.';
+
+  @override
+  String get discoverSuperResonanceConfirm => 'Send';
+
+  @override
+  String get discoverSuperResonanceCancel => 'Cancel';
+
+  @override
+  String get discoverSuperResonancePurchaseTitle => 'Get Super Resonance';
+
+  @override
+  String get discoverSuperResonancePurchaseBody =>
+      'Add Super Resonance to send a stronger alignment signal. This does not unlock Resonance.';
+
+  @override
+  String get discoverSuperResonancePurchaseCta => 'Get Super Resonance';
+
+  @override
+  String get discoverSuperResonancePurchaseNotNow => 'Not now';
+
+  @override
+  String get discoverSuperResonanceSendFailed =>
+      'Super Resonance couldn\'t be sent. Please try again.';
+
+  @override
+  String get discoverSuperResonancePurchaseFailed =>
+      'Purchase couldn\'t be completed. Please try again.';
+
+  @override
   String get discoverGestureOnboardingSwipeRight => 'Swipe right to like.';
 
   @override
@@ -1763,4 +1810,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whoLikedYouErrorBody => 'Something went wrong. Please try again.';
+
+  @override
+  String get whoLikedYouFreeDiscoveryTitle =>
+      'A stronger alignment can appear here';
+
+  @override
+  String get whoLikedYouFreeDiscoveryBody =>
+      'If someone sends you Super Resonance, you can see them here. Resonance also reveals ordinary alignment signals.';
 }

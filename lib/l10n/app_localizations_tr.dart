@@ -388,6 +388,53 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverLike => 'Beğen';
 
   @override
+  String get discoverSuperResonance => 'Super Resonance';
+
+  @override
+  String discoverSuperResonanceConfirmTitle(String name) {
+    return '$name kişisine Super Resonance gönderilsin mi?';
+  }
+
+  @override
+  String discoverSuperResonanceBalance(int count) {
+    return 'Bakiye: $count';
+  }
+
+  @override
+  String get discoverSuperResonanceUsesOne => '1 Super Resonance kullanır';
+
+  @override
+  String get discoverSuperResonanceConfirmBody =>
+      'Bu daha güçlü bir hizalanma sinyali gönderir. Onları beğenmez ve eşleşme oluşturmaz.';
+
+  @override
+  String get discoverSuperResonanceConfirm => 'Gönder';
+
+  @override
+  String get discoverSuperResonanceCancel => 'Vazgeç';
+
+  @override
+  String get discoverSuperResonancePurchaseTitle => 'Super Resonance al';
+
+  @override
+  String get discoverSuperResonancePurchaseBody =>
+      'Daha güçlü bir hizalanma sinyali göndermek için Super Resonance ekle. Bu Resonance aboneliğini açmaz.';
+
+  @override
+  String get discoverSuperResonancePurchaseCta => 'Super Resonance al';
+
+  @override
+  String get discoverSuperResonancePurchaseNotNow => 'Şimdi değil';
+
+  @override
+  String get discoverSuperResonanceSendFailed =>
+      'Super Resonance gönderilemedi. Lütfen tekrar dene.';
+
+  @override
+  String get discoverSuperResonancePurchaseFailed =>
+      'Satın alma tamamlanamadı. Lütfen tekrar dene.';
+
+  @override
   String get discoverGestureOnboardingSwipeRight =>
       'Beğenmek için sağa kaydır.';
 
@@ -1755,4 +1802,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get whoLikedYouErrorBody => 'Bir sorun oluştu. Lütfen tekrar dene.';
+
+  @override
+  String get whoLikedYouFreeDiscoveryTitle =>
+      'Daha güçlü bir hizalanma burada görünebilir';
+
+  @override
+  String get whoLikedYouFreeDiscoveryBody =>
+      'Biri sana Super Resonance gönderirse burada görürsün. Resonance, sıradan uyum sinyallerini de gösterir.';
 }

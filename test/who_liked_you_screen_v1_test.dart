@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qmatch/features/matching/services/like_match_outcome.dart';
 import 'package:qmatch/features/who_liked_you/domain/who_liked_you_card.dart';
 import 'package:qmatch/features/who_liked_you/screens/who_liked_you_screen.dart';
+import 'package:qmatch/features/who_liked_you/services/super_resonance_inbox_client.dart';
 import 'package:qmatch/features/who_liked_you/services/who_liked_you_client.dart';
 import 'package:qmatch/l10n/app_localizations.dart';
 
@@ -59,8 +60,9 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-        find.byKey(const Key('qmatch-who-liked-you-locked')), findsOneWidget);
-    expect(find.text('See who aligned with you'), findsOneWidget);
+        find.byKey(const Key('qmatch-who-liked-you-free-discovery')),
+        findsOneWidget);
+    expect(find.text('A stronger alignment can appear here'), findsOneWidget);
     expect(
         find.byKey(const Key('qmatch-who-liked-you-unlock')), findsOneWidget);
     expect(find.text('Unlock with Resonance'), findsOneWidget);
@@ -70,6 +72,7 @@ void main() {
     expect(find.text('Like'), findsNothing);
     expect(find.text('Pass'), findsNothing);
     expect(find.byKey(const Key('qmatch-who-liked-you-list')), findsNothing);
+    expect(find.byKey(const Key('qmatch-who-liked-you-locked')), findsNothing);
   });
 
   testWidgets('screen fail-closes leaked identities when access is false',
@@ -81,7 +84,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(
-        find.byKey(const Key('qmatch-who-liked-you-locked')), findsOneWidget);
+        find.byKey(const Key('qmatch-who-liked-you-free-discovery')),
+        findsOneWidget);
     expect(find.text('SecretName'), findsNothing);
     expect(find.text('hidden bio'), findsNothing);
   });
@@ -321,6 +325,9 @@ void main() {
     expect(unlocked, 1);
     expect(find.byKey(const Key('qmatch-who-liked-you-empty')), findsOneWidget);
     expect(find.byKey(const Key('qmatch-who-liked-you-locked')), findsNothing);
+    expect(
+        find.byKey(const Key('qmatch-who-liked-you-free-discovery')),
+        findsNothing);
   });
 
   group('wiring (source)', () {
@@ -360,6 +367,7 @@ void main() {
 Future<void> _pumpScreen(
   WidgetTester tester, {
   required WhoLikedYouClient client,
+  SuperResonanceInboxClient? superResonanceInbox,
   Future<LikeMatchOutcome> Function(String uid)? likeUser,
   Future<void> Function(String uid)? passUser,
   Future<void> Function()? onUnlock,
@@ -370,6 +378,12 @@ Future<void> _pumpScreen(
       supportedLocales: AppLocalizations.supportedLocales,
       home: WhoLikedYouScreen(
         client: client,
+        superResonanceInbox: superResonanceInbox ??
+            SuperResonanceInboxClient(
+              call: (_, __) async => {
+                'items': <Map<String, dynamic>>[],
+              },
+            ),
         likeUser: likeUser ?? ((_) async => LikeMatchOutcome.noMatch),
         passUser: passUser ?? ((_) async {}),
         onUnlock: onUnlock ?? () async {},

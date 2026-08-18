@@ -1,17 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/resonance_paywall_feature.dart';
 import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../iap/services/entitlement_repository.dart';
-import '../../iap/widgets/resonance_unlock_sheet.dart';
 import '../screens/who_liked_you_screen.dart';
 
 /// UX routing for Who Liked You entry points.
 ///
-/// Client [resonance_access] is a navigation hint only. Identities still come
-/// exclusively from trusted `listWhoLikedYou`.
+/// Client [resonance_access] is a navigation hint only for Settings.
+/// Discover always opens Alignment Signals. Ordinary likes still come
+/// exclusively from trusted `listWhoLikedYou`. Super Resonance identities
+/// come from `listSuperResonanceInbox`.
 class WhoLikedYouEntry {
   WhoLikedYouEntry({
     Future<bool> Function()? readResonanceAccess,
@@ -19,11 +19,11 @@ class WhoLikedYouEntry {
       BuildContext context,
       ResonancePaywallFeature feature,
     )? openPaywall,
+    @Deprecated('Discover always opens the inbox')
     Future<bool> Function(BuildContext context)? showUnlockSheet,
     Future<void> Function(BuildContext context)? openInbox,
   })  : _readResonanceAccess = readResonanceAccess,
         _openPaywall = openPaywall,
-        _showUnlockSheet = showUnlockSheet,
         _openInbox = openInbox;
 
   final Future<bool> Function()? _readResonanceAccess;
@@ -31,7 +31,6 @@ class WhoLikedYouEntry {
     BuildContext context,
     ResonancePaywallFeature feature,
   )? _openPaywall;
-  final Future<bool> Function(BuildContext context)? _showUnlockSheet;
   final Future<void> Function(BuildContext context)? _openInbox;
 
   bool _opening = false;
@@ -45,12 +44,21 @@ class WhoLikedYouEntry {
     );
   }
 
-  /// Discover header: entitled inbox, otherwise feature unlock sheet → paywall.
+  /// Discover header: always open Alignment Signals.
+  /// Super Resonance identities are visible to Free; ordinary likes stay gated.
   Future<void> openFromDiscover(BuildContext context) {
-    return _open(
-      context,
-      ifLocked: _unlockSheet,
-    );
+    return _openInboxAlways(context);
+  }
+
+  Future<void> _openInboxAlways(BuildContext context) async {
+    if (_opening) return;
+    _opening = true;
+    try {
+      if (!context.mounted) return;
+      await _inbox(context);
+    } finally {
+      _opening = false;
+    }
   }
 
   Future<void> _open(
@@ -94,18 +102,6 @@ class WhoLikedYouEntry {
     final custom = _openPaywall;
     if (custom != null) return custom(context, feature);
     return ResonancePaywallScreen.open(context, feature: feature);
-  }
-
-  Future<bool> _unlockSheet(BuildContext context) {
-    final custom = _showUnlockSheet;
-    if (custom != null) return custom(context);
-    final l10n = AppLocalizations.of(context)!;
-    return showResonanceUnlockSheet(
-      context,
-      feature: ResonancePaywallFeature.whoLikedYou,
-      title: l10n.whoLikedYouLockedTitle,
-      body: l10n.whoLikedYouLockedBody,
-    );
   }
 
   Future<void> _inbox(BuildContext context) {

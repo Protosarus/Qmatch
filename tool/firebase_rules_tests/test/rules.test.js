@@ -981,3 +981,39 @@ describe('Entitlement rules (resonance_entitlement_firestore_schema_v1)', () => 
     );
   });
 });
+
+describe('Super Resonance signal rules (super_resonance_signal_v1)', () => {
+  const signal = {
+    from_uid: 'userA',
+    to_uid: 'userB',
+    status: 'active',
+    spend_request_id: 'req-1',
+    spend_ledger_id: 'unknown:spend:userA:req-1',
+    schema_version: 'super_resonance_signal_v1',
+  };
+
+  it('client cannot read or write super_resonance_signals', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(
+        doc(ctx.firestore(), 'super_resonance_signals/userA_userB'),
+        signal,
+      );
+    });
+    const db = authedFirestore('userA');
+    await assertFails(
+      getDoc(doc(db, 'super_resonance_signals/userA_userB')),
+    );
+    await assertFails(getDocs(collection(db, 'super_resonance_signals')));
+    await assertFails(
+      setDoc(doc(db, 'super_resonance_signals/userA_userC'), signal),
+    );
+    await assertFails(
+      updateDoc(doc(db, 'super_resonance_signals/userA_userB'), {
+        status: 'hidden',
+      }),
+    );
+    await assertFails(
+      deleteDoc(doc(db, 'super_resonance_signals/userA_userB')),
+    );
+  });
+});

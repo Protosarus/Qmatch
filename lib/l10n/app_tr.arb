@@ -171,6 +171,33 @@
   "discoverEmptyRetry": "Tekrar kontrol et",
   "discoverPass": "Geç",
   "discoverLike": "Beğen",
+  "discoverSuperResonance": "Super Resonance",
+  "discoverSuperResonanceConfirmTitle": "{name} kişisine Super Resonance gönderilsin mi?",
+  "@discoverSuperResonanceConfirmTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverSuperResonanceBalance": "Bakiye: {count}",
+  "@discoverSuperResonanceBalance": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "discoverSuperResonanceUsesOne": "1 Super Resonance kullanır",
+  "discoverSuperResonanceConfirmBody": "Bu daha güçlü bir hizalanma sinyali gönderir. Onları beğenmez ve eşleşme oluşturmaz.",
+  "discoverSuperResonanceConfirm": "Gönder",
+  "discoverSuperResonanceCancel": "Vazgeç",
+  "discoverSuperResonancePurchaseTitle": "Super Resonance al",
+  "discoverSuperResonancePurchaseBody": "Daha güçlü bir hizalanma sinyali göndermek için Super Resonance ekle. Bu Resonance aboneliğini açmaz.",
+  "discoverSuperResonancePurchaseCta": "Super Resonance al",
+  "discoverSuperResonancePurchaseNotNow": "Şimdi değil",
+  "discoverSuperResonanceSendFailed": "Super Resonance gönderilemedi. Lütfen tekrar dene.",
+  "discoverSuperResonancePurchaseFailed": "Satın alma tamamlanamadı. Lütfen tekrar dene.",
   "discoverGestureOnboardingSwipeRight": "Beğenmek için sağa kaydır.",
   "discoverGestureOnboardingSwipeLeft": "Geçmek için sola kaydır.",
   "discoverGestureOnboardingGotIt": "Anladım",
@@ -706,5 +733,7 @@
   "whoLikedYouLockedTitle": "Seni kim hizaladı",
   "whoLikedYouLockedBody": "Biri seni Beğendiğinde Resonance onları görmeni sağlar — kimi eşleştireceğini değiştirmeden.",
   "whoLikedYouErrorTitle": "Seni beğenenler yüklenemedi",
-  "whoLikedYouErrorBody": "Bir sorun oluştu. Lütfen tekrar dene."
+  "whoLikedYouErrorBody": "Bir sorun oluştu. Lütfen tekrar dene.",
+  "whoLikedYouFreeDiscoveryTitle": "Daha güçlü bir hizalanma burada görünebilir",
+  "whoLikedYouFreeDiscoveryBody": "Biri sana Super Resonance gönderirse burada görürsün. Resonance, sıradan uyum sinyallerini de gösterir."
 }

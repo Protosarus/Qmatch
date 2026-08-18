@@ -104,9 +104,10 @@ function buildLedgerDocument(input) {
     balanceDeltaBoost = 0,
     verificationSource,
     processedAt,
+    targetUid = null,
   } = input;
 
-  return {
+  const doc = {
     uid,
     ledger_id: ledgerId,
     store_transaction_id: storeTransactionId,
@@ -123,6 +124,10 @@ function buildLedgerDocument(input) {
     processed_at: processedAt,
     schema_version: SCHEMA_VERSION,
   };
+  if (targetUid) {
+    doc.target_uid = targetUid;
+  }
+  return doc;
 }
 
 /**

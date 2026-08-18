@@ -371,5 +371,11 @@ service cloud.firestore {
     match /store_purchase_index/{indexId} {
       allow read, write: if false;
     }
+
+    // super_resonance_signals — directed Super Resonance peer signals.
+    // Admin/backend only (`super_resonance_signal_v1`). No client read/write.
+    match /super_resonance_signals/{signalId} {
+      allow get, list, create, update, delete: if false;
+    }
   }
 }

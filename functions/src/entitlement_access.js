@@ -217,10 +217,47 @@ function creditBalance(snapshot, field, delta) {
   };
 }
 
+/**
+ * Debit a consumable balance without touching subscription access.
+ * Never goes below 0 — rejects when current < delta.
+ *
+ * @param {Record<string, unknown>} snapshot
+ * @param {'super_resonance_balance'|'boost_balance'} field
+ * @param {number} delta positive debit
+ * @returns {Record<string, unknown>}
+ */
+function debitBalance(snapshot, field, delta) {
+  if (
+    field !== BALANCE_FIELDS.SUPER_RESONANCE &&
+    field !== BALANCE_FIELDS.BOOST
+  ) {
+    throw new Error(`invalid_balance_field:${field}`);
+  }
+  const d = Math.floor(delta);
+  if (!Number.isFinite(d) || d <= 0) {
+    throw new Error(`invalid_debit_delta:${delta}`);
+  }
+  const current = nonNegInt(snapshot[field]);
+  if (current < d) {
+    throw new Error('insufficient_balance');
+  }
+  return {
+    ...snapshot,
+    [field]: current - d,
+    // Explicitly preserve access — debits never grant or revoke Resonance.
+    resonance_access: deriveResonanceAccess(
+      snapshot.tier,
+      snapshot.subscription_state,
+    ),
+    schema_version: SCHEMA_VERSION,
+  };
+}
+
 module.exports = {
   deriveResonanceAccess,
   defaultFreeSnapshot,
   normalizeSnapshot,
   applySubscriptionState,
   creditBalance,
+  debitBalance,
 };

@@ -155,6 +155,10 @@ exports.getOrCreateEntitlementSnapshot =
   entitlementRepository.getOrCreateEntitlementSnapshot;
 exports.creditConsumableIdempotent =
   entitlementRepository.creditConsumableIdempotent;
+exports.spendSuperResonanceIdempotent =
+  entitlementRepository.spendSuperResonanceIdempotent;
+exports.debitBalance = entitlementAccess.debitBalance;
+exports.creditBalance = entitlementAccess.creditBalance;
 
 // Store verifier foundation exports (no ASSN/RTDN; no fake verify).
 const storeProductMap = require('./src/store_product_map');
@@ -229,3 +233,26 @@ exports.listWhoLikedYou = onCall(
   (request) => listWhoLikedYou.handleListWhoLikedYou(request),
 );
 exports.handleListWhoLikedYou = listWhoLikedYou.handleListWhoLikedYou;
+const sendSuperResonance = require('./src/send_super_resonance_callable');
+
+/**
+ * Trusted Super Resonance send. Debit + immutable pair signal in one transaction.
+ * Never writes swipes/matches. Never returns block reasons.
+ */
+exports.sendSuperResonance = onCall(
+  { region: 'us-central1' },
+  (request) => sendSuperResonance.handleSendSuperResonance(request),
+);
+exports.handleSendSuperResonance = sendSuperResonance.handleSendSuperResonance;
+const listSuperResonanceInbox = require('./src/list_super_resonance_inbox_callable');
+
+/**
+ * Trusted Super Resonance receiver inbox. Admin-queries inbound signals.
+ * Public sender cards only. Visible to Free and Resonance. Never lists likes.
+ */
+exports.listSuperResonanceInbox = onCall(
+  { region: 'us-central1' },
+  (request) => listSuperResonanceInbox.handleListSuperResonanceInbox(request),
+);
+exports.handleListSuperResonanceInbox =
+  listSuperResonanceInbox.handleListSuperResonanceInbox;

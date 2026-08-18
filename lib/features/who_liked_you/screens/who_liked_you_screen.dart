@@ -20,7 +20,9 @@ import '../../matching/services/like_match_outcome.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../messages/screens/chat_detail_screen.dart';
 import '../../profile/utils/profile_option_labels.dart';
+import '../domain/alignment_signal_merge.dart';
 import '../domain/who_liked_you_card.dart';
+import '../services/super_resonance_inbox_client.dart';
 import '../services/who_liked_you_client.dart';
 
 /// Who Liked You inbox. Identities only from trusted `listWhoLikedYou`.
@@ -28,6 +30,7 @@ class WhoLikedYouScreen extends StatefulWidget {
   const WhoLikedYouScreen({
     super.key,
     this.client,
+    this.superResonanceInbox,
     this.likeUser,
     this.passUser,
     this.onUnlock,
@@ -36,6 +39,9 @@ class WhoLikedYouScreen extends StatefulWidget {
   });
 
   final WhoLikedYouClient? client;
+
+  /// Trusted Super Resonance inbox. Tests inject a fake.
+  final SuperResonanceInboxClient? superResonanceInbox;
 
   /// Production uses [SwipeService.likeUser]. Tests inject a fake.
   final Future<LikeMatchOutcome> Function(String uid)? likeUser;
@@ -56,6 +62,7 @@ class WhoLikedYouScreen extends StatefulWidget {
 
 class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
   late final WhoLikedYouClient _client;
+  late final SuperResonanceInboxClient _inbox;
   late final Future<LikeMatchOutcome> Function(String uid) _likeUser;
   late final Future<void> Function(String uid) _passUser;
 
@@ -69,6 +76,7 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
   void initState() {
     super.initState();
     _client = widget.client ?? WhoLikedYouClient();
+    _inbox = widget.superResonanceInbox ?? SuperResonanceInboxClient();
     _likeUser = widget.likeUser ?? _productionLike;
     _passUser = widget.passUser ?? _productionPass;
     _fetch();
@@ -89,26 +97,57 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
   }
 
   Future<void> _fetch() async {
-    try {
-      final result = await _client.list();
-      if (!mounted) return;
-      setState(() {
-        _resonanceAccess = result.resonanceAccess;
-        _items = result.resonanceAccess
-            ? List<WhoLikedYouCard>.from(result.items)
-            : const [];
-        _loading = false;
-        _hasError = false;
-      });
-    } catch (_) {
-      if (!mounted) return;
+    WhoLikedYouResult? ordinary;
+    Object? ordinaryError;
+    List<WhoLikedYouCard>? superItems;
+    Object? superError;
+
+    await Future.wait<void>([
+      () async {
+        try {
+          ordinary = await _client.list();
+        } catch (e) {
+          ordinaryError = e;
+        }
+      }(),
+      () async {
+        try {
+          superItems = await _inbox.list();
+        } catch (e) {
+          superError = e;
+        }
+      }(),
+    ]);
+
+    if (!mounted) return;
+
+    final superList = superItems ?? const <WhoLikedYouCard>[];
+    final access = ordinary?.resonanceAccess == true;
+    final ordinaryItems =
+        access ? List<WhoLikedYouCard>.from(ordinary!.items) : const <WhoLikedYouCard>[];
+    final merged = mergeAlignmentSignals(
+      superResonance: superList,
+      ordinary: ordinaryItems,
+    );
+
+    final bothFailed = ordinaryError != null && superError != null;
+    final ordinaryFailedEmpty = ordinaryError != null && merged.isEmpty;
+    if (bothFailed || ordinaryFailedEmpty) {
       setState(() {
         _hasError = true;
         _resonanceAccess = false;
         _items = const [];
         _loading = false;
       });
+      return;
     }
+
+    setState(() {
+      _resonanceAccess = access;
+      _items = merged;
+      _loading = false;
+      _hasError = false;
+    });
   }
 
   void _removeLocal(String uid) {
@@ -233,7 +272,7 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
           label: l10n.whoLikedYouLoading,
           child: const CircularProgressIndicator(
             key: Key('qmatch-who-liked-you-loading'),
-            color: AppColors.softGold,
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
           ),
         ),
       );
@@ -247,43 +286,42 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
         onAction: _load,
       );
     }
+    if (_items.isNotEmpty) {
+      return ListView.separated(
+        key: const Key('qmatch-who-liked-you-list'),
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.md,
+          AppSpacing.sm,
+          AppSpacing.md,
+          AppSpacing.xl,
+        ),
+        itemCount: _items.length,
+        separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
+        itemBuilder: (context, index) {
+          final card = _items[index];
+          return _WhoLikedYouCardView(
+            card: card,
+            busy: _busy,
+            onLike: () => _onLike(card),
+            onPass: () => _onPass(card),
+          );
+        },
+      );
+    }
     if (!_resonanceAccess) {
       return _MessageState(
-        key: const Key('qmatch-who-liked-you-locked'),
-        title: l10n.whoLikedYouLockedTitle,
-        body: l10n.whoLikedYouLockedBody,
+        key: const Key('qmatch-who-liked-you-free-discovery'),
+        title: l10n.whoLikedYouFreeDiscoveryTitle,
+        body: l10n.whoLikedYouFreeDiscoveryBody,
         actionLabel: l10n.resonanceUnlockCta,
         actionKey: const Key('qmatch-who-liked-you-unlock'),
         onAction: _unlock,
       );
     }
-    if (_items.isEmpty) {
-      return _MessageState(
-        key: const Key('qmatch-who-liked-you-empty'),
-        title: l10n.whoLikedYouEmptyTitle,
-        body: l10n.whoLikedYouEmptyBody,
-      );
-    }
-
-    return ListView.separated(
-      key: const Key('qmatch-who-liked-you-list'),
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.sm,
-        AppSpacing.md,
-        AppSpacing.xl,
-      ),
-      itemCount: _items.length,
-      separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
-      itemBuilder: (context, index) {
-        final card = _items[index];
-        return _WhoLikedYouCardView(
-          card: card,
-          busy: _busy,
-          onLike: () => _onLike(card),
-          onPass: () => _onPass(card),
-        );
-      },
+    return _MessageState(
+      key: const Key('qmatch-who-liked-you-empty'),
+      title: l10n.whoLikedYouEmptyTitle,
+      body: l10n.whoLikedYouEmptyBody,
     );
   }
 }
@@ -374,6 +412,9 @@ class _WhoLikedYouCardView extends StatelessWidget {
       key: Key('qmatch-who-liked-you-card-${card.uid}'),
       emphasized: true,
       padding: EdgeInsets.zero,
+      color: card.superResonance
+          ? AppColors.cosmicPurple.withValues(alpha: 0.22)
+          : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -383,12 +424,26 @@ class _WhoLikedYouCardView extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(AppRadii.card),
               ),
-              child: QMatchCandidatePhoto(
-                photoUrl: card.primaryPhotoUrl,
-                semanticLabel: l10n.discoverPhotoSemanticLabel(
-                  identity ?? card.name,
-                ),
-                missingPhotoLabel: l10n.discoverMissingPhotoLabel,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  QMatchCandidatePhoto(
+                    photoUrl: card.primaryPhotoUrl,
+                    semanticLabel: l10n.discoverPhotoSemanticLabel(
+                      identity ?? card.name,
+                    ),
+                    missingPhotoLabel: l10n.discoverMissingPhotoLabel,
+                  ),
+                  if (card.superResonance)
+                    Positioned(
+                      top: AppSpacing.sm,
+                      right: AppSpacing.sm,
+                      child: _SuperResonanceMarker(
+                        uid: card.uid,
+                        label: l10n.discoverSuperResonance,
+                      ),
+                    ),
+                ],
               ),
             ),
           ),
@@ -411,6 +466,18 @@ class _WhoLikedYouCardView extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+                if (card.superResonance) ...[
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    key: Key('qmatch-who-liked-you-super-label-${card.uid}'),
+                    l10n.discoverSuperResonance,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFFDAC8ED),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
                 if (card.bio.isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.sm),
                   Text(
@@ -477,6 +544,50 @@ class _WhoLikedYouCardView extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+const _lilac = Color(0xFFDAC8ED);
+
+class _SuperResonanceMarker extends StatelessWidget {
+  const _SuperResonanceMarker({
+    required this.uid,
+    required this.label,
+  });
+
+  final String uid;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: label,
+      child: DecoratedBox(
+        key: Key('qmatch-who-liked-you-super-marker-$uid'),
+        decoration: BoxDecoration(
+          color: AppColors.cosmicPurple.withValues(alpha: 0.86),
+          borderRadius: AppRadii.pillBorder,
+          border: Border.all(color: _lilac.withValues(alpha: 0.85)),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.resonanceViolet.withValues(alpha: 0.35),
+              blurRadius: 10,
+            ),
+          ],
+        ),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSpacing.sm,
+            vertical: 6,
+          ),
+          child: Icon(
+            Icons.auto_awesome,
+            size: 16,
+            color: _lilac,
+          ),
+        ),
       ),
     );
   }

@@ -11,6 +11,7 @@ class WhoLikedYouCard {
     required this.bio,
     required this.interests,
     this.profilePhotoUrl,
+    this.superResonance = false,
   });
 
   final String uid;
@@ -20,6 +21,7 @@ class WhoLikedYouCard {
   final String? profilePhotoUrl;
   final String bio;
   final List<String> interests;
+  final bool superResonance;
 
   String? get primaryPhotoUrl {
     final primary = profilePhotoUrl?.trim();
@@ -51,6 +53,20 @@ class WhoLikedYouCard {
           : null,
       bio: data['bio'] is String ? (data['bio'] as String).trim() : '',
       interests: _stringList(data['interests']),
+      superResonance: data['super_resonance'] == true,
+    );
+  }
+
+  WhoLikedYouCard copyWith({bool? superResonance}) {
+    return WhoLikedYouCard(
+      uid: uid,
+      name: name,
+      age: age,
+      photos: photos,
+      bio: bio,
+      interests: interests,
+      profilePhotoUrl: profilePhotoUrl,
+      superResonance: superResonance ?? this.superResonance,
     );
   }
 

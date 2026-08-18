@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "mocha --timeout 10000 test/**/*.test.js",
-    "lint": "node -e \"require('./src/discover_eligibility'); require('./src/entitlement_repository'); require('./src/store_verify_apple'); require('./src/store_verify_play'); require('./src/canonical_20d_group_normalized_shadow'); require('./src/stage_b2_l2_callable'); require('./src/like_and_maybe_create_match_callable'); require('./src/list_who_liked_you_callable'); console.log('ok')\""
+    "lint": "node -e \"require('./src/discover_eligibility'); require('./src/entitlement_repository'); require('./src/store_verify_apple'); require('./src/store_verify_play'); require('./src/canonical_20d_group_normalized_shadow'); require('./src/stage_b2_l2_callable'); require('./src/like_and_maybe_create_match_callable'); require('./src/list_who_liked_you_callable'); require('./src/send_super_resonance_callable'); require('./src/list_super_resonance_inbox_callable'); console.log('ok')\""
   },
   "dependencies": {
     "@apple/app-store-server-library": "^1.6.0",
