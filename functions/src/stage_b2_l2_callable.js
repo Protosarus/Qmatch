@@ -78,77 +78,155 @@ function sanitizePair(pair) {
   return out;
 }
 
+const L2_TIMING_LOG_PREFIX = 'qmatch.l2';
+const L2_TIMING_KEYS = Object.freeze([
+  'handler_start_to_auth_ms',
+  'viewer_canonical_get_ms',
+  'candidate_canonical_gets_ms',
+  'reverse_block_gets_ms',
+  'membership_filter_ms',
+  'scoring_cpu_ms',
+  'response_serialization_ms',
+  'total_handler_ms',
+  'candidate_count',
+]);
+
+function nowMs() {
+  return Number(process.hrtime.bigint()) / 1e6;
+}
+
+function elapsedMs(started) {
+  return Math.max(0, Math.round(nowMs() - started));
+}
+
+function emptyTimings() {
+  const out = {};
+  for (const key of L2_TIMING_KEYS) out[key] = 0;
+  return out;
+}
+
+function resolveLog(deps) {
+  if (deps && typeof deps.log === 'function') return deps.log;
+  return console.log;
+}
+
+/** Server logs only. Numbers + candidate_count. Never UIDs or profile data. */
+function emitL2Timings(log, timings) {
+  const out = {};
+  for (const key of L2_TIMING_KEYS) {
+    const value = timings[key];
+    out[key] =
+      typeof value === 'number' && Number.isFinite(value) ? value : 0;
+  }
+  log(`${L2_TIMING_LOG_PREFIX} ${JSON.stringify(out)}`);
+}
+
 /**
  * @param {import('firebase-functions/v2/https').CallableRequest} request
- * @param {{ db?: { doc: Function } }} [deps]
+ * @param {{ db?: { doc: Function }, log?: Function }} [deps]
  */
 async function handleCompareStageB2Structural(request, deps = {}) {
-  const viewerUid = requireAuthUid(request);
-  const data = request.data && typeof request.data === 'object' ? request.data : {};
-  const raw = data.candidate_uids;
-  if (!Array.isArray(raw)) {
-    throw new HttpsError(
-      'invalid-argument',
-      'candidate_uids must be an array of L1 Discover candidate ids.',
-    );
-  }
-  if (raw.length > MAX_CANDIDATE_UIDS) {
-    throw new HttpsError(
-      'invalid-argument',
-      `candidate_uids exceeds max ${MAX_CANDIDATE_UIDS}.`,
-    );
-  }
-
-  const candidateUids = [];
-  for (const item of raw) {
-    if (typeof item !== 'string' || item.length === 0) {
+  const started = nowMs();
+  const timings = emptyTimings();
+  const log = resolveLog(deps);
+  try {
+    const viewerUid = requireAuthUid(request);
+    timings.handler_start_to_auth_ms = elapsedMs(started);
+    const data = request.data && typeof request.data === 'object' ? request.data : {};
+    const raw = data.candidate_uids;
+    if (!Array.isArray(raw)) {
       throw new HttpsError(
         'invalid-argument',
-        'candidate_uids must contain only non-empty strings.',
+        'candidate_uids must be an array of L1 Discover candidate ids.',
       );
     }
-    candidateUids.push(item);
-  }
-
-  const db = resolveDb(deps);
-  const viewerSnap = await db.doc(canonicalPath(viewerUid)).get();
-  const viewerScores = measuredScoresFromCanonicalProfile(
-    viewerSnap.exists ? viewerSnap.data() : null,
-  );
-
-  const candidateSnaps = await Promise.all(
-    candidateUids.map((uid) => db.doc(canonicalPath(uid)).get()),
-  );
-  const reverseBlockSnaps = await Promise.all(
-    candidateUids.map((uid) =>
-      db.doc(reverseBlockPath(uid, viewerUid)).get(),
-    ),
-  );
-
-  const includedUids = [];
-  const pairs = [];
-  for (let i = 0; i < candidateUids.length; i++) {
-    if (reverseBlockSnaps[i] && reverseBlockSnaps[i].exists) {
-      // Omit entirely. Do not return a pair, reason, or block fields.
-      continue;
+    if (raw.length > MAX_CANDIDATE_UIDS) {
+      throw new HttpsError(
+        'invalid-argument',
+        `candidate_uids exceeds max ${MAX_CANDIDATE_UIDS}.`,
+      );
     }
-    includedUids.push(candidateUids[i]);
-    if (!viewerScores) {
-      pairs.push(publicUnavailable('viewer_canonical_profile_missing'));
-      continue;
+
+    const candidateUids = [];
+    for (const item of raw) {
+      if (typeof item !== 'string' || item.length === 0) {
+        throw new HttpsError(
+          'invalid-argument',
+          'candidate_uids must contain only non-empty strings.',
+        );
+      }
+      candidateUids.push(item);
     }
-    const candSnap = candidateSnaps[i];
-    const candScores = measuredScoresFromCanonicalProfile(
-      candSnap && candSnap.exists ? candSnap.data() : null,
+    timings.candidate_count = candidateUids.length;
+
+    const db = resolveDb(deps);
+    const tViewerGet = nowMs();
+    const viewerSnap = await db.doc(canonicalPath(viewerUid)).get();
+    timings.viewer_canonical_get_ms = elapsedMs(tViewerGet);
+
+    const tViewerScores = nowMs();
+    const viewerScores = measuredScoresFromCanonicalProfile(
+      viewerSnap.exists ? viewerSnap.data() : null,
     );
-    if (!candScores) {
-      pairs.push(publicUnavailable('candidate_canonical_profile_missing'));
-      continue;
-    }
-    pairs.push(toPublicPair(compareMeasuredPresence(viewerScores, candScores)));
-  }
+    let scoringMs = elapsedMs(tViewerScores);
 
-  return { pairs, candidate_uids: includedUids };
+    const tCandidateGets = nowMs();
+    const candidateSnaps = await Promise.all(
+      candidateUids.map((uid) => db.doc(canonicalPath(uid)).get()),
+    );
+    timings.candidate_canonical_gets_ms = elapsedMs(tCandidateGets);
+
+    const tReverseBlockGets = nowMs();
+    const reverseBlockSnaps = await Promise.all(
+      candidateUids.map((uid) =>
+        db.doc(reverseBlockPath(uid, viewerUid)).get(),
+      ),
+    );
+    timings.reverse_block_gets_ms = elapsedMs(tReverseBlockGets);
+
+    const includedUids = [];
+    const pairs = [];
+    let membershipMs = 0;
+    for (let i = 0; i < candidateUids.length; i++) {
+      const tMembership = nowMs();
+      if (reverseBlockSnaps[i] && reverseBlockSnaps[i].exists) {
+        // Omit entirely. Do not return a pair, reason, or block fields.
+        membershipMs += elapsedMs(tMembership);
+        continue;
+      }
+      includedUids.push(candidateUids[i]);
+      membershipMs += elapsedMs(tMembership);
+
+      const tScore = nowMs();
+      if (!viewerScores) {
+        pairs.push(publicUnavailable('viewer_canonical_profile_missing'));
+        scoringMs += elapsedMs(tScore);
+        continue;
+      }
+      const candSnap = candidateSnaps[i];
+      const candScores = measuredScoresFromCanonicalProfile(
+        candSnap && candSnap.exists ? candSnap.data() : null,
+      );
+      if (!candScores) {
+        pairs.push(publicUnavailable('candidate_canonical_profile_missing'));
+        scoringMs += elapsedMs(tScore);
+        continue;
+      }
+      pairs.push(toPublicPair(compareMeasuredPresence(viewerScores, candScores)));
+      scoringMs += elapsedMs(tScore);
+    }
+    timings.membership_filter_ms = membershipMs;
+    timings.scoring_cpu_ms = scoringMs;
+
+    const payload = { pairs, candidate_uids: includedUids };
+    const tSerialize = nowMs();
+    JSON.stringify(payload);
+    timings.response_serialization_ms = elapsedMs(tSerialize);
+    return payload;
+  } finally {
+    timings.total_handler_ms = elapsedMs(started);
+    emitL2Timings(log, timings);
+  }
 }
 
 module.exports = {
@@ -156,6 +234,8 @@ module.exports = {
   MAX_CANDIDATE_UIDS,
   PUBLIC_PAIR_KEYS,
   SCORING_VERSION,
+  L2_TIMING_LOG_PREFIX,
+  L2_TIMING_KEYS,
   handleCompareStageB2Structural,
   sanitizePair,
   toPublicPair,

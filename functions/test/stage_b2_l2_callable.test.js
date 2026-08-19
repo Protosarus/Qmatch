@@ -7,6 +7,8 @@ const {
   handleCompareStageB2Structural,
   PUBLIC_PAIR_KEYS,
   MAX_CANDIDATE_UIDS,
+  L2_TIMING_LOG_PREFIX,
+  L2_TIMING_KEYS,
 } = require('../src/stage_b2_l2_callable');
 const {
   DIMENSION_IDS,
@@ -230,5 +232,89 @@ describe('compareStageB2Structural callable', () => {
     assertNoMinInstances('listSuperResonanceInbox');
     assertNoMinInstances('likeAndMaybeCreateMatch');
     assertNoMinInstances('sendSuperResonance');
+  });
+
+  it('server timings do not change public output or leak private data', async () => {
+    const db = new MemoryFirestore();
+    const viewer = { ...fill(DIMENSION_IDS, 0.45) };
+    const near = { ...fill(DIMENSION_IDS, 0.45) };
+    const far = { ...fill(DIMENSION_IDS, 0.95) };
+    await db.doc('users/viewer/profiles/canonical_v1').set(canonicalDoc(viewer));
+    await db.doc('users/near/profiles/canonical_v1').set(canonicalDoc(near));
+    await db.doc('users/far/profiles/canonical_v1').set(canonicalDoc(far));
+
+    const lines = [];
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near', 'far']),
+      { db, log: (line) => lines.push(String(line)) },
+    );
+
+    assert.deepStrictEqual(Object.keys(res).sort(), ['candidate_uids', 'pairs']);
+    assert.deepStrictEqual(res.candidate_uids, ['near', 'far']);
+    assert.strictEqual(res.pairs.length, 2);
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0.0);
+    assert.strictEqual(res.pairs[1].available, true);
+    for (const pair of res.pairs) {
+      for (const key of Object.keys(pair)) {
+        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
+      }
+    }
+
+    assert.strictEqual(lines.length, 1);
+    assert.ok(lines[0].startsWith(`${L2_TIMING_LOG_PREFIX} `));
+    const payload = JSON.parse(lines[0].slice(L2_TIMING_LOG_PREFIX.length + 1));
+    assert.deepStrictEqual(Object.keys(payload).sort(), [...L2_TIMING_KEYS].sort());
+    assert.strictEqual(payload.candidate_count, 2);
+    assert.ok(payload.total_handler_ms >= 0);
+
+    const blob = `${JSON.stringify(res)}\n${lines.join('\n')}`;
+    assert.strictEqual(blob.includes('logical_reasoning'), false);
+    assert.strictEqual(blob.includes('measured_dimensions'), false);
+    assert.strictEqual(blob.includes('sess-secret'), false);
+    assert.strictEqual(blob.includes('source_session_id'), false);
+    assert.strictEqual(blob.includes('should-not-leak'), false);
+    assert.strictEqual(lines[0].includes('"viewer"'), false);
+    assert.strictEqual(lines[0].includes('"near"'), false);
+    assert.strictEqual(lines[0].includes('"far"'), false);
+    assert.strictEqual(lines[0].includes('canonical_v1'), false);
+    assert.strictEqual(payload.handler_ms, undefined);
+  });
+
+  it('keeps candidate and reverse-block GET waves parallel but sequential to each other', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const src = fs.readFileSync(
+      path.resolve(__dirname, '../src/stage_b2_l2_callable.js'),
+      'utf8',
+    );
+    const candIdx = src.indexOf(
+      'const candidateSnaps = await Promise.all(',
+    );
+    const blockIdx = src.indexOf(
+      'const reverseBlockSnaps = await Promise.all(',
+    );
+    assert.ok(candIdx >= 0);
+    assert.ok(blockIdx > candIdx);
+    assert.ok(src.includes('db.doc(canonicalPath(uid)).get()'));
+    assert.ok(src.includes('db.doc(reverseBlockPath(uid, viewerUid)).get()'));
+    assert.strictEqual(src.includes('getAll('), false);
+  });
+
+  it('does not add timing fields to the callable payload', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/ok/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['ok']),
+      { db, log: () => {} },
+    );
+    assert.strictEqual(Object.prototype.hasOwnProperty.call(res, 'timings'), false);
+    assert.strictEqual(Object.prototype.hasOwnProperty.call(res, 'total_handler_ms'), false);
+    assert.strictEqual(Object.prototype.hasOwnProperty.call(res, 'candidate_count'), false);
   });
 });
