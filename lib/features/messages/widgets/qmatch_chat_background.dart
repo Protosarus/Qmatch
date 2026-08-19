@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/theme/app_colors.dart';
 import '../utils/qmatch_chat_wallpaper_assets.dart';
 
@@ -7,7 +8,7 @@ import '../utils/qmatch_chat_wallpaper_assets.dart';
 ///
 /// Uses [BoxFit.cover] (not [ImageRepeat.repeat]) because the source is a
 /// square non-seamless texture — edges do not tile cleanly.
-class QMatchChatBackground extends StatelessWidget {
+class QMatchChatBackground extends StatefulWidget {
   const QMatchChatBackground({
     super.key,
     this.child,
@@ -18,6 +19,19 @@ class QMatchChatBackground extends StatelessWidget {
 
   /// Dark/purple wash so bubbles stay readable above the doodle pattern.
   final double overlayOpacity;
+
+  @override
+  State<QMatchChatBackground> createState() => _QMatchChatBackgroundState();
+}
+
+class _QMatchChatBackgroundState extends State<QMatchChatBackground> {
+  bool _loggedWallpaper = false;
+
+  void _markWallpaperLoaded() {
+    if (_loggedWallpaper) return;
+    _loggedWallpaper = true;
+    QmatchPerf.mark('chat.wallpaper.loaded');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +46,27 @@ class QMatchChatBackground extends StatelessWidget {
           fit: BoxFit.cover,
           alignment: Alignment.center,
           filterQuality: FilterQuality.medium,
-          errorBuilder: (_, __, ___) => Image.asset(
-            QMatchChatWallpaperAssets.sourcePng,
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-            filterQuality: FilterQuality.medium,
-          ),
+          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+            if (wasSynchronouslyLoaded || frame != null) {
+              _markWallpaperLoaded();
+            }
+            return child;
+          },
+          errorBuilder: (_, __, ___) {
+            QmatchPerf.mark('chat.wallpaper.fallback_png');
+            return Image.asset(
+              QMatchChatWallpaperAssets.sourcePng,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+              filterQuality: FilterQuality.medium,
+              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                if (wasSynchronouslyLoaded || frame != null) {
+                  _markWallpaperLoaded();
+                }
+                return child;
+              },
+            );
+          },
         ),
         DecoratedBox(
           key: const Key('qmatch-chat-wallpaper-overlay'),
@@ -46,15 +75,17 @@ class QMatchChatBackground extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                AppColors.midnightNavy.withValues(alpha: overlayOpacity * 0.85),
-                AppColors.cosmicBlack.withValues(alpha: overlayOpacity),
-                AppColors.deepIndigo.withValues(alpha: overlayOpacity * 0.75),
+                AppColors.midnightNavy
+                    .withValues(alpha: widget.overlayOpacity * 0.85),
+                AppColors.cosmicBlack.withValues(alpha: widget.overlayOpacity),
+                AppColors.deepIndigo
+                    .withValues(alpha: widget.overlayOpacity * 0.75),
               ],
               stops: const [0.0, 0.55, 1.0],
             ),
           ),
         ),
-        if (child != null) child!,
+        if (widget.child != null) widget.child!,
       ],
     );
   }

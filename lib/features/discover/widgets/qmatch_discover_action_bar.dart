@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -13,8 +15,9 @@ import '../../../core/widgets/qmatch_glass_icon_button.dart';
 /// [passLabel] / [likeLabel] remain as semantic labels.
 ///
 /// [swipeFeedback] is signed card drag progress (`+` like/right, `-` pass/left).
+/// Direct X/heart taps use the same signed activation for a short pulse.
 /// Only the matching Like/Pass button animates; Super Resonance stays idle.
-class QMatchDiscoverActionBar extends StatelessWidget {
+class QMatchDiscoverActionBar extends StatefulWidget {
   const QMatchDiscoverActionBar({
     super.key,
     required this.passLabel,
@@ -30,6 +33,9 @@ class QMatchDiscoverActionBar extends StatelessWidget {
     this.showSuperResonance = false,
     this.superResonanceBalance = 0,
   });
+
+  /// Short tactile pulse for direct X/heart taps. Independent of fly-off.
+  static const Duration tapFeedbackDuration = Duration(milliseconds: 160);
 
   final String passLabel;
   final String likeLabel;
@@ -48,13 +54,69 @@ class QMatchDiscoverActionBar extends StatelessWidget {
   final int superResonanceBalance;
 
   @override
+  State<QMatchDiscoverActionBar> createState() =>
+      _QMatchDiscoverActionBarState();
+}
+
+class _QMatchDiscoverActionBarState extends State<QMatchDiscoverActionBar> {
+  double _tapFeedback = 0;
+  Timer? _tapClearTimer;
+
+  @override
+  void didUpdateWidget(QMatchDiscoverActionBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.swipeFeedback != oldWidget.swipeFeedback &&
+        widget.swipeFeedback.abs() > 0.05 &&
+        _tapFeedback != 0) {
+      _tapClearTimer?.cancel();
+      _tapFeedback = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _tapClearTimer?.cancel();
+    super.dispose();
+  }
+
+  double get _feedback {
+    if (_tapFeedback.abs() > 0.05) return _tapFeedback;
+    return widget.swipeFeedback;
+  }
+
+  void _startTapPulse(double signed) {
+    _tapClearTimer?.cancel();
+    setState(() => _tapFeedback = signed);
+    _tapClearTimer = Timer(QMatchDiscoverActionBar.tapFeedbackDuration, () {
+      if (!mounted) return;
+      setState(() => _tapFeedback = 0);
+    });
+  }
+
+  void _onPassPressed() {
+    final cb = widget.onPass;
+    if (cb == null) return;
+    if (_tapFeedback < -0.05) return;
+    _startTapPulse(-1);
+    cb();
+  }
+
+  void _onLikePressed() {
+    final cb = widget.onLike;
+    if (cb == null) return;
+    if (_tapFeedback > 0.05) return;
+    _startTapPulse(1);
+    cb();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final likeAmount = swipeFeedback > 0 ? swipeFeedback.clamp(0.0, 1.0) : 0.0;
-    final passAmount =
-        swipeFeedback < 0 ? (-swipeFeedback).clamp(0.0, 1.0) : 0.0;
+    final feedback = _feedback;
+    final likeAmount = feedback > 0 ? feedback.clamp(0.0, 1.0) : 0.0;
+    final passAmount = feedback < 0 ? (-feedback).clamp(0.0, 1.0) : 0.0;
 
     return Opacity(
-      opacity: subdued ? 0.42 : 1,
+      opacity: widget.subdued ? 0.42 : 1,
       child: Padding(
         key: const Key('qmatch-discover-action-bar'),
         padding: const EdgeInsets.fromLTRB(
@@ -69,21 +131,21 @@ class QMatchDiscoverActionBar extends StatelessWidget {
             _DiscoverIconButton(
               buttonKey: const Key('qmatch-discover-pass'),
               icon: Icons.close_rounded,
-              semanticLabel: passLabel,
-              onPressed: onPass,
+              semanticLabel: widget.passLabel,
+              onPressed: widget.onPass == null ? null : _onPassPressed,
               like: false,
               loading: false,
               activation: passAmount,
             ),
-            if (showSuperResonance ||
-                onSuperResonance != null ||
-                isSuperResonanceLoading) ...[
+            if (widget.showSuperResonance ||
+                widget.onSuperResonance != null ||
+                widget.isSuperResonanceLoading) ...[
               const SizedBox(width: AppSpacing.md),
               _SuperResonanceButton(
-                semanticLabel: superResonanceLabel ?? '',
-                onPressed: onSuperResonance,
-                loading: isSuperResonanceLoading,
-                balance: superResonanceBalance,
+                semanticLabel: widget.superResonanceLabel ?? '',
+                onPressed: widget.onSuperResonance,
+                loading: widget.isSuperResonanceLoading,
+                balance: widget.superResonanceBalance,
               ),
               const SizedBox(width: AppSpacing.md),
             ] else
@@ -91,10 +153,10 @@ class QMatchDiscoverActionBar extends StatelessWidget {
             _DiscoverIconButton(
               buttonKey: const Key('qmatch-discover-like'),
               icon: Icons.favorite_rounded,
-              semanticLabel: likeLabel,
-              onPressed: onLike,
+              semanticLabel: widget.likeLabel,
+              onPressed: widget.onLike == null ? null : _onLikePressed,
               like: true,
-              loading: isActionLoading,
+              loading: widget.isActionLoading,
               activation: likeAmount,
             ),
           ],

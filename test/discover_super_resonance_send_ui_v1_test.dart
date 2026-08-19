@@ -138,6 +138,77 @@ void main() {
       );
       expect(await failed.loadLocalizedPrice(), isNull);
     });
+
+    test('successful availability is trusted for the current uid only',
+        () async {
+      var reads = 0;
+      var uid = 'uid-a';
+      const snap = SuperResonanceAvailability(
+        dailyRemaining: 1,
+        dailyLimit: 2,
+        purchasedBalance: 3,
+        totalAvailable: 4,
+      );
+      final c = DiscoverSuperResonanceController(
+        uidProvider: () => uid,
+        readAvailabilityOverride: () async {
+          reads += 1;
+          return snap;
+        },
+      );
+      expect(c.peekTrustedAvailability(), isNull);
+      final loaded = await c.readTrustedAvailability();
+      expect(reads, 1);
+      expect(loaded.dailyRemaining, 1);
+      expect(loaded.dailyLimit, 2);
+      expect(loaded.purchasedBalance, 3);
+      expect(loaded.totalAvailable, 4);
+      expect(c.peekTrustedAvailability()?.totalAvailable, 4);
+
+      uid = 'uid-b';
+      expect(c.peekTrustedAvailability(), isNull);
+    });
+
+    test('fail-closed availability is not cached as trusted', () async {
+      final c = DiscoverSuperResonanceController(
+        uidProvider: () => 'uid-1',
+        readAvailabilityOverride: () async => throw StateError('denied'),
+      );
+      expect(
+          await c.readTrustedAvailability(), SuperResonanceAvailability.empty);
+      expect(c.peekTrustedAvailability(), isNull);
+    });
+
+    test('send result updates the trusted snapshot without authorizing send',
+        () async {
+      final c = DiscoverSuperResonanceController(
+        uidProvider: () => 'uid-1',
+        readAvailabilityOverride: () async => const SuperResonanceAvailability(
+          dailyRemaining: 2,
+          dailyLimit: 2,
+          purchasedBalance: 1,
+          totalAvailable: 3,
+        ),
+      );
+      await c.readTrustedAvailability();
+      c.applyTrustedSendResult(
+        const SuperResonanceSendResult(
+          ok: true,
+          alreadySent: false,
+          superResonanceBalance: 1,
+          signalId: 'from_to',
+          dailyRemaining: 1,
+          purchasedBalance: 1,
+          totalAvailable: 2,
+        ),
+      );
+      final peeked = c.peekTrustedAvailability();
+      expect(peeked, isNotNull);
+      expect(peeked!.dailyRemaining, 1);
+      expect(peeked.dailyLimit, 2);
+      expect(peeked.purchasedBalance, 1);
+      expect(peeked.totalAvailable, 2);
+    });
   });
 
   group('Discover Super Resonance send UI', () {
@@ -268,8 +339,10 @@ void main() {
         (tester) async {
       final harness = _Harness(balance: 0);
       await _pump(tester, harness);
+      expect(harness.availabilityReads, 1);
       await tester.tap(find.byKey(superButton));
       await tester.pumpAndSettle();
+      expect(harness.availabilityReads, 1);
       await tester
           .tap(find.byKey(const Key('qmatch-super-resonance-purchase-cta')));
       await tester.pumpAndSettle();
@@ -277,6 +350,83 @@ void main() {
       expect(harness.sendCount, 0);
       expect(harness.displayedBalance, 1);
       expect(harness.cardIndex, 0);
+      expect(harness.availabilityReads, greaterThan(1));
+      expect(harness.controller.peekTrustedAvailability()?.purchasedBalance, 1);
+    });
+
+    testWidgets(
+        'trusted cached availability opens the sheet without a new fetch',
+        (tester) async {
+      final harness = _Harness(balance: 2);
+      await _pump(tester, harness);
+      expect(harness.availabilityReads, 1);
+      expect(harness.controller.peekTrustedAvailability()?.totalAvailable, 2);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(harness.availabilityReads, 1);
+      expect(
+        find.byKey(const Key('qmatch-super-resonance-confirm-sheet')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('zero trusted snapshot opens purchase without a new fetch',
+        (tester) async {
+      final harness = _Harness(balance: 0);
+      await _pump(tester, harness);
+      expect(harness.availabilityReads, 1);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(harness.availabilityReads, 1);
+      expect(
+        find.byKey(const Key('qmatch-super-resonance-purchase-sheet')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('no cached availability fetches before choosing a sheet',
+        (tester) async {
+      final harness = _Harness(balance: 2, preloadAvailability: false);
+      await _pump(tester, harness);
+      expect(harness.availabilityReads, 0);
+      expect(harness.controller.peekTrustedAvailability(), isNull);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(harness.availabilityReads, 1);
+      expect(
+        find.byKey(const Key('qmatch-super-resonance-confirm-sheet')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('cached availability still sends through the backend callable',
+        (tester) async {
+      final harness = _Harness(balance: 2);
+      await _pump(tester, harness);
+      expect(harness.availabilityReads, 1);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      expect(harness.availabilityReads, 1);
+      await tester.tap(find.byKey(const Key('qmatch-super-resonance-confirm')));
+      await tester.pumpAndSettle();
+      expect(harness.sendCount, 1);
+      expect(harness.lastRequestId, isNotEmpty);
+    });
+
+    testWidgets('successful send updates from the callable payload',
+        (tester) async {
+      final harness = _Harness(balance: 2);
+      await _pump(tester, harness);
+      await tester.tap(find.byKey(superButton));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('qmatch-super-resonance-confirm')));
+      await tester.pumpAndSettle();
+      expect(harness.sendCount, 1);
+      expect(harness.displayedBalance, 1);
+      final peeked = harness.controller.peekTrustedAvailability();
+      expect(peeked, isNotNull);
+      expect(peeked!.purchasedBalance, 1);
+      expect(peeked.totalAvailable, 1);
     });
 
     testWidgets('send failure keeps card and fail-closed balance',
@@ -392,6 +542,89 @@ void main() {
       expect(passBody.contains('sendSuperResonance'), isFalse);
     });
 
+    test('tap flow traces availability, confirm, send, and idle without IDs',
+        () {
+      expect(
+        superBody.contains("QmatchPerf.mark('super_resonance.tap_received')"),
+        isTrue,
+      );
+      expect(superBody.contains('peekTrustedAvailability()'), isTrue);
+      expect(
+        superBody.contains('super_resonance.availability_cache_hit'),
+        isTrue,
+      );
+      expect(
+        superBody.contains('super_resonance.availability_refresh_start'),
+        isTrue,
+      );
+      expect(
+        superBody.contains('super_resonance.availability_refresh_end'),
+        isTrue,
+      );
+      expect(superBody.contains('super_resonance.confirm_sheet_open'), isTrue);
+      expect(superBody.contains('super_resonance.send_callable_start'), isTrue);
+      expect(superBody.contains('super_resonance.send_callable_end'), isTrue);
+      expect(superBody.contains('super_resonance.ui_idle_again'), isTrue);
+      expect(superBody.contains("'super_resonance.tap.total'"), isTrue);
+      expect(
+        superBody.contains('super_resonance.balance_refresh_skipped'),
+        isFalse,
+      );
+      expect(superBody.contains('\${c.uid}'), isFalse);
+      expect(superBody.contains('\${c.name}'), isFalse);
+      expect(src.contains('WidgetsBindingObserver'), isFalse);
+
+      final peekIdx = superBody.indexOf('peekTrustedAvailability()');
+      final availIdx = superBody.indexOf('readTrustedAvailability()');
+      final confirmIdx =
+          superBody.indexOf('showQMatchSuperResonanceConfirmSheet');
+      final busyIdx = superBody.indexOf('_superResonanceBusy = true');
+      final sendIdx = superBody.indexOf('send(targetUid: c.uid)');
+      final applyIdx = superBody.indexOf('_applySendResult(result)');
+      final applySendIdx = superBody.indexOf('applyTrustedSendResult(result)');
+      expect(peekIdx, greaterThanOrEqualTo(0));
+      expect(availIdx, greaterThan(peekIdx));
+      expect(confirmIdx, greaterThan(availIdx));
+      expect(busyIdx, greaterThan(confirmIdx));
+      expect(sendIdx, greaterThan(busyIdx));
+      expect(applyIdx, greaterThan(sendIdx));
+      expect(applySendIdx, greaterThan(applyIdx));
+    });
+
+    test(
+        'spinner is busy-flag around send, not the pre-confirm availability wait',
+        () {
+      expect(
+        src.contains('isSuperResonanceLoading: _superResonanceBusy'),
+        isTrue,
+      );
+      final peekIdx = superBody.indexOf('peekTrustedAvailability()');
+      final busyIdx = superBody.indexOf('_superResonanceBusy = true');
+      expect(busyIdx, greaterThan(peekIdx));
+      final successTry = superBody.indexOf(
+        "setState(() => _superResonanceBusy = true);",
+      );
+      final successReturn = superBody.indexOf(
+        'return;\n      }',
+        successTry,
+      );
+      expect(successTry, greaterThanOrEqualTo(0));
+      expect(successReturn, greaterThan(successTry));
+      final successSlice = superBody.substring(successTry, successReturn);
+      expect(successSlice.contains('_applySendResult(result)'), isTrue);
+      expect(successSlice.contains('applyTrustedSendResult(result)'), isTrue);
+      expect(successSlice.contains('send(targetUid: c.uid)'), isTrue);
+      final busyOff = successSlice.indexOf('_superResonanceBusy = false');
+      final successGuard = successSlice.indexOf('!sendSucceeded');
+      final refreshAfterSend = successSlice.indexOf(
+        '_refreshSuperResonanceBalance',
+        successGuard,
+      );
+      expect(busyOff, greaterThanOrEqualTo(0));
+      expect(successGuard, greaterThan(busyOff));
+      expect(refreshAfterSend, greaterThan(successGuard));
+    });
+
     test('purchase SKU is Super Resonance consumable', () {
       expect(
         File(
@@ -448,6 +681,7 @@ Future<void> _pump(WidgetTester tester, _Harness harness) async {
     ),
   );
   await tester.pump();
+  await tester.pump();
 }
 
 class _Harness extends StatefulWidget {
@@ -457,6 +691,7 @@ class _Harness extends StatefulWidget {
     this.dailyLimit = 0,
     this.sendShouldFail = false,
     this.localizedPrice,
+    this.preloadAvailability = true,
   });
 
   final int balance;
@@ -464,13 +699,16 @@ class _Harness extends StatefulWidget {
   final int dailyLimit;
   final bool sendShouldFail;
   final String? localizedPrice;
+  final bool preloadAvailability;
   int sendCount = 0;
   int purchaseCount = 0;
+  int availabilityReads = 0;
   int likes = 0;
   int passes = 0;
   int cardIndex = 0;
   int displayedBalance = 0;
   String lastRequestId = '';
+  late final DiscoverSuperResonanceController controller;
 
   @override
   State<_Harness> createState() => _HarnessState();
@@ -500,7 +738,11 @@ class _HarnessState extends State<_Harness> {
     _dailyLimit = widget.dailyLimit;
     widget.displayedBalance = _total;
     _controller = DiscoverSuperResonanceController(
-      readAvailabilityOverride: () async => _availability,
+      uidProvider: () => 'test-uid',
+      readAvailabilityOverride: () async {
+        widget.availabilityReads += 1;
+        return _availability;
+      },
       sendOverride: (targetUid, requestId) async {
         widget.sendCount += 1;
         widget.lastRequestId = requestId;
@@ -532,16 +774,28 @@ class _HarnessState extends State<_Harness> {
           ? null
           : () async => widget.localizedPrice,
     );
+    widget.controller = _controller;
+    if (widget.preloadAvailability) {
+      _controller.readTrustedAvailability().then((availability) {
+        if (!mounted) return;
+        setState(() {
+          widget.displayedBalance = availability.totalAvailable;
+        });
+      });
+    }
   }
 
   Future<void> _onSuperResonance() async {
     if (_busy) return;
     try {
-      final availability = await _controller.readTrustedAvailability();
-      if (!mounted) return;
-      setState(() {
-        widget.displayedBalance = availability.totalAvailable;
-      });
+      var availability = _controller.peekTrustedAvailability();
+      if (availability == null) {
+        availability = await _controller.readTrustedAvailability();
+        if (!mounted) return;
+        setState(() {
+          widget.displayedBalance = availability!.totalAvailable;
+        });
+      }
       if (availability.totalAvailable > 0) {
         final confirmed = await showQMatchSuperResonanceConfirmSheet(
           context,
@@ -552,10 +806,13 @@ class _HarnessState extends State<_Harness> {
         );
         if (!confirmed || !mounted) return;
         setState(() => _busy = true);
+        var sendSucceeded = false;
         try {
           final result = await _controller.send(targetUid: 'cand-1');
           if (!mounted) return;
           setState(() => widget.displayedBalance = result.totalAvailable);
+          _controller.applyTrustedSendResult(result);
+          sendSucceeded = true;
         } catch (_) {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
@@ -571,6 +828,11 @@ class _HarnessState extends State<_Harness> {
           }
         } finally {
           if (mounted) setState(() => _busy = false);
+        }
+        if (!mounted || !sendSucceeded) return;
+        final refreshed = await _controller.readTrustedAvailability();
+        if (mounted) {
+          setState(() => widget.displayedBalance = refreshed.totalAvailable);
         }
         return;
       }

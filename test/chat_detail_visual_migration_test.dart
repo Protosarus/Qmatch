@@ -152,6 +152,27 @@ void main() {
       );
     });
 
+    test('debug traces do not change wallpaper path or add blur', () {
+      final bg = File(
+        'lib/features/messages/widgets/qmatch_chat_background.dart',
+      ).readAsStringSync();
+      expect(bg.contains('QMatchChatWallpaperAssets.runtimePrimary'), isTrue);
+      expect(bg.contains('overlayOpacity = 0.55'), isTrue);
+      expect(bg.contains('ImageFilter'), isFalse);
+      expect(bg.contains('BackdropFilter'), isFalse);
+      expect(bg.contains("QmatchPerf.mark('chat.wallpaper.loaded')"), isTrue);
+
+      final screen = File(
+        'lib/features/messages/screens/chat_detail_screen.dart',
+      ).readAsStringSync();
+      expect(screen.contains("QmatchPerf.mark('chat.detail.opened')"), isTrue);
+      expect(
+        screen.contains("QmatchPerf.mark('chat.messages.snapshot_ready')"),
+        isTrue,
+      );
+      expect(screen.contains('threadId}'), isFalse);
+    });
+
     testWidgets('incoming and outgoing bubbles align by sender',
         (tester) async {
       await tester.pumpWidget(

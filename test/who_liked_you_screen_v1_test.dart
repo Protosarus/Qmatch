@@ -62,7 +62,7 @@ void main() {
     expect(
         find.byKey(const Key('qmatch-who-liked-you-free-discovery')),
         findsOneWidget);
-    expect(find.text('A stronger alignment can appear here'), findsOneWidget);
+    expect(find.text('A special alignment signal can appear here'), findsOneWidget);
     expect(
         find.byKey(const Key('qmatch-who-liked-you-unlock')), findsOneWidget);
     expect(find.text('Unlock with Resonance'), findsOneWidget);

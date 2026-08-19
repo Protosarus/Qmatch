@@ -267,10 +267,14 @@ void main() {
         'lib/features/discover/services/discover_service.dart',
       ).readAsStringSync();
       final sortIdx = service.indexOf('ranked.sort(');
+      final scheduleIdx = service.indexOf('_scheduleShadowDiagnostics');
       final shadowIdx = service.indexOf('_computeShadowDiagnostics');
       expect(sortIdx, greaterThanOrEqualTo(0));
+      expect(scheduleIdx, greaterThan(sortIdx));
       expect(shadowIdx, greaterThan(sortIdx));
       expect(service.contains('lastShadowDiagnostics'), isTrue);
+      expect(service.contains('unawaited('), isTrue);
+      expect(service.contains('await _computeShadowDiagnostics'), isFalse);
       // Must not re-sort after shadow.
       expect(
         service.indexOf('ranked.sort(', sortIdx + 1),

@@ -49,6 +49,58 @@ class DiscoverSuperResonanceController {
 
   static const productId = QmatchIapProductIds.superResonanceX1;
 
+  SuperResonanceAvailability? _trustedSnapshot;
+  String? _trustedSnapshotUid;
+
+  /// Last successful trusted snapshot for the current uid, if any.
+  /// Missing uid / other uid / failed callable → null (caller must fetch).
+  SuperResonanceAvailability? peekTrustedAvailability() {
+    final uid = _currentUid();
+    if (uid == null ||
+        !_hasTrustedSnapshot ||
+        _trustedSnapshotUid != uid ||
+        _trustedSnapshot == null) {
+      return null;
+    }
+    return _trustedSnapshot;
+  }
+
+  bool get _hasTrustedSnapshot =>
+      _trustedSnapshot != null &&
+      _trustedSnapshotUid != null &&
+      _trustedSnapshotUid!.isNotEmpty;
+
+  String? _currentUid() {
+    final uid = _uidProvider?.call();
+    if (uid == null || uid.isEmpty) return null;
+    return uid;
+  }
+
+  void _storeTrusted(SuperResonanceAvailability value) {
+    final uid = _currentUid();
+    if (uid == null) {
+      _trustedSnapshot = null;
+      _trustedSnapshotUid = null;
+      return;
+    }
+    _trustedSnapshotUid = uid;
+    _trustedSnapshot = value;
+  }
+
+  /// Keep the tap snapshot aligned with a trusted send payload.
+  /// Does not authorize another send. [dailyLimit] stays from the last fetch.
+  void applyTrustedSendResult(SuperResonanceSendResult result) {
+    final previous = peekTrustedAvailability();
+    _storeTrusted(
+      SuperResonanceAvailability(
+        dailyRemaining: result.dailyRemaining,
+        dailyLimit: previous?.dailyLimit ?? 0,
+        purchasedBalance: result.purchasedBalance,
+        totalAvailable: result.totalAvailable,
+      ),
+    );
+  }
+
   /// Total currently usable Super Resonance (daily remaining + purchased).
   Future<int> readTrustedBalance() async {
     final availability = await readTrustedAvailability();
@@ -61,7 +113,9 @@ class DiscoverSuperResonanceController {
       final customAvailability = _readAvailabilityOverride;
       if (customAvailability != null) {
         try {
-          return _clampAvailability(await customAvailability());
+          final value = _clampAvailability(await customAvailability());
+          _storeTrusted(value);
+          return value;
         } catch (_) {
           return SuperResonanceAvailability.empty;
         }
@@ -70,18 +124,22 @@ class DiscoverSuperResonanceController {
       if (customBalance != null) {
         try {
           final purchased = _clampBalance(await customBalance());
-          return SuperResonanceAvailability(
+          final value = SuperResonanceAvailability(
             dailyRemaining: 0,
             dailyLimit: 0,
             purchasedBalance: purchased,
             totalAvailable: purchased,
           );
+          _storeTrusted(value);
+          return value;
         } catch (_) {
           return SuperResonanceAvailability.empty;
         }
       }
       try {
-        return _clampAvailability(await _sendClient.availability());
+        final value = _clampAvailability(await _sendClient.availability());
+        _storeTrusted(value);
+        return value;
       } catch (_) {
         final purchased = await _readPurchasedBalance();
         return SuperResonanceAvailability(

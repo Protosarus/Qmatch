@@ -26,6 +26,23 @@ import '../services/discover_service.dart';
 import '../services/discover_super_resonance_controller.dart';
 import '../widgets/discover_widgets.dart';
 
+/// Whether Discover should precache this photo URL.
+///
+/// Skips empty values and disposable Stage B2 `example.com` seed URLs.
+/// Production `http`/`https` photo URLs still precache. Presentation-only.
+@visibleForTesting
+bool shouldPrecacheDiscoverPhotoUrl(String? raw) {
+  final url = raw?.trim();
+  if (url == null || url.isEmpty) return false;
+  final uri = Uri.tryParse(url);
+  if (uri == null) return false;
+  final scheme = uri.scheme.toLowerCase();
+  if (scheme != 'http' && scheme != 'https') return false;
+  final host = uri.host.toLowerCase();
+  if (host == 'example.com' || host.endsWith('.example.com')) return false;
+  return true;
+}
+
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({
     super.key,
@@ -180,7 +197,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     });
     try {
       final list = await QmatchPerf.trace(
-        'discover.first_card',
+        'discover.deck_ready',
         () => _discoverService.getCandidates(limit: 30),
       );
       if (!mounted) return;
@@ -228,16 +245,20 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   /// Warm the next 1–2 card photos only. Never the whole deck.
+  /// Never awaited on deck-ready. Fake example.com seed URLs are skipped.
   void _precacheUpcomingCandidatePhotos() {
     if (!mounted) return;
-    final ctx = context;
-    for (var i = 1; i <= 2; i++) {
-      final idx = _currentIndex + i;
-      if (idx < 0 || idx >= _candidates.length) break;
-      final url = _candidates[idx].primaryPhotoUrl?.trim();
-      if (url == null || url.isEmpty) continue;
-      precacheImage(NetworkImage(url), ctx).ignore();
-    }
+    QmatchPerf.traceSync('discover.photo_precache', () {
+      if (!mounted) return;
+      final ctx = context;
+      for (var i = 1; i <= 2; i++) {
+        final idx = _currentIndex + i;
+        if (idx < 0 || idx >= _candidates.length) break;
+        final url = _candidates[idx].primaryPhotoUrl?.trim();
+        if (!shouldPrecacheDiscoverPhotoUrl(url)) continue;
+        precacheImage(NetworkImage(url!), ctx).ignore();
+      }
+    });
   }
 
   void _onSwipeFeedback(double value) {
@@ -287,13 +308,38 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     if (_isActionLoading) return;
     if (_likeDispatchedUids.contains(c.uid)) return;
 
+    final tapSw = Stopwatch()..start();
+    QmatchPerf.mark('super_resonance.tap_received');
     _superResonanceSheetOpen = true;
     try {
-      final availability = await _superResonance.readTrustedAvailability();
-      if (!mounted) return;
-      _applyAvailability(availability);
+      final SuperResonanceAvailability availability;
+      final cached = _superResonance.peekTrustedAvailability();
+      if (cached != null) {
+        QmatchPerf.mark(
+          'super_resonance.availability_cache_hit',
+          tapSw.elapsed,
+        );
+        availability = cached;
+      } else {
+        QmatchPerf.mark(
+          'super_resonance.availability_refresh_start',
+          tapSw.elapsed,
+        );
+        availability = await QmatchPerf.trace(
+          'super_resonance.tap.availability',
+          () => _superResonance.readTrustedAvailability(),
+        );
+        QmatchPerf.mark(
+          'super_resonance.availability_refresh_end',
+          tapSw.elapsed,
+        );
+        if (!mounted) return;
+        _applyAvailability(availability);
+      }
 
       if (availability.totalAvailable > 0) {
+        QmatchPerf.mark('super_resonance.confirm_sheet_open', tapSw.elapsed);
+        final confirmSw = Stopwatch()..start();
         final confirmed = await showQMatchSuperResonanceConfirmSheet(
           context,
           candidateName: c.name,
@@ -301,25 +347,65 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           dailyRemaining: availability.dailyRemaining,
           dailyLimit: availability.dailyLimit,
         );
+        QmatchPerf.log('super_resonance.tap.confirm_open', confirmSw.elapsed);
         if (!confirmed || !mounted) return;
         setState(() => _superResonanceBusy = true);
+        var sendSucceeded = false;
         try {
-          final result = await _superResonance.send(targetUid: c.uid);
+          QmatchPerf.mark(
+            'super_resonance.send_callable_start',
+            tapSw.elapsed,
+          );
+          final result = await QmatchPerf.trace(
+            'super_resonance.tap.send',
+            () => _superResonance.send(targetUid: c.uid),
+          );
+          QmatchPerf.mark(
+            'super_resonance.send_callable_end',
+            tapSw.elapsed,
+          );
           if (!mounted) return;
           _applySendResult(result);
+          _superResonance.applyTrustedSendResult(result);
+          sendSucceeded = true;
         } catch (e, st) {
           debugPrint('Discover Super Resonance send failed: $e\n$st');
           if (!mounted) return;
           _showSuperResonanceError(
             AppLocalizations.of(context)!.discoverSuperResonanceSendFailed,
           );
-          await _refreshSuperResonanceBalance();
+          QmatchPerf.mark(
+            'super_resonance.balance_refresh_start',
+            tapSw.elapsed,
+          );
+          await QmatchPerf.trace(
+            'super_resonance.tap.balance_refresh',
+            _refreshSuperResonanceBalance,
+          );
+          QmatchPerf.mark(
+            'super_resonance.balance_refresh_end',
+            tapSw.elapsed,
+          );
         } finally {
           if (mounted) setState(() => _superResonanceBusy = false);
         }
+        if (!mounted || !sendSucceeded) return;
+        QmatchPerf.mark(
+          'super_resonance.balance_refresh_start',
+          tapSw.elapsed,
+        );
+        await QmatchPerf.trace(
+          'super_resonance.tap.balance_refresh',
+          _refreshSuperResonanceBalance,
+        );
+        QmatchPerf.mark(
+          'super_resonance.balance_refresh_end',
+          tapSw.elapsed,
+        );
         return;
       }
 
+      QmatchPerf.mark('super_resonance.purchase_sheet_open', tapSw.elapsed);
       await showQMatchSuperResonancePurchaseSheet(
         context,
         trustedBalance: availability.purchasedBalance,
@@ -327,16 +413,40 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         loadLocalizedPrice: _superResonance.loadLocalizedPrice,
       );
       if (!mounted) return;
-      await _refreshSuperResonanceBalance();
+      QmatchPerf.mark(
+        'super_resonance.balance_refresh_start',
+        tapSw.elapsed,
+      );
+      await QmatchPerf.trace(
+        'super_resonance.tap.balance_refresh',
+        _refreshSuperResonanceBalance,
+      );
+      QmatchPerf.mark(
+        'super_resonance.balance_refresh_end',
+        tapSw.elapsed,
+      );
     } catch (e, st) {
       debugPrint('Discover Super Resonance failed: $e\n$st');
       if (!mounted) return;
       _showSuperResonanceError(
         AppLocalizations.of(context)!.discoverSuperResonanceSendFailed,
       );
-      await _refreshSuperResonanceBalance();
+      QmatchPerf.mark(
+        'super_resonance.balance_refresh_start',
+        tapSw.elapsed,
+      );
+      await QmatchPerf.trace(
+        'super_resonance.tap.balance_refresh',
+        _refreshSuperResonanceBalance,
+      );
+      QmatchPerf.mark(
+        'super_resonance.balance_refresh_end',
+        tapSw.elapsed,
+      );
     } finally {
       _superResonanceSheetOpen = false;
+      QmatchPerf.mark('super_resonance.ui_idle_again', tapSw.elapsed);
+      QmatchPerf.log('super_resonance.tap.total', tapSw.elapsed);
     }
   }
 
@@ -434,6 +544,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         );
       }
     }
+  }
+
+  void _onLikeFromActionBar() {
+    _onLike();
+    if (mounted) setState(() {});
   }
 
   @override
@@ -616,10 +731,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           QMatchDiscoverActionBar(
             passLabel: l10n.discoverPass,
             likeLabel: l10n.discoverLike,
-            onPass:
-                (_isActionLoading || _showGestureOnboarding) ? null : _onPass,
-            onLike:
-                (_isActionLoading || _showGestureOnboarding) ? null : _onLike,
+            onPass: (_isActionLoading ||
+                    _showGestureOnboarding ||
+                    _likeDispatchedUids.contains(c.uid))
+                ? null
+                : _onPass,
+            onLike: (_isActionLoading ||
+                    _showGestureOnboarding ||
+                    _likeDispatchedUids.contains(c.uid))
+                ? null
+                : _onLikeFromActionBar,
             isActionLoading: _isActionLoading,
             subdued: _showGestureOnboarding,
             swipeFeedback: _swipeFeedback,

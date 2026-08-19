@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/identity/identity.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
@@ -48,11 +49,13 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
   /// Avoid jumping on every StreamBuilder rebuild while the user scrolls.
   int _lastAutoScrollCount = -1;
+  bool _loggedMessagesSnapshot = false;
 
   @override
   void initState() {
     super.initState();
     _messages = _chat.getMessagesStream(widget.threadId);
+    QmatchPerf.mark('chat.detail.opened');
     _bootstrap();
   }
 
@@ -563,6 +566,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   : StreamBuilder<List<MessageModel>>(
                       stream: _messages,
                       builder: (context, snapshot) {
+                        if (!_loggedMessagesSnapshot &&
+                            (snapshot.hasData || snapshot.hasError)) {
+                          _loggedMessagesSnapshot = true;
+                          QmatchPerf.mark('chat.messages.snapshot_ready');
+                        }
                         if (snapshot.connectionState ==
                                 ConnectionState.waiting &&
                             !snapshot.hasData) {
