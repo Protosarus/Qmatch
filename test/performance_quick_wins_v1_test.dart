@@ -55,6 +55,11 @@ void main() {
     expect(src.contains('getMySwipedUserIds'), isTrue);
     expect(src.contains('_loadBlockedByMe'), isTrue);
     expect(src.contains("where('discover_eligible', isEqualTo: true)"), isTrue);
+    expect(src.contains("'discover.me_get'"), isTrue);
+    expect(src.contains("'discover.swipes_get'"), isTrue);
+    expect(src.contains("'discover.blocks_get'"), isTrue);
+    expect(src.contains("'discover.eligible_query'"), isTrue);
+    expect(src.contains("QmatchPerf.trace('discover.firestore_batch'"), isTrue);
     expect(src.contains('DiscoverL1EligibilityGate'), isTrue);
     expect(src.contains('applyTrustedMembership'), isTrue);
   });

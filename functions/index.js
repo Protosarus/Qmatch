@@ -208,6 +208,16 @@ exports.compareStageB2Structural = onCall(
   (request) => stageB2L2.handleCompareStageB2Structural(request),
 );
 exports.handleCompareStageB2Structural = stageB2L2.handleCompareStageB2Structural;
+
+/**
+ * Debug/internal A/B only. Same handler, auth, payload, membership,
+ * ranking I/O, and security as compareStageB2Structural. No new writes.
+ * Does not replace the live us-central1 callable.
+ */
+exports.compareStageB2StructuralEu = onCall(
+  { region: 'europe-west1', minInstances: 1 },
+  (request) => stageB2L2.handleCompareStageB2Structural(request),
+);
 exports.compareMeasuredPresenceGroupNormalized =
   canonical20dGroupNormalized.compareMeasuredPresence;
 const likeAndMaybeCreateMatch = require('./src/like_and_maybe_create_match_callable');

@@ -1,5 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flutter/foundation.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
 import 'discover_structural_l2_ranking.dart';
 
@@ -11,6 +13,10 @@ import 'discover_structural_l2_ranking.dart';
 /// after this membership filter. Reverse-blocked UIDs are omitted from
 /// [DiscoverStageB2TrustedBatch.returnedUids]. Callable failure must
 /// fail-close — never show the unverified L1 batch.
+///
+/// Release always uses [callableName] in [usRegion]. Debug/internal A/B may
+/// call [euCallableName] in [euRegion] via [useEuropeWest1],
+/// [debugUseEuropeWest1], or `--dart-define=QMATCH_DISCOVER_L2_EU=true`.
 class DiscoverStageB2TrustedL2Client {
   DiscoverStageB2TrustedL2Client({
     FirebaseFunctions? functions,
@@ -18,16 +24,41 @@ class DiscoverStageB2TrustedL2Client {
       String name,
       Map<String, dynamic> data,
     )? call,
+    bool useEuropeWest1 = false,
   })  : _functions = functions,
-        _call = call;
+        _call = call,
+        _useEuropeWest1 = useEuropeWest1;
 
   final FirebaseFunctions? _functions;
   final Future<Map<String, dynamic>> Function(
     String name,
     Map<String, dynamic> data,
   )? _call;
+  final bool _useEuropeWest1;
 
   static const String callableName = 'compareStageB2Structural';
+  static const String euCallableName = 'compareStageB2StructuralEu';
+  static const String usRegion = 'us-central1';
+  static const String euRegion = 'europe-west1';
+
+  static const bool _euFromDefine = bool.fromEnvironment(
+    'QMATCH_DISCOVER_L2_EU',
+    defaultValue: false,
+  );
+
+  /// Debug/internal runtime A/B. Ignored when [kDebugMode] is false.
+  static bool debugUseEuropeWest1 = false;
+
+  /// True only in debug when an explicit EU A/B switch is on.
+  bool get usesEuropeWest1 {
+    if (!kDebugMode) return false;
+    return _useEuropeWest1 || debugUseEuropeWest1 || _euFromDefine;
+  }
+
+  String get resolvedCallableName =>
+      usesEuropeWest1 ? euCallableName : callableName;
+
+  String get resolvedRegion => usesEuropeWest1 ? euRegion : usRegion;
 
   Future<DiscoverStageB2TrustedBatch> compareForL1Batch({
     required List<String> candidateUids,
@@ -72,15 +103,22 @@ class DiscoverStageB2TrustedL2Client {
   }
 
   Future<Map<String, dynamic>> _invoke(Map<String, dynamic> data) async {
-    final custom = _call;
-    if (custom != null) return custom(callableName, data);
-    final functions = _functions ?? FirebaseFunctions.instance;
-    final result = await functions.httpsCallable(callableName).call(data);
-    final payload = result.data;
-    if (payload is Map) {
-      return Map<String, dynamic>.from(payload);
-    }
-    throw StateError('Callable $callableName returned a non-map payload.');
+    final useEu = usesEuropeWest1;
+    final name = useEu ? euCallableName : callableName;
+    final region = useEu ? euRegion : usRegion;
+    final traceName = useEu ? 'discover.l2_eu' : 'discover.l2_us';
+    return QmatchPerf.trace(traceName, () async {
+      final custom = _call;
+      if (custom != null) return custom(name, data);
+      final functions =
+          _functions ?? FirebaseFunctions.instanceFor(region: region);
+      final result = await functions.httpsCallable(name).call(data);
+      final payload = result.data;
+      if (payload is Map) {
+        return Map<String, dynamic>.from(payload);
+      }
+      throw StateError('Callable $name returned a non-map payload.');
+    });
   }
 }
 

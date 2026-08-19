@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/utils/compatibility_scoring.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../../matching/domain/l3_soft_preference_signal.dart';
@@ -63,6 +66,7 @@ class DiscoverService {
   final bool _allowStageB2OutsideDebug;
   final DiscoverStageB2TrustedL2Client _stageB2TrustedL2;
   final DiscoverRankingMode _rankingMode;
+  int _shadowGeneration = 0;
 
   /// Active ranking mode for this service instance.
   DiscoverRankingMode get rankingMode => _rankingMode;
@@ -124,19 +128,34 @@ class DiscoverService {
       throw StateError('User is not authenticated.');
     }
     final currentUid = me.uid;
+    final shadowGeneration = ++_shadowGeneration;
 
     // Prefer discover_eligible to avoid composite index needs.
     // TODO: Backfill discover_eligible for existing users if needed.
     final batchSize = (limit * 3).clamp(30, 120);
-    final started = await Future.wait<Object?>([
-      FirestorePaths.userDoc(currentUid).get(),
-      _swipeService.getMySwipedUserIds(),
-      _loadBlockedByMe(),
-      FirestorePaths.users()
-          .where('discover_eligible', isEqualTo: true)
-          .limit(batchSize)
-          .get(),
-    ]);
+    final started = await QmatchPerf.trace('discover.firestore_batch', () {
+      return Future.wait<Object?>([
+        QmatchPerf.trace(
+          'discover.me_get',
+          () => FirestorePaths.userDoc(currentUid).get(),
+        ),
+        QmatchPerf.trace(
+          'discover.swipes_get',
+          () => _swipeService.getMySwipedUserIds(),
+        ),
+        QmatchPerf.trace(
+          'discover.blocks_get',
+          () => _loadBlockedByMe(),
+        ),
+        QmatchPerf.trace(
+          'discover.eligible_query',
+          () => FirestorePaths.users()
+              .where('discover_eligible', isEqualTo: true)
+              .limit(batchSize)
+              .get(),
+        ),
+      ]);
+    });
 
     final meDoc = started[0] as DocumentSnapshot<Map<String, dynamic>>;
     final meData =
@@ -157,12 +176,6 @@ class DiscoverService {
     final out = <DiscoverUserModel>[];
     // Raw user-doc maps for post-rank L3 soft preference shadow only.
     final candidateUserData = <String, Map<String, dynamic>>{};
-    if (_stageB2Collector.enabled) {
-      _stageB2Collector.beginSession(viewerUid: currentUid);
-    } else {
-      _stageB2Collector.reset();
-    }
-
     var excludedSelf = 0;
     var excludedSwiped = 0;
     var excludedBlockedByMe = 0;
@@ -171,131 +184,149 @@ class DiscoverService {
     var excludedAssessmentIncomplete = 0;
     var excludedMissingPhoto = 0;
 
-    for (final doc in snapshot.docs) {
-      if (doc.id == currentUid) {
-        excludedSelf++;
-        continue;
-      }
-      if (swiped.contains(doc.id)) {
-        excludedSwiped++;
-        continue;
-      }
-      // Viewer-block only (owner-readable). Reverse-block is Admin-omitted
-      // on the trusted L2 callable — never GET peer block docs.
-      if (DiscoverL1EligibilityGate.excludedByBlocks(
-        viewerBlockedCandidate: blockedByMe.contains(doc.id),
-        candidateBlockedViewer: false,
-      )) {
-        excludedBlockedByMe++;
-        continue;
-      }
-
-      final data = doc.data();
-      final candidate = DiscoverUserModel.fromFirestore(doc.id, data);
-
-      if (!DiscoverL1EligibilityGate.passesLocalAccountGates(
-        active: candidate.active,
-        profileCompleted: candidate.profileCompleted,
-        testCompleted: candidate.testCompleted,
-        assessmentFlowCompleted: candidate.assessmentFlowCompleted,
-        hasPhoto: candidate.hasPhoto,
-      )) {
-        if (!candidate.active) {
-          excludedInactive++;
-        } else if (!candidate.profileCompleted) {
-          excludedIncompleteProfile++;
-        } else if (!candidate.hasPhoto) {
-          excludedMissingPhoto++;
-        } else {
-          excludedAssessmentIncomplete++;
-        }
-        continue;
-      }
-
-      CompatibilityResult? compat;
-      if (needLegacyCompat) {
-        compat = CompatibilityScoring.calculateCompatibility(
-          me: meData,
-          candidate: {
-            ...data,
-            'last_active_at': (data['last_active_at'] is Timestamp)
-                ? (data['last_active_at'] as Timestamp).toDate()
-                : null,
-          },
-        );
-        if (_stageB2Collector.enabled) {
-          _stageB2Collector.recordLegacyPair(
-            candidateUid: doc.id,
-            legacyAvailable: compat.available,
-            legacyScore: compat.scoreTotal,
-            legacyMissingReason: compat.reason,
-          );
-        }
-      }
-
-      candidateUserData[doc.id] = Map<String, dynamic>.from(data);
-      if (attachLegacyUi && compat != null) {
-        out.add(
-          candidate.copyWith(
-            compatibilityScore: compat.available ? compat.scoreTotal : null,
-            compatibilityLabel: compat.label,
-            compatibilityReasons: compat.reasons,
-          ),
-        );
+    QmatchPerf.traceSync('discover.l1_local', () {
+      if (_stageB2Collector.enabled) {
+        _stageB2Collector.beginSession(viewerUid: currentUid);
       } else {
-        // structural_l2_v1: do not attach legacy % as if it were L2.
-        out.add(candidate);
+        _stageB2Collector.reset();
       }
-    }
 
-    if (kDebugMode) {
-      debugPrint(
-        'Discover L1: fetched=${snapshot.docs.length} '
-        'self=$excludedSelf swiped=$excludedSwiped '
-        'blocked_by_me=$excludedBlockedByMe '
-        'inactive=$excludedInactive '
-        'incomplete_profile=$excludedIncompleteProfile '
-        'assessment_incomplete=$excludedAssessmentIncomplete '
-        'missing_photo=$excludedMissingPhoto '
-        'l1_eligible=${out.length}',
-      );
-    }
+      for (final doc in snapshot.docs) {
+        if (doc.id == currentUid) {
+          excludedSelf++;
+          continue;
+        }
+        if (swiped.contains(doc.id)) {
+          excludedSwiped++;
+          continue;
+        }
+        // Viewer-block only (owner-readable). Reverse-block is Admin-omitted
+        // on the trusted L2 callable — never GET peer block docs.
+        if (DiscoverL1EligibilityGate.excludedByBlocks(
+          viewerBlockedCandidate: blockedByMe.contains(doc.id),
+          candidateBlockedViewer: false,
+        )) {
+          excludedBlockedByMe++;
+          continue;
+        }
+
+        final data = doc.data();
+        final candidate = DiscoverUserModel.fromFirestore(doc.id, data);
+
+        if (!DiscoverL1EligibilityGate.passesLocalAccountGates(
+          active: candidate.active,
+          profileCompleted: candidate.profileCompleted,
+          testCompleted: candidate.testCompleted,
+          assessmentFlowCompleted: candidate.assessmentFlowCompleted,
+          hasPhoto: candidate.hasPhoto,
+        )) {
+          if (!candidate.active) {
+            excludedInactive++;
+          } else if (!candidate.profileCompleted) {
+            excludedIncompleteProfile++;
+          } else if (!candidate.hasPhoto) {
+            excludedMissingPhoto++;
+          } else {
+            excludedAssessmentIncomplete++;
+          }
+          continue;
+        }
+
+        CompatibilityResult? compat;
+        if (needLegacyCompat) {
+          compat = CompatibilityScoring.calculateCompatibility(
+            me: meData,
+            candidate: {
+              ...data,
+              'last_active_at': (data['last_active_at'] is Timestamp)
+                  ? (data['last_active_at'] as Timestamp).toDate()
+                  : null,
+            },
+          );
+          if (_stageB2Collector.enabled) {
+            _stageB2Collector.recordLegacyPair(
+              candidateUid: doc.id,
+              legacyAvailable: compat.available,
+              legacyScore: compat.scoreTotal,
+              legacyMissingReason: compat.reason,
+            );
+          }
+        }
+
+        candidateUserData[doc.id] = Map<String, dynamic>.from(data);
+        if (attachLegacyUi && compat != null) {
+          out.add(
+            candidate.copyWith(
+              compatibilityScore: compat.available ? compat.scoreTotal : null,
+              compatibilityLabel: compat.label,
+              compatibilityReasons: compat.reasons,
+            ),
+          );
+        } else {
+          // structural_l2_v1: do not attach legacy % as if it were L2.
+          out.add(candidate);
+        }
+      }
+
+      if (kDebugMode) {
+        debugPrint(
+          'Discover L1: fetched=${snapshot.docs.length} '
+          'self=$excludedSelf swiped=$excludedSwiped '
+          'blocked_by_me=$excludedBlockedByMe '
+          'inactive=$excludedInactive '
+          'incomplete_profile=$excludedIncompleteProfile '
+          'assessment_incomplete=$excludedAssessmentIncomplete '
+          'missing_photo=$excludedMissingPhoto '
+          'l1_eligible=${out.length}',
+        );
+      }
+    });
 
     var ranked = out;
     Map<String, DiscoverStageB2TrustedPairResult> trustedByUid = const {};
 
     // Trusted candidate_uids is authoritative for both structural_l2_v1
     // and legacy_v1. Callable failure fail-closes (no unverified L1 batch).
-    final batch = await _trustedL2Batch(
-      ranked.map((c) => c.uid).toList(growable: false),
+    final batch = await QmatchPerf.trace(
+      'discover.l2_callable',
+      () => _trustedL2Batch(
+        ranked.map((c) => c.uid).toList(growable: false),
+      ),
     );
-    ranked = DiscoverStructuralL2Ranking.applyTrustedMembership(
-      candidates: ranked,
-      callableFailed: batch.callableFailed,
-      returnedUids: batch.returnedUids,
-    );
+    ranked = QmatchPerf.traceSync('discover.cpu_rank', () {
+      ranked = DiscoverStructuralL2Ranking.applyTrustedMembership(
+        candidates: ranked,
+        callableFailed: batch.callableFailed,
+        returnedUids: batch.returnedUids,
+      );
+      final pairsByUid = batch.callableFailed
+          ? const <String, DiscoverStageB2TrustedPairResult>{}
+          : batch.pairsByUid;
+      if (_rankingMode.usesTrustedStructuralL2) {
+        ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+          l1Eligible: ranked,
+          pairsByUid: pairsByUid,
+        );
+      } else {
+        ranked.sort((a, b) {
+          return CompatibilityScoring.compareDiscoverCandidates(
+            aScore: a.compatibilityScore,
+            bScore: b.compatibilityScore,
+            aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+            bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
+          );
+        });
+      }
+      return ranked;
+    });
     if (!batch.callableFailed) {
       trustedByUid = batch.pairsByUid;
     }
 
-    if (_rankingMode.usesTrustedStructuralL2) {
-      ranked = DiscoverStructuralL2Ranking.rankL1Batch(
-        l1Eligible: ranked,
-        pairsByUid: trustedByUid,
-      );
-    } else {
-      ranked.sort((a, b) {
-        return CompatibilityScoring.compareDiscoverCandidates(
-          aScore: a.compatibilityScore,
-          bScore: b.compatibilityScore,
-          aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
-          bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
-        );
-      });
-    }
-
     // Shadow diagnostics AFTER ranking — never reorder / rescore.
-    await _computeShadowDiagnostics(
+    // Debug peer canonical_v1 reads must not delay the trusted deck.
+    _scheduleShadowDiagnostics(
+      generation: shadowGeneration,
       meUid: currentUid,
       meUserData: meData,
       rankedCandidates: ranked,
@@ -363,7 +394,39 @@ class DiscoverService {
     }
   }
 
+  /// Debug/export shadow only. Never ranks. Never awaited on the deck path.
+  void _scheduleShadowDiagnostics({
+    required int generation,
+    required String meUid,
+    required Map<String, dynamic> meUserData,
+    required List<DiscoverUserModel> rankedCandidates,
+    required Map<String, Map<String, dynamic>> candidateUserData,
+    required Map<String, DiscoverStageB2TrustedPairResult> trustedPairsByUid,
+  }) {
+    final wantEqualShadow = _enableShadowDiagnostics;
+    final wantStageB2 = _stageB2Collector.enabled;
+    if ((!wantEqualShadow && !wantStageB2) || rankedCandidates.isEmpty) {
+      lastShadowDiagnostics = const {};
+      lastL3SoftPreferenceDiagnostics = const {};
+      if (!wantStageB2) _stageB2Collector.reset();
+      return;
+    }
+    unawaited(
+      _computeShadowDiagnostics(
+        generation: generation,
+        meUid: meUid,
+        meUserData: meUserData,
+        rankedCandidates: List<DiscoverUserModel>.of(rankedCandidates),
+        candidateUserData: Map<String, Map<String, dynamic>>.of(
+          candidateUserData,
+        ),
+        trustedPairsByUid: trustedPairsByUid,
+      ),
+    );
+  }
+
   Future<void> _computeShadowDiagnostics({
+    required int generation,
     required String meUid,
     required Map<String, dynamic> meUserData,
     required List<DiscoverUserModel> rankedCandidates,
@@ -373,6 +436,7 @@ class DiscoverService {
     final wantEqualShadow = _enableShadowDiagnostics;
     final wantStageB2 = _stageB2Collector.enabled;
     if ((!wantEqualShadow && !wantStageB2) || rankedCandidates.isEmpty) {
+      if (generation != _shadowGeneration) return;
       lastShadowDiagnostics = const {};
       lastL3SoftPreferenceDiagnostics = const {};
       if (!wantStageB2) _stageB2Collector.reset();
@@ -404,14 +468,11 @@ class DiscoverService {
           meCanonicalProfile: meProfile,
           candidateCanonicalProfiles: candidateProfiles,
         );
-        lastShadowDiagnostics = attached.diagnostics;
-
         final l3Attached = _l3ShadowAttacher.attach(
           meUserData: meUserData,
           rankedCandidates: rankedCandidates,
           candidateUserData: candidateUserData,
         );
-        lastL3SoftPreferenceDiagnostics = l3Attached.diagnostics;
 
         // attached.candidates must keep live compat; assert in debug only.
         assert(attached.candidates.length == rankedCandidates.length);
@@ -432,16 +493,22 @@ class DiscoverService {
           }
           return true;
         }());
+        if (generation != _shadowGeneration) return;
+        lastShadowDiagnostics = attached.diagnostics;
+        lastL3SoftPreferenceDiagnostics = l3Attached.diagnostics;
       } else {
+        if (generation != _shadowGeneration) return;
         lastShadowDiagnostics = const {};
         lastL3SoftPreferenceDiagnostics = const {};
       }
 
       if (wantStageB2) {
+        if (generation != _shadowGeneration) return;
         final uids = rankedCandidates.map((c) => c.uid).toList(growable: false);
         var byUid = trustedPairsByUid;
         if (byUid.isEmpty) {
           final batch = await _trustedL2Batch(uids);
+          if (generation != _shadowGeneration) return;
           byUid = batch.pairsByUid;
         }
         final trusted = [
@@ -458,6 +525,7 @@ class DiscoverService {
       }
     } catch (e, st) {
       debugPrint('Discover shadow 20D diagnostics skipped: $e\n$st');
+      if (generation != _shadowGeneration) return;
       lastShadowDiagnostics = const {};
       lastL3SoftPreferenceDiagnostics = const {};
       if (wantStageB2) {

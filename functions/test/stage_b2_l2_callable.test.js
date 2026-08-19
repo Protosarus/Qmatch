@@ -216,6 +216,7 @@ describe('compareStageB2Structural callable', () => {
     assert.ok(block.includes('minInstances: 1'));
     assert.strictEqual(block.includes('memory'), false);
     assert.strictEqual(block.includes('cpu'), false);
+    assert.strictEqual(block.includes('europe-west1'), false);
 
     function assertNoMinInstances(exportName) {
       const idx = index.indexOf(`exports.${exportName} = onCall(`);
@@ -232,6 +233,42 @@ describe('compareStageB2Structural callable', () => {
     assertNoMinInstances('listSuperResonanceInbox');
     assertNoMinInstances('likeAndMaybeCreateMatch');
     assertNoMinInstances('sendSuperResonance');
+  });
+
+  it('EU A/B callable reuses the same handler in europe-west1', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const index = fs.readFileSync(
+      path.resolve(__dirname, '../index.js'),
+      'utf8',
+    );
+    const usStart = index.indexOf('exports.compareStageB2Structural = onCall(');
+    const usEnd = index.indexOf('exports.handleCompareStageB2Structural');
+    const euStart = index.indexOf('exports.compareStageB2StructuralEu = onCall(');
+    const euEnd = index.indexOf(
+      'exports.compareMeasuredPresenceGroupNormalized',
+    );
+    assert.ok(usStart >= 0 && usEnd > usStart);
+    assert.ok(euStart > usEnd);
+    assert.ok(euEnd > euStart);
+
+    const usBlock = index.slice(usStart, usEnd);
+    const euBlock = index.slice(euStart, euEnd);
+    assert.ok(usBlock.includes("region: 'us-central1'"));
+    assert.ok(usBlock.includes('minInstances: 1'));
+    assert.ok(
+      usBlock.includes('stageB2L2.handleCompareStageB2Structural(request)'),
+    );
+    assert.ok(euBlock.includes("region: 'europe-west1'"));
+    assert.ok(euBlock.includes('minInstances: 1'));
+    assert.ok(
+      euBlock.includes('stageB2L2.handleCompareStageB2Structural(request)'),
+    );
+    assert.strictEqual(euBlock.includes('us-central1'), false);
+    assert.strictEqual(
+      index.includes('handleCompareStageB2StructuralEu'),
+      false,
+    );
   });
 
   it('server timings do not change public output or leak private data', async () => {
