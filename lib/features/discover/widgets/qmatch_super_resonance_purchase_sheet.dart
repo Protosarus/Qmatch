@@ -5,15 +5,20 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../iap/domain/iap_exceptions.dart';
-import '../../iap/domain/qmatch_iap_product_ids.dart';
+import '../../iap/domain/qmatch_purchase_error_kind.dart';
+import '../../iap/widgets/qmatch_purchase_error_banner.dart';
+
+const _lilac = Color(0xFFDAC8ED);
 
 /// Super Resonance consumable unlock. Separate from the Resonance paywall.
 Future<int?> showQMatchSuperResonancePurchaseSheet(
   BuildContext context, {
+  required int trustedBalance,
   required Future<int> Function() purchaseThenReadBalance,
+  Future<String?> Function()? loadLocalizedPrice,
 }) async {
   final l10n = AppLocalizations.of(context)!;
+  ScaffoldMessenger.maybeOf(context)?.clearSnackBars();
   return showModalBottomSheet<int>(
     context: context,
     isScrollControlled: true,
@@ -24,7 +29,9 @@ Future<int?> showQMatchSuperResonancePurchaseSheet(
     builder: (ctx) {
       return _SuperResonancePurchaseBody(
         l10n: l10n,
+        trustedBalance: trustedBalance,
         purchaseThenReadBalance: purchaseThenReadBalance,
+        loadLocalizedPrice: loadLocalizedPrice,
       );
     },
   );
@@ -33,11 +40,15 @@ Future<int?> showQMatchSuperResonancePurchaseSheet(
 class _SuperResonancePurchaseBody extends StatefulWidget {
   const _SuperResonancePurchaseBody({
     required this.l10n,
+    required this.trustedBalance,
     required this.purchaseThenReadBalance,
+    this.loadLocalizedPrice,
   });
 
   final AppLocalizations l10n;
+  final int trustedBalance;
   final Future<int> Function() purchaseThenReadBalance;
+  final Future<String?> Function()? loadLocalizedPrice;
 
   @override
   State<_SuperResonancePurchaseBody> createState() =>
@@ -47,31 +58,58 @@ class _SuperResonancePurchaseBody extends StatefulWidget {
 class _SuperResonancePurchaseBodyState
     extends State<_SuperResonancePurchaseBody> {
   bool _busy = false;
+  String? _price;
+  QmatchPurchaseErrorKind? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPrice();
+  }
+
+  Future<void> _loadPrice() async {
+    final load = widget.loadLocalizedPrice;
+    if (load == null) return;
+    try {
+      final price = await load();
+      if (!mounted) return;
+      setState(() => _price = price);
+    } catch (_) {
+      if (mounted) setState(() => _price = null);
+    }
+  }
 
   Future<void> _buy() async {
     if (_busy) return;
-    setState(() => _busy = true);
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
     try {
       final balance = await widget.purchaseThenReadBalance();
       if (!mounted) return;
       Navigator.of(context).pop(balance);
-    } on IapPurchaseCanceledException {
-      if (mounted) setState(() => _busy = false);
-    } catch (_) {
+    } catch (e) {
       if (!mounted) return;
-      setState(() => _busy = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(widget.l10n.discoverSuperResonancePurchaseFailed),
-          backgroundColor: AppColors.error,
-        ),
-      );
+      setState(() {
+        _busy = false;
+        _error = classifyPurchaseException(
+          e,
+          productFailure: QmatchPurchaseErrorKind.superResonanceConsumable,
+        );
+      });
     }
+  }
+
+  void _dismiss() {
+    ScaffoldMessenger.maybeOf(context)?.clearSnackBars();
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = widget.l10n;
+    final price = _price;
     return SafeArea(
       child: Padding(
         key: const Key('qmatch-super-resonance-purchase-sheet'),
@@ -104,16 +142,47 @@ class _SuperResonancePurchaseBodyState
                 height: 1.45,
               ),
             ),
-            const SizedBox(height: AppSpacing.xs),
+            const SizedBox(height: AppSpacing.sm),
             Text(
-              key: const Key('qmatch-super-resonance-purchase-sku'),
-              QmatchIapProductIds.superResonanceX1,
+              key: const Key('qmatch-super-resonance-purchase-balance'),
+              l10n.discoverSuperResonanceBalance(widget.trustedBalance),
               style: GoogleFonts.inter(
-                color: AppColors.textMuted,
-                fontSize: 11,
+                color: _lilac,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
               ),
             ),
+            const SizedBox(height: AppSpacing.xs),
+            Text(
+              key: const Key('qmatch-super-resonance-purchase-quantity'),
+              l10n.discoverSuperResonanceQuantity,
+              style: GoogleFonts.inter(
+                color: AppColors.textPrimary,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            if (price != null && price.isNotEmpty) ...[
+              const SizedBox(height: 2),
+              Text(
+                key: const Key('qmatch-super-resonance-purchase-price'),
+                price,
+                style: GoogleFonts.inter(
+                  color: AppColors.textMuted,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
             const SizedBox(height: AppSpacing.lg),
+            if (_error != null) ...[
+              QmatchPurchaseErrorBanner.fromKind(
+                key: const Key('qmatch-super-resonance-purchase-error'),
+                l10n: l10n,
+                kind: _error!,
+              ),
+              const SizedBox(height: AppSpacing.md),
+            ],
             QCosmicButton(
               key: const Key('qmatch-super-resonance-purchase-cta'),
               label: _busy
@@ -126,7 +195,7 @@ class _SuperResonancePurchaseBodyState
             const SizedBox(height: AppSpacing.xs),
             TextButton(
               key: const Key('qmatch-super-resonance-purchase-dismiss'),
-              onPressed: _busy ? null : () => Navigator.of(context).pop(),
+              onPressed: _busy ? null : _dismiss,
               child: Text(
                 l10n.discoverSuperResonancePurchaseNotNow,
                 style: GoogleFonts.inter(

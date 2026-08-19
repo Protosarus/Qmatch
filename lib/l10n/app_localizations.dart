@@ -902,6 +902,42 @@ abstract class AppLocalizations {
   /// **'Purchase couldn\'t be completed. Please try again.'**
   String get discoverSuperResonancePurchaseFailed;
 
+  /// No description provided for @superResonancePurchaseFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t get Super Resonance'**
+  String get superResonancePurchaseFailedTitle;
+
+  /// No description provided for @superResonancePurchaseFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase didn\'t complete. You can try again in a moment.'**
+  String get superResonancePurchaseFailedBody;
+
+  /// No description provided for @resonancePurchaseFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t activate Resonance'**
+  String get resonancePurchaseFailedTitle;
+
+  /// No description provided for @resonancePurchaseFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The purchase didn\'t complete. Please try again in a moment.'**
+  String get resonancePurchaseFailedBody;
+
+  /// No description provided for @iapVerificationFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t complete this'**
+  String get iapVerificationFailedTitle;
+
+  /// No description provided for @iapVerificationFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'There was a problem confirming the payment. If you already purchased, you can try Restore Purchases.'**
+  String get iapVerificationFailedBody;
+
   /// No description provided for @discoverGestureOnboardingSwipeRight.
   ///
   /// In en, this message translates to:

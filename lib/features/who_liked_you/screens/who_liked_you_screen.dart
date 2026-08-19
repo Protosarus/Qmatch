@@ -80,6 +80,10 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     _inbox = widget.superResonanceInbox ?? SuperResonanceInboxClient();
     _likeUser = widget.likeUser ?? _productionLike;
     _passUser = widget.passUser ?? _productionPass;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ScaffoldMessenger.maybeOf(context)?.clearSnackBars();
+    });
     _fetch();
   }
 

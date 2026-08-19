@@ -4,6 +4,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import '../domain/entitlement_snapshot.dart';
 import '../domain/iap_exceptions.dart';
 import '../domain/qmatch_iap_product_ids.dart';
+import '../domain/qmatch_purchase_error_kind.dart';
 import 'resonance_paywall_iap_port.dart';
 
 /// UI state for the Resonance subscription paywall.
@@ -26,6 +27,7 @@ class ResonancePaywallController extends ChangeNotifier {
   bool purchasing = false;
   bool restoring = false;
   String? errorMessage;
+  QmatchPurchaseErrorKind? purchaseError;
   EntitlementSnapshot entitlement = EntitlementSnapshot.free;
   ProductDetails? monthly;
   ProductDetails? annual;
@@ -51,6 +53,7 @@ class ResonancePaywallController extends ChangeNotifier {
   Future<void> load() async {
     loading = true;
     errorMessage = null;
+    purchaseError = null;
     notifyListeners();
 
     try {
@@ -114,6 +117,7 @@ class ResonancePaywallController extends ChangeNotifier {
     final productId = selectedProductId;
     purchasing = true;
     errorMessage = null;
+    purchaseError = null;
     notifyListeners();
 
     try {
@@ -125,19 +129,20 @@ class ResonancePaywallController extends ChangeNotifier {
       return entitlement.resonanceAccess;
     } on IapPurchaseCanceledException {
       purchasing = false;
+      errorMessage = null;
+      purchaseError = null;
       notifyListeners();
       return false;
-    } on IapException catch (e) {
-      errorMessage = e.message;
+    } catch (e) {
+      purchaseError = classifyPurchaseException(
+        e,
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      );
+      errorMessage = null;
       purchasing = false;
       try {
         entitlement = await _iap.fetchEntitlement();
       } catch (_) {}
-      notifyListeners();
-      return false;
-    } catch (e) {
-      errorMessage = e.toString();
-      purchasing = false;
       notifyListeners();
       return false;
     }
@@ -152,6 +157,7 @@ class ResonancePaywallController extends ChangeNotifier {
 
     restoring = true;
     errorMessage = null;
+    purchaseError = null;
     notifyListeners();
 
     try {
@@ -160,17 +166,22 @@ class ResonancePaywallController extends ChangeNotifier {
       restoring = false;
       notifyListeners();
       return entitlement.resonanceAccess;
-    } on IapException catch (e) {
-      errorMessage = e.message;
+    } on IapPurchaseCanceledException {
+      restoring = false;
+      errorMessage = null;
+      purchaseError = null;
+      notifyListeners();
+      return false;
+    } catch (e) {
+      purchaseError = classifyPurchaseException(
+        e,
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      );
+      errorMessage = null;
       restoring = false;
       try {
         entitlement = await _iap.fetchEntitlement();
       } catch (_) {}
-      notifyListeners();
-      return false;
-    } catch (e) {
-      errorMessage = e.toString();
-      restoring = false;
       notifyListeners();
       return false;
     }

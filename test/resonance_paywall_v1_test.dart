@@ -9,6 +9,7 @@ import 'package:qmatch/core/theme/app_colors.dart';
 import 'package:qmatch/features/iap/domain/entitlement_snapshot.dart';
 import 'package:qmatch/features/iap/domain/iap_exceptions.dart';
 import 'package:qmatch/features/iap/domain/qmatch_iap_product_ids.dart';
+import 'package:qmatch/features/iap/domain/qmatch_purchase_error_kind.dart';
 import 'package:qmatch/features/iap/screens/resonance_paywall_screen.dart';
 import 'package:qmatch/features/iap/services/ios_iap_client.dart';
 import 'package:qmatch/features/iap/services/resonance_paywall_controller.dart';
@@ -101,7 +102,41 @@ void main() {
 
       expect(unlocked, isFalse);
       expect(c.hasResonanceAccess, isFalse);
-      expect(c.errorMessage, contains('Backend rejected'));
+      expect(c.purchaseError, QmatchPurchaseErrorKind.verification);
+      expect(c.errorMessage, isNull);
+    });
+
+    test('user cancel is silent — no purchase error copy', () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.purchaseError = IapPurchaseCanceledException();
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      final unlocked = await c.purchaseSelected();
+
+      expect(unlocked, isFalse);
+      expect(c.hasResonanceAccess, isFalse);
+      expect(c.purchaseError, isNull);
+      expect(c.errorMessage, isNull);
+    });
+
+    test('StoreKit purchase failure uses subscription error kind, not raw copy',
+        () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.purchaseError = IapPurchaseFailedException('StoreKit purchase error');
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      final unlocked = await c.purchaseSelected();
+
+      expect(unlocked, isFalse);
+      expect(c.hasResonanceAccess, isFalse);
+      expect(c.purchaseError, QmatchPurchaseErrorKind.resonanceSubscription);
+      expect(c.errorMessage, isNull);
     });
 
     test('restore refreshes entitlement from trusted backend', () async {

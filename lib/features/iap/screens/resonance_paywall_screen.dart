@@ -19,6 +19,7 @@ import '../services/ios_iap_client.dart';
 import '../services/ios_iap_session.dart';
 import '../services/resonance_paywall_controller.dart';
 import '../services/resonance_paywall_iap_port.dart';
+import '../widgets/qmatch_purchase_error_banner.dart';
 import '../../settings/screens/legal_document_screen.dart';
 
 /// Production Resonance subscription paywall (Monthly + Annual).
@@ -98,6 +99,8 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
     }
     _controller.addListener(_onChanged);
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ScaffoldMessenger.maybeOf(context)?.clearSnackBars();
       _controller.load();
     });
   }
@@ -170,7 +173,7 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                     ? const Center(
                         child: CircularProgressIndicator(
                           key: Key('qmatch-resonance-paywall-loading'),
-                          color: AppColors.softGold,
+                          color: Color(0xFFDAC8ED),
                         ),
                       )
                     : ListView(
@@ -347,20 +350,23 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                               ),
                             ],
                           ],
-                          if (c.errorMessage != null) ...[
+                          if (c.purchaseError != null) ...[
                             const SizedBox(height: AppSpacing.md),
-                            QGlassCard(
+                            QmatchPurchaseErrorBanner.fromKind(
                               key: const Key(
                                 'qmatch-resonance-paywall-error',
                               ),
-                              child: Text(
-                                c.errorMessage!,
-                                style: GoogleFonts.inter(
-                                  color: AppColors.danger,
-                                  fontSize: 13,
-                                  height: 1.45,
-                                ),
+                              l10n: l10n,
+                              kind: c.purchaseError!,
+                            ),
+                          ] else if (c.errorMessage != null) ...[
+                            const SizedBox(height: AppSpacing.md),
+                            QmatchPurchaseErrorBanner(
+                              key: const Key(
+                                'qmatch-resonance-paywall-error',
                               ),
+                              title: '',
+                              body: c.errorMessage!,
                             ),
                           ],
                           const SizedBox(height: AppSpacing.md),

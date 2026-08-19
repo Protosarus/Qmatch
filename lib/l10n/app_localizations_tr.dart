@@ -458,6 +458,27 @@ class AppLocalizationsTr extends AppLocalizations {
       'Satın alma tamamlanamadı. Lütfen tekrar dene.';
 
   @override
+  String get superResonancePurchaseFailedTitle => 'Super Resonance alınamadı';
+
+  @override
+  String get superResonancePurchaseFailedBody =>
+      'İşlem tamamlanamadı. Biraz sonra yeniden deneyebilirsin.';
+
+  @override
+  String get resonancePurchaseFailedTitle => 'Resonance etkinleştirilemedi';
+
+  @override
+  String get resonancePurchaseFailedBody =>
+      'Satın alma işlemi tamamlanamadı. Lütfen biraz sonra yeniden dene.';
+
+  @override
+  String get iapVerificationFailedTitle => 'İşlem tamamlanamadı';
+
+  @override
+  String get iapVerificationFailedBody =>
+      'Ödeme doğrulanırken bir sorun oluştu. Satın alımın varsa yeniden yüklemeyi deneyebilirsin.';
+
+  @override
   String get discoverGestureOnboardingSwipeRight =>
       'Beğenmek için sağa kaydır.';
 

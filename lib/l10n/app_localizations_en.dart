@@ -460,6 +460,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'Purchase couldn\'t be completed. Please try again.';
 
   @override
+  String get superResonancePurchaseFailedTitle =>
+      'Couldn\'t get Super Resonance';
+
+  @override
+  String get superResonancePurchaseFailedBody =>
+      'The purchase didn\'t complete. You can try again in a moment.';
+
+  @override
+  String get resonancePurchaseFailedTitle => 'Couldn\'t activate Resonance';
+
+  @override
+  String get resonancePurchaseFailedBody =>
+      'The purchase didn\'t complete. Please try again in a moment.';
+
+  @override
+  String get iapVerificationFailedTitle => 'Couldn\'t complete this';
+
+  @override
+  String get iapVerificationFailedBody =>
+      'There was a problem confirming the payment. If you already purchased, you can try Restore Purchases.';
+
+  @override
   String get discoverGestureOnboardingSwipeRight => 'Swipe right to like.';
 
   @override
