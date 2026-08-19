@@ -33,31 +33,41 @@ class _QMatchChatBackgroundState extends State<QMatchChatBackground> {
     QmatchPerf.mark('chat.wallpaper.loaded');
   }
 
+  Widget _wallpaperImage(String asset) {
+    return Image.asset(
+      asset,
+      fit: BoxFit.cover,
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: double.infinity,
+      filterQuality: FilterQuality.medium,
+      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+        if (wasSynchronouslyLoaded || frame != null) {
+          _markWallpaperLoaded();
+        }
+        return child;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       key: const Key('qmatch-chat-background'),
       fit: StackFit.expand,
       children: [
-        const ColoredBox(color: AppColors.cosmicBlack),
-        Image.asset(
-          key: const Key('qmatch-chat-wallpaper-image'),
-          QMatchChatWallpaperAssets.runtimePrimary,
-          fit: BoxFit.cover,
-          alignment: Alignment.center,
-          filterQuality: FilterQuality.medium,
-          frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-            if (wasSynchronouslyLoaded || frame != null) {
-              _markWallpaperLoaded();
-            }
-            return child;
-          },
-          errorBuilder: (_, __, ___) {
-            QmatchPerf.mark('chat.wallpaper.fallback_png');
-            return Image.asset(
-              QMatchChatWallpaperAssets.sourcePng,
+        const Positioned.fill(
+          child: ColoredBox(color: AppColors.cosmicBlack),
+        ),
+        Positioned.fill(
+          child: SizedBox.expand(
+            child: Image.asset(
+              key: const Key('qmatch-chat-wallpaper-image'),
+              QMatchChatWallpaperAssets.runtimePrimary,
               fit: BoxFit.cover,
               alignment: Alignment.center,
+              width: double.infinity,
+              height: double.infinity,
               filterQuality: FilterQuality.medium,
               frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
                 if (wasSynchronouslyLoaded || frame != null) {
@@ -65,24 +75,31 @@ class _QMatchChatBackgroundState extends State<QMatchChatBackground> {
                 }
                 return child;
               },
-            );
-          },
-        ),
-        DecoratedBox(
-          key: const Key('qmatch-chat-wallpaper-overlay'),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                AppColors.midnightNavy
-                    .withValues(alpha: widget.overlayOpacity * 0.85),
-                AppColors.cosmicBlack.withValues(alpha: widget.overlayOpacity),
-                AppColors.deepIndigo
-                    .withValues(alpha: widget.overlayOpacity * 0.75),
-              ],
-              stops: const [0.0, 0.55, 1.0],
+              errorBuilder: (_, __, ___) {
+                QmatchPerf.mark('chat.wallpaper.fallback_png');
+                return _wallpaperImage(QMatchChatWallpaperAssets.sourcePng);
+              },
             ),
+          ),
+        ),
+        Positioned.fill(
+          child: DecoratedBox(
+            key: const Key('qmatch-chat-wallpaper-overlay'),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.midnightNavy
+                      .withValues(alpha: widget.overlayOpacity * 0.85),
+                  AppColors.cosmicBlack.withValues(alpha: widget.overlayOpacity),
+                  AppColors.deepIndigo
+                      .withValues(alpha: widget.overlayOpacity * 0.75),
+                ],
+                stops: const [0.0, 0.55, 1.0],
+              ),
+            ),
+            child: const SizedBox.expand(),
           ),
         ),
         if (widget.child != null) widget.child!,

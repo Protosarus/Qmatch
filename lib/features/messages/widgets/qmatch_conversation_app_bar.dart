@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
 import 'qmatch_conversation_avatar.dart';
 
@@ -30,11 +31,41 @@ class QMatchConversationAppBar extends StatelessWidget
   /// Optional title/avatar tap (e.g. profile). Null = not navigable.
   final VoidCallback? onTitleTap;
 
+  static const Color _lilac = Color(0xFFDAC8ED);
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
+    final base = Theme.of(context);
+    final menuTheme = base.copyWith(
+      colorScheme: base.colorScheme.copyWith(
+        primary: AppColors.resonanceViolet,
+        secondary: AppColors.resonanceViolet,
+        surface: AppColors.surfaceElevated,
+        onSurface: AppColors.textPrimary,
+        onPrimary: AppColors.textPrimary,
+      ),
+      splashColor: AppColors.resonanceViolet.withValues(alpha: 0.14),
+      highlightColor: AppColors.resonanceViolet.withValues(alpha: 0.10),
+      popupMenuTheme: PopupMenuThemeData(
+        color: AppColors.glassSurfaceStrong,
+        surfaceTintColor: Colors.transparent,
+        elevation: 8,
+        shadowColor: Colors.black.withValues(alpha: 0.45),
+        textStyle: GoogleFonts.inter(
+          color: AppColors.textPrimary,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: AppRadii.cardBorder,
+          side: BorderSide(color: _lilac.withValues(alpha: 0.38)),
+        ),
+      ),
+    );
+
     return AppBar(
       key: const Key('qmatch-chat-app-bar'),
       backgroundColor: AppColors.glassSurfaceStrong,
@@ -44,13 +75,28 @@ class QMatchConversationAppBar extends StatelessWidget
       titleSpacing: AppSpacing.xs,
       actions: [
         if (menuItems.isNotEmpty)
-          PopupMenuButton<String>(
-            key: const Key('qmatch-chat-menu'),
-            icon:
-                const Icon(Icons.more_vert_rounded, color: AppColors.softGold),
-            color: AppColors.surfaceElevated,
-            onSelected: onMenuSelected,
-            itemBuilder: (_) => menuItems,
+          Theme(
+            data: menuTheme,
+            child: PopupMenuButton<String>(
+              key: const Key('qmatch-chat-menu'),
+              icon: const Icon(Icons.more_vert_rounded, color: _lilac),
+              color: AppColors.glassSurfaceStrong,
+              surfaceTintColor: Colors.transparent,
+              elevation: 8,
+              shadowColor: Colors.black.withValues(alpha: 0.45),
+              position: PopupMenuPosition.under,
+              shape: RoundedRectangleBorder(
+                borderRadius: AppRadii.cardBorder,
+                side: BorderSide(color: _lilac.withValues(alpha: 0.38)),
+              ),
+              style: ButtonStyle(
+                overlayColor: WidgetStatePropertyAll(
+                  AppColors.resonanceViolet.withValues(alpha: 0.14),
+                ),
+              ),
+              onSelected: onMenuSelected,
+              itemBuilder: (_) => menuItems,
+            ),
           ),
       ],
       title: loading

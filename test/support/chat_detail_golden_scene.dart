@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qmatch/core/theme/app_colors.dart';
 import 'package:qmatch/features/messages/models/message_model.dart';
 import 'package:qmatch/features/messages/utils/chat_message_timestamp_format.dart';
@@ -114,6 +115,7 @@ class ChatDetailGoldenScene extends StatelessWidget {
 
         return Scaffold(
           backgroundColor: AppColors.cosmicBlack,
+          resizeToAvoidBottomInset: false,
           appBar: QMatchConversationAppBar(
             title: title,
             loading: false,
@@ -121,23 +123,34 @@ class ChatDetailGoldenScene extends StatelessWidget {
             photoImageProvider: counterpartPhotoProvider,
             avatarSemanticLabel: l10n.messagesAvatarSemanticLabel(title),
             menuItems: [
-              PopupMenuItem(value: 'report', child: Text(l10n.chatMenuReport)),
+              PopupMenuItem(
+                value: 'report',
+                child: Text(
+                  l10n.chatMenuReport,
+                  style: GoogleFonts.inter(color: AppColors.textPrimary),
+                ),
+              ),
             ],
             onMenuSelected: (_) {},
           ),
           body: QMatchChatBackground(
-            child: Column(
-              children: [
-                Expanded(child: bodyChild),
-                QMatchMessageComposer(
-                  controller: controller,
-                  focusNode: focus,
-                  hintText: l10n.chatMessageHint,
-                  sending: sending,
-                  sendSemanticLabel: l10n.chatSendSemanticLabel,
-                  onSend: () {},
-                ),
-              ],
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.viewInsetsOf(context).bottom,
+              ),
+              child: Column(
+                children: [
+                  Expanded(child: bodyChild),
+                  QMatchMessageComposer(
+                    controller: controller,
+                    focusNode: focus,
+                    hintText: l10n.chatMessageHint,
+                    sending: sending,
+                    sendSemanticLabel: l10n.chatSendSemanticLabel,
+                    onSend: () {},
+                  ),
+                ],
+              ),
             ),
           ),
         );

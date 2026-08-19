@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qmatch/core/theme/app_colors.dart';
 import 'package:qmatch/features/messages/models/message_model.dart';
 import 'package:qmatch/features/messages/utils/chat_message_timestamp_format.dart';
 import 'package:qmatch/features/messages/utils/qmatch_chat_wallpaper_assets.dart';
@@ -409,6 +410,120 @@ void main() {
       await tester.pump();
       expect(tester.takeException(), isNull);
       expect(find.byKey(const Key('qmatch-chat-composer')), findsOneWidget);
+    });
+
+    testWidgets('wallpaper stays full width above keyboard; composer lifts',
+        (tester) async {
+      const size = Size(390, 844);
+      const keyboard = 300.0;
+      await tester.binding.setSurfaceSize(size);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        wrapChatDetailGolden(
+          surfaceSize: size,
+          viewInsets: const EdgeInsets.only(bottom: keyboard),
+          child: const ChatDetailGoldenScene(
+            variant: ChatDetailGoldenVariant.composerFocus,
+            composerText: 'Typing…',
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+
+      final wallpaper = tester.getRect(
+        find.byKey(const Key('qmatch-chat-wallpaper-image')),
+      );
+      expect(wallpaper.left, 0);
+      expect(wallpaper.width, size.width);
+      expect(wallpaper.right, size.width);
+
+      final composer = tester.getRect(
+        find.byKey(const Key('qmatch-chat-composer')),
+      );
+      expect(composer.bottom, lessThanOrEqualTo(size.height - keyboard + 0.5));
+      expect(composer.width, size.width);
+    });
+
+    testWidgets('overflow menu is not gold and keeps three actions',
+        (tester) async {
+      var selected = <String>[];
+      await tester.pumpWidget(
+        _wrapLocalized(
+          Builder(
+            builder: (context) {
+              final l10n = AppLocalizations.of(context)!;
+              return Scaffold(
+                appBar: QMatchConversationAppBar(
+                  title: 'Ada',
+                  loading: false,
+                  menuItems: [
+                    PopupMenuItem(
+                      value: 'report',
+                      child: Text(l10n.chatMenuReport),
+                    ),
+                    PopupMenuItem(
+                      value: 'unmatch',
+                      child: Text(l10n.chatMenuUnmatch),
+                    ),
+                    PopupMenuItem(
+                      value: 'block',
+                      child: Text(l10n.chatMenuBlock),
+                    ),
+                  ],
+                  onMenuSelected: selected.add,
+                ),
+                body: const SizedBox.expand(),
+              );
+            },
+          ),
+        ),
+      );
+      await tester.pump();
+
+      final icon = tester.widget<Icon>(
+        find.descendant(
+          of: find.byKey(const Key('qmatch-chat-menu')),
+          matching: find.byIcon(Icons.more_vert_rounded),
+        ),
+      );
+      expect(icon.color, isNot(AppColors.softGold));
+      expect(icon.color, isNot(AppColors.warmGold));
+      expect(icon.color, isNot(AppColors.primary));
+
+      final button = tester.widget<PopupMenuButton<String>>(
+        find.byKey(const Key('qmatch-chat-menu')),
+      );
+      expect(button.color, isNot(AppColors.softGold));
+      expect(button.color, AppColors.glassSurfaceStrong);
+
+      await tester.tap(find.byKey(const Key('qmatch-chat-menu')));
+      await tester.pumpAndSettle();
+      expect(find.text('Report'), findsOneWidget);
+      expect(find.text('Unmatch'), findsOneWidget);
+      expect(find.text('Block'), findsOneWidget);
+
+      await tester.tap(find.text('Report'));
+      await tester.pumpAndSettle();
+      expect(selected, ['report']);
+    });
+
+    test('chat overflow icon source is not gold; handlers unchanged', () {
+      final appBar = File(
+        'lib/features/messages/widgets/qmatch_conversation_app_bar.dart',
+      ).readAsStringSync();
+      expect(appBar.contains('AppColors.softGold'), isFalse);
+      expect(appBar.contains('AppColors.warmGold'), isFalse);
+      expect(appBar.contains('Color(0xFFDAC8ED)'), isTrue);
+
+      final screen = File(
+        'lib/features/messages/screens/chat_detail_screen.dart',
+      ).readAsStringSync();
+      expect(screen.contains("case 'report':"), isTrue);
+      expect(screen.contains("case 'unmatch':"), isTrue);
+      expect(screen.contains("case 'block':"), isTrue);
+      expect(screen.contains('resizeToAvoidBottomInset: false'), isTrue);
+      expect(screen.contains('viewInsetsOf(context).bottom'), isTrue);
     });
 
     testWidgets('no fabricated online/typing/read/compat chrome',

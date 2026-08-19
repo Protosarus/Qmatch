@@ -12,10 +12,14 @@ class QMatchBottomNavigationItem {
   const QMatchBottomNavigationItem({
     required this.icon,
     required this.label,
+    this.badgeLabel,
   });
 
   final IconData icon;
   final String label;
+
+  /// Compact unread-conversation label (`1`…`9` or `9+`). Null = no badge.
+  final String? badgeLabel;
 }
 
 class QMatchMainShell extends StatelessWidget {
@@ -224,7 +228,7 @@ class QMatchBottomNavigationItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(item.icon, size: 18, color: fgColor),
+                _NavIconWithBadge(item: item, index: index, color: fgColor),
                 const SizedBox(height: 2),
                 Text(
                   key: Key('qmatch-nav-label-$index'),
@@ -254,6 +258,60 @@ class QMatchBottomNavigationItemWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _NavIconWithBadge extends StatelessWidget {
+  const _NavIconWithBadge({
+    required this.item,
+    required this.index,
+    required this.color,
+  });
+
+  final QMatchBottomNavigationItem item;
+  final int index;
+  final Color color;
+
+  static const Color _lilac = Color(0xFFDAC8ED);
+
+  @override
+  Widget build(BuildContext context) {
+    final badge = item.badgeLabel;
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Icon(item.icon, size: 18, color: color),
+        if (badge != null)
+          Positioned(
+            top: -5,
+            right: -11,
+            child: Container(
+              key: Key('qmatch-nav-unread-badge-$index'),
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+              constraints: const BoxConstraints(minWidth: 14, minHeight: 14),
+              decoration: BoxDecoration(
+                color: AppColors.resonanceViolet.withValues(alpha: 0.95),
+                borderRadius: AppRadii.pillBorder,
+                border: Border.all(
+                  color: _lilac.withValues(alpha: 0.85),
+                  width: 0.8,
+                ),
+              ),
+              child: Text(
+                badge,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: AppColors.textPrimary,
+                  fontSize: 8,
+                  fontWeight: FontWeight.w700,
+                  height: 1.1,
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

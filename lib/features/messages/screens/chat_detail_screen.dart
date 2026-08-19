@@ -487,6 +487,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.cosmicBlack,
+      resizeToAvoidBottomInset: false,
       appBar: QMatchConversationAppBar(
         title: _profileLoading ? l10n.loading : title,
         loading: _profileLoading,
@@ -495,10 +496,28 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         // No profile deep-link from chat title (active or deletion-closed).
         onTitleTap: null,
         menuItems: [
-          PopupMenuItem(value: 'report', child: Text(l10n.chatMenuReport)),
+          PopupMenuItem(
+            value: 'report',
+            child: Text(
+              l10n.chatMenuReport,
+              style: GoogleFonts.inter(color: AppColors.textPrimary),
+            ),
+          ),
           if (!_accountDeletionClosed)
-            PopupMenuItem(value: 'unmatch', child: Text(l10n.chatMenuUnmatch)),
-          PopupMenuItem(value: 'block', child: Text(l10n.chatMenuBlock)),
+            PopupMenuItem(
+              value: 'unmatch',
+              child: Text(
+                l10n.chatMenuUnmatch,
+                style: GoogleFonts.inter(color: AppColors.danger),
+              ),
+            ),
+          PopupMenuItem(
+            value: 'block',
+            child: Text(
+              l10n.chatMenuBlock,
+              style: GoogleFonts.inter(color: AppColors.danger),
+            ),
+          ),
         ],
         onMenuSelected: (value) async {
           switch (value) {
@@ -515,8 +534,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         },
       ),
       body: QMatchChatBackground(
-        child: Column(
-          children: [
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.viewInsetsOf(context).bottom,
+          ),
+          child: Column(
+            children: [
             if (_bootstrapFailed)
               Material(
                 color: AppColors.danger.withValues(alpha: 0.16),
@@ -619,6 +642,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     onSend: _send,
                   ),
           ],
+          ),
         ),
       ),
     );
