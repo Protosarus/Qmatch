@@ -53,6 +53,10 @@ class MemoryDocRef {
     this._db._store.set(this.path, { ...clone(prev), ...clone(data) });
     this._db._bump(this.path);
   }
+  async delete() {
+    this._db._store.delete(this.path);
+    this._db._bump(this.path);
+  }
 }
 
 class MemoryTransaction {
@@ -70,6 +74,9 @@ class MemoryTransaction {
   }
   update(ref, data) {
     this._writes.push({ type: 'update', path: ref.path, data: clone(data) });
+  }
+  delete(ref) {
+    this._writes.push({ type: 'delete', path: ref.path });
   }
   _commit() {
     for (const [path, ver] of this._reads) {
@@ -92,6 +99,9 @@ class MemoryTransaction {
         const prev = this._db._store.get(w.path);
         if (!prev) throw new Error('not-found');
         this._db._store.set(w.path, { ...clone(prev), ...w.data });
+        this._db._bump(w.path);
+      } else if (w.type === 'delete') {
+        this._db._store.delete(w.path);
         this._db._bump(w.path);
       }
     }

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../notifications/notification_registration_service.dart';
+
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -473,6 +475,22 @@ class AuthService {
 
   // Çıkış yap
   Future<void> signOut() async {
-    await _auth.signOut();
+    await unregisterPushTokenThenSignOut(
+      unregister: () =>
+          NotificationRegistrationService.instance.unregisterForLogout(),
+      signOut: () => _auth.signOut(),
+    );
   }
+}
+
+/// Unregisters this device token, then signs out. Unregister failure is ignored.
+@visibleForTesting
+Future<void> unregisterPushTokenThenSignOut({
+  required Future<void> Function() unregister,
+  required Future<void> Function() signOut,
+}) async {
+  try {
+    await unregister();
+  } catch (_) {}
+  await signOut();
 }

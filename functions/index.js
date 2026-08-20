@@ -302,3 +302,20 @@ exports.handleGetDiscoverPassport = discoverPassport.handleGetDiscoverPassport;
 exports.handleSetDiscoverPassport = discoverPassport.handleSetDiscoverPassport;
 exports.handleDisableDiscoverPassport =
   discoverPassport.handleDisableDiscoverPassport;
+const fcmTokens = require('./src/fcm_token_callable');
+
+/**
+ * Trusted FCM device-token registration. Auth required. Writes only
+ * users/{auth.uid}/fcm_tokens/{sha256(token)}. Never client-writable.
+ * Does not send notifications.
+ */
+exports.registerFcmToken = onCall(
+  { region: 'europe-west1' },
+  (request) => fcmTokens.handleRegisterFcmToken(request),
+);
+exports.unregisterFcmToken = onCall(
+  { region: 'europe-west1' },
+  (request) => fcmTokens.handleUnregisterFcmToken(request),
+);
+exports.handleRegisterFcmToken = fcmTokens.handleRegisterFcmToken;
+exports.handleUnregisterFcmToken = fcmTokens.handleUnregisterFcmToken;

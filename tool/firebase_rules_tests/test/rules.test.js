@@ -1031,6 +1031,42 @@ describe('Discover Passport preference rules', () {
   });
 });
 
+describe('FCM token rules', () {
+  const path = 'users/userA/fcm_tokens/abc123';
+  const tokenDoc = {
+    token: 'tok-1',
+    platform: 'ios',
+    app_id: 'app',
+    apns_env: 'sandbox',
+  };
+
+  it('owner cannot get/list/create/update/delete fcm_tokens', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), tokenDoc);
+    });
+    const db = authedFirestore('userA');
+    await assertFails(getDoc(doc(db, path)));
+    await assertFails(getDocs(collection(db, 'users/userA/fcm_tokens')));
+    await assertFails(setDoc(doc(db, path), tokenDoc));
+    await assertFails(
+      updateDoc(doc(db, path), { platform: 'android' }),
+    );
+    await assertFails(deleteDoc(doc(db, path)));
+  });
+
+  it('peer cannot read or write another user fcm_tokens', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), tokenDoc);
+    });
+    const db = authedFirestore('userB');
+    await assertFails(getDoc(doc(db, path)));
+    await assertFails(
+      setDoc(doc(db, 'users/userA/fcm_tokens/hijack'), tokenDoc),
+    );
+    await assertFails(deleteDoc(doc(db, path)));
+  });
+});
+
 describe('Super Resonance signal rules (super_resonance_signal_v1)', () => {
   const signal = {
     from_uid: 'userA',

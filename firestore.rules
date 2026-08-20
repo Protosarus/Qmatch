@@ -265,6 +265,11 @@ service cloud.firestore {
         allow get: if isOwner(uid) && prefId == 'discover_passport_v1';
         allow list, create, update, delete: if false;
       }
+
+      // FCM device tokens — Admin/callable only. Never client read/list/write.
+      match /fcm_tokens/{tokenId} {
+        allow read, write: if false;
+      }
     }
 
     // assessment_sets/{setId} — client seed/upload helpers intentionally denied.

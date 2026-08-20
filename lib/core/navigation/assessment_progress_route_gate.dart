@@ -14,6 +14,7 @@ import '../../features/assessment/services/assessment_cold_start_pending_reconci
 import '../../features/assessment/services/assessment_progress_service.dart';
 import '../../features/profile/screens/profile_setup_screen.dart';
 import '../../l10n/app_localizations.dart';
+import '../notifications/notification_registration_host.dart';
 import '../theme/app_colors.dart';
 import 'main_navigation_screen.dart';
 
@@ -146,7 +147,9 @@ Widget buildAssessmentDestination(AssessmentColdStartDecision decision) {
     case AssessmentFlowDestination.profileSetup:
       return const ProfileSetupScreen();
     case AssessmentFlowDestination.main:
-      return const MainNavigationScreen();
+      return const NotificationRegistrationHost(
+        child: MainNavigationScreen(),
+      );
   }
 }
 
