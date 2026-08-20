@@ -39,6 +39,16 @@ class FirebasePushMessagingAdapter implements PushMessagingPort {
   @override
   Stream<String> get onTokenRefresh => _messaging.onTokenRefresh;
 
+  @override
+  Stream<Map<String, String>> get onForegroundMessage =>
+      FirebaseMessaging.onMessage.map((message) {
+        final data = <String, String>{};
+        message.data.forEach((key, value) {
+          data[key] = value.toString();
+        });
+        return data;
+      });
+
   PushPermissionState _map(AuthorizationStatus status) {
     switch (status) {
       case AuthorizationStatus.authorized:

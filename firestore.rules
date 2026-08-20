@@ -378,6 +378,11 @@ service cloud.firestore {
       allow get, list, create, update, delete: if false;
     }
 
+    // Push send receipts — Admin/trigger only. Clients cannot forge dedupe.
+    match /push_receipts/{receiptId} {
+      allow read, write: if false;
+    }
+
     // store_purchase_index — ASSN/RTDN uid lookup. Admin-only.
     match /store_purchase_index/{indexId} {
       allow read, write: if false;

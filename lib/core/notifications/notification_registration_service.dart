@@ -52,6 +52,7 @@ class NotificationRegistrationService {
 
   PushMessagingPort? _lazyMessaging;
   StreamSubscription<String>? _refreshSub;
+  StreamSubscription<Map<String, String>>? _foregroundSub;
   Future<void>? _startFuture;
   String? _startedUid;
   String? _currentToken;
@@ -101,6 +102,7 @@ class NotificationRegistrationService {
 
   Future<void> _start(String uid) async {
     _stopped = false;
+    _listenForForegroundMessages();
     try {
       var status = await _messaging.currentPermission();
       if (status == PushPermissionState.notDetermined) {
@@ -115,6 +117,16 @@ class NotificationRegistrationService {
     } catch (_) {
       // Permission / token failures must not break the authenticated shell.
     }
+  }
+
+  void _listenForForegroundMessages() {
+    if (_foregroundSub != null) return;
+    _foregroundSub = _messaging.onForegroundMessage.listen((_) {
+      if (_stopped) return;
+      // iOS does not present an OS banner while the app is foregrounded
+      // unless presentation options are enabled. Step 3 logs receipt only.
+      _debugLog('qmatch.push message_received');
+    });
   }
 
   void _listenForRefresh() {
@@ -178,6 +190,9 @@ class NotificationRegistrationService {
     final sub = _refreshSub;
     _refreshSub = null;
     await sub?.cancel();
+    final foreground = _foregroundSub;
+    _foregroundSub = null;
+    await foreground?.cancel();
     if (token == null || token.isEmpty) return;
     try {
       await _invoke(unregisterCallableName, {'token': token});

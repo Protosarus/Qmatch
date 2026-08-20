@@ -11,4 +11,7 @@ abstract class PushMessagingPort {
   Future<String?> getToken();
 
   Stream<String> get onTokenRefresh;
+
+  /// Foreground FCM envelopes. iOS does not show an OS banner for these.
+  Stream<Map<String, String>> get onForegroundMessage;
 }

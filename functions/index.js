@@ -2,7 +2,7 @@
 
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
-const { onDocumentWritten } = require('firebase-functions/v2/firestore');
+const { onDocumentWritten, onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
 const {
   deriveDiscoverEligible,
@@ -319,3 +319,18 @@ exports.unregisterFcmToken = onCall(
 );
 exports.handleRegisterFcmToken = fcmTokens.handleRegisterFcmToken;
 exports.handleUnregisterFcmToken = fcmTokens.handleUnregisterFcmToken;
+const newMessagePush = require('./src/new_message_push');
+
+/**
+ * New-message push. Auth is the Firestore create itself.
+ * Sends only for active-thread text messages to the other participant.
+ * Does not send notifications for system_match_v1 or closed threads.
+ */
+exports.sendNewMessagePush = onDocumentCreated(
+  {
+    document: 'threads/{threadId}/messages/{messageId}',
+    region: 'europe-west1',
+  },
+  (event) => newMessagePush.handleThreadMessageCreated(event),
+);
+exports.handleThreadMessageCreated = newMessagePush.handleThreadMessageCreated;

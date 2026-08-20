@@ -226,6 +226,27 @@ class MemoryCollection {
   }
 }
 
+class MemoryNestedCollection {
+  constructor(db, path) {
+    this._db = db;
+    this.path = path;
+  }
+  doc(id) {
+    return this._db.doc(`${this.path}/${id}`);
+  }
+  async get() {
+    const prefix = `${this.path}/`;
+    const docs = [];
+    for (const [path, data] of this._db._store.entries()) {
+      if (!path.startsWith(prefix)) continue;
+      const rest = path.slice(prefix.length);
+      if (!rest || rest.includes('/')) continue;
+      docs.push(new MemoryDocSnapshot(path, data));
+    }
+    return new MemoryQuerySnapshot(docs);
+  }
+}
+
 class MemoryFirestore {
   constructor() {
     this._store = new Map();
@@ -254,8 +275,15 @@ class MemoryFirestore {
       }),
     );
   }
-  collection(collectionId) {
-    return new MemoryCollection(this, collectionId);
+  collection(collectionPath) {
+    const parts = String(collectionPath || '').split('/').filter(Boolean);
+    if (parts.length === 1) {
+      return new MemoryCollection(this, parts[0]);
+    }
+    if (parts.length >= 3 && parts.length % 2 === 1) {
+      return new MemoryNestedCollection(this, parts.join('/'));
+    }
+    throw new Error('invalid collection path');
   }
   collectionGroup(collectionId) {
     return new MemoryQuery(this, collectionId);

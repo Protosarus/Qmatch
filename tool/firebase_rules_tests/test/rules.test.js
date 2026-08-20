@@ -1067,6 +1067,27 @@ describe('FCM token rules', () {
   });
 });
 
+describe('Push receipt rules', () {
+  const path = 'push_receipts/userA_userB_msg-1';
+  const receipt = {
+    type: 'message',
+    thread_id: 'userA_userB',
+    message_id: 'msg-1',
+    recipient_uid: 'userB',
+  };
+
+  it('client cannot read or write push_receipts', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), receipt);
+    });
+    const db = authedFirestore('userA');
+    await assertFails(getDoc(doc(db, path)));
+    await assertFails(getDocs(collection(db, 'push_receipts')));
+    await assertFails(setDoc(doc(db, path), receipt));
+    await assertFails(deleteDoc(doc(db, path)));
+  });
+});
+
 describe('Super Resonance signal rules (super_resonance_signal_v1)', () => {
   const signal = {
     from_uid: 'userA',

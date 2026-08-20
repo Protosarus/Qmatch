@@ -29,6 +29,8 @@ class _FakeMessaging implements PushMessagingPort {
   int getTokenCount = 0;
   int apnsCount = 0;
   final StreamController<String> refresh = StreamController<String>.broadcast();
+  final StreamController<Map<String, String>> foreground =
+      StreamController<Map<String, String>>.broadcast();
 
   @override
   Future<PushPermissionState> currentPermission() async => current;
@@ -54,6 +56,9 @@ class _FakeMessaging implements PushMessagingPort {
 
   @override
   Stream<String> get onTokenRefresh => refresh.stream;
+
+  @override
+  Stream<Map<String, String>> get onForegroundMessage => foreground.stream;
 }
 
 class _CallableSpy {
@@ -100,6 +105,7 @@ void main() {
 
   tearDown(() async {
     await messaging?.refresh.close();
+    await messaging?.foreground.close();
     messaging = null;
   });
 
