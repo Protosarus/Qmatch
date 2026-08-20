@@ -638,6 +638,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatUserBlocked => 'User blocked.';
 
   @override
+  String get chatUnblockDialogTitle => 'Unblock this user?';
+
+  @override
+  String get chatUnblockDialogBody =>
+      'They will no longer be blocked. A closed conversation will not reopen.';
+
+  @override
+  String get chatUserUnblocked => 'User unblocked.';
+
+  @override
   String get chatMessageHint => 'Message…';
 
   @override

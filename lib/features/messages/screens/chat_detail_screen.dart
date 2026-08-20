@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,6 +11,7 @@ import '../../matching/services/match_service.dart';
 import '../../safety/services/safety_service.dart';
 import '../models/message_model.dart';
 import '../services/chat_service.dart';
+import '../utils/chat_block_overflow.dart';
 import '../utils/chat_message_timestamp_format.dart';
 import '../utils/closed_account_chat_history.dart';
 import '../widgets/chat_detail_widgets.dart';
@@ -24,16 +26,33 @@ class ChatDetailScreen extends StatefulWidget {
     required this.threadId,
     required this.otherUserId,
     this.otherUserName,
+    this.seedBlockedByMe,
+    this.unblockUser,
+    this.blockUser,
   });
+
+  /// Tests seed owner-block state and skip live Firestore bootstrap.
+  @visibleForTesting
+  final bool? seedBlockedByMe;
+
+  @visibleForTesting
+  final Future<void> Function({required String blockedUid})? unblockUser;
+
+  @visibleForTesting
+  final Future<void> Function({
+    required String blockedUid,
+    String? matchId,
+    String? threadId,
+  })? blockUser;
 
   @override
   State<ChatDetailScreen> createState() => _ChatDetailScreenState();
 }
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
-  final ChatService _chat = ChatService();
-  final SafetyService _safety = SafetyService();
-  final MatchService _matchService = MatchService();
+  ChatService? _chat;
+  SafetyService? _safety;
+  MatchService? _matchService;
   final ScrollController _scroll = ScrollController();
   final TextEditingController _input = TextEditingController();
   final FocusNode _inputFocus = FocusNode();
@@ -44,6 +63,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   bool _bootstrapFailed = false;
   String? _matchId;
   bool _accountDeletionClosed = false;
+  bool _blockedByMe = false;
 
   late Stream<List<MessageModel>> _messages;
 
@@ -54,7 +74,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   @override
   void initState() {
     super.initState();
-    _messages = _chat.getMessagesStream(widget.threadId);
+    if (widget.seedBlockedByMe != null) {
+      _messages = const Stream<List<MessageModel>>.empty();
+    } else {
+      _chat = ChatService();
+      _safety = SafetyService();
+      _matchService = MatchService();
+      _messages = _chat!.getMessagesStream(widget.threadId);
+    }
     QmatchPerf.mark('chat.detail.opened');
     _bootstrap();
   }
@@ -62,8 +89,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   @override
   void didUpdateWidget(covariant ChatDetailScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.threadId != widget.threadId) {
-      _messages = _chat.getMessagesStream(widget.threadId);
+    if (oldWidget.threadId != widget.threadId && widget.seedBlockedByMe == null) {
+      _messages = _chat!.getMessagesStream(widget.threadId);
       _bootstrap();
     }
   }
@@ -73,15 +100,34 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       _profileLoading = true;
       _bootstrapFailed = false;
     });
+    final seeded = widget.seedBlockedByMe;
+    if (seeded != null) {
+      if (!mounted) return;
+      setState(() {
+        _blockedByMe = seeded;
+        _profileLoading = false;
+        _matchId = widget.threadId;
+        _accountDeletionClosed = false;
+        _bootstrapFailed = false;
+      });
+      return;
+    }
     try {
-      final thread = await _chat.markThreadAsRead(widget.threadId);
+      final thread = await _chat!.markThreadAsRead(widget.threadId);
       final matchId = thread.matchId;
       final deletionClosed =
           ClosedAccountChatHistory.isAccountDeletionClosed(thread);
 
       Map<String, dynamic>? p;
       if (!deletionClosed) {
-        p = await _chat.getUserPublicProfile(widget.otherUserId);
+        p = await _chat!.getUserPublicProfile(widget.otherUserId);
+      }
+
+      var blockedByMe = false;
+      try {
+        blockedByMe = await _safety!.hasBlockedUser(widget.otherUserId);
+      } catch (e, st) {
+        debugPrint('ChatDetail block-state load failed: $e\n$st');
       }
 
       if (!mounted) return;
@@ -90,6 +136,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         _profileLoading = false;
         _matchId = matchId;
         _accountDeletionClosed = deletionClosed;
+        _blockedByMe = blockedByMe;
         _bootstrapFailed = false;
       });
     } catch (e, st) {
@@ -125,7 +172,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
     setState(() => _sending = true);
     try {
-      await _chat.sendTextMessage(widget.threadId, text);
+      await _chat!.sendTextMessage(widget.threadId, text);
       if (!mounted) return;
       _input.clear();
       _lastAutoScrollCount = -1;
@@ -274,7 +321,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     }
 
     try {
-      await _safety.reportUser(
+      await _safety!.reportUser(
         reportedUid: widget.otherUserId,
         reason: selected,
         details:
@@ -350,7 +397,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     if (!mounted) return;
     final messenger = ScaffoldMessenger.of(context);
     try {
-      await _matchService.unmatch(matchId);
+      await _matchService!.unmatch(matchId);
       if (!mounted) return;
       Navigator.pop(context);
       messenger.showSnackBar(
@@ -409,11 +456,20 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     if (!mounted) return;
     final messenger = ScaffoldMessenger.of(context);
     try {
-      await _safety.blockUser(
-        blockedUid: widget.otherUserId,
-        matchId: matchId,
-        threadId: widget.threadId,
-      );
+      final block = widget.blockUser;
+      if (block != null) {
+        await block(
+          blockedUid: widget.otherUserId,
+          matchId: matchId,
+          threadId: widget.threadId,
+        );
+      } else {
+        await _safety!.blockUser(
+          blockedUid: widget.otherUserId,
+          matchId: matchId,
+          threadId: widget.threadId,
+        );
+      }
       if (!mounted) return;
       Navigator.pop(context);
       messenger.showSnackBar(
@@ -424,6 +480,69 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       );
     } catch (e, st) {
       debugPrint('ChatDetail block failed: $e\n$st');
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(l10n.chatActionFailed),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
+  Future<void> _confirmUnblock() async {
+    final l10n = AppLocalizations.of(context)!;
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.surface,
+        title: Text(
+          l10n.chatUnblockDialogTitle,
+          style: GoogleFonts.playfairDisplay(color: AppColors.primary),
+        ),
+        content: Text(
+          l10n.chatUnblockDialogBody,
+          style: GoogleFonts.inter(color: Colors.white),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(
+              l10n.cancel,
+              style: GoogleFonts.inter(color: AppColors.textSecondary),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: Text(
+              l10n.unblock,
+              style: GoogleFonts.inter(color: AppColors.textPrimary),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm != true) return;
+
+    if (!mounted) return;
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final unblock = widget.unblockUser;
+      if (unblock != null) {
+        await unblock(blockedUid: widget.otherUserId);
+      } else {
+        await _safety!.unblockUser(blockedUid: widget.otherUserId);
+      }
+      if (!mounted) return;
+      setState(() => _blockedByMe = false);
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(l10n.chatUserUnblocked),
+          backgroundColor: AppColors.success,
+        ),
+      );
+    } catch (e, st) {
+      debugPrint('ChatDetail unblock failed: $e\n$st');
       messenger.showSnackBar(
         SnackBar(
           content: Text(l10n.chatActionFailed),
@@ -482,7 +601,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final currentUid = FirebaseAuth.instance.currentUser?.uid;
+    final currentUid = widget.seedBlockedByMe != null
+        ? 'seed-uid'
+        : FirebaseAuth.instance.currentUser?.uid;
     final title = _resolveTitle(l10n);
 
     return Scaffold(
@@ -512,10 +633,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               ),
             ),
           PopupMenuItem(
-            value: 'block',
+            value: chatBlockOverflowValue(blockedByMe: _blockedByMe),
             child: Text(
-              l10n.chatMenuBlock,
-              style: GoogleFonts.inter(color: AppColors.danger),
+              chatBlockOverflowLabel(l10n, blockedByMe: _blockedByMe),
+              style: GoogleFonts.inter(
+                color: _blockedByMe
+                    ? AppColors.textPrimary
+                    : AppColors.danger,
+              ),
             ),
           ),
         ],
@@ -529,6 +654,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
               break;
             case 'block':
               await _confirmBlock();
+              break;
+            case 'unblock':
+              await _confirmUnblock();
               break;
           }
         },

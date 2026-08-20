@@ -1220,6 +1220,24 @@ abstract class AppLocalizations {
   /// **'User blocked.'**
   String get chatUserBlocked;
 
+  /// No description provided for @chatUnblockDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unblock this user?'**
+  String get chatUnblockDialogTitle;
+
+  /// No description provided for @chatUnblockDialogBody.
+  ///
+  /// In en, this message translates to:
+  /// **'They will no longer be blocked. A closed conversation will not reopen.'**
+  String get chatUnblockDialogBody;
+
+  /// No description provided for @chatUserUnblocked.
+  ///
+  /// In en, this message translates to:
+  /// **'User unblocked.'**
+  String get chatUserUnblocked;
+
   /// No description provided for @chatMessageHint.
   ///
   /// In en, this message translates to:

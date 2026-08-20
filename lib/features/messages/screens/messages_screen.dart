@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../core/identity/identity.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../matching/services/match_service.dart';
 import '../models/chat_thread_model.dart';
 import '../services/chat_service.dart';
 import '../utils/closed_account_chat_history.dart';
@@ -15,7 +17,14 @@ import 'chat_detail_screen.dart';
 ///
 /// Firestore stream / ChatService behavior is unchanged.
 class MessagesScreen extends StatefulWidget {
-  const MessagesScreen({super.key});
+  const MessagesScreen({
+    super.key,
+    this.unmatch,
+  });
+
+  /// Tests inject existing [MatchService.unmatch]. Production is null.
+  @visibleForTesting
+  final Future<void> Function(String matchId)? unmatch;
 
   @override
   State<MessagesScreen> createState() => _MessagesScreenState();
@@ -23,12 +32,24 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   final ChatService _chatService = ChatService();
+  final MatchService _matchService = MatchService();
+  final Set<String> _pendingUnmatched = <String>{};
 
   /// Bumping recreates the StreamBuilder subscription (real retry).
   int _streamEpoch = 0;
 
   void _retryStream() {
     setState(() => _streamEpoch++);
+  }
+
+  Future<void> _unmatchThread(ChatThreadModel thread) async {
+    final fromMatch = thread.matchId?.trim();
+    final matchId =
+        (fromMatch != null && fromMatch.isNotEmpty) ? fromMatch : thread.threadId;
+    final run = widget.unmatch ?? _matchService.unmatch;
+    await run(matchId);
+    if (!mounted) return;
+    setState(() => _pendingUnmatched.add(thread.threadId));
   }
 
   @override
@@ -66,7 +87,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     );
                   }
 
-                  final threads = snapshot.data ?? const <ChatThreadModel>[];
+                  final threads = (snapshot.data ?? const <ChatThreadModel>[])
+                      .where((t) => !_pendingUnmatched.contains(t.threadId))
+                      .toList();
                   if (threads.isEmpty) {
                     return QMatchMessagesEmptyState(
                       title: l10n.messagesEmptyTitle,
@@ -90,6 +113,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       return _MessagesThreadRow(
                         thread: thread,
                         chatService: _chatService,
+                        onUnmatch: ClosedAccountChatHistory.isAccountDeletionClosed(
+                          thread,
+                        )
+                            ? null
+                            : () => _unmatchThread(thread),
                         onOpen: (otherUserId, otherName) {
                           Navigator.push(
                             context,
@@ -122,11 +150,13 @@ class _MessagesThreadRow extends StatelessWidget {
     required this.thread,
     required this.chatService,
     required this.onOpen,
+    this.onUnmatch,
   });
 
   final ChatThreadModel thread;
   final ChatService chatService;
   final void Function(String otherUserId, String? otherUserName) onOpen;
+  final Future<void> Function()? onUnmatch;
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +227,7 @@ class _MessagesThreadRow extends StatelessWidget {
             ? thread.lastMessagePreview!.trim()
             : l10n.messagesSayHi;
 
-        return QMatchConversationTile(
+        final tile = QMatchConversationTile(
           displayName: displayName,
           age: resolved.hasDisplayName ? resolved.age : null,
           photoUrl: photoUrl,
@@ -212,6 +242,14 @@ class _MessagesThreadRow extends StatelessWidget {
             otherId,
             resolved.hasDisplayName ? resolved.displayName : null,
           ),
+        );
+
+        final unmatch = onUnmatch;
+        if (unmatch == null) return tile;
+        return QMatchConversationUnmatchSwipe(
+          threadId: thread.threadId,
+          onUnmatch: unmatch,
+          child: tile,
         );
       },
     );

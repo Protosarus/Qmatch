@@ -636,6 +636,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatUserBlocked => 'Kullanıcı engellendi.';
 
   @override
+  String get chatUnblockDialogTitle => 'Bu kullanıcının engeli kaldırılsın mı?';
+
+  @override
+  String get chatUnblockDialogBody =>
+      'Engel kalkar. Kapalı bir sohbet yeniden açılmaz.';
+
+  @override
+  String get chatUserUnblocked => 'Engel kaldırıldı.';
+
+  @override
   String get chatMessageHint => 'Mesaj…';
 
   @override

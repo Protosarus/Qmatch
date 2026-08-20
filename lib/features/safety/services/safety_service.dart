@@ -120,4 +120,23 @@ class SafetyService {
     final doc = await FirestorePaths.userBlockDoc(me.uid, uid).get();
     return doc.exists;
   }
+
+  /// Remove only `users/{me}/blocks/{blockedUid}`.
+  ///
+  /// Does not reopen match or thread. Does not touch messages.
+  Future<void> unblockUser({required String blockedUid}) async {
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+    final target = blockedUid.trim();
+    if (target.isEmpty) {
+      throw StateError('blockedUid is required.');
+    }
+    if (target == me.uid) {
+      throw StateError('Cannot unblock yourself.');
+    }
+
+    await FirestorePaths.userBlockDoc(me.uid, target).delete();
+  }
 }

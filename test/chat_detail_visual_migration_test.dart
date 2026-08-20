@@ -522,6 +522,7 @@ void main() {
       expect(screen.contains("case 'report':"), isTrue);
       expect(screen.contains("case 'unmatch':"), isTrue);
       expect(screen.contains("case 'block':"), isTrue);
+      expect(screen.contains("case 'unblock':"), isTrue);
       expect(screen.contains('resizeToAvoidBottomInset: false'), isTrue);
       expect(screen.contains('viewInsetsOf(context).bottom'), isTrue);
     });
