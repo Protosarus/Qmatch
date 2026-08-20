@@ -10,10 +10,13 @@ import '../../../core/utils/firestore_paths.dart';
 import '../../matching/domain/l3_soft_preference_signal.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../safety/services/safety_service.dart';
+import '../domain/discover_eligible_query_plan.dart';
+import '../domain/discover_passport_snapshot.dart';
 import '../models/discover_user_model.dart';
 import 'discover_canonical_20d_shadow.dart';
 import 'discover_l1_eligibility_gate.dart';
 import 'discover_l3_soft_preference_shadow.dart';
+import 'discover_passport_client.dart';
 import 'discover_ranking_mode.dart';
 import 'discover_shadow_distance_attacher.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
@@ -34,6 +37,7 @@ class DiscoverService {
     bool allowStageB2OutsideDebug = false,
     DiscoverStageB2TrustedL2Client? stageB2TrustedL2Client,
     DiscoverRankingMode rankingMode = DiscoverRankingMode.active,
+    DiscoverPassportClient? passportClient,
   })  : _auth = auth ?? FirebaseAuth.instance,
         _swipeService = swipeService ?? SwipeService(auth: auth),
         _safetyService = safetyService ?? SafetyService(auth: auth),
@@ -52,7 +56,8 @@ class DiscoverService {
         _allowStageB2OutsideDebug = allowStageB2OutsideDebug,
         _stageB2TrustedL2 =
             stageB2TrustedL2Client ?? DiscoverStageB2TrustedL2Client(),
-        _rankingMode = rankingMode;
+        _rankingMode = rankingMode,
+        _passportClient = passportClient ?? DiscoverPassportClient();
 
   final FirebaseAuth _auth;
   final SwipeService _swipeService;
@@ -66,10 +71,19 @@ class DiscoverService {
   final bool _allowStageB2OutsideDebug;
   final DiscoverStageB2TrustedL2Client _stageB2TrustedL2;
   final DiscoverRankingMode _rankingMode;
+  final DiscoverPassportClient _passportClient;
   int _shadowGeneration = 0;
 
   /// Active ranking mode for this service instance.
   DiscoverRankingMode get rankingMode => _rankingMode;
+
+  /// Last trusted Passport snapshot used for Discover eligibility.
+  DiscoverPassportSnapshot lastPassportSnapshot =
+      DiscoverPassportSnapshot.worldwide;
+
+  /// Last Discover geography plan (OFF = global, ON = dest or empty).
+  DiscoverEligibleQueryPlan lastQueryPlan =
+      const DiscoverEligibleQueryPlan.worldwide();
 
   /// In-memory shadow diagnostics from the last [getCandidates] call.
   /// Not persisted. Not used for ranking or displayed compatibility.
@@ -130,6 +144,11 @@ class DiscoverService {
     final currentUid = me.uid;
     final shadowGeneration = ++_shadowGeneration;
 
+    final passport = await _passportClient.get();
+    lastPassportSnapshot = passport;
+    final plan = DiscoverEligibleQueryPlan.fromPassport(passport);
+    lastQueryPlan = plan;
+
     // Prefer discover_eligible to avoid composite index needs.
     // TODO: Backfill discover_eligible for existing users if needed.
     final batchSize = (limit * 3).clamp(30, 120);
@@ -149,10 +168,19 @@ class DiscoverService {
         ),
         QmatchPerf.trace(
           'discover.eligible_query',
-          () => FirestorePaths.users()
-              .where('discover_eligible', isEqualTo: true)
-              .limit(batchSize)
-              .get(),
+          () {
+            if (plan.skipEligibleQuery) {
+              return Future<QuerySnapshot<Map<String, dynamic>>?>.value(null);
+            }
+            Query<Map<String, dynamic>> query = FirestorePaths.users()
+                .where('discover_eligible', isEqualTo: true);
+            if (plan.usesDestinationFilter) {
+              query = query
+                  .where('home_country', isEqualTo: plan.country)
+                  .where('home_city', isEqualTo: plan.city);
+            }
+            return query.limit(batchSize).get();
+          },
         ),
       ]);
     });
@@ -162,7 +190,7 @@ class DiscoverService {
         Map<String, dynamic>.from(meDoc.data() ?? <String, dynamic>{});
     final swiped = started[1] as Set<String>;
     final blockedByMe = started[2] as Set<String>;
-    final snapshot = started[3] as QuerySnapshot<Map<String, dynamic>>;
+    final snapshot = started[3] as QuerySnapshot<Map<String, dynamic>>?;
 
     final attachLegacyUi = _rankingMode.usesLegacyCompatibilityScoring;
     final needLegacyCompat = attachLegacyUi || _stageB2Collector.enabled;
@@ -184,6 +212,8 @@ class DiscoverService {
     var excludedAssessmentIncomplete = 0;
     var excludedMissingPhoto = 0;
 
+    final docs = snapshot?.docs ??
+        const <QueryDocumentSnapshot<Map<String, dynamic>>>[];
     QmatchPerf.traceSync('discover.l1_local', () {
       if (_stageB2Collector.enabled) {
         _stageB2Collector.beginSession(viewerUid: currentUid);
@@ -191,7 +221,7 @@ class DiscoverService {
         _stageB2Collector.reset();
       }
 
-      for (final doc in snapshot.docs) {
+      for (final doc in docs) {
         if (doc.id == currentUid) {
           excludedSelf++;
           continue;
@@ -270,7 +300,7 @@ class DiscoverService {
 
       if (kDebugMode) {
         debugPrint(
-          'Discover L1: fetched=${snapshot.docs.length} '
+          'Discover L1: fetched=${snapshot?.docs.length ?? 0} '
           'self=$excludedSelf swiped=$excludedSwiped '
           'blocked_by_me=$excludedBlockedByMe '
           'inactive=$excludedInactive '

@@ -20,17 +20,23 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
     required this.body,
     required this.retryLabel,
     this.onRetry,
+    this.secondaryLabel,
+    this.onSecondary,
+    this.emptyKey,
   });
 
   final String title;
   final String body;
   final String retryLabel;
   final VoidCallback? onRetry;
+  final String? secondaryLabel;
+  final VoidCallback? onSecondary;
+  final Key? emptyKey;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      key: const Key('qmatch-discover-empty'),
+      key: emptyKey ?? const Key('qmatch-discover-empty'),
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(AppSpacing.xl),
         child: ClipRRect(
@@ -106,6 +112,18 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
                       label: retryLabel,
                       onPressed: onRetry,
                       variant: QCosmicButtonVariant.glass,
+                      expanded: false,
+                    ),
+                  ],
+                  if (onSecondary != null &&
+                      secondaryLabel != null &&
+                      secondaryLabel!.trim().isNotEmpty) ...[
+                    const SizedBox(height: AppSpacing.sm),
+                    QCosmicButton(
+                      key: const Key('qmatch-discover-empty-secondary'),
+                      label: secondaryLabel!,
+                      onPressed: onSecondary,
+                      variant: QCosmicButtonVariant.ghost,
                       expanded: false,
                     ),
                   ],

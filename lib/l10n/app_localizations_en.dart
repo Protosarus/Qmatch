@@ -384,6 +384,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverEmptyRetry => 'Check again';
 
   @override
+  String get discoverPassportWorldwide => 'Worldwide';
+
+  @override
+  String discoverPassportChipActive(String city) {
+    return '$city · Passport';
+  }
+
+  @override
+  String get discoverPassportPickerTitle => 'Passport';
+
+  @override
+  String get discoverPassportPickerSearch => 'Search city or country';
+
+  @override
+  String get discoverPassportUseWorldwide => 'Use Worldwide';
+
+  @override
+  String get discoverPassportChangeDestination => 'Change destination';
+
+  @override
+  String get discoverPassportEmptyTitle =>
+      'New profiles are still arriving here';
+
+  @override
+  String get discoverPassportEmptyBody =>
+      'Change your Passport destination or return to Worldwide.';
+
+  @override
   String get discoverPass => 'Pass';
 
   @override
@@ -1771,6 +1799,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsResonanceSubtitle =>
       'Who liked you, Rewind, and deeper alignment';
+
+  @override
+  String get settingsPassport => 'Passport';
+
+  @override
+  String get settingsPassportSubtitleLocked => 'Unlock with Resonance';
+
+  @override
+  String get settingsPassportSubtitleWorldwide => 'Worldwide';
+
+  @override
+  String settingsPassportSubtitleActive(String city) {
+    return '$city';
+  }
 
   @override
   String get resonancePaywallTitle => 'Resonance';

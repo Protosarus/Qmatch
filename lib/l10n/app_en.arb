@@ -169,6 +169,21 @@
   "discoverEmptyTitle": "No new profiles for now",
   "discoverEmptySubtitle": "New match candidates will appear here as they arrive.",
   "discoverEmptyRetry": "Check again",
+  "discoverPassportWorldwide": "Worldwide",
+  "discoverPassportChipActive": "{city} · Passport",
+  "@discoverPassportChipActive": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverPassportPickerTitle": "Passport",
+  "discoverPassportPickerSearch": "Search city or country",
+  "discoverPassportUseWorldwide": "Use Worldwide",
+  "discoverPassportChangeDestination": "Change destination",
+  "discoverPassportEmptyTitle": "New profiles are still arriving here",
+  "discoverPassportEmptyBody": "Change your Passport destination or return to Worldwide.",
   "discoverPass": "Pass",
   "discoverLike": "Like",
   "discoverSuperResonance": "Super Resonance",
@@ -741,6 +756,17 @@
   "privacyDataSecuritySection": "Data & security",
   "settingsResonance": "Resonance",
   "settingsResonanceSubtitle": "Who liked you, Rewind, and deeper alignment",
+  "settingsPassport": "Passport",
+  "settingsPassportSubtitleLocked": "Unlock with Resonance",
+  "settingsPassportSubtitleWorldwide": "Worldwide",
+  "settingsPassportSubtitleActive": "{city}",
+  "@settingsPassportSubtitleActive": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
   "resonancePaywallTitle": "Resonance",
   "resonancePaywallHeadline": "Unlock Resonance",
   "resonancePaywallBody": "Who Liked You is included with Resonance now. Resonance does not change who you match with or how ranking works.",

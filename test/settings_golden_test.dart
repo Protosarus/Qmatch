@@ -7,6 +7,8 @@ import 'package:qmatch/core/widgets/cosmic/qmatch_cosmic_background.dart';
 import 'package:qmatch/core/widgets/qmatch_primary_action.dart';
 import 'package:qmatch/core/widgets/qmatch_pushed_screen_header.dart';
 import 'package:qmatch/features/debug/debug_home_screen.dart';
+import 'package:qmatch/features/discover/domain/discover_passport_snapshot.dart';
+import 'package:qmatch/features/discover/services/discover_passport_client.dart';
 import 'package:qmatch/features/settings/screens/help_support_screen.dart';
 import 'package:qmatch/features/settings/screens/privacy_settings_screen.dart';
 import 'package:qmatch/features/settings/screens/settings_screen.dart';
@@ -113,13 +115,20 @@ void main() {
     );
   });
 
+  DiscoverPassportClient _passportStub() {
+    return DiscoverPassportClient(
+      getOverride: () async => DiscoverPassportSnapshot.worldwide,
+    );
+  }
+
   testWidgets('settings full compact', (tester) async {
     await pump(
       tester,
-      child: const SettingsScreen(
+      child: SettingsScreen(
         animateBackground: false,
         debugDeletionPending: false,
         debugForceDebugRow: true,
+        passportClient: _passportStub(),
       ),
     );
     await expectGolden(tester, 'goldens/settings/full_compact_1_0.png');
@@ -128,10 +137,11 @@ void main() {
   testWidgets('settings release-like no debug', (tester) async {
     await pump(
       tester,
-      child: const SettingsScreen(
+      child: SettingsScreen(
         animateBackground: false,
         debugDeletionPending: false,
         debugForceDebugRow: false,
+        passportClient: _passportStub(),
       ),
     );
     await expectGolden(tester, 'goldens/settings/release_no_debug_1_0.png');
@@ -140,10 +150,11 @@ void main() {
   testWidgets('settings deletion pending', (tester) async {
     await pump(
       tester,
-      child: const SettingsScreen(
+      child: SettingsScreen(
         animateBackground: false,
         debugDeletionPending: true,
         debugForceDebugRow: false,
+        passportClient: _passportStub(),
       ),
     );
     await expectGolden(tester, 'goldens/settings/deletion_pending_1_0.png');
@@ -153,10 +164,11 @@ void main() {
     await pump(
       tester,
       textScale: 1.3,
-      child: const SettingsScreen(
+      child: SettingsScreen(
         animateBackground: false,
         debugDeletionPending: false,
         debugForceDebugRow: false,
+        passportClient: _passportStub(),
       ),
     );
     await expectGolden(tester, 'goldens/settings/full_compact_1_3.png');

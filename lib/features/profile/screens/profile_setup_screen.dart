@@ -10,6 +10,7 @@ import '../../../core/navigation/auth_wrapper.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../assessment/widgets/frequency_question_chrome.dart';
 import '../../assessment/widgets/q_assessment_scaffold.dart';
+import '../domain/home_geography.dart';
 import '../models/user_profile_model.dart';
 import '../services/display_name_service.dart';
 import '../services/profile_service.dart';
@@ -40,6 +41,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   String? _gender;
   Position? _location;
   String? _locationText;
+  HomeGeography? _homeGeography;
   String? _education;
   String _bio = '';
   List<String> _interests = [];
@@ -140,7 +142,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         completedAt: DateTime.now(),
       );
 
-      await _profileService.saveProfile(profile);
+      await _profileService.saveProfile(
+        profile,
+        homeGeography: _homeGeography,
+      );
 
       if (mounted) {
         final readyL10n = AppLocalizations.of(context)!;
@@ -229,9 +234,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                   education: _education,
                   onAgeChanged: (value) => setState(() => _age = value),
                   onGenderChanged: (value) => setState(() => _gender = value),
-                  onLocationChanged: (pos, text) => setState(() {
+                  onLocationChanged: (pos, text, home) => setState(() {
                     _location = pos;
                     _locationText = text;
+                    _homeGeography = home;
                   }),
                   onEducationChanged: (value) =>
                       setState(() => _education = value),

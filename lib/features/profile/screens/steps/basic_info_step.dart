@@ -5,6 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../domain/home_geography.dart';
 import '../../utils/profile_option_labels.dart';
 import '../../widgets/profile_setup_chrome.dart';
 import '../../widgets/profile_setup_select_field.dart';
@@ -18,7 +19,7 @@ class BasicInfoStep extends StatefulWidget {
   final Function(int?) onAgeChanged;
   final Function(String?) onGenderChanged;
   final Function(String?) onEducationChanged;
-  final Function(Position?, String?) onLocationChanged;
+  final void Function(Position?, String?, HomeGeography?) onLocationChanged;
 
   const BasicInfoStep({
     super.key,
@@ -71,8 +72,16 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
         final place = placemarks.first;
         final locationText =
             '${place.subAdministrativeArea ?? place.locality}, ${place.administrativeArea}';
+        final homeGeography = HomeGeographyNormalizer.fromPlacemark(
+          HomeGeographyPlacemarkInput(
+            isoCountryCode: place.isoCountryCode,
+            locality: place.locality,
+            administrativeArea: place.administrativeArea,
+            subAdministrativeArea: place.subAdministrativeArea,
+          ),
+        );
 
-        widget.onLocationChanged(position, locationText);
+        widget.onLocationChanged(position, locationText, homeGeography);
 
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

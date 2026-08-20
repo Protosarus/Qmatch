@@ -259,6 +259,12 @@ service cloud.firestore {
         allow read, write: if isOwner(uid);
         allow delete: if isOwner(uid);
       }
+
+      // Discover Passport preference — owner GET only. Writes are Admin/callable.
+      match /preferences/{prefId} {
+        allow get: if isOwner(uid) && prefId == 'discover_passport_v1';
+        allow list, create, update, delete: if false;
+      }
     }
 
     // assessment_sets/{setId} — client seed/upload helpers intentionally denied.

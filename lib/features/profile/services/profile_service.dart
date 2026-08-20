@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import '../domain/home_geography.dart';
 import '../models/profile_read_result.dart';
 import '../models/user_profile_model.dart';
 
@@ -19,7 +20,10 @@ class ProfileService {
     // No client write — Admin SDK CF is the sole true-grant authority.
   }
 
-  Future<void> saveProfile(UserProfileModel profile) async {
+  Future<void> saveProfile(
+    UserProfileModel profile, {
+    HomeGeography? homeGeography,
+  }) async {
     final user = _auth.currentUser;
     if (user == null) throw 'User not authenticated';
 
@@ -27,11 +31,21 @@ class ProfileService {
       // Merge only profile payload. Assessment/persona fields are omitted when
       // null in [UserProfileModel.toFirestore], so setup cannot erase them.
       // Does not write discover_eligible — backend recomputes on this write.
-      await _firestore.collection('users').doc(user.uid).set({
+      // Home geography is written only after an explicit location-share derive.
+      final payload = <String, dynamic>{
         ...profile.toFirestore(),
         'profile_completed': true,
         'completed_at': FieldValue.serverTimestamp(),
-      }, SetOptions(merge: true));
+      };
+      if (homeGeography != null) {
+        payload['home_country'] = homeGeography.country;
+        payload['home_city'] = homeGeography.city;
+        payload['home_geo_updated_at'] = FieldValue.serverTimestamp();
+      }
+      await _firestore.collection('users').doc(user.uid).set(
+            payload,
+            SetOptions(merge: true),
+          );
 
       debugPrint('✅ Profile saved successfully');
     } catch (e) {

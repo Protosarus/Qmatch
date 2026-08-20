@@ -279,3 +279,26 @@ exports.listSuperResonanceInbox = onCall(
 );
 exports.handleListSuperResonanceInbox =
   listSuperResonanceInbox.handleListSuperResonanceInbox;
+const discoverPassport = require('./src/discover_passport_callable');
+
+/**
+ * Trusted Discover Passport preference. Resonance-gated set; Free may disable
+ * and may read saved destination metadata with effective enabled=false.
+ * Admin writes users/{uid}/preferences/discover_passport_v1 only.
+ */
+exports.getDiscoverPassport = onCall(
+  { region: 'us-central1' },
+  (request) => discoverPassport.handleGetDiscoverPassport(request),
+);
+exports.setDiscoverPassport = onCall(
+  { region: 'us-central1' },
+  (request) => discoverPassport.handleSetDiscoverPassport(request),
+);
+exports.disableDiscoverPassport = onCall(
+  { region: 'us-central1' },
+  (request) => discoverPassport.handleDisableDiscoverPassport(request),
+);
+exports.handleGetDiscoverPassport = discoverPassport.handleGetDiscoverPassport;
+exports.handleSetDiscoverPassport = discoverPassport.handleSetDiscoverPassport;
+exports.handleDisableDiscoverPassport =
+  discoverPassport.handleDisableDiscoverPassport;

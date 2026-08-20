@@ -982,6 +982,55 @@ describe('Entitlement rules (resonance_entitlement_firestore_schema_v1)', () => 
   });
 });
 
+describe('Discover Passport preference rules', () {
+  const path = 'users/userA/preferences/discover_passport_v1';
+  const saved = {
+    passport_enabled: true,
+    passport_country: 'TR',
+    passport_city: 'istanbul',
+    schema_version: 'discover_passport_v1',
+  };
+
+  it('owner may GET own Passport preference', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), saved);
+    });
+    await assertSucceeds(getDoc(doc(authedFirestore('userA'), path)));
+  });
+
+  it('peer cannot GET Passport preference', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), saved);
+    });
+    await assertFails(getDoc(doc(authedFirestore('userB'), path)));
+  });
+
+  it('client cannot create/update/delete Passport preference', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), path), saved),
+    );
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), saved);
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), path), {
+        passport_enabled: true,
+        passport_city: 'berlin',
+      }),
+    );
+    await assertFails(deleteDoc(doc(authedFirestore('userA'), path)));
+  });
+
+  it('client cannot list preferences', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), path), saved);
+    });
+    await assertFails(
+      getDocs(collection(authedFirestore('userA'), 'users/userA/preferences')),
+    );
+  });
+});
+
 describe('Super Resonance signal rules (super_resonance_signal_v1)', () => {
   const signal = {
     from_uid: 'userA',

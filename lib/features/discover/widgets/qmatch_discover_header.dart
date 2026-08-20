@@ -10,11 +10,15 @@ class QMatchDiscoverHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.subtitle,
+    this.chip,
     this.trailing,
   });
 
   final String title;
   final String? subtitle;
+
+  /// Compact geography control under the title (Passport / Worldwide).
+  final Widget? chip;
 
   /// Optional compact action (Who Liked You). Never a liker count/badge.
   final Widget? trailing;
@@ -56,6 +60,13 @@ class QMatchDiscoverHeader extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       height: 1.35,
                     ),
+                  ),
+                ],
+                if (chip != null) ...[
+                  const SizedBox(height: AppSpacing.xs),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: chip,
                   ),
                 ],
               ],

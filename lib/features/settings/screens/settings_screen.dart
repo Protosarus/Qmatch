@@ -12,6 +12,12 @@ import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../debug/debug_home_screen.dart';
+import '../../discover/domain/discover_passport_snapshot.dart';
+import '../../discover/domain/passport_destination_catalog.dart';
+import '../../discover/screens/passport_destination_picker_screen.dart';
+import '../../discover/services/discover_passport_client.dart';
+import '../../iap/domain/resonance_paywall_feature.dart';
+import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../services/account_deletion_request_service.dart';
 import 'about_screen.dart';
@@ -29,6 +35,8 @@ class SettingsScreen extends StatefulWidget {
     this.deletionService,
     this.debugDeletionPending,
     this.whoLikedYouEntry,
+    this.passportClient,
+    this.openPaywall,
   });
 
   /// Test override: when non-null, forces Debug row visibility.
@@ -45,6 +53,13 @@ class SettingsScreen extends StatefulWidget {
   /// UX routing for Resonance → Who Liked You. Tests inject a fake.
   final WhoLikedYouEntry? whoLikedYouEntry;
 
+  final DiscoverPassportClient? passportClient;
+
+  final Future<bool> Function(
+    BuildContext context,
+    ResonancePaywallFeature feature,
+  )? openPaywall;
+
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
@@ -52,8 +67,11 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   late final AccountDeletionRequestService _deletionService =
       widget.deletionService ?? AccountDeletionRequestService();
+  late final DiscoverPassportClient _passportClient =
+      widget.passportClient ?? DiscoverPassportClient();
   bool _deletionPending = false;
   bool _deletionPendingLoaded = false;
+  DiscoverPassportSnapshot _passport = DiscoverPassportSnapshot.worldwide;
 
   bool get _showDebug => widget.debugForceDebugRow ?? kDebugMode;
 
@@ -61,6 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
     _loadDeletionPending();
+    _loadPassport();
   }
 
   Future<void> _loadDeletionPending() async {
@@ -78,6 +97,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _deletionPending = pending;
       _deletionPendingLoaded = true;
     });
+  }
+
+  Future<void> _loadPassport() async {
+    try {
+      final snap = await _passportClient.get();
+      if (!mounted) return;
+      setState(() => _passport = snap);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _passport = DiscoverPassportSnapshot.worldwide);
+    }
+  }
+
+  String _passportSubtitle(AppLocalizations l10n) {
+    if (!_passport.resonanceAccess) {
+      return l10n.settingsPassportSubtitleLocked;
+    }
+    if (_passport.passportEnabled) {
+      final turkish = Localizations.localeOf(context).languageCode == 'tr';
+      return l10n.settingsPassportSubtitleActive(
+        PassportDestinationCatalog.displayCity(
+          country: _passport.passportCountry,
+          citySlug: _passport.passportCity,
+          turkish: turkish,
+        ),
+      );
+    }
+    return l10n.settingsPassportSubtitleWorldwide;
+  }
+
+  Future<void> _openPassport() async {
+    await PassportDestinationPickerScreen.open(
+      context,
+      client: _passportClient,
+      initial: _passport,
+      openPaywall: widget.openPaywall ??
+          (ctx, feature) => ResonancePaywallScreen.open(
+                ctx,
+                feature: feature,
+              ),
+      animateBackground: widget.animateBackground != false,
+    );
+    if (!mounted) return;
+    await _loadPassport();
   }
 
   Future<void> _openResonance() async {
@@ -205,6 +268,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             title: l10n.settingsResonance,
                             subtitle: l10n.settingsResonanceSubtitle,
                             onTap: _openResonance,
+                          ),
+                          QMatchSettingsTile(
+                            key: const Key('qmatch-settings-passport'),
+                            icon: Icons.public_outlined,
+                            title: l10n.settingsPassport,
+                            subtitle: _passportSubtitle(l10n),
+                            showLock: !_passport.resonanceAccess,
+                            onTap: _openPassport,
                           ),
                           QMatchSettingsTile(
                             key: const Key('qmatch-settings-notifications'),
@@ -400,6 +471,7 @@ class QMatchSettingsTile extends StatelessWidget {
     this.destructive = false,
     this.emphasized = false,
     this.enabled = true,
+    this.showLock = false,
   });
 
   final IconData icon;
@@ -409,6 +481,7 @@ class QMatchSettingsTile extends StatelessWidget {
   final bool destructive;
   final bool emphasized;
   final bool enabled;
+  final bool showLock;
 
   @override
   Widget build(BuildContext context) {
@@ -466,7 +539,12 @@ class QMatchSettingsTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (enabled)
+                if (showLock)
+                  Icon(
+                    Icons.lock_outline,
+                    color: AppColors.textMuted,
+                  )
+                else if (enabled)
                   Icon(
                     Icons.chevron_right,
                     color: destructive

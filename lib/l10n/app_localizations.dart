@@ -782,6 +782,54 @@ abstract class AppLocalizations {
   /// **'Check again'**
   String get discoverEmptyRetry;
 
+  /// No description provided for @discoverPassportWorldwide.
+  ///
+  /// In en, this message translates to:
+  /// **'Worldwide'**
+  String get discoverPassportWorldwide;
+
+  /// No description provided for @discoverPassportChipActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{city} · Passport'**
+  String discoverPassportChipActive(String city);
+
+  /// No description provided for @discoverPassportPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Passport'**
+  String get discoverPassportPickerTitle;
+
+  /// No description provided for @discoverPassportPickerSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search city or country'**
+  String get discoverPassportPickerSearch;
+
+  /// No description provided for @discoverPassportUseWorldwide.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Worldwide'**
+  String get discoverPassportUseWorldwide;
+
+  /// No description provided for @discoverPassportChangeDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Change destination'**
+  String get discoverPassportChangeDestination;
+
+  /// No description provided for @discoverPassportEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New profiles are still arriving here'**
+  String get discoverPassportEmptyTitle;
+
+  /// No description provided for @discoverPassportEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Change your Passport destination or return to Worldwide.'**
+  String get discoverPassportEmptyBody;
+
   /// No description provided for @discoverPass.
   ///
   /// In en, this message translates to:
@@ -3307,6 +3355,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Who liked you, Rewind, and deeper alignment'**
   String get settingsResonanceSubtitle;
+
+  /// No description provided for @settingsPassport.
+  ///
+  /// In en, this message translates to:
+  /// **'Passport'**
+  String get settingsPassport;
+
+  /// No description provided for @settingsPassportSubtitleLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with Resonance'**
+  String get settingsPassportSubtitleLocked;
+
+  /// No description provided for @settingsPassportSubtitleWorldwide.
+  ///
+  /// In en, this message translates to:
+  /// **'Worldwide'**
+  String get settingsPassportSubtitleWorldwide;
+
+  /// No description provided for @settingsPassportSubtitleActive.
+  ///
+  /// In en, this message translates to:
+  /// **'{city}'**
+  String settingsPassportSubtitleActive(String city);
 
   /// No description provided for @resonancePaywallTitle.
   ///

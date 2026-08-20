@@ -57,6 +57,13 @@ class FirestorePaths {
   ) =>
       userBlocks(uid).doc(blockedUid);
 
+  /// Trusted Passport preference: `users/{uid}/preferences/discover_passport_v1`.
+  /// Client reads only; writes are Admin callables.
+  static DocumentReference<Map<String, dynamic>> userDiscoverPassportDoc(
+    String uid,
+  ) =>
+      userDoc(uid).collection('preferences').doc('discover_passport_v1');
+
   /// Per-user assignment to a specific assessment set (`iq`, `eq`, `frequency`).
   static CollectionReference<Map<String, dynamic>> userAssessmentAssignments(
           String uid) =>

@@ -5,7 +5,8 @@ enum ResonancePaywallFeature {
   rewind('rewind'),
   deeperCompatibility('deeper_compatibility'),
   advancedFilters('advanced_filters'),
-  likeLimit('like_limit');
+  likeLimit('like_limit'),
+  passport('passport');
 
   const ResonancePaywallFeature(this.analyticsValue);
   final String analyticsValue;

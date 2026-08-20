@@ -11,6 +11,8 @@ import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../iap/domain/resonance_paywall_feature.dart';
+import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../iap/services/entitlement_repository.dart';
 import '../../iap/services/ios_iap_session.dart';
 import '../../matching/services/like_match_outcome.dart';
@@ -19,12 +21,16 @@ import '../../messages/screens/chat_detail_screen.dart';
 import '../../settings/services/account_deletion_request_service.dart';
 import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../models/discover_user_model.dart';
+import '../domain/discover_eligible_query_plan.dart';
+import '../domain/discover_passport_snapshot.dart';
 import '../domain/super_resonance_availability.dart';
 import '../domain/super_resonance_send_result.dart';
 import '../services/discover_gesture_onboarding_store.dart';
+import '../services/discover_passport_client.dart';
 import '../services/discover_service.dart';
 import '../services/discover_super_resonance_controller.dart';
 import '../widgets/discover_widgets.dart';
+import 'passport_destination_picker_screen.dart';
 
 /// Whether Discover should precache this photo URL.
 ///
@@ -51,6 +57,9 @@ class DiscoverScreen extends StatefulWidget {
     this.whoLikedYouEntry,
     this.superResonance,
     this.uidProvider,
+    this.discoverService,
+    this.passportClient,
+    this.openPaywall,
   });
 
   /// Goldens / reduced-motion: freeze cosmic breathing when false.
@@ -68,12 +77,25 @@ class DiscoverScreen extends StatefulWidget {
   /// Test injection for entitlement reads.
   final String? Function()? uidProvider;
 
+  /// Test injection for Discover loading.
+  final DiscoverService? discoverService;
+
+  /// Shared Passport client (picker + optional DiscoverService).
+  final DiscoverPassportClient? passportClient;
+
+  /// Test injection for Resonance paywall from Passport.
+  final Future<bool> Function(
+    BuildContext context,
+    ResonancePaywallFeature feature,
+  )? openPaywall;
+
   @override
   State<DiscoverScreen> createState() => _DiscoverScreenState();
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  final DiscoverService _discoverService = DiscoverService();
+  late final DiscoverService _discoverService;
+  late final DiscoverPassportClient _passportClient;
   final SwipeService _swipeService = SwipeService();
   final AccountDeletionRequestService _deletionService =
       AccountDeletionRequestService();
@@ -94,6 +116,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   bool _superResonanceSheetOpen = false;
   List<DiscoverUserModel> _candidates = [];
   int _currentIndex = 0;
+  DiscoverPassportSnapshot _passportSnapshot =
+      DiscoverPassportSnapshot.worldwide;
+  DiscoverEligibleQueryPlan _queryPlan =
+      const DiscoverEligibleQueryPlan.worldwide();
   final Set<String> _likeDispatchedUids = <String>{};
   late final DiscoverGestureOnboardingStore _gestureOnboardingStore;
   late final DiscoverSuperResonanceController _superResonance;
@@ -111,6 +137,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   void initState() {
     super.initState();
+    _passportClient = widget.passportClient ?? DiscoverPassportClient();
+    _discoverService = widget.discoverService ??
+        (widget.passportClient == null
+            ? DiscoverService()
+            : DiscoverService(passportClient: widget.passportClient));
     _gestureOnboardingStore = widget.gestureOnboardingStore ??
         DiscoverGestureOnboardingStore(
           viewerUid: FirebaseAuth.instance.currentUser?.uid,
@@ -208,6 +239,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         _lastCardCommitted = false;
         _isLoading = false;
         _hasError = false;
+        _passportSnapshot = _discoverService.lastPassportSnapshot;
+        _queryPlan = _discoverService.lastQueryPlan;
       });
       _precacheUpcomingCandidatePhotos();
       await _syncFirstUseGuidanceFromStore();
@@ -584,12 +617,65 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     await entry.openFromDiscover(context);
   }
 
+  Future<bool> _openPassportPaywall(
+    BuildContext context,
+    ResonancePaywallFeature feature,
+  ) {
+    final custom = widget.openPaywall;
+    if (custom != null) {
+      return custom(context, feature);
+    }
+    return ResonancePaywallScreen.open(
+      context,
+      feature: feature,
+    );
+  }
+
+  Future<void> _openPassportPicker() async {
+    final changed = await PassportDestinationPickerScreen.open(
+      context,
+      client: _passportClient,
+      initial: _passportSnapshot,
+      openPaywall: _openPassportPaywall,
+      animateBackground: widget.animateBackground != false,
+    );
+    if (!mounted) return;
+    if (changed) {
+      await _loadCandidates();
+    } else {
+      try {
+        final snap = await _passportClient.get();
+        if (!mounted) return;
+        setState(() => _passportSnapshot = snap);
+      } catch (_) {}
+    }
+  }
+
+  Future<void> _turnPassportOff() async {
+    try {
+      await _passportClient.disable();
+      if (!mounted) return;
+      await _loadCandidates();
+    } catch (e, st) {
+      debugPrint('Passport disable failed: $e\n$st');
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.discoverActionFailed)),
+      );
+    }
+  }
+
   Widget _buildHeader(
     AppLocalizations l10n, {
     bool debugReplay = false,
   }) {
     final header = QMatchDiscoverHeader(
       title: l10n.discoverTitle,
+      chip: QMatchDiscoverPassportChip(
+        snapshot: _passportSnapshot,
+        onPressed: _openPassportPicker,
+      ),
       trailing: QMatchGlassIconButton(
         key: const Key('qmatch-discover-who-liked-you'),
         icon: Icons.favorite_border,
@@ -671,16 +757,29 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
     final c = _currentCandidate;
     if (c == null) {
+      final passportEmpty = _queryPlan.passportActive;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _buildHeader(l10n),
           Expanded(
             child: QMatchDiscoverEmptyState(
-              title: l10n.discoverEmptyTitle,
-              body: l10n.discoverEmptySubtitle,
-              retryLabel: l10n.discoverEmptyRetry,
-              onRetry: _loadCandidates,
+              emptyKey: passportEmpty
+                  ? const Key('qmatch-discover-passport-empty')
+                  : const Key('qmatch-discover-empty'),
+              title: passportEmpty
+                  ? l10n.discoverPassportEmptyTitle
+                  : l10n.discoverEmptyTitle,
+              body: passportEmpty
+                  ? l10n.discoverPassportEmptyBody
+                  : l10n.discoverEmptySubtitle,
+              retryLabel: passportEmpty
+                  ? l10n.discoverPassportChangeDestination
+                  : l10n.discoverEmptyRetry,
+              onRetry: passportEmpty ? _openPassportPicker : _loadCandidates,
+              secondaryLabel:
+                  passportEmpty ? l10n.discoverPassportUseWorldwide : null,
+              onSecondary: passportEmpty ? _turnPassportOff : null,
             ),
           ),
         ],
