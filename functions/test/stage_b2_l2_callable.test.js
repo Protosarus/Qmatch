@@ -9,11 +9,16 @@ const {
   MAX_CANDIDATE_UIDS,
   L2_TIMING_LOG_PREFIX,
   L2_TIMING_KEYS,
+  GET_ALL_CHUNK_SIZE,
+  toPublicPair,
+  publicUnavailable,
 } = require('../src/stage_b2_l2_callable');
 const {
   DIMENSION_IDS,
   IQ_IDS,
   EQ_IDS,
+  compareMeasuredPresence,
+  measuredScoresFromCanonicalProfile,
 } = require('../src/canonical_20d_group_normalized_shadow');
 
 function canonicalDoc(scores) {
@@ -304,6 +309,11 @@ describe('compareStageB2Structural callable', () => {
     assert.deepStrictEqual(Object.keys(payload).sort(), [...L2_TIMING_KEYS].sort());
     assert.strictEqual(payload.candidate_count, 2);
     assert.ok(payload.total_handler_ms >= 0);
+    // Batched IO is one round, reported under candidate_canonical_gets_ms.
+    // Do not sum the three GET keys.
+    assert.strictEqual(payload.viewer_canonical_get_ms, 0);
+    assert.strictEqual(payload.reverse_block_gets_ms, 0);
+    assert.ok(payload.candidate_canonical_gets_ms >= 0);
 
     const blob = `${JSON.stringify(res)}\n${lines.join('\n')}`;
     assert.strictEqual(blob.includes('logical_reasoning'), false);
@@ -318,24 +328,26 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(payload.handler_ms, undefined);
   });
 
-  it('keeps candidate and reverse-block GET waves parallel but sequential to each other', () => {
+  it('batches viewer, candidate, and reverse-block reads in one getAll round', () => {
     const fs = require('fs');
     const path = require('path');
     const src = fs.readFileSync(
       path.resolve(__dirname, '../src/stage_b2_l2_callable.js'),
       'utf8',
     );
-    const candIdx = src.indexOf(
-      'const candidateSnaps = await Promise.all(',
+    assert.ok(src.includes('async function getAllSnaps'));
+    assert.ok(src.includes('db.getAll('));
+    assert.ok(src.includes('GET_ALL_CHUNK_SIZE'));
+    assert.strictEqual(
+      src.includes('const candidateSnaps = await Promise.all('),
+      false,
     );
-    const blockIdx = src.indexOf(
-      'const reverseBlockSnaps = await Promise.all(',
+    assert.strictEqual(
+      src.includes('const reverseBlockSnaps = await Promise.all('),
+      false,
     );
-    assert.ok(candIdx >= 0);
-    assert.ok(blockIdx > candIdx);
-    assert.ok(src.includes('db.doc(canonicalPath(uid)).get()'));
-    assert.ok(src.includes('db.doc(reverseBlockPath(uid, viewerUid)).get()'));
-    assert.strictEqual(src.includes('getAll('), false);
+    assert.ok(src.includes('reverseBlockSnaps[i].exists'));
+    assert.strictEqual(src.includes('reverseBlockSnaps[i].data'), false);
   });
 
   it('does not add timing fields to the callable payload', async () => {
@@ -353,5 +365,136 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(Object.prototype.hasOwnProperty.call(res, 'timings'), false);
     assert.strictEqual(Object.prototype.hasOwnProperty.call(res, 'total_handler_ms'), false);
     assert.strictEqual(Object.prototype.hasOwnProperty.call(res, 'candidate_count'), false);
+  });
+
+  it('getAll reads viewer + N canonicals + N reverse blocks in request order', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/far/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.9)));
+    await db.doc('users/far/blocks/viewer').set({ blocked_uid: 'viewer' });
+
+    const orig = db.getAll.bind(db);
+    let calls = 0;
+    const seenPaths = [];
+    db.getAll = async (...refs) => {
+      calls += 1;
+      for (const ref of refs) seenPaths.push(ref.path);
+      return orig(...refs);
+    };
+
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near', 'far']),
+      { db },
+    );
+
+    assert.strictEqual(calls, 1);
+    assert.deepStrictEqual(seenPaths, [
+      'users/viewer/profiles/canonical_v1',
+      'users/near/profiles/canonical_v1',
+      'users/far/profiles/canonical_v1',
+      'users/near/blocks/viewer',
+      'users/far/blocks/viewer',
+    ]);
+    assert.deepStrictEqual(res.candidate_uids, ['near']);
+    assert.strictEqual(res.pairs.length, 1);
+    assert.ok(GET_ALL_CHUNK_SIZE >= 100);
+  });
+
+  it('missing viewer canonical_v1 keeps included uids and marks pairs unavailable', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/ok/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['ok']),
+      { db },
+    );
+    assert.deepStrictEqual(res.candidate_uids, ['ok']);
+    assert.deepStrictEqual(res.pairs, [
+      publicUnavailable('viewer_canonical_profile_missing'),
+    ]);
+  });
+
+  it('keeps identical candidate_uids and pair outputs across blocked, missing, and scored', async () => {
+    const db = new MemoryFirestore();
+    const viewer = fill(DIMENSION_IDS, 0.45);
+    const near = fill(DIMENSION_IDS, 0.45);
+    const far = fill(DIMENSION_IDS, 0.95);
+    await db.doc('users/viewer/profiles/canonical_v1').set(canonicalDoc(viewer));
+    await db.doc('users/near/profiles/canonical_v1').set(canonicalDoc(near));
+    await db.doc('users/far/profiles/canonical_v1').set(canonicalDoc(far));
+    await db.doc('users/blocked_me/profiles/canonical_v1').set(
+      canonicalDoc(fill(DIMENSION_IDS, 0.1)),
+    );
+    await db.doc('users/blocked_me/blocks/viewer').set({
+      blocked_uid: 'viewer',
+      reason: 'secret-block-reason',
+      owner_uid: 'should-not-leak',
+    });
+
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['blocked_me', 'missing', 'near', 'far']),
+      { db },
+    );
+
+    const viewerScores = measuredScoresFromCanonicalProfile(canonicalDoc(viewer));
+    const nearPair = toPublicPair(
+      compareMeasuredPresence(
+        viewerScores,
+        measuredScoresFromCanonicalProfile(canonicalDoc(near)),
+      ),
+    );
+    const farPair = toPublicPair(
+      compareMeasuredPresence(
+        viewerScores,
+        measuredScoresFromCanonicalProfile(canonicalDoc(far)),
+      ),
+    );
+
+    assert.deepStrictEqual(res.candidate_uids, ['missing', 'near', 'far']);
+    assert.deepStrictEqual(res.pairs, [
+      publicUnavailable('candidate_canonical_profile_missing'),
+      nearPair,
+      farPair,
+    ]);
+    assert.strictEqual(res.pairs[1].structural_distance, 0.0);
+    assert.ok(res.pairs[2].structural_distance > 0);
+
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('blocked_me'), false);
+    assert.strictEqual(blob.includes('secret-block-reason'), false);
+    assert.strictEqual(blob.includes('measured_dimensions'), false);
+    assert.strictEqual(blob.includes('owner_uid'), false);
+    assert.strictEqual(blob.includes('should-not-leak'), false);
+    assert.strictEqual(blob.includes('sess-secret'), false);
+    for (const pair of res.pairs) {
+      for (const key of Object.keys(pair)) {
+        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
+      }
+    }
+  });
+
+  it('MemoryFirestore getAll returns snapshots in request order', async () => {
+    const db = new MemoryFirestore();
+    await db.doc('users/a/profiles/canonical_v1').set({ n: 1 });
+    await db.doc('users/c/blocks/viewer').set({ n: 3 });
+    const snaps = await db.getAll(
+      db.doc('users/a/profiles/canonical_v1'),
+      db.doc('users/b/profiles/canonical_v1'),
+      db.doc('users/c/blocks/viewer'),
+    );
+    assert.strictEqual(snaps.length, 3);
+    assert.strictEqual(snaps[0].exists, true);
+    assert.strictEqual(snaps[0].data().n, 1);
+    assert.strictEqual(snaps[1].exists, false);
+    assert.strictEqual(snaps[2].exists, true);
+    assert.strictEqual(snaps[2].data().n, 3);
   });
 });

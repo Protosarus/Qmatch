@@ -230,6 +230,20 @@ class MemoryFirestore {
   doc(path) {
     return new MemoryDocRef(this, path);
   }
+  /**
+   * Admin SDK getAll: snapshots in request order.
+   * @param {...MemoryDocRef} documentRefs
+   */
+  async getAll(...documentRefs) {
+    return Promise.all(
+      documentRefs.map((ref) => {
+        if (!ref || typeof ref.get !== 'function') {
+          throw new Error('getAll requires document refs');
+        }
+        return ref.get();
+      }),
+    );
+  }
   collection(collectionId) {
     return new MemoryCollection(this, collectionId);
   }

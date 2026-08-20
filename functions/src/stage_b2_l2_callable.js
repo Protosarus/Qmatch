@@ -122,8 +122,30 @@ function emitL2Timings(log, timings) {
 }
 
 /**
+ * Admin BatchGetDocuments is one RPC per chunk. Chunks run in parallel so
+ * 1+N+N docs stay one read round. Conservative 100-doc slices.
+ */
+const GET_ALL_CHUNK_SIZE = 100;
+
+async function getAllSnaps(db, refs) {
+  if (refs.length === 0) return [];
+  if (typeof db.getAll === 'function') {
+    if (refs.length <= GET_ALL_CHUNK_SIZE) {
+      return db.getAll(...refs);
+    }
+    const groups = [];
+    for (let i = 0; i < refs.length; i += GET_ALL_CHUNK_SIZE) {
+      groups.push(db.getAll(...refs.slice(i, i + GET_ALL_CHUNK_SIZE)));
+    }
+    const parts = await Promise.all(groups);
+    return parts.flat();
+  }
+  return Promise.all(refs.map((ref) => ref.get()));
+}
+
+/**
  * @param {import('firebase-functions/v2/https').CallableRequest} request
- * @param {{ db?: { doc: Function }, log?: Function }} [deps]
+ * @param {{ db?: { doc: Function, getAll?: Function }, log?: Function }} [deps]
  */
 async function handleCompareStageB2Structural(request, deps = {}) {
   const started = nowMs();
@@ -160,29 +182,33 @@ async function handleCompareStageB2Structural(request, deps = {}) {
     timings.candidate_count = candidateUids.length;
 
     const db = resolveDb(deps);
-    const tViewerGet = nowMs();
-    const viewerSnap = await db.doc(canonicalPath(viewerUid)).get();
-    timings.viewer_canonical_get_ms = elapsedMs(tViewerGet);
+    // Viewer canonical, candidate canonicals, and reverse-block exists-checks
+    // have no data dependency. One BatchGet preserves the same snapshots.
+    const tBatchGet = nowMs();
+    const refs = [
+      db.doc(canonicalPath(viewerUid)),
+      ...candidateUids.map((uid) => db.doc(canonicalPath(uid))),
+      ...candidateUids.map((uid) =>
+        db.doc(reverseBlockPath(uid, viewerUid)),
+      ),
+    ];
+    const snaps = await getAllSnaps(db, refs);
+    const batchMs = elapsedMs(tBatchGet);
+    // Existing keys kept. Do not sum the three GET fields — IO is one round.
+    timings.viewer_canonical_get_ms = 0;
+    timings.candidate_canonical_gets_ms = batchMs;
+    timings.reverse_block_gets_ms = 0;
+
+    const n = candidateUids.length;
+    const viewerSnap = snaps[0];
+    const candidateSnaps = snaps.slice(1, 1 + n);
+    const reverseBlockSnaps = snaps.slice(1 + n, 1 + n + n);
 
     const tViewerScores = nowMs();
     const viewerScores = measuredScoresFromCanonicalProfile(
-      viewerSnap.exists ? viewerSnap.data() : null,
+      viewerSnap && viewerSnap.exists ? viewerSnap.data() : null,
     );
     let scoringMs = elapsedMs(tViewerScores);
-
-    const tCandidateGets = nowMs();
-    const candidateSnaps = await Promise.all(
-      candidateUids.map((uid) => db.doc(canonicalPath(uid)).get()),
-    );
-    timings.candidate_canonical_gets_ms = elapsedMs(tCandidateGets);
-
-    const tReverseBlockGets = nowMs();
-    const reverseBlockSnaps = await Promise.all(
-      candidateUids.map((uid) =>
-        db.doc(reverseBlockPath(uid, viewerUid)).get(),
-      ),
-    );
-    timings.reverse_block_gets_ms = elapsedMs(tReverseBlockGets);
 
     const includedUids = [];
     const pairs = [];
@@ -236,6 +262,7 @@ module.exports = {
   SCORING_VERSION,
   L2_TIMING_LOG_PREFIX,
   L2_TIMING_KEYS,
+  GET_ALL_CHUNK_SIZE,
   handleCompareStageB2Structural,
   sanitizePair,
   toPublicPair,
