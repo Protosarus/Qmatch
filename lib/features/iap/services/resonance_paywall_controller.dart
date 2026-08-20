@@ -134,15 +134,21 @@ class ResonancePaywallController extends ChangeNotifier {
       notifyListeners();
       return false;
     } catch (e) {
+      purchasing = false;
+      errorMessage = null;
+      try {
+        entitlement = await _iap.fetchEntitlement();
+      } catch (_) {}
+      // Trusted snapshot only — never infer access from StoreKit error.
+      if (entitlement.resonanceAccess) {
+        purchaseError = null;
+        notifyListeners();
+        return true;
+      }
       purchaseError = classifyPurchaseException(
         e,
         productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
       );
-      errorMessage = null;
-      purchasing = false;
-      try {
-        entitlement = await _iap.fetchEntitlement();
-      } catch (_) {}
       notifyListeners();
       return false;
     }

@@ -986,6 +986,18 @@ abstract class AppLocalizations {
   /// **'There was a problem confirming the payment. If you already purchased, you can try Restore Purchases.'**
   String get iapVerificationFailedBody;
 
+  /// No description provided for @iapAlreadyOwnedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have this purchase'**
+  String get iapAlreadyOwnedTitle;
+
+  /// No description provided for @iapAlreadyOwnedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Restore Purchases to refresh your access.'**
+  String get iapAlreadyOwnedBody;
+
   /// No description provided for @discoverGestureOnboardingSwipeRight.
   ///
   /// In en, this message translates to:

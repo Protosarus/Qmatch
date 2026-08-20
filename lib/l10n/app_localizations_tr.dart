@@ -507,6 +507,13 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ödeme doğrulanırken bir sorun oluştu. Satın alımın varsa yeniden yüklemeyi deneyebilirsin.';
 
   @override
+  String get iapAlreadyOwnedTitle => 'Bu satın alım zaten mevcut';
+
+  @override
+  String get iapAlreadyOwnedBody =>
+      'Erişimini yenilemek için Satın Alımları Geri Yükle\'yi kullanabilirsin.';
+
+  @override
   String get discoverGestureOnboardingSwipeRight =>
       'Beğenmek için sağa kaydır.';
 

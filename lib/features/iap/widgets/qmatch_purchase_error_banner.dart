@@ -20,6 +20,8 @@ String purchaseErrorTitle(
       return l10n.resonancePurchaseFailedTitle;
     case QmatchPurchaseErrorKind.verification:
       return l10n.iapVerificationFailedTitle;
+    case QmatchPurchaseErrorKind.alreadyOwned:
+      return l10n.iapAlreadyOwnedTitle;
   }
 }
 
@@ -34,6 +36,8 @@ String purchaseErrorBody(
       return l10n.resonancePurchaseFailedBody;
     case QmatchPurchaseErrorKind.verification:
       return l10n.iapVerificationFailedBody;
+    case QmatchPurchaseErrorKind.alreadyOwned:
+      return l10n.iapAlreadyOwnedBody;
   }
 }
 
@@ -43,22 +47,31 @@ class QmatchPurchaseErrorBanner extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
+    this.onRestore,
+    this.restoreLabel,
   });
 
   factory QmatchPurchaseErrorBanner.fromKind({
     Key? key,
     required AppLocalizations l10n,
     required QmatchPurchaseErrorKind kind,
+    VoidCallback? onRestore,
   }) {
     return QmatchPurchaseErrorBanner(
       key: key,
       title: purchaseErrorTitle(l10n, kind),
       body: purchaseErrorBody(l10n, kind),
+      onRestore: kind == QmatchPurchaseErrorKind.alreadyOwned ? onRestore : null,
+      restoreLabel: kind == QmatchPurchaseErrorKind.alreadyOwned
+          ? l10n.resonancePaywallRestore
+          : null,
     );
   }
 
   final String title;
   final String body;
+  final VoidCallback? onRestore;
+  final String? restoreLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -119,6 +132,32 @@ class QmatchPurchaseErrorBanner extends StatelessWidget {
                         height: 1.45,
                       ),
                     ),
+                    if (onRestore != null &&
+                        restoreLabel != null &&
+                        restoreLabel!.trim().isNotEmpty) ...[
+                      const SizedBox(height: AppSpacing.xs),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton(
+                          key: const Key('qmatch-purchase-error-restore'),
+                          onPressed: onRestore,
+                          style: TextButton.styleFrom(
+                            foregroundColor: _lilac,
+                            padding: EdgeInsets.zero,
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: Text(
+                            restoreLabel!,
+                            style: GoogleFonts.inter(
+                              color: _lilac,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),

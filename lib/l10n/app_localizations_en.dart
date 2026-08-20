@@ -510,6 +510,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'There was a problem confirming the payment. If you already purchased, you can try Restore Purchases.';
 
   @override
+  String get iapAlreadyOwnedTitle => 'You already have this purchase';
+
+  @override
+  String get iapAlreadyOwnedBody =>
+      'Use Restore Purchases to refresh your access.';
+
+  @override
   String get discoverGestureOnboardingSwipeRight => 'Swipe right to like.';
 
   @override

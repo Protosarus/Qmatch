@@ -246,6 +246,8 @@
   "resonancePurchaseFailedBody": "The purchase didn't complete. Please try again in a moment.",
   "iapVerificationFailedTitle": "Couldn't complete this",
   "iapVerificationFailedBody": "There was a problem confirming the payment. If you already purchased, you can try Restore Purchases.",
+  "iapAlreadyOwnedTitle": "You already have this purchase",
+  "iapAlreadyOwnedBody": "Use Restore Purchases to refresh your access.",
   "discoverGestureOnboardingSwipeRight": "Swipe right to like.",
   "discoverGestureOnboardingSwipeLeft": "Swipe left to pass.",
   "discoverGestureOnboardingGotIt": "Got it",

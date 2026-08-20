@@ -63,6 +63,16 @@ void main() {
       en.iapVerificationFailedBody,
       'There was a problem confirming the payment. If you already purchased, you can try Restore Purchases.',
     );
+    expect(tr.iapAlreadyOwnedTitle, 'Bu satın alım zaten mevcut');
+    expect(
+      tr.iapAlreadyOwnedBody,
+      "Erişimini yenilemek için Satın Alımları Geri Yükle'yi kullanabilirsin.",
+    );
+    expect(en.iapAlreadyOwnedTitle, 'You already have this purchase');
+    expect(
+      en.iapAlreadyOwnedBody,
+      'Use Restore Purchases to refresh your access.',
+    );
   });
 
   test('cancel is classified as silent', () {
@@ -72,6 +82,80 @@ void main() {
         productFailure: QmatchPurchaseErrorKind.superResonanceConsumable,
       ),
       isNull,
+    );
+  });
+
+  test('already-owned StoreKit signals classify as alreadyOwned', () {
+    expect(
+      classifyPurchaseException(
+        IapPurchaseFailedException(
+          'This In-App Purchase has already been bought.',
+        ),
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      ),
+      QmatchPurchaseErrorKind.alreadyOwned,
+    );
+    expect(
+      classifyPurchaseException(
+        IapPurchaseFailedException(
+          'StoreKit purchase error',
+          storeCode: 'itemAlreadyOwned',
+        ),
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      ),
+      QmatchPurchaseErrorKind.alreadyOwned,
+    );
+    expect(
+      looksLikeAlreadyOwnedStoreError(
+        IapPurchaseFailedException(
+          'SKErrorDomain',
+          storeCode: 'purchase_error',
+          storeDetails: '{NSLocalizedDescription: You are currently subscribed}',
+        ),
+      ),
+      isTrue,
+    );
+  });
+
+  test('generic StoreKit error is not classified as already-owned', () {
+    expect(
+      classifyPurchaseException(
+        IapPurchaseFailedException('StoreKit purchase error'),
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      ),
+      QmatchPurchaseErrorKind.resonanceSubscription,
+    );
+    expect(
+      classifyPurchaseException(
+        IapPurchaseFailedException(
+          'SKErrorDomain',
+          storeCode: 'purchase_error',
+        ),
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      ),
+      QmatchPurchaseErrorKind.resonanceSubscription,
+    );
+    expect(
+      classifyPurchaseException(
+        IapPurchaseFailedException('Purchase is still pending.'),
+        productFailure: QmatchPurchaseErrorKind.resonanceSubscription,
+      ),
+      QmatchPurchaseErrorKind.resonanceSubscription,
+    );
+    expect(
+      classifyPurchaseException(
+        IapPurchaseFailedException(
+          'already been bought',
+        ),
+        productFailure: QmatchPurchaseErrorKind.superResonanceConsumable,
+      ),
+      QmatchPurchaseErrorKind.superResonanceConsumable,
+    );
+    expect(
+      looksLikeAlreadyOwnedStoreError(
+        IapPurchaseFailedException('StoreKit purchase error'),
+      ),
+      isFalse,
     );
   });
 
@@ -157,7 +241,12 @@ void main() {
     expect(find.text(en.resonancePurchaseFailedTitle), findsOneWidget);
     expect(find.text(en.resonancePurchaseFailedBody), findsOneWidget);
     expect(find.text(en.superResonancePurchaseFailedTitle), findsNothing);
+    expect(find.text(en.iapAlreadyOwnedTitle), findsNothing);
     expect(find.text('StoreKit purchase error'), findsNothing);
+    expect(
+      find.byKey(const Key('qmatch-purchase-error-restore')),
+      findsNothing,
+    );
   });
 
   testWidgets('Resonance verification failure uses verification copy',
@@ -200,6 +289,111 @@ void main() {
       findsNothing,
     );
     expect(find.text(en.resonancePurchaseFailedTitle), findsNothing);
+  });
+
+  testWidgets(
+      'failed StoreKit with trusted access pops paywall without error banner',
+      (tester) async {
+    bool? popped;
+    final iap = _FakePaywallIap()
+      ..products = [
+        ProductDetails(
+          id: QmatchIapProductIds.resonanceAnnual,
+          title: 'Annual',
+          description: 'Annual',
+          price: '\$39.99',
+          rawPrice: 39.99,
+          currencyCode: 'USD',
+        ),
+      ]
+      ..purchaseError = IapPurchaseFailedException('StoreKit purchase error')
+      ..entitlementAfterPurchase = const EntitlementSnapshot(
+        uid: 'u1',
+        tier: 'resonance',
+        subscriptionState: 'active',
+        resonanceAccess: true,
+        superResonanceBalance: 0,
+        boostBalance: 0,
+      );
+    final controller = ResonancePaywallController(iap: iap);
+    await tester.binding.setSurfaceSize(const Size(390, 1600));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Builder(
+          builder: (context) {
+            return TextButton(
+              key: const Key('qmatch-open-paywall'),
+              onPressed: () async {
+                popped = await Navigator.of(context).push<bool>(
+                  MaterialPageRoute(
+                    builder: (_) => MediaQuery(
+                      data: const MediaQueryData(size: Size(390, 1600)),
+                      child: ResonancePaywallScreen(
+                        controller: controller,
+                        purchasesEnabledOverride: true,
+                        animateBackground: false,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('open'),
+            );
+          },
+        ),
+      ),
+    );
+    await tester.tap(find.byKey(const Key('qmatch-open-paywall')));
+    await tester.pump();
+    await controller.load();
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(
+      find.byKey(const Key('qmatch-resonance-paywall-purchase')),
+    );
+    await tester
+        .tap(find.byKey(const Key('qmatch-resonance-paywall-purchase')));
+    await tester.pumpAndSettle();
+
+    expect(popped, isTrue);
+    expect(
+      find.byKey(const Key('qmatch-resonance-paywall-error')),
+      findsNothing,
+    );
+    expect(find.text(en.resonancePurchaseFailedTitle), findsNothing);
+    expect(find.text(en.iapAlreadyOwnedTitle), findsNothing);
+  });
+
+  testWidgets('already-owned classified error shows restore copy and action',
+      (tester) async {
+    await _pumpPaywall(
+      tester,
+      purchaseError: IapPurchaseFailedException(
+        'This In-App Purchase has already been bought.',
+      ),
+    );
+    await tester.ensureVisible(
+      find.byKey(const Key('qmatch-resonance-paywall-purchase')),
+    );
+    await tester
+        .tap(find.byKey(const Key('qmatch-resonance-paywall-purchase')));
+    await tester.pumpAndSettle();
+
+    expect(find.text(en.iapAlreadyOwnedTitle), findsOneWidget);
+    expect(find.text(en.iapAlreadyOwnedBody), findsOneWidget);
+    expect(find.text(en.resonancePurchaseFailedTitle), findsNothing);
+    expect(
+      find.byKey(const Key('qmatch-purchase-error-restore')),
+      findsOneWidget,
+    );
+    expect(find.text('Restore Purchases'), findsWidgets);
+
+    await tester.tap(find.byKey(const Key('qmatch-purchase-error-restore')));
+    await tester.pumpAndSettle();
+    expect(_lastPaywallIap!.restoreCalls, 1);
   });
 
   testWidgets('purchase error does not survive navigation to Alignment Signals',
@@ -335,6 +529,8 @@ Future<void> _pumpSrSheet(
   await tester.pumpAndSettle();
 }
 
+_FakePaywallIap? _lastPaywallIap;
+
 Future<void> _pumpPaywall(
   WidgetTester tester, {
   required Object purchaseError,
@@ -351,6 +547,7 @@ Future<void> _pumpPaywall(
       ),
     ]
     ..purchaseError = purchaseError;
+  _lastPaywallIap = iap;
   final controller = ResonancePaywallController(iap: iap);
   await tester.binding.setSurfaceSize(const Size(390, 1600));
   addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -375,17 +572,26 @@ Future<void> _pumpPaywall(
 
 class _FakePaywallIap implements ResonancePaywallIapPort {
   EntitlementSnapshot entitlement = EntitlementSnapshot.free;
+  EntitlementSnapshot? entitlementAfterPurchase;
   List<ProductDetails> products = [];
   Object? purchaseError;
+  final purchasedIds = <String>[];
+  int restoreCalls = 0;
 
   @override
-  Future<EntitlementSnapshot> fetchEntitlement() async => entitlement;
+  Future<EntitlementSnapshot> fetchEntitlement() async {
+    if (purchasedIds.isNotEmpty && entitlementAfterPurchase != null) {
+      return entitlementAfterPurchase!;
+    }
+    return entitlement;
+  }
 
   @override
   Future<List<ProductDetails>> loadProducts() async => products;
 
   @override
   Future<IapClientResult> purchase(String productId) async {
+    purchasedIds.add(productId);
     final err = purchaseError;
     if (err != null) throw err;
     return IapClientResult(
@@ -397,6 +603,7 @@ class _FakePaywallIap implements ResonancePaywallIapPort {
 
   @override
   Future<IapClientResult> restorePurchases() async {
+    restoreCalls += 1;
     return IapClientResult(
       backendResponse: const {},
       entitlement: entitlement,

@@ -9,6 +9,7 @@ import 'package:qmatch/features/discover/domain/discover_passport_snapshot.dart'
 import 'package:qmatch/features/discover/domain/passport_destination_catalog.dart';
 import 'package:qmatch/features/discover/screens/passport_destination_picker_screen.dart';
 import 'package:qmatch/features/discover/services/discover_passport_client.dart';
+import 'package:qmatch/core/widgets/cosmic/q_cosmic_button.dart';
 import 'package:qmatch/features/discover/widgets/qmatch_discover_empty_state.dart';
 import 'package:qmatch/features/discover/widgets/qmatch_discover_header.dart';
 import 'package:qmatch/features/discover/widgets/qmatch_discover_passport_chip.dart';
@@ -378,6 +379,10 @@ void main() {
           animateBackground: false,
         ),
       );
+      final worldwide = tester.widget<QCosmicButton>(
+        find.byKey(const Key('qmatch-passport-use-worldwide')),
+      );
+      expect(worldwide.variant, QCosmicButtonVariant.glass);
       await tester.tap(find.byKey(const Key('qmatch-passport-use-worldwide')));
       await tester.pumpAndSettle();
       expect(disabled, 1);
@@ -406,6 +411,16 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('New profiles are still arriving here'), findsOneWidget);
+      final retry = tester.widget<QCosmicButton>(
+        find.byKey(const Key('qmatch-discover-empty-retry')),
+      );
+      final secondary = tester.widget<QCosmicButton>(
+        find.byKey(const Key('qmatch-discover-empty-secondary')),
+      );
+      expect(retry.variant, QCosmicButtonVariant.glass);
+      expect(secondary.variant, QCosmicButtonVariant.glass);
+      expect(secondary.variant, isNot(QCosmicButtonVariant.ghost));
+      expect(secondary.variant, isNot(QCosmicButtonVariant.gold));
       await tester.tap(find.byKey(const Key('qmatch-discover-empty-retry')));
       await tester.tap(find.byKey(const Key('qmatch-discover-empty-secondary')));
       expect(change, 1);
@@ -489,6 +504,54 @@ void main() {
       expect(
         PassportDestinationCatalog.friendlyCityFromSlug('new-york'),
         'New York',
+      );
+    });
+
+    test('Worldwide return CTAs use glass, not gold/ghost', () {
+      final empty = read(
+        'lib/features/discover/widgets/qmatch_discover_empty_state.dart',
+      );
+      final emptySecondary = empty.substring(
+        empty.indexOf("key: const Key('qmatch-discover-empty-secondary')"),
+        empty.indexOf(
+          "key: const Key('qmatch-discover-empty-secondary')",
+        ) +
+            280,
+      );
+      expect(emptySecondary.contains('QCosmicButtonVariant.glass'), isTrue);
+      expect(emptySecondary.contains('QCosmicButtonVariant.ghost'), isFalse);
+      expect(emptySecondary.contains('QCosmicButtonVariant.gold'), isFalse);
+      expect(emptySecondary.contains('AppColors.softGold'), isFalse);
+
+      final picker = read(
+        'lib/features/discover/screens/passport_destination_picker_screen.dart',
+      );
+      final worldwide = picker.substring(
+        picker.indexOf("key: const Key('qmatch-passport-use-worldwide')"),
+        picker.indexOf(
+              "key: const Key('qmatch-passport-use-worldwide')",
+            ) +
+            260,
+      );
+      expect(worldwide.contains('QCosmicButtonVariant.glass'), isTrue);
+      expect(worldwide.contains('QCosmicButtonVariant.ghost'), isFalse);
+      expect(worldwide.contains('QCosmicButtonVariant.gold'), isFalse);
+      expect(worldwide.contains('AppColors.softGold'), isFalse);
+
+      final discover = read(
+        'lib/features/discover/screens/discover_screen.dart',
+      );
+      expect(discover.contains('onSecondary: passportEmpty ? _turnPassportOff'), isTrue);
+      expect(discover.contains('_passportClient.disable()'), isTrue);
+
+      final pickerAction = read(
+        'lib/features/discover/screens/passport_destination_picker_screen.dart',
+      );
+      expect(pickerAction.contains('await widget.client.disable();'), isTrue);
+      expect(
+        read('lib/features/discover/services/discover_passport_client.dart')
+            .contains("disableCallableName = 'disableDiscoverPassport'"),
+        isTrue,
       );
     });
 

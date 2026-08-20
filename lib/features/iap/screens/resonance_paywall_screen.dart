@@ -358,6 +358,7 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                               ),
                               l10n: l10n,
                               kind: c.purchaseError!,
+                              onRestore: c.busy ? null : _restore,
                             ),
                           ] else if (c.errorMessage != null) ...[
                             const SizedBox(height: AppSpacing.md),

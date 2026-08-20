@@ -312,8 +312,11 @@ class IosIapClient {
       throw IapPurchaseCanceledException();
     }
     if (purchase.status == PurchaseStatus.error) {
+      final storeError = purchase.error;
       throw IapPurchaseFailedException(
-        purchase.error?.message ?? 'StoreKit purchase error',
+        storeError?.message ?? 'StoreKit purchase error',
+        storeCode: storeError?.code,
+        storeDetails: storeError?.details?.toString(),
       );
     }
     if (purchase.status == PurchaseStatus.pending) {

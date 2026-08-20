@@ -239,6 +239,8 @@
   "resonancePurchaseFailedBody": "Satın alma işlemi tamamlanamadı. Lütfen biraz sonra yeniden dene.",
   "iapVerificationFailedTitle": "İşlem tamamlanamadı",
   "iapVerificationFailedBody": "Ödeme doğrulanırken bir sorun oluştu. Satın alımın varsa yeniden yüklemeyi deneyebilirsin.",
+  "iapAlreadyOwnedTitle": "Bu satın alım zaten mevcut",
+  "iapAlreadyOwnedBody": "Erişimini yenilemek için Satın Alımları Geri Yükle'yi kullanabilirsin.",
   "discoverGestureOnboardingSwipeRight": "Beğenmek için sağa kaydır.",
   "discoverGestureOnboardingSwipeLeft": "Geçmek için sola kaydır.",
   "discoverGestureOnboardingGotIt": "Anladım",

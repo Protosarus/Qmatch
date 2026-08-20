@@ -44,8 +44,18 @@ class IapPurchaseCanceledException extends IapException {
 }
 
 class IapPurchaseFailedException extends IapException {
-  IapPurchaseFailedException(String detail)
-      : super('purchase_failed', detail);
+  IapPurchaseFailedException(
+    String detail, {
+    this.storeCode,
+    this.storeDetails,
+  }) : super('purchase_failed', detail);
+
+  /// StoreKit / Play Billing [IAPError.code] when the failure came from a
+  /// purchase update. Never used to grant entitlement.
+  final String? storeCode;
+
+  /// Stringified [IAPError.details] (e.g. SKError userInfo). UX only.
+  final String? storeDetails;
 }
 
 /// Verification / restore failed — do not grant access locally.

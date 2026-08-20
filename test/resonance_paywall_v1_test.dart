@@ -139,6 +139,76 @@ void main() {
       expect(c.errorMessage, isNull);
     });
 
+    test('failed StoreKit with trusted resonance access treats as success',
+        () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.purchaseError = IapPurchaseFailedException('StoreKit purchase error');
+      iap.entitlementAfterPurchase = const EntitlementSnapshot(
+        uid: 'u1',
+        tier: 'resonance',
+        subscriptionState: 'active',
+        resonanceAccess: true,
+        superResonanceBalance: 0,
+        boostBalance: 0,
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      expect(c.hasResonanceAccess, isFalse);
+      final unlocked = await c.purchaseSelected();
+
+      expect(iap.purchasedIds, [QmatchIapProductIds.resonanceAnnual]);
+      expect(unlocked, isTrue);
+      expect(c.hasResonanceAccess, isTrue);
+      expect(c.purchaseError, isNull);
+      expect(c.errorMessage, isNull);
+    });
+
+    test('failed StoreKit keeps failure when trusted access stays false',
+        () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceMonthly, '\$4.99'),
+      ];
+      iap.purchaseError = IapPurchaseFailedException('StoreKit purchase error');
+      iap.entitlementAfterPurchase = const EntitlementSnapshot(
+        uid: 'u1',
+        tier: 'free',
+        subscriptionState: 'none',
+        resonanceAccess: false,
+        superResonanceBalance: 0,
+        boostBalance: 0,
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      c.selectProduct(QmatchIapProductIds.resonanceMonthly);
+      final unlocked = await c.purchaseSelected();
+
+      expect(iap.purchasedIds, [QmatchIapProductIds.resonanceMonthly]);
+      expect(unlocked, isFalse);
+      expect(c.hasResonanceAccess, isFalse);
+      expect(c.purchaseError, QmatchPurchaseErrorKind.resonanceSubscription);
+    });
+
+    test('already-owned StoreKit error uses restore-oriented kind', () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.purchaseError = IapPurchaseFailedException(
+        'This In-App Purchase has already been bought. It will be restored for free.',
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      final unlocked = await c.purchaseSelected();
+
+      expect(unlocked, isFalse);
+      expect(c.hasResonanceAccess, isFalse);
+      expect(c.purchaseError, QmatchPurchaseErrorKind.alreadyOwned);
+    });
+
     test('restore refreshes entitlement from trusted backend', () async {
       iap.restoreResult = IapClientResult(
         backendResponse: const {
@@ -163,6 +233,39 @@ void main() {
       expect(iap.restoreCalls, 1);
       expect(unlocked, isTrue);
       expect(c.hasResonanceAccess, isTrue);
+    });
+
+    test('restore does not switch the selected Resonance plan', () async {
+      iap.products = [
+        _product(QmatchIapProductIds.resonanceMonthly, '\$4.99'),
+        _product(QmatchIapProductIds.resonanceAnnual, '\$39.99'),
+      ];
+      iap.restoreResult = IapClientResult(
+        backendResponse: const {
+          'ok': true,
+          'trusted': true,
+          'verified': true,
+        },
+        entitlement: const EntitlementSnapshot(
+          uid: 'u1',
+          tier: 'resonance',
+          subscriptionState: 'active',
+          resonanceAccess: true,
+          superResonanceBalance: 0,
+          boostBalance: 0,
+          productId: QmatchIapProductIds.resonanceMonthly,
+        ),
+      );
+
+      final c = ResonancePaywallController(iap: iap);
+      await c.load();
+      expect(c.selectedProductId, QmatchIapProductIds.resonanceAnnual);
+      c.selectProduct(QmatchIapProductIds.resonanceMonthly);
+      final unlocked = await c.restore();
+
+      expect(unlocked, isTrue);
+      expect(c.selectedProductId, QmatchIapProductIds.resonanceMonthly);
+      expect(iap.restoreCalls, 1);
     });
 
     test('Android / purchasesEnabled false blocks purchase and restore',
@@ -584,6 +687,28 @@ void main() {
       expect(snippet.contains('0xFFDAC8ED'), isTrue);
       expect(snippet.contains('softGold'), isFalse);
     });
+
+    test('monthly and annual StoreKit ids stay frozen', () {
+      expect(
+        QmatchIapProductIds.resonanceMonthly,
+        'qmatch.resonance.monthly',
+      );
+      expect(
+        QmatchIapProductIds.resonanceAnnual,
+        'qmatch.resonance.annual',
+      );
+      final controller = File(
+        'lib/features/iap/services/resonance_paywall_controller.dart',
+      ).readAsStringSync();
+      expect(
+        controller.contains('QmatchIapProductIds.resonanceMonthly'),
+        isTrue,
+      );
+      expect(
+        controller.contains('QmatchIapProductIds.resonanceAnnual'),
+        isTrue,
+      );
+    });
   });
 }
 
@@ -643,10 +768,17 @@ class FakePaywallIap implements ResonancePaywallIapPort {
   final purchasedIds = <String>[];
   int restoreCalls = 0;
 
+  /// Trusted snapshot returned by [fetchEntitlement] after a purchase attempt.
+  /// Load still uses [entitlement] so the paywall opens in the locked state.
+  EntitlementSnapshot? entitlementAfterPurchase;
+
   @override
   Future<EntitlementSnapshot> fetchEntitlement() {
     final hold = entitlementHold;
     if (hold != null) return hold.future;
+    if (purchasedIds.isNotEmpty && entitlementAfterPurchase != null) {
+      return Future.value(entitlementAfterPurchase!);
+    }
     return Future.value(entitlement);
   }
 

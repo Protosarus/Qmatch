@@ -123,7 +123,7 @@ class QMatchDiscoverEmptyState extends StatelessWidget {
                       key: const Key('qmatch-discover-empty-secondary'),
                       label: secondaryLabel!,
                       onPressed: onSecondary,
-                      variant: QCosmicButtonVariant.ghost,
+                      variant: QCosmicButtonVariant.glass,
                       expanded: false,
                     ),
                   ],
