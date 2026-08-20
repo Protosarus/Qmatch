@@ -5,7 +5,7 @@ import '../../../core/debug/qmatch_perf.dart';
 import 'discover_stage_b2_dual_path_collector.dart';
 import 'discover_structural_l2_ranking.dart';
 
-/// Calls trusted Stage B2 L2 (`compareStageB2Structural`).
+/// Calls trusted Stage B2 L2.
 ///
 /// Supplies L1 Discover candidate UIDs only. Does not read peer canonical_v1
 /// or peer block docs. Production ranking (`structural_l2_v1`) uses the
@@ -14,9 +14,10 @@ import 'discover_structural_l2_ranking.dart';
 /// [DiscoverStageB2TrustedBatch.returnedUids]. Callable failure must
 /// fail-close — never show the unverified L1 batch.
 ///
-/// Release always uses [callableName] in [usRegion]. Debug/internal A/B may
-/// call [euCallableName] in [euRegion] via [useEuropeWest1],
-/// [debugUseEuropeWest1], or `--dart-define=QMATCH_DISCOVER_L2_EU=true`.
+/// Release/default uses [euCallableName] in [euRegion] via
+/// [FirebaseFunctions.instanceFor]. Debug/internal may roll back to
+/// [callableName] in [usRegion] via [useUsCentral1], [debugUseUsCentral1],
+/// or `--dart-define=QMATCH_DISCOVER_L2_US=true`.
 class DiscoverStageB2TrustedL2Client {
   DiscoverStageB2TrustedL2Client({
     FirebaseFunctions? functions,
@@ -24,35 +25,37 @@ class DiscoverStageB2TrustedL2Client {
       String name,
       Map<String, dynamic> data,
     )? call,
-    bool useEuropeWest1 = false,
+    bool useUsCentral1 = false,
   })  : _functions = functions,
         _call = call,
-        _useEuropeWest1 = useEuropeWest1;
+        _useUsCentral1 = useUsCentral1;
 
   final FirebaseFunctions? _functions;
   final Future<Map<String, dynamic>> Function(
     String name,
     Map<String, dynamic> data,
   )? _call;
-  final bool _useEuropeWest1;
+  final bool _useUsCentral1;
 
+  /// US rollback callable. Production does not use this by default.
   static const String callableName = 'compareStageB2Structural';
   static const String euCallableName = 'compareStageB2StructuralEu';
   static const String usRegion = 'us-central1';
   static const String euRegion = 'europe-west1';
 
-  static const bool _euFromDefine = bool.fromEnvironment(
-    'QMATCH_DISCOVER_L2_EU',
+  static const bool _usFromDefine = bool.fromEnvironment(
+    'QMATCH_DISCOVER_L2_US',
     defaultValue: false,
   );
 
-  /// Debug/internal runtime A/B. Ignored when [kDebugMode] is false.
-  static bool debugUseEuropeWest1 = false;
+  /// Debug/internal runtime rollback to us-central1. Ignored in release.
+  static bool debugUseUsCentral1 = false;
 
-  /// True only in debug when an explicit EU A/B switch is on.
+  /// Production/default is Europe. US only when an explicit debug rollback is on.
   bool get usesEuropeWest1 {
-    if (!kDebugMode) return false;
-    return _useEuropeWest1 || debugUseEuropeWest1 || _euFromDefine;
+    if (!kDebugMode) return true;
+    if (_useUsCentral1 || debugUseUsCentral1 || _usFromDefine) return false;
+    return true;
   }
 
   String get resolvedCallableName =>

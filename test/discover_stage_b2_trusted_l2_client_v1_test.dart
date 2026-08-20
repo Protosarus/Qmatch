@@ -4,17 +4,17 @@ import 'package:qmatch/features/discover/services/discover_stage_b2_trusted_l2_c
 
 void main() {
   setUp(() {
-    DiscoverStageB2TrustedL2Client.debugUseEuropeWest1 = false;
+    DiscoverStageB2TrustedL2Client.debugUseUsCentral1 = false;
   });
 
   tearDown(() {
-    DiscoverStageB2TrustedL2Client.debugUseEuropeWest1 = false;
+    DiscoverStageB2TrustedL2Client.debugUseUsCentral1 = false;
   });
 
   test('trusted L2 client maps L1 uids to public pair fields only', () async {
     final client = DiscoverStageB2TrustedL2Client(
       call: (name, data) async {
-        expect(name, DiscoverStageB2TrustedL2Client.callableName);
+        expect(name, DiscoverStageB2TrustedL2Client.euCallableName);
         expect(data['candidate_uids'], ['c1', 'c2']);
         return {
           'pairs': [
@@ -96,7 +96,7 @@ void main() {
     expect(batch.returnedUids, ['a', 'b']);
   });
 
-  test('default debug path stays on us-central1 compareStageB2Structural',
+  test('default/release client uses europe-west1 compareStageB2StructuralEu',
       () async {
     String? seenName;
     final client = DiscoverStageB2TrustedL2Client(
@@ -115,18 +115,19 @@ void main() {
         };
       },
     );
-    expect(client.usesEuropeWest1, isFalse);
-    expect(client.resolvedCallableName, 'compareStageB2Structural');
-    expect(client.resolvedRegion, 'us-central1');
+    expect(client.usesEuropeWest1, isTrue);
+    expect(client.resolvedCallableName, 'compareStageB2StructuralEu');
+    expect(client.resolvedRegion, 'europe-west1');
     await client.compareForL1Batch(candidateUids: ['c1']);
-    expect(seenName, 'compareStageB2Structural');
+    expect(seenName, 'compareStageB2StructuralEu');
+    expect(seenName, isNot('compareStageB2Structural'));
   });
 
-  test('debug switch can call compareStageB2StructuralEu in europe-west1',
+  test('debug rollback can call compareStageB2Structural in us-central1',
       () async {
     String? seenName;
     final client = DiscoverStageB2TrustedL2Client(
-      useEuropeWest1: true,
+      useUsCentral1: true,
       call: (name, data) async {
         seenName = name;
         expect(data['candidate_uids'], ['c1']);
@@ -143,19 +144,19 @@ void main() {
         };
       },
     );
-    expect(client.usesEuropeWest1, isTrue);
-    expect(client.resolvedCallableName, 'compareStageB2StructuralEu');
-    expect(client.resolvedRegion, 'europe-west1');
+    expect(client.usesEuropeWest1, isFalse);
+    expect(client.resolvedCallableName, 'compareStageB2Structural');
+    expect(client.resolvedRegion, 'us-central1');
     final batch = await client.compareForL1Batch(candidateUids: ['c1']);
-    expect(seenName, 'compareStageB2StructuralEu');
+    expect(seenName, 'compareStageB2Structural');
     expect(batch.callableFailed, isFalse);
     expect(batch.returnedUids, ['c1']);
     expect(batch.pairs[0].structuralDistance, 0.1);
   });
 
-  test('debugUseEuropeWest1 runtime flag selects EU without ranking changes',
+  test('debugUseUsCentral1 runtime flag rolls back to US without ranking changes',
       () async {
-    DiscoverStageB2TrustedL2Client.debugUseEuropeWest1 = true;
+    DiscoverStageB2TrustedL2Client.debugUseUsCentral1 = true;
     String? seenName;
     final client = DiscoverStageB2TrustedL2Client(
       call: (name, _) async {
@@ -173,9 +174,9 @@ void main() {
         };
       },
     );
-    expect(client.usesEuropeWest1, isTrue);
+    expect(client.usesEuropeWest1, isFalse);
     final batch = await client.compareForL1Batch(candidateUids: ['c1']);
-    expect(seenName, 'compareStageB2StructuralEu');
+    expect(seenName, 'compareStageB2Structural');
     expect(batch.pairs[0].structuralDistance, 0.42);
   });
 }

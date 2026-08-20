@@ -77,13 +77,14 @@ void main() {
       isTrue,
     );
     expect(service.contains('useEuropeWest1: true'), isFalse);
+    expect(service.contains('useUsCentral1: true'), isFalse);
     expect(service.contains('DiscoverStageB2TrustedL2Client('), isTrue);
 
     final screen = read('lib/features/discover/screens/discover_screen.dart');
     expect(screen.contains('DiscoverService()'), isTrue);
   });
 
-  test('release path uses us-central1; debug can select europe-west1', () {
+  test('release/default path uses europe-west1 compareStageB2StructuralEu', () {
     final src = read(
       'lib/features/discover/services/discover_stage_b2_trusted_l2_client.dart',
     );
@@ -94,19 +95,34 @@ void main() {
     );
     expect(src.contains("usRegion = 'us-central1'"), isTrue);
     expect(src.contains("euRegion = 'europe-west1'"), isTrue);
-    expect(src.contains('if (!kDebugMode) return false;'), isTrue);
+    expect(src.contains('if (!kDebugMode) return true;'), isTrue);
     expect(
       src.contains('FirebaseFunctions.instanceFor(region: region)'),
       isTrue,
     );
+    expect(src.contains('FirebaseFunctions.instance;'), isFalse);
     expect(src.contains("'discover.l2_us'"), isTrue);
     expect(src.contains("'discover.l2_eu'"), isTrue);
     expect(src.contains('candidate_uids'), isTrue);
     expect(RegExp(r'debugPrint\([^)]*uid').hasMatch(src), isFalse);
 
     final client = DiscoverStageB2TrustedL2Client();
-    expect(client.resolvedCallableName, 'compareStageB2Structural');
-    expect(client.resolvedRegion, 'us-central1');
-    expect(client.usesEuropeWest1, isFalse);
+    expect(client.resolvedCallableName, 'compareStageB2StructuralEu');
+    expect(client.resolvedRegion, 'europe-west1');
+    expect(client.usesEuropeWest1, isTrue);
+  });
+
+  test('debug rollback path to us-central1 still exists', () {
+    final src = read(
+      'lib/features/discover/services/discover_stage_b2_trusted_l2_client.dart',
+    );
+    expect(src.contains('debugUseUsCentral1'), isTrue);
+    expect(src.contains('QMATCH_DISCOVER_L2_US'), isTrue);
+    expect(src.contains('useUsCentral1'), isTrue);
+
+    final rollback = DiscoverStageB2TrustedL2Client(useUsCentral1: true);
+    expect(rollback.usesEuropeWest1, isFalse);
+    expect(rollback.resolvedCallableName, 'compareStageB2Structural');
+    expect(rollback.resolvedRegion, 'us-central1');
   });
 }
