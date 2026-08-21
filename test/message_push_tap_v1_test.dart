@@ -232,31 +232,6 @@ void main() {
     expect(result.messageId, 'msg-alt');
   });
 
-  test('logs payload key presence without values', () async {
-    final logs = <String>[];
-    final r = MessagePushTapRouter(log: logs.add);
-    await r.handle(
-      data: {
-        'type': 'message',
-        'thread_id': 'userA_userB',
-        'other_uid': 'userB',
-        'message_id': 'msg-secret',
-      },
-      currentUid: 'userA',
-      loadThread: (_) async => activeThread(),
-      blockExists: (_, __) async => false,
-    );
-    final payloadLogs =
-        logs.where((line) => line.startsWith('qmatch.push tap_payload'));
-    expect(payloadLogs, isNotEmpty);
-    final line = payloadLogs.first;
-    expect(line.contains('has_thread_id=true'), isTrue);
-    expect(line.contains('has_other_uid=true'), isTrue);
-    expect(line.contains('has_message_id=true'), isTrue);
-    expect(line.contains('msg-secret'), isFalse);
-    expect(line.contains('userA_userB'), isFalse);
-  });
-
   test('malformed payload falls back or is ignored', () async {
     final malformed = await handle({
       'type': 'message',

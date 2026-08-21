@@ -80,22 +80,12 @@ class MessagePushTapRouter {
     required Future<ChatThreadModel?> Function(String threadId) loadThread,
     required Future<bool> Function(String fromUid, String toUid) blockExists,
   }) async {
-    final keys = data.keys.toList()..sort();
     final type = (data['type'] ?? '').trim();
     final threadId = (data['thread_id'] ?? '').trim();
     final otherUid = (data['other_uid'] ?? '').trim();
     // Prefer chat_message_id: iOS/FCM can drop or collide on bare "message_id".
     final messageId =
         (data['chat_message_id'] ?? data['message_id'] ?? '').trim();
-    _emit(
-      'qmatch.push tap_payload'
-      ' keys=${keys.isEmpty ? '-' : keys.join(',')}'
-      ' type=${type.isEmpty ? '-' : type}'
-      ' has_thread_id=${threadId.isNotEmpty}'
-      ' has_other_uid=${otherUid.isNotEmpty}'
-      ' has_message_id=${(data['message_id'] ?? '').trim().isNotEmpty}'
-      ' has_chat_message_id=${(data['chat_message_id'] ?? '').trim().isNotEmpty}',
-    );
 
     if (type != 'message') {
       return MessagePushTapResult.ignored('type_not_message');
