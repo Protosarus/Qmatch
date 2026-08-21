@@ -95,6 +95,7 @@ describe('likeAndMaybeCreateMatch callable', () => {
     assert.strictEqual(match.data().match_id, 'userA_userB');
     assert.strictEqual(match.data().thread_id, 'userA_userB');
     assert.strictEqual(match.data().created_by, 'system');
+    assert.strictEqual(match.data().match_created_by_uid, 'userB');
     assert.deepStrictEqual(match.data().users, ['userA', 'userB']);
     assert.strictEqual(match.data().user_a, 'userA');
     assert.strictEqual(match.data().user_b, 'userB');
@@ -152,6 +153,8 @@ describe('likeAndMaybeCreateMatch callable', () => {
       users: ['userA', 'userB'],
       state: 'active',
       thread_id: 'userA_userB',
+      created_by: 'system',
+      match_created_by_uid: 'userB',
     });
     await db.doc('threads/userA_userB').set({
       thread_id: 'userA_userB',
@@ -164,6 +167,8 @@ describe('likeAndMaybeCreateMatch callable', () => {
       deps(db),
     );
     assert.strictEqual(res.outcome, OUTCOME.existingActiveMatch);
+    const match = await db.doc('matches/userA_userB').get();
+    assert.strictEqual(match.data().match_created_by_uid, 'userB');
     const thread = await db.doc('threads/userA_userB').get();
     assert.strictEqual(thread.data().last_message_preview, 'keep');
     const msg = await db.doc('threads/userA_userB/messages/system_match_v1').get();

@@ -334,3 +334,18 @@ exports.sendNewMessagePush = onDocumentCreated(
   (event) => newMessagePush.handleThreadMessageCreated(event),
 );
 exports.handleThreadMessageCreated = newMessagePush.handleThreadMessageCreated;
+const newMatchPush = require('./src/new_match_push');
+
+/**
+ * New-match push. Auth is the Firestore create itself.
+ * Notifies only the non-actor participant of a newly created active match.
+ * Does not change likeAndMaybeCreateMatch or match creation semantics.
+ */
+exports.sendNewMatchPush = onDocumentCreated(
+  {
+    document: 'matches/{matchId}',
+    region: 'europe-west1',
+  },
+  (event) => newMatchPush.handleMatchCreated(event),
+);
+exports.handleMatchCreated = newMatchPush.handleMatchCreated;

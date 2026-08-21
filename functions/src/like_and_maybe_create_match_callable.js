@@ -145,6 +145,7 @@ async function handleLikeAndMaybeCreateMatch(request, deps = {}) {
       users: [userA, userB],
       created_at: ts,
       created_by: 'system',
+      match_created_by_uid: viewerUid,
       thread_id: threadId,
       state: 'active',
       last_activity_at: ts,

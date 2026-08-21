@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../../features/matching/models/match_model.dart';
 import '../../features/messages/models/chat_thread_model.dart';
 import '../../features/messages/screens/chat_detail_screen.dart';
 import '../../features/messages/services/chat_service.dart';
@@ -22,6 +23,7 @@ class MessagePushTapHost extends StatefulWidget {
     this.router,
     this.currentUid,
     this.loadThread,
+    this.loadMatch,
     this.blockExists,
     this.actions,
     this.log,
@@ -35,6 +37,7 @@ class MessagePushTapHost extends StatefulWidget {
   final MessagePushTapRouter? router;
   final String? Function()? currentUid;
   final Future<ChatThreadModel?> Function(String threadId)? loadThread;
+  final Future<MatchModel?> Function(String matchId)? loadMatch;
   final Future<bool> Function(String fromUid, String toUid)? blockExists;
   final MessagePushTapActions? actions;
   final void Function(String message)? log;
@@ -97,6 +100,15 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
     return ChatService().getThreadById(threadId);
   }
 
+  Future<MatchModel?> _loadMatch(String matchId) async {
+    final custom = widget.loadMatch;
+    if (custom != null) return custom(matchId);
+    final snap = await FirestorePaths.matchDoc(matchId).get();
+    final data = snap.data();
+    if (!snap.exists || data == null) return null;
+    return MatchModel.fromFirestore(matchId, data);
+  }
+
   Future<bool> _blockExists(String fromUid, String toUid) async {
     final custom = widget.blockExists;
     if (custom != null) return custom(fromUid, toUid);
@@ -116,9 +128,10 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
 
   /// Stable tap identity without logging secret values.
   String _tapFingerprint(Map<String, String> data) {
-    final mid =
-        (data['chat_message_id'] ?? data['message_id'] ?? '').trim();
+    final mid = (data['chat_message_id'] ?? data['message_id'] ?? '').trim();
     if (mid.isNotEmpty) return 'mid:$mid';
+    final matchId = (data['match_id'] ?? '').trim();
+    if (matchId.isNotEmpty) return 'match:$matchId';
     final keys = data.keys.toList()..sort();
     return 'keys:${keys.join(',')}|type:${(data['type'] ?? '').trim()}|'
         't:${(data['thread_id'] ?? '').isNotEmpty}|'
@@ -172,6 +185,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
       data: data,
       currentUid: _uid(),
       loadThread: _loadThread,
+      loadMatch: _loadMatch,
       blockExists: _blockExists,
     );
     if (!mounted) return;

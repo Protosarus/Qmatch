@@ -242,7 +242,7 @@ void main() {
     expect(malformed.outcome, MessagePushTapOutcome.fallbackMessages);
 
     final otherType = await handle(
-      messagePayload(type: 'match'),
+      messagePayload(type: 'promo'),
       thread: activeThread(),
     );
     expect(otherType.outcome, MessagePushTapOutcome.ignore);
