@@ -105,6 +105,8 @@ void main() {
     expect(src.contains("thread_id: String(threadId)"), isTrue);
     expect(src.contains("other_uid: String(senderId)"), isTrue);
     expect(src.contains("message_id: String(messageId)"), isTrue);
+    expect(src.contains('chat_message_id'), isTrue);
+    expect(src.contains('...routing'), isTrue);
     expect(src.contains("data.text"), isFalse);
     expect(src.contains("unread_counts."), isFalse);
     expect(src.contains('FieldValue.increment'), isFalse);

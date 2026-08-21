@@ -78,27 +78,45 @@ function isMessagePushEnabled() {
 }
 
 function buildDataPayload({ threadId, senderId, messageId }) {
+  // All values must be strings. Keep message_id and chat_message_id:
+  // some iOS/FCM paths drop or collide on the bare key "message_id".
   return {
     type: PUSH_TYPE,
     thread_id: String(threadId),
     other_uid: String(senderId),
     message_id: String(messageId),
+    chat_message_id: String(messageId),
   };
 }
 
 function buildFcmMessage({ token, title, body, data }) {
+  // Top-level `data` is required for Android + FCM.
+  // Mirror the same string fields onto apns.payload (siblings of aps) so iOS
+  // UNNotification userInfo still carries routing keys on lock-screen tap.
+  // Do not nest routing keys only inside aps.
+  const routing = {
+    type: String(data.type),
+    thread_id: String(data.thread_id),
+    other_uid: String(data.other_uid),
+    message_id: String(data.message_id),
+    chat_message_id: String(data.chat_message_id || data.message_id),
+  };
   return {
     token,
     notification: {
       title,
       body,
     },
-    data,
+    data: routing,
     apns: {
+      headers: {
+        'apns-priority': '10',
+      },
       payload: {
         aps: {
           sound: 'default',
         },
+        ...routing,
       },
     },
   };

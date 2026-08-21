@@ -8,6 +8,7 @@ import 'package:qmatch/core/notifications/message_push_tap_router.dart';
 import 'package:qmatch/core/notifications/push_messaging_port.dart';
 import 'package:qmatch/core/notifications/push_permission_state.dart';
 import 'package:qmatch/features/messages/models/chat_thread_model.dart';
+import 'package:qmatch/l10n/app_localizations.dart';
 
 Map<String, String> messagePayload({
   String type = 'message',
@@ -149,15 +150,111 @@ void main() {
       blocked: {'userA->userB'},
     );
     expect(blockedMe.outcome, MessagePushTapOutcome.fallbackMessages);
+    expect(blockedMe.guard, 'blocked_by_me');
 
     final router2 = MessagePushTapRouter();
-    final blockedThem = await router2.handle(
+    final closedByThem = await router2.handle(
       data: messagePayload(messageId: 'msg-2'),
       currentUid: 'userA',
-      loadThread: (_) async => activeThread(),
-      blockExists: (from, to) async => from == 'userB' && to == 'userA',
+      loadThread: (_) async => activeThread(status: ThreadStatus.closed),
+      blockExists: (_, __) async => false,
     );
-    expect(blockedThem.outcome, MessagePushTapOutcome.fallbackMessages);
+    expect(closedByThem.outcome, MessagePushTapOutcome.fallbackMessages);
+    expect(closedByThem.guard, 'thread_not_active');
+  });
+
+  test('reverse block GET permission-denied still opens an active seed thread',
+      () async {
+    const seedThread = 'qmatch_stage_b2_seed_01_qmatch_stage_b2_seed_02';
+    const seed01 = 'qmatch_stage_b2_seed_01';
+    const seed02 = 'qmatch_stage_b2_seed_02';
+    var reverseReads = 0;
+    final result = await router.handle(
+      data: messagePayload(
+        threadId: seedThread,
+        otherUid: seed02,
+        messageId: 'msg-seed',
+      ),
+      currentUid: seed01,
+      loadThread: (_) async => activeThread(
+        id: seedThread,
+        participants: const [seed01, seed02],
+      ),
+      blockExists: (from, to) async {
+        if (from != seed01) {
+          reverseReads += 1;
+          throw Exception('permission-denied');
+        }
+        expect(to, seed02);
+        return false;
+      },
+    );
+    expect(reverseReads, 0);
+    expect(result.outcome, MessagePushTapOutcome.openChat);
+    expect(result.guard, 'open_chat');
+    expect(result.threadId, seedThread);
+    expect(result.otherUserId, seed02);
+  });
+
+  test('transient thread load error is not claimed as duplicate', () async {
+    var attempts = 0;
+    final first = await router.handle(
+      data: messagePayload(messageId: 'msg-retry'),
+      currentUid: 'userA',
+      loadThread: (_) async {
+        attempts += 1;
+        throw Exception('unavailable');
+      },
+      blockExists: (_, __) async => false,
+    );
+    expect(first.outcome, MessagePushTapOutcome.fallbackMessages);
+    expect(first.guard, 'thread_load_error');
+    expect(router.hasHandled('msg-retry'), isFalse);
+    expect(attempts, 3);
+
+    final second = await router.handle(
+      data: messagePayload(messageId: 'msg-retry'),
+      currentUid: 'userA',
+      loadThread: (_) async => activeThread(),
+      blockExists: (_, __) async => false,
+    );
+    expect(second.outcome, MessagePushTapOutcome.openChat);
+  });
+
+  test('chat_message_id opens chat when message_id is missing', () async {
+    final result = await handle({
+      'type': 'message',
+      'thread_id': 'userA_userB',
+      'other_uid': 'userB',
+      'chat_message_id': 'msg-alt',
+    }, thread: activeThread());
+    expect(result.outcome, MessagePushTapOutcome.openChat);
+    expect(result.messageId, 'msg-alt');
+  });
+
+  test('logs payload key presence without values', () async {
+    final logs = <String>[];
+    final r = MessagePushTapRouter(log: logs.add);
+    await r.handle(
+      data: {
+        'type': 'message',
+        'thread_id': 'userA_userB',
+        'other_uid': 'userB',
+        'message_id': 'msg-secret',
+      },
+      currentUid: 'userA',
+      loadThread: (_) async => activeThread(),
+      blockExists: (_, __) async => false,
+    );
+    final payloadLogs =
+        logs.where((line) => line.startsWith('qmatch.push tap_payload'));
+    expect(payloadLogs, isNotEmpty);
+    final line = payloadLogs.first;
+    expect(line.contains('has_thread_id=true'), isTrue);
+    expect(line.contains('has_other_uid=true'), isTrue);
+    expect(line.contains('has_message_id=true'), isTrue);
+    expect(line.contains('msg-secret'), isFalse);
+    expect(line.contains('userA_userB'), isFalse);
   });
 
   test('malformed payload falls back or is ignored', () async {
@@ -240,6 +337,37 @@ void main() {
     await messaging.opened.close();
   });
 
+  testWidgets('initial + openedApp same tap is handled once', (tester) async {
+    final actions = _RecordingActions();
+    final logs = <String>[];
+    final payload = messagePayload(messageId: 'msg-dup-host');
+    final messaging = _FakeMessaging(initial: payload);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MessagePushTapHost(
+          messaging: messaging,
+          currentUid: () => 'userA',
+          loadThread: (_) async => activeThread(),
+          blockExists: (_, __) async => false,
+          actions: actions,
+          log: logs.add,
+          child: const SizedBox.shrink(),
+        ),
+      ),
+    );
+    await tester.pump();
+    messaging.opened.add(payload);
+    await tester.pump();
+    expect(actions.opens, [
+      {'threadId': 'userA_userB', 'otherUserId': 'userB'},
+    ]);
+    expect(
+      logs.where((line) => line.contains('tap_duplicate')),
+      isNotEmpty,
+    );
+    await messaging.opened.close();
+  });
+
   testWidgets('background tap opens the correct thread once', (tester) async {
     final actions = _RecordingActions();
     final messaging = _FakeMessaging();
@@ -263,6 +391,55 @@ void main() {
     expect(actions.opens, [
       {'threadId': 'userA_userB', 'otherUserId': 'userB'},
     ]);
+    await messaging.opened.close();
+  });
+
+  testWidgets('valid tap selects Messages then pushes chat route',
+      (tester) async {
+    final messaging = _FakeMessaging(
+      initial: messagePayload(messageId: 'msg-nav'),
+    );
+    final logs = <String>[];
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: MessagePushTapHost(
+          messaging: messaging,
+          currentUid: () => 'userA',
+          loadThread: (_) async => activeThread(),
+          blockExists: (_, __) async => false,
+          log: logs.add,
+          threadsStream: Stream.value(const <ChatThreadModel>[]),
+          mainScreens: const [
+            SizedBox.shrink(),
+            Text('messages-tab'),
+            SizedBox.shrink(),
+          ],
+          chatBuilder: (threadId, otherUserId) => Text(
+            'chat:$threadId:$otherUserId',
+            key: const Key('pushed-chat'),
+          ),
+        ),
+      ),
+    );
+
+    // Host starts post-frame; openChat waits additional frames after tab select.
+    await tester.pump();
+    await tester.pump();
+    await tester.pump();
+    await tester.pump();
+
+    expect(find.byKey(const Key('pushed-chat')), findsOneWidget);
+    expect(find.text('chat:userA_userB:userB'), findsOneWidget);
+    expect(
+      logs.where((line) => line.contains('phase=push_call')),
+      isNotEmpty,
+    );
+    expect(
+      logs.where((line) => line.contains('outcome=openChat')),
+      isNotEmpty,
+    );
     await messaging.opened.close();
   });
 

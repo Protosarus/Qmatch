@@ -130,7 +130,15 @@ describe('new message push', () => {
       thread_id: THREAD_ID,
       other_uid: 'userA',
       message_id: MESSAGE_ID,
+      chat_message_id: MESSAGE_ID,
     });
+    assert.strictEqual(msg.apns.payload.aps.sound, 'default');
+    assert.strictEqual(msg.apns.payload.type, 'message');
+    assert.strictEqual(msg.apns.payload.thread_id, THREAD_ID);
+    assert.strictEqual(msg.apns.payload.other_uid, 'userA');
+    assert.strictEqual(msg.apns.payload.message_id, MESSAGE_ID);
+    assert.strictEqual(msg.apns.payload.chat_message_id, MESSAGE_ID);
+    assert.strictEqual(msg.apns.payload.aps.type, undefined);
     assert.strictEqual(JSON.stringify(msg).includes(SECRET_TEXT), false);
     assert.strictEqual(msg.data.text, undefined);
     const unread = (await db.doc(`threads/${THREAD_ID}`).get()).data()
@@ -285,19 +293,43 @@ describe('new message push', () => {
     assert.strictEqual(good.exists, true);
   });
 
-  it('data payload has only type, thread_id, other_uid, message_id', async () => {
+  it('data payload has type, thread_id, other_uid, message_id, chat_message_id', async () => {
     const payload = buildDataPayload({
       threadId: THREAD_ID,
       senderId: 'userA',
       messageId: MESSAGE_ID,
     });
     assert.deepStrictEqual(Object.keys(payload).sort(), [
+      'chat_message_id',
       'message_id',
       'other_uid',
       'thread_id',
       'type',
     ]);
     assert.strictEqual(payload.type, 'message');
+    assert.strictEqual(payload.message_id, payload.chat_message_id);
+  });
+
+  it('buildFcmMessage mirrors routing keys onto apns.payload outside aps', () => {
+    const { buildFcmMessage } = require('../src/new_message_push');
+    const data = buildDataPayload({
+      threadId: THREAD_ID,
+      senderId: 'userA',
+      messageId: MESSAGE_ID,
+    });
+    const msg = buildFcmMessage({
+      token: 'tok',
+      title: 'QMatch',
+      body: 'You have a new message.',
+      data,
+    });
+    assert.deepStrictEqual(msg.data, data);
+    assert.strictEqual(msg.notification.body, 'You have a new message.');
+    assert.strictEqual(msg.apns.payload.aps.sound, 'default');
+    assert.strictEqual(msg.apns.payload.thread_id, THREAD_ID);
+    assert.strictEqual(msg.apns.payload.other_uid, 'userA');
+    assert.strictEqual(msg.apns.payload.message_id, MESSAGE_ID);
+    assert.strictEqual(msg.apns.payload.chat_message_id, MESSAGE_ID);
   });
 
   it('dedupes on messageId so a retry does not send twice', async () => {
