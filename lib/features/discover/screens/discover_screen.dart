@@ -18,6 +18,7 @@ import '../../iap/services/ios_iap_session.dart';
 import '../../matching/services/like_match_outcome.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../messages/screens/chat_detail_screen.dart';
+import '../../messages/services/chat_service.dart';
 import '../../settings/services/account_deletion_request_service.dart';
 import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../models/discover_user_model.dart';
@@ -554,19 +555,33 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         QmatchPerf.mark('match.created_new_match', likeTapSw.elapsed);
         QmatchPerf.mark('match.dialog_show', likeTapSw.elapsed);
         final l10n = AppLocalizations.of(context)!;
+        final me = FirebaseAuth.instance.currentUser;
+        final threadId = me == null
+            ? null
+            : FirestorePaths.deterministicThreadId(me.uid, c.uid);
         final action = await showQMatchDiscoverMatchDialog(
           context: context,
           title: l10n.discoverItsAMatch,
           body: l10n.discoverMatchDialogBody,
           openChatLabel: l10n.discoverMatchOpenChat,
           continueLabel: l10n.continueAction,
+          quickGreetings: [
+            l10n.discoverMatchGreetingHi,
+            l10n.discoverMatchGreetingHello,
+            l10n.discoverMatchGreetingHowsItGoing,
+          ],
+          sendFailedLabel: l10n.discoverMatchGreetingSendFailed,
+          onSendGreeting: (text) async {
+            final id = threadId;
+            if (id == null || id.isEmpty) {
+              throw StateError('Missing thread for quick greeting.');
+            }
+            await ChatService().sendTextMessage(id, text);
+          },
         );
         if (!mounted) return;
         if (action == DiscoverMatchDialogAction.openChat) {
-          final me = FirebaseAuth.instance.currentUser;
-          if (me != null) {
-            final threadId =
-                FirestorePaths.deterministicThreadId(me.uid, c.uid);
+          if (me != null && threadId != null) {
             await Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (_) => ChatDetailScreen(

@@ -764,6 +764,30 @@ abstract class AppLocalizations {
   /// **'Open chat'**
   String get discoverMatchOpenChat;
 
+  /// No description provided for @discoverMatchGreetingHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi 👋'**
+  String get discoverMatchGreetingHi;
+
+  /// No description provided for @discoverMatchGreetingHello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello 😊'**
+  String get discoverMatchGreetingHello;
+
+  /// No description provided for @discoverMatchGreetingHowsItGoing.
+  ///
+  /// In en, this message translates to:
+  /// **'How\'s it going?'**
+  String get discoverMatchGreetingHowsItGoing;
+
+  /// No description provided for @discoverMatchGreetingSendFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send. Try again.'**
+  String get discoverMatchGreetingSendFailed;
+
   /// No description provided for @discoverEmptyTitle.
   ///
   /// In en, this message translates to:

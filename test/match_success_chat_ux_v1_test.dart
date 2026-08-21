@@ -112,6 +112,13 @@ void main() {
                         body: l10n.discoverMatchDialogBody,
                         openChatLabel: l10n.discoverMatchOpenChat,
                         continueLabel: l10n.continueAction,
+                        quickGreetings: [
+                          l10n.discoverMatchGreetingHi,
+                          l10n.discoverMatchGreetingHello,
+                          l10n.discoverMatchGreetingHowsItGoing,
+                        ],
+                        sendFailedLabel: l10n.discoverMatchGreetingSendFailed,
+                        onSendGreeting: (_) async {},
                       );
                     },
                     child: const Text('show'),
@@ -159,6 +166,13 @@ void main() {
                         body: l10n.discoverMatchDialogBody,
                         openChatLabel: l10n.discoverMatchOpenChat,
                         continueLabel: l10n.continueAction,
+                        quickGreetings: [
+                          l10n.discoverMatchGreetingHi,
+                          l10n.discoverMatchGreetingHello,
+                          l10n.discoverMatchGreetingHowsItGoing,
+                        ],
+                        sendFailedLabel: l10n.discoverMatchGreetingSendFailed,
+                        onSendGreeting: (_) async {},
                       );
                     },
                     child: const Text('show'),

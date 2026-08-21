@@ -372,6 +372,18 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverMatchOpenChat => 'Sohbete git';
 
   @override
+  String get discoverMatchGreetingHi => 'Merhaba 👋';
+
+  @override
+  String get discoverMatchGreetingHello => 'Selam 😊';
+
+  @override
+  String get discoverMatchGreetingHowsItGoing => 'Nasılsın?';
+
+  @override
+  String get discoverMatchGreetingSendFailed => 'Gönderilemedi. Tekrar dene.';
+
+  @override
   String get discoverEmptyTitle => 'Şimdilik yeni profil yok';
 
   @override

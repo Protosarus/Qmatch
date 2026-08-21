@@ -374,6 +374,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discoverMatchOpenChat => 'Open chat';
 
   @override
+  String get discoverMatchGreetingHi => 'Hi 👋';
+
+  @override
+  String get discoverMatchGreetingHello => 'Hello 😊';
+
+  @override
+  String get discoverMatchGreetingHowsItGoing => 'How\'s it going?';
+
+  @override
+  String get discoverMatchGreetingSendFailed => 'Couldn\'t send. Try again.';
+
+  @override
   String get discoverEmptyTitle => 'No new profiles for now';
 
   @override

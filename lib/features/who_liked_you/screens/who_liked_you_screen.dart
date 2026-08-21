@@ -20,6 +20,7 @@ import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../matching/services/like_match_outcome.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../messages/screens/chat_detail_screen.dart';
+import '../../messages/services/chat_service.dart';
 import '../../profile/utils/profile_option_labels.dart';
 import '../domain/alignment_signal_merge.dart';
 import '../domain/who_liked_you_card.dart';
@@ -211,22 +212,38 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
 
   Future<void> _handleMatchSuccess(WhoLikedYouCard card) async {
     final l10n = AppLocalizations.of(context)!;
+    final me = widget.currentUidProvider?.call() ??
+        FirebaseAuth.instance.currentUser?.uid;
+    final threadId = (me == null || me.isEmpty)
+        ? null
+        : FirestorePaths.deterministicThreadId(me, card.uid);
     final action = await showQMatchDiscoverMatchDialog(
       context: context,
       title: l10n.discoverItsAMatch,
       body: l10n.discoverMatchDialogBody,
       openChatLabel: l10n.discoverMatchOpenChat,
       continueLabel: l10n.continueAction,
+      quickGreetings: [
+        l10n.discoverMatchGreetingHi,
+        l10n.discoverMatchGreetingHello,
+        l10n.discoverMatchGreetingHowsItGoing,
+      ],
+      sendFailedLabel: l10n.discoverMatchGreetingSendFailed,
+      onSendGreeting: (text) async {
+        final id = threadId;
+        if (id == null || id.isEmpty) {
+          throw StateError('Missing thread for quick greeting.');
+        }
+        await ChatService().sendTextMessage(id, text);
+      },
     );
     if (!mounted) return;
     if (action != DiscoverMatchDialogAction.openChat) return;
-    final me = widget.currentUidProvider?.call() ??
-        FirebaseAuth.instance.currentUser?.uid;
-    if (me == null || me.isEmpty) return;
+    if (me == null || me.isEmpty || threadId == null) return;
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => ChatDetailScreen(
-          threadId: FirestorePaths.deterministicThreadId(me, card.uid),
+          threadId: threadId,
           otherUserId: card.uid,
           otherUserName: card.name,
         ),
