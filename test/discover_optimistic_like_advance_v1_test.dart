@@ -23,6 +23,7 @@ void main() {
       );
       expect(likeBody.contains('_advance()'), isTrue);
       expect(likeBody.contains('await likeFuture'), isTrue);
+      expect(likeBody.contains('unawaited'), isTrue);
       expect(
         likeBody.indexOf('likeUser(c.uid)') <
             likeBody.indexOf('QMatchDiscoverSwipeableCard.flyOffDuration'),
@@ -33,10 +34,13 @@ void main() {
             likeBody.indexOf('_advance()'),
         isTrue,
       );
+      // Match dialog waits only on callable — not on fly-off / _advance.
       expect(
-        likeBody.indexOf('_advance()') < likeBody.indexOf('await likeFuture'),
+        likeBody.indexOf('await likeFuture') <
+            likeBody.indexOf('showQMatchDiscoverMatchDialog'),
         isTrue,
       );
+      expect(likeBody.contains('match.dialog_show'), isTrue);
       expect(likeBody.contains('_isActionLoading'), isFalse);
       expect(likeBody.contains('_loadCandidates'), isFalse);
       expect(likeBody.contains('rankL1Batch'), isFalse);

@@ -530,15 +530,29 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     final isLast = _isLastCandidate;
     if (isLast) setState(() => _lastCardCommitted = true);
 
-    final likeFuture = _swipeService.likeUser(c.uid);
-    await _noteCommittedSwipe();
-    await Future<void>.delayed(QMatchDiscoverSwipeableCard.flyOffDuration);
-    if (mounted) _advance();
+    final likeTapSw = Stopwatch()..start();
+    QmatchPerf.mark('match.like_tap');
+
+    // Trusted callable — dialog waits only on this, never on fly-off / push.
+    QmatchPerf.mark('match.callable_start', likeTapSw.elapsed);
+    final likeFuture = _swipeService.likeUser(c.uid).then((outcome) {
+      QmatchPerf.mark('match.callable_response', likeTapSw.elapsed);
+      return outcome;
+    });
+
+    // Card fly-off + stamp bookkeeping run in parallel; must not gate dialog.
+    unawaited(() async {
+      await _noteCommittedSwipe();
+      await Future<void>.delayed(QMatchDiscoverSwipeableCard.flyOffDuration);
+      if (mounted) _advance();
+    }());
 
     try {
       final outcome = await likeFuture;
       if (!mounted) return;
       if (outcome == LikeMatchOutcome.createdNewMatch) {
+        QmatchPerf.mark('match.created_new_match', likeTapSw.elapsed);
+        QmatchPerf.mark('match.dialog_show', likeTapSw.elapsed);
         final l10n = AppLocalizations.of(context)!;
         final action = await showQMatchDiscoverMatchDialog(
           context: context,
