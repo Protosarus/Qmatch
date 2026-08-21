@@ -198,14 +198,36 @@ async function sendToTokens({ messaging, db, tokens, title, body, data }) {
   let cleaned = 0;
   for (const row of tokens) {
     try {
-      await messaging.send(
-        buildFcmMessage({
-          token: row.token,
-          title,
-          body,
-          data,
+      const message = buildFcmMessage({
+        token: row.token,
+        title,
+        body,
+        data,
+      });
+      // TEMP diagnostics — keys/presence only; no token, text, or id values.
+      const dataKeys = Object.keys(message.data || {}).sort();
+      const apnsPayload = (message.apns && message.apns.payload) || {};
+      const apnsKeys = Object.keys(apnsPayload).sort();
+      const presence = (obj) => ({
+        type: Object.prototype.hasOwnProperty.call(obj, 'type'),
+        thread_id: Object.prototype.hasOwnProperty.call(obj, 'thread_id'),
+        other_uid: Object.prototype.hasOwnProperty.call(obj, 'other_uid'),
+        message_id: Object.prototype.hasOwnProperty.call(obj, 'message_id'),
+        chat_message_id: Object.prototype.hasOwnProperty.call(
+          obj,
+          'chat_message_id',
+        ),
+      });
+      console.log(
+        JSON.stringify({
+          tag: 'qmatch.push.send_diag',
+          data_keys: dataKeys,
+          apns_payload_keys: apnsKeys,
+          data_presence: presence(message.data || {}),
+          apns_presence: presence(apnsPayload),
         }),
       );
+      await messaging.send(message);
       sent += 1;
     } catch (err) {
       if (isInvalidTokenError(err)) {
