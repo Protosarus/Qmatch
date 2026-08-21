@@ -59,6 +59,12 @@ class _FakeMessaging implements PushMessagingPort {
 
   @override
   Stream<Map<String, String>> get onForegroundMessage => foreground.stream;
+
+  @override
+  Stream<Map<String, String>> get onNotificationOpened => const Stream.empty();
+
+  @override
+  Future<Map<String, String>?> getInitialMessage() async => null;
 }
 
 class _CallableSpy {
@@ -330,10 +336,7 @@ void main() {
       'lib/core/navigation/assessment_progress_route_gate.dart',
     );
     expect(dest.contains('NotificationRegistrationHost('), isTrue);
-    expect(
-      dest.contains('child: MainNavigationScreen()'),
-      isTrue,
-    );
+    expect(dest.contains('MessagePushTapHost()'), isTrue);
     final wrapper = read('lib/core/navigation/auth_wrapper.dart');
     expect(wrapper.contains('WelcomeScreen()'), isTrue);
     expect(wrapper.contains('NotificationRegistrationHost'), isFalse);

@@ -14,9 +14,9 @@ import '../../features/assessment/services/assessment_cold_start_pending_reconci
 import '../../features/assessment/services/assessment_progress_service.dart';
 import '../../features/profile/screens/profile_setup_screen.dart';
 import '../../l10n/app_localizations.dart';
+import '../notifications/message_push_tap_host.dart';
 import '../notifications/notification_registration_host.dart';
 import '../theme/app_colors.dart';
-import 'main_navigation_screen.dart';
 
 /// Resolves assessment routing after auth + display-name gates.
 ///
@@ -148,7 +148,7 @@ Widget buildAssessmentDestination(AssessmentColdStartDecision decision) {
       return const ProfileSetupScreen();
     case AssessmentFlowDestination.main:
       return const NotificationRegistrationHost(
-        child: MainNavigationScreen(),
+        child: MessagePushTapHost(),
       );
   }
 }

@@ -32,12 +32,22 @@ class MainNavigationScreen extends StatefulWidget {
   final String? currentUid;
 
   @override
-  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+  State<MainNavigationScreen> createState() => MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends State<MainNavigationScreen> {
+class MainNavigationScreenState extends State<MainNavigationScreen> {
   late int _currentIndex;
   late final List<Widget> _screens;
+
+  @visibleForTesting
+  int get currentIndex => _currentIndex;
+
+  void selectTab(int index) {
+    if (!mounted) return;
+    if (index < 0 || index >= _screens.length) return;
+    if (index == _currentIndex) return;
+    setState(() => _currentIndex = index);
+  }
 
   @override
   void initState() {
@@ -55,8 +65,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     return widget.threadsStream ?? ChatService().getMyThreadsStream();
   }
 
-  String? _uid() =>
-      widget.currentUid ?? FirebaseAuth.instance.currentUser?.uid;
+  String? _uid() => widget.currentUid ?? FirebaseAuth.instance.currentUser?.uid;
 
   @override
   Widget build(BuildContext context) {

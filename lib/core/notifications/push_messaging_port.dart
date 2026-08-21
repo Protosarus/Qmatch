@@ -14,4 +14,10 @@ abstract class PushMessagingPort {
 
   /// Foreground FCM envelopes. iOS does not show an OS banner for these.
   Stream<Map<String, String>> get onForegroundMessage;
+
+  /// Background notification taps while the app is alive.
+  Stream<Map<String, String>> get onNotificationOpened;
+
+  /// Terminated-launch notification, if the app was opened from a tap.
+  Future<Map<String, String>?> getInitialMessage();
 }

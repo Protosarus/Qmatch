@@ -41,13 +41,26 @@ class FirebasePushMessagingAdapter implements PushMessagingPort {
 
   @override
   Stream<Map<String, String>> get onForegroundMessage =>
-      FirebaseMessaging.onMessage.map((message) {
-        final data = <String, String>{};
-        message.data.forEach((key, value) {
-          data[key] = value.toString();
-        });
-        return data;
-      });
+      FirebaseMessaging.onMessage.map(_dataOf);
+
+  @override
+  Stream<Map<String, String>> get onNotificationOpened =>
+      FirebaseMessaging.onMessageOpenedApp.map(_dataOf);
+
+  @override
+  Future<Map<String, String>?> getInitialMessage() async {
+    final message = await _messaging.getInitialMessage();
+    if (message == null) return null;
+    return _dataOf(message);
+  }
+
+  Map<String, String> _dataOf(RemoteMessage message) {
+    final data = <String, String>{};
+    message.data.forEach((key, value) {
+      data[key] = value.toString();
+    });
+    return data;
+  }
 
   PushPermissionState _map(AuthorizationStatus status) {
     switch (status) {

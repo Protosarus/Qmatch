@@ -31,6 +31,12 @@ class _FakeMessaging implements PushMessagingPort {
 
   @override
   Stream<Map<String, String>> get onForegroundMessage => foreground.stream;
+
+  @override
+  Stream<Map<String, String>> get onNotificationOpened => const Stream.empty();
+
+  @override
+  Future<Map<String, String>?> getInitialMessage() async => null;
 }
 
 void main() {
@@ -117,8 +123,8 @@ void main() {
     final chat = read('lib/features/messages/services/chat_service.dart');
     expect(adapter.contains('setForegroundNotificationPresentationOptions'),
         isFalse);
-    expect(adapter.contains('onMessageOpenedApp'), isFalse);
-    expect(adapter.contains('getInitialMessage'), isFalse);
+    expect(adapter.contains('onMessageOpenedApp'), isTrue);
+    expect(adapter.contains('getInitialMessage'), isTrue);
     expect(serviceSrc.contains('flutter_local_notifications'), isFalse);
     expect(serviceSrc.contains('qmatch.push message_received'), isTrue);
     expect(chat.contains('registerFcmToken'), isFalse);
