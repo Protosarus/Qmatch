@@ -9,6 +9,11 @@
 
 'use strict';
 
+const {
+  isPushCategoryEnabled,
+  CATEGORY,
+} = require('./notification_prefs');
+
 const TRIGGER_NAME = 'sendNewMatchPush';
 const REGION = 'europe-west1';
 const DOCUMENT_PATH = 'matches/{matchId}';
@@ -69,11 +74,6 @@ function resolveNotificationCopy() {
     body: copy.body,
     locale_source: 'default_en_no_persisted_user_locale',
   };
-}
-
-function isMatchPushEnabled() {
-  // Persisted notification settings are not implemented. v1 default: on.
-  return true;
 }
 
 function buildDataPayload({ matchId, threadId, otherUid }) {
@@ -277,7 +277,9 @@ async function handleMatchCreated(event, deps = {}) {
     return skip('blocked');
   }
 
-  if (!isMatchPushEnabled()) return skip('match_pref_disabled');
+  if (!(await isPushCategoryEnabled(db, recipientUid, CATEGORY.MATCHES))) {
+    return skip('match_pref_disabled');
+  }
 
   const tokens = await listRecipientTokens(db, recipientUid);
   if (!tokens.length) return skip('no_tokens');
@@ -322,6 +324,5 @@ module.exports = {
   buildFcmMessage,
   resolveMatchActor,
   isInvalidTokenError,
-  isMatchPushEnabled,
   handleMatchCreated,
 };

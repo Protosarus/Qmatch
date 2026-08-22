@@ -756,7 +756,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsNotificationsHonestSubtitle =>
-      'Device preferences for now — push delivery depends on your phone settings';
+      'Synced to your account — push delivery also depends on your phone settings';
 
   @override
   String get settingsPrivacyHonestSubtitle =>
@@ -1162,6 +1162,21 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get newMessageNotificationsSubtitle =>
       'Notify me when I get a new message';
+
+  @override
+  String get superResonanceNotifications => 'Super Resonance notifications';
+
+  @override
+  String get superResonanceNotificationsSubtitle =>
+      'Notify me about Super Resonance activity';
+
+  @override
+  String get notificationPrefsLoadFailed =>
+      'Couldn\'t load notification preferences. Try again later.';
+
+  @override
+  String get notificationPrefsSaveFailed =>
+      'Couldn\'t save notification preferences. Try again.';
 
   @override
   String get frequencyDailySuggestions => 'Frequency / daily suggestions';
@@ -1584,7 +1599,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsMvpNotificationsNote =>
-      'Notification preferences on this screen are stored on this device for now. Push delivery also depends on your phone settings.';
+      'These preferences sync with your Qmatch account. Push delivery also depends on your phone settings.';
 
   @override
   String get blockedUsersLoadFailed =>

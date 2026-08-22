@@ -344,4 +344,37 @@ describe('new match push', () => {
     assert.strictEqual(msg.apns.payload.type, 'match');
     assert.strictEqual(msg.apns.payload.match_id, MATCH_ID);
   });
+
+  it('skips when recipient matches pref or push_master is false', async () => {
+    async function runWithPrefs(prefs) {
+      const db = new MemoryFirestore();
+      await seedActiveThread(db);
+      await seedToken(db, 'userA', 'tok-a1', 'hash-a1');
+      await db.doc('users/userA/preferences/notification_prefs_v1').set(prefs);
+      const messaging = fakeMessaging();
+      const result = await handleMatchCreated(
+        createdEvent({ data: activeMatch() }),
+        deps(db, messaging),
+      );
+      return { result, messaging };
+    }
+
+    const categoryOff = await runWithPrefs({
+      push_master: true,
+      messages: true,
+      matches: false,
+      super_resonance: true,
+    });
+    assert.strictEqual(categoryOff.result.skipped, 'match_pref_disabled');
+    assert.strictEqual(categoryOff.messaging.sent.length, 0);
+
+    const masterOff = await runWithPrefs({
+      push_master: false,
+      messages: true,
+      matches: true,
+      super_resonance: true,
+    });
+    assert.strictEqual(masterOff.result.skipped, 'match_pref_disabled');
+    assert.strictEqual(masterOff.messaging.sent.length, 0);
+  });
 });

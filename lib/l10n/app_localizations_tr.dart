@@ -753,7 +753,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsNotificationsHonestSubtitle =>
-      'Şimdilik cihaz tercihi — bildirim teslimi telefon ayarlarına da bağlıdır';
+      'Hesabınla senkron — bildirim teslimi telefon ayarlarına da bağlıdır';
 
   @override
   String get settingsPrivacyHonestSubtitle =>
@@ -1153,6 +1153,21 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get newMessageNotificationsSubtitle => 'Yeni mesaj aldığında bildir';
+
+  @override
+  String get superResonanceNotifications => 'Süper Rezonans bildirimleri';
+
+  @override
+  String get superResonanceNotificationsSubtitle =>
+      'Süper Rezonans etkinlikleri için bildir';
+
+  @override
+  String get notificationPrefsLoadFailed =>
+      'Bildirim tercihleri yüklenemedi. Daha sonra tekrar dene.';
+
+  @override
+  String get notificationPrefsSaveFailed =>
+      'Bildirim tercihleri kaydedilemedi. Tekrar dene.';
 
   @override
   String get frequencyDailySuggestions => 'Frequency / günlük öneriler';
@@ -1575,7 +1590,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsMvpNotificationsNote =>
-      'Bu ekrandaki bildirim tercihleri şimdilik bu cihazda tutulur. Anlık bildirimler ayrıca telefon ayarlarına da bağlıdır.';
+      'Bu tercihler Qmatch hesabınla senkronlanır. Anlık bildirimler ayrıca telefon ayarlarına da bağlıdır.';
 
   @override
   String get blockedUsersLoadFailed =>

@@ -353,4 +353,50 @@ describe('new message push', () => {
     assert.strictEqual(receipt.data().message_id, MESSAGE_ID);
     assert.strictEqual(receipt.data().text, undefined);
   });
+
+  it('skips when recipient messages pref or push_master is false', async () => {
+    const db = new MemoryFirestore();
+    await seedActiveThread(db);
+    await seedToken(db, 'userB', 'tok-b1', 'hash-b1');
+    const messaging = fakeMessaging();
+
+    await db.doc('users/userB/preferences/notification_prefs_v1').set({
+      push_master: true,
+      messages: false,
+      matches: true,
+      super_resonance: true,
+    });
+    const disabled = await handleThreadMessageCreated(
+      createdEvent({ data: textMessage() }),
+      deps(db, messaging),
+    );
+    assert.strictEqual(disabled.skipped, 'messages_pref_disabled');
+    assert.strictEqual(messaging.sent.length, 0);
+
+    await db.doc('users/userB/preferences/notification_prefs_v1').set({
+      push_master: false,
+      messages: true,
+      matches: true,
+      super_resonance: true,
+    });
+    const masterOff = await handleThreadMessageCreated(
+      createdEvent({ messageId: 'msg-2', data: textMessage() }),
+      deps(db, messaging),
+    );
+    assert.strictEqual(masterOff.skipped, 'messages_pref_disabled');
+    assert.strictEqual(messaging.sent.length, 0);
+  });
+
+  it('still sends when prefs doc is missing (default on)', async () => {
+    const db = new MemoryFirestore();
+    await seedActiveThread(db);
+    await seedToken(db, 'userB', 'tok-b1', 'hash-b1');
+    const messaging = fakeMessaging();
+    const result = await handleThreadMessageCreated(
+      createdEvent({ data: textMessage() }),
+      deps(db, messaging),
+    );
+    assert.strictEqual(result.skipped, null);
+    assert.strictEqual(result.sent, 1);
+  });
 });

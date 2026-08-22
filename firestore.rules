@@ -260,9 +260,11 @@ service cloud.firestore {
         allow delete: if isOwner(uid);
       }
 
-      // Discover Passport preference — owner GET only. Writes are Admin/callable.
+      // Owner-GET preference docs. Writes are Admin/callable only.
       match /preferences/{prefId} {
-        allow get: if isOwner(uid) && prefId == 'discover_passport_v1';
+        allow get: if isOwner(uid)
+          && (prefId == 'discover_passport_v1'
+            || prefId == 'notification_prefs_v1');
         allow list, create, update, delete: if false;
       }
 

@@ -11,8 +11,10 @@ import 'package:qmatch/features/debug/debug_home_screen.dart';
 import 'package:qmatch/features/settings/screens/about_screen.dart';
 import 'package:qmatch/features/settings/screens/help_support_screen.dart';
 import 'package:qmatch/features/settings/screens/legal_document_screen.dart';
+import 'package:qmatch/features/settings/domain/notification_prefs_snapshot.dart';
 import 'package:qmatch/features/settings/screens/notifications_settings_screen.dart';
 import 'package:qmatch/features/settings/screens/privacy_settings_screen.dart';
+import 'package:qmatch/features/settings/services/notification_prefs_client.dart';
 import 'package:qmatch/l10n/app_localizations.dart';
 
 void main() {
@@ -85,7 +87,12 @@ void main() {
   testWidgets('real Settings destinations use shared pushed-screen styling',
       (tester) async {
     final screens = <Widget>[
-      const NotificationsSettingsScreen(),
+      NotificationsSettingsScreen(
+        client: NotificationPrefsClient(
+          call: (_, __) async =>
+              NotificationPrefsSnapshot.allEnabled.toCallablePayload(),
+        ),
+      ),
       const PrivacySettingsScreen(),
       const HelpSupportScreen(),
       const AboutScreen(),
@@ -118,15 +125,14 @@ void main() {
     expect(file, isNot(contains('SharedPreferences')));
   });
 
-  test('placeholder destinations did not gain fake functionality', () {
+  test('notifications prefs are server-backed', () {
     final notifications = File(
       'lib/features/settings/screens/notifications_settings_screen.dart',
     ).readAsStringSync();
-    final blocked = File(
-      'lib/features/settings/screens/blocked_users_screen.dart',
-    ).readAsStringSync();
     expect(notifications, contains('settingsMvpNotificationsNote'));
-    expect(blocked, contains('onPressed: null'));
+    expect(notifications, contains('NotificationPrefsClient'));
+    expect(notifications, isNot(contains('SharedPreferences')));
+    expect(notifications, isNot(contains('frequencyDailySuggestions')));
   });
 
   test('account deletion destination also uses shared pushed styling in source',

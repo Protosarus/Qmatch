@@ -239,4 +239,43 @@ describe('super resonance push', () => {
     assert.strictEqual(msg.apns.payload.type, 'super_resonance');
     assert.strictEqual(msg.apns.payload.signal_id, SIGNAL_ID);
   });
+
+  it('skips when recipient super_resonance pref or push_master is false', async () => {
+    async function runWithPrefs(prefs) {
+      const db = new MemoryFirestore();
+      await seedRecipient(db, 'userB');
+      await seedToken(db, 'userB', 'tok-b1', 'hash-b1');
+      await db.doc('users/userB/preferences/notification_prefs_v1').set(prefs);
+      const messaging = fakeMessaging();
+      const result = await handleSuperResonanceSignalCreated(
+        createdEvent({ data: activeSignal() }),
+        deps(db, messaging),
+      );
+      return { result, messaging };
+    }
+
+    const categoryOff = await runWithPrefs({
+      push_master: true,
+      messages: true,
+      matches: true,
+      super_resonance: false,
+    });
+    assert.strictEqual(
+      categoryOff.result.skipped,
+      'super_resonance_pref_disabled',
+    );
+    assert.strictEqual(categoryOff.messaging.sent.length, 0);
+
+    const masterOff = await runWithPrefs({
+      push_master: false,
+      messages: true,
+      matches: true,
+      super_resonance: true,
+    });
+    assert.strictEqual(
+      masterOff.result.skipped,
+      'super_resonance_pref_disabled',
+    );
+    assert.strictEqual(masterOff.messaging.sent.length, 0);
+  });
 });

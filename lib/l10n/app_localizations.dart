@@ -1439,7 +1439,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsNotificationsHonestSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Device preferences for now — push delivery depends on your phone settings'**
+  /// **'Synced to your account — push delivery also depends on your phone settings'**
   String get settingsNotificationsHonestSubtitle;
 
   /// No description provided for @settingsPrivacyHonestSubtitle.
@@ -2155,6 +2155,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notify me when I get a new message'**
   String get newMessageNotificationsSubtitle;
+
+  /// No description provided for @superResonanceNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Resonance notifications'**
+  String get superResonanceNotifications;
+
+  /// No description provided for @superResonanceNotificationsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notify me about Super Resonance activity'**
+  String get superResonanceNotificationsSubtitle;
+
+  /// No description provided for @notificationPrefsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load notification preferences. Try again later.'**
+  String get notificationPrefsLoadFailed;
+
+  /// No description provided for @notificationPrefsSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save notification preferences. Try again.'**
+  String get notificationPrefsSaveFailed;
 
   /// No description provided for @frequencyDailySuggestions.
   ///
@@ -2933,7 +2957,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsMvpNotificationsNote.
   ///
   /// In en, this message translates to:
-  /// **'Notification preferences on this screen are stored on this device for now. Push delivery also depends on your phone settings.'**
+  /// **'These preferences sync with your Qmatch account. Push delivery also depends on your phone settings.'**
   String get settingsMvpNotificationsNote;
 
   /// No description provided for @blockedUsersLoadFailed.

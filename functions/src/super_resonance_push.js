@@ -9,6 +9,10 @@
 
 const { isValidLiveUser } = require('./like_match_atomicity');
 const { STATUS_ACTIVE } = require('./super_resonance_signal');
+const {
+  isPushCategoryEnabled,
+  CATEGORY,
+} = require('./notification_prefs');
 
 const TRIGGER_NAME = 'sendSuperResonancePush';
 const REGION = 'europe-west1';
@@ -70,11 +74,6 @@ function resolveNotificationCopy() {
     body: copy.body,
     locale_source: 'default_en_no_persisted_user_locale',
   };
-}
-
-function isSuperResonancePushEnabled() {
-  // Persisted notification settings are not implemented. v1 default: on.
-  return true;
 }
 
 function recipientIsLive(exists, data) {
@@ -256,7 +255,13 @@ async function handleSuperResonanceSignalCreated(event, deps = {}) {
     return skip('blocked');
   }
 
-  if (!isSuperResonancePushEnabled()) {
+  if (
+    !(await isPushCategoryEnabled(
+      db,
+      recipientUid,
+      CATEGORY.SUPER_RESONANCE,
+    ))
+  ) {
     return skip('super_resonance_pref_disabled');
   }
 
@@ -301,7 +306,6 @@ module.exports = {
   buildDataPayload,
   buildFcmMessage,
   isInvalidTokenError,
-  isSuperResonancePushEnabled,
   recipientIsLive,
   handleSuperResonanceSignalCreated,
 };

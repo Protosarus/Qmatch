@@ -29,6 +29,11 @@ const INVALID_TOKEN_CODES = new Set([
   'messaging/invalid-registration-token',
 ]);
 
+const {
+  isPushCategoryEnabled,
+  CATEGORY,
+} = require('./notification_prefs');
+
 function resolveDb(deps) {
   if (deps && deps.db) return deps.db;
   return require('firebase-admin/firestore').getFirestore();
@@ -70,11 +75,6 @@ function resolveNotificationCopy() {
     body: copy.body,
     locale_source: 'default_en_no_persisted_user_locale',
   };
-}
-
-function isMessagePushEnabled() {
-  // Persisted notification settings are not implemented. v1 default: on.
-  return true;
 }
 
 function buildDataPayload({ threadId, senderId, messageId }) {
@@ -271,7 +271,11 @@ async function handleThreadMessageCreated(event, deps = {}) {
     return skip('blocked');
   }
 
-  if (!isMessagePushEnabled()) return skip('messages_pref_disabled');
+  if (
+    !(await isPushCategoryEnabled(db, recipientUid, CATEGORY.MESSAGES))
+  ) {
+    return skip('messages_pref_disabled');
+  }
 
   const tokens = await listRecipientTokens(db, recipientUid);
   if (!tokens.length) return skip('no_tokens');
@@ -318,6 +322,5 @@ module.exports = {
   buildDataPayload,
   buildFcmMessage,
   isInvalidTokenError,
-  isMessagePushEnabled,
   handleThreadMessageCreated,
 };

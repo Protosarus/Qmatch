@@ -40,6 +40,10 @@ void main() {
       isTrue,
     );
     expect(
+      rules.contains("prefId == 'notification_prefs_v1'"),
+      isTrue,
+    );
+    expect(
       rules.contains('allow list, create, update, delete: if false;'),
       isTrue,
     );

@@ -335,6 +335,24 @@ exports.unregisterFcmToken = onCall(
 );
 exports.handleRegisterFcmToken = fcmTokens.handleRegisterFcmToken;
 exports.handleUnregisterFcmToken = fcmTokens.handleUnregisterFcmToken;
+const notificationPrefs = require('./src/notification_prefs_callable');
+
+/**
+ * Trusted notification preferences. Auth required. Admin writes
+ * users/{uid}/preferences/notification_prefs_v1 only. Missing doc = all on.
+ */
+exports.getNotificationPrefs = onCall(
+  { region: 'europe-west1' },
+  (request) => notificationPrefs.handleGetNotificationPrefs(request),
+);
+exports.setNotificationPrefs = onCall(
+  { region: 'europe-west1' },
+  (request) => notificationPrefs.handleSetNotificationPrefs(request),
+);
+exports.handleGetNotificationPrefs =
+  notificationPrefs.handleGetNotificationPrefs;
+exports.handleSetNotificationPrefs =
+  notificationPrefs.handleSetNotificationPrefs;
 const newMessagePush = require('./src/new_message_push');
 
 /**
