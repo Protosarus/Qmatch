@@ -242,6 +242,14 @@ exports.listWhoLikedYou = onCall(
   { region: 'us-central1' },
   (request) => listWhoLikedYou.handleListWhoLikedYou(request),
 );
+/**
+ * Zero-downtime EU colocation. Same handler/auth/payload as listWhoLikedYou.
+ * Does not replace the live us-central1 callable.
+ */
+exports.listWhoLikedYouEu = onCall(
+  { region: 'europe-west1' },
+  (request) => listWhoLikedYou.handleListWhoLikedYou(request),
+);
 exports.handleListWhoLikedYou = listWhoLikedYou.handleListWhoLikedYou;
 const sendSuperResonance = require('./src/send_super_resonance_callable');
 
@@ -275,6 +283,14 @@ const listSuperResonanceInbox = require('./src/list_super_resonance_inbox_callab
  */
 exports.listSuperResonanceInbox = onCall(
   { region: 'us-central1' },
+  (request) => listSuperResonanceInbox.handleListSuperResonanceInbox(request),
+);
+/**
+ * Zero-downtime EU colocation. Same handler/auth/payload as
+ * listSuperResonanceInbox. Does not replace the live us-central1 callable.
+ */
+exports.listSuperResonanceInboxEu = onCall(
+  { region: 'europe-west1' },
   (request) => listSuperResonanceInbox.handleListSuperResonanceInbox(request),
 );
 exports.handleListSuperResonanceInbox =

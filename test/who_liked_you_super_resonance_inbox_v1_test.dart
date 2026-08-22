@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,9 +61,32 @@ void main() {
       );
       final items = await client.list();
       expect(called, SuperResonanceInboxClient.callableName);
+      expect(SuperResonanceInboxClient.callableName, 'listSuperResonanceInboxEu');
+      expect(SuperResonanceInboxClient.region, 'europe-west1');
       expect(items.map((c) => c.uid), ['a']);
       expect(items.single.superResonance, isTrue);
       expect(items.single.name, 'Ada');
+    });
+
+    test('binds europe-west1 via instanceFor and never uses default instance',
+        () {
+      final src = File(
+        'lib/features/who_liked_you/services/super_resonance_inbox_client.dart',
+      ).readAsStringSync();
+      expect(
+        src.contains("FirebaseFunctions.instanceFor(region: region)"),
+        isTrue,
+      );
+      expect(src.contains('FirebaseFunctions.instance;'), isFalse);
+      expect(
+        src.contains("callableName = 'listSuperResonanceInboxEu'"),
+        isTrue,
+      );
+      expect(src.contains("region = 'europe-west1'"), isTrue);
+      expect(
+        RegExp(r"callableName = 'listSuperResonanceInbox'").hasMatch(src),
+        isFalse,
+      );
     });
   });
 

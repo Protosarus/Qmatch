@@ -9,18 +9,19 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
-const {
-  DEFAULT_CONCURRENCY,
-  mapWithConcurrency,
-} = require('./bounded_map');
 const { normalizeSnapshot } = require('./entitlement_access');
 const {
   isValidLiveUser,
   deterministicMatchId,
 } = require('./like_match_atomicity');
+const { getAllSnapsIsolating } = require('./alignment_signals_batch');
 
 const CALLABLE_NAME = 'listWhoLikedYou';
+/** Must match `exports.listWhoLikedYou` region in index.js. */
+const DEPLOYED_REGION = 'us-central1';
 const MAX_ITEMS = 50;
+/** user + viewerSwipe + match + viewerBlock + reverseBlock */
+const ENRICHMENT_DOCS_PER_CANDIDATE = 5;
 const PUBLIC_CARD_KEYS = Object.freeze([
   'uid',
   'name',
@@ -158,6 +159,27 @@ function shouldIncludeLiker(args) {
 }
 
 /**
+ * Build enrichment refs in candidate order. Snapshot index = i * 5 + slot.
+ * @param {object} db
+ * @param {string} viewerUid
+ * @param {string[]} likerUids
+ */
+function buildLikerEnrichmentRefs(db, viewerUid, likerUids) {
+  const refs = [];
+  for (const likerUid of likerUids) {
+    const matchId = deterministicMatchId(viewerUid, likerUid);
+    refs.push(
+      db.doc(`users/${likerUid}`),
+      db.doc(`users/${viewerUid}/swipes/${likerUid}`),
+      db.doc(`matches/${matchId}`),
+      db.doc(`users/${viewerUid}/blocks/${likerUid}`),
+      db.doc(`users/${likerUid}/blocks/${viewerUid}`),
+    );
+  }
+  return refs;
+}
+
+/**
  * @param {import('firebase-functions/v2/https').CallableRequest} request
  * @param {{ db?: object }} [deps]
  */
@@ -192,53 +214,42 @@ async function handleListWhoLikedYou(request, deps = {}) {
     likerUids.push(likerUid);
   }
 
-  const maybeItems = await mapWithConcurrency(
-    likerUids,
-    DEFAULT_CONCURRENCY,
-    async (likerUid) => {
-      try {
-        const matchId = deterministicMatchId(viewerUid, likerUid);
-        const [
-          likerSnap,
-          viewerSwipeSnap,
-          matchSnap,
-          viewerBlockSnap,
-          reverseBlockSnap,
-        ] = await Promise.all([
-          db.doc(`users/${likerUid}`).get(),
-          db.doc(`users/${viewerUid}/swipes/${likerUid}`).get(),
-          db.doc(`matches/${matchId}`).get(),
-          db.doc(`users/${viewerUid}/blocks/${likerUid}`).get(),
-          db.doc(`users/${likerUid}/blocks/${viewerUid}`).get(),
-        ]);
-
-        const likerData =
-          likerSnap && likerSnap.exists ? likerSnap.data() : null;
-        if (
-          !shouldIncludeLiker({
-            likerUid,
-            viewerUid,
-            likerExists: !!(likerSnap && likerSnap.exists),
-            likerData,
-            viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
-            matchExists: !!(matchSnap && matchSnap.exists),
-            viewerBlockedLiker: !!(viewerBlockSnap && viewerBlockSnap.exists),
-            likerBlockedViewer: !!(reverseBlockSnap && reverseBlockSnap.exists),
-          })
-        ) {
-          return null;
-        }
-
-        return toPublicCard(likerUid, likerData);
-      } catch (_) {
-        return null;
-      }
-    },
-  );
+  const refs = buildLikerEnrichmentRefs(db, viewerUid, likerUids);
+  const snaps = await getAllSnapsIsolating(db, refs);
 
   const items = [];
-  for (const card of maybeItems) {
-    if (card) items.push(card);
+  for (let i = 0; i < likerUids.length; i += 1) {
+    try {
+      const base = i * ENRICHMENT_DOCS_PER_CANDIDATE;
+      const likerUid = likerUids[i];
+      const likerSnap = snaps[base];
+      const viewerSwipeSnap = snaps[base + 1];
+      const matchSnap = snaps[base + 2];
+      const viewerBlockSnap = snaps[base + 3];
+      const reverseBlockSnap = snaps[base + 4];
+      const likerData =
+        likerSnap && likerSnap.exists ? likerSnap.data() : null;
+      if (
+        !shouldIncludeLiker({
+          likerUid,
+          viewerUid,
+          likerExists: !!(likerSnap && likerSnap.exists),
+          likerData,
+          viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
+          matchExists: !!(matchSnap && matchSnap.exists),
+          viewerBlockedLiker: !!(viewerBlockSnap && viewerBlockSnap.exists),
+          likerBlockedViewer: !!(
+            reverseBlockSnap && reverseBlockSnap.exists
+          ),
+        })
+      ) {
+        continue;
+      }
+      const card = toPublicCard(likerUid, likerData);
+      if (card) items.push(card);
+    } catch (_) {
+      // Preserve prior per-candidate omit-on-error semantics.
+    }
   }
 
   return granted(items);
@@ -246,11 +257,14 @@ async function handleListWhoLikedYou(request, deps = {}) {
 
 module.exports = {
   CALLABLE_NAME,
+  DEPLOYED_REGION,
   MAX_ITEMS,
+  ENRICHMENT_DOCS_PER_CANDIDATE,
   PUBLIC_CARD_KEYS,
   requireAuthUid,
   resolveLikerUid,
   toPublicCard,
   shouldIncludeLiker,
+  buildLikerEnrichmentRefs,
   handleListWhoLikedYou,
 };

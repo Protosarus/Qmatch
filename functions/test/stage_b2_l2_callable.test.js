@@ -235,9 +235,68 @@ describe('compareStageB2Structural callable', () => {
     }
     assertNoMinInstances('getSuperResonanceAvailability');
     assertNoMinInstances('listWhoLikedYou');
+    assertNoMinInstances('listWhoLikedYouEu');
     assertNoMinInstances('listSuperResonanceInbox');
+    assertNoMinInstances('listSuperResonanceInboxEu');
     assertNoMinInstances('likeAndMaybeCreateMatch');
     assertNoMinInstances('sendSuperResonance');
+  });
+
+  it('Alignment Signals EU callables reuse US handlers in europe-west1', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const index = fs.readFileSync(
+      path.resolve(__dirname, '../index.js'),
+      'utf8',
+    );
+
+    function exportBlock(exportName, nextExport) {
+      const start = index.indexOf(`exports.${exportName} = onCall(`);
+      assert.ok(start >= 0, exportName);
+      const end = nextExport
+        ? index.indexOf(`exports.${nextExport}`, start + 1)
+        : index.length;
+      assert.ok(end > start, `${exportName} end`);
+      return index.slice(start, end);
+    }
+
+    const whoUs = exportBlock('listWhoLikedYou', 'listWhoLikedYouEu');
+    const whoEu = exportBlock('listWhoLikedYouEu', 'handleListWhoLikedYou');
+    assert.ok(whoUs.includes("region: 'us-central1'"));
+    assert.ok(
+      whoUs.includes('listWhoLikedYou.handleListWhoLikedYou(request)'),
+    );
+    assert.strictEqual(whoUs.includes('europe-west1'), false);
+    assert.ok(whoEu.includes("region: 'europe-west1'"));
+    assert.ok(
+      whoEu.includes('listWhoLikedYou.handleListWhoLikedYou(request)'),
+    );
+    assert.strictEqual(whoEu.includes('us-central1'), false);
+    assert.strictEqual(whoEu.includes('timingCallable'), false);
+
+    const inboxUs = exportBlock(
+      'listSuperResonanceInbox',
+      'listSuperResonanceInboxEu',
+    );
+    const inboxEu = exportBlock(
+      'listSuperResonanceInboxEu',
+      'handleListSuperResonanceInbox',
+    );
+    assert.ok(inboxUs.includes("region: 'us-central1'"));
+    assert.ok(
+      inboxUs.includes(
+        'listSuperResonanceInbox.handleListSuperResonanceInbox(request)',
+      ),
+    );
+    assert.strictEqual(inboxUs.includes('europe-west1'), false);
+    assert.ok(inboxEu.includes("region: 'europe-west1'"));
+    assert.ok(
+      inboxEu.includes(
+        'listSuperResonanceInbox.handleListSuperResonanceInbox(request)',
+      ),
+    );
+    assert.strictEqual(inboxEu.includes('us-central1'), false);
+    assert.strictEqual(inboxEu.includes('timingCallable'), false);
   });
 
   it('EU A/B callable reuses the same handler in europe-west1', () => {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qmatch/features/who_liked_you/domain/who_liked_you_card.dart';
 import 'package:qmatch/features/who_liked_you/services/who_liked_you_client.dart';
@@ -55,7 +57,7 @@ void main() {
   });
 
   group('WhoLikedYouClient', () {
-    test('invokes listWhoLikedYou and maps entitled public cards', () async {
+    test('invokes listWhoLikedYouEu and maps entitled public cards', () async {
       String? called;
       final client = WhoLikedYouClient(
         call: (name, data) async {
@@ -104,9 +106,26 @@ void main() {
 
       final result = await client.list();
       expect(called, WhoLikedYouClient.callableName);
+      expect(WhoLikedYouClient.callableName, 'listWhoLikedYouEu');
+      expect(WhoLikedYouClient.region, 'europe-west1');
       expect(result.resonanceAccess, isTrue);
       expect(result.items.map((c) => c.uid), ['a', 'b']);
       expect(result.items.first.interests, ['Müzik']);
+    });
+
+    test('binds europe-west1 via instanceFor and never uses default instance',
+        () {
+      final src = File(
+        'lib/features/who_liked_you/services/who_liked_you_client.dart',
+      ).readAsStringSync();
+      expect(
+        src.contains("FirebaseFunctions.instanceFor(region: region)"),
+        isTrue,
+      );
+      expect(src.contains('FirebaseFunctions.instance;'), isFalse);
+      expect(src.contains("callableName = 'listWhoLikedYouEu'"), isTrue);
+      expect(src.contains("region = 'europe-west1'"), isTrue);
+      expect(RegExp(r"callableName = 'listWhoLikedYou'").hasMatch(src), isFalse);
     });
 
     test('non-true resonance_access is locked and drops identities', () async {

@@ -8,15 +8,20 @@ const { MemoryFirestore } = require('./memory_firestore');
 const {
   handleListSuperResonanceInbox,
   CALLABLE_NAME,
+  DEPLOYED_REGION,
   MAX_ITEMS,
+  ENRICHMENT_DOCS_PER_CANDIDATE,
   PUBLIC_CARD_KEYS,
   PUBLIC_RESULT_KEYS,
   toPublicInboxCard,
+  buildSenderEnrichmentRefs,
 } = require('../src/list_super_resonance_inbox_callable');
 const {
   handleListWhoLikedYou,
 } = require('../src/list_who_liked_you_callable');
 const { SCHEMA_VERSION } = require('../src/super_resonance_signal');
+const { GET_ALL_CHUNK_SIZE } = require('../src/alignment_signals_batch');
+const { deterministicMatchId } = require('../src/like_match_atomicity');
 
 function eligibleUser(overrides = {}) {
   return {
@@ -77,6 +82,7 @@ async function seedOrdinaryLike(db, fromUid, toUid, createdAt) {
 describe('listSuperResonanceInbox callable', () => {
   it('callable name is listSuperResonanceInbox', () => {
     assert.strictEqual(CALLABLE_NAME, 'listSuperResonanceInbox');
+    assert.strictEqual(DEPLOYED_REGION, 'us-central1');
     assert.strictEqual(MAX_ITEMS, 50);
   });
 
@@ -393,5 +399,105 @@ describe('listSuperResonanceInbox callable', () => {
       'utf8',
     );
     assert.strictEqual(whoLikedSrc.includes('super_resonance'), false);
+  });
+
+  it('batches enrichment refs in one getAll round with stable path order', async () => {
+    const db = new MemoryFirestore();
+    await seedViewer(db);
+    await seedSignal(db, 'sender_a', 'viewer', 300, { name: 'Ada' });
+    await seedSignal(db, 'sender_b', 'viewer', 200, { name: 'Bea' });
+    await seedSignal(db, 'sender_c', 'viewer', 100, { name: 'Cia' });
+
+    const getAllCalls = [];
+    const orig = db.getAll.bind(db);
+    db.getAll = async (...refs) => {
+      getAllCalls.push(refs.map((r) => r.path));
+      return orig(...refs);
+    };
+
+    const res = await handleListSuperResonanceInbox(request('viewer'), { db });
+
+    assert.strictEqual(getAllCalls.length, 1);
+    assert.strictEqual(getAllCalls[0].length, 3 * ENRICHMENT_DOCS_PER_CANDIDATE);
+    const expected = [];
+    for (const uid of ['sender_a', 'sender_b', 'sender_c']) {
+      const matchId = deterministicMatchId('viewer', uid);
+      expected.push(
+        `users/${uid}`,
+        `users/viewer/swipes/${uid}`,
+        `users/${uid}/swipes/viewer`,
+        `matches/${matchId}`,
+        `users/viewer/blocks/${uid}`,
+        `users/${uid}/blocks/viewer`,
+      );
+    }
+    assert.deepStrictEqual(getAllCalls[0], expected);
+    assert.deepStrictEqual(
+      res.items.map((c) => c.uid),
+      ['sender_a', 'sender_b', 'sender_c'],
+    );
+    assert.ok(GET_ALL_CHUNK_SIZE >= 100);
+  });
+
+  it('batched enrichment preserves eligibility, blocks, passes, matches, and order', async () => {
+    const db = new MemoryFirestore();
+    await seedViewer(db);
+    await seedSignal(db, 'keep_new', 'viewer', 500, { name: 'New' });
+    await seedSignal(db, 'blocked_me', 'viewer', 400, { name: 'BlockedMe' });
+    await seedSignal(db, 'i_blocked', 'viewer', 300, { name: 'IBlocked' });
+    await seedSignal(db, 'viewer_swiped', 'viewer', 250, { name: 'Swiped' });
+    await seedSignal(db, 'sender_passed', 'viewer', 200, { name: 'Passed' });
+    await seedSignal(db, 'matched', 'viewer', 150, { name: 'Matched' });
+    await seedSignal(db, 'keep_old', 'viewer', 100, { name: 'Old' });
+    await seedSignal(db, 'inactive', 'viewer', 50, {
+      name: 'Inactive',
+      active: false,
+    });
+
+    await db.doc('users/blocked_me/blocks/viewer').set({ reason: 'secret' });
+    await db.doc('users/viewer/blocks/i_blocked').set({ reason: 'mine' });
+    await db.doc('users/viewer/swipes/viewer_swiped').set({
+      from_uid: 'viewer',
+      target_uid: 'viewer_swiped',
+      direction: 'like',
+    });
+    await db.doc('users/sender_passed/swipes/viewer').set({
+      from_uid: 'sender_passed',
+      target_uid: 'viewer',
+      direction: 'pass',
+    });
+    await db
+      .doc(`matches/${deterministicMatchId('viewer', 'matched')}`)
+      .set({ state: 'active' });
+
+    const res = await handleListSuperResonanceInbox(request('viewer'), { db });
+    assert.deepStrictEqual(
+      res.items.map((c) => c.uid),
+      ['keep_new', 'keep_old'],
+    );
+    assert.strictEqual(res.items.every((c) => c.super_resonance === true), true);
+    assert.strictEqual(JSON.stringify(res).includes('secret'), false);
+  });
+
+  it('buildSenderEnrichmentRefs and source use getAll without per-candidate fan-out', () => {
+    const db = new MemoryFirestore();
+    const refs = buildSenderEnrichmentRefs(db, 'viewer', [
+      { senderUid: 'a' },
+      { senderUid: 'b' },
+    ]);
+    assert.strictEqual(refs.length, 12);
+    assert.strictEqual(refs[0].path, 'users/a');
+    assert.strictEqual(refs[6].path, 'users/b');
+
+    const src = fs.readFileSync(
+      path.join(__dirname, '../src/list_super_resonance_inbox_callable.js'),
+      'utf8',
+    );
+    assert.ok(src.includes('getAllSnapsIsolating'));
+    assert.ok(src.includes('buildSenderEnrichmentRefs'));
+    assert.ok(src.includes("require('./alignment_signals_batch')"));
+    assert.strictEqual(src.includes('mapWithConcurrency'), false);
+    assert.strictEqual(src.includes('qmatch.alignment'), false);
+    assert.strictEqual(src.includes('emitAlignmentTimings'), false);
   });
 });

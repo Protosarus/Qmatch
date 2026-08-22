@@ -10,10 +10,6 @@
 
 const { HttpsError } = require('firebase-functions/v2/https');
 const {
-  DEFAULT_CONCURRENCY,
-  mapWithConcurrency,
-} = require('./bounded_map');
-const {
   isValidLiveUser,
   deterministicMatchId,
 } = require('./like_match_atomicity');
@@ -21,9 +17,14 @@ const {
   COLLECTION,
   STATUS_ACTIVE,
 } = require('./super_resonance_signal');
+const { getAllSnapsIsolating } = require('./alignment_signals_batch');
 
 const CALLABLE_NAME = 'listSuperResonanceInbox';
+/** Must match `exports.listSuperResonanceInbox` region in index.js. */
+const DEPLOYED_REGION = 'us-central1';
 const MAX_ITEMS = 50;
+/** user + viewerSwipe + senderSwipe + match + viewerBlock + reverseBlock */
+const ENRICHMENT_DOCS_PER_CANDIDATE = 6;
 const PUBLIC_CARD_KEYS = Object.freeze([
   'uid',
   'name',
@@ -170,6 +171,29 @@ function publicResult(items) {
 }
 
 /**
+ * Build enrichment refs in sender order. Snapshot index = i * 6 + slot.
+ * @param {object} db
+ * @param {string} viewerUid
+ * @param {Array<{ senderUid: string }>} senders
+ */
+function buildSenderEnrichmentRefs(db, viewerUid, senders) {
+  const refs = [];
+  for (const row of senders) {
+    const senderUid = row.senderUid;
+    const matchId = deterministicMatchId(viewerUid, senderUid);
+    refs.push(
+      db.doc(`users/${senderUid}`),
+      db.doc(`users/${viewerUid}/swipes/${senderUid}`),
+      db.doc(`users/${senderUid}/swipes/${viewerUid}`),
+      db.doc(`matches/${matchId}`),
+      db.doc(`users/${viewerUid}/blocks/${senderUid}`),
+      db.doc(`users/${senderUid}/blocks/${viewerUid}`),
+    );
+  }
+  return refs;
+}
+
+/**
  * @param {import('firebase-functions/v2/https').CallableRequest} request
  * @param {{ db?: object }} [deps]
  */
@@ -199,57 +223,44 @@ async function handleListSuperResonanceInbox(request, deps = {}) {
     });
   }
 
-  const maybeItems = await mapWithConcurrency(
-    senders,
-    DEFAULT_CONCURRENCY,
-    async (row) => {
-      try {
-        const { senderUid, createdAt } = row;
-        const matchId = deterministicMatchId(viewerUid, senderUid);
-        const [
-          senderSnap,
-          viewerSwipeSnap,
-          senderSwipeSnap,
-          matchSnap,
-          viewerBlockSnap,
-          reverseBlockSnap,
-        ] = await Promise.all([
-          db.doc(`users/${senderUid}`).get(),
-          db.doc(`users/${viewerUid}/swipes/${senderUid}`).get(),
-          db.doc(`users/${senderUid}/swipes/${viewerUid}`).get(),
-          db.doc(`matches/${matchId}`).get(),
-          db.doc(`users/${viewerUid}/blocks/${senderUid}`).get(),
-          db.doc(`users/${senderUid}/blocks/${viewerUid}`).get(),
-        ]);
-
-        const senderData =
-          senderSnap && senderSnap.exists ? senderSnap.data() : null;
-        if (
-          !shouldIncludeSender({
-            senderUid,
-            viewerUid,
-            senderExists: !!(senderSnap && senderSnap.exists),
-            senderData,
-            viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
-            senderPassed: senderPassedViewer(senderSwipeSnap),
-            matchExists: !!(matchSnap && matchSnap.exists),
-            viewerBlockedSender: !!(viewerBlockSnap && viewerBlockSnap.exists),
-            senderBlockedViewer: !!(reverseBlockSnap && reverseBlockSnap.exists),
-          })
-        ) {
-          return null;
-        }
-
-        return toPublicInboxCard(senderUid, senderData, createdAt);
-      } catch (_) {
-        return null;
-      }
-    },
-  );
+  const refs = buildSenderEnrichmentRefs(db, viewerUid, senders);
+  const snaps = await getAllSnapsIsolating(db, refs);
 
   const items = [];
-  for (const card of maybeItems) {
-    if (card) items.push(card);
+  for (let i = 0; i < senders.length; i += 1) {
+    try {
+      const base = i * ENRICHMENT_DOCS_PER_CANDIDATE;
+      const { senderUid, createdAt } = senders[i];
+      const senderSnap = snaps[base];
+      const viewerSwipeSnap = snaps[base + 1];
+      const senderSwipeSnap = snaps[base + 2];
+      const matchSnap = snaps[base + 3];
+      const viewerBlockSnap = snaps[base + 4];
+      const reverseBlockSnap = snaps[base + 5];
+      const senderData =
+        senderSnap && senderSnap.exists ? senderSnap.data() : null;
+      if (
+        !shouldIncludeSender({
+          senderUid,
+          viewerUid,
+          senderExists: !!(senderSnap && senderSnap.exists),
+          senderData,
+          viewerSwipeExists: !!(viewerSwipeSnap && viewerSwipeSnap.exists),
+          senderPassed: senderPassedViewer(senderSwipeSnap),
+          matchExists: !!(matchSnap && matchSnap.exists),
+          viewerBlockedSender: !!(viewerBlockSnap && viewerBlockSnap.exists),
+          senderBlockedViewer: !!(
+            reverseBlockSnap && reverseBlockSnap.exists
+          ),
+        })
+      ) {
+        continue;
+      }
+      const card = toPublicInboxCard(senderUid, senderData, createdAt);
+      if (card) items.push(card);
+    } catch (_) {
+      // Preserve prior per-candidate omit-on-error semantics.
+    }
   }
 
   return publicResult(items);
@@ -257,12 +268,15 @@ async function handleListSuperResonanceInbox(request, deps = {}) {
 
 module.exports = {
   CALLABLE_NAME,
+  DEPLOYED_REGION,
   MAX_ITEMS,
+  ENRICHMENT_DOCS_PER_CANDIDATE,
   PUBLIC_CARD_KEYS,
   PUBLIC_RESULT_KEYS,
   requireAuthUid,
   resolveFromUid,
   toPublicInboxCard,
   shouldIncludeSender,
+  buildSenderEnrichmentRefs,
   handleListSuperResonanceInbox,
 };

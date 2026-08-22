@@ -3,10 +3,12 @@ import 'package:cloud_functions/cloud_functions.dart';
 import '../../../core/debug/qmatch_perf.dart';
 import '../domain/who_liked_you_card.dart';
 
-/// Client for trusted `listSuperResonanceInbox`.
+/// Client for trusted `listSuperResonanceInboxEu` (europe-west1).
 ///
 /// Visible to Free and Resonance. Ordinary likes are never included.
 /// Extra / private fields on cards are dropped.
+/// US `listSuperResonanceInbox` remains deployed for zero-downtime; this
+/// client does not call it.
 class SuperResonanceInboxClient {
   SuperResonanceInboxClient({
     FirebaseFunctions? functions,
@@ -23,7 +25,8 @@ class SuperResonanceInboxClient {
     Map<String, dynamic> data,
   )? _call;
 
-  static const String callableName = 'listSuperResonanceInbox';
+  static const String region = 'europe-west1';
+  static const String callableName = 'listSuperResonanceInboxEu';
 
   Future<List<WhoLikedYouCard>> list() async {
     final raw = await QmatchPerf.trace(
@@ -48,7 +51,8 @@ class SuperResonanceInboxClient {
   Future<Map<String, dynamic>> _invoke(Map<String, dynamic> data) async {
     final custom = _call;
     if (custom != null) return custom(callableName, data);
-    final functions = _functions ?? FirebaseFunctions.instance;
+    final functions =
+        _functions ?? FirebaseFunctions.instanceFor(region: region);
     final result = await functions.httpsCallable(callableName).call(data);
     final payload = result.data;
     if (payload is Map) {

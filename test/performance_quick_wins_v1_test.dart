@@ -112,20 +112,24 @@ void main() {
     );
   });
 
-  test('Alignment Signals keep privacy filters and bound fan-out to 8', () {
+  test('Alignment Signals keep privacy filters and batched enrichment', () {
     final who = read('functions/src/list_who_liked_you_callable.js');
-    expect(who.contains('mapWithConcurrency'), isTrue);
-    expect(who.contains('DEFAULT_CONCURRENCY'), isTrue);
+    expect(who.contains('getAllSnapsIsolating'), isTrue);
     expect(who.contains('shouldIncludeLiker'), isTrue);
     expect(who.contains('toPublicCard'), isTrue);
+    expect(who.contains('mapWithConcurrency'), isFalse);
+    expect(who.contains('qmatch.alignment'), isFalse);
 
     final inbox = read('functions/src/list_super_resonance_inbox_callable.js');
-    expect(inbox.contains('mapWithConcurrency'), isTrue);
+    expect(inbox.contains('getAllSnapsIsolating'), isTrue);
     expect(inbox.contains('shouldIncludeSender'), isTrue);
     expect(inbox.contains('toPublicInboxCard'), isTrue);
+    expect(inbox.contains('mapWithConcurrency'), isFalse);
+    expect(inbox.contains('qmatch.alignment'), isFalse);
 
-    final pool = read('functions/src/bounded_map.js');
-    expect(pool.contains('const DEFAULT_CONCURRENCY = 8'), isTrue);
+    final batch = read('functions/src/alignment_signals_batch.js');
+    expect(batch.contains('GET_ALL_CHUNK_SIZE'), isTrue);
+    expect(batch.contains('getAllSnapsIsolating'), isTrue);
 
     final screen =
         read('lib/features/who_liked_you/screens/who_liked_you_screen.dart');
