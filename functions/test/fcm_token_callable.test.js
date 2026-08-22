@@ -129,6 +129,7 @@ describe('fcm token callables', () => {
       token: TOKEN,
       platform: 'ios',
       app_id: '1:55490039374:ios:523d1a173f0ba32ac7fd1f',
+      notification_locale: 'en',
       apns_env: 'sandbox',
       created_at: 'TS',
       updated_at: 'TS',

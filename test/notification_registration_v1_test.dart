@@ -136,6 +136,7 @@ void main() {
     expect(payload['platform'], 'ios');
     expect(payload['app_id'], '1:55490039374:ios:523d1a173f0ba32ac7fd1f');
     expect(payload['apns_env'], 'sandbox');
+    expect(payload['notification_locale'], anyOf('tr', 'en'));
     expect(payload.containsKey('uid'), isFalse);
     expect(logs, contains('qmatch.push permission=authorized'));
     expect(logs, contains('qmatch.push token_registered'));

@@ -66,13 +66,22 @@ function nonEmptyString(value) {
  * No trusted persisted notification locale exists on users/{uid}.
  * Default lock-screen copy is English until a real preference is stored.
  */
-function resolveNotificationCopy() {
-  const copy = NOTIFICATION_COPY[DEFAULT_LOCALE];
+function resolveNotificationCopy(rawLocale) {
+  const raw =
+    typeof rawLocale === 'string' ? rawLocale.trim().toLowerCase() : '';
+  const supported = Object.prototype.hasOwnProperty.call(
+    NOTIFICATION_COPY,
+    raw,
+  );
+  const locale = supported ? raw : DEFAULT_LOCALE;
+  const copy = NOTIFICATION_COPY[locale];
   return {
-    locale: DEFAULT_LOCALE,
+    locale,
     title: copy.title,
     body: copy.body,
-    locale_source: 'default_en_no_persisted_user_locale',
+    locale_source: supported
+      ? 'fcm_token_notification_locale'
+      : 'default_en_missing_token_locale',
   };
 }
 
@@ -179,21 +188,22 @@ async function listRecipientTokens(db, uid) {
     if (!token) continue;
     const path =
       (doc.ref && doc.ref.path) || `${tokenCollectionPath(uid)}/${doc.id}`;
-    out.push({ path, token });
+    out.push({ path, token, notification_locale: data.notification_locale });
   }
   return out;
 }
 
-async function sendToTokens({ messaging, db, tokens, title, body, data }) {
+async function sendToTokens({ messaging, db, tokens, data }) {
   let sent = 0;
   let cleaned = 0;
   for (const row of tokens) {
     try {
+      const copy = resolveNotificationCopy(row.notification_locale);
       await messaging.send(
         buildFcmMessage({
           token: row.token,
-          title,
-          body,
+          title: copy.title,
+          body: copy.body,
           data,
         }),
       );
@@ -287,7 +297,7 @@ async function handleMatchCreated(event, deps = {}) {
   const claimed = await claimReceipt(db, matchId, recipientUid, deps);
   if (!claimed) return skip('duplicate');
 
-  const copy = resolveNotificationCopy();
+  const copy = resolveNotificationCopy(tokens[0].notification_locale);
   const data = buildDataPayload({
     matchId,
     threadId,
@@ -298,8 +308,6 @@ async function handleMatchCreated(event, deps = {}) {
     messaging,
     db,
     tokens,
-    title: copy.title,
-    body: copy.body,
     data,
   });
   return {

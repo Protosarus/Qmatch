@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -77,6 +78,12 @@ class NotificationRegistrationService {
     if (!_runningOnIos) return null;
     if (_apnsEnv != null) return _apnsEnv;
     return kDebugMode ? 'sandbox' : 'production';
+  }
+
+  String _resolveNotificationLocale() {
+    final languageCode =
+        PlatformDispatcher.instance.locale.languageCode.toLowerCase();
+    return languageCode == 'tr' ? 'tr' : 'en';
   }
 
   void _debugLog(String message) {
@@ -162,6 +169,7 @@ class NotificationRegistrationService {
       'token': token,
       'platform': _runningOnIos ? 'ios' : 'android',
       'app_id': _resolveAppId(),
+      'notification_locale': _resolveNotificationLocale(),
     };
     final apnsEnv = _resolveApnsEnv();
     if (apnsEnv != null) payload['apns_env'] = apnsEnv;

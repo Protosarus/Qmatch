@@ -55,12 +55,21 @@ async function seedRecipient(db, uid = 'userB') {
   await db.doc(`users/${uid}`).set(eligibleUser({ name: uid }));
 }
 
-async function seedToken(db, uid, token, id) {
+async function seedToken(
+  db,
+  uid,
+  token,
+  id,
+  notificationLocale,
+) {
   await db.doc(`users/${uid}/fcm_tokens/${id || token}`).set({
     token,
     platform: 'ios',
     app_id: 'app',
     apns_env: 'sandbox',
+    ...(notificationLocale
+      ? { notification_locale: notificationLocale }
+      : {}),
   });
 }
 
@@ -92,13 +101,29 @@ describe('super resonance push', () => {
     assert.strictEqual(DOCUMENT_PATH, 'super_resonance_signals/{signalId}');
   });
 
-  it('defaults to English because no persisted user locale exists', () => {
+  it('uses token locale and safely defaults missing locale to English', () => {
     const copy = resolveNotificationCopy();
     assert.strictEqual(copy.locale, 'en');
-    assert.strictEqual(copy.locale_source, 'default_en_no_persisted_user_locale');
+    assert.strictEqual(copy.locale_source, 'default_en_missing_token_locale');
     assert.strictEqual(copy.title, 'QMatch');
     assert.strictEqual(copy.body, 'You received a Super Resonance.');
-    assert.strictEqual(NOTIFICATION_COPY.tr.body, 'Bir Süper Rezonans aldın.');
+
+    const en = resolveNotificationCopy('en');
+    assert.strictEqual(en.locale, 'en');
+    assert.strictEqual(en.locale_source, 'fcm_token_notification_locale');
+    assert.strictEqual(en.body, 'You received a Super Resonance.');
+
+    const tr = resolveNotificationCopy('tr');
+    assert.strictEqual(tr.locale, 'tr');
+    assert.strictEqual(tr.locale_source, 'fcm_token_notification_locale');
+    assert.strictEqual(tr.body, 'Bir Süper Rezonans aldın.');
+
+    const unsupported = resolveNotificationCopy('de');
+    assert.strictEqual(unsupported.locale, 'en');
+    assert.strictEqual(
+      unsupported.locale_source,
+      'default_en_missing_token_locale',
+    );
   });
 
   it('sends a privacy-safe push to to_uid only', async () => {
@@ -130,6 +155,24 @@ describe('super resonance push', () => {
     assert.strictEqual(msg.data.name, undefined);
     assert.strictEqual(msg.data.photo, undefined);
     assert.strictEqual(msg.data.iq, undefined);
+  });
+
+  it('sends Turkish copy to a token registered with tr locale', async () => {
+    const db = new MemoryFirestore();
+    await seedRecipient(db, 'userB');
+    await seedToken(db, 'userB', 'tok-b1', 'hash-b1', 'tr');
+    const messaging = fakeMessaging();
+
+    const result = await handleSuperResonanceSignalCreated(
+      createdEvent({ data: activeSignal() }),
+      deps(db, messaging),
+    );
+
+    assert.strictEqual(result.sent, 1);
+    assert.deepStrictEqual(messaging.sent[0].notification, {
+      title: 'QMatch',
+      body: 'Bir Süper Rezonans aldın.',
+    });
   });
 
   it('does not notify the sender from_uid', async () => {

@@ -14,6 +14,7 @@ const REGISTER_CALLABLE_NAME = 'registerFcmToken';
 const UNREGISTER_CALLABLE_NAME = 'unregisterFcmToken';
 const PLATFORMS = new Set(['ios', 'android']);
 const APNS_ENVS = new Set(['sandbox', 'production']);
+const NOTIFICATION_LOCALES = new Set(['en', 'tr']);
 const MAX_TOKEN_LENGTH = 4096;
 const MAX_APP_ID_LENGTH = 256;
 
@@ -74,6 +75,24 @@ function normalizePlatform(raw) {
   return platform;
 }
 
+function normalizeNotificationLocale(raw) {
+  if (raw == null || raw === '') return 'en';
+  if (typeof raw !== 'string') {
+    throw new HttpsError(
+      'invalid-argument',
+      'notification_locale must be en or tr.',
+    );
+  }
+  const locale = raw.trim().toLowerCase();
+  if (!NOTIFICATION_LOCALES.has(locale)) {
+    throw new HttpsError(
+      'invalid-argument',
+      'notification_locale must be en or tr.',
+    );
+  }
+  return locale;
+}
+
 function normalizeAppId(raw) {
   if (typeof raw !== 'string') {
     throw new HttpsError('invalid-argument', 'app_id is required.');
@@ -114,6 +133,9 @@ async function handleRegisterFcmToken(request, deps = {}) {
   const token = normalizeToken(data.token);
   const platform = normalizePlatform(data.platform);
   const appId = normalizeAppId(data.app_id);
+  const notificationLocale = normalizeNotificationLocale(
+    data.notification_locale,
+  );
   const apnsEnv = normalizeApnsEnv(platform, data.apns_env);
   const id = tokenHash(token);
   const db = resolveDb(deps);
@@ -124,6 +146,7 @@ async function handleRegisterFcmToken(request, deps = {}) {
     token,
     platform,
     app_id: appId,
+    notification_locale: notificationLocale,
     updated_at: ts,
     last_seen_at: ts,
   };
@@ -151,6 +174,7 @@ module.exports = {
   UNREGISTER_CALLABLE_NAME,
   tokenHash,
   tokenPath,
+  normalizeNotificationLocale,
   handleRegisterFcmToken,
   handleUnregisterFcmToken,
 };

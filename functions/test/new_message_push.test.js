@@ -57,12 +57,21 @@ async function seedActiveThread(db, overrides = {}) {
   });
 }
 
-async function seedToken(db, uid, token, id) {
+async function seedToken(
+  db,
+  uid,
+  token,
+  id,
+  notificationLocale,
+) {
   await db.doc(`users/${uid}/fcm_tokens/${id || token}`).set({
     token,
     platform: 'ios',
     app_id: 'app',
     apns_env: 'sandbox',
+    ...(notificationLocale
+      ? { notification_locale: notificationLocale }
+      : {}),
   });
 }
 
@@ -97,13 +106,29 @@ describe('new message push', () => {
     );
   });
 
-  it('defaults to English because no persisted user locale exists', () => {
+  it('uses token locale and safely defaults missing locale to English', () => {
     const copy = resolveNotificationCopy();
     assert.strictEqual(copy.locale, 'en');
-    assert.strictEqual(copy.locale_source, 'default_en_no_persisted_user_locale');
+    assert.strictEqual(copy.locale_source, 'default_en_missing_token_locale');
     assert.strictEqual(copy.title, 'QMatch');
     assert.strictEqual(copy.body, 'You have a new message.');
-    assert.strictEqual(NOTIFICATION_COPY.tr.body, 'Yeni bir mesajın var.');
+
+    const en = resolveNotificationCopy('en');
+    assert.strictEqual(en.locale, 'en');
+    assert.strictEqual(en.locale_source, 'fcm_token_notification_locale');
+    assert.strictEqual(en.body, 'You have a new message.');
+
+    const tr = resolveNotificationCopy('tr');
+    assert.strictEqual(tr.locale, 'tr');
+    assert.strictEqual(tr.locale_source, 'fcm_token_notification_locale');
+    assert.strictEqual(tr.body, 'Yeni bir mesajın var.');
+
+    const unsupported = resolveNotificationCopy('de');
+    assert.strictEqual(unsupported.locale, 'en');
+    assert.strictEqual(
+      unsupported.locale_source,
+      'default_en_missing_token_locale',
+    );
   });
 
   it('sends a privacy-safe push to the recipient', async () => {
@@ -144,6 +169,24 @@ describe('new message push', () => {
     const unread = (await db.doc(`threads/${THREAD_ID}`).get()).data()
       .unread_counts;
     assert.deepStrictEqual(unread, { userA: 0, userB: 1 });
+  });
+
+  it('sends Turkish copy to a token registered with tr locale', async () => {
+    const db = new MemoryFirestore();
+    await seedActiveThread(db);
+    await seedToken(db, 'userB', 'tok-b1', 'hash-b1', 'tr');
+    const messaging = fakeMessaging();
+
+    const result = await handleThreadMessageCreated(
+      createdEvent({ data: textMessage() }),
+      deps(db, messaging),
+    );
+
+    assert.strictEqual(result.sent, 1);
+    assert.deepStrictEqual(messaging.sent[0].notification, {
+      title: 'QMatch',
+      body: 'Yeni bir mesajın var.',
+    });
   });
 
   it('does not send for system_match_v1 or system type', async () => {
