@@ -1,5 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../domain/who_liked_you_card.dart';
 
 /// Client for trusted `listWhoLikedYou`.
@@ -25,24 +26,29 @@ class WhoLikedYouClient {
   static const String callableName = 'listWhoLikedYou';
 
   Future<WhoLikedYouResult> list() async {
-    final raw = await _invoke(const {});
-    if (raw['resonance_access'] != true) {
-      return WhoLikedYouResult.locked;
-    }
+    final raw = await QmatchPerf.trace(
+      'alignment_signals.listWhoLikedYou_callable',
+      () => _invoke(const {}),
+    );
+    return QmatchPerf.traceSync('alignment_signals.card_enrichment_parse', () {
+      if (raw['resonance_access'] != true) {
+        return WhoLikedYouResult.locked;
+      }
 
-    final itemsRaw = raw['items'];
-    if (itemsRaw is! List) {
-      return const WhoLikedYouResult(resonanceAccess: true, items: []);
-    }
+      final itemsRaw = raw['items'];
+      if (itemsRaw is! List) {
+        return const WhoLikedYouResult(resonanceAccess: true, items: []);
+      }
 
-    final items = <WhoLikedYouCard>[];
-    final seen = <String>{};
-    for (final row in itemsRaw) {
-      final card = WhoLikedYouCard.fromPublicMap(row);
-      if (card == null || !seen.add(card.uid)) continue;
-      items.add(card);
-    }
-    return WhoLikedYouResult(resonanceAccess: true, items: items);
+      final items = <WhoLikedYouCard>[];
+      final seen = <String>{};
+      for (final row in itemsRaw) {
+        final card = WhoLikedYouCard.fromPublicMap(row);
+        if (card == null || !seen.add(card.uid)) continue;
+        items.add(card);
+      }
+      return WhoLikedYouResult(resonanceAccess: true, items: items);
+    });
   }
 
   Future<Map<String, dynamic>> _invoke(Map<String, dynamic> data) async {

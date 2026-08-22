@@ -349,3 +349,19 @@ exports.sendNewMatchPush = onDocumentCreated(
   (event) => newMatchPush.handleMatchCreated(event),
 );
 exports.handleMatchCreated = newMatchPush.handleMatchCreated;
+const superResonancePush = require('./src/super_resonance_push');
+
+/**
+ * Super Resonance push. Auth is the Firestore create itself.
+ * Notifies only to_uid for a newly created active signal.
+ * Does not change sendSuperResonance or credit spending.
+ */
+exports.sendSuperResonancePush = onDocumentCreated(
+  {
+    document: 'super_resonance_signals/{signalId}',
+    region: 'europe-west1',
+  },
+  (event) => superResonancePush.handleSuperResonanceSignalCreated(event),
+);
+exports.handleSuperResonanceSignalCreated =
+  superResonancePush.handleSuperResonanceSignalCreated;

@@ -39,6 +39,7 @@ ChatThreadModel activeThread({
 class _RecordingActions implements MessagePushTapActions {
   final opens = <Map<String, String>>[];
   int messagesTab = 0;
+  int alignmentSignals = 0;
 
   @override
   void openChat({required String threadId, required String otherUserId}) {
@@ -48,6 +49,11 @@ class _RecordingActions implements MessagePushTapActions {
   @override
   void showMessagesTab() {
     messagesTab += 1;
+  }
+
+  @override
+  void openAlignmentSignals() {
+    alignmentSignals += 1;
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:cloud_functions/cloud_functions.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../domain/who_liked_you_card.dart';
 
 /// Client for trusted `listSuperResonanceInbox`.
@@ -25,18 +26,23 @@ class SuperResonanceInboxClient {
   static const String callableName = 'listSuperResonanceInbox';
 
   Future<List<WhoLikedYouCard>> list() async {
-    final raw = await _invoke(const {});
-    final itemsRaw = raw['items'];
-    if (itemsRaw is! List) return const [];
+    final raw = await QmatchPerf.trace(
+      'alignment_signals.listSuperResonanceInbox_callable',
+      () => _invoke(const {}),
+    );
+    return QmatchPerf.traceSync('alignment_signals.sr_card_enrichment_parse', () {
+      final itemsRaw = raw['items'];
+      if (itemsRaw is! List) return const <WhoLikedYouCard>[];
 
-    final items = <WhoLikedYouCard>[];
-    final seen = <String>{};
-    for (final row in itemsRaw) {
-      final parsed = WhoLikedYouCard.fromPublicMap(row);
-      if (parsed == null || !seen.add(parsed.uid)) continue;
-      items.add(parsed.copyWith(superResonance: true));
-    }
-    return List<WhoLikedYouCard>.unmodifiable(items);
+      final items = <WhoLikedYouCard>[];
+      final seen = <String>{};
+      for (final row in itemsRaw) {
+        final parsed = WhoLikedYouCard.fromPublicMap(row);
+        if (parsed == null || !seen.add(parsed.uid)) continue;
+        items.add(parsed.copyWith(superResonance: true));
+      }
+      return List<WhoLikedYouCard>.unmodifiable(items);
+    });
   }
 
   Future<Map<String, dynamic>> _invoke(Map<String, dynamic> data) async {

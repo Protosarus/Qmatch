@@ -74,9 +74,14 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
   bool _resonanceAccess = false;
   List<WhoLikedYouCard> _items = const [];
 
+  /// Temporary audit: wall clock from screen open → first content.
+  final Stopwatch _loadSw = Stopwatch();
+
   @override
   void initState() {
     super.initState();
+    _loadSw.start();
+    QmatchPerf.mark('alignment_signals.screen_open');
     _client = widget.client ?? WhoLikedYouClient();
     _inbox = widget.superResonanceInbox ?? SuperResonanceInboxClient();
     _likeUser = widget.likeUser ?? _productionLike;
@@ -99,6 +104,10 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
       _loading = true;
       _hasError = false;
     });
+    _loadSw
+      ..reset()
+      ..start();
+    QmatchPerf.mark('alignment_signals.screen_open');
     await _fetch();
   }
 
@@ -134,9 +143,12 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     final ordinaryItems = access
         ? List<WhoLikedYouCard>.from(ordinary!.items)
         : const <WhoLikedYouCard>[];
-    final merged = mergeAlignmentSignals(
-      superResonance: superList,
-      ordinary: ordinaryItems,
+    final merged = QmatchPerf.traceSync(
+      'alignment_signals.local_filter_sort',
+      () => mergeAlignmentSignals(
+        superResonance: superList,
+        ordinary: ordinaryItems,
+      ),
     );
 
     final bothFailed = ordinaryError != null && superError != null;
@@ -148,6 +160,7 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
         _items = const [];
         _loading = false;
       });
+      _markFirstContentReady(const []);
       return;
     }
 
@@ -157,6 +170,53 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
       _loading = false;
       _hasError = false;
     });
+    _markFirstContentReady(merged);
+  }
+
+  void _markFirstContentReady(List<WhoLikedYouCard> items) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      QmatchPerf.mark(
+        'alignment_signals.first_content_ready',
+        _loadSw.elapsed,
+      );
+      QmatchPerf.mark('alignment_signals.total', _loadSw.elapsed);
+      _probeFirstImageCache(items);
+    });
+  }
+
+  /// Debug-only: time first photo decode/cache hit. Does not gate UI.
+  void _probeFirstImageCache(List<WhoLikedYouCard> items) {
+    if (!QmatchPerf.enabled) return;
+    String? url;
+    for (final card in items) {
+      final candidate = card.primaryPhotoUrl?.trim();
+      if (candidate != null && candidate.isNotEmpty) {
+        url = candidate;
+        break;
+      }
+    }
+    if (url == null) {
+      QmatchPerf.mark('alignment_signals.image_cache_work', Duration.zero);
+      return;
+    }
+    final sw = Stopwatch()..start();
+    final provider = NetworkImage(url);
+    final stream = provider.resolve(const ImageConfiguration());
+    late final ImageStreamListener listener;
+    listener = ImageStreamListener(
+      (ImageInfo info, bool synchronousCall) {
+        sw.stop();
+        QmatchPerf.log('alignment_signals.image_cache_work', sw.elapsed);
+        stream.removeListener(listener);
+      },
+      onError: (Object _, StackTrace? __) {
+        sw.stop();
+        QmatchPerf.log('alignment_signals.image_cache_work', sw.elapsed);
+        stream.removeListener(listener);
+      },
+    );
+    stream.addListener(listener);
   }
 
   void _removeLocal(String uid) {

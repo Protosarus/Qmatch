@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/debug/qmatch_perf.dart';
 import '../../iap/domain/resonance_paywall_feature.dart';
 import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../iap/services/entitlement_repository.dart';
@@ -54,6 +55,9 @@ class WhoLikedYouEntry {
     if (_opening) return;
     _opening = true;
     try {
+      // Discover / push: no entitlement gate before opening the inbox.
+      QmatchPerf.mark('alignment_signals.entitlement_gate_start');
+      QmatchPerf.mark('alignment_signals.entitlement_gate_end', Duration.zero);
       if (!context.mounted) return;
       await _inbox(context);
     } finally {
@@ -68,7 +72,11 @@ class WhoLikedYouEntry {
     if (_opening) return;
     _opening = true;
     try {
+      QmatchPerf.mark('alignment_signals.entitlement_gate_start');
+      final gateSw = Stopwatch()..start();
       final entitled = await _access();
+      gateSw.stop();
+      QmatchPerf.mark('alignment_signals.entitlement_gate_end', gateSw.elapsed);
       if (!context.mounted) return;
       if (entitled) {
         await _inbox(context);

@@ -9,6 +9,8 @@ import '../../features/matching/models/match_model.dart';
 import '../../features/messages/models/chat_thread_model.dart';
 import '../../features/messages/screens/chat_detail_screen.dart';
 import '../../features/messages/services/chat_service.dart';
+import '../../features/who_liked_you/navigation/who_liked_you_entry.dart';
+import '../debug/qmatch_perf.dart';
 import '../navigation/main_navigation_screen.dart';
 import '../utils/firestore_paths.dart';
 import 'firebase_push_messaging_adapter.dart';
@@ -62,6 +64,7 @@ class MessagePushTapHost extends StatefulWidget {
 abstract class MessagePushTapActions {
   void openChat({required String threadId, required String otherUserId});
   void showMessagesTab();
+  void openAlignmentSignals();
 }
 
 class _MessagePushTapHostState extends State<MessagePushTapHost> {
@@ -132,6 +135,8 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
     if (mid.isNotEmpty) return 'mid:$mid';
     final matchId = (data['match_id'] ?? '').trim();
     if (matchId.isNotEmpty) return 'match:$matchId';
+    final signalId = (data['signal_id'] ?? '').trim();
+    if (signalId.isNotEmpty) return 'sr:$signalId';
     final keys = data.keys.toList()..sort();
     return 'keys:${keys.join(',')}|type:${(data['type'] ?? '').trim()}|'
         't:${(data['thread_id'] ?? '').isNotEmpty}|'
@@ -205,6 +210,8 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
             threadId: result.threadId!,
             otherUserId: result.otherUserId!,
           );
+        case MessagePushTapOutcome.openAlignmentSignals:
+          await _openAlignmentSignals();
         case MessagePushTapOutcome.fallbackMessages:
           await _showMessagesFallback();
         case MessagePushTapOutcome.ignore:
@@ -313,6 +320,47 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
       ' mainMounted=${_navKey.currentState != null}'
       ' tab=${_navKey.currentState?.currentIndex}',
     );
+  }
+
+  Future<void> _openAlignmentSignals() async {
+    final custom = widget.actions;
+    if (custom != null) {
+      custom.openAlignmentSignals();
+      return;
+    }
+
+    _navigating = true;
+    final tapSw = Stopwatch()..start();
+    QmatchPerf.mark('alignment_signals.push_tap_nav_start');
+    try {
+      await _waitForMainShell();
+      if (!mounted) return;
+      final nav = Navigator.maybeOf(context, rootNavigator: true);
+      nav?.popUntil((route) => route.isFirst);
+      await _afterNextFrame();
+      if (!mounted) return;
+      // Discover tab is the natural home for Alignment Signals entry.
+      _navKey.currentState?.selectTab(0);
+      await _afterNextFrame();
+      if (!mounted) return;
+      QmatchPerf.mark(
+        'alignment_signals.push_tap_shell_ready',
+        tapSw.elapsed,
+      );
+      await WhoLikedYouEntry().openFromDiscover(context);
+      QmatchPerf.mark(
+        'alignment_signals.push_tap_route_closed',
+        tapSw.elapsed,
+      );
+      _log(
+        'qmatch.push tap_nav'
+        ' phase=alignment_signals'
+        ' mainMounted=${_navKey.currentState != null}'
+        ' tab=${_navKey.currentState?.currentIndex}',
+      );
+    } finally {
+      _navigating = false;
+    }
   }
 
   @override

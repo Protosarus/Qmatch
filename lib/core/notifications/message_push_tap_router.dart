@@ -5,6 +5,7 @@ import '../../features/messages/models/chat_thread_model.dart';
 
 enum MessagePushTapOutcome {
   openChat,
+  openAlignmentSignals,
   fallbackMessages,
   ignore,
 }
@@ -15,6 +16,7 @@ class MessagePushTapResult {
     this.threadId,
     this.otherUserId,
     this.messageId,
+    this.signalId,
     this.guard,
   });
 
@@ -22,6 +24,7 @@ class MessagePushTapResult {
   final String? threadId;
   final String? otherUserId;
   final String? messageId;
+  final String? signalId;
 
   /// Guard name for debug / tests.
   final String? guard;
@@ -34,6 +37,12 @@ class MessagePushTapResult {
   static const MessagePushTapResult fallbackMessages = MessagePushTapResult._(
     MessagePushTapOutcome.fallbackMessages,
     guard: 'fallback',
+  );
+
+  static const MessagePushTapResult openAlignmentSignalsFallback =
+      MessagePushTapResult._(
+    MessagePushTapOutcome.openAlignmentSignals,
+    guard: 'alignment_fallback',
   );
 
   factory MessagePushTapResult.fallback(String guard) {
@@ -61,6 +70,20 @@ class MessagePushTapResult {
       otherUserId: otherUserId,
       messageId: messageId,
       guard: 'open_chat',
+    );
+  }
+
+  factory MessagePushTapResult.openAlignmentSignals({
+    required String signalId,
+    required String otherUserId,
+    String guard = 'open_alignment_signals',
+  }) {
+    return MessagePushTapResult._(
+      MessagePushTapOutcome.openAlignmentSignals,
+      signalId: signalId,
+      otherUserId: otherUserId,
+      messageId: 'sr:$signalId',
+      guard: guard,
     );
   }
 }
@@ -98,6 +121,13 @@ class MessagePushTapRouter {
         loadThread: loadThread,
         blockExists: blockExists,
         loadMatch: loadMatch,
+      );
+    }
+    if (type == 'super_resonance') {
+      return _handleSuperResonance(
+        data: data,
+        currentUid: currentUid,
+        blockExists: blockExists,
       );
     }
     return MessagePushTapResult.ignored('type_unsupported');
@@ -199,6 +229,75 @@ class MessagePushTapRouter {
       uid: uid,
       loadThread: loadThread,
       blockExists: blockExists,
+    );
+  }
+
+  Future<MessagePushTapResult> _handleSuperResonance({
+    required Map<String, String> data,
+    required String? currentUid,
+    required Future<bool> Function(String fromUid, String toUid) blockExists,
+  }) async {
+    final signalId = (data['signal_id'] ?? '').trim();
+    final otherUid = (data['other_uid'] ?? '').trim();
+
+    if (signalId.isEmpty || otherUid.isEmpty) {
+      if (signalId.isNotEmpty) _handledTapIds.add('sr:$signalId');
+      // Still open Alignment Signals — never fabricate a card.
+      return MessagePushTapResult.openAlignmentSignals(
+        signalId: signalId.isEmpty ? 'unknown' : signalId,
+        otherUserId: otherUid.isEmpty ? 'unknown' : otherUid,
+        guard: 'malformed_payload',
+      );
+    }
+
+    final uid = (currentUid ?? '').trim();
+    if (uid.isEmpty) {
+      return MessagePushTapResult.ignored('signed_out');
+    }
+    final tapId = 'sr:$signalId';
+    if (_handledTapIds.contains(tapId)) {
+      return MessagePushTapResult.ignored('duplicate');
+    }
+
+    // Clients cannot read super_resonance_signals (Admin-only). Ownership is
+    // proven by deterministic id from_uid_to_uid where to_uid == me.
+    final expectedId = '${otherUid}_$uid';
+    if (signalId != expectedId || otherUid == uid) {
+      _handledTapIds.add(tapId);
+      return MessagePushTapResult.openAlignmentSignals(
+        signalId: signalId,
+        otherUserId: otherUid,
+        guard: 'signal_not_for_recipient',
+      );
+    }
+
+    bool blockedByMe;
+    try {
+      blockedByMe = await blockExists(uid, otherUid);
+    } catch (error) {
+      _emit(
+        'qmatch.push tap_guard=block_check_error'
+        ' error=${error.runtimeType}',
+      );
+      return MessagePushTapResult.openAlignmentSignals(
+        signalId: signalId,
+        otherUserId: otherUid,
+        guard: 'block_check_error',
+      );
+    }
+    if (blockedByMe) {
+      _handledTapIds.add(tapId);
+      return MessagePushTapResult.openAlignmentSignals(
+        signalId: signalId,
+        otherUserId: otherUid,
+        guard: 'blocked_by_me',
+      );
+    }
+
+    _handledTapIds.add(tapId);
+    return MessagePushTapResult.openAlignmentSignals(
+      signalId: signalId,
+      otherUserId: otherUid,
     );
   }
 
