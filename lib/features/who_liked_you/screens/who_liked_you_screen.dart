@@ -352,19 +352,14 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
 
   Widget _buildBody(AppLocalizations l10n) {
     if (_loading) {
-      return Center(
-        child: Semantics(
-          label: l10n.whoLikedYouLoading,
-          child: const CircularProgressIndicator(
-            key: Key('qmatch-who-liked-you-loading'),
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
-          ),
-        ),
+      return _AlignmentSignalsLoadingState(
+        message: l10n.whoLikedYouLoading,
       );
     }
     if (_hasError) {
       return _MessageState(
         key: const Key('qmatch-who-liked-you-error'),
+        icon: Icons.cloud_off_rounded,
         title: l10n.whoLikedYouErrorTitle,
         body: l10n.whoLikedYouErrorBody,
         actionLabel: l10n.retry,
@@ -380,10 +375,24 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
           AppSpacing.md,
           AppSpacing.xl,
         ),
-        itemCount: _items.length,
+        itemCount: _items.length + 1,
         separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
         itemBuilder: (context, index) {
-          final card = _items[index];
+          if (index == 0) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: AppSpacing.xs),
+              child: Text(
+                key: const Key('qmatch-who-liked-you-list-caption'),
+                l10n.whoLikedYouListCaption,
+                style: GoogleFonts.inter(
+                  color: AppColors.textSecondary,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
+              ),
+            );
+          }
+          final card = _items[index - 1];
           return _WhoLikedYouCardView(
             card: card,
             busy: _busy,
@@ -396,6 +405,7 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     if (!_resonanceAccess) {
       return _MessageState(
         key: const Key('qmatch-who-liked-you-free-discovery'),
+        icon: Icons.auto_awesome_rounded,
         title: l10n.whoLikedYouFreeDiscoveryTitle,
         body: l10n.whoLikedYouFreeDiscoveryBody,
         actionLabel: l10n.resonanceUnlockCta,
@@ -405,8 +415,51 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     }
     return _MessageState(
       key: const Key('qmatch-who-liked-you-empty'),
+      icon: Icons.bolt_rounded,
       title: l10n.whoLikedYouEmptyTitle,
       body: l10n.whoLikedYouEmptyBody,
+    );
+  }
+}
+
+class _AlignmentSignalsLoadingState extends StatelessWidget {
+  const _AlignmentSignalsLoadingState({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        child: Semantics(
+          label: message,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                width: 28,
+                height: 28,
+                child: CircularProgressIndicator(
+                  key: Key('qmatch-who-liked-you-loading'),
+                  strokeWidth: 2.2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFDAC8ED)),
+                ),
+              ),
+              const SizedBox(height: AppSpacing.md),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  color: AppColors.textSecondary,
+                  fontSize: 14,
+                  height: 1.4,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -416,6 +469,7 @@ class _MessageState extends StatelessWidget {
     super.key,
     required this.title,
     required this.body,
+    this.icon,
     this.actionLabel,
     this.actionKey,
     this.onAction,
@@ -423,6 +477,7 @@ class _MessageState extends StatelessWidget {
 
   final String title;
   final String body;
+  final IconData? icon;
   final String? actionLabel;
   final Key? actionKey;
   final VoidCallback? onAction;
@@ -437,6 +492,14 @@ class _MessageState extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              if (icon != null) ...[
+                Icon(
+                  icon,
+                  color: AppColors.textGold,
+                  size: 32,
+                ),
+                const SizedBox(height: AppSpacing.md),
+              ],
               Text(
                 title,
                 textAlign: TextAlign.center,
@@ -492,6 +555,8 @@ class _WhoLikedYouCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final identity = formatDiscoverIdentity(name: card.name, age: card.age);
+    final short = MediaQuery.sizeOf(context).height < 700;
+    final photoHeight = short ? 180.0 : 220.0;
 
     return QGlassCard(
       key: Key('qmatch-who-liked-you-card-${card.uid}'),
@@ -504,7 +569,7 @@ class _WhoLikedYouCardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
-            height: 220,
+            height: photoHeight,
             child: ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(AppRadii.card),
@@ -518,6 +583,37 @@ class _WhoLikedYouCardView extends StatelessWidget {
                       identity ?? card.name,
                     ),
                     missingPhotoLabel: l10n.discoverMissingPhotoLabel,
+                  ),
+                  const DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Color(0x66060A10),
+                          Color(0xAA060A10),
+                        ],
+                        stops: [0.5, 0.78, 1.0],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: AppSpacing.md,
+                    right: AppSpacing.md,
+                    bottom: AppSpacing.md,
+                    child: Text(
+                      identity ?? card.name,
+                      key: Key('qmatch-who-liked-you-name-${card.uid}'),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.playfairDisplay(
+                        color: AppColors.textPrimary,
+                        fontSize: short ? 20 : 22,
+                        fontWeight: FontWeight.w700,
+                        height: 1.15,
+                      ),
+                    ),
                   ),
                   if (card.superResonance)
                     Positioned(
@@ -543,31 +639,24 @@ class _WhoLikedYouCardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  identity ?? card.name,
-                  key: Key('qmatch-who-liked-you-name-${card.uid}'),
-                  style: GoogleFonts.playfairDisplay(
-                    color: AppColors.textPrimary,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                  key: Key('qmatch-who-liked-you-cue-${card.uid}'),
+                  card.superResonance
+                      ? l10n.whoLikedYouSuperCue
+                      : l10n.whoLikedYouAlignedCue,
+                  style: GoogleFonts.inter(
+                    color: const Color(0xFFDAC8ED),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    height: 1.3,
                   ),
                 ),
-                if (card.superResonance) ...[
-                  const SizedBox(height: AppSpacing.xs),
-                  Text(
-                    key: Key('qmatch-who-liked-you-super-label-${card.uid}'),
-                    l10n.discoverSuperResonance,
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFDAC8ED),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
                 if (card.bio.isNotEmpty) ...[
                   const SizedBox(height: AppSpacing.sm),
                   Text(
                     card.bio,
                     key: Key('qmatch-who-liked-you-bio-${card.uid}'),
+                    maxLines: short ? 3 : 5,
+                    overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.inter(
                       color: AppColors.textSecondary,
                       fontSize: 14,
@@ -581,7 +670,7 @@ class _WhoLikedYouCardView extends StatelessWidget {
                     spacing: AppSpacing.xs,
                     runSpacing: AppSpacing.xs,
                     children: [
-                      for (final interest in card.interests.take(12))
+                      for (final interest in card.interests.take(8))
                         Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: AppSpacing.sm,

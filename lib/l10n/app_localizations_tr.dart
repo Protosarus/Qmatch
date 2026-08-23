@@ -1113,10 +1113,99 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profileFieldOccupation => 'Meslek';
 
   @override
+  String get profileFieldCompany => 'Şirket';
+
+  @override
+  String get profileFieldSchool => 'Okul';
+
+  @override
+  String get profileFieldEducationMajor => 'Bölüm';
+
+  @override
   String get profileFieldDrinking => 'Alkol';
 
   @override
   String get profileFieldSmoking => 'Sigara';
+
+  @override
+  String get profileCompany => 'Şirket';
+
+  @override
+  String get profileCompanyHint => 'Örn: Acme Studio';
+
+  @override
+  String get profileSchool => 'Okul / üniversite';
+
+  @override
+  String get profileSchoolHint => 'Örn: Boğaziçi Üniversitesi';
+
+  @override
+  String get profileEducationField => 'Bölüm';
+
+  @override
+  String get profileEducationFieldHint => 'Örn: Bilgisayar Mühendisliği';
+
+  @override
+  String get profileAnthemSection => 'Anthem';
+
+  @override
+  String get profileAnthemEmptyHint => 'İsteğe bağlı favori şarkını ekle';
+
+  @override
+  String get profileAnthemEditTitle => 'Anthem’in';
+
+  @override
+  String get profileAnthemEditSubtitle =>
+      'Favori bir şarkı paylaş. QMatch müzik yayınlamaz — isteğe bağlı bir bağlantı ekleyebilirsin.';
+
+  @override
+  String get profileAnthemSongTitle => 'Şarkı adı';
+
+  @override
+  String get profileAnthemSongTitleHint => 'Örn: Midnight City';
+
+  @override
+  String get profileAnthemArtist => 'Sanatçı';
+
+  @override
+  String get profileAnthemArtistHint => 'Örn: M83';
+
+  @override
+  String get profileAnthemLink => 'Bağlantı (isteğe bağlı)';
+
+  @override
+  String get profileAnthemLinkHint => 'https://…';
+
+  @override
+  String get profileAnthemSave => 'Anthem’i kaydet';
+
+  @override
+  String get profileAnthemSaveFailed =>
+      'Anthem kaydedilemedi. Lütfen tekrar dene.';
+
+  @override
+  String get profileAnthemTitleRequired =>
+      'Bir şarkı adı ekle veya diğer alanları temizle.';
+
+  @override
+  String get profileAnthemUrlInvalid =>
+      'Geçerli bir http veya https bağlantısı gir.';
+
+  @override
+  String get profileEditAnthemSemantic => 'Anthem’i düzenle';
+
+  @override
+  String get profileAnthemOpenLink => 'Bağlantıyı aç';
+
+  @override
+  String discoverAnthemTitleOnly(String title) {
+    return 'Anthem · $title';
+  }
+
+  @override
+  String discoverAnthemWithArtist(String title, String artist) {
+    return 'Anthem · $title — $artist';
+  }
 
   @override
   String get profileSetupTitle => 'Profil Oluştur';
@@ -1416,7 +1505,8 @@ class AppLocalizationsTr extends AppLocalizations {
   String get profilePreferencesTitle => 'Ne arıyorsun?';
 
   @override
-  String get profilePreferencesSubtitle => 'Tercihlerin eşleşmeni etkiler';
+  String get profilePreferencesSubtitle =>
+      'Profil kurulumunda neyin önemli olduğunu paylaş';
 
   @override
   String get photos => 'Fotoğraflar';
@@ -1666,7 +1756,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get profilePreferencesEditableHint =>
-      'Bu tercihler istediğin zaman değiştirilebilir';
+      'Bu tercihler profiline kaydedilir. Canlı Discover sıralamasını değiştirmez. Discover havuzu için Passport’u kullan.';
 
   @override
   String get profileBioHint =>
@@ -2029,6 +2119,16 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get whoLikedYouFreeDiscoveryBody =>
       'Biri sana Super Resonance gönderdiğinde burada görebilirsin. Resonance üyeliği, diğer Uyum Sinyallerini de keşfetmeni sağlar.';
+
+  @override
+  String get whoLikedYouListCaption =>
+      'Sana ulaşan sinyaller — sıralama skoru gösterilmez.';
+
+  @override
+  String get whoLikedYouAlignedCue => 'Seninle uyumlu';
+
+  @override
+  String get whoLikedYouSuperCue => 'Sana Super Resonance gönderdi';
 
   @override
   String get profileMembershipResonanceActive => 'Resonance aktif';

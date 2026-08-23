@@ -12,8 +12,14 @@ class UserProfileModel {
   final String bio;
   final List<String> interests;
 
-  // Yaşam tarzı
+  // Yaşam tarzı / work & education details
   final String? occupation;
+  final String? company;
+  final String? school;
+  final String? educationField;
+  final String? anthemTitle;
+  final String? anthemArtist;
+  final String? anthemExternalUrl;
   final String? drinking;
   final String? smoking;
   final String? pets;
@@ -50,6 +56,12 @@ class UserProfileModel {
     required this.bio,
     required this.interests,
     this.occupation,
+    this.company,
+    this.school,
+    this.educationField,
+    this.anthemTitle,
+    this.anthemArtist,
+    this.anthemExternalUrl,
     this.drinking,
     this.smoking,
     this.pets,
@@ -121,6 +133,12 @@ class UserProfileModel {
       'bio': bio,
       'interests': interests,
       if (occupation != null) 'occupation': occupation,
+      if (company != null) 'company': company,
+      if (school != null) 'school': school,
+      if (educationField != null) 'education_field': educationField,
+      if (anthemTitle != null) 'anthem_title': anthemTitle,
+      if (anthemArtist != null) 'anthem_artist': anthemArtist,
+      if (anthemExternalUrl != null) 'anthem_external_url': anthemExternalUrl,
       if (drinking != null) 'drinking': drinking,
       if (smoking != null) 'smoking': smoking,
       if (pets != null) 'pets': pets,
@@ -157,6 +175,12 @@ class UserProfileModel {
       bio: data['bio'] ?? '',
       interests: List<String>.from(data['interests'] ?? []),
       occupation: data['occupation'],
+      company: data['company'],
+      school: data['school'],
+      educationField: data['education_field'],
+      anthemTitle: data['anthem_title'],
+      anthemArtist: data['anthem_artist'],
+      anthemExternalUrl: data['anthem_external_url'],
       drinking: data['drinking'],
       smoking: data['smoking'],
       pets: data['pets'],
@@ -192,6 +216,12 @@ class UserProfileModel {
     String? bio,
     List<String>? interests,
     String? occupation,
+    String? company,
+    String? school,
+    String? educationField,
+    String? anthemTitle,
+    String? anthemArtist,
+    String? anthemExternalUrl,
     String? drinking,
     String? smoking,
     String? pets,
@@ -220,6 +250,12 @@ class UserProfileModel {
       bio: bio ?? this.bio,
       interests: interests ?? this.interests,
       occupation: occupation ?? this.occupation,
+      company: company ?? this.company,
+      school: school ?? this.school,
+      educationField: educationField ?? this.educationField,
+      anthemTitle: anthemTitle ?? this.anthemTitle,
+      anthemArtist: anthemArtist ?? this.anthemArtist,
+      anthemExternalUrl: anthemExternalUrl ?? this.anthemExternalUrl,
       drinking: drinking ?? this.drinking,
       smoking: smoking ?? this.smoking,
       pets: pets ?? this.pets,

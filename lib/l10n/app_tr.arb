@@ -475,8 +475,52 @@
   "profileMissingPhoto": "Fotoğraf ekle",
   "profileEditPhotoSemantic": "Profil fotoğrafını düzenle",
   "profileFieldOccupation": "Meslek",
+  "profileFieldCompany": "Şirket",
+  "profileFieldSchool": "Okul",
+  "profileFieldEducationMajor": "Bölüm",
   "profileFieldDrinking": "Alkol",
   "profileFieldSmoking": "Sigara",
+  "profileCompany": "Şirket",
+  "profileCompanyHint": "Örn: Acme Studio",
+  "profileSchool": "Okul / üniversite",
+  "profileSchoolHint": "Örn: Boğaziçi Üniversitesi",
+  "profileEducationField": "Bölüm",
+  "profileEducationFieldHint": "Örn: Bilgisayar Mühendisliği",
+  "profileAnthemSection": "Anthem",
+  "profileAnthemEmptyHint": "İsteğe bağlı favori şarkını ekle",
+  "profileAnthemEditTitle": "Anthem’in",
+  "profileAnthemEditSubtitle": "Favori bir şarkı paylaş. QMatch müzik yayınlamaz — isteğe bağlı bir bağlantı ekleyebilirsin.",
+  "profileAnthemSongTitle": "Şarkı adı",
+  "profileAnthemSongTitleHint": "Örn: Midnight City",
+  "profileAnthemArtist": "Sanatçı",
+  "profileAnthemArtistHint": "Örn: M83",
+  "profileAnthemLink": "Bağlantı (isteğe bağlı)",
+  "profileAnthemLinkHint": "https://…",
+  "profileAnthemSave": "Anthem’i kaydet",
+  "profileAnthemSaveFailed": "Anthem kaydedilemedi. Lütfen tekrar dene.",
+  "profileAnthemTitleRequired": "Bir şarkı adı ekle veya diğer alanları temizle.",
+  "profileAnthemUrlInvalid": "Geçerli bir http veya https bağlantısı gir.",
+  "profileEditAnthemSemantic": "Anthem’i düzenle",
+  "profileAnthemOpenLink": "Bağlantıyı aç",
+  "discoverAnthemTitleOnly": "Anthem · {title}",
+  "@discoverAnthemTitleOnly": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverAnthemWithArtist": "Anthem · {title} — {artist}",
+  "@discoverAnthemWithArtist": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "artist": {
+        "type": "String"
+      }
+    }
+  },
   "profileSetupTitle": "Profil Oluştur",
   "profileSetupComplete": "TAMAMLA",
   "profileSetupReadyTitle": "Profil Hazır!",
@@ -587,7 +631,7 @@
   "profileLifestyleTitle": "Yaşam tarzı",
   "profileLifestyleSubtitle": "Opsiyonel — paylaşmak istediklerini doldur",
   "profilePreferencesTitle": "Ne arıyorsun?",
-  "profilePreferencesSubtitle": "Tercihlerin eşleşmeni etkiler",
+  "profilePreferencesSubtitle": "Profil kurulumunda neyin önemli olduğunu paylaş",
   "photos": "Fotoğraflar",
   "profileBioSubtitle": "Kendini ifade et, dikkat çek!",
   "profileInterestsMaxSelect": "En fazla 5 ilgi alanı seç ({count}/5)",
@@ -704,7 +748,7 @@
       }
     }
   },
-  "profilePreferencesEditableHint": "Bu tercihler istediğin zaman değiştirilebilir",
+  "profilePreferencesEditableHint": "Bu tercihler profiline kaydedilir. Canlı Discover sıralamasını değiştirmez. Discover havuzu için Passport’u kullan.",
   "profileBioHint": "Kendini tanıt… Hobilerinden, tutkularından, hayallerinden bahset.",
   "settingsMvpPrivacyNote": "Bu ekrandaki bazı gizlilik anahtarları şimdilik bu cihazda tutulur. Profil, değerlendirmeler, eşleşmeler ve mesajlar hesabınla senkronize olur. Ayrıntılar için Hakkında → Gizlilik Politikası’na bak.",
   "settingsMvpNotificationsNote": "Bu tercihler Qmatch hesabınla senkronlanır. Anlık bildirimler ayrıca telefon ayarlarına da bağlıdır.",
@@ -819,6 +863,9 @@
   "whoLikedYouErrorBody": "Bir sorun oluştu. Lütfen tekrar dene.",
   "whoLikedYouFreeDiscoveryTitle": "Özel bir uyum sinyali burada görünebilir",
   "whoLikedYouFreeDiscoveryBody": "Biri sana Super Resonance gönderdiğinde burada görebilirsin. Resonance üyeliği, diğer Uyum Sinyallerini de keşfetmeni sağlar.",
+  "whoLikedYouListCaption": "Sana ulaşan sinyaller — sıralama skoru gösterilmez.",
+  "whoLikedYouAlignedCue": "Seninle uyumlu",
+  "whoLikedYouSuperCue": "Sana Super Resonance gönderdi",
   "profileMembershipResonanceActive": "Resonance aktif",
   "profileMembershipFree": "QMatch Free",
   "profileResonanceBadgeSemantic": "Resonance aktif",

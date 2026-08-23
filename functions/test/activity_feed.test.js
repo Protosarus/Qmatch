@@ -236,6 +236,76 @@ describe('activity feed', () => {
     assert.strictEqual(rows[0].occupation, undefined);
   });
 
+  it('includes company school and education_field in work education event', async () => {
+    const db = new MemoryFirestore();
+    await seedActiveMatch(db);
+
+    await handleProfileActivityWritten(
+      writtenEvent({
+        before: profile({
+          company: '',
+          school: '',
+          education_field: '',
+        }),
+        after: profile({
+          company: 'Acme',
+          school: 'METU',
+          education_field: 'CS',
+        }),
+      }),
+      { db },
+    );
+
+    const rows = await feedRows(db, 'userB');
+    assert.strictEqual(rows.length, 1);
+    assert.strictEqual(
+      rows[0].type,
+      ACTIVITY_TYPES.WORK_EDUCATION_UPDATED,
+    );
+    assert.deepStrictEqual(
+      rows[0].changed_fields,
+      ['company', 'school', 'education_field'],
+    );
+    assert.strictEqual(rows[0].company, undefined);
+    assert.strictEqual(rows[0].school, undefined);
+    assert.strictEqual(rows[0].education_field, undefined);
+  });
+
+  it('creates anthem_updated without copying song details', async () => {
+    const db = new MemoryFirestore();
+    await seedActiveMatch(db);
+
+    const result = await handleProfileActivityWritten(
+      writtenEvent({
+        before: profile({
+          anthem_title: '',
+          anthem_artist: '',
+        }),
+        after: profile({
+          anthem_title: 'Midnight City',
+          anthem_artist: 'M83',
+          anthem_external_url: 'https://example.com/song',
+        }),
+      }),
+      { db },
+    );
+
+    assert.strictEqual(result.skipped, null);
+    assert.deepStrictEqual(result.event_types, [
+      ACTIVITY_TYPES.ANTHEM_UPDATED,
+    ]);
+
+    const rows = await feedRows(db, 'userB');
+    assert.strictEqual(rows.length, 1);
+    assert.strictEqual(
+      rows[0].type,
+      ACTIVITY_TYPES.ANTHEM_UPDATED,
+    );
+    assert.strictEqual(rows[0].anthem_title, undefined);
+    assert.strictEqual(rows[0].anthem_artist, undefined);
+    assert.strictEqual(rows[0].anthem_external_url, undefined);
+  });
+
   it('creates a match event for both participants', async () => {
     const db = new MemoryFirestore();
 

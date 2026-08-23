@@ -279,9 +279,13 @@ class QMatchProfileInfoSections extends StatelessWidget {
   const QMatchProfileInfoSections({
     super.key,
     required this.profile,
+    this.onEditAnthem,
+    this.onOpenAnthemLink,
   });
 
   final UserProfileModel profile;
+  final VoidCallback? onEditAnthem;
+  final VoidCallback? onOpenAnthemLink;
 
   @override
   Widget build(BuildContext context) {
@@ -349,6 +353,12 @@ class QMatchProfileInfoSections extends StatelessWidget {
                   ],
                 ),
         ),
+        const SizedBox(height: AppSpacing.md),
+        QMatchProfileAnthemSection(
+          profile: profile,
+          onEdit: onEditAnthem,
+          onOpenLink: onOpenAnthemLink,
+        ),
       ],
     );
   }
@@ -368,11 +378,11 @@ class QMatchProfileInfoSections extends StatelessWidget {
 
     add(l10n.profileFieldGender, profile.gender);
     add(l10n.profileFieldEducation, profile.education);
+    add(l10n.profileFieldEducationMajor, profile.educationField);
     add(l10n.profileFieldLookingFor, profile.lookingFor);
-    final occupation = profile.occupation?.trim();
-    if (occupation != null && occupation.isNotEmpty) {
-      out.add((l10n.profileFieldOccupation, occupation));
-    }
+    add(l10n.profileFieldOccupation, profile.occupation);
+    add(l10n.profileFieldCompany, profile.company);
+    add(l10n.profileFieldSchool, profile.school);
     add(l10n.profileFieldDrinking, profile.drinking);
     add(l10n.profileFieldSmoking, profile.smoking);
     return out;
@@ -422,10 +432,12 @@ class QMatchProfileSectionCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.child,
+    this.trailing,
   });
 
   final String title;
   final Widget child;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
@@ -435,15 +447,22 @@ class QMatchProfileSectionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: GoogleFonts.inter(
-              color: QMatchGlassIconButton.iconDefault,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.8,
-              height: 1.2,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: GoogleFonts.inter(
+                    color: QMatchGlassIconButton.iconDefault,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.8,
+                    height: 1.2,
+                  ),
+                ),
+              ),
+              if (trailing != null) trailing!,
+            ],
           ),
           const SizedBox(height: AppSpacing.sm),
           child,
@@ -479,6 +498,110 @@ class QMatchProfileInterestChip extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
+    );
+  }
+}
+
+/// Optional anthem display on own profile (no in-app player).
+class QMatchProfileAnthemSection extends StatelessWidget {
+  const QMatchProfileAnthemSection({
+    super.key,
+    required this.profile,
+    this.onEdit,
+    this.onOpenLink,
+  });
+
+  final UserProfileModel profile;
+  final VoidCallback? onEdit;
+  final VoidCallback? onOpenLink;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final title = profile.anthemTitle?.trim() ?? '';
+    final artist = profile.anthemArtist?.trim() ?? '';
+    final url = profile.anthemExternalUrl?.trim() ?? '';
+    final hasAnthem = title.isNotEmpty;
+
+    return QMatchProfileSectionCard(
+      key: const Key('qmatch-profile-anthem-section'),
+      title: l10n.profileAnthemSection,
+      trailing: onEdit == null
+          ? null
+          : Semantics(
+              button: true,
+              label: l10n.profileEditAnthemSemantic,
+              child: IconButton(
+                key: const Key('qmatch-profile-edit-anthem'),
+                onPressed: onEdit,
+                tooltip: l10n.profileEditAnthemSemantic,
+                icon: Icon(
+                  hasAnthem ? Icons.edit_outlined : Icons.add,
+                  color: QMatchGlassIconButton.iconDefault,
+                  size: 20,
+                ),
+              ),
+            ),
+      child: !hasAnthem
+          ? QMatchProfileEmptySection(
+              key: const Key('qmatch-profile-anthem-empty'),
+              message: l10n.profileAnthemEmptyHint,
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.music_note_rounded,
+                      color: AppColors.textGold,
+                      size: 22,
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            key: const Key('qmatch-profile-anthem-song'),
+                            title,
+                            style: GoogleFonts.inter(
+                              color: AppColors.textPrimary,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              height: 1.3,
+                            ),
+                          ),
+                          if (artist.isNotEmpty) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              key: const Key(
+                                'qmatch-profile-anthem-artist-label',
+                              ),
+                              artist,
+                              style: GoogleFonts.inter(
+                                color: AppColors.textSecondary,
+                                fontSize: 13,
+                                height: 1.3,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                if (url.isNotEmpty && onOpenLink != null) ...[
+                  const SizedBox(height: AppSpacing.sm),
+                  TextButton.icon(
+                    key: const Key('qmatch-profile-anthem-open-link'),
+                    onPressed: onOpenLink,
+                    icon: const Icon(Icons.open_in_new_rounded, size: 16),
+                    label: Text(l10n.profileAnthemOpenLink),
+                  ),
+                ],
+              ],
+            ),
     );
   }
 }
@@ -723,6 +846,8 @@ class QMatchProfileReadyView extends StatelessWidget {
     required this.editPhotoSemanticLabel,
     required this.onSettings,
     this.onPhotoTap,
+    this.onEditAnthem,
+    this.onOpenAnthemLink,
     this.photoImageProvider,
     this.bottomInset = 0,
     this.showResonanceBadge = false,
@@ -738,6 +863,8 @@ class QMatchProfileReadyView extends StatelessWidget {
   final String editPhotoSemanticLabel;
   final VoidCallback onSettings;
   final VoidCallback? onPhotoTap;
+  final VoidCallback? onEditAnthem;
+  final VoidCallback? onOpenAnthemLink;
   final ImageProvider? photoImageProvider;
   final double bottomInset;
   final bool showResonanceBadge;
@@ -781,7 +908,11 @@ class QMatchProfileReadyView extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: AppSpacing.md),
-              QMatchProfileInfoSections(profile: profile),
+              QMatchProfileInfoSections(
+                profile: profile,
+                onEditAnthem: onEditAnthem,
+                onOpenAnthemLink: onOpenAnthemLink,
+              ),
             ],
           ),
         ),

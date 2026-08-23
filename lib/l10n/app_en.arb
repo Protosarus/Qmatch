@@ -482,8 +482,52 @@
   "profileMissingPhoto": "Add a photo",
   "profileEditPhotoSemantic": "Edit profile photo",
   "profileFieldOccupation": "Occupation",
+  "profileFieldCompany": "Company",
+  "profileFieldSchool": "School",
+  "profileFieldEducationMajor": "Field of study",
   "profileFieldDrinking": "Drinking",
   "profileFieldSmoking": "Smoking",
+  "profileCompany": "Company",
+  "profileCompanyHint": "e.g. Acme Studio",
+  "profileSchool": "School / university",
+  "profileSchoolHint": "e.g. Boğaziçi University",
+  "profileEducationField": "Field of study",
+  "profileEducationFieldHint": "e.g. Computer Science",
+  "profileAnthemSection": "Anthem",
+  "profileAnthemEmptyHint": "Add an optional favorite song",
+  "profileAnthemEditTitle": "Your anthem",
+  "profileAnthemEditSubtitle": "Share a favorite song. QMatch does not stream music — you can add an optional link.",
+  "profileAnthemSongTitle": "Song title",
+  "profileAnthemSongTitleHint": "e.g. Midnight City",
+  "profileAnthemArtist": "Artist",
+  "profileAnthemArtistHint": "e.g. M83",
+  "profileAnthemLink": "Link (optional)",
+  "profileAnthemLinkHint": "https://…",
+  "profileAnthemSave": "Save anthem",
+  "profileAnthemSaveFailed": "Couldn't save your anthem. Please try again.",
+  "profileAnthemTitleRequired": "Add a song title, or clear the other fields.",
+  "profileAnthemUrlInvalid": "Enter a valid http or https link.",
+  "profileEditAnthemSemantic": "Edit anthem",
+  "profileAnthemOpenLink": "Open link",
+  "discoverAnthemTitleOnly": "Anthem · {title}",
+  "@discoverAnthemTitleOnly": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "discoverAnthemWithArtist": "Anthem · {title} — {artist}",
+  "@discoverAnthemWithArtist": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "artist": {
+        "type": "String"
+      }
+    }
+  },
   "profileSetupTitle": "Create Profile",
   "profileSetupComplete": "FINISH",
   "profileSetupReadyTitle": "Profile ready!",
@@ -594,7 +638,7 @@
   "profileLifestyleTitle": "Lifestyle",
   "profileLifestyleSubtitle": "Optional — fill in what you want to share",
   "profilePreferencesTitle": "What are you looking for?",
-  "profilePreferencesSubtitle": "Your preferences shape your matches",
+  "profilePreferencesSubtitle": "Tell us what matters to you during profile setup",
   "photos": "Photos",
   "profileBioSubtitle": "Share what makes you you.",
   "profileInterestsMaxSelect": "Choose up to 5 interests ({count}/5)",
@@ -711,7 +755,7 @@
       }
     }
   },
-  "profilePreferencesEditableHint": "You can change these preferences anytime",
+  "profilePreferencesEditableHint": "These preferences are saved to your profile. They do not change live Discover ranking. Use Passport to travel the Discover pool.",
   "profileBioHint": "Introduce yourself… hobbies, passions, dreams.",
   "settingsMvpPrivacyNote": "Some privacy toggles on this screen are stored on this device for now. Core profile, assessments, matches, and messages sync with your account. For full details, read the Privacy Policy in About.",
   "settingsMvpNotificationsNote": "These preferences sync with your Qmatch account. Push delivery also depends on your phone settings.",
@@ -833,6 +877,9 @@
   "whoLikedYouErrorBody": "Something went wrong. Please try again.",
   "whoLikedYouFreeDiscoveryTitle": "A special alignment signal can appear here",
   "whoLikedYouFreeDiscoveryBody": "When someone sends you Super Resonance, you can see them here. Resonance membership also lets you discover other Alignment Signals.",
+  "whoLikedYouListCaption": "People whose signal reached you — no ranking scores shown.",
+  "whoLikedYouAlignedCue": "Aligned with you",
+  "whoLikedYouSuperCue": "Sent you Super Resonance",
   "profileMembershipResonanceActive": "Resonance active",
   "profileMembershipFree": "QMatch Free",
   "profileResonanceBadgeSemantic": "Resonance active",

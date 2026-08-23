@@ -99,6 +99,8 @@ class QMatchCandidateCard extends StatelessWidget {
                         bottom: AppSpacing.md,
                         child: _IdentityOverlay(
                           identity: identity,
+                          workEducationLine:
+                              _workEducationLine(l10n, candidate),
                           compatibilityLabel: compatibilityLabel,
                           compatibilityScore: candidate.compatibilityScore,
                           percentLabelBuilder:
@@ -136,12 +138,14 @@ class QMatchCandidateCard extends StatelessWidget {
 class _IdentityOverlay extends StatelessWidget {
   const _IdentityOverlay({
     required this.identity,
+    required this.workEducationLine,
     required this.compatibilityLabel,
     required this.compatibilityScore,
     required this.percentLabelBuilder,
   });
 
   final String? identity;
+  final String? workEducationLine;
   final String? compatibilityLabel;
   final double? compatibilityScore;
   final String Function(int percent) percentLabelBuilder;
@@ -165,6 +169,21 @@ class _IdentityOverlay extends StatelessWidget {
               height: 1.15,
             ),
           ),
+        if (workEducationLine != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            key: const Key('qmatch-candidate-work-education'),
+            workEducationLine!,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.inter(
+              color: AppColors.textPrimary.withValues(alpha: 0.88),
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              height: 1.3,
+            ),
+          ),
+        ],
         if (compatibilityLabel != null || compatibilityScore != null) ...[
           const SizedBox(height: AppSpacing.xs),
           Wrap(
@@ -190,6 +209,44 @@ class _IdentityOverlay extends StatelessWidget {
       ],
     );
   }
+}
+
+String? _workEducationLine(
+  AppLocalizations l10n,
+  DiscoverUserModel candidate,
+) {
+  final occupation = candidate.occupation?.trim() ?? '';
+  final company = candidate.company?.trim() ?? '';
+  final education = candidate.education.trim();
+  final school = candidate.school?.trim() ?? '';
+  final major = candidate.educationField?.trim() ?? '';
+
+  final workParts = <String>[
+    if (occupation.isNotEmpty) occupation,
+    if (company.isNotEmpty) company,
+  ];
+  final eduParts = <String>[
+    if (education.isNotEmpty)
+      ProfileOptionLabels.label(l10n, education).isNotEmpty
+          ? ProfileOptionLabels.label(l10n, education)
+          : education,
+    if (major.isNotEmpty) major,
+    if (school.isNotEmpty) school,
+  ];
+
+  final segments = <String>[
+    if (workParts.isNotEmpty) workParts.join(' · '),
+    if (eduParts.isNotEmpty) eduParts.join(' · '),
+  ];
+  if (segments.isEmpty) return null;
+  return segments.join('  ·  ');
+}
+
+String _anthemLine(AppLocalizations l10n, DiscoverUserModel candidate) {
+  final title = candidate.anthemTitle?.trim() ?? '';
+  final artist = candidate.anthemArtist?.trim() ?? '';
+  if (artist.isEmpty) return l10n.discoverAnthemTitleOnly(title);
+  return l10n.discoverAnthemWithArtist(title, artist);
 }
 
 class _CandidateDetails extends StatelessWidget {
@@ -265,6 +322,33 @@ class _CandidateDetails extends StatelessWidget {
               fontSize: 14,
               height: 1.45,
             ),
+          ),
+        ],
+        if ((candidate.anthemTitle ?? '').trim().isNotEmpty) ...[
+          const SizedBox(height: AppSpacing.sm),
+          Row(
+            key: const Key('qmatch-candidate-anthem'),
+            children: [
+              const Icon(
+                Icons.music_note_rounded,
+                color: AppColors.textGold,
+                size: 16,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+              Expanded(
+                child: Text(
+                  _anthemLine(l10n, candidate),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.inter(
+                    color: AppColors.textSecondary,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    height: 1.3,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
         if (candidate.interests.isNotEmpty) ...[

@@ -7,6 +7,9 @@ import '../../widgets/profile_setup_select_field.dart';
 
 class LifestyleStep extends StatelessWidget {
   final String? occupation;
+  final String? company;
+  final String? school;
+  final String? educationField;
   final String? drinking;
   final String? smoking;
   final String? pets;
@@ -14,6 +17,9 @@ class LifestyleStep extends StatelessWidget {
   final String? religion;
   final String? animalLove;
   final Function(String?) onOccupationChanged;
+  final Function(String?) onCompanyChanged;
+  final Function(String?) onSchoolChanged;
+  final Function(String?) onEducationFieldChanged;
   final Function(String?) onDrinkingChanged;
   final Function(String?) onSmokingChanged;
   final Function(String?) onPetsChanged;
@@ -24,6 +30,9 @@ class LifestyleStep extends StatelessWidget {
   const LifestyleStep({
     super.key,
     required this.occupation,
+    required this.company,
+    required this.school,
+    required this.educationField,
     required this.drinking,
     required this.smoking,
     required this.pets,
@@ -31,6 +40,9 @@ class LifestyleStep extends StatelessWidget {
     required this.religion,
     required this.animalLove,
     required this.onOccupationChanged,
+    required this.onCompanyChanged,
+    required this.onSchoolChanged,
+    required this.onEducationFieldChanged,
     required this.onDrinkingChanged,
     required this.onSmokingChanged,
     required this.onPetsChanged,
@@ -59,11 +71,45 @@ class LifestyleStep extends StatelessWidget {
           const SizedBox(height: AppSpacing.xl),
           ProfileSetupChrome.label(l10n.profileOccupation),
           TextField(
+            key: const Key('qmatch-profile-setup-occupation'),
             onChanged: onOccupationChanged,
             style: ProfileSetupChrome.fieldTextStyle(),
             cursorColor: ProfileSetupChrome.accentLabel,
             decoration: ProfileSetupChrome.fieldDecoration(
               l10n.profileOccupationHint,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileCompany),
+          TextField(
+            key: const Key('qmatch-profile-setup-company'),
+            onChanged: onCompanyChanged,
+            style: ProfileSetupChrome.fieldTextStyle(),
+            cursorColor: ProfileSetupChrome.accentLabel,
+            decoration: ProfileSetupChrome.fieldDecoration(
+              l10n.profileCompanyHint,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileSchool),
+          TextField(
+            key: const Key('qmatch-profile-setup-school'),
+            onChanged: onSchoolChanged,
+            style: ProfileSetupChrome.fieldTextStyle(),
+            cursorColor: ProfileSetupChrome.accentLabel,
+            decoration: ProfileSetupChrome.fieldDecoration(
+              l10n.profileSchoolHint,
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          ProfileSetupChrome.label(l10n.profileEducationField),
+          TextField(
+            key: const Key('qmatch-profile-setup-education-field'),
+            onChanged: onEducationFieldChanged,
+            style: ProfileSetupChrome.fieldTextStyle(),
+            cursorColor: ProfileSetupChrome.accentLabel,
+            decoration: ProfileSetupChrome.fieldDecoration(
+              l10n.profileEducationFieldHint,
             ),
           ),
           const SizedBox(height: AppSpacing.lg),

@@ -214,12 +214,47 @@ async function handleProfileActivityWritten(event, deps = {}) {
     changedWorkEducation.push('occupation');
   }
 
+  if (
+    nonEmptyString(before.company) !==
+    nonEmptyString(after.company)
+  ) {
+    changedWorkEducation.push('company');
+  }
+
+  if (
+    nonEmptyString(before.school) !==
+    nonEmptyString(after.school)
+  ) {
+    changedWorkEducation.push('school');
+  }
+
+  if (
+    nonEmptyString(before.education_field) !==
+    nonEmptyString(after.education_field)
+  ) {
+    changedWorkEducation.push('education_field');
+  }
+
   if (changedWorkEducation.length > 0) {
     changes.push({
       type: ACTIVITY_TYPES.WORK_EDUCATION_UPDATED,
       extra: {
         changed_fields: changedWorkEducation,
       },
+    });
+  }
+
+  const anthemChanged =
+    nonEmptyString(before.anthem_title) !==
+      nonEmptyString(after.anthem_title) ||
+    nonEmptyString(before.anthem_artist) !==
+      nonEmptyString(after.anthem_artist) ||
+    nonEmptyString(before.anthem_external_url) !==
+      nonEmptyString(after.anthem_external_url);
+
+  if (anthemChanged) {
+    changes.push({
+      type: ACTIVITY_TYPES.ANTHEM_UPDATED,
     });
   }
 

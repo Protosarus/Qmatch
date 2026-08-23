@@ -46,6 +46,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   String _bio = '';
   List<String> _interests = [];
   String? _occupation;
+  String? _company;
+  String? _school;
+  String? _educationField;
   String? _drinking;
   String? _smoking;
   String? _pets;
@@ -129,6 +132,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         bio: _bio.trim(),
         interests: _interests,
         occupation: _occupation,
+        company: _company,
+        school: _school,
+        educationField: _educationField,
         drinking: _drinking,
         smoking: _smoking,
         pets: _pets,
@@ -253,6 +259,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                 ),
                 LifestyleStep(
                   occupation: _occupation,
+                  company: _company,
+                  school: _school,
+                  educationField: _educationField,
                   drinking: _drinking,
                   smoking: _smoking,
                   pets: _pets,
@@ -261,6 +270,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                   animalLove: _animalLove,
                   onOccupationChanged: (value) =>
                       setState(() => _occupation = value),
+                  onCompanyChanged: (value) => setState(() => _company = value),
+                  onSchoolChanged: (value) => setState(() => _school = value),
+                  onEducationFieldChanged: (value) =>
+                      setState(() => _educationField = value),
                   onDrinkingChanged: (value) =>
                       setState(() => _drinking = value),
                   onSmokingChanged: (value) => setState(() => _smoking = value),

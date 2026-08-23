@@ -99,6 +99,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                       icon: Icons.auto_awesome_rounded,
                       title: l10n.activityEmptyTitle,
                       subtitle: l10n.activityEmptySubtitle,
+                      accentIcon: true,
                     );
                   }
 
@@ -312,6 +313,7 @@ class _ActivityCenteredState extends StatelessWidget {
     this.subtitle,
     this.actionLabel,
     this.onAction,
+    this.accentIcon = false,
   });
 
   final IconData icon;
@@ -319,6 +321,9 @@ class _ActivityCenteredState extends StatelessWidget {
   final String? subtitle;
   final String? actionLabel;
   final VoidCallback? onAction;
+
+  /// Empty-state treatment: violet/blue accent instead of gold.
+  final bool accentIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -328,11 +333,43 @@ class _ActivityCenteredState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              color: AppColors.textGold,
-              size: 34,
-            ),
+            if (accentIcon)
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.resonanceViolet.withValues(alpha: 0.42),
+                      blurRadius: 18,
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: ShaderMask(
+                  blendMode: BlendMode.srcIn,
+                  shaderCallback: (bounds) {
+                    return const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        AppColors.resonanceViolet,
+                        AppColors.electricBlue,
+                      ],
+                    ).createShader(bounds);
+                  },
+                  child: Icon(
+                    icon,
+                    color: AppColors.textPrimary,
+                    size: 34,
+                  ),
+                ),
+              )
+            else
+              Icon(
+                icon,
+                color: AppColors.textGold,
+                size: 34,
+              ),
             const SizedBox(height: AppSpacing.md),
             Text(
               title,

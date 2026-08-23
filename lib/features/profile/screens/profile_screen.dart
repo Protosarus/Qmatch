@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/entitlement_snapshot.dart';
@@ -11,6 +13,7 @@ import '../models/user_profile_model.dart';
 import '../services/profile_service.dart';
 import '../widgets/qmatch_profile_presentation.dart';
 import 'membership_screen.dart';
+import 'profile_anthem_edit_screen.dart';
 import 'profile_photo_edit_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -199,6 +202,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  Future<void> _openAnthemEdit() async {
+    final profile = _profile;
+    if (profile == null) return;
+    final updated = await Navigator.push<UserProfileModel>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileAnthemEditScreen(profile: profile),
+      ),
+    );
+    if (!mounted) return;
+    if (updated != null) {
+      setState(() {
+        _profile = updated;
+        _status = ProfileReadStatus.loaded;
+      });
+    } else if (widget.debugProfile == null) {
+      await _loadProfile();
+    }
+  }
+
+  Future<void> _openAnthemLink() async {
+    final raw = _profile?.anthemExternalUrl?.trim() ?? '';
+    if (raw.isEmpty) return;
+    final uri = Uri.tryParse(raw);
+    if (uri == null) return;
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -240,6 +271,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         editPhotoSemanticLabel: l10n.profileEditPhotoSemantic,
         onSettings: _openSettings,
         onPhotoTap: widget.debugProfile != null ? () {} : _openPhotoEdit,
+        onEditAnthem: widget.debugProfile != null ? () {} : _openAnthemEdit,
+        onOpenAnthemLink: widget.debugProfile != null ? () {} : _openAnthemLink,
         photoImageProvider: widget.photoImageProvider,
         bottomInset: bottomInset,
         showResonanceBadge: _resonanceAccess,

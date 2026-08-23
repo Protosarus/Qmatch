@@ -2066,6 +2066,24 @@ abstract class AppLocalizations {
   /// **'Occupation'**
   String get profileFieldOccupation;
 
+  /// No description provided for @profileFieldCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get profileFieldCompany;
+
+  /// No description provided for @profileFieldSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'School'**
+  String get profileFieldSchool;
+
+  /// No description provided for @profileFieldEducationMajor.
+  ///
+  /// In en, this message translates to:
+  /// **'Field of study'**
+  String get profileFieldEducationMajor;
+
   /// No description provided for @profileFieldDrinking.
   ///
   /// In en, this message translates to:
@@ -2077,6 +2095,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Smoking'**
   String get profileFieldSmoking;
+
+  /// No description provided for @profileCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get profileCompany;
+
+  /// No description provided for @profileCompanyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Acme Studio'**
+  String get profileCompanyHint;
+
+  /// No description provided for @profileSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'School / university'**
+  String get profileSchool;
+
+  /// No description provided for @profileSchoolHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Boğaziçi University'**
+  String get profileSchoolHint;
+
+  /// No description provided for @profileEducationField.
+  ///
+  /// In en, this message translates to:
+  /// **'Field of study'**
+  String get profileEducationField;
+
+  /// No description provided for @profileEducationFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Computer Science'**
+  String get profileEducationFieldHint;
+
+  /// No description provided for @profileAnthemSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Anthem'**
+  String get profileAnthemSection;
+
+  /// No description provided for @profileAnthemEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an optional favorite song'**
+  String get profileAnthemEmptyHint;
+
+  /// No description provided for @profileAnthemEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your anthem'**
+  String get profileAnthemEditTitle;
+
+  /// No description provided for @profileAnthemEditSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share a favorite song. QMatch does not stream music — you can add an optional link.'**
+  String get profileAnthemEditSubtitle;
+
+  /// No description provided for @profileAnthemSongTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Song title'**
+  String get profileAnthemSongTitle;
+
+  /// No description provided for @profileAnthemSongTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Midnight City'**
+  String get profileAnthemSongTitleHint;
+
+  /// No description provided for @profileAnthemArtist.
+  ///
+  /// In en, this message translates to:
+  /// **'Artist'**
+  String get profileAnthemArtist;
+
+  /// No description provided for @profileAnthemArtistHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. M83'**
+  String get profileAnthemArtistHint;
+
+  /// No description provided for @profileAnthemLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Link (optional)'**
+  String get profileAnthemLink;
+
+  /// No description provided for @profileAnthemLinkHint.
+  ///
+  /// In en, this message translates to:
+  /// **'https://…'**
+  String get profileAnthemLinkHint;
+
+  /// No description provided for @profileAnthemSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save anthem'**
+  String get profileAnthemSave;
+
+  /// No description provided for @profileAnthemSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your anthem. Please try again.'**
+  String get profileAnthemSaveFailed;
+
+  /// No description provided for @profileAnthemTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a song title, or clear the other fields.'**
+  String get profileAnthemTitleRequired;
+
+  /// No description provided for @profileAnthemUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid http or https link.'**
+  String get profileAnthemUrlInvalid;
+
+  /// No description provided for @profileEditAnthemSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit anthem'**
+  String get profileEditAnthemSemantic;
+
+  /// No description provided for @profileAnthemOpenLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Open link'**
+  String get profileAnthemOpenLink;
+
+  /// No description provided for @discoverAnthemTitleOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Anthem · {title}'**
+  String discoverAnthemTitleOnly(String title);
+
+  /// No description provided for @discoverAnthemWithArtist.
+  ///
+  /// In en, this message translates to:
+  /// **'Anthem · {title} — {artist}'**
+  String discoverAnthemWithArtist(String title, String artist);
 
   /// No description provided for @profileSetupTitle.
   ///
@@ -2615,7 +2777,7 @@ abstract class AppLocalizations {
   /// No description provided for @profilePreferencesSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Your preferences shape your matches'**
+  /// **'Tell us what matters to you during profile setup'**
   String get profilePreferencesSubtitle;
 
   /// No description provided for @photos.
@@ -3089,7 +3251,7 @@ abstract class AppLocalizations {
   /// No description provided for @profilePreferencesEditableHint.
   ///
   /// In en, this message translates to:
-  /// **'You can change these preferences anytime'**
+  /// **'These preferences are saved to your profile. They do not change live Discover ranking. Use Passport to travel the Discover pool.'**
   String get profilePreferencesEditableHint;
 
   /// No description provided for @profileBioHint.
@@ -3775,6 +3937,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'When someone sends you Super Resonance, you can see them here. Resonance membership also lets you discover other Alignment Signals.'**
   String get whoLikedYouFreeDiscoveryBody;
+
+  /// No description provided for @whoLikedYouListCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'People whose signal reached you — no ranking scores shown.'**
+  String get whoLikedYouListCaption;
+
+  /// No description provided for @whoLikedYouAlignedCue.
+  ///
+  /// In en, this message translates to:
+  /// **'Aligned with you'**
+  String get whoLikedYouAlignedCue;
+
+  /// No description provided for @whoLikedYouSuperCue.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent you Super Resonance'**
+  String get whoLikedYouSuperCue;
 
   /// No description provided for @profileMembershipResonanceActive.
   ///

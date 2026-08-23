@@ -10,6 +10,13 @@ class DiscoverUserModel {
   final String bio;
   final String gender;
   final String lookingFor;
+  final String education;
+  final String? occupation;
+  final String? company;
+  final String? school;
+  final String? educationField;
+  final String? anthemTitle;
+  final String? anthemArtist;
   final String? archetype;
   final String? category;
   final String? frequencyType;
@@ -39,6 +46,13 @@ class DiscoverUserModel {
     this.bio = '',
     this.gender = '',
     this.lookingFor = '',
+    this.education = '',
+    this.occupation,
+    this.company,
+    this.school,
+    this.educationField,
+    this.anthemTitle,
+    this.anthemArtist,
     this.archetype,
     this.category,
     this.frequencyType,
@@ -66,6 +80,13 @@ class DiscoverUserModel {
     String? bio,
     String? gender,
     String? lookingFor,
+    String? education,
+    String? occupation,
+    String? company,
+    String? school,
+    String? educationField,
+    String? anthemTitle,
+    String? anthemArtist,
     String? archetype,
     String? category,
     String? frequencyType,
@@ -92,6 +113,13 @@ class DiscoverUserModel {
       bio: bio ?? this.bio,
       gender: gender ?? this.gender,
       lookingFor: lookingFor ?? this.lookingFor,
+      education: education ?? this.education,
+      occupation: occupation ?? this.occupation,
+      company: company ?? this.company,
+      school: school ?? this.school,
+      educationField: educationField ?? this.educationField,
+      anthemTitle: anthemTitle ?? this.anthemTitle,
+      anthemArtist: anthemArtist ?? this.anthemArtist,
       archetype: archetype ?? this.archetype,
       category: category ?? this.category,
       frequencyType: frequencyType ?? this.frequencyType,
@@ -173,7 +201,8 @@ class DiscoverUserModel {
     return lang == 'tr' ? 'Uyumlu profil' : 'Compatible profile';
   }
 
-  factory DiscoverUserModel.fromFirestore(String uid, Map<String, dynamic> data) {
+  factory DiscoverUserModel.fromFirestore(
+      String uid, Map<String, dynamic> data) {
     final photosList = List<String>.from(data['photos'] ?? const []);
     return DiscoverUserModel(
       uid: uid,
@@ -182,6 +211,13 @@ class DiscoverUserModel {
       bio: (data['bio'] as String?)?.trim() ?? '',
       gender: (data['gender'] as String?)?.trim() ?? '',
       lookingFor: (data['looking_for'] as String?)?.trim() ?? '',
+      education: (data['education'] as String?)?.trim() ?? '',
+      occupation: (data['occupation'] as String?)?.trim(),
+      company: (data['company'] as String?)?.trim(),
+      school: (data['school'] as String?)?.trim(),
+      educationField: (data['education_field'] as String?)?.trim(),
+      anthemTitle: (data['anthem_title'] as String?)?.trim(),
+      anthemArtist: (data['anthem_artist'] as String?)?.trim(),
       archetype: data['archetype'] as String?,
       category: data['category'] as String?,
       frequencyType: data['frequency_type'] as String?,

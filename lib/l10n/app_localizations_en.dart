@@ -1119,10 +1119,98 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileFieldOccupation => 'Occupation';
 
   @override
+  String get profileFieldCompany => 'Company';
+
+  @override
+  String get profileFieldSchool => 'School';
+
+  @override
+  String get profileFieldEducationMajor => 'Field of study';
+
+  @override
   String get profileFieldDrinking => 'Drinking';
 
   @override
   String get profileFieldSmoking => 'Smoking';
+
+  @override
+  String get profileCompany => 'Company';
+
+  @override
+  String get profileCompanyHint => 'e.g. Acme Studio';
+
+  @override
+  String get profileSchool => 'School / university';
+
+  @override
+  String get profileSchoolHint => 'e.g. Boğaziçi University';
+
+  @override
+  String get profileEducationField => 'Field of study';
+
+  @override
+  String get profileEducationFieldHint => 'e.g. Computer Science';
+
+  @override
+  String get profileAnthemSection => 'Anthem';
+
+  @override
+  String get profileAnthemEmptyHint => 'Add an optional favorite song';
+
+  @override
+  String get profileAnthemEditTitle => 'Your anthem';
+
+  @override
+  String get profileAnthemEditSubtitle =>
+      'Share a favorite song. QMatch does not stream music — you can add an optional link.';
+
+  @override
+  String get profileAnthemSongTitle => 'Song title';
+
+  @override
+  String get profileAnthemSongTitleHint => 'e.g. Midnight City';
+
+  @override
+  String get profileAnthemArtist => 'Artist';
+
+  @override
+  String get profileAnthemArtistHint => 'e.g. M83';
+
+  @override
+  String get profileAnthemLink => 'Link (optional)';
+
+  @override
+  String get profileAnthemLinkHint => 'https://…';
+
+  @override
+  String get profileAnthemSave => 'Save anthem';
+
+  @override
+  String get profileAnthemSaveFailed =>
+      'Couldn\'t save your anthem. Please try again.';
+
+  @override
+  String get profileAnthemTitleRequired =>
+      'Add a song title, or clear the other fields.';
+
+  @override
+  String get profileAnthemUrlInvalid => 'Enter a valid http or https link.';
+
+  @override
+  String get profileEditAnthemSemantic => 'Edit anthem';
+
+  @override
+  String get profileAnthemOpenLink => 'Open link';
+
+  @override
+  String discoverAnthemTitleOnly(String title) {
+    return 'Anthem · $title';
+  }
+
+  @override
+  String discoverAnthemWithArtist(String title, String artist) {
+    return 'Anthem · $title — $artist';
+  }
 
   @override
   String get profileSetupTitle => 'Create Profile';
@@ -1426,7 +1514,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profilePreferencesSubtitle =>
-      'Your preferences shape your matches';
+      'Tell us what matters to you during profile setup';
 
   @override
   String get photos => 'Photos';
@@ -1676,7 +1764,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profilePreferencesEditableHint =>
-      'You can change these preferences anytime';
+      'These preferences are saved to your profile. They do not change live Discover ranking. Use Passport to travel the Discover pool.';
 
   @override
   String get profileBioHint => 'Introduce yourself… hobbies, passions, dreams.';
@@ -2037,6 +2125,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get whoLikedYouFreeDiscoveryBody =>
       'When someone sends you Super Resonance, you can see them here. Resonance membership also lets you discover other Alignment Signals.';
+
+  @override
+  String get whoLikedYouListCaption =>
+      'People whose signal reached you — no ranking scores shown.';
+
+  @override
+  String get whoLikedYouAlignedCue => 'Aligned with you';
+
+  @override
+  String get whoLikedYouSuperCue => 'Sent you Super Resonance';
 
   @override
   String get profileMembershipResonanceActive => 'Resonance active';
