@@ -12,19 +12,24 @@ class QMatchMessageComposer extends StatelessWidget {
     required this.focusNode,
     required this.hintText,
     required this.onSend,
+    this.onGif,
     this.sending = false,
     this.enabled = true,
     this.sendSemanticLabel,
+    this.gifSemanticLabel,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
   final String hintText;
   final VoidCallback onSend;
+  final VoidCallback? onGif;
   final bool sending;
+
   /// When false, field and send are disabled (no send action).
   final bool enabled;
   final String? sendSemanticLabel;
+  final String? gifSemanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,25 @@ class QMatchMessageComposer extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              if (onGif != null) ...[
+                Semantics(
+                  button: true,
+                  label: gifSemanticLabel ?? 'GIF',
+                  child: IconButton(
+                    key: const Key('qmatch-chat-composer-gif'),
+                    onPressed: (!enabled || sending) ? null : onGif,
+                    style: IconButton.styleFrom(
+                      foregroundColor: AppColors.textGold,
+                      minimumSize: const Size(44, 48),
+                    ),
+                    icon: const Icon(
+                      Icons.gif_box_outlined,
+                      size: 27,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+              ],
               Expanded(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxHeight: 120),
@@ -86,7 +110,8 @@ class QMatchMessageComposer extends StatelessWidget {
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
                         borderSide: BorderSide(
-                          color: const Color(0xFFDAC8ED).withValues(alpha: 0.55),
+                          color:
+                              const Color(0xFFDAC8ED).withValues(alpha: 0.55),
                           width: 1.4,
                         ),
                       ),

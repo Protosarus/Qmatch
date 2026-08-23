@@ -1490,6 +1490,48 @@ abstract class AppLocalizations {
   /// **'Send message'**
   String get chatSendSemanticLabel;
 
+  /// No description provided for @chatGifSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a GIF'**
+  String get chatGifSemanticLabel;
+
+  /// No description provided for @chatGifPickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'GIFs'**
+  String get chatGifPickerTitle;
+
+  /// No description provided for @chatGifSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search GIFs'**
+  String get chatGifSearchHint;
+
+  /// No description provided for @chatGifEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No GIFs found.'**
+  String get chatGifEmpty;
+
+  /// No description provided for @chatGifLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'GIFs could not be loaded. Please try again.'**
+  String get chatGifLoadError;
+
+  /// No description provided for @chatGifNotConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'GIF search is unavailable in this build.'**
+  String get chatGifNotConfigured;
+
+  /// No description provided for @chatGifPoweredBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by GIPHY'**
+  String get chatGifPoweredBy;
+
   /// No description provided for @settingsTitle.
   ///
   /// In en, this message translates to:

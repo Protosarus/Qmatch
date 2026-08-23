@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum MessageType {
   text,
+  gif,
   system,
   revealRequest,
 }
@@ -12,6 +13,8 @@ class MessageModel {
   final String senderId;
   final MessageType type;
   final String text;
+  final String? gifUrl;
+  final String? gifProvider;
   final Timestamp? createdAt;
   final int? clientCreatedAt;
   final Map<String, Timestamp> readBy;
@@ -23,6 +26,8 @@ class MessageModel {
     required this.senderId,
     required this.type,
     required this.text,
+    this.gifUrl,
+    this.gifProvider,
     this.createdAt,
     this.clientCreatedAt,
     this.readBy = const {},
@@ -33,6 +38,8 @@ class MessageModel {
     switch (value) {
       case 'text':
         return MessageType.text;
+      case 'gif':
+        return MessageType.gif;
       case 'system':
         return MessageType.system;
       case 'reveal_request':
@@ -46,6 +53,8 @@ class MessageModel {
     switch (type) {
       case MessageType.text:
         return 'text';
+      case MessageType.gif:
+        return 'gif';
       case MessageType.system:
         return 'system';
       case MessageType.revealRequest:
@@ -57,7 +66,8 @@ class MessageModel {
     String messageId,
     Map<String, dynamic> data,
   ) {
-    final readByRaw = (data['read_by'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final readByRaw =
+        (data['read_by'] as Map?)?.cast<String, dynamic>() ?? const {};
     final readBy = <String, Timestamp>{};
     for (final entry in readByRaw.entries) {
       final ts = entry.value;
@@ -72,7 +82,11 @@ class MessageModel {
       senderId: (data['sender_id'] as String?) ?? '',
       type: _typeFromString(data['type'] as String?),
       text: (data['text'] as String?) ?? '',
-      createdAt: data['created_at'] is Timestamp ? data['created_at'] as Timestamp : null,
+      gifUrl: (data['gif_url'] as String?)?.trim(),
+      gifProvider: (data['gif_provider'] as String?)?.trim(),
+      createdAt: data['created_at'] is Timestamp
+          ? data['created_at'] as Timestamp
+          : null,
       clientCreatedAt: (data['client_created_at'] as num?)?.toInt(),
       readBy: readBy,
       moderation: data['moderation'] is Map
@@ -87,6 +101,8 @@ class MessageModel {
       'sender_id': senderId,
       'type': _typeToString(type),
       'text': text,
+      if (gifUrl != null) 'gif_url': gifUrl,
+      if (gifProvider != null) 'gif_provider': gifProvider,
       'created_at': createdAt,
       'client_created_at': clientCreatedAt,
       'read_by': readBy,

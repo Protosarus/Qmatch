@@ -337,7 +337,19 @@ service cloud.firestore {
           && (
             (
               request.resource.data.sender_id == request.auth.uid
-              && request.resource.data.type == 'text'
+              && (
+                request.resource.data.type == 'text'
+                || (
+                  request.resource.data.type == 'gif'
+                  && request.resource.data.text == ''
+                  && request.resource.data.gif_provider == 'giphy'
+                  && request.resource.data.gif_url is string
+                  && request.resource.data.gif_url.size() <= 2048
+                  && request.resource.data.gif_url.matches(
+                    '^https://media[0-9]*[.]giphy[.]com/.*'
+                  )
+                )
+              )
             )
             || (
               messageId == 'system_match_v1'

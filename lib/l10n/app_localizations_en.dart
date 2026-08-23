@@ -795,6 +795,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatSendSemanticLabel => 'Send message';
 
   @override
+  String get chatGifSemanticLabel => 'Choose a GIF';
+
+  @override
+  String get chatGifPickerTitle => 'GIFs';
+
+  @override
+  String get chatGifSearchHint => 'Search GIFs';
+
+  @override
+  String get chatGifEmpty => 'No GIFs found.';
+
+  @override
+  String get chatGifLoadError => 'GIFs could not be loaded. Please try again.';
+
+  @override
+  String get chatGifNotConfigured => 'GIF search is unavailable in this build.';
+
+  @override
+  String get chatGifPoweredBy => 'Powered by GIPHY';
+
+  @override
   String get settingsTitle => 'Settings';
 
   @override

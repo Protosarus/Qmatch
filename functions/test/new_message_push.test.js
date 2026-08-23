@@ -46,6 +46,22 @@ function textMessage(overrides = {}) {
   };
 }
 
+function gifMessage(overrides = {}) {
+  return {
+    thread_id: THREAD_ID,
+    sender_id: 'userA',
+    type: 'gif',
+    text: '',
+    gif_provider: 'giphy',
+    gif_url: 'https://media.giphy.com/media/test/giphy.gif',
+    created_at: 'TS',
+    client_created_at: 1,
+    read_by: {},
+    moderation: null,
+    ...overrides,
+  };
+}
+
 async function seedActiveThread(db, overrides = {}) {
   await db.doc(`threads/${THREAD_ID}`).set({
     thread_id: THREAD_ID,
@@ -171,6 +187,37 @@ describe('new message push', () => {
     assert.deepStrictEqual(unread, { userA: 0, userB: 1 });
   });
 
+  it('sends a privacy-safe push for a GIF message', async () => {
+    const db = new MemoryFirestore();
+    await seedActiveThread(db);
+    await seedToken(db, 'userB', 'tok-b1', 'hash-b1');
+    const messaging = fakeMessaging();
+
+    const result = await handleThreadMessageCreated(
+      createdEvent({ data: gifMessage() }),
+      deps(db, messaging),
+    );
+
+    assert.strictEqual(result.skipped, null);
+    assert.strictEqual(result.sent, 1);
+    assert.strictEqual(messaging.sent.length, 1);
+
+    const msg = messaging.sent[0];
+    assert.strictEqual(msg.token, 'tok-b1');
+    assert.deepStrictEqual(msg.notification, {
+      title: 'QMatch',
+      body: 'You have a new message.',
+    });
+    assert.strictEqual(msg.data.type, 'message');
+    assert.strictEqual(msg.data.thread_id, THREAD_ID);
+    assert.strictEqual(msg.data.message_id, MESSAGE_ID);
+    assert.strictEqual(msg.data.gif_url, undefined);
+    assert.strictEqual(
+      JSON.stringify(msg).includes('media.giphy.com'),
+      false,
+    );
+  });
+
   it('sends Turkish copy to a token registered with tr locale', async () => {
     const db = new MemoryFirestore();
     await seedActiveThread(db);
@@ -213,7 +260,7 @@ describe('new message push', () => {
       deps(db, messaging),
     );
     assert.strictEqual(systemId.skipped, 'system_match');
-    assert.strictEqual(systemType.skipped, 'not_text');
+    assert.strictEqual(systemType.skipped, 'unsupported_message_type');
     assert.strictEqual(messaging.sent.length, 0);
   });
 

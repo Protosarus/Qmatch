@@ -792,6 +792,27 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatSendSemanticLabel => 'Mesaj gönder';
 
   @override
+  String get chatGifSemanticLabel => 'GIF seç';
+
+  @override
+  String get chatGifPickerTitle => 'GIF\'ler';
+
+  @override
+  String get chatGifSearchHint => 'GIF ara';
+
+  @override
+  String get chatGifEmpty => 'GIF bulunamadı.';
+
+  @override
+  String get chatGifLoadError => 'GIF\'ler yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get chatGifNotConfigured => 'GIF araması bu sürümde kullanılamıyor.';
+
+  @override
+  String get chatGifPoweredBy => 'Powered by GIPHY';
+
+  @override
   String get settingsTitle => 'Ayarlar';
 
   @override

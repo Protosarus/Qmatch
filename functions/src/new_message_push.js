@@ -250,7 +250,9 @@ async function handleThreadMessageCreated(event, deps = {}) {
   if (!message) return skip('missing_message');
 
   const type = nonEmptyString(message.type);
-  if (type !== 'text') return skip('not_text');
+  if (type !== 'text' && type !== 'gif') {
+    return skip('unsupported_message_type');
+  }
 
   const senderId = nonEmptyString(message.sender_id);
   if (!senderId || senderId === 'system') return skip('malformed_sender');

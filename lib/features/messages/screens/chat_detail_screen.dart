@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,8 +10,10 @@ import '../../../core/theme/app_colors.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../matching/services/match_service.dart';
 import '../../safety/services/safety_service.dart';
+import '../models/giphy_gif_model.dart';
 import '../models/message_model.dart';
 import '../services/chat_service.dart';
+import '../services/giphy_service.dart';
 import '../utils/chat_block_overflow.dart';
 import '../utils/chat_message_timestamp_format.dart';
 import '../utils/closed_account_chat_history.dart';
@@ -89,7 +92,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   @override
   void didUpdateWidget(covariant ChatDetailScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.threadId != widget.threadId && widget.seedBlockedByMe == null) {
+    if (oldWidget.threadId != widget.threadId &&
+        widget.seedBlockedByMe == null) {
       _messages = _chat!.getMessagesStream(widget.threadId);
       _bootstrap();
     }
@@ -190,6 +194,90 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       }
     } finally {
       if (mounted) setState(() => _sending = false);
+    }
+  }
+
+  Future<void> _openGifPicker() async {
+    if (_accountDeletionClosed || _sending) return;
+
+    final l10n = AppLocalizations.of(context)!;
+    final giphy = GiphyService();
+
+    if (!giphy.isConfigured) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.chatGifNotConfigured),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
+    _inputFocus.unfocus();
+
+    final selected = await showModalBottomSheet<GiphyGifModel>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.82,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(24),
+            ),
+            child: QMatchGifPicker(
+              service: giphy,
+              languageCode: Localizations.localeOf(context).languageCode,
+              title: l10n.chatGifPickerTitle,
+              searchHint: l10n.chatGifSearchHint,
+              emptyText: l10n.chatGifEmpty,
+              errorText: l10n.chatGifLoadError,
+              poweredByText: l10n.chatGifPoweredBy,
+            ),
+          ),
+        );
+      },
+    );
+
+    if (!mounted || selected == null || _accountDeletionClosed || _sending) {
+      return;
+    }
+
+    setState(() => _sending = true);
+
+    try {
+      await _chat!.sendGifMessage(
+        widget.threadId,
+        selected.sendUrl,
+      );
+
+      unawaited(
+        giphy.registerAnalytics(
+          selected.analyticsSendUrl,
+        ),
+      );
+
+      if (!mounted) return;
+
+      _lastAutoScrollCount = -1;
+      _scrollToBottom(force: true);
+    } catch (e, st) {
+      debugPrint('ChatDetail GIF send failed: $e\n$st');
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.chatSendFailed),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _sending = false);
+      }
     }
   }
 
@@ -586,12 +674,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           children: [
             if (showSep && day != null)
               QMatchDateSeparator(label: _dateSeparatorLabel(l10n, day)),
-            QMatchMessageBubble(
-              text: m.text,
-              isOutgoing: isOutgoing,
-              isSystem: isSystem,
-              timestampText: formatChatMessageTime(m),
-            ),
+            if (m.type == MessageType.gif)
+              QMatchGifMessageBubble(
+                gifUrl: m.gifUrl ?? '',
+                isOutgoing: isOutgoing,
+                timestampText: formatChatMessageTime(m),
+              )
+            else
+              QMatchMessageBubble(
+                text: m.text,
+                isOutgoing: isOutgoing,
+                isSystem: isSystem,
+                timestampText: formatChatMessageTime(m),
+              ),
           ],
         );
       },
@@ -637,9 +732,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             child: Text(
               chatBlockOverflowLabel(l10n, blockedByMe: _blockedByMe),
               style: GoogleFonts.inter(
-                color: _blockedByMe
-                    ? AppColors.textPrimary
-                    : AppColors.danger,
+                color: _blockedByMe ? AppColors.textPrimary : AppColors.danger,
               ),
             ),
           ),
@@ -668,108 +761,110 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           ),
           child: Column(
             children: [
-            if (_bootstrapFailed)
-              Material(
-                color: AppColors.danger.withValues(alpha: 0.16),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          key: const Key('qmatch-chat-profile-error'),
-                          l10n.chatProfileLoadErrorSubtitle,
-                          style: GoogleFonts.inter(
-                            color: AppColors.textPrimary,
-                            fontSize: 12,
-                            height: 1.3,
+              if (_bootstrapFailed)
+                Material(
+                  color: AppColors.danger.withValues(alpha: 0.16),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            key: const Key('qmatch-chat-profile-error'),
+                            l10n.chatProfileLoadErrorSubtitle,
+                            style: GoogleFonts.inter(
+                              color: AppColors.textPrimary,
+                              fontSize: 12,
+                              height: 1.3,
+                            ),
                           ),
                         ),
-                      ),
-                      TextButton(
-                        key: const Key('qmatch-chat-profile-error-retry'),
-                        onPressed: _bootstrap,
-                        child: Text(
-                          l10n.retry,
-                          style: GoogleFonts.inter(
-                            color: AppColors.softGold,
-                            fontWeight: FontWeight.w600,
+                        TextButton(
+                          key: const Key('qmatch-chat-profile-error-retry'),
+                          onPressed: _bootstrap,
+                          child: Text(
+                            l10n.retry,
+                            style: GoogleFonts.inter(
+                              color: AppColors.softGold,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            Expanded(
-              child: currentUid == null
-                  ? Center(
-                      child: Text(
-                        l10n.loginRequired,
-                        style: GoogleFonts.inter(
-                          color: AppColors.textSecondary,
+              Expanded(
+                child: currentUid == null
+                    ? Center(
+                        child: Text(
+                          l10n.loginRequired,
+                          style: GoogleFonts.inter(
+                            color: AppColors.textSecondary,
+                          ),
                         ),
+                      )
+                    : StreamBuilder<List<MessageModel>>(
+                        stream: _messages,
+                        builder: (context, snapshot) {
+                          if (!_loggedMessagesSnapshot &&
+                              (snapshot.hasData || snapshot.hasError)) {
+                            _loggedMessagesSnapshot = true;
+                            QmatchPerf.mark('chat.messages.snapshot_ready');
+                          }
+                          if (snapshot.connectionState ==
+                                  ConnectionState.waiting &&
+                              !snapshot.hasData) {
+                            return QMatchChatLoadingState(
+                              message: l10n.chatLoadingMessages,
+                            );
+                          }
+
+                          if (snapshot.hasError) {
+                            debugPrint(
+                              'ChatDetail messages stream error: ${snapshot.error}',
+                            );
+                            return QMatchChatErrorState(
+                              title: l10n.chatMessagesLoadErrorTitle,
+                              body: l10n.chatMessagesLoadErrorSubtitle,
+                            );
+                          }
+
+                          final messages = snapshot.data ?? const [];
+                          if (messages.isEmpty) {
+                            return QMatchChatEmptyState(
+                              title: l10n.chatStartConversation,
+                              body: l10n.chatEmptySubtitle,
+                            );
+                          }
+
+                          return _buildMessageList(
+                            messages: messages,
+                            currentUid: currentUid,
+                            l10n: l10n,
+                          );
+                        },
                       ),
+              ),
+              _accountDeletionClosed
+                  ? QMatchConversationInactiveBanner(
+                      message: l10n.chatConversationNoLongerActive,
                     )
-                  : StreamBuilder<List<MessageModel>>(
-                      stream: _messages,
-                      builder: (context, snapshot) {
-                        if (!_loggedMessagesSnapshot &&
-                            (snapshot.hasData || snapshot.hasError)) {
-                          _loggedMessagesSnapshot = true;
-                          QmatchPerf.mark('chat.messages.snapshot_ready');
-                        }
-                        if (snapshot.connectionState ==
-                                ConnectionState.waiting &&
-                            !snapshot.hasData) {
-                          return QMatchChatLoadingState(
-                            message: l10n.chatLoadingMessages,
-                          );
-                        }
-
-                        if (snapshot.hasError) {
-                          debugPrint(
-                            'ChatDetail messages stream error: ${snapshot.error}',
-                          );
-                          return QMatchChatErrorState(
-                            title: l10n.chatMessagesLoadErrorTitle,
-                            body: l10n.chatMessagesLoadErrorSubtitle,
-                          );
-                        }
-
-                        final messages = snapshot.data ?? const [];
-                        if (messages.isEmpty) {
-                          return QMatchChatEmptyState(
-                            title: l10n.chatStartConversation,
-                            body: l10n.chatEmptySubtitle,
-                          );
-                        }
-
-                        return _buildMessageList(
-                          messages: messages,
-                          currentUid: currentUid,
-                          l10n: l10n,
-                        );
-                      },
+                  : QMatchMessageComposer(
+                      controller: _input,
+                      focusNode: _inputFocus,
+                      hintText: l10n.chatMessageHint,
+                      sending: _sending,
+                      enabled: true,
+                      sendSemanticLabel: l10n.chatSendSemanticLabel,
+                      gifSemanticLabel: l10n.chatGifSemanticLabel,
+                      onGif: _openGifPicker,
+                      onSend: _send,
                     ),
-            ),
-            _accountDeletionClosed
-                ? QMatchConversationInactiveBanner(
-                    message: l10n.chatConversationNoLongerActive,
-                  )
-                : QMatchMessageComposer(
-                    controller: _input,
-                    focusNode: _inputFocus,
-                    hintText: l10n.chatMessageHint,
-                    sending: _sending,
-                    enabled: true,
-                    sendSemanticLabel: l10n.chatSendSemanticLabel,
-                    onSend: _send,
-                  ),
-          ],
+            ],
           ),
         ),
       ),
