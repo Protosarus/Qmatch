@@ -73,6 +73,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
   late final MessagePushTapRouter _router;
   late final PushMessagingPort _messaging;
   StreamSubscription<Map<String, String>>? _openedSub;
+  StreamSubscription<Map<String, String>>? _foregroundSub;
   bool _started = false;
   bool _navigating = false;
   final Set<String> _seenTapFingerprints = {};
@@ -91,6 +92,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
   @override
   void dispose() {
     _openedSub?.cancel();
+    _foregroundSub?.cancel();
     super.dispose();
   }
 
@@ -155,7 +157,54 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
       _log('qmatch.push tap_initial_error type=${error.runtimeType}');
     }
     if (!mounted) return;
+    _foregroundSub = _messaging.onForegroundMessage.listen(_onForegroundPush);
     _openedSub = _messaging.onNotificationOpened.listen(_onTap);
+  }
+
+  void _onForegroundPush(Map<String, String> data) {
+    if (!mounted) return;
+
+    final type = (data['type'] ?? '').trim();
+    if (type != 'message' && type != 'match' && type != 'super_resonance') {
+      _log('qmatch.push foreground_ignored type=$type');
+      return;
+    }
+
+    final isTurkish =
+        Localizations.localeOf(context).languageCode.toLowerCase() == 'tr';
+
+    final body = switch (type) {
+      'message' =>
+        isTurkish ? 'Yeni bir mesajın var.' : 'You have a new message.',
+      'match' => isTurkish ? 'Yeni bir eşleşmen var.' : 'You have a new match.',
+      'super_resonance' => isTurkish
+          ? 'Bir Süper Rezonans aldın.'
+          : 'You received a Super Resonance.',
+      _ => '',
+    };
+
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    if (messenger == null || body.isEmpty) return;
+
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: InkWell(
+            onTap: () {
+              unawaited(_onTap(data));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(body),
+            ),
+          ),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 4),
+        ),
+      );
+
+    _log('qmatch.push foreground_banner type=$type');
   }
 
   Future<void> _waitForMainShell({int maxFrames = 12}) async {

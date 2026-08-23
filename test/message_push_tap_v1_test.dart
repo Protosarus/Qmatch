@@ -62,6 +62,7 @@ class _FakeMessaging implements PushMessagingPort {
 
   Map<String, String>? initial;
   final opened = StreamController<Map<String, String>>.broadcast();
+  final foreground = StreamController<Map<String, String>>.broadcast();
 
   @override
   Future<PushPermissionState> currentPermission() async =>
@@ -81,7 +82,7 @@ class _FakeMessaging implements PushMessagingPort {
   Stream<String> get onTokenRefresh => const Stream.empty();
 
   @override
-  Stream<Map<String, String>> get onForegroundMessage => const Stream.empty();
+  Stream<Map<String, String>> get onForegroundMessage => foreground.stream;
 
   @override
   Stream<Map<String, String>> get onNotificationOpened => opened.stream;
@@ -372,6 +373,58 @@ void main() {
     expect(actions.opens, [
       {'threadId': 'userA_userB', 'otherUserId': 'userB'},
     ]);
+    await messaging.opened.close();
+  });
+
+  testWidgets('foreground Turkish message banner routes to chat when tapped',
+      (tester) async {
+    final actions = _RecordingActions();
+    final messaging = _FakeMessaging();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        locale: const Locale('tr'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: MessagePushTapHost(
+          messaging: messaging,
+          currentUid: () => 'userA',
+          loadThread: (_) async => activeThread(),
+          blockExists: (_, __) async => false,
+          actions: actions,
+          child: const Scaffold(body: SizedBox.shrink()),
+        ),
+      ),
+    );
+
+    // MessagePushTapHost starts its listeners after the first frame.
+    await tester.pump();
+
+    messaging.foreground.add(messagePayload(messageId: 'msg-foreground'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.text('Yeni bir mesajın var.'), findsOneWidget);
+    expect(find.text('Aç'), findsNothing);
+    expect(find.text('Open'), findsNothing);
+    expect(actions.opens, isEmpty);
+
+    final banner = tester.widget<InkWell>(
+      find.ancestor(
+        of: find.text('Yeni bir mesajın var.'),
+        matching: find.byType(InkWell),
+      ),
+    );
+    banner.onTap!();
+    await tester.pump();
+    await tester.pump();
+
+    expect(actions.opens, [
+      {'threadId': 'userA_userB', 'otherUserId': 'userB'},
+    ]);
+
+    await tester.pumpWidget(const SizedBox.shrink());
+    await messaging.foreground.close();
     await messaging.opened.close();
   });
 
