@@ -447,6 +447,7 @@ void main() {
           threadsStream: Stream.value(const <ChatThreadModel>[]),
           mainScreens: const [
             SizedBox.shrink(),
+            SizedBox.shrink(),
             Text('messages-tab'),
             SizedBox.shrink(),
           ],

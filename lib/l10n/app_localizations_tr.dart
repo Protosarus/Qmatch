@@ -187,10 +187,68 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navDiscover => 'Keşfet';
 
   @override
+  String get navActivity => 'Aktivite';
+
+  @override
   String get navMessages => 'Mesajlar';
 
   @override
   String get navProfile => 'Profil';
+
+  @override
+  String get activityTitle => 'Aktivite';
+
+  @override
+  String get activityLoading => 'Aktiviteler yükleniyor...';
+
+  @override
+  String get activityEmptyTitle => 'Henüz yeni bir aktivite yok';
+
+  @override
+  String get activityEmptySubtitle =>
+      'Eşleşmelerindeki önemli güncellemeler burada görünecek.';
+
+  @override
+  String get activityLoadErrorTitle => 'Aktiviteler yüklenemedi';
+
+  @override
+  String get activityLoadErrorSubtitle => 'Lütfen tekrar dene.';
+
+  @override
+  String get activityRetry => 'Tekrar dene';
+
+  @override
+  String get activityFallbackName => 'Eşleşmen';
+
+  @override
+  String activityPhotoAdded(Object name) {
+    return '$name yeni bir fotoğraf ekledi.';
+  }
+
+  @override
+  String activityBioUpdated(Object name) {
+    return '$name profil açıklamasını güncelledi.';
+  }
+
+  @override
+  String activityWorkEducationUpdated(Object name) {
+    return '$name iş veya eğitim bilgisini güncelledi.';
+  }
+
+  @override
+  String activityMatchCreated(Object name) {
+    return '$name ile eşleştin.';
+  }
+
+  @override
+  String activitySuperResonanceReceived(Object name) {
+    return '$name sana Super Resonance gönderdi.';
+  }
+
+  @override
+  String activityAnthemUpdated(Object name) {
+    return '$name yeni bir anthem seçti.';
+  }
 
   @override
   String get navSettings => 'Ayarlar';

@@ -399,3 +399,36 @@ exports.sendSuperResonancePush = onDocumentCreated(
 );
 exports.handleSuperResonanceSignalCreated =
   superResonancePush.handleSuperResonanceSignalCreated;
+
+const activityFeed = require('./src/activity_feed');
+
+exports.createActivityFromProfileUpdate = onDocumentWritten(
+  {
+    document: 'users/{uid}',
+    region: 'europe-west1',
+  },
+  (event) => activityFeed.handleProfileActivityWritten(event),
+);
+
+exports.createActivityFromMatch = onDocumentCreated(
+  {
+    document: 'matches/{matchId}',
+    region: 'europe-west1',
+  },
+  (event) => activityFeed.handleMatchActivityCreated(event),
+);
+
+exports.createActivityFromSuperResonance = onDocumentCreated(
+  {
+    document: 'super_resonance_signals/{signalId}',
+    region: 'europe-west1',
+  },
+  (event) => activityFeed.handleSuperResonanceActivityCreated(event),
+);
+
+exports.handleProfileActivityWritten =
+  activityFeed.handleProfileActivityWritten;
+exports.handleMatchActivityCreated =
+  activityFeed.handleMatchActivityCreated;
+exports.handleSuperResonanceActivityCreated =
+  activityFeed.handleSuperResonanceActivityCreated;

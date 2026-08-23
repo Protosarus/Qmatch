@@ -59,6 +59,69 @@ class MemoryDocRef {
   }
 }
 
+class MemoryWriteBatch {
+  constructor(db) {
+    this._db = db;
+    this._writes = [];
+  }
+
+  set(ref, data, opts = {}) {
+    this._writes.push({
+      type: 'set',
+      path: ref.path,
+      data: clone(data),
+      opts,
+    });
+    return this;
+  }
+
+  update(ref, data) {
+    this._writes.push({
+      type: 'update',
+      path: ref.path,
+      data: clone(data),
+    });
+    return this;
+  }
+
+  delete(ref) {
+    this._writes.push({
+      type: 'delete',
+      path: ref.path,
+    });
+    return this;
+  }
+
+  async commit() {
+    for (const w of this._writes) {
+      if (w.type === 'set') {
+        const prev = this._db._store.get(w.path);
+        if (w.opts && w.opts.merge && prev) {
+          this._db._store.set(
+            w.path,
+            { ...clone(prev), ...clone(w.data) },
+          );
+        } else {
+          this._db._store.set(w.path, clone(w.data));
+        }
+        this._db._bump(w.path);
+      } else if (w.type === 'update') {
+        const prev = this._db._store.get(w.path) || {};
+        this._db._store.set(
+          w.path,
+          { ...clone(prev), ...clone(w.data) },
+        );
+        this._db._bump(w.path);
+      } else if (w.type === 'delete') {
+        this._db._store.delete(w.path);
+        this._db._bump(w.path);
+      }
+    }
+
+    return [];
+  }
+}
+
 class MemoryTransaction {
   constructor(db) {
     this._db = db;
@@ -174,6 +237,13 @@ class MemoryQuery {
           ok = false;
           break;
         }
+        if (filter.op === 'array-contains') {
+          const values = row[filter.field];
+          if (!Array.isArray(values) || !values.includes(filter.value)) {
+            ok = false;
+            break;
+          }
+        }
       }
       if (
         ok &&
@@ -287,6 +357,9 @@ class MemoryFirestore {
   }
   collectionGroup(collectionId) {
     return new MemoryQuery(this, collectionId);
+  }
+  batch() {
+    return new MemoryWriteBatch(this);
   }
   async runTransaction(fn) {
     const maxAttempts = 8;

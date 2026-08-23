@@ -298,7 +298,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
       );
 
       // Keep the underlying shell on Messages if push is lost to a rebuild.
-      main?.selectTab(1);
+      main?.selectTab(MainNavigationScreen.messagesTabIndex);
       await _afterNextFrame();
       if (!mounted) return;
 
@@ -311,7 +311,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
       );
       if (nav == null) {
         _log('qmatch.push tap_nav phase=no_navigator');
-        _navKey.currentState?.selectTab(1);
+        _navKey.currentState?.selectTab(MainNavigationScreen.messagesTabIndex);
         return;
       }
 
@@ -362,7 +362,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
     nav?.popUntil((route) => route.isFirst);
     await _afterNextFrame();
     if (!mounted) return;
-    _navKey.currentState?.selectTab(1);
+    _navKey.currentState?.selectTab(MainNavigationScreen.messagesTabIndex);
     _log(
       'qmatch.push tap_nav'
       ' phase=fallback_messages'
@@ -389,7 +389,7 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
       await _afterNextFrame();
       if (!mounted) return;
       // Discover tab is the natural home for Alignment Signals entry.
-      _navKey.currentState?.selectTab(0);
+      _navKey.currentState?.selectTab(MainNavigationScreen.discoverTabIndex);
       await _afterNextFrame();
       if (!mounted) return;
       QmatchPerf.mark(

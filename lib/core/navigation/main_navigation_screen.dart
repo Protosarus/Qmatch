@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/activity/screens/activity_screen.dart';
 import '../../features/discover/screens/discover_screen.dart';
 import '../../features/messages/models/chat_thread_model.dart';
 import '../../features/messages/screens/messages_screen.dart';
@@ -12,6 +13,11 @@ import '../../l10n/app_localizations.dart';
 import 'qmatch_main_shell.dart';
 
 class MainNavigationScreen extends StatefulWidget {
+  static const int discoverTabIndex = 0;
+  static const int activityTabIndex = 1;
+  static const int messagesTabIndex = 2;
+  static const int profileTabIndex = 3;
+
   const MainNavigationScreen({
     super.key,
     this.initialIndex = 0,
@@ -56,6 +62,7 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
     _screens = widget.screens ??
         const [
           DiscoverScreen(),
+          ActivityScreen(),
           MessagesScreen(),
           ProfileScreen(),
         ];
@@ -93,6 +100,10 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
             QMatchBottomNavigationItem(
               icon: Icons.explore_rounded,
               label: l10n.navDiscover,
+            ),
+            QMatchBottomNavigationItem(
+              icon: Icons.bolt_rounded,
+              label: l10n.navActivity,
             ),
             QMatchBottomNavigationItem(
               icon: Icons.chat_bubble_rounded,

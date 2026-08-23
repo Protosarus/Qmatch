@@ -416,6 +416,12 @@ abstract class AppLocalizations {
   /// **'Discover'**
   String get navDiscover;
 
+  /// No description provided for @navActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get navActivity;
+
   /// No description provided for @navMessages.
   ///
   /// In en, this message translates to:
@@ -427,6 +433,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get navProfile;
+
+  /// No description provided for @activityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get activityTitle;
+
+  /// No description provided for @activityLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading activity...'**
+  String get activityLoading;
+
+  /// No description provided for @activityEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing new yet'**
+  String get activityEmptyTitle;
+
+  /// No description provided for @activityEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaningful updates from your matches will appear here.'**
+  String get activityEmptySubtitle;
+
+  /// No description provided for @activityLoadErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity could not be loaded'**
+  String get activityLoadErrorTitle;
+
+  /// No description provided for @activityLoadErrorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again.'**
+  String get activityLoadErrorSubtitle;
+
+  /// No description provided for @activityRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get activityRetry;
+
+  /// No description provided for @activityFallbackName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your match'**
+  String get activityFallbackName;
+
+  /// No description provided for @activityPhotoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} added a new photo.'**
+  String activityPhotoAdded(Object name);
+
+  /// No description provided for @activityBioUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} updated their bio.'**
+  String activityBioUpdated(Object name);
+
+  /// No description provided for @activityWorkEducationUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} updated their work or education.'**
+  String activityWorkEducationUpdated(Object name);
+
+  /// No description provided for @activityMatchCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'You matched with {name}.'**
+  String activityMatchCreated(Object name);
+
+  /// No description provided for @activitySuperResonanceReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} sent you a Super Resonance.'**
+  String activitySuperResonanceReceived(Object name);
+
+  /// No description provided for @activityAnthemUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} selected a new anthem.'**
+  String activityAnthemUpdated(Object name);
 
   /// No description provided for @navSettings.
   ///

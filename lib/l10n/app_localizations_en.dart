@@ -186,10 +186,68 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navDiscover => 'Discover';
 
   @override
+  String get navActivity => 'Activity';
+
+  @override
   String get navMessages => 'Messages';
 
   @override
   String get navProfile => 'Profile';
+
+  @override
+  String get activityTitle => 'Activity';
+
+  @override
+  String get activityLoading => 'Loading activity...';
+
+  @override
+  String get activityEmptyTitle => 'Nothing new yet';
+
+  @override
+  String get activityEmptySubtitle =>
+      'Meaningful updates from your matches will appear here.';
+
+  @override
+  String get activityLoadErrorTitle => 'Activity could not be loaded';
+
+  @override
+  String get activityLoadErrorSubtitle => 'Please try again.';
+
+  @override
+  String get activityRetry => 'Try again';
+
+  @override
+  String get activityFallbackName => 'Your match';
+
+  @override
+  String activityPhotoAdded(Object name) {
+    return '$name added a new photo.';
+  }
+
+  @override
+  String activityBioUpdated(Object name) {
+    return '$name updated their bio.';
+  }
+
+  @override
+  String activityWorkEducationUpdated(Object name) {
+    return '$name updated their work or education.';
+  }
+
+  @override
+  String activityMatchCreated(Object name) {
+    return 'You matched with $name.';
+  }
+
+  @override
+  String activitySuperResonanceReceived(Object name) {
+    return '$name sent you a Super Resonance.';
+  }
+
+  @override
+  String activityAnthemUpdated(Object name) {
+    return '$name selected a new anthem.';
+  }
 
   @override
   String get navSettings => 'Settings';

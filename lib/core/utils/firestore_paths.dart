@@ -37,6 +37,12 @@ class FirestorePaths {
   static DocumentReference<Map<String, dynamic>> userDoc(String uid) =>
       users().doc(uid);
 
+  // users/{uid}/activity_feed
+  static CollectionReference<Map<String, dynamic>> userActivityFeed(
+    String uid,
+  ) =>
+      userDoc(uid).collection('activity_feed');
+
   // users/{uid}/swipes
   static CollectionReference<Map<String, dynamic>> userSwipes(String uid) =>
       userDoc(uid).collection('swipes');

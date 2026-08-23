@@ -43,7 +43,9 @@ void main() {
     test('1 unread conversation => 1', () {
       expect(
         unreadConversationCount(
-          threads: [thread(id: 'a', unread: const {'me': 1})],
+          threads: [
+            thread(id: 'a', unread: const {'me': 1})
+          ],
           currentUid: 'me',
         ),
         1,
@@ -54,7 +56,9 @@ void main() {
     test('multiple unread messages in one thread still count as 1', () {
       expect(
         unreadConversationCount(
-          threads: [thread(id: 'a', unread: const {'me': 12})],
+          threads: [
+            thread(id: 'a', unread: const {'me': 12})
+          ],
           currentUid: 'me',
         ),
         1,
@@ -79,8 +83,7 @@ void main() {
 
     test('>9 unread conversations => 9+', () {
       final threads = [
-        for (var i = 0; i < 10; i++)
-          thread(id: 't$i', unread: const {'me': 1}),
+        for (var i = 0; i < 10; i++) thread(id: 't$i', unread: const {'me': 1}),
       ];
       expect(
         unreadConversationCount(threads: threads, currentUid: 'me'),
@@ -100,20 +103,25 @@ void main() {
     testWidgets('0 unread conversations => no badge', (tester) async {
       final controller = liveController();
       await tester.pumpWidget(_wrapNav(controller.stream));
-      controller.add([thread(id: 'a', unread: const {'me': 0})]);
+      controller.add([
+        thread(id: 'a', unread: const {'me': 0})
+      ]);
       await tester.pump();
-      expect(find.byKey(const Key('qmatch-nav-unread-badge-1')), findsNothing);
+      expect(find.byKey(const Key('qmatch-nav-unread-badge-2')), findsNothing);
     });
 
     testWidgets('1 unread conversation => 1', (tester) async {
       final controller = liveController();
       await tester.pumpWidget(_wrapNav(controller.stream));
-      controller.add([thread(id: 'a', unread: const {'me': 2})]);
+      controller.add([
+        thread(id: 'a', unread: const {'me': 2})
+      ]);
       await tester.pump();
-      expect(find.byKey(const Key('qmatch-nav-unread-badge-1')), findsOneWidget);
+      expect(
+          find.byKey(const Key('qmatch-nav-unread-badge-2')), findsOneWidget);
       expect(
         find.descendant(
-          of: find.byKey(const Key('qmatch-nav-unread-badge-1')),
+          of: find.byKey(const Key('qmatch-nav-unread-badge-2')),
           matching: find.text('1'),
         ),
         findsOneWidget,
@@ -132,7 +140,7 @@ void main() {
       await tester.pump();
       expect(
         find.descendant(
-          of: find.byKey(const Key('qmatch-nav-unread-badge-1')),
+          of: find.byKey(const Key('qmatch-nav-unread-badge-2')),
           matching: find.text('2'),
         ),
         findsOneWidget,
@@ -143,20 +151,19 @@ void main() {
         thread(id: 'b', unread: const {'me': 0}),
       ]);
       await tester.pump();
-      expect(find.byKey(const Key('qmatch-nav-unread-badge-1')), findsNothing);
+      expect(find.byKey(const Key('qmatch-nav-unread-badge-2')), findsNothing);
     });
 
     testWidgets('>9 unread conversations => 9+', (tester) async {
       final controller = liveController();
       await tester.pumpWidget(_wrapNav(controller.stream));
       controller.add([
-        for (var i = 0; i < 11; i++)
-          thread(id: 't$i', unread: const {'me': 1}),
+        for (var i = 0; i < 11; i++) thread(id: 't$i', unread: const {'me': 1}),
       ]);
       await tester.pump();
       expect(
         find.descendant(
-          of: find.byKey(const Key('qmatch-nav-unread-badge-1')),
+          of: find.byKey(const Key('qmatch-nav-unread-badge-2')),
           matching: find.text('9+'),
         ),
         findsOneWidget,
@@ -166,10 +173,12 @@ void main() {
     testWidgets('badge fill is lilac/violet, not red', (tester) async {
       final controller = liveController();
       await tester.pumpWidget(_wrapNav(controller.stream));
-      controller.add([thread(id: 'a', unread: const {'me': 1})]);
+      controller.add([
+        thread(id: 'a', unread: const {'me': 1})
+      ]);
       await tester.pump();
       final box = tester.widget<Container>(
-        find.byKey(const Key('qmatch-nav-unread-badge-1')),
+        find.byKey(const Key('qmatch-nav-unread-badge-2')),
       );
       final decoration = box.decoration! as BoxDecoration;
       expect(decoration.color, isNot(AppColors.danger));
@@ -212,6 +221,7 @@ Widget _wrapNav(Stream<List<ChatThreadModel>> stream) {
       currentUid: 'me',
       threadsStream: stream,
       screens: const [
+        SizedBox.expand(),
         SizedBox.expand(),
         SizedBox.expand(),
         SizedBox.expand(),
