@@ -714,25 +714,107 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         menuItems: [
           PopupMenuItem(
             value: 'report',
-            child: Text(
-              l10n.chatMenuReport,
-              style: GoogleFonts.inter(color: AppColors.textPrimary),
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 2,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.28),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.06),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.22),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Text(
+                l10n.chatMenuReport,
+                style: GoogleFonts.inter(color: AppColors.textPrimary),
+              ),
             ),
           ),
           if (!_accountDeletionClosed)
             PopupMenuItem(
               value: 'unmatch',
-              child: Text(
-                l10n.chatMenuUnmatch,
-                style: GoogleFonts.inter(color: AppColors.danger),
+              padding: EdgeInsets.zero,
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 6,
+                  vertical: 2,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.28),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.06),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.28),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  l10n.chatMenuUnmatch,
+                  style: GoogleFonts.inter(color: AppColors.danger),
+                ),
               ),
             ),
           PopupMenuItem(
             value: chatBlockOverflowValue(blockedByMe: _blockedByMe),
-            child: Text(
-              chatBlockOverflowLabel(l10n, blockedByMe: _blockedByMe),
-              style: GoogleFonts.inter(
-                color: _blockedByMe ? AppColors.textPrimary : AppColors.danger,
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 2,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.28),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.06),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.22),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Text(
+                chatBlockOverflowLabel(
+                  l10n,
+                  blockedByMe: _blockedByMe,
+                ),
+                style: GoogleFonts.inter(
+                  color:
+                      _blockedByMe ? AppColors.textPrimary : AppColors.danger,
+                ),
               ),
             ),
           ),
