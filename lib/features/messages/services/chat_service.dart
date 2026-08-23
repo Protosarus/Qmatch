@@ -7,6 +7,15 @@ import '../models/message_model.dart';
 import '../utils/closed_account_chat_history.dart';
 
 class ChatService {
+  static const Set<String> supportedMessageReactions = {
+    '❤️',
+    '😂',
+    '😮',
+    '😢',
+    '👍',
+    '🔥',
+  };
+
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
 
@@ -233,6 +242,62 @@ class ChatService {
     });
 
     await batch.commit();
+  }
+
+  Future<void> toggleMessageReaction({
+    required String threadId,
+    required String messageId,
+    required String reaction,
+  }) async {
+    if (!supportedMessageReactions.contains(reaction)) {
+      throw StateError('Unsupported message reaction.');
+    }
+
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+
+    final threadSnap = await FirestorePaths.threadDoc(threadId).get();
+    final threadData = threadSnap.data();
+    if (!threadSnap.exists || threadData == null) {
+      throw StateError('Thread not found.');
+    }
+
+    final thread = ChatThreadModel.fromFirestore(threadId, threadData);
+    if (!thread.participants.contains(me.uid)) {
+      throw StateError('Current user is not a participant of this thread.');
+    }
+    if (!ClosedAccountChatHistory.allowSend(thread)) {
+      throw StateError('This conversation is closed.');
+    }
+
+    final messageRef = FirestorePaths.threadMessages(threadId).doc(messageId);
+    final messageSnap = await messageRef.get();
+    final messageData = messageSnap.data();
+
+    if (!messageSnap.exists || messageData == null) {
+      throw StateError('Message not found.');
+    }
+
+    final message = MessageModel.fromFirestore(
+      messageId,
+      messageData,
+    );
+
+    if (message.type != MessageType.text && message.type != MessageType.gif) {
+      throw StateError('This message cannot be reacted to.');
+    }
+    if (message.senderId == 'system') {
+      throw StateError('System messages cannot be reacted to.');
+    }
+
+    final currentReaction = message.reactions[me.uid];
+
+    await messageRef.update({
+      'reactions.${me.uid}':
+          currentReaction == reaction ? FieldValue.delete() : reaction,
+    });
   }
 
   Future<ChatThreadModel> markThreadAsRead(String threadId) async {

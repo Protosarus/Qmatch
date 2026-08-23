@@ -18,6 +18,7 @@ class MessageModel {
   final Timestamp? createdAt;
   final int? clientCreatedAt;
   final Map<String, Timestamp> readBy;
+  final Map<String, String> reactions;
   final Map<String, dynamic>? moderation;
 
   const MessageModel({
@@ -31,6 +32,7 @@ class MessageModel {
     this.createdAt,
     this.clientCreatedAt,
     this.readBy = const {},
+    this.reactions = const {},
     this.moderation,
   });
 
@@ -76,6 +78,16 @@ class MessageModel {
       }
     }
 
+    final reactionsRaw =
+        (data['reactions'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final reactions = <String, String>{};
+    for (final entry in reactionsRaw.entries) {
+      final value = entry.value;
+      if (value is String && value.trim().isNotEmpty) {
+        reactions[entry.key] = value;
+      }
+    }
+
     return MessageModel(
       messageId: messageId,
       threadId: (data['thread_id'] as String?) ?? '',
@@ -89,6 +101,7 @@ class MessageModel {
           : null,
       clientCreatedAt: (data['client_created_at'] as num?)?.toInt(),
       readBy: readBy,
+      reactions: reactions,
       moderation: data['moderation'] is Map
           ? (data['moderation'] as Map).cast<String, dynamic>()
           : null,
@@ -106,6 +119,7 @@ class MessageModel {
       'created_at': createdAt,
       'client_created_at': clientCreatedAt,
       'read_by': readBy,
+      if (reactions.isNotEmpty) 'reactions': reactions,
       'moderation': moderation,
     };
   }

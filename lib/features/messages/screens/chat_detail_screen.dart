@@ -647,6 +647,241 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     return formatChatDateCompact(day, now: now);
   }
 
+  Future<void> _toggleReaction({
+    required MessageModel message,
+    required String reaction,
+  }) async {
+    if (_accountDeletionClosed) return;
+
+    try {
+      await _chat!.toggleMessageReaction(
+        threadId: widget.threadId,
+        messageId: message.messageId,
+        reaction: reaction,
+      );
+    } catch (e, st) {
+      debugPrint('ChatDetail reaction failed: $e\n$st');
+
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.chatActionFailed),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
+  Future<void> _showReactionPicker(
+    MessageModel message,
+    Offset globalPosition,
+  ) async {
+    if (_accountDeletionClosed) return;
+    if (message.type != MessageType.text && message.type != MessageType.gif) {
+      return;
+    }
+    if (message.senderId == 'system') return;
+
+    final media = MediaQuery.of(context);
+    const panelWidth = 318.0;
+    const panelHeight = 66.0;
+    const horizontalMargin = 12.0;
+
+    final maxLeft = (media.size.width - panelWidth - horizontalMargin)
+        .clamp(horizontalMargin, double.infinity)
+        .toDouble();
+
+    final left = (globalPosition.dx - (panelWidth / 2))
+        .clamp(horizontalMargin, maxLeft)
+        .toDouble();
+
+    var top = globalPosition.dy - panelHeight - 18;
+
+    final minTop = media.padding.top + 8;
+    if (top < minTop) {
+      top = globalPosition.dy + 18;
+    }
+
+    if (top + panelHeight > media.size.height - media.padding.bottom - 8) {
+      top = media.size.height - media.padding.bottom - panelHeight - 8;
+    }
+
+    final selected = await showDialog<String>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withValues(alpha: 0.16),
+      builder: (dialogContext) {
+        return Material(
+          type: MaterialType.transparency,
+          child: Stack(
+            children: [
+              Positioned(
+                left: left,
+                top: top,
+                width: panelWidth,
+                height: panelHeight,
+                child: Material(
+                  color: AppColors.glassSurfaceStrong,
+                  elevation: 14,
+                  shadowColor: Colors.black.withValues(alpha: 0.50),
+                  borderRadius: BorderRadius.circular(22),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(22),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.10),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 7,
+                      vertical: 6,
+                    ),
+                    child: Row(
+                      children: ChatService.supportedMessageReactions
+                          .map(
+                            (reaction) => Expanded(
+                              child: InkWell(
+                                key: Key(
+                                  'qmatch-message-reaction-picker-$reaction',
+                                ),
+                                onTap: () => Navigator.of(
+                                  dialogContext,
+                                ).pop(reaction),
+                                borderRadius: BorderRadius.circular(14),
+                                child: Center(
+                                  child: Text(
+                                    reaction,
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (!mounted || selected == null) return;
+
+    await _toggleReaction(
+      message: message,
+      reaction: selected,
+    );
+  }
+
+  Widget _buildReactionBadge({
+    required MessageModel message,
+    required String currentUid,
+  }) {
+    final counts = <String, int>{};
+
+    for (final reaction in message.reactions.values) {
+      if (!ChatService.supportedMessageReactions.contains(reaction)) {
+        continue;
+      }
+      counts[reaction] = (counts[reaction] ?? 0) + 1;
+    }
+
+    if (counts.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final ordered = ChatService.supportedMessageReactions
+        .where(counts.containsKey)
+        .toList();
+
+    final totalCount = counts.values.fold<int>(
+      0,
+      (sum, count) => sum + count,
+    );
+
+    final myReaction = message.reactions[currentUid];
+    final selectedByMe = myReaction != null &&
+        ChatService.supportedMessageReactions.contains(myReaction);
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        key: Key(
+          'qmatch-message-reaction-${message.messageId}',
+        ),
+        onTap: _accountDeletionClosed || !selectedByMe
+            ? null
+            : () => _toggleReaction(
+                  message: message,
+                  reaction: myReaction,
+                ),
+        borderRadius: BorderRadius.circular(14),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 140),
+          constraints: const BoxConstraints(
+            minHeight: 26,
+          ),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 7,
+            vertical: 3,
+          ),
+          decoration: BoxDecoration(
+            color: selectedByMe
+                ? AppColors.resonanceViolet.withValues(alpha: 0.34)
+                : AppColors.glassSurfaceStrong,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: selectedByMe
+                  ? AppColors.resonanceViolet.withValues(alpha: 0.72)
+                  : AppColors.borderSubtle,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.34),
+                blurRadius: 7,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (var i = 0; i < ordered.length; i++) ...[
+                if (i > 0) const SizedBox(width: 2),
+                Text(
+                  ordered[i],
+                  style: const TextStyle(
+                    fontSize: 15,
+                    height: 1,
+                  ),
+                ),
+              ],
+              if (totalCount > 1) ...[
+                const SizedBox(width: 4),
+                Text(
+                  '$totalCount',
+                  style: GoogleFonts.inter(
+                    color: AppColors.textPrimary,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    height: 1,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildMessageList({
     required List<MessageModel> messages,
     required String currentUid,
@@ -668,24 +903,97 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         final day = messageLocalDay(m);
         final isSystem = m.type == MessageType.system || m.senderId == 'system';
         final isOutgoing = !isSystem && m.senderId == currentUid;
+        final timestampText = formatChatMessageTime(m);
+        final hasReaction = m.reactions.values.any(
+          ChatService.supportedMessageReactions.contains,
+        );
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (showSep && day != null)
               QMatchDateSeparator(label: _dateSeparatorLabel(l10n, day)),
-            if (m.type == MessageType.gif)
-              QMatchGifMessageBubble(
-                gifUrl: m.gifUrl ?? '',
-                isOutgoing: isOutgoing,
-                timestampText: formatChatMessageTime(m),
-              )
-            else
+            if (isSystem)
               QMatchMessageBubble(
                 text: m.text,
-                isOutgoing: isOutgoing,
-                isSystem: isSystem,
+                isOutgoing: false,
+                isSystem: true,
                 timestampText: formatChatMessageTime(m),
+              )
+            else if (!hasReaction)
+              GestureDetector(
+                key: Key(
+                  'qmatch-message-reaction-target-${m.messageId}',
+                ),
+                behavior: HitTestBehavior.translucent,
+                onLongPressStart: _accountDeletionClosed
+                    ? null
+                    : (details) => _showReactionPicker(
+                          m,
+                          details.globalPosition,
+                        ),
+                child: m.type == MessageType.gif
+                    ? QMatchGifMessageBubble(
+                        gifUrl: m.gifUrl ?? '',
+                        isOutgoing: isOutgoing,
+                        timestampText: formatChatMessageTime(m),
+                      )
+                    : QMatchMessageBubble(
+                        text: m.text,
+                        isOutgoing: isOutgoing,
+                        timestampText: formatChatMessageTime(m),
+                      ),
+              )
+            else
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        GestureDetector(
+                          key: Key(
+                            'qmatch-message-reaction-target-${m.messageId}',
+                          ),
+                          behavior: HitTestBehavior.translucent,
+                          onLongPressStart: _accountDeletionClosed
+                              ? null
+                              : (details) => _showReactionPicker(
+                                    m,
+                                    details.globalPosition,
+                                  ),
+                          child: m.type == MessageType.gif
+                              ? QMatchGifMessageBubble(
+                                  gifUrl: m.gifUrl ?? '',
+                                  isOutgoing: isOutgoing,
+                                  timestampText: null,
+                                )
+                              : QMatchMessageBubble(
+                                  text: m.text,
+                                  isOutgoing: isOutgoing,
+                                  timestampText: null,
+                                ),
+                        ),
+                        Positioned(
+                          right: isOutgoing ? 2 : null,
+                          left: isOutgoing ? null : 2,
+                          bottom: -7,
+                          child: _buildReactionBadge(
+                            message: m,
+                            currentUid: currentUid,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (timestampText != null && timestampText.trim().isNotEmpty)
+                    QMatchMessageTimestamp(
+                      text: timestampText,
+                      alignEnd: isOutgoing,
+                    ),
+                ],
               ),
           ],
         );
