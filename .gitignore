@@ -90,3 +90,7 @@ storage-debug.log
 ui-debug.log
 firebase-debug.log
 *-debug.log
+
+# QMatch local runtime secrets
+config/secrets.local.json
+config/secrets.*.local.json
