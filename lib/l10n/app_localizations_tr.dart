@@ -792,6 +792,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatSendSemanticLabel => 'Mesaj gönder';
 
   @override
+  String get chatAttachmentSemanticLabel => 'Eklenti ekle';
+
+  @override
+  String get chatAttachmentPhoto => 'Fotoğraf';
+
+  @override
+  String get chatAttachmentGif => 'GIF';
+
+  @override
   String get chatGifSemanticLabel => 'GIF seç';
 
   @override

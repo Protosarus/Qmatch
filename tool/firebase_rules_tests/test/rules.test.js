@@ -982,7 +982,7 @@ describe('Entitlement rules (resonance_entitlement_firestore_schema_v1)', () => 
   });
 });
 
-describe('Discover Passport preference rules', () {
+describe('Discover Passport preference rules', () => {
   const path = 'users/userA/preferences/discover_passport_v1';
   const saved = {
     passport_enabled: true,
@@ -1031,7 +1031,7 @@ describe('Discover Passport preference rules', () {
   });
 });
 
-describe('FCM token rules', () {
+describe('FCM token rules', () => {
   const path = 'users/userA/fcm_tokens/abc123';
   const tokenDoc = {
     token: 'tok-1',
@@ -1067,7 +1067,7 @@ describe('FCM token rules', () {
   });
 });
 
-describe('Push receipt rules', () {
+describe('Push receipt rules', () => {
   const path = 'push_receipts/userA_userB_msg-1';
   const receipt = {
     type: 'message',
@@ -1120,6 +1120,330 @@ describe('Super Resonance signal rules (super_resonance_signal_v1)', () => {
     );
     await assertFails(
       deleteDoc(doc(db, 'super_resonance_signals/userA_userB')),
+    );
+  });
+});
+
+describe('Chat image Firestore rules', () => {
+  const pair = 'userA_userB';
+
+  async function seedActiveChat() {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+
+      await setDoc(doc(db, `matches/${pair}`), {
+        match_id: pair,
+        user_a: 'userA',
+        user_b: 'userB',
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+      });
+
+      await setDoc(doc(db, `threads/${pair}`), {
+        thread_id: pair,
+        match_id: pair,
+        participants: ['userA', 'userB'],
+        status: 'active',
+      });
+    });
+  }
+
+  function validImageMessage(overrides = {}) {
+    return {
+      sender_id: 'userA',
+      type: 'image',
+      text: '',
+      image_url:
+        'https://firebasestorage.googleapis.com/v0/b/demo-qmatch.appspot.com/o/chat_media%2FuserA_userB%2FuserA%2Fphoto.jpg?alt=media',
+      image_storage_path: 'chat_media/userA_userB/userA/photo.jpg',
+      ...overrides,
+    };
+  }
+
+  it('active participant can create valid image message', async () => {
+    await seedActiveChat();
+
+    await assertSucceeds(
+      setDoc(
+        doc(
+          authedFirestore('userA'),
+          `threads/${pair}/messages/image-valid`,
+        ),
+        validImageMessage(),
+      ),
+    );
+  });
+
+  it('image message cannot claim another user storage path', async () => {
+    await seedActiveChat();
+
+    await assertFails(
+      setDoc(
+        doc(
+          authedFirestore('userA'),
+          `threads/${pair}/messages/image-wrong-owner`,
+        ),
+        validImageMessage({
+          image_storage_path: `chat_media/${pair}/userB/photo.jpg`,
+        }),
+      ),
+    );
+  });
+
+  it('image message rejects non-Firebase image URL', async () => {
+    await seedActiveChat();
+
+    await assertFails(
+      setDoc(
+        doc(
+          authedFirestore('userA'),
+          `threads/${pair}/messages/image-external-url`,
+        ),
+        validImageMessage({
+          image_url: 'https://example.com/photo.jpg',
+        }),
+      ),
+    );
+  });
+
+  it('non-participant cannot create image message', async () => {
+    await seedActiveChat();
+
+    await assertFails(
+      setDoc(
+        doc(
+          authedFirestore('userC'),
+          `threads/${pair}/messages/image-outsider`,
+        ),
+        {
+          ...validImageMessage(),
+          sender_id: 'userC',
+          image_storage_path: `chat_media/${pair}/userC/photo.jpg`,
+        },
+      ),
+    );
+  });
+
+  it('closed conversation rejects image message', async () => {
+    await seedActiveChat();
+
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await updateDoc(doc(ctx.firestore(), `threads/${pair}`), {
+        status: 'closed',
+      });
+    });
+
+    await assertFails(
+      setDoc(
+        doc(
+          authedFirestore('userA'),
+          `threads/${pair}/messages/image-closed`,
+        ),
+        validImageMessage(),
+      ),
+    );
+  });
+});
+
+describe('Chat media Storage rules', () => {
+  const pair = 'userA_userB';
+  const smallJpeg = Uint8Array.from([0xff, 0xd8, 0xff, 0xd9]);
+
+  async function seedActiveChat() {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+
+      await setDoc(doc(db, `matches/${pair}`), {
+        users: ['userA', 'userB'],
+        state: 'active',
+        thread_id: pair,
+      });
+
+      await setDoc(doc(db, `threads/${pair}`), {
+        participants: ['userA', 'userB'],
+        status: 'active',
+        match_id: pair,
+      });
+    });
+  }
+
+  it('active participant can upload to own chat media path', async () => {
+    await seedActiveChat();
+
+    const r = ref(
+      authedStorage('userA'),
+      `chat_media/${pair}/userA/photo.jpg`,
+    );
+
+    await assertSucceeds(
+      uploadBytes(r, smallJpeg, { contentType: 'image/jpeg' }),
+    );
+  });
+
+  it('participant cannot upload to peer UID path', async () => {
+    await seedActiveChat();
+
+    const r = ref(
+      authedStorage('userA'),
+      `chat_media/${pair}/userB/photo.jpg`,
+    );
+
+    await assertFails(
+      uploadBytes(r, smallJpeg, { contentType: 'image/jpeg' }),
+    );
+  });
+
+  it('non-participant cannot upload chat media', async () => {
+    await seedActiveChat();
+
+    const r = ref(
+      authedStorage('userC'),
+      `chat_media/${pair}/userC/photo.jpg`,
+    );
+
+    await assertFails(
+      uploadBytes(r, smallJpeg, { contentType: 'image/jpeg' }),
+    );
+  });
+
+  it('chat media rejects invalid content type', async () => {
+    await seedActiveChat();
+
+    const r = ref(
+      authedStorage('userA'),
+      `chat_media/${pair}/userA/file.bin`,
+    );
+
+    await assertFails(
+      uploadBytes(r, smallJpeg, {
+        contentType: 'application/octet-stream',
+      }),
+    );
+  });
+
+  it('chat media rejects oversized image', async () => {
+    await seedActiveChat();
+
+    const big = new Uint8Array(8 * 1024 * 1024 + 1);
+
+    const r = ref(
+      authedStorage('userA'),
+      `chat_media/${pair}/userA/too-big.jpg`,
+    );
+
+    await assertFails(
+      uploadBytes(r, big, { contentType: 'image/jpeg' }),
+    );
+  });
+
+  it('closed conversation rejects new chat media upload', async () => {
+    await seedActiveChat();
+
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await updateDoc(doc(ctx.firestore(), `threads/${pair}`), {
+        status: 'closed',
+      });
+    });
+
+    const r = ref(
+      authedStorage('userA'),
+      `chat_media/${pair}/userA/closed.jpg`,
+    );
+
+    await assertFails(
+      uploadBytes(r, smallJpeg, { contentType: 'image/jpeg' }),
+    );
+  });
+
+  it('inactive match rejects new chat media upload', async () => {
+    await seedActiveChat();
+
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await updateDoc(doc(ctx.firestore(), `matches/${pair}`), {
+        state: 'unmatched',
+      });
+    });
+
+    const r = ref(
+      authedStorage('userA'),
+      `chat_media/${pair}/userA/inactive.jpg`,
+    );
+
+    await assertFails(
+      uploadBytes(r, smallJpeg, { contentType: 'image/jpeg' }),
+    );
+  });
+
+  it('both participants may read existing chat media but outsider may not', async () => {
+    await seedActiveChat();
+
+    const path = `chat_media/${pair}/userA/history.jpg`;
+
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await uploadBytes(ref(ctx.storage(), path), smallJpeg, {
+        contentType: 'image/jpeg',
+      });
+
+      await updateDoc(doc(ctx.firestore(), `threads/${pair}`), {
+        status: 'closed',
+      });
+    });
+
+    await assertSucceeds(
+      getBytes(ref(authedStorage('userA'), path)),
+    );
+
+    await assertSucceeds(
+      getBytes(ref(authedStorage('userB'), path)),
+    );
+
+    await assertFails(
+      getBytes(ref(authedStorage('userC'), path)),
+    );
+
+    await assertFails(
+      getBytes(ref(unauthStorage(), path)),
+    );
+  });
+
+  it('existing chat media cannot be overwritten', async () => {
+    await seedActiveChat();
+
+    const path = `chat_media/${pair}/userA/immutable.jpg`;
+
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await uploadBytes(ref(ctx.storage(), path), smallJpeg, {
+        contentType: 'image/jpeg',
+      });
+    });
+
+    await assertFails(
+      uploadBytes(
+        ref(authedStorage('userA'), path),
+        smallJpeg,
+        { contentType: 'image/jpeg' },
+      ),
+    );
+  });
+
+  it('only path owner can delete chat media', async () => {
+    await seedActiveChat();
+
+    const path = `chat_media/${pair}/userA/delete-me.jpg`;
+
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await uploadBytes(ref(ctx.storage(), path), smallJpeg, {
+        contentType: 'image/jpeg',
+      });
+    });
+
+    await assertFails(
+      deleteObject(ref(authedStorage('userB'), path)),
+    );
+
+    await assertSucceeds(
+      deleteObject(ref(authedStorage('userA'), path)),
     );
   });
 });

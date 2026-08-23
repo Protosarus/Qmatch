@@ -300,6 +300,84 @@ class ChatService {
     });
   }
 
+  Future<void> sendImageMessage({
+    required String threadId,
+    required String imageUrl,
+    required String storagePath,
+  }) async {
+    final me = _auth.currentUser;
+    if (me == null) {
+      throw StateError('User is not authenticated.');
+    }
+
+    final uri = Uri.tryParse(imageUrl.trim());
+    if (uri == null ||
+        uri.scheme != 'https' ||
+        uri.host.toLowerCase() != 'firebasestorage.googleapis.com') {
+      throw StateError('Invalid chat image URL.');
+    }
+
+    final expectedPrefix = 'chat_media/$threadId/${me.uid}/';
+    if (!storagePath.startsWith(expectedPrefix) ||
+        storagePath.substring(expectedPrefix.length).contains('/')) {
+      throw StateError('Invalid chat image storage path.');
+    }
+
+    final threadSnap = await FirestorePaths.threadDoc(threadId).get();
+    final threadData = threadSnap.data();
+    if (!threadSnap.exists || threadData == null) {
+      throw StateError('Thread not found.');
+    }
+
+    final thread = ChatThreadModel.fromFirestore(threadId, threadData);
+    if (!thread.participants.contains(me.uid)) {
+      throw StateError(
+        'Current user is not a participant of this thread.',
+      );
+    }
+    if (!ClosedAccountChatHistory.allowSend(thread)) {
+      throw StateError('This conversation is closed.');
+    }
+
+    final otherUid = thread.participants.firstWhere(
+      (id) => id != me.uid,
+      orElse: () => '',
+    );
+    if (otherUid.isEmpty) {
+      throw StateError('Invalid thread participants.');
+    }
+
+    final msgRef = FirestorePaths.threadMessages(threadId).doc();
+    final threadRef = FirestorePaths.threadDoc(threadId);
+
+    final batch = _firestore.batch();
+
+    batch.set(msgRef, {
+      'thread_id': threadId,
+      'sender_id': me.uid,
+      'type': 'image',
+      'text': '',
+      'image_url': uri.toString(),
+      'image_storage_path': storagePath,
+      'created_at': FieldValue.serverTimestamp(),
+      'client_created_at': DateTime.now().millisecondsSinceEpoch,
+      'read_by': {
+        me.uid: FieldValue.serverTimestamp(),
+      },
+      'moderation': null,
+    });
+
+    batch.update(threadRef, {
+      'last_message_at': FieldValue.serverTimestamp(),
+      'last_message_preview': '📷',
+      'last_message_sender': me.uid,
+      'unread_counts.${me.uid}': 0,
+      'unread_counts.$otherUid': FieldValue.increment(1),
+    });
+
+    await batch.commit();
+  }
+
   Future<ChatThreadModel> markThreadAsRead(String threadId) async {
     final me = _auth.currentUser;
     if (me == null) {

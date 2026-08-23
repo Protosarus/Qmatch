@@ -250,7 +250,7 @@ async function handleThreadMessageCreated(event, deps = {}) {
   if (!message) return skip('missing_message');
 
   const type = nonEmptyString(message.type);
-  if (type !== 'text' && type !== 'gif') {
+  if (type !== 'text' && type !== 'gif' && type !== 'image') {
     return skip('unsupported_message_type');
   }
 

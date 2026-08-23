@@ -221,7 +221,11 @@ service cloud.firestore {
       let affected = request.resource.data.diff(resource.data).affectedKeys();
 
       return messageRequiresActiveConversation(threadId)
-        && (resource.data.type == 'text' || resource.data.type == 'gif')
+        && (
+          resource.data.type == 'text'
+          || resource.data.type == 'gif'
+          || resource.data.type == 'image'
+        )
         && resource.data.sender_id != 'system'
         && affected.hasOnly(['reactions'])
         && messageReactionOwnKeyOnly();
@@ -388,6 +392,19 @@ service cloud.firestore {
               request.resource.data.sender_id == request.auth.uid
               && (
                 request.resource.data.type == 'text'
+                || (
+                  request.resource.data.type == 'image'
+                  && request.resource.data.text == ''
+                  && request.resource.data.image_url is string
+                  && request.resource.data.image_url.size() <= 2048
+                  && request.resource.data.image_url.matches(
+                    '^https://firebasestorage[.]googleapis[.]com/.*'
+                  )
+                  && request.resource.data.image_storage_path is string
+                  && request.resource.data.image_storage_path.matches(
+                    '^chat_media/' + threadId + '/' + request.auth.uid + '/[^/]+$'
+                  )
+                )
                 || (
                   request.resource.data.type == 'gif'
                   && request.resource.data.text == ''

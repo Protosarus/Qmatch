@@ -23,6 +23,60 @@ service firebase.storage {
       allow read, write: if false;
     }
 
+    function threadData(threadId) {
+      return firestore.get(
+        /databases/(default)/documents/threads/$(threadId)
+      ).data;
+    }
+
+    function isThreadParticipant(threadId) {
+      return isSignedIn()
+        && request.auth.uid in threadData(threadId).participants;
+    }
+
+    function isActiveChatParticipant(threadId) {
+      return isThreadParticipant(threadId)
+        && threadData(threadId).status == 'active'
+        && firestore.get(
+          /databases/(default)/documents/matches/$(threadId)
+        ).data.state == 'active';
+    }
+
+    function isChatImage() {
+      return request.resource.contentType.matches(
+        'image/(jpeg|jpg|png|webp|heic|heif)'
+      );
+    }
+
+    function underChatImageMaxSize() {
+      // 8 MiB hard cap for chat images.
+      return request.resource.size < 8 * 1024 * 1024;
+    }
+
+    // chat_media/{threadId}/{userId}/{fileName}
+    //
+    // Reads: only participants of that thread, including closed-history reads.
+    // Creates: sender must own the uid path and conversation must still be active.
+    // Existing chat media is immutable; clients cannot overwrite it.
+    match /chat_media/{threadId}/{userId}/{fileName} {
+      allow read: if isThreadParticipant(threadId);
+
+      // Create only when no object already exists at this exact path.
+      // This makes chat media immutable and blocks overwrite/metadata updates.
+      allow write: if (
+        resource == null
+        && request.resource != null
+        && isOwner(userId)
+        && isActiveChatParticipant(threadId)
+        && isChatImage()
+        && underChatImageMaxSize()
+      ) || (
+        resource != null
+        && request.resource == null
+        && isOwner(userId)
+      );
+    }
+
     // profile_photos/{userId}/{fileName}
     // Privacy tradeoff: authenticated reads are allowed so Discover/chat can
     // load peer photos via the Storage SDK when download tokens are unavailable.

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 enum MessageType {
   text,
   gif,
+  image,
   system,
   revealRequest,
 }
@@ -15,6 +16,8 @@ class MessageModel {
   final String text;
   final String? gifUrl;
   final String? gifProvider;
+  final String? imageUrl;
+  final String? imageStoragePath;
   final Timestamp? createdAt;
   final int? clientCreatedAt;
   final Map<String, Timestamp> readBy;
@@ -29,6 +32,8 @@ class MessageModel {
     required this.text,
     this.gifUrl,
     this.gifProvider,
+    this.imageUrl,
+    this.imageStoragePath,
     this.createdAt,
     this.clientCreatedAt,
     this.readBy = const {},
@@ -42,6 +47,8 @@ class MessageModel {
         return MessageType.text;
       case 'gif':
         return MessageType.gif;
+      case 'image':
+        return MessageType.image;
       case 'system':
         return MessageType.system;
       case 'reveal_request':
@@ -57,6 +64,8 @@ class MessageModel {
         return 'text';
       case MessageType.gif:
         return 'gif';
+      case MessageType.image:
+        return 'image';
       case MessageType.system:
         return 'system';
       case MessageType.revealRequest:
@@ -96,6 +105,8 @@ class MessageModel {
       text: (data['text'] as String?) ?? '',
       gifUrl: (data['gif_url'] as String?)?.trim(),
       gifProvider: (data['gif_provider'] as String?)?.trim(),
+      imageUrl: (data['image_url'] as String?)?.trim(),
+      imageStoragePath: (data['image_storage_path'] as String?)?.trim(),
       createdAt: data['created_at'] is Timestamp
           ? data['created_at'] as Timestamp
           : null,
@@ -116,6 +127,8 @@ class MessageModel {
       'text': text,
       if (gifUrl != null) 'gif_url': gifUrl,
       if (gifProvider != null) 'gif_provider': gifProvider,
+      if (imageUrl != null) 'image_url': imageUrl,
+      if (imageStoragePath != null) 'image_storage_path': imageStoragePath,
       'created_at': createdAt,
       'client_created_at': clientCreatedAt,
       'read_by': readBy,

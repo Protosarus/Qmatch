@@ -12,24 +12,24 @@ class QMatchMessageComposer extends StatelessWidget {
     required this.focusNode,
     required this.hintText,
     required this.onSend,
-    this.onGif,
+    this.onAttachment,
     this.sending = false,
     this.enabled = true,
     this.sendSemanticLabel,
-    this.gifSemanticLabel,
+    this.attachmentSemanticLabel,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
   final String hintText;
   final VoidCallback onSend;
-  final VoidCallback? onGif;
+  final VoidCallback? onAttachment;
   final bool sending;
 
   /// When false, field and send are disabled (no send action).
   final bool enabled;
   final String? sendSemanticLabel;
-  final String? gifSemanticLabel;
+  final String? attachmentSemanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -48,20 +48,20 @@ class QMatchMessageComposer extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              if (onGif != null) ...[
+              if (onAttachment != null) ...[
                 Semantics(
                   button: true,
-                  label: gifSemanticLabel ?? 'GIF',
+                  label: attachmentSemanticLabel ?? 'Add attachment',
                   child: IconButton(
-                    key: const Key('qmatch-chat-composer-gif'),
-                    onPressed: (!enabled || sending) ? null : onGif,
+                    key: const Key('qmatch-chat-composer-attachment'),
+                    onPressed: (!enabled || sending) ? null : onAttachment,
                     style: IconButton.styleFrom(
-                      foregroundColor: AppColors.textGold,
+                      foregroundColor: const Color(0xFFDAC8ED),
                       minimumSize: const Size(44, 48),
                     ),
                     icon: const Icon(
-                      Icons.gif_box_outlined,
-                      size: 27,
+                      Icons.add_rounded,
+                      size: 30,
                     ),
                   ),
                 ),

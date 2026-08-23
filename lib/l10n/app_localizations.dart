@@ -1490,6 +1490,24 @@ abstract class AppLocalizations {
   /// **'Send message'**
   String get chatSendSemanticLabel;
 
+  /// No description provided for @chatAttachmentSemanticLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add attachment'**
+  String get chatAttachmentSemanticLabel;
+
+  /// No description provided for @chatAttachmentPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get chatAttachmentPhoto;
+
+  /// No description provided for @chatAttachmentGif.
+  ///
+  /// In en, this message translates to:
+  /// **'GIF'**
+  String get chatAttachmentGif;
+
   /// No description provided for @chatGifSemanticLabel.
   ///
   /// In en, this message translates to:

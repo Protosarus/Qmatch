@@ -12,12 +12,19 @@ import '../../matching/services/match_service.dart';
 import '../../safety/services/safety_service.dart';
 import '../models/giphy_gif_model.dart';
 import '../models/message_model.dart';
+import '../services/chat_media_service.dart';
 import '../services/chat_service.dart';
 import '../services/giphy_service.dart';
 import '../utils/chat_block_overflow.dart';
 import '../utils/chat_message_timestamp_format.dart';
 import '../utils/closed_account_chat_history.dart';
 import '../widgets/chat_detail_widgets.dart';
+import '../widgets/qmatch_image_message_bubble.dart';
+
+enum _ChatAttachmentAction {
+  photo,
+  gif,
+}
 
 class ChatDetailScreen extends StatefulWidget {
   final String threadId;
@@ -194,6 +201,159 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       }
     } finally {
       if (mounted) setState(() => _sending = false);
+    }
+  }
+
+  Future<void> _openAttachmentMenu() async {
+    if (_accountDeletionClosed || _sending) return;
+
+    _inputFocus.unfocus();
+
+    final l10n = AppLocalizations.of(context)!;
+
+    final selected = await showModalBottomSheet<_ChatAttachmentAction>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      useSafeArea: true,
+      builder: (sheetContext) {
+        Widget action({
+          required IconData icon,
+          required String label,
+          required _ChatAttachmentAction value,
+        }) {
+          return Expanded(
+            child: InkWell(
+              borderRadius: BorderRadius.circular(20),
+              onTap: () => Navigator.of(sheetContext).pop(value),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 18,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 58,
+                      height: 58,
+                      decoration: BoxDecoration(
+                        color:
+                            AppColors.resonanceViolet.withValues(alpha: 0.20),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.resonanceViolet.withValues(
+                            alpha: 0.42,
+                          ),
+                        ),
+                      ),
+                      child: Icon(
+                        icon,
+                        color: const Color(0xFFDAC8ED),
+                        size: 28,
+                      ),
+                    ),
+                    const SizedBox(height: 9),
+                    Text(
+                      label,
+                      style: GoogleFonts.inter(
+                        color: AppColors.textPrimary,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.glassSurfaceStrong,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(24),
+            ),
+            border: Border(
+              top: BorderSide(color: AppColors.borderSubtle),
+            ),
+          ),
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 18),
+              child: Row(
+                children: [
+                  action(
+                    icon: Icons.photo_library_outlined,
+                    label: l10n.chatAttachmentPhoto,
+                    value: _ChatAttachmentAction.photo,
+                  ),
+                  const SizedBox(width: 12),
+                  action(
+                    icon: Icons.gif_box_outlined,
+                    label: l10n.chatAttachmentGif,
+                    value: _ChatAttachmentAction.gif,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    if (!mounted || selected == null) return;
+
+    if (selected == _ChatAttachmentAction.photo) {
+      await _pickAndSendImage();
+    } else {
+      await _openGifPicker();
+    }
+  }
+
+  Future<void> _pickAndSendImage() async {
+    if (_accountDeletionClosed || _sending) return;
+
+    final l10n = AppLocalizations.of(context)!;
+    final media = ChatMediaService();
+
+    setState(() => _sending = true);
+
+    try {
+      final uploaded = await media.pickAndUploadImage(
+        threadId: widget.threadId,
+      );
+
+      if (!mounted || uploaded == null || _accountDeletionClosed) {
+        return;
+      }
+
+      await _chat!.sendImageMessage(
+        threadId: widget.threadId,
+        imageUrl: uploaded.downloadUrl,
+        storagePath: uploaded.storagePath,
+      );
+
+      if (!mounted) return;
+
+      _lastAutoScrollCount = -1;
+      _scrollToBottom(force: true);
+    } catch (e, st) {
+      debugPrint('ChatDetail image send failed: $e\n$st');
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.chatSendFailed),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _sending = false);
+      }
     }
   }
 
@@ -679,7 +839,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     Offset globalPosition,
   ) async {
     if (_accountDeletionClosed) return;
-    if (message.type != MessageType.text && message.type != MessageType.gif) {
+    if (message.type != MessageType.text &&
+        message.type != MessageType.gif &&
+        message.type != MessageType.image) {
       return;
     }
     if (message.senderId == 'system') return;
@@ -882,6 +1044,35 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     );
   }
 
+  Widget _buildMessageContent({
+    required MessageModel message,
+    required bool isOutgoing,
+    required String? timestampText,
+  }) {
+    switch (message.type) {
+      case MessageType.gif:
+        return QMatchGifMessageBubble(
+          gifUrl: message.gifUrl ?? '',
+          isOutgoing: isOutgoing,
+          timestampText: timestampText,
+        );
+      case MessageType.image:
+        return QMatchImageMessageBubble(
+          imageUrl: message.imageUrl ?? '',
+          isOutgoing: isOutgoing,
+          timestampText: timestampText,
+        );
+      case MessageType.text:
+      case MessageType.revealRequest:
+      case MessageType.system:
+        return QMatchMessageBubble(
+          text: message.text,
+          isOutgoing: isOutgoing,
+          timestampText: timestampText,
+        );
+    }
+  }
+
   Widget _buildMessageList({
     required List<MessageModel> messages,
     required String currentUid,
@@ -932,17 +1123,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                           m,
                           details.globalPosition,
                         ),
-                child: m.type == MessageType.gif
-                    ? QMatchGifMessageBubble(
-                        gifUrl: m.gifUrl ?? '',
-                        isOutgoing: isOutgoing,
-                        timestampText: formatChatMessageTime(m),
-                      )
-                    : QMatchMessageBubble(
-                        text: m.text,
-                        isOutgoing: isOutgoing,
-                        timestampText: formatChatMessageTime(m),
-                      ),
+                child: _buildMessageContent(
+                  message: m,
+                  isOutgoing: isOutgoing,
+                  timestampText: timestampText,
+                ),
               )
             else
               Column(
@@ -964,17 +1149,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                     m,
                                     details.globalPosition,
                                   ),
-                          child: m.type == MessageType.gif
-                              ? QMatchGifMessageBubble(
-                                  gifUrl: m.gifUrl ?? '',
-                                  isOutgoing: isOutgoing,
-                                  timestampText: null,
-                                )
-                              : QMatchMessageBubble(
-                                  text: m.text,
-                                  isOutgoing: isOutgoing,
-                                  timestampText: null,
-                                ),
+                          child: _buildMessageContent(
+                            message: m,
+                            isOutgoing: isOutgoing,
+                            timestampText: null,
+                          ),
                         ),
                         Positioned(
                           right: isOutgoing ? 2 : null,
@@ -1250,8 +1429,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       sending: _sending,
                       enabled: true,
                       sendSemanticLabel: l10n.chatSendSemanticLabel,
-                      gifSemanticLabel: l10n.chatGifSemanticLabel,
-                      onGif: _openGifPicker,
+                      attachmentSemanticLabel: l10n.chatAttachmentSemanticLabel,
+                      onAttachment: _openAttachmentMenu,
                       onSend: _send,
                     ),
             ],

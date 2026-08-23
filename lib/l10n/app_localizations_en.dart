@@ -795,6 +795,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chatSendSemanticLabel => 'Send message';
 
   @override
+  String get chatAttachmentSemanticLabel => 'Add attachment';
+
+  @override
+  String get chatAttachmentPhoto => 'Photo';
+
+  @override
+  String get chatAttachmentGif => 'GIF';
+
+  @override
   String get chatGifSemanticLabel => 'Choose a GIF';
 
   @override
