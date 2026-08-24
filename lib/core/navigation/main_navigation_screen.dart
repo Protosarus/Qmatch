@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/activity/screens/activity_screen.dart';
@@ -9,6 +8,7 @@ import '../../features/messages/screens/messages_screen.dart';
 import '../../features/messages/services/chat_service.dart';
 import '../../features/messages/utils/unread_conversation_badge.dart';
 import '../../features/profile/screens/profile_screen.dart';
+import '../../features/relationship_analysis/services/relationship_analysis_discovery.dart';
 import '../../l10n/app_localizations.dart';
 import 'qmatch_main_shell.dart';
 
@@ -24,6 +24,7 @@ class MainNavigationScreen extends StatefulWidget {
     this.screens,
     this.threadsStream,
     this.currentUid,
+    this.relationshipActivityBadgeStream,
   });
 
   final int initialIndex;
@@ -36,6 +37,10 @@ class MainNavigationScreen extends StatefulWidget {
   /// Tests inject uid so Firebase Auth is not required. Production is null.
   @visibleForTesting
   final String? currentUid;
+
+  /// Tests inject Activity RA proactive badge. Production is null.
+  @visibleForTesting
+  final Stream<bool>? relationshipActivityBadgeStream;
 
   @override
   State<MainNavigationScreen> createState() => MainNavigationScreenState();
@@ -74,6 +79,11 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
 
   String? _uid() => widget.currentUid ?? FirebaseAuth.instance.currentUser?.uid;
 
+  Stream<bool> _relationshipActivityBadgeStream() {
+    return widget.relationshipActivityBadgeStream ??
+        RelationshipAnalysisDiscovery.watchActivityBadge(uid: _uid());
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -89,32 +99,41 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
           unreadConversationCount(threads: threads, currentUid: _uid()),
         );
 
-        return QMatchMainShell(
-          currentIndex: _currentIndex,
-          onTabSelected: (index) {
-            if (index == _currentIndex) return;
-            setState(() => _currentIndex = index);
+        return StreamBuilder<bool>(
+          stream: _relationshipActivityBadgeStream(),
+          initialData: false,
+          builder: (context, raSnap) {
+            final showActivityDot = !raSnap.hasError && (raSnap.data ?? false);
+
+            return QMatchMainShell(
+              currentIndex: _currentIndex,
+              onTabSelected: (index) {
+                if (index == _currentIndex) return;
+                setState(() => _currentIndex = index);
+              },
+              pages: _screens,
+              items: [
+                QMatchBottomNavigationItem(
+                  icon: Icons.explore_rounded,
+                  label: l10n.navDiscover,
+                ),
+                QMatchBottomNavigationItem(
+                  icon: Icons.bolt_rounded,
+                  label: l10n.navActivity,
+                  showDotBadge: showActivityDot,
+                ),
+                QMatchBottomNavigationItem(
+                  icon: Icons.chat_bubble_rounded,
+                  label: l10n.navMessages,
+                  badgeLabel: badge,
+                ),
+                QMatchBottomNavigationItem(
+                  icon: Icons.person_rounded,
+                  label: l10n.navProfile,
+                ),
+              ],
+            );
           },
-          pages: _screens,
-          items: [
-            QMatchBottomNavigationItem(
-              icon: Icons.explore_rounded,
-              label: l10n.navDiscover,
-            ),
-            QMatchBottomNavigationItem(
-              icon: Icons.bolt_rounded,
-              label: l10n.navActivity,
-            ),
-            QMatchBottomNavigationItem(
-              icon: Icons.chat_bubble_rounded,
-              label: l10n.navMessages,
-              badgeLabel: badge,
-            ),
-            QMatchBottomNavigationItem(
-              icon: Icons.person_rounded,
-              label: l10n.navProfile,
-            ),
-          ],
         );
       },
     );

@@ -894,12 +894,30 @@
   "membershipComingLater": "Coming later",
   "membershipManageSubscription": "Manage Subscription",
   "relationshipAnalysisTitle": "Relationship Analysis",
-  "relationshipAnalysisSubtitle": "A gradual look at how you tend to relate — a few questions at a time.",
   "relationshipAnalysisDepthLabel": "Analysis depth",
-  "relationshipAnalysisStatusNone": "Not started yet",
-  "relationshipAnalysisStatusPartial": "In progress",
-  "relationshipAnalysisStatusComplete": "v1 bank covered",
+  "relationshipAnalysisStatusNone": "Discover your relationship patterns over time.",
+  "relationshipAnalysisStatusComplete": "Analysis complete for now",
+  "relationshipAnalysisStartCta": "Start analysis · 4 questions",
   "relationshipAnalysisDeepenCta": "Deepen your analysis · 4 questions",
+  "relationshipAnalysisDepthPercent": "{percent}%",
+  "@relationshipAnalysisDepthPercent": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "relationshipAnalysisDepthTransition": "{before}% → {after}%",
+  "@relationshipAnalysisDepthTransition": {
+    "placeholders": {
+      "before": {"type": "int"},
+      "after": {"type": "int"}
+    }
+  },
+  "relationshipAnalysisOverallDepth": "Overall analysis {percent}%",
+  "@relationshipAnalysisOverallDepth": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
   "relationshipAnalysisMicroScanProgress": "Question {current} of {total}",
   "@relationshipAnalysisMicroScanProgress": {
     "placeholders": {
@@ -909,8 +927,15 @@
   },
   "relationshipAnalysisPrevious": "Previous",
   "relationshipAnalysisNext": "Continue",
-  "relationshipAnalysisCompleteBody": "Your relationship profile is becoming clearer.",
+  "relationshipAnalysisCompleteTitle": "Analysis updated",
+  "relationshipAnalysisCompleteBody": "Your relationship profile is getting clearer.",
   "relationshipAnalysisBackToProfile": "Back to profile",
   "relationshipAnalysisLoadFailed": "Couldn't load Relationship Analysis. Please try again.",
-  "relationshipAnalysisSaveFailed": "Couldn't save your answers. Please try again."
+  "relationshipAnalysisSaveFailed": "Couldn't save your answers. Please try again.",
+  "relationshipAnalysisActivityTitle": "Deepen your relationship analysis",
+  "relationshipAnalysisActivityBody": "4 new questions are ready · about 1 min",
+  "relationshipAnalysisActivityCta": "Start",
+  "relationshipAnalysisActivityContinueTitle": "Continue your relationship analysis",
+  "relationshipAnalysisActivityContinueBody": "Pick up where you left off.",
+  "relationshipAnalysisActivityContinueCta": "Continue"
 }

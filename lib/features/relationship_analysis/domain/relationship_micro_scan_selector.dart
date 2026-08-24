@@ -18,11 +18,14 @@ class RelationshipMicroScanSelector {
       final byId = bank.byId;
       for (final id in activeQuestionIds) {
         if (!byId.containsKey(id)) continue;
-        if (answeredQuestionIds.contains(id)) continue;
+        // Keep the full active batch stable. Resume position is derived from
+        // the first unanswered question; completed questions are not revisited.
         valid.add(id);
       }
-      if (valid.isNotEmpty) {
-        return List.unmodifiable(valid.take(size));
+      final hasUnanswered =
+          valid.any((id) => !answeredQuestionIds.contains(id));
+      if (hasUnanswered && valid.isNotEmpty) {
+        return List.unmodifiable(valid);
       }
     }
 

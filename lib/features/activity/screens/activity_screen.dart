@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../relationship_analysis/screens/relationship_analysis_micro_scan_screen.dart';
+import '../../relationship_analysis/services/relationship_analysis_discovery.dart';
+import '../../relationship_analysis/widgets/relationship_analysis_activity_card.dart';
 import '../models/activity_event_model.dart';
 import '../services/activity_service.dart';
 
@@ -10,10 +13,20 @@ class ActivityScreen extends StatefulWidget {
   const ActivityScreen({
     super.key,
     this.activityStream,
+    this.relationshipPromptStream,
+    this.onOpenRelationshipAnalysis,
   });
 
   @visibleForTesting
   final Stream<List<ActivityEventModel>>? activityStream;
+
+  /// Tests inject derived RA prompt. Production listens to RA assessment doc.
+  @visibleForTesting
+  final Stream<RelationshipActivityPrompt>? relationshipPromptStream;
+
+  /// Tests intercept micro-scan open. Production pushes [RelationshipAnalysisMicroScanScreen].
+  @visibleForTesting
+  final VoidCallback? onOpenRelationshipAnalysis;
 
   @override
   State<ActivityScreen> createState() => _ActivityScreenState();
@@ -32,8 +45,33 @@ class _ActivityScreenState extends State<ActivityScreen> {
     return service.getMyActivityStream();
   }
 
+  Stream<RelationshipActivityPrompt> _relationshipPromptStream() {
+    final injected = widget.relationshipPromptStream;
+    if (injected != null) return injected;
+    // Test-injected activity feed should not touch Firebase Auth / Firestore.
+    if (widget.activityStream != null) {
+      return Stream.value(
+        const RelationshipActivityPrompt(RelationshipActivityPromptKind.none),
+      );
+    }
+    return RelationshipAnalysisDiscovery.watchActivityPrompt();
+  }
+
   void _retry() {
     setState(() => _streamEpoch++);
+  }
+
+  Future<void> _openRelationshipAnalysis() async {
+    final intercept = widget.onOpenRelationshipAnalysis;
+    if (intercept != null) {
+      intercept();
+      return;
+    }
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute(
+        builder: (_) => const RelationshipAnalysisMicroScanScreen(),
+      ),
+    );
   }
 
   @override
@@ -65,58 +103,86 @@ class _ActivityScreenState extends State<ActivityScreen> {
               ),
             ),
             Expanded(
-              child: StreamBuilder<List<ActivityEventModel>>(
-                key: ValueKey('activity-stream-$_streamEpoch'),
-                stream: _activityStream(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting &&
-                      !snapshot.hasData &&
-                      !snapshot.hasError) {
-                    return _ActivityCenteredState(
-                      key: const Key('activity-loading-state'),
-                      icon: Icons.bolt_rounded,
-                      title: l10n.activityLoading,
-                    );
-                  }
+              child: StreamBuilder<RelationshipActivityPrompt>(
+                stream: _relationshipPromptStream(),
+                initialData: const RelationshipActivityPrompt(
+                  RelationshipActivityPromptKind.none,
+                ),
+                builder: (context, promptSnap) {
+                  final prompt = promptSnap.hasError
+                      ? const RelationshipActivityPrompt(
+                          RelationshipActivityPromptKind.none,
+                        )
+                      : (promptSnap.data ??
+                          const RelationshipActivityPrompt(
+                            RelationshipActivityPromptKind.none,
+                          ));
 
-                  if (snapshot.hasError) {
-                    debugPrint('Activity stream error: ${snapshot.error}');
-                    return _ActivityCenteredState(
-                      key: const Key('activity-error-state'),
-                      icon: Icons.cloud_off_rounded,
-                      title: l10n.activityLoadErrorTitle,
-                      subtitle: l10n.activityLoadErrorSubtitle,
-                      actionLabel: l10n.activityRetry,
-                      onAction: _retry,
-                    );
-                  }
+                  return StreamBuilder<List<ActivityEventModel>>(
+                    key: ValueKey('activity-stream-$_streamEpoch'),
+                    stream: _activityStream(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting &&
+                          !snapshot.hasData &&
+                          !snapshot.hasError) {
+                        return _ActivityCenteredState(
+                          key: const Key('activity-loading-state'),
+                          icon: Icons.bolt_rounded,
+                          title: l10n.activityLoading,
+                        );
+                      }
 
-                  final events = snapshot.data ?? const <ActivityEventModel>[];
+                      if (snapshot.hasError) {
+                        debugPrint('Activity stream error: ${snapshot.error}');
+                        return _ActivityCenteredState(
+                          key: const Key('activity-error-state'),
+                          icon: Icons.cloud_off_rounded,
+                          title: l10n.activityLoadErrorTitle,
+                          subtitle: l10n.activityLoadErrorSubtitle,
+                          actionLabel: l10n.activityRetry,
+                          onAction: _retry,
+                        );
+                      }
 
-                  if (events.isEmpty) {
-                    return _ActivityCenteredState(
-                      key: const Key('activity-empty-state'),
-                      icon: Icons.auto_awesome_rounded,
-                      title: l10n.activityEmptyTitle,
-                      subtitle: l10n.activityEmptySubtitle,
-                      accentIcon: true,
-                    );
-                  }
+                      final events =
+                          snapshot.data ?? const <ActivityEventModel>[];
+                      final showRaCard = prompt.showCard;
 
-                  return ListView.separated(
-                    key: const Key('qmatch-activity-list'),
-                    padding: const EdgeInsets.fromLTRB(
-                      AppSpacing.md,
-                      0,
-                      AppSpacing.md,
-                      AppSpacing.lg,
-                    ),
-                    itemCount: events.length,
-                    separatorBuilder: (_, __) =>
-                        const SizedBox(height: AppSpacing.sm),
-                    itemBuilder: (context, index) {
-                      return _ActivityEventCard(
-                        event: events[index],
+                      if (events.isEmpty && !showRaCard) {
+                        return _ActivityCenteredState(
+                          key: const Key('activity-empty-state'),
+                          icon: Icons.auto_awesome_rounded,
+                          title: l10n.activityEmptyTitle,
+                          subtitle: l10n.activityEmptySubtitle,
+                          accentIcon: true,
+                        );
+                      }
+
+                      final itemCount = (showRaCard ? 1 : 0) + events.length;
+
+                      return ListView.separated(
+                        key: const Key('qmatch-activity-list'),
+                        padding: const EdgeInsets.fromLTRB(
+                          AppSpacing.md,
+                          0,
+                          AppSpacing.md,
+                          AppSpacing.lg,
+                        ),
+                        itemCount: itemCount,
+                        separatorBuilder: (_, __) =>
+                            const SizedBox(height: AppSpacing.sm),
+                        itemBuilder: (context, index) {
+                          if (showRaCard && index == 0) {
+                            return RelationshipAnalysisActivityCard(
+                              prompt: prompt,
+                              onStart: _openRelationshipAnalysis,
+                            );
+                          }
+                          final eventIndex = showRaCard ? index - 1 : index;
+                          return _ActivityEventCard(
+                            event: events[eventIndex],
+                          );
+                        },
                       );
                     },
                   );

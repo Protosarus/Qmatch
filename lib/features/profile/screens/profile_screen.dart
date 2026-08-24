@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +10,9 @@ import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/entitlement_snapshot.dart';
 import '../../iap/services/entitlement_repository.dart';
 import '../../relationship_analysis/domain/relationship_analysis_state.dart';
+import '../../relationship_analysis/domain/relationship_dimensions.dart';
 import '../../relationship_analysis/screens/relationship_analysis_micro_scan_screen.dart';
-import '../../relationship_analysis/services/relationship_analysis_service.dart';
+import '../../relationship_analysis/services/relationship_analysis_discovery.dart';
 import '../../relationship_analysis/widgets/relationship_analysis_profile_card.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../models/profile_read_result.dart';
@@ -71,8 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _resonanceAccess = false;
   RelationshipAnalysisState _relationshipState =
       RelationshipAnalysisState.empty();
-  final RelationshipAnalysisService _relationshipService =
-      RelationshipAnalysisService();
+  StreamSubscription<RelationshipAnalysisState>? _relationshipStateSubscription;
 
   @override
   void initState() {
@@ -85,12 +87,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _applyDebug();
     } else {
       _loadProfile();
+      _watchRelationshipAnalysis();
     }
     if (widget.debugResonanceAccess != null) {
       _resonanceAccess = widget.debugResonanceAccess == true;
     } else {
       _loadEntitlement();
     }
+  }
+
+  void _watchRelationshipAnalysis() {
+    final uid = FirebaseAuth.instance.currentUser?.uid.trim();
+    if (uid == null || uid.isEmpty) return;
+
+    _relationshipStateSubscription?.cancel();
+    _relationshipStateSubscription =
+        RelationshipAnalysisDiscovery.watchState(uid: uid).listen(
+      (state) {
+        if (!mounted) return;
+        setState(() => _relationshipState = state);
+      },
+      onError: (_) {
+        // Non-blocking: keep the last known Relationship Analysis state.
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _relationshipStateSubscription?.cancel();
+    super.dispose();
   }
 
   void _applyDebug() {
@@ -194,35 +220,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _status = result.status;
       _loading = false;
     });
-    await _loadRelationshipAnalysis();
-  }
-
-  Future<void> _loadRelationshipAnalysis() async {
-    if (widget.debugProfile != null || widget.debugForceLoading) return;
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null || uid.isEmpty) return;
-    try {
-      final state = await _relationshipService.loadState(uid);
-      if (!mounted) return;
-      setState(() => _relationshipState = state);
-    } catch (_) {
-      // Non-blocking: profile still works without analysis state.
-    }
   }
 
   Future<void> _openRelationshipAnalysis() async {
-    final refreshed = await Navigator.push<bool>(
+    if (_relationshipState.answeredCount >=
+        RelationshipAnalysisContract.questionCount) {
+      return;
+    }
+    await Navigator.push<bool>(
       context,
       MaterialPageRoute(
-        builder: (context) => RelationshipAnalysisMicroScanScreen(
-          initialState: _relationshipState,
-        ),
+        builder: (context) => const RelationshipAnalysisMicroScanScreen(),
       ),
     );
-    if (!mounted) return;
-    if (refreshed == true || refreshed == null) {
-      await _loadRelationshipAnalysis();
-    }
   }
 
   Future<void> _openPhotoEdit() async {

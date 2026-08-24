@@ -4040,12 +4040,6 @@ abstract class AppLocalizations {
   /// **'Relationship Analysis'**
   String get relationshipAnalysisTitle;
 
-  /// No description provided for @relationshipAnalysisSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'A gradual look at how you tend to relate — a few questions at a time.'**
-  String get relationshipAnalysisSubtitle;
-
   /// No description provided for @relationshipAnalysisDepthLabel.
   ///
   /// In en, this message translates to:
@@ -4055,26 +4049,44 @@ abstract class AppLocalizations {
   /// No description provided for @relationshipAnalysisStatusNone.
   ///
   /// In en, this message translates to:
-  /// **'Not started yet'**
+  /// **'Discover your relationship patterns over time.'**
   String get relationshipAnalysisStatusNone;
-
-  /// No description provided for @relationshipAnalysisStatusPartial.
-  ///
-  /// In en, this message translates to:
-  /// **'In progress'**
-  String get relationshipAnalysisStatusPartial;
 
   /// No description provided for @relationshipAnalysisStatusComplete.
   ///
   /// In en, this message translates to:
-  /// **'v1 bank covered'**
+  /// **'Analysis complete for now'**
   String get relationshipAnalysisStatusComplete;
+
+  /// No description provided for @relationshipAnalysisStartCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start analysis · 4 questions'**
+  String get relationshipAnalysisStartCta;
 
   /// No description provided for @relationshipAnalysisDeepenCta.
   ///
   /// In en, this message translates to:
   /// **'Deepen your analysis · 4 questions'**
   String get relationshipAnalysisDeepenCta;
+
+  /// No description provided for @relationshipAnalysisDepthPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String relationshipAnalysisDepthPercent(int percent);
+
+  /// No description provided for @relationshipAnalysisDepthTransition.
+  ///
+  /// In en, this message translates to:
+  /// **'{before}% → {after}%'**
+  String relationshipAnalysisDepthTransition(int before, int after);
+
+  /// No description provided for @relationshipAnalysisOverallDepth.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall analysis {percent}%'**
+  String relationshipAnalysisOverallDepth(int percent);
 
   /// No description provided for @relationshipAnalysisMicroScanProgress.
   ///
@@ -4094,10 +4106,16 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get relationshipAnalysisNext;
 
+  /// No description provided for @relationshipAnalysisCompleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis updated'**
+  String get relationshipAnalysisCompleteTitle;
+
   /// No description provided for @relationshipAnalysisCompleteBody.
   ///
   /// In en, this message translates to:
-  /// **'Your relationship profile is becoming clearer.'**
+  /// **'Your relationship profile is getting clearer.'**
   String get relationshipAnalysisCompleteBody;
 
   /// No description provided for @relationshipAnalysisBackToProfile.
@@ -4117,6 +4135,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t save your answers. Please try again.'**
   String get relationshipAnalysisSaveFailed;
+
+  /// No description provided for @relationshipAnalysisActivityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deepen your relationship analysis'**
+  String get relationshipAnalysisActivityTitle;
+
+  /// No description provided for @relationshipAnalysisActivityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'4 new questions are ready · about 1 min'**
+  String get relationshipAnalysisActivityBody;
+
+  /// No description provided for @relationshipAnalysisActivityCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get relationshipAnalysisActivityCta;
+
+  /// No description provided for @relationshipAnalysisActivityContinueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your relationship analysis'**
+  String get relationshipAnalysisActivityContinueTitle;
+
+  /// No description provided for @relationshipAnalysisActivityContinueBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up where you left off.'**
+  String get relationshipAnalysisActivityContinueBody;
+
+  /// No description provided for @relationshipAnalysisActivityContinueCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get relationshipAnalysisActivityContinueCta;
 }
 
 class _AppLocalizationsDelegate

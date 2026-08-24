@@ -317,6 +317,10 @@ class QMatchProfileInfoSections extends StatelessWidget {
           ),
           const SizedBox(height: AppSpacing.md),
         ],
+        if (relationshipAnalysisCard != null) ...[
+          relationshipAnalysisCard!,
+          const SizedBox(height: AppSpacing.md),
+        ],
         QMatchProfileSectionCard(
           key: const Key('qmatch-profile-about-section'),
           title: l10n.profileAboutMe,
@@ -361,10 +365,6 @@ class QMatchProfileInfoSections extends StatelessWidget {
           onEdit: onEditAnthem,
           onOpenLink: onOpenAnthemLink,
         ),
-        if (relationshipAnalysisCard != null) ...[
-          const SizedBox(height: AppSpacing.md),
-          relationshipAnalysisCard!,
-        ],
       ],
     );
   }

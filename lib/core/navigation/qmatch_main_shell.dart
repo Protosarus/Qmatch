@@ -13,6 +13,7 @@ class QMatchBottomNavigationItem {
     required this.icon,
     required this.label,
     this.badgeLabel,
+    this.showDotBadge = false,
   });
 
   final IconData icon;
@@ -20,6 +21,9 @@ class QMatchBottomNavigationItem {
 
   /// Compact unread-conversation label (`1`…`9` or `9+`). Null = no badge.
   final String? badgeLabel;
+
+  /// Subtle lilac discovery dot (no numeric count). Ignored if [badgeLabel] set.
+  final bool showDotBadge;
 }
 
 class QMatchMainShell extends StatelessWidget {
@@ -278,6 +282,7 @@ class _NavIconWithBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final badge = item.badgeLabel;
+    final showDot = badge == null && item.showDotBadge;
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -307,6 +312,24 @@ class _NavIconWithBadge extends StatelessWidget {
                   fontSize: 8,
                   fontWeight: FontWeight.w700,
                   height: 1.1,
+                ),
+              ),
+            ),
+          )
+        else if (showDot)
+          Positioned(
+            top: -2,
+            right: -4,
+            child: Container(
+              key: Key('qmatch-nav-dot-badge-$index'),
+              width: 7,
+              height: 7,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.resonanceViolet.withValues(alpha: 0.95),
+                border: Border.all(
+                  color: _lilac.withValues(alpha: 0.9),
+                  width: 0.8,
                 ),
               ),
             ),

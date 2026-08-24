@@ -2180,24 +2180,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get relationshipAnalysisTitle => 'Relationship Analysis';
 
   @override
-  String get relationshipAnalysisSubtitle =>
-      'A gradual look at how you tend to relate — a few questions at a time.';
-
-  @override
   String get relationshipAnalysisDepthLabel => 'Analysis depth';
 
   @override
-  String get relationshipAnalysisStatusNone => 'Not started yet';
+  String get relationshipAnalysisStatusNone =>
+      'Discover your relationship patterns over time.';
 
   @override
-  String get relationshipAnalysisStatusPartial => 'In progress';
+  String get relationshipAnalysisStatusComplete => 'Analysis complete for now';
 
   @override
-  String get relationshipAnalysisStatusComplete => 'v1 bank covered';
+  String get relationshipAnalysisStartCta => 'Start analysis · 4 questions';
 
   @override
   String get relationshipAnalysisDeepenCta =>
       'Deepen your analysis · 4 questions';
+
+  @override
+  String relationshipAnalysisDepthPercent(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String relationshipAnalysisDepthTransition(int before, int after) {
+    return '$before% → $after%';
+  }
+
+  @override
+  String relationshipAnalysisOverallDepth(int percent) {
+    return 'Overall analysis $percent%';
+  }
 
   @override
   String relationshipAnalysisMicroScanProgress(int current, int total) {
@@ -2211,8 +2223,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get relationshipAnalysisNext => 'Continue';
 
   @override
+  String get relationshipAnalysisCompleteTitle => 'Analysis updated';
+
+  @override
   String get relationshipAnalysisCompleteBody =>
-      'Your relationship profile is becoming clearer.';
+      'Your relationship profile is getting clearer.';
 
   @override
   String get relationshipAnalysisBackToProfile => 'Back to profile';
@@ -2224,4 +2239,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get relationshipAnalysisSaveFailed =>
       'Couldn\'t save your answers. Please try again.';
+
+  @override
+  String get relationshipAnalysisActivityTitle =>
+      'Deepen your relationship analysis';
+
+  @override
+  String get relationshipAnalysisActivityBody =>
+      '4 new questions are ready · about 1 min';
+
+  @override
+  String get relationshipAnalysisActivityCta => 'Start';
+
+  @override
+  String get relationshipAnalysisActivityContinueTitle =>
+      'Continue your relationship analysis';
+
+  @override
+  String get relationshipAnalysisActivityContinueBody =>
+      'Pick up where you left off.';
+
+  @override
+  String get relationshipAnalysisActivityContinueCta => 'Continue';
 }

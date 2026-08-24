@@ -42,6 +42,10 @@ class RelationshipAnalysisContract {
   static const bankVersion = 'relationship_analysis_v1';
   static const contentVersion = 'relationship-analysis-v1.2.1';
   static const scoringPolicyVersion = 'relationship_8d_signed_evidence_v1';
+
+  /// Depth uses answered-question capability exposure (not selected-option deltas).
+  static const analysisDepthPolicyVersion =
+      'relationship_analysis_depth_capability_v1';
   static const dimensionRegistryVersion = 'relationship_dimension_registry_v1';
   static const liveResultSchemaVersion = 'qmatch_relationship_live_result_v1';
   static const assetPath = 'assets/data/relationship_analysis_v1.json';
@@ -52,4 +56,7 @@ class RelationshipAnalysisContract {
   static const minAbsWeightPerDimension = 3.0;
   static const scoreBaseline = 0.5;
   static const scoreScale = 2.5;
+
+  /// Proactive Activity card/badge suppressed this long after a completed batch.
+  static const proactiveNudgeCooldown = Duration(hours: 24);
 }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'relationship_dimensions.dart';
 
 class RelationshipAnalysisState {
@@ -14,6 +16,7 @@ class RelationshipAnalysisState {
     this.activeMicroScanId,
     this.activeMicroScanQuestionIds = const [],
     this.activeMicroScanIndex = 0,
+    this.proactiveNudgeSuppressUntil,
   });
 
   final String schemaVersion;
@@ -29,10 +32,17 @@ class RelationshipAnalysisState {
   final List<String> activeMicroScanQuestionIds;
   final int activeMicroScanIndex;
 
+  /// UTC instant until which Activity proactive prompts are suppressed.
+  /// Does not affect Profile voluntary CTA. Null = no cooldown.
+  final DateTime? proactiveNudgeSuppressUntil;
+
   int get answeredCount => answersByQuestionId.length;
 
   bool get hasActiveMicroScan => activeMicroScanQuestionIds
       .any((id) => !answersByQuestionId.containsKey(id));
+
+  bool get isBankComplete =>
+      answeredCount >= RelationshipAnalysisContract.questionCount;
 
   factory RelationshipAnalysisState.empty() => RelationshipAnalysisState(
         schemaVersion: RelationshipAnalysisContract.schemaVersion,
@@ -63,6 +73,8 @@ class RelationshipAnalysisState {
     List<String>? activeMicroScanQuestionIds,
     int? activeMicroScanIndex,
     bool clearActiveMicroScan = false,
+    DateTime? proactiveNudgeSuppressUntil,
+    bool clearProactiveNudgeSuppressUntil = false,
   }) {
     return RelationshipAnalysisState(
       schemaVersion: schemaVersion,
@@ -85,6 +97,9 @@ class RelationshipAnalysisState {
       activeMicroScanIndex: clearActiveMicroScan
           ? 0
           : (activeMicroScanIndex ?? this.activeMicroScanIndex),
+      proactiveNudgeSuppressUntil: clearProactiveNudgeSuppressUntil
+          ? null
+          : (proactiveNudgeSuppressUntil ?? this.proactiveNudgeSuppressUntil),
     );
   }
 
@@ -95,12 +110,12 @@ class RelationshipAnalysisState {
         'bank_version': bankVersion,
         'content_version': contentVersion,
         'scoring_policy_version': scoringPolicyVersion,
+        'analysis_depth_policy_version':
+            RelationshipAnalysisContract.analysisDepthPolicyVersion,
         'dimension_registry_version':
             RelationshipAnalysisContract.dimensionRegistryVersion,
         'assessment_type': RelationshipAnalysisContract.assessmentType,
-        'status': answeredCount >= RelationshipAnalysisContract.questionCount
-            ? 'completed'
-            : 'in_progress',
+        'status': isBankComplete ? 'completed' : 'in_progress',
         'answered_count': answeredCount,
         'question_count': RelationshipAnalysisContract.questionCount,
         'answers_by_question_id': Map<String, String>.from(answersByQuestionId),
@@ -118,11 +133,24 @@ class RelationshipAnalysisState {
                 'question_ids': activeMicroScanQuestionIds,
                 'current_index': activeMicroScanIndex,
               },
+        'proactive_nudge_suppress_until':
+            proactiveNudgeSuppressUntil?.toUtc().toIso8601String(),
         'source': 'client_relationship_analysis_v1',
         'matching_input': false,
         'persona_input': false,
         'canonical_20d_merged': false,
       };
+
+  static DateTime? _readUtc(dynamic raw) {
+    if (raw == null) return null;
+    if (raw is Timestamp) return raw.toDate().toUtc();
+    if (raw is DateTime) return raw.toUtc();
+    if (raw is String) {
+      final parsed = DateTime.tryParse(raw.trim());
+      return parsed?.toUtc();
+    }
+    return null;
+  }
 
   static RelationshipAnalysisState fromPersistence(Map<String, dynamic>? doc) {
     if (doc == null || doc.isEmpty) return RelationshipAnalysisState.empty();
@@ -219,6 +247,8 @@ class RelationshipAnalysisState {
       activeMicroScanId: scanId,
       activeMicroScanQuestionIds: List.unmodifiable(scanIds),
       activeMicroScanIndex: scanIndex,
+      proactiveNudgeSuppressUntil:
+          _readUtc(doc['proactive_nudge_suppress_until']),
     );
   }
 }

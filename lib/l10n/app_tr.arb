@@ -880,12 +880,30 @@
   "membershipComingLater": "Daha sonra gelecek",
   "membershipManageSubscription": "Aboneliği yönet",
   "relationshipAnalysisTitle": "İlişki Analizi",
-  "relationshipAnalysisSubtitle": "İlişkide nasıl olma eğiliminde olduğunu adım adım keşfet — her seferinde birkaç soru.",
   "relationshipAnalysisDepthLabel": "Analiz derinliği",
-  "relationshipAnalysisStatusNone": "Henüz başlamadı",
-  "relationshipAnalysisStatusPartial": "Devam ediyor",
-  "relationshipAnalysisStatusComplete": "v1 bankası tamamlandı",
+  "relationshipAnalysisStatusNone": "İlişki örüntülerini zaman içinde keşfet.",
+  "relationshipAnalysisStatusComplete": "Analiz şimdilik tamamlandı",
+  "relationshipAnalysisStartCta": "Analize başla · 4 soru",
   "relationshipAnalysisDeepenCta": "Analizini derinleştir · 4 soru",
+  "relationshipAnalysisDepthPercent": "%{percent}",
+  "@relationshipAnalysisDepthPercent": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "relationshipAnalysisDepthTransition": "%{before} → %{after}",
+  "@relationshipAnalysisDepthTransition": {
+    "placeholders": {
+      "before": {"type": "int"},
+      "after": {"type": "int"}
+    }
+  },
+  "relationshipAnalysisOverallDepth": "Genel analiz %{percent}",
+  "@relationshipAnalysisOverallDepth": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
   "relationshipAnalysisMicroScanProgress": "Soru {current} / {total}",
   "@relationshipAnalysisMicroScanProgress": {
     "placeholders": {
@@ -895,8 +913,15 @@
   },
   "relationshipAnalysisPrevious": "Önceki",
   "relationshipAnalysisNext": "Devam",
-  "relationshipAnalysisCompleteBody": "İlişki profilin daha da netleşiyor.",
+  "relationshipAnalysisCompleteTitle": "Analiz güncellendi",
+  "relationshipAnalysisCompleteBody": "İlişki profilin biraz daha netleşti.",
   "relationshipAnalysisBackToProfile": "Profile dön",
   "relationshipAnalysisLoadFailed": "İlişki Analizi yüklenemedi. Lütfen tekrar dene.",
-  "relationshipAnalysisSaveFailed": "Yanıtların kaydedilemedi. Lütfen tekrar dene."
+  "relationshipAnalysisSaveFailed": "Yanıtların kaydedilemedi. Lütfen tekrar dene.",
+  "relationshipAnalysisActivityTitle": "İlişki analizini derinleştir",
+  "relationshipAnalysisActivityBody": "4 yeni soru hazır · yaklaşık 1 dk",
+  "relationshipAnalysisActivityCta": "Başla",
+  "relationshipAnalysisActivityContinueTitle": "İlişki analizine devam et",
+  "relationshipAnalysisActivityContinueBody": "Kaldığın yerden devam et.",
+  "relationshipAnalysisActivityContinueCta": "Devam"
 }

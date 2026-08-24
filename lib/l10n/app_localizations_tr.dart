@@ -2174,23 +2174,35 @@ class AppLocalizationsTr extends AppLocalizations {
   String get relationshipAnalysisTitle => 'İlişki Analizi';
 
   @override
-  String get relationshipAnalysisSubtitle =>
-      'İlişkide nasıl olma eğiliminde olduğunu adım adım keşfet — her seferinde birkaç soru.';
-
-  @override
   String get relationshipAnalysisDepthLabel => 'Analiz derinliği';
 
   @override
-  String get relationshipAnalysisStatusNone => 'Henüz başlamadı';
+  String get relationshipAnalysisStatusNone =>
+      'İlişki örüntülerini zaman içinde keşfet.';
 
   @override
-  String get relationshipAnalysisStatusPartial => 'Devam ediyor';
+  String get relationshipAnalysisStatusComplete => 'Analiz şimdilik tamamlandı';
 
   @override
-  String get relationshipAnalysisStatusComplete => 'v1 bankası tamamlandı';
+  String get relationshipAnalysisStartCta => 'Analize başla · 4 soru';
 
   @override
   String get relationshipAnalysisDeepenCta => 'Analizini derinleştir · 4 soru';
+
+  @override
+  String relationshipAnalysisDepthPercent(int percent) {
+    return '%$percent';
+  }
+
+  @override
+  String relationshipAnalysisDepthTransition(int before, int after) {
+    return '%$before → %$after';
+  }
+
+  @override
+  String relationshipAnalysisOverallDepth(int percent) {
+    return 'Genel analiz %$percent';
+  }
 
   @override
   String relationshipAnalysisMicroScanProgress(int current, int total) {
@@ -2204,8 +2216,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get relationshipAnalysisNext => 'Devam';
 
   @override
+  String get relationshipAnalysisCompleteTitle => 'Analiz güncellendi';
+
+  @override
   String get relationshipAnalysisCompleteBody =>
-      'İlişki profilin daha da netleşiyor.';
+      'İlişki profilin biraz daha netleşti.';
 
   @override
   String get relationshipAnalysisBackToProfile => 'Profile dön';
@@ -2217,4 +2232,26 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get relationshipAnalysisSaveFailed =>
       'Yanıtların kaydedilemedi. Lütfen tekrar dene.';
+
+  @override
+  String get relationshipAnalysisActivityTitle =>
+      'İlişki analizini derinleştir';
+
+  @override
+  String get relationshipAnalysisActivityBody =>
+      '4 yeni soru hazır · yaklaşık 1 dk';
+
+  @override
+  String get relationshipAnalysisActivityCta => 'Başla';
+
+  @override
+  String get relationshipAnalysisActivityContinueTitle =>
+      'İlişki analizine devam et';
+
+  @override
+  String get relationshipAnalysisActivityContinueBody =>
+      'Kaldığın yerden devam et.';
+
+  @override
+  String get relationshipAnalysisActivityContinueCta => 'Devam';
 }
