@@ -1,0 +1,1405 @@
+{
+  "schema_version": "qmatch_relationship_analysis_bank_v1",
+  "bank_version": "relationship_analysis_v1",
+  "content_version": "relationship-analysis-v1.2.1",
+  "module": "relationship",
+  "status": "runtime_v1",
+  "scoring_policy_version": "relationship_8d_signed_evidence_v1",
+  "dimension_registry_version": "relationship_dimension_registry_v1",
+  "micro_scan_size": 4,
+  "question_count": 24,
+  "canonical_dimensions": [
+    "closeness_need",
+    "autonomy_need",
+    "reassurance_need",
+    "trust_orientation",
+    "commitment_orientation",
+    "relationship_pace",
+    "affection_expression",
+    "playfulness"
+  ],
+  "response_instruction": {
+    "en": "Which response is closest to what you would actually tend to do?",
+    "tr": "Gerçekte yapma eğiliminde olduğun yanıta en yakın olan hangisi?",
+    "not": "Which is the correct/best/most mature response?"
+  },
+  "not_claims": [
+    "clinical_diagnosis",
+    "accuracy_percentage_of_personality",
+    "matching_input_v1",
+    "persona_input_v1"
+  ],
+  "items": [
+    {
+      "id": "ra_v1_01_busy_workday",
+      "version": "relationship_analysis_item_v1",
+      "context": "busy_work_periods",
+      "prompt": {
+        "en": "When your partner's work leaves almost no room during the day, which contact pattern feels most natural?",
+        "tr": "Partnerinin işi gün içinde neredeyse hiç boşluk bırakmıyorsa hangi iletişim düzeni sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "One warm midday message is enough; I save the real conversation for evening.",
+            "tr": "Öğlen sıcak bir mesaj yeter; asıl konuşmayı akşama bırakırım."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "autonomy_need": 0.25,
+            "reassurance_need": -0.1
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I like a few short messages whenever there is a chance so we stay connected.",
+            "tr": "Gün boyunca fırsat oldukça birkaç kısa mesajla temas halinde kalmayı isterim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.35,
+            "autonomy_need": -0.1,
+            "reassurance_need": 0.2,
+            "affection_expression": 0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I prefer very little messaging until we both have real time to talk.",
+            "tr": "İkimizin de gerçekten zamanı olana kadar pek yazışmamayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.2,
+            "autonomy_need": 0.4,
+            "reassurance_need": -0.15
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I feel better roughly knowing when we will reconnect during the day.",
+            "tr": "Gün içinde ne zaman konuşacağımızı kabaca bilmek beni daha rahat hissettirir."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "autonomy_need": -0.1,
+            "reassurance_need": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_02_weekend_morning",
+      "version": "relationship_analysis_item_v1",
+      "context": "weekends",
+      "prompt": {
+        "en": "On a free weekend morning with nothing planned, which feels most natural?",
+        "tr": "Hiçbir planınız olmayan boş bir hafta sonu sabahında hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Coffee, conversation, and spending most of the morning together without rushing.",
+            "tr": "Kahve, sohbet ve acele etmeden sabahın büyük kısmını birlikte geçirmek."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.4,
+            "autonomy_need": -0.15,
+            "affection_expression": 0.15
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "Start together briefly, then each move into our own time.",
+            "tr": "Birlikte kısa bir başlangıç yapıp sonra herkesin kendi zamanına geçmesi."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.1,
+            "autonomy_need": 0.3
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Take a few hours for myself first and reconnect later.",
+            "tr": "Önce birkaç saat kendime zaman ayırıp daha sonra buluşmak."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.15,
+            "autonomy_need": 0.4
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Find something small and fun to do together and build the morning around it.",
+            "tr": "Birlikte küçük, eğlenceli bir şey bulup sabahı ona göre geçirmek."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.25,
+            "playfulness": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_03_hobby_evening",
+      "version": "relationship_analysis_item_v1",
+      "context": "separate_hobbies",
+      "prompt": {
+        "en": "Your partner keeps one evening each week for a hobby you do not share. Which arrangement suits you best?",
+        "tr": "Partnerin senin katılmadığın bir hobisi için haftada bir akşam ayırıyor. Sana en uygun düzen hangisi?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "That evening is completely theirs; I make my own plans too.",
+            "tr": "O akşam tamamen ona ait olur; ben de kendi planımı yaparım."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.1,
+            "autonomy_need": 0.45,
+            "reassurance_need": -0.15,
+            "trust_orientation": 0.2
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I would also like one reliable evening each week that belongs to us.",
+            "tr": "Buna karşılık haftada düzenli olarak bize ait bir akşamın da olmasını isterim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.25,
+            "autonomy_need": 0.1,
+            "commitment_orientation": 0.2
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I like the idea that the hobby could occasionally include me in some way.",
+            "tr": "Bazen beni de içine alabilecek bir tarafı olmasını hoş bulurum."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.3,
+            "autonomy_need": -0.15,
+            "playfulness": 0.1
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "After the separate evening, I like a brief moment of reconnecting.",
+            "tr": "Ayrı geçirdiğimiz akşamın sonunda kısa da olsa yeniden temas etmeyi isterim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "autonomy_need": 0.15,
+            "reassurance_need": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_04_short_notice_trip",
+      "version": "relationship_analysis_item_v1",
+      "context": "travel",
+      "prompt": {
+        "en": "While in a serious relationship, a friend offers a short trip leaving in three days. Which is closest to you?",
+        "tr": "Ciddi bir ilişki içindeyken bir arkadaşın üç gün sonra çıkılacak kısa bir gezi teklif ediyor. Hangisi sana daha yakın?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "If it works, I go; I still like staying open to sudden opportunities while in a relationship.",
+            "tr": "Uygunsa giderim; ilişkideyken de böyle ani fırsatlara açık kalmayı severim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.35
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I check our shared plans first and go if it does not disrupt them.",
+            "tr": "Önce ortak planlarımızı kontrol eder, ikimizi etkilemiyorsa giderim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "commitment_orientation": 0.15
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I would rather prioritize the time we already planned together than take the sudden trip.",
+            "tr": "Böyle ani bir gezi yerine o dönemde birlikte planladığımız zamana öncelik vermeyi tercih ederim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "commitment_orientation": 0.2
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I go, but I intentionally make time for something together when I return.",
+            "tr": "Giderim ama dönüşte birlikte güzel bir şey yapmak için ayrıca zaman ayırırım."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.2,
+            "closeness_need": 0.15,
+            "affection_expression": 0.1,
+            "playfulness": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_05_partner_friends_party",
+      "version": "relationship_analysis_item_v1",
+      "context": "social_events",
+      "prompt": {
+        "en": "You are at an event where your partner knows almost everyone and you know very few people. Which feels most natural?",
+        "tr": "Partnerinin neredeyse herkesi tanıdığı ama senin çok az kişiyi bildiğin bir etkinliktesiniz. Hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I meet people on my own and reconnect with my partner occasionally.",
+            "tr": "Kendi başıma insanlarla tanışır, ara sıra partnerimle yeniden buluşurum."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.3,
+            "reassurance_need": -0.1,
+            "playfulness": 0.1
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I prefer staying fairly close to each other through most of the evening.",
+            "tr": "Gecenin çoğunda birbirimize yakın kalmayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.35,
+            "autonomy_need": -0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I like being introduced to a few people at the beginning, then I am fine on my own.",
+            "tr": "Başlangıçta beni birkaç kişiyle tanıştırmasını isterim; sonrasında kendim devam ederim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "reassurance_need": 0.3
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I like agreeing in advance where we will reconnect after circulating separately.",
+            "tr": "Bir süre ayrı dolaşıp daha sonra nerede buluşacağımızı baştan kararlaştırmak hoşuma gider."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "reassurance_need": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_06_after_disagreement",
+      "version": "relationship_analysis_item_v1",
+      "context": "conflict",
+      "prompt": {
+        "en": "Right after a mild disagreement, which helps you most?",
+        "tr": "Hafif bir tartışmanın hemen ardından hangisi sana daha çok yardımcı olur?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Talk it through while the issue is still fresh.",
+            "tr": "Konu hâlâ tazeyken konuşup toparlamak."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "autonomy_need": -0.15,
+            "reassurance_need": 0.15
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "Take some time alone and return when I am calmer.",
+            "tr": "Biraz yalnız kalıp daha sakin şekilde geri dönmek."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.35,
+            "reassurance_need": -0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Leave it until the next day and reopen it when we have both settled.",
+            "tr": "Konuyu ertesi güne bırakıp ikimiz de sakinleşince tekrar açmak."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.25,
+            "reassurance_need": -0.15
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Even if we discuss the details later, I first want a brief reassurance that we are okay.",
+            "tr": "Detayları sonra konuşsak bile önce aramızın iyi olduğuna dair kısa bir güvence duymak."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "reassurance_need": 0.45,
+            "affection_expression": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_07_plans_change",
+      "version": "relationship_analysis_item_v1",
+      "context": "shared_space_integration",
+      "prompt": {
+        "en": "You have been seeing each other regularly for a while, and some of your partner's things have started staying at your place. Which feels most natural?",
+        "tr": "Bir süredir düzenli görüşüyorsunuz ve partnerinin bazı eşyaları senin evinde kalmaya başladı. Hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I like it; a few things gradually finding a place feels natural.",
+            "tr": "Hoşuma gider; zamanla birkaç eşyanın kendiliğinden yer edinmesi doğal gelir."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "autonomy_need": -0.1,
+            "commitment_orientation": 0.15,
+            "relationship_pace": 0.2
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "A few small items are fine, but I would wait before giving permanent space.",
+            "tr": "Birkaç küçük eşya sorun değil ama kalıcı bir alan ayırmak için biraz daha beklemek isterim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "relationship_pace": -0.2
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I like the idea of giving them a drawer or small area; it makes moving between places easier.",
+            "tr": "Ona küçük bir çekmece ya da alan ayırmak hoşuma gider; gidip gelmeyi kolaylaştırır."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "autonomy_need": -0.15,
+            "commitment_orientation": 0.2,
+            "relationship_pace": 0.35
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I prefer our homes to stay mostly separate; closeness does not require our things to merge.",
+            "tr": "Evlerimizin büyük ölçüde ayrı kalmasını tercih ederim; yakın olmak için eşyaların karışması gerekmez."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.35,
+            "closeness_need": -0.1,
+            "relationship_pace": -0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_08_long_distance_week",
+      "version": "relationship_analysis_item_v1",
+      "context": "long_distance",
+      "prompt": {
+        "en": "You will be apart for a week with almost no overlapping free time. Which contact style feels sufficient?",
+        "tr": "Bir hafta boyunca ayrı olacaksınız ve boş zamanlarınız neredeyse hiç örtüşmeyecek. Hangi iletişim biçimi sana yeterli gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "One substantial conversation, with short low-pressure messages in between.",
+            "tr": "Bir kez uzun konuşmak, aralarda da kısa ve baskısız mesajlar."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.2,
+            "reassurance_need": -0.1,
+            "affection_expression": 0.1,
+            "trust_orientation": 0.15
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "A brief daily touchpoint at roughly the same time.",
+            "tr": "Kısa da olsa her gün yaklaşık aynı saatte temas etmek."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.25,
+            "reassurance_need": 0.4
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Voice notes, photos, or small moments that make everyday life feel shared.",
+            "tr": "Günlük hayatı paylaşan sesli mesajlar, fotoğraflar veya küçük anlar."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.3,
+            "autonomy_need": -0.1,
+            "affection_expression": 0.3,
+            "playfulness": 0.1
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Mostly asynchronous messages; I can feel connected without a frequent routine.",
+            "tr": "Çoğunlukla zamansız mesajlaşmak; sık bir düzene ihtiyaç duymadan bağlı hissetmek."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.1,
+            "autonomy_need": 0.35,
+            "reassurance_need": -0.2,
+            "trust_orientation": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_09_career_move",
+      "version": "relationship_analysis_item_v1",
+      "context": "career_opportunities",
+      "prompt": {
+        "en": "A very good job opportunity would move one of you to another city for a year. Which is closest to you?",
+        "tr": "Çok iyi bir iş fırsatı birinizi bir yıllığına başka bir şehre götürecek. Hangisine daha yakınsın?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I would try to make the opportunity work and redesign the relationship around it.",
+            "tr": "Fırsatı değerlendirmeye çalışır, ilişkinin düzenini buna göre yeniden kurarım."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.25,
+            "commitment_orientation": 0.15
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "It works for me only if we have a clear shared plan we both agree on.",
+            "tr": "Ancak ikimizin de üzerinde uzlaştığı net bir ortak plan varsa bana uygun gelir."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "reassurance_need": 0.15,
+            "commitment_orientation": 0.4
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I would struggle to make such a change unless the relationship already felt firmly established.",
+            "tr": "İlişkinin yeterince sağlam olduğundan emin olmadan böyle bir değişiklik yapmakta zorlanırım."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.2,
+            "commitment_orientation": 0.3
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I want room to pursue the opportunity while maintaining the relationship through regular, honest check-ins.",
+            "tr": "Fırsatın peşinden gitmek için alan isterim; ilişkiyi de düzenli ve dürüst konuşmalarla sürdürmeyi tercih ederim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.35,
+            "trust_orientation": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_10_define_us",
+      "version": "relationship_analysis_item_v1",
+      "context": "relationship_definition",
+      "prompt": {
+        "en": "When does giving the relationship a clear label usually feel natural to you?",
+        "tr": "İlişkiye net bir isim koymak genellikle sana ne zaman doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Fairly early; knowing what we are makes it easier for me to invest.",
+            "tr": "Oldukça erken; ne yaşadığımızın adını bilmek yakınlaşmamı kolaylaştırır."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.15,
+            "commitment_orientation": 0.2,
+            "relationship_pace": 0.35
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "After we have experienced enough different situations together.",
+            "tr": "Birlikte yeterince farklı durum yaşadıktan sonra."
+          },
+          "dimension_deltas": {
+            "relationship_pace": -0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I prefer letting the relationship develop its own shape for a while and discussing labels later.",
+            "tr": "Bir süre ilişkinin kendi şeklini oluşturmasını, etiketi daha sonra konuşmayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "commitment_orientation": -0.1,
+            "relationship_pace": -0.3
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "When we both begin talking about concrete next steps.",
+            "tr": "İkimiz de gelecekteki somut adımları konuşmaya başladığımızda."
+          },
+          "dimension_deltas": {
+            "commitment_orientation": 0.3,
+            "relationship_pace": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_11_affection_style",
+      "version": "relationship_analysis_item_v1",
+      "context": "affection",
+      "prompt": {
+        "en": "In everyday relationship life, which way of showing affection feels most natural to you?",
+        "tr": "Günlük ilişkide sevgini göstermenin hangi biçimi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Clearly saying how I feel and what I appreciate.",
+            "tr": "Ne hissettiğimi ve neyi takdir ettiğimi açıkça söylemek."
+          },
+          "dimension_deltas": {
+            "affection_expression": 0.5,
+            "closeness_need": 0.1
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "Doing things that make their life easier without talking about it much.",
+            "tr": "Çok konuşmadan, hayatını kolaylaştıracak şeyler yapmak."
+          },
+          "dimension_deltas": {
+            "affection_expression": -0.35,
+            "commitment_orientation": 0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Teasing, joking, touching, and adding small warm moments throughout the day.",
+            "tr": "Şakalaşmak, takılmak, dokunmak ve gün içine küçük sıcak anlar serpiştirmek."
+          },
+          "dimension_deltas": {
+            "affection_expression": 0.3,
+            "playfulness": 0.45
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Being consistently there rather than making big expressions.",
+            "tr": "Büyük ifadeler yerine istikrarlı biçimde yanında olmak."
+          },
+          "dimension_deltas": {
+            "affection_expression": -0.3,
+            "commitment_orientation": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_12_unexpected_free_evening",
+      "version": "relationship_analysis_item_v1",
+      "context": "unexpected_free_time",
+      "prompt": {
+        "en": "An evening unexpectedly becomes free. Which sounds most appealing?",
+        "tr": "Beklenmedik şekilde boş bir akşamınız oldu. Hangisi sana daha çekici gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Do something unplanned and fun together.",
+            "tr": "Birlikte plansız, eğlenceli bir şey yapmak."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "playfulness": 0.4
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "Spend a calm evening together at home.",
+            "tr": "Evde sakin bir akşamı birlikte geçirmek."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.3,
+            "affection_expression": 0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Spend part of the evening separately and meet later.",
+            "tr": "Akşamın bir kısmını ayrı geçirip daha sonra buluşmak."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.1,
+            "autonomy_need": 0.4
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Choose one thing to do together in advance and leave the rest of the time open.",
+            "tr": "Önceden tek bir ortak şey belirleyip, geri kalan zamanda herkesin istediğini yapması."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.1,
+            "autonomy_need": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_13_meet_friends",
+      "version": "relationship_analysis_item_v1",
+      "context": "meeting_friends",
+      "prompt": {
+        "en": "Your partner wants you to meet their closest friends. Which timing feels most natural?",
+        "tr": "Partnerin seni en yakın arkadaşlarıyla tanıştırmak istiyor. Zamanlama açısından hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Fairly early; I like entering each other's social worlds.",
+            "tr": "Oldukça erken; birbirimizin sosyal dünyasına girmek hoşuma gider."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "commitment_orientation": 0.1,
+            "relationship_pace": 0.35
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I prefer the relationship to settle between us first.",
+            "tr": "Önce ilişkimizin kendi içinde biraz oturmasını tercih ederim."
+          },
+          "dimension_deltas": {
+            "relationship_pace": -0.25
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "After some time, in a small and relaxed setting feels better to me.",
+            "tr": "Bir süre sonra, rahat ve küçük bir ortamda tanışmak bana daha uygun gelir."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.1,
+            "relationship_pace": -0.1
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I prefer it to happen naturally over time rather than planning it as a milestone.",
+            "tr": "Özellikle planlamak yerine bunun zaman içinde doğal biçimde gerçekleşmesini tercih ederim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "relationship_pace": -0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_14_vacation_style",
+      "version": "relationship_analysis_item_v1",
+      "context": "playfulness_minor_disruption",
+      "prompt": {
+        "en": "A small problem happens during an evening out: the place you wanted to visit is closed. Which reaction is closest to yours?",
+        "tr": "Birlikte çıktığınız akşam küçük bir aksilik oldu; gitmek istediğiniz yer kapalı çıktı. İlk tepkin hangisine daha yakın?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I laugh and improvise something else; sometimes the mistake becomes the best part of the night.",
+            "tr": "Gülüp başka bir şey uydururum; bazen aksilik gecenin en güzel kısmı olur."
+          },
+          "dimension_deltas": {
+            "playfulness": 0.45
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I quickly find another place and keep the evening moving.",
+            "tr": "Hızlıca başka bir yer bulur ve plana devam ederim."
+          },
+          "dimension_deltas": {
+            "playfulness": -0.15
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I turn it into an inside joke and keep playing with it through the rest of the night.",
+            "tr": "Bunu aramızda şakaya dönüştürür, gecenin geri kalanında onunla eğlenirim."
+          },
+          "dimension_deltas": {
+            "playfulness": 0.5,
+            "affection_expression": 0.1
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I acknowledge the disappointment first, then choose another option together.",
+            "tr": "Önce hayal kırıklığını paylaşır, sonra birlikte başka bir seçenek seçerim."
+          },
+          "dimension_deltas": {
+            "affection_expression": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_15_after_intense_day",
+      "version": "relationship_analysis_item_v1",
+      "context": "personal_space",
+      "prompt": {
+        "en": "After an intense emotional conversation that runs late, what do you need before sleep?",
+        "tr": "Gece geç saate kadar süren yoğun bir duygusal konuşmanın ardından uyumadan önce neye ihtiyaç duyarsın?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Stay physically close and calm down together.",
+            "tr": "Fiziksel olarak yakın kalıp birlikte sakinleşmeye."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.45,
+            "autonomy_need": -0.2,
+            "affection_expression": 0.2
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "Be in the same space but mostly keep to ourselves quietly.",
+            "tr": "Aynı yerde olup fazla konuşmadan kendi halimizde durmaya."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "autonomy_need": 0.2
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Have some completely separate time and reconnect with a warm goodnight later.",
+            "tr": "Biraz tamamen yalnız kalıp sonra sıcak bir iyi geceler demeye."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.15,
+            "autonomy_need": 0.4,
+            "reassurance_need": -0.1
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Hear a brief verbal reassurance that we are okay before going quiet.",
+            "tr": "Sessizliğe geçmeden önce aramızın iyi olduğuna dair kısa bir sözlü güvenceye."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "reassurance_need": 0.45,
+            "affection_expression": 0.25
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_16_weekend_uncertainty",
+      "version": "relationship_analysis_item_v1",
+      "context": "future_plan_horizon",
+      "prompt": {
+        "en": "Your relationship is going well and the idea comes up of attending an important event together three months from now. Which feels most natural?",
+        "tr": "İlişkiniz iyi gidiyor ve üç ay sonraki önemli bir etkinliğe birlikte gitme fikri ortaya çıktı. Hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I like planning it together now; having something shared in the future feels good.",
+            "tr": "Şimdiden birlikte plan yapmak hoşuma gider; gelecekte ortak bir şeyin olması güzel hissettirir."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.1,
+            "commitment_orientation": 0.25,
+            "relationship_pace": 0.3
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I would discuss the idea but prefer making the firm plan closer to the date.",
+            "tr": "Fikri konuşurum ama kesin planı biraz daha yaklaşınca yapmayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "commitment_orientation": 0.1,
+            "relationship_pace": -0.1
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I would rather see how the relationship develops before linking our calendars months ahead.",
+            "tr": "İlişkinin nasıl ilerlediğini biraz daha görmeden aylar sonrasını birlikte bağlamak istemem."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.2,
+            "relationship_pace": -0.3
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I would make a flexible or refundable plan so we have something shared without locking everything in.",
+            "tr": "Esnek ya da iptal edilebilir bir plan yaparım; hem ortak bir şeyimiz olur hem de alan kalır."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.1,
+            "commitment_orientation": 0.15,
+            "relationship_pace": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_17_daytime_texting",
+      "version": "relationship_analysis_item_v1",
+      "context": "messaging_rhythm",
+      "prompt": {
+        "en": "On an ordinary day when both of you are available to text, which messaging rhythm suits you best?",
+        "tr": "İkinizin de yazışmaya müsait olduğu sıradan bir günde hangi mesajlaşma ritmi sana daha uygun gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Lots of small messages that keep warmth going through the day.",
+            "tr": "Gün boyunca sıcaklığı sürdüren birçok küçük mesaj."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.35,
+            "autonomy_need": -0.15,
+            "reassurance_need": 0.2,
+            "affection_expression": 0.15
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "A few meaningful exchanges, then each return to our own focus.",
+            "tr": "Birkaç anlamlı konuşma, sonra herkesin kendi işine dönmesi."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.1,
+            "autonomy_need": 0.2
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Save most conversation for the evening and text very little during the day.",
+            "tr": "Sohbetin çoğunu akşama bırakmak; gün içinde az yazışmak."
+          },
+          "dimension_deltas": {
+            "closeness_need": -0.15,
+            "autonomy_need": 0.35,
+            "reassurance_need": -0.15
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Follow whatever rhythm naturally develops between us without setting a rule.",
+            "tr": "Belirli bir kural koymadan, ikimizin doğal olarak oluşturduğu tempoya uymak."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.1,
+            "reassurance_need": -0.1,
+            "trust_orientation": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_18_repair_timing",
+      "version": "relationship_analysis_item_v1",
+      "context": "reconciliation",
+      "prompt": {
+        "en": "After tension, your partner becomes quiet. Which approach feels most natural?",
+        "tr": "Bir gerginlikten sonra partnerin sessizliğe çekildi. Sana en doğal gelen yaklaşım hangisi?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I try to reconnect the same day, even briefly.",
+            "tr": "Aynı gün kısa da olsa iletişim kurmaya çalışırım."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.25,
+            "autonomy_need": -0.1,
+            "reassurance_need": 0.2
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I give them space and wait for them to signal that they are ready.",
+            "tr": "Alan bırakır, hazır olduğunda onun iletişim başlatmasını beklerim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.3,
+            "reassurance_need": -0.2,
+            "trust_orientation": 0.35
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I send one short, warm message, then leave space until they are ready to talk.",
+            "tr": "Kısa ve sıcak bir mesaj gönderir, sonra konuşmaya hazır olana kadar alan bırakırım."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.1,
+            "autonomy_need": 0.15,
+            "reassurance_need": 0.15,
+            "affection_expression": 0.1
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Rather than leave it open-ended, I prefer suggesting a specific time to talk.",
+            "tr": "Belirsiz bırakmak yerine konuşmak için belirli bir zaman önermeyi tercih ederim."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_19_partner_night_out",
+      "version": "relationship_analysis_item_v1",
+      "context": "social_events",
+      "prompt": {
+        "en": "Your partner is out at night with friends you barely know. Which contact pattern feels most natural?",
+        "tr": "Partnerin pek tanımadığın arkadaşlarıyla gece dışarıda. Hangi iletişim düzeni sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I do not expect updates; I enjoy my own evening too.",
+            "tr": "Güncelleme beklemem; ben de kendi akşamımı yaşarım."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.3,
+            "reassurance_need": -0.25,
+            "trust_orientation": 0.35
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "One short goodnight message before the night ends is enough for me.",
+            "tr": "Gece bitmeden kısa bir iyi geceler mesajı bana yeter."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.25,
+            "affection_expression": 0.15
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I like knowing roughly when they expect to return.",
+            "tr": "Yaklaşık ne zaman döneceğini baştan bilmek isterim."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.35,
+            "trust_orientation": -0.2
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I prefer hearing about the night the next day rather than messaging throughout it.",
+            "tr": "Gece boyunca mesajlaşmak yerine ertesi gün neler olduğunu konuşmayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "reassurance_need": -0.1,
+            "trust_orientation": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_20_exclusivity",
+      "version": "relationship_analysis_item_v1",
+      "context": "relationship_definition",
+      "prompt": {
+        "en": "Early in a relationship, which approach to exclusivity is closest to you?",
+        "tr": "Bir ilişkinin erken döneminde özel olma konusunda hangisi sana daha yakın?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I want exclusivity once emotional investment clearly feels mutual.",
+            "tr": "Duygusal yatırımın karşılıklı olduğunu hissettiğimde özel olmak isterim."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "commitment_orientation": 0.35,
+            "relationship_pace": 0.15
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I prefer exclusivity before physical or emotional intimacy becomes very deep.",
+            "tr": "Fiziksel veya duygusal yakınlık çok derinleşmeden önce özel olmayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.2,
+            "commitment_orientation": 0.4,
+            "relationship_pace": 0.3
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I can move more slowly toward exclusivity if seeing other people is discussed openly.",
+            "tr": "Başka kişilerle görüşmek açıkça konuşuluyorsa özel olma konusunda daha yavaş ilerleyebilirim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.25,
+            "trust_orientation": 0.15,
+            "commitment_orientation": -0.2,
+            "relationship_pace": -0.3
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I prefer seeing our behavior naturally become focused on each other before adding the label.",
+            "tr": "Önce davranışlarımızın zaten birbirimize odaklandığını görmek, etiketi daha sonra koymak bana daha doğal gelir."
+          },
+          "dimension_deltas": {
+            "trust_orientation": 0.15,
+            "commitment_orientation": 0.1,
+            "relationship_pace": -0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_21_affection_mismatch",
+      "version": "relationship_analysis_item_v1",
+      "context": "affection",
+      "prompt": {
+        "en": "Your partner mostly shows affection through what they do, while you sometimes miss verbal warmth. Which feels most natural?",
+        "tr": "Partnerin sevgisini çoğunlukla yaptığı şeylerle gösteriyor; sen ise zaman zaman sözlü sıcaklığı özlüyorsun. Hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I tell them that I sometimes need to hear it explicitly.",
+            "tr": "Ara sıra bunu açıkça duymaya ihtiyacım olduğunu söylerim."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.2,
+            "affection_expression": 0.4
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "I adapt more to their practical way of caring and expect less verbal expression.",
+            "tr": "Onun pratik ilgi biçimine daha çok alışır, sözlü ifadeyi daha az beklerim."
+          },
+          "dimension_deltas": {
+            "affection_expression": -0.3
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I keep expressing myself verbally but do not expect them to mirror my style.",
+            "tr": "Ben kendi sözlü ifade biçimimi sürdürürüm ama onun da aynı şekilde karşılık vermesini beklemem."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.1,
+            "trust_orientation": 0.15,
+            "affection_expression": 0.15
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "I like developing a small shared habit that includes a little of both styles.",
+            "tr": "İki tarzın da olduğu küçük bir ortak alışkanlık geliştirmek hoşuma gider."
+          },
+          "dimension_deltas": {
+            "affection_expression": 0.25,
+            "commitment_orientation": 0.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_22_date_energy",
+      "version": "relationship_analysis_item_v1",
+      "context": "post_date_expression",
+      "prompt": {
+        "en": "You get home after a date that went really well. Which feels most natural?",
+        "tr": "Çok güzel geçen bir buluşmanın ardından eve döndün. Hangisi sana daha doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Send a warm message that night explicitly saying how much I enjoyed it.",
+            "tr": "O gece ne kadar güzel geçtiğini açıkça söyleyen sıcak bir mesaj göndermek."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.2,
+            "affection_expression": 0.45
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "Assume we both know it went well and message normally the next day.",
+            "tr": "Güzel geçtiğini zaten ikimizin de bildiğini düşünüp ertesi gün normal biçimde yazmak."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "reassurance_need": -0.1,
+            "affection_expression": -0.15
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Keep the connection going with an inside joke, photo, or playful message from the night.",
+            "tr": "Geceden kalan bir şakayı, fotoğrafı ya da komik bir mesajı göndererek teması sürdürmek."
+          },
+          "dimension_deltas": {
+            "closeness_need": 0.15,
+            "affection_expression": 0.15,
+            "playfulness": 0.45
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Without dwelling on it much, suggest something concrete for the next date.",
+            "tr": "Fazla üzerinde durmadan bir sonraki buluşma için somut bir öneri yapmak."
+          },
+          "dimension_deltas": {
+            "commitment_orientation": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_23_calendar_visibility",
+      "version": "relationship_analysis_item_v1",
+      "context": "availability_visibility",
+      "prompt": {
+        "en": "In a relationship, how visible do you prefer your weekly schedules to be to each other?",
+        "tr": "Bir ilişkide birbirinizin haftalık planlarını ne kadar görünür tutmak sana doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "I like seeing most of our plans in a shared calendar.",
+            "tr": "Ortak bir takvimde planlarımızın büyük bölümünü görmek hoşuma gider."
+          },
+          "dimension_deltas": {
+            "autonomy_need": -0.25,
+            "reassurance_need": 0.3,
+            "trust_orientation": -0.2
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "We tell each other important plans; I do not need a shared calendar.",
+            "tr": "Önemli planları konuşuruz; ortak bir takvime ihtiyaç duymam."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.3,
+            "reassurance_need": -0.15,
+            "trust_orientation": 0.2
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "I prefer sharing availability rather than the details of individual plans.",
+            "tr": "Ayrıntılar yerine yalnızca müsait olduğumuz zamanları paylaşmayı tercih ederim."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "reassurance_need": 0.1,
+            "trust_orientation": 0.05
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "Using a shared calendar only for things we are doing together is enough for me.",
+            "tr": "Ortak takvimi sadece birlikte yapacağımız şeyler için kullanmak bana yeter."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.2,
+            "reassurance_need": -0.05,
+            "trust_orientation": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ra_v1_24_future_talk",
+      "version": "relationship_analysis_item_v1",
+      "context": "future_planning",
+      "prompt": {
+        "en": "When does discussing shared-future topics such as moving, long trips, or living together feel natural to you?",
+        "tr": "Taşınma, uzun seyahatler veya birlikte yaşama gibi ortak gelecek konularını ne zaman konuşmak sana doğal gelir?"
+      },
+      "options": [
+        {
+          "id": "A",
+          "text": {
+            "en": "Fairly early; I want to know whether the directions of our lives can fit.",
+            "tr": "Oldukça erken; hayat yönlerimizin birbiriyle uyup uymadığını bilmek isterim."
+          },
+          "dimension_deltas": {
+            "reassurance_need": 0.15,
+            "commitment_orientation": 0.35,
+            "relationship_pace": 0.3
+          }
+        },
+        {
+          "id": "B",
+          "text": {
+            "en": "After the emotional bond between us has become more established.",
+            "tr": "Önce aramızdaki duygusal bağ biraz daha oturduktan sonra."
+          },
+          "dimension_deltas": {
+            "commitment_orientation": 0.15,
+            "relationship_pace": -0.15
+          }
+        },
+        {
+          "id": "C",
+          "text": {
+            "en": "Only when one of those decisions is actually beginning to approach.",
+            "tr": "Ancak gerçekten böyle bir karar yaklaşmaya başladığında."
+          },
+          "dimension_deltas": {
+            "autonomy_need": 0.15,
+            "commitment_orientation": -0.1,
+            "relationship_pace": -0.25
+          }
+        },
+        {
+          "id": "D",
+          "text": {
+            "en": "When curiosity about building a life together starts appearing on both sides.",
+            "tr": "İkimizde de birlikte bir hayat kurmaya dair merak oluşmaya başladığında."
+          },
+          "dimension_deltas": {
+            "commitment_orientation": 0.3,
+            "relationship_pace": 0.15
+          }
+        }
+      ]
+    }
+  ]
+}

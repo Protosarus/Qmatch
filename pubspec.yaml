@@ -63,6 +63,7 @@ flutter:
     - assets/data/assessment_v3/eq/eq_bank_en_v1.json
     - assets/data/assessment_v3/frequency/frequency_bank_tr_v1.json
     - assets/data/assessment_v3/frequency/frequency_bank_en_v1.json
+    - assets/data/relationship_analysis_v1.json
     - assets/images/chat_wallpaper_dark.png
     # Golden-test font stand-ins (Roboto renamed). Not intended app UI fonts.
     - test/fonts/google_fonts/

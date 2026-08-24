@@ -281,11 +281,13 @@ class QMatchProfileInfoSections extends StatelessWidget {
     required this.profile,
     this.onEditAnthem,
     this.onOpenAnthemLink,
+    this.relationshipAnalysisCard,
   });
 
   final UserProfileModel profile;
   final VoidCallback? onEditAnthem;
   final VoidCallback? onOpenAnthemLink;
+  final Widget? relationshipAnalysisCard;
 
   @override
   Widget build(BuildContext context) {
@@ -359,6 +361,10 @@ class QMatchProfileInfoSections extends StatelessWidget {
           onEdit: onEditAnthem,
           onOpenLink: onOpenAnthemLink,
         ),
+        if (relationshipAnalysisCard != null) ...[
+          const SizedBox(height: AppSpacing.md),
+          relationshipAnalysisCard!,
+        ],
       ],
     );
   }
@@ -848,6 +854,7 @@ class QMatchProfileReadyView extends StatelessWidget {
     this.onPhotoTap,
     this.onEditAnthem,
     this.onOpenAnthemLink,
+    this.relationshipAnalysisCard,
     this.photoImageProvider,
     this.bottomInset = 0,
     this.showResonanceBadge = false,
@@ -865,6 +872,7 @@ class QMatchProfileReadyView extends StatelessWidget {
   final VoidCallback? onPhotoTap;
   final VoidCallback? onEditAnthem;
   final VoidCallback? onOpenAnthemLink;
+  final Widget? relationshipAnalysisCard;
   final ImageProvider? photoImageProvider;
   final double bottomInset;
   final bool showResonanceBadge;
@@ -912,6 +920,7 @@ class QMatchProfileReadyView extends StatelessWidget {
                 profile: profile,
                 onEditAnthem: onEditAnthem,
                 onOpenAnthemLink: onOpenAnthemLink,
+                relationshipAnalysisCard: relationshipAnalysisCard,
               ),
             ],
           ),

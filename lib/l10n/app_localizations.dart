@@ -4033,6 +4033,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage Subscription'**
   String get membershipManageSubscription;
+
+  /// No description provided for @relationshipAnalysisTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship Analysis'**
+  String get relationshipAnalysisTitle;
+
+  /// No description provided for @relationshipAnalysisSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A gradual look at how you tend to relate — a few questions at a time.'**
+  String get relationshipAnalysisSubtitle;
+
+  /// No description provided for @relationshipAnalysisDepthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis depth'**
+  String get relationshipAnalysisDepthLabel;
+
+  /// No description provided for @relationshipAnalysisStatusNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not started yet'**
+  String get relationshipAnalysisStatusNone;
+
+  /// No description provided for @relationshipAnalysisStatusPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get relationshipAnalysisStatusPartial;
+
+  /// No description provided for @relationshipAnalysisStatusComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'v1 bank covered'**
+  String get relationshipAnalysisStatusComplete;
+
+  /// No description provided for @relationshipAnalysisDeepenCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Deepen your analysis · 4 questions'**
+  String get relationshipAnalysisDeepenCta;
+
+  /// No description provided for @relationshipAnalysisMicroScanProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String relationshipAnalysisMicroScanProgress(int current, int total);
+
+  /// No description provided for @relationshipAnalysisPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get relationshipAnalysisPrevious;
+
+  /// No description provided for @relationshipAnalysisNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get relationshipAnalysisNext;
+
+  /// No description provided for @relationshipAnalysisCompleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your relationship profile is becoming clearer.'**
+  String get relationshipAnalysisCompleteBody;
+
+  /// No description provided for @relationshipAnalysisBackToProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to profile'**
+  String get relationshipAnalysisBackToProfile;
+
+  /// No description provided for @relationshipAnalysisLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load Relationship Analysis. Please try again.'**
+  String get relationshipAnalysisLoadFailed;
+
+  /// No description provided for @relationshipAnalysisSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your answers. Please try again.'**
+  String get relationshipAnalysisSaveFailed;
 }
 
 class _AppLocalizationsDelegate

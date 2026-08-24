@@ -7,6 +7,10 @@ import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/entitlement_snapshot.dart';
 import '../../iap/services/entitlement_repository.dart';
+import '../../relationship_analysis/domain/relationship_analysis_state.dart';
+import '../../relationship_analysis/screens/relationship_analysis_micro_scan_screen.dart';
+import '../../relationship_analysis/services/relationship_analysis_service.dart';
+import '../../relationship_analysis/widgets/relationship_analysis_profile_card.dart';
 import '../../settings/screens/settings_screen.dart';
 import '../models/profile_read_result.dart';
 import '../models/user_profile_model.dart';
@@ -65,6 +69,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ProfileReadStatus _status = ProfileReadStatus.failed;
   bool _loading = true;
   bool _resonanceAccess = false;
+  RelationshipAnalysisState _relationshipState =
+      RelationshipAnalysisState.empty();
+  final RelationshipAnalysisService _relationshipService =
+      RelationshipAnalysisService();
 
   @override
   void initState() {
@@ -186,6 +194,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _status = result.status;
       _loading = false;
     });
+    await _loadRelationshipAnalysis();
+  }
+
+  Future<void> _loadRelationshipAnalysis() async {
+    if (widget.debugProfile != null || widget.debugForceLoading) return;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null || uid.isEmpty) return;
+    try {
+      final state = await _relationshipService.loadState(uid);
+      if (!mounted) return;
+      setState(() => _relationshipState = state);
+    } catch (_) {
+      // Non-blocking: profile still works without analysis state.
+    }
+  }
+
+  Future<void> _openRelationshipAnalysis() async {
+    final refreshed = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RelationshipAnalysisMicroScanScreen(
+          initialState: _relationshipState,
+        ),
+      ),
+    );
+    if (!mounted) return;
+    if (refreshed == true || refreshed == null) {
+      await _loadRelationshipAnalysis();
+    }
   }
 
   Future<void> _openPhotoEdit() async {
@@ -273,6 +310,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onPhotoTap: widget.debugProfile != null ? () {} : _openPhotoEdit,
         onEditAnthem: widget.debugProfile != null ? () {} : _openAnthemEdit,
         onOpenAnthemLink: widget.debugProfile != null ? () {} : _openAnthemLink,
+        relationshipAnalysisCard: widget.debugProfile != null
+            ? null
+            : RelationshipAnalysisProfileCard(
+                state: _relationshipState,
+                onDeepen: _openRelationshipAnalysis,
+              ),
         photoImageProvider: widget.photoImageProvider,
         bottomInset: bottomInset,
         showResonanceBadge: _resonanceAccess,

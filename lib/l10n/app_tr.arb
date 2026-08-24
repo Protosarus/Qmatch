@@ -878,5 +878,25 @@
   "membershipPlanMonthly": "Aylık",
   "membershipPlanAnnual": "Yıllık",
   "membershipComingLater": "Daha sonra gelecek",
-  "membershipManageSubscription": "Aboneliği yönet"
+  "membershipManageSubscription": "Aboneliği yönet",
+  "relationshipAnalysisTitle": "İlişki Analizi",
+  "relationshipAnalysisSubtitle": "İlişkide nasıl olma eğiliminde olduğunu adım adım keşfet — her seferinde birkaç soru.",
+  "relationshipAnalysisDepthLabel": "Analiz derinliği",
+  "relationshipAnalysisStatusNone": "Henüz başlamadı",
+  "relationshipAnalysisStatusPartial": "Devam ediyor",
+  "relationshipAnalysisStatusComplete": "v1 bankası tamamlandı",
+  "relationshipAnalysisDeepenCta": "Analizini derinleştir · 4 soru",
+  "relationshipAnalysisMicroScanProgress": "Soru {current} / {total}",
+  "@relationshipAnalysisMicroScanProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "relationshipAnalysisPrevious": "Önceki",
+  "relationshipAnalysisNext": "Devam",
+  "relationshipAnalysisCompleteBody": "İlişki profilin daha da netleşiyor.",
+  "relationshipAnalysisBackToProfile": "Profile dön",
+  "relationshipAnalysisLoadFailed": "İlişki Analizi yüklenemedi. Lütfen tekrar dene.",
+  "relationshipAnalysisSaveFailed": "Yanıtların kaydedilemedi. Lütfen tekrar dene."
 }

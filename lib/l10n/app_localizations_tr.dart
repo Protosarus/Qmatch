@@ -2169,4 +2169,52 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get membershipManageSubscription => 'Aboneliği yönet';
+
+  @override
+  String get relationshipAnalysisTitle => 'İlişki Analizi';
+
+  @override
+  String get relationshipAnalysisSubtitle =>
+      'İlişkide nasıl olma eğiliminde olduğunu adım adım keşfet — her seferinde birkaç soru.';
+
+  @override
+  String get relationshipAnalysisDepthLabel => 'Analiz derinliği';
+
+  @override
+  String get relationshipAnalysisStatusNone => 'Henüz başlamadı';
+
+  @override
+  String get relationshipAnalysisStatusPartial => 'Devam ediyor';
+
+  @override
+  String get relationshipAnalysisStatusComplete => 'v1 bankası tamamlandı';
+
+  @override
+  String get relationshipAnalysisDeepenCta => 'Analizini derinleştir · 4 soru';
+
+  @override
+  String relationshipAnalysisMicroScanProgress(int current, int total) {
+    return 'Soru $current / $total';
+  }
+
+  @override
+  String get relationshipAnalysisPrevious => 'Önceki';
+
+  @override
+  String get relationshipAnalysisNext => 'Devam';
+
+  @override
+  String get relationshipAnalysisCompleteBody =>
+      'İlişki profilin daha da netleşiyor.';
+
+  @override
+  String get relationshipAnalysisBackToProfile => 'Profile dön';
+
+  @override
+  String get relationshipAnalysisLoadFailed =>
+      'İlişki Analizi yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get relationshipAnalysisSaveFailed =>
+      'Yanıtların kaydedilemedi. Lütfen tekrar dene.';
 }

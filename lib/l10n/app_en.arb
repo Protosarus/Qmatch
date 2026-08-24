@@ -892,5 +892,25 @@
   "membershipPlanMonthly": "Monthly",
   "membershipPlanAnnual": "Annual",
   "membershipComingLater": "Coming later",
-  "membershipManageSubscription": "Manage Subscription"
+  "membershipManageSubscription": "Manage Subscription",
+  "relationshipAnalysisTitle": "Relationship Analysis",
+  "relationshipAnalysisSubtitle": "A gradual look at how you tend to relate — a few questions at a time.",
+  "relationshipAnalysisDepthLabel": "Analysis depth",
+  "relationshipAnalysisStatusNone": "Not started yet",
+  "relationshipAnalysisStatusPartial": "In progress",
+  "relationshipAnalysisStatusComplete": "v1 bank covered",
+  "relationshipAnalysisDeepenCta": "Deepen your analysis · 4 questions",
+  "relationshipAnalysisMicroScanProgress": "Question {current} of {total}",
+  "@relationshipAnalysisMicroScanProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "relationshipAnalysisPrevious": "Previous",
+  "relationshipAnalysisNext": "Continue",
+  "relationshipAnalysisCompleteBody": "Your relationship profile is becoming clearer.",
+  "relationshipAnalysisBackToProfile": "Back to profile",
+  "relationshipAnalysisLoadFailed": "Couldn't load Relationship Analysis. Please try again.",
+  "relationshipAnalysisSaveFailed": "Couldn't save your answers. Please try again."
 }

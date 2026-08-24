@@ -2175,4 +2175,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get membershipManageSubscription => 'Manage Subscription';
+
+  @override
+  String get relationshipAnalysisTitle => 'Relationship Analysis';
+
+  @override
+  String get relationshipAnalysisSubtitle =>
+      'A gradual look at how you tend to relate — a few questions at a time.';
+
+  @override
+  String get relationshipAnalysisDepthLabel => 'Analysis depth';
+
+  @override
+  String get relationshipAnalysisStatusNone => 'Not started yet';
+
+  @override
+  String get relationshipAnalysisStatusPartial => 'In progress';
+
+  @override
+  String get relationshipAnalysisStatusComplete => 'v1 bank covered';
+
+  @override
+  String get relationshipAnalysisDeepenCta =>
+      'Deepen your analysis · 4 questions';
+
+  @override
+  String relationshipAnalysisMicroScanProgress(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String get relationshipAnalysisPrevious => 'Previous';
+
+  @override
+  String get relationshipAnalysisNext => 'Continue';
+
+  @override
+  String get relationshipAnalysisCompleteBody =>
+      'Your relationship profile is becoming clearer.';
+
+  @override
+  String get relationshipAnalysisBackToProfile => 'Back to profile';
+
+  @override
+  String get relationshipAnalysisLoadFailed =>
+      'Couldn\'t load Relationship Analysis. Please try again.';
+
+  @override
+  String get relationshipAnalysisSaveFailed =>
+      'Couldn\'t save your answers. Please try again.';
 }
