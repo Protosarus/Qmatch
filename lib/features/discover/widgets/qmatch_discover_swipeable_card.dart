@@ -26,7 +26,7 @@ class QMatchDiscoverSwipeableCard extends StatefulWidget {
   static const double defaultDragThreshold = 120;
   static const double overlayStartPx = 24;
   static const double maxRotationRadians = 0.14;
-  static const Duration flyOffDuration = Duration(milliseconds: 220);
+  static const Duration flyOffDuration = Duration(milliseconds: 100);
 
   final String candidateId;
   final String likeLabel;

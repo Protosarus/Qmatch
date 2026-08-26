@@ -232,6 +232,32 @@ exports.likeAndMaybeCreateMatch = onCall(
 );
 exports.handleLikeAndMaybeCreateMatch =
   likeAndMaybeCreateMatch.handleLikeAndMaybeCreateMatch;
+const rewindPass = require('./src/rewind_pass_callable');
+
+/**
+ * Trusted Discover Pass Rewind.
+ * Deletes only the authenticated user's own Discover Pass.
+ * Never rewinds Like, Super Resonance, Match, Thread, or Message data.
+ */
+exports.rewindPass = onCall(
+  { region: 'us-central1' },
+  (request) => rewindPass.handleRewindPass(request),
+);
+exports.handleRewindPass = rewindPass.handleRewindPass;
+
+const rewindLike = require('./src/rewind_like_callable');
+
+/**
+ * Trusted Discover Like Rewind.
+ * Deletes only an authenticated user's own one-sided Discover Like.
+ * Refuses when Match, Thread, or match-system-message artifacts exist.
+ */
+exports.rewindLike = onCall(
+  { region: 'us-central1' },
+  (request) => rewindLike.handleRewindLike(request),
+);
+exports.handleRewindLike = rewindLike.handleRewindLike;
+
 const listWhoLikedYou = require('./src/list_who_liked_you_callable');
 
 /**

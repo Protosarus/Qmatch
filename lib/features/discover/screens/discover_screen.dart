@@ -50,6 +50,17 @@ bool shouldPrecacheDiscoverPhotoUrl(String? raw) {
   return true;
 }
 
+enum _DiscoverRewindKind {
+  pass,
+  like,
+}
+
+enum _DiscoverCommitState {
+  rewindable,
+  irreversible,
+  notCommitted,
+}
+
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({
     super.key,
@@ -59,6 +70,9 @@ class DiscoverScreen extends StatefulWidget {
     this.superResonance,
     this.uidProvider,
     this.discoverService,
+    this.passUser,
+    this.rewindPass,
+    this.rewindLike,
     this.passportClient,
     this.openPaywall,
   });
@@ -80,6 +94,15 @@ class DiscoverScreen extends StatefulWidget {
 
   /// Test injection for Discover loading.
   final DiscoverService? discoverService;
+
+  /// Test injection for a Discover Pass write.
+  final Future<void> Function(String targetUid)? passUser;
+
+  /// Test injection for trusted one-step Discover Pass Rewind.
+  final Future<bool> Function(String targetUid)? rewindPass;
+
+  /// Test injection for trusted one-sided Discover Like Rewind.
+  final Future<bool> Function(String targetUid)? rewindLike;
 
   /// Shared Passport client (picker + optional DiscoverService).
   final DiscoverPassportClient? passportClient;
@@ -103,6 +126,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   bool _isLoading = true;
   bool _isActionLoading = false;
+  bool _rewindBusy = false;
+  String? _rewindTargetUid;
+  _DiscoverRewindKind? _rewindKind;
+  int _nextRewindActionId = 0;
+  int? _rewindActionId;
+  Future<_DiscoverCommitState>? _rewindCommitFuture;
   bool _deletionPending = false;
   bool _hasError = false;
   bool _lastCardCommitted = false;
@@ -225,6 +254,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     setState(() {
       _isLoading = true;
       _hasError = false;
+      _rewindTargetUid = null;
+      _rewindKind = null;
+      _rewindActionId = null;
+      _rewindCommitFuture = null;
       _likeDispatchedUids.clear();
     });
     try {
@@ -270,14 +303,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     }
   }
 
-  void _advance() {
-    setState(() {
-      _currentIndex++;
-      _swipeFeedback = 0;
-    });
-    _precacheUpcomingCandidatePhotos();
-  }
-
   /// Warm the next 1–2 card photos only. Never the whole deck.
   /// Never awaited on deck-ready. Fake example.com seed URLs are skipped.
   void _precacheUpcomingCandidatePhotos() {
@@ -293,6 +318,29 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         precacheImage(NetworkImage(url!), ctx).ignore();
       }
     });
+  }
+
+  void _armRewind({
+    required int actionId,
+    required String targetUid,
+    required _DiscoverRewindKind kind,
+    required Future<_DiscoverCommitState> commitFuture,
+  }) {
+    setState(() {
+      _rewindTargetUid = targetUid;
+      _rewindKind = kind;
+      _rewindActionId = actionId;
+      _rewindCommitFuture = commitFuture;
+    });
+  }
+
+  void _advanceDeck() {
+    setState(() {
+      _currentIndex++;
+      _swipeFeedback = 0;
+      _isActionLoading = false;
+    });
+    _precacheUpcomingCandidatePhotos();
   }
 
   void _onSwipeFeedback(double value) {
@@ -320,6 +368,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       _superResonanceDailyRemaining = result.dailyRemaining;
       _superResonancePurchased = result.purchasedBalance;
       _superResonanceBalance = result.totalAvailable;
+
+      // A successful Super Resonance becomes the latest Discover action,
+      // so an older Pass/Like is no longer eligible for one-step Rewind.
+      _rewindTargetUid = null;
+      _rewindKind = null;
+      _rewindActionId = null;
+      _rewindCommitFuture = null;
     });
   }
 
@@ -339,7 +394,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Future<void> _onSuperResonance() async {
     final c = _currentCandidate;
     if (c == null || _superResonanceBusy || _superResonanceSheetOpen) return;
-    if (_isActionLoading) return;
+    if (_isActionLoading || _rewindBusy) return;
     if (_likeDispatchedUids.contains(c.uid)) return;
 
     final tapSw = Stopwatch()..start();
@@ -484,31 +539,93 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     }
   }
 
-  Future<void> _onPass() async {
+  Future<void> _passUser(String targetUid) {
+    final injected = widget.passUser;
+    if (injected != null) return injected(targetUid);
+    return _swipeService.passUser(targetUid);
+  }
+
+  Future<bool> _rewindPass(String targetUid) {
+    final injected = widget.rewindPass;
+    if (injected != null) return injected(targetUid);
+    return _swipeService.rewindPass(targetUid);
+  }
+
+  Future<bool> _rewindLike(String targetUid) {
+    final injected = widget.rewindLike;
+    if (injected != null) return injected(targetUid);
+    return _swipeService.rewindLike(targetUid);
+  }
+
+  Future<void> _onPass() {
     final c = _currentCandidate;
-    if (c == null || _isActionLoading) return;
-    if (_likeDispatchedUids.contains(c.uid)) return;
+    if (c == null || _isActionLoading || _rewindBusy) {
+      return Future<void>.value();
+    }
+    if (_likeDispatchedUids.contains(c.uid)) {
+      return Future<void>.value();
+    }
+
     final isLast = _isLastCandidate;
+    final actionId = ++_nextRewindActionId;
+    final localUiSw = Stopwatch()..start();
+
     setState(() {
       _isActionLoading = true;
       if (isLast) _lastCardCommitted = true;
+
+      // The newest gesture always replaces the previous Rewind target.
+      _rewindTargetUid = null;
+      _rewindKind = null;
+      _rewindActionId = null;
+      _rewindCommitFuture = null;
     });
-    try {
-      if (isLast) {
-        await Future.wait<void>([
-          _swipeService.passUser(c.uid),
-          Future<void>.delayed(QMatchDiscoverSwipeableCard.flyOffDuration),
-        ]);
-      } else {
-        await _swipeService.passUser(c.uid);
-      }
+
+    final passFuture = _passUser(c.uid);
+
+    final commitFuture = passFuture.then<_DiscoverCommitState>(
+      (_) => _DiscoverCommitState.rewindable,
+      onError: (Object e, StackTrace st) {
+        debugPrint('Discover pass persistence failed: $e\n$st');
+        return _DiscoverCommitState.notCommitted;
+      },
+    );
+
+    _armRewind(
+      actionId: actionId,
+      targetUid: c.uid,
+      kind: _DiscoverRewindKind.pass,
+      commitFuture: commitFuture,
+    );
+    QmatchPerf.mark(
+      'discover.local.pass_rewind_armed',
+      localUiSw.elapsed,
+    );
+
+    unawaited(_noteCommittedSwipe());
+
+    // Tinder-style UX: network never gates the deck.
+    unawaited(() async {
+      await Future<void>.delayed(
+        QMatchDiscoverSwipeableCard.flyOffDuration,
+      );
       if (!mounted) return;
-      await _noteCommittedSwipe();
-      if (!mounted) return;
-      _advance();
-    } catch (e, st) {
-      debugPrint('Discover pass failed: $e\n$st');
-      if (mounted) {
+
+      _advanceDeck();
+      QmatchPerf.mark(
+        'discover.local.pass_next_card',
+        localUiSw.elapsed,
+      );
+    }());
+
+    // Persistence failure is surfaced later, never blocks the swipe.
+    unawaited(() async {
+      try {
+        await passFuture;
+      } catch (e, st) {
+        debugPrint('Discover pass failed: $e\n$st');
+        if (!mounted) return;
+
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -516,41 +633,217 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             backgroundColor: AppColors.error,
           ),
         );
-        if (isLast) setState(() => _lastCardCommitted = false);
       }
+    }());
+
+    return Future<void>.value();
+  }
+
+  Future<void> _onRewind() async {
+    final targetUid = _rewindTargetUid;
+    final kind = _rewindKind;
+    final actionId = _rewindActionId;
+    final commitFuture = _rewindCommitFuture;
+
+    if (targetUid == null ||
+        kind == null ||
+        actionId == null ||
+        commitFuture == null ||
+        _rewindBusy ||
+        _isActionLoading) {
+      return;
+    }
+
+    final forwardIndex = _currentIndex;
+    final previousIndex = forwardIndex - 1;
+
+    if (previousIndex < 0 ||
+        previousIndex >= _candidates.length ||
+        _candidates[previousIndex].uid != targetUid) {
+      setState(() {
+        _rewindTargetUid = null;
+        _rewindKind = null;
+        _rewindActionId = null;
+        _rewindCommitFuture = null;
+      });
+      return;
+    }
+
+    // Visual Rewind is immediate.
+    setState(() {
+      _rewindBusy = true;
+      _currentIndex = previousIndex;
+      _rewindTargetUid = null;
+      _rewindKind = null;
+      _rewindActionId = null;
+      _rewindCommitFuture = null;
+      _lastCardCommitted = false;
+      _swipeFeedback = 0;
+    });
+
+    _precacheUpcomingCandidatePhotos();
+
+    var restoreRewindOnFailure = true;
+
+    try {
+      // If the original swipe is still in flight, wait only in the
+      // background. The card has already returned visually.
+      final commitState = await commitFuture;
+
+      if (commitState == _DiscoverCommitState.irreversible) {
+        restoreRewindOnFailure = false;
+        throw StateError('This action is no longer rewindable.');
+      }
+
+      if (commitState == _DiscoverCommitState.rewindable) {
+        if (kind == _DiscoverRewindKind.pass) {
+          await _rewindPass(targetUid);
+        } else {
+          await _rewindLike(targetUid);
+        }
+      }
+
+      // notCommitted means the original network write failed; local Rewind
+      // already represents the correct final state.
+
+      if (!mounted) return;
+
+      if (kind == _DiscoverRewindKind.like) {
+        setState(() {
+          _likeDispatchedUids.remove(targetUid);
+        });
+      }
+    } catch (e, st) {
+      debugPrint('Discover Rewind failed: $e\n$st');
+      if (!mounted) return;
+
+      setState(() {
+        _currentIndex = forwardIndex;
+        _lastCardCommitted = forwardIndex >= _candidates.length;
+        _swipeFeedback = 0;
+
+        if (restoreRewindOnFailure) {
+          _rewindTargetUid = targetUid;
+          _rewindKind = kind;
+          _rewindActionId = actionId;
+          _rewindCommitFuture = commitFuture;
+        }
+      });
+
+      final l10n = AppLocalizations.of(context)!;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(l10n.discoverActionFailed),
+          backgroundColor: AppColors.error,
+        ),
+      );
     } finally {
-      if (mounted) setState(() => _isActionLoading = false);
+      if (mounted) {
+        setState(() => _rewindBusy = false);
+      }
     }
   }
 
   Future<void> _onLike() async {
     final c = _currentCandidate;
-    if (c == null) return;
+    if (c == null || _rewindBusy || _isActionLoading) return;
     if (!_likeDispatchedUids.add(c.uid)) return;
 
     final isLast = _isLastCandidate;
-    if (isLast) setState(() => _lastCardCommitted = true);
+    final actionId = ++_nextRewindActionId;
+    final localUiSw = Stopwatch()..start();
+
+    setState(() {
+      _isActionLoading = true;
+      if (isLast) _lastCardCommitted = true;
+
+      _rewindTargetUid = null;
+      _rewindKind = null;
+      _rewindActionId = null;
+      _rewindCommitFuture = null;
+    });
 
     final likeTapSw = Stopwatch()..start();
     QmatchPerf.mark('match.like_tap');
 
-    // Trusted callable — dialog waits only on this, never on fly-off / push.
     QmatchPerf.mark('match.callable_start', likeTapSw.elapsed);
+
     final likeFuture = _swipeService.likeUser(c.uid).then((outcome) {
       QmatchPerf.mark('match.callable_response', likeTapSw.elapsed);
       return outcome;
     });
 
-    // Card fly-off + stamp bookkeeping run in parallel; must not gate dialog.
+    var irreversible = false;
+
+    final commitFuture = likeFuture.then<_DiscoverCommitState>(
+      (outcome) {
+        if (outcome == LikeMatchOutcome.noMatch) {
+          return _DiscoverCommitState.rewindable;
+        }
+        return _DiscoverCommitState.irreversible;
+      },
+      onError: (Object e, StackTrace st) {
+        return _DiscoverCommitState.notCommitted;
+      },
+    );
+
+    _armRewind(
+      actionId: actionId,
+      targetUid: c.uid,
+      kind: _DiscoverRewindKind.like,
+      commitFuture: commitFuture,
+    );
+    QmatchPerf.mark(
+      'discover.local.like_rewind_armed',
+      localUiSw.elapsed,
+    );
+
+    unawaited(_noteCommittedSwipe());
+
+    // Tinder-style UX: card + Rewind are local and instant.
     unawaited(() async {
-      await _noteCommittedSwipe();
-      await Future<void>.delayed(QMatchDiscoverSwipeableCard.flyOffDuration);
-      if (mounted) _advance();
+      await Future<void>.delayed(
+        QMatchDiscoverSwipeableCard.flyOffDuration,
+      );
+      if (!mounted) return;
+
+      // An unusually fast Match response may arrive before the 100ms
+      // animation completes. In that case advance without Rewind.
+      _advanceDeck();
+      QmatchPerf.mark(
+        'discover.local.like_next_card',
+        localUiSw.elapsed,
+      );
+
+      if (irreversible) {
+        return;
+      }
     }());
 
     try {
       final outcome = await likeFuture;
       if (!mounted) return;
+
+      if (outcome == LikeMatchOutcome.noMatch) {
+        return;
+      }
+
+      irreversible = true;
+
+      // Only this exact local action may clear its own Rewind.
+      if (_rewindActionId == actionId) {
+        setState(() {
+          _rewindTargetUid = null;
+          _rewindKind = null;
+          _rewindActionId = null;
+          _rewindCommitFuture = null;
+        });
+      }
+
+      if (outcome == LikeMatchOutcome.existingActiveMatch) {
+        return;
+      }
+
       if (outcome == LikeMatchOutcome.createdNewMatch) {
         QmatchPerf.mark('match.created_new_match', likeTapSw.elapsed);
         QmatchPerf.mark('match.dialog_show', likeTapSw.elapsed);
@@ -608,8 +901,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     }
   }
 
-  void _onLikeFromActionBar() {
-    _onLike();
+  void _onPassAction() {
+    unawaited(_onPass());
+    if (mounted) setState(() {});
+  }
+
+  void _onLikeAction() {
+    unawaited(_onLike());
     if (mounted) setState(() {});
   }
 
@@ -754,6 +1052,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   Widget _buildBody() {
     final l10n = AppLocalizations.of(context)!;
+    final rewindLabel = l10n.discoverRewind;
 
     if (_isLoading) {
       return Column(
@@ -811,9 +1110,29 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               onSecondary: passportEmpty ? _turnPassportOff : null,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: AppSpacing.md,
+            ),
+            child: Center(
+              child: QMatchDiscoverRewindButton(
+                semanticLabel: rewindLabel,
+                loading: _rewindBusy,
+                onPressed: (_rewindBusy || _rewindTargetUid == null)
+                    ? null
+                    : _onRewind,
+              ),
+            ),
+          ),
         ],
       );
     }
+
+    final nextCandidateIndex = _currentIndex + 1;
+    final nextCandidate =
+        nextCandidateIndex >= 0 && nextCandidateIndex < _candidates.length
+            ? _candidates[nextCandidateIndex]
+            : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -825,17 +1144,37 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             child: Stack(
               fit: StackFit.expand,
               children: [
+                // Tinder-style deck:
+                // the next candidate is already rendered underneath the
+                // current card. As soon as the top card moves, the next
+                // profile is visible — no network/build wait.
+                if (nextCandidate != null)
+                  IgnorePointer(
+                    child: KeyedSubtree(
+                      key: ValueKey(
+                        'qmatch-discover-underlay-${nextCandidate.uid}',
+                      ),
+                      child: QMatchCandidateCard(
+                        candidate: nextCandidate,
+                        showLegacyCompatibilityUi: _discoverService
+                            .rankingMode.usesLegacyCompatibilityScoring,
+                      ),
+                    ),
+                  ),
+
                 QMatchDiscoverSwipeableCard(
                   candidateId: c.uid,
-                  enabled: !_isActionLoading && !_showGestureOnboarding,
+                  enabled: !_isActionLoading &&
+                      !_rewindBusy &&
+                      !_showGestureOnboarding,
                   showSwipeStamps:
                       DiscoverGestureOnboardingStore.showSwipeStamps(
                     _committedSwipeCount,
                   ),
                   likeLabel: l10n.discoverLike,
                   passLabel: l10n.discoverPass,
-                  onLike: _onLike,
-                  onPass: _onPass,
+                  onLike: _onLikeAction,
+                  onPass: _onPassAction,
                   onSwipeFeedback: _onSwipeFeedback,
                   child: QMatchCandidateCard(
                     candidate: c,
@@ -859,16 +1198,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           QMatchDiscoverActionBar(
             passLabel: l10n.discoverPass,
             likeLabel: l10n.discoverLike,
+            rewindLabel: rewindLabel,
+            showRewind: true,
+            isRewindLoading: _rewindBusy,
+            onRewind: (_rewindBusy || _showGestureOnboarding)
+                ? null
+                : (_rewindTargetUid == null ? null : _onRewind),
             onPass: (_isActionLoading ||
+                    _rewindBusy ||
                     _showGestureOnboarding ||
                     _likeDispatchedUids.contains(c.uid))
                 ? null
-                : _onPass,
+                : _onPassAction,
             onLike: (_isActionLoading ||
+                    _rewindBusy ||
                     _showGestureOnboarding ||
                     _likeDispatchedUids.contains(c.uid))
                 ? null
-                : _onLikeFromActionBar,
+                : _onLikeAction,
             isActionLoading: _isActionLoading,
             subdued: _showGestureOnboarding,
             swipeFeedback: _swipeFeedback,
@@ -877,6 +1224,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             isSuperResonanceLoading: _superResonanceBusy,
             superResonanceBalance: _superResonanceBalance,
             onSuperResonance: (_isActionLoading ||
+                    _rewindBusy ||
                     _showGestureOnboarding ||
                     _superResonanceBusy ||
                     _likeDispatchedUids.contains(c.uid))

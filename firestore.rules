@@ -302,8 +302,18 @@ service cloud.firestore {
       match /swipes/{targetUid} {
         allow read: if isSignedIn()
           && (request.auth.uid == uid || request.auth.uid == targetUid);
-        allow create, update: if isOwner(uid)
-          && request.resource.data.direction != 'like';
+
+        // Client may create only a Discover Pass.
+        // Like creation remains Admin/callable only.
+        allow create: if isOwner(uid)
+          && request.resource.data.direction == 'pass';
+
+        // A client may update an existing Pass, but can never downgrade
+        // an Admin-created Like into Pass.
+        allow update: if isOwner(uid)
+          && resource.data.direction == 'pass'
+          && request.resource.data.direction == 'pass';
+
         allow delete: if false;
       }
 

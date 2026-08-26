@@ -198,6 +198,7 @@
   "discoverPassportEmptyBody": "Passport konumunu değiştirebilir veya Worldwide'a dönebilirsin.",
   "discoverPass": "Geç",
   "discoverLike": "Beğen",
+  "discoverRewind": "Geri al",
   "discoverSuperResonance": "Super Resonance",
   "discoverSuperResonanceConfirmTitle": "{name} kişisine Super Resonance gönderilsin mi?",
   "@discoverSuperResonanceConfirmTitle": {
@@ -219,27 +220,39 @@
   "discoverSuperResonanceDailyAllowance": "Bugünkü Resonance hakkı: {remaining} / {limit}",
   "@discoverSuperResonanceDailyAllowance": {
     "placeholders": {
-      "remaining": { "type": "int" },
-      "limit": { "type": "int" }
+      "remaining": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
     }
   },
   "discoverSuperResonancePurchased": "Satın alınan: {count}",
   "@discoverSuperResonancePurchased": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "membershipSuperResonanceDaily": "Bugünkü dahil kullanımlar: {remaining} / {limit}",
   "@membershipSuperResonanceDaily": {
     "placeholders": {
-      "remaining": { "type": "int" },
-      "limit": { "type": "int" }
+      "remaining": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
     }
   },
   "membershipSuperResonancePurchased": "Satın alınan: {count}",
   "@membershipSuperResonancePurchased": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discoverSuperResonanceQuantity": "1 Super Resonance",
@@ -888,27 +901,39 @@
   "relationshipAnalysisDepthPercent": "%{percent}",
   "@relationshipAnalysisDepthPercent": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisDepthTransition": "%{before} → %{after}",
   "@relationshipAnalysisDepthTransition": {
     "placeholders": {
-      "before": {"type": "int"},
-      "after": {"type": "int"}
+      "before": {
+        "type": "int"
+      },
+      "after": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisOverallDepth": "Genel analiz %{percent}",
   "@relationshipAnalysisOverallDepth": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisMicroScanProgress": "Soru {current} / {total}",
   "@relationshipAnalysisMicroScanProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisPrevious": "Önceki",

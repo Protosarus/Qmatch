@@ -956,6 +956,12 @@ abstract class AppLocalizations {
   /// **'Like'**
   String get discoverLike;
 
+  /// No description provided for @discoverRewind.
+  ///
+  /// In en, this message translates to:
+  /// **'Rewind'**
+  String get discoverRewind;
+
   /// No description provided for @discoverSuperResonance.
   ///
   /// In en, this message translates to:

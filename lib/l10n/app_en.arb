@@ -205,6 +205,7 @@
   "discoverPassportEmptyBody": "Change your Passport destination or return to Worldwide.",
   "discoverPass": "Pass",
   "discoverLike": "Like",
+  "discoverRewind": "Rewind",
   "discoverSuperResonance": "Super Resonance",
   "discoverSuperResonanceConfirmTitle": "Send Super Resonance to {name}?",
   "@discoverSuperResonanceConfirmTitle": {
@@ -226,27 +227,39 @@
   "discoverSuperResonanceDailyAllowance": "Today's Resonance allowance: {remaining} / {limit}",
   "@discoverSuperResonanceDailyAllowance": {
     "placeholders": {
-      "remaining": { "type": "int" },
-      "limit": { "type": "int" }
+      "remaining": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
     }
   },
   "discoverSuperResonancePurchased": "Purchased: {count}",
   "@discoverSuperResonancePurchased": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "membershipSuperResonanceDaily": "Today's included uses: {remaining} / {limit}",
   "@membershipSuperResonanceDaily": {
     "placeholders": {
-      "remaining": { "type": "int" },
-      "limit": { "type": "int" }
+      "remaining": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
     }
   },
   "membershipSuperResonancePurchased": "Purchased: {count}",
   "@membershipSuperResonancePurchased": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "discoverSuperResonanceQuantity": "1 Super Resonance",
@@ -902,27 +915,39 @@
   "relationshipAnalysisDepthPercent": "{percent}%",
   "@relationshipAnalysisDepthPercent": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisDepthTransition": "{before}% → {after}%",
   "@relationshipAnalysisDepthTransition": {
     "placeholders": {
-      "before": {"type": "int"},
-      "after": {"type": "int"}
+      "before": {
+        "type": "int"
+      },
+      "after": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisOverallDepth": "Overall analysis {percent}%",
   "@relationshipAnalysisOverallDepth": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisMicroScanProgress": "Question {current} of {total}",
   "@relationshipAnalysisMicroScanProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "relationshipAnalysisPrevious": "Previous",

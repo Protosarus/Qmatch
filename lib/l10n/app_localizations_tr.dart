@@ -486,6 +486,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get discoverLike => 'Beğen';
 
   @override
+  String get discoverRewind => 'Geri al';
+
+  @override
   String get discoverSuperResonance => 'Super Resonance';
 
   @override

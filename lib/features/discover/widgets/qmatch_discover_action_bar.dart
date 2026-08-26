@@ -25,6 +25,10 @@ class QMatchDiscoverActionBar extends StatefulWidget {
     required this.onPass,
     required this.onLike,
     required this.isActionLoading,
+    this.rewindLabel,
+    this.onRewind,
+    this.isRewindLoading = false,
+    this.showRewind = false,
     this.subdued = false,
     this.swipeFeedback = 0,
     this.superResonanceLabel,
@@ -42,6 +46,12 @@ class QMatchDiscoverActionBar extends StatefulWidget {
   final VoidCallback? onPass;
   final VoidCallback? onLike;
   final bool isActionLoading;
+
+  final String? rewindLabel;
+  final VoidCallback? onRewind;
+  final bool isRewindLoading;
+  final bool showRewind;
+
   final bool subdued;
 
   /// `-1..1` from [QMatchDiscoverSwipeableCard] drag progress.
@@ -128,6 +138,16 @@ class _QMatchDiscoverActionBarState extends State<QMatchDiscoverActionBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (widget.showRewind ||
+                widget.onRewind != null ||
+                widget.isRewindLoading) ...[
+              QMatchDiscoverRewindButton(
+                semanticLabel: widget.rewindLabel ?? 'Rewind',
+                onPressed: widget.onRewind,
+                loading: widget.isRewindLoading,
+              ),
+              const SizedBox(width: AppSpacing.sm),
+            ],
             _DiscoverIconButton(
               buttonKey: const Key('qmatch-discover-pass'),
               icon: Icons.close_rounded,
@@ -271,6 +291,87 @@ class _DiscoverIconButton extends StatelessWidget {
 }
 
 const _lilac = Color(0xFFDAC8ED);
+
+class QMatchDiscoverRewindButton extends StatelessWidget {
+  const QMatchDiscoverRewindButton({
+    super.key,
+    required this.semanticLabel,
+    required this.onPressed,
+    this.loading = false,
+  });
+
+  final String semanticLabel;
+  final VoidCallback? onPressed;
+  final bool loading;
+
+  @override
+  Widget build(BuildContext context) {
+    const size = 40.0;
+    final enabled = onPressed != null && !loading;
+
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: semanticLabel,
+      child: GestureDetector(
+        onTap: enabled ? onPressed : null,
+        behavior: HitTestBehavior.opaque,
+        child: SizedBox(
+          width: size + 8,
+          height: size + 8,
+          child: Center(
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 140),
+              opacity: enabled || loading ? 1 : 0.42,
+              child: SizedBox(
+                key: const Key('qmatch-discover-rewind'),
+                width: size,
+                height: size,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.cosmicPurple.withValues(alpha: 0.40),
+                    border: Border.all(
+                      color: _lilac.withValues(
+                        alpha: enabled || loading ? 0.72 : 0.34,
+                      ),
+                    ),
+                    boxShadow: enabled
+                        ? [
+                            BoxShadow(
+                              color: AppColors.resonanceViolet.withValues(
+                                alpha: 0.22,
+                              ),
+                              blurRadius: 10,
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Center(
+                    child: loading
+                        ? const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(_lilac),
+                            ),
+                          )
+                        : const Icon(
+                            Icons.undo_rounded,
+                            size: 20,
+                            color: _lilac,
+                          ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _SuperResonanceButton extends StatelessWidget {
   const _SuperResonanceButton({
