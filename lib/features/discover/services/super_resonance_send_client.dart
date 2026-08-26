@@ -26,9 +26,16 @@ class SuperResonanceSendClient {
   )? _call;
   final String Function()? _requestIdFactory;
 
+  // Legacy callable contract — preserved for compatibility/test injection.
   static const String callableName = 'sendSuperResonance';
   static const String availabilityCallableName =
       'getSuperResonanceAvailability';
+
+  // Current production endpoints, colocated with Firestore.
+  static const String callableNameEu = 'sendSuperResonanceEu';
+  static const String availabilityCallableNameEu =
+      'getSuperResonanceAvailabilityEu';
+  static const String callableRegionEu = 'europe-west1';
 
   String newRequestId() {
     final custom = _requestIdFactory;
@@ -71,8 +78,19 @@ class SuperResonanceSendClient {
   ) async {
     final custom = _call;
     if (custom != null) return custom(name, data);
-    final functions = _functions ?? FirebaseFunctions.instance;
-    final result = await functions.httpsCallable(name).call(data);
+
+    final productionName = switch (name) {
+      callableName => callableNameEu,
+      availabilityCallableName => availabilityCallableNameEu,
+      _ => name,
+    };
+
+    final functions = _functions ??
+        FirebaseFunctions.instanceFor(
+          region: callableRegionEu,
+        );
+
+    final result = await functions.httpsCallable(productionName).call(data);
     final payload = result.data;
     if (payload is Map) {
       return Map<String, dynamic>.from(payload);

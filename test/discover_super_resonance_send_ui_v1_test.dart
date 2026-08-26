@@ -503,20 +503,23 @@ void main() {
         'lib/features/discover/screens/discover_screen.dart',
       ).readAsStringSync();
       final superIdx = src.indexOf('Future<void> _onSuperResonance() async {');
-      final passIdx = src.indexOf('Future<void> _onPass() async {');
+      final passHelperIdx =
+          src.indexOf('Future<void> _passUser(String targetUid)');
+      final passIdx = src.indexOf('Future<void> _onPass() {');
       final likeIdx = src.indexOf('Future<void> _onLike() async {');
       final buildIdx = src.indexOf('Widget build(BuildContext context)');
       expect(superIdx, greaterThanOrEqualTo(0));
-      expect(passIdx, greaterThan(superIdx));
+      expect(passHelperIdx, greaterThan(superIdx));
+      expect(passIdx, greaterThan(passHelperIdx));
       expect(likeIdx, greaterThan(passIdx));
       expect(buildIdx, greaterThan(likeIdx));
-      superBody = src.substring(superIdx, passIdx);
+      superBody = src.substring(superIdx, passHelperIdx);
       passBody = src.substring(passIdx, likeIdx);
       likeBody = src.substring(likeIdx, buildIdx);
     });
 
     test('send does not advance the deck or write Like/Pass', () {
-      expect(superBody.contains('_advance()'), isFalse);
+      expect(superBody.contains('_advanceDeck()'), isFalse);
       expect(superBody.contains('likeUser'), isFalse);
       expect(superBody.contains('passUser'), isFalse);
       expect(superBody.contains('_likeDispatchedUids.add'), isFalse);
@@ -535,10 +538,10 @@ void main() {
 
     test('Like/Pass bodies stay unchanged', () {
       expect(likeBody.contains('likeUser(c.uid)'), isTrue);
-      expect(likeBody.contains('_advance()'), isTrue);
+      expect(likeBody.contains('_advanceDeck()'), isTrue);
       expect(likeBody.contains('sendSuperResonance'), isFalse);
       expect(passBody.contains('passUser(c.uid)'), isTrue);
-      expect(passBody.contains('_advance()'), isTrue);
+      expect(passBody.contains('_advanceDeck()'), isTrue);
       expect(passBody.contains('sendSuperResonance'), isFalse);
     });
 

@@ -297,6 +297,15 @@ exports.sendSuperResonance = onCall(
   { region: 'us-central1' },
   (request) => sendSuperResonance.handleSendSuperResonance(request),
 );
+
+/**
+ * EU-colocated Super Resonance send endpoint for current clients.
+ * Legacy us-central1 endpoint remains live for older app versions.
+ */
+exports.sendSuperResonanceEu = onCall(
+  { region: 'europe-west1' },
+  (request) => sendSuperResonance.handleSendSuperResonance(request),
+);
 exports.handleSendSuperResonance = sendSuperResonance.handleSendSuperResonance;
 const getSuperResonanceAvailability = require('./src/get_super_resonance_availability_callable');
 
@@ -306,6 +315,16 @@ const getSuperResonanceAvailability = require('./src/get_super_resonance_availab
  */
 exports.getSuperResonanceAvailability = onCall(
   { region: 'us-central1' },
+  (request) =>
+    getSuperResonanceAvailability.handleGetSuperResonanceAvailability(request),
+);
+
+/**
+ * EU-colocated Super Resonance availability endpoint for current clients.
+ * Legacy us-central1 endpoint remains live for older app versions.
+ */
+exports.getSuperResonanceAvailabilityEu = onCall(
+  { region: 'europe-west1' },
   (request) =>
     getSuperResonanceAvailability.handleGetSuperResonanceAvailability(request),
 );
