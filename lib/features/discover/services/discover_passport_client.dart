@@ -41,9 +41,16 @@ class DiscoverPassportClient {
       _setOverride;
   final Future<DiscoverPassportSnapshot> Function()? _disableOverride;
 
+  // Legacy callable contract — kept for compatibility and test injection.
   static const String getCallableName = 'getDiscoverPassport';
   static const String setCallableName = 'setDiscoverPassport';
   static const String disableCallableName = 'disableDiscoverPassport';
+
+  // Current production endpoints, colocated with Firestore.
+  static const String getCallableNameEu = 'getDiscoverPassportEu';
+  static const String setCallableNameEu = 'setDiscoverPassportEu';
+  static const String disableCallableNameEu = 'disableDiscoverPassportEu';
+  static const String callableRegionEu = 'europe-west1';
 
   /// In-memory UX copy. Never used as Discover query authority.
   DiscoverPassportSnapshot uxSnapshot = DiscoverPassportSnapshot.worldwide;
@@ -67,7 +74,8 @@ class DiscoverPassportClient {
     final countryCode = HomeGeographyNormalizer.normalizeCountryCode(country);
     final citySlug = HomeGeographyNormalizer.normalizeCitySlug(city);
     if (countryCode == null || citySlug == null) {
-      throw ArgumentError('Passport destination must be ISO country + city slug.');
+      throw ArgumentError(
+          'Passport destination must be ISO country + city slug.');
     }
     final custom = _setOverride;
     if (custom != null) {
@@ -108,9 +116,21 @@ class DiscoverPassportClient {
   ) async {
     final custom = _call;
     if (custom != null) return custom(name, data);
-    final functions = _functions ?? FirebaseFunctions.instance;
+
+    final productionName = switch (name) {
+      getCallableName => getCallableNameEu,
+      setCallableName => setCallableNameEu,
+      disableCallableName => disableCallableNameEu,
+      _ => name,
+    };
+
+    final functions = _functions ??
+        FirebaseFunctions.instanceFor(
+          region: callableRegionEu,
+        );
+
     try {
-      final result = await functions.httpsCallable(name).call(data);
+      final result = await functions.httpsCallable(productionName).call(data);
       final payload = result.data;
       if (payload is Map) {
         return Map<String, dynamic>.from(payload);

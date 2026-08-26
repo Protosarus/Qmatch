@@ -144,7 +144,10 @@ class DiscoverService {
     final currentUid = me.uid;
     final shadowGeneration = ++_shadowGeneration;
 
-    final passport = await _passportClient.get();
+    final passport = await QmatchPerf.trace(
+      'discover.passport_get',
+      () => _passportClient.get(),
+    );
     lastPassportSnapshot = passport;
     final plan = DiscoverEligibleQueryPlan.fromPassport(passport);
     lastQueryPlan = plan;
@@ -212,8 +215,8 @@ class DiscoverService {
     var excludedAssessmentIncomplete = 0;
     var excludedMissingPhoto = 0;
 
-    final docs = snapshot?.docs ??
-        const <QueryDocumentSnapshot<Map<String, dynamic>>>[];
+    final docs =
+        snapshot?.docs ?? const <QueryDocumentSnapshot<Map<String, dynamic>>>[];
     QmatchPerf.traceSync('discover.l1_local', () {
       if (_stageB2Collector.enabled) {
         _stageB2Collector.beginSession(viewerUid: currentUid);

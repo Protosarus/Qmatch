@@ -350,6 +350,23 @@ exports.disableDiscoverPassport = onCall(
   { region: 'us-central1' },
   (request) => discoverPassport.handleDisableDiscoverPassport(request),
 );
+
+/**
+ * EU-colocated Discover Passport endpoints for current clients.
+ * Legacy us-central1 endpoints remain live for older app versions.
+ */
+exports.getDiscoverPassportEu = onCall(
+  { region: 'europe-west1' },
+  (request) => discoverPassport.handleGetDiscoverPassport(request),
+);
+exports.setDiscoverPassportEu = onCall(
+  { region: 'europe-west1' },
+  (request) => discoverPassport.handleSetDiscoverPassport(request),
+);
+exports.disableDiscoverPassportEu = onCall(
+  { region: 'europe-west1' },
+  (request) => discoverPassport.handleDisableDiscoverPassport(request),
+);
 exports.handleGetDiscoverPassport = discoverPassport.handleGetDiscoverPassport;
 exports.handleSetDiscoverPassport = discoverPassport.handleSetDiscoverPassport;
 exports.handleDisableDiscoverPassport =
