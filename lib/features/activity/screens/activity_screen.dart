@@ -9,6 +9,8 @@ import '../../relationship_analysis/widgets/relationship_analysis_activity_card.
 import '../models/activity_event_model.dart';
 import '../services/activity_service.dart';
 
+const bool _showRelationshipAnalysisUi = false;
+
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({
     super.key,
@@ -146,7 +148,8 @@ class _ActivityScreenState extends State<ActivityScreen> {
 
                       final events =
                           snapshot.data ?? const <ActivityEventModel>[];
-                      final showRaCard = prompt.showCard;
+                      final showRaCard =
+                          _showRelationshipAnalysisUi && prompt.showCard;
 
                       if (events.isEmpty && !showRaCard) {
                         return _ActivityCenteredState(

@@ -12,6 +12,8 @@ import '../../features/relationship_analysis/services/relationship_analysis_disc
 import '../../l10n/app_localizations.dart';
 import 'qmatch_main_shell.dart';
 
+const bool _showRelationshipAnalysisUi = false;
+
 class MainNavigationScreen extends StatefulWidget {
   static const int discoverTabIndex = 0;
   static const int activityTabIndex = 1;
@@ -103,7 +105,9 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
           stream: _relationshipActivityBadgeStream(),
           initialData: false,
           builder: (context, raSnap) {
-            final showActivityDot = !raSnap.hasError && (raSnap.data ?? false);
+            final showActivityDot = _showRelationshipAnalysisUi &&
+                !raSnap.hasError &&
+                (raSnap.data ?? false);
 
             return QMatchMainShell(
               currentIndex: _currentIndex,

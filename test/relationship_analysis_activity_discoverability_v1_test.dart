@@ -270,7 +270,8 @@ void main() {
   });
 
   group('Activity / Profile UI', () {
-    testWidgets('2. tapping Activity CTA opens/resumes micro-scan',
+    testWidgets(
+        '2. Relationship Analysis Activity CTA is hidden while UI flag is off',
         (tester) async {
       var opened = 0;
       await tester.pumpWidget(
@@ -298,20 +299,20 @@ void main() {
 
       expect(
         find.byKey(const Key('qmatch-relationship-analysis-activity-card')),
-        findsOneWidget,
+        findsNothing,
       );
-      expect(find.text('Deepen your relationship analysis'), findsOneWidget);
       expect(
-          find.text('4 new questions are ready · about 1 min'), findsOneWidget);
-
-      await tester.tap(
         find.byKey(const Key('qmatch-relationship-analysis-activity-cta')),
+        findsNothing,
       );
-      await tester.pump();
-      expect(opened, 1);
+      expect(find.text('Deepen your relationship analysis'), findsNothing);
+      expect(opened, 0);
+      expect(find.byKey(const Key('activity-empty-state')), findsOneWidget);
     });
 
-    testWidgets('resume copy on Activity card', (tester) async {
+    testWidgets(
+        'resume Relationship Analysis card is hidden while UI flag is off',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           locale: const Locale('en'),
@@ -334,8 +335,14 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text('Continue your relationship analysis'), findsOneWidget);
-      expect(find.text('Pick up where you left off.'), findsOneWidget);
+
+      expect(
+        find.byKey(const Key('qmatch-relationship-analysis-activity-card')),
+        findsNothing,
+      );
+      expect(find.text('Continue your relationship analysis'), findsNothing);
+      expect(find.text('Pick up where you left off.'), findsNothing);
+      expect(find.byKey(const Key('activity-empty-state')), findsOneWidget);
     });
 
     testWidgets('5. Activity card hidden during cooldown prompt=none',
@@ -387,7 +394,9 @@ void main() {
       expect(find.byKey(const Key('qmatch-nav-dot-badge-3')), findsNothing);
     });
 
-    testWidgets('Activity badge on Activity tab when eligible', (tester) async {
+    testWidgets(
+        'Activity Relationship Analysis badge stays hidden while UI flag is off',
+        (tester) async {
       await tester.pumpWidget(
         MaterialApp(
           locale: const Locale('en'),
@@ -407,7 +416,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('qmatch-nav-dot-badge-1')), findsOneWidget);
+      expect(find.byKey(const Key('qmatch-nav-dot-badge-1')), findsNothing);
       expect(find.byKey(const Key('qmatch-nav-dot-badge-3')), findsNothing);
     });
 

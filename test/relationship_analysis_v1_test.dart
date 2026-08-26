@@ -5,14 +5,26 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qmatch/features/relationship_analysis/domain/relationship_analysis_state.dart';
 import 'package:qmatch/features/relationship_analysis/domain/relationship_bank_loader.dart';
+import 'package:qmatch/features/relationship_analysis/domain/relationship_bank_models.dart';
 import 'package:qmatch/features/relationship_analysis/domain/relationship_dimensions.dart';
+import 'package:qmatch/features/relationship_analysis/domain/relationship_insight_engine.dart';
 import 'package:qmatch/features/relationship_analysis/domain/relationship_micro_scan_selector.dart';
 import 'package:qmatch/features/relationship_analysis/domain/relationship_scorer.dart';
 import 'package:qmatch/features/relationship_analysis/services/relationship_analysis_discovery.dart';
 import 'package:qmatch/features/relationship_analysis/services/relationship_analysis_persistence.dart';
 import 'package:qmatch/features/relationship_analysis/services/relationship_analysis_service.dart';
+import 'package:qmatch/features/relationship_analysis/screens/relationship_analysis_micro_scan_screen.dart';
 import 'package:qmatch/features/relationship_analysis/widgets/relationship_analysis_profile_card.dart';
 import 'package:qmatch/l10n/app_localizations.dart';
+
+class _StaticRelationshipBankLoader extends RelationshipBankLoader {
+  _StaticRelationshipBankLoader(this.bank);
+
+  final RelationshipAnalysisBank bank;
+
+  @override
+  Future<RelationshipAnalysisBank> load({bool validate = true}) async => bank;
+}
 
 void main() {
   final bankJson =
@@ -517,6 +529,270 @@ void main() {
     expect(next.hasActiveMicroScan, isFalse);
     expect(next.activeMicroScanQuestionIds, isEmpty);
     expect(service.isBankComplete(next), isTrue);
+  });
+
+  group('completion insight UX', () {
+    Map<String, String> findInsightfulAnswers(List<String> questionIds) {
+      const scorer = RelationshipAnalysisScorer();
+      const engine = RelationshipInsightEngine();
+
+      final selected = <String, String>{};
+      Map<String, String>? found;
+
+      void search(int index) {
+        if (found != null) return;
+
+        if (index >= questionIds.length) {
+          final snapshot = scorer.score(
+            bank: bank,
+            answersByQuestionId: selected,
+          );
+
+          final state = RelationshipAnalysisState.empty().copyWith(
+            answersByQuestionId: Map<String, String>.from(selected),
+            dimensionScores: snapshot.dimensionScores,
+            dimensionEvidenceCounts: snapshot.dimensionEvidenceCounts,
+            dimensionRawSignedEvidence: snapshot.dimensionRawSignedEvidence,
+            analysisDepth: snapshot.analysisDepth,
+          );
+
+          if (engine.derive(state).isNotEmpty) {
+            found = Map<String, String>.from(selected);
+          }
+          return;
+        }
+
+        final question = bank.byId[questionIds[index]]!;
+
+        for (final option in question.options) {
+          selected[question.id] = option.id;
+          search(index + 1);
+          if (found != null) return;
+        }
+
+        selected.remove(question.id);
+      }
+
+      search(0);
+
+      if (found == null) {
+        throw StateError(
+          'No insight-producing answer combination found for micro-scan.',
+        );
+      }
+
+      return found!;
+    }
+
+    Future<void> pumpAsyncWork(WidgetTester tester) async {
+      for (var i = 0; i < 8; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+    }
+
+    Future<void> pumpMicroScan(
+      WidgetTester tester, {
+      required RelationshipAnalysisService service,
+    }) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: RelationshipAnalysisMicroScanScreen(
+            service: service,
+            uidOverride: 'u1',
+          ),
+        ),
+      );
+
+      await pumpAsyncWork(tester);
+    }
+
+    testWidgets(
+      'completed 4-question batch shows a newly emerged insight',
+      (tester) async {
+        final memory = <String, Map<String, dynamic>>{};
+
+        final persistence = RelationshipAnalysisPersistence(
+          loadOverride: (uid) async => memory[uid],
+          writeOverride: (uid, fields) async {
+            final target = memory.putIfAbsent(uid, () => <String, dynamic>{});
+            RelationshipAnalysisPersistence.mergeFields(target, fields);
+          },
+        );
+
+        final service = RelationshipAnalysisService(
+          persistence: persistence,
+          bankLoader: _StaticRelationshipBankLoader(bank),
+        );
+
+        final active = await service.beginMicroScan(
+          uid: 'u1',
+          state: RelationshipAnalysisState.empty(),
+        );
+
+        final questionIds =
+            List<String>.from(active.activeMicroScanQuestionIds);
+
+        expect(questionIds, hasLength(4));
+
+        final answers = findInsightfulAnswers(questionIds);
+
+        await pumpMicroScan(
+          tester,
+          service: service,
+        );
+
+        for (final questionId in questionIds) {
+          final optionId = answers[questionId]!;
+
+          await tester.tap(
+            find.byKey(
+              Key('relationship-analysis-option-$optionId'),
+            ),
+          );
+          await tester.pump();
+
+          await tester.tap(
+            find.byKey(const Key('relationship-analysis-next')),
+          );
+          await pumpAsyncWork(tester);
+        }
+
+        expect(
+          find.byKey(
+            const Key('relationship-analysis-completion-insight'),
+          ),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text('A new pattern emerged'),
+          findsOneWidget,
+        );
+
+        expect(
+          find.byKey(
+            const Key(
+              'relationship-analysis-completion-insight-title',
+            ),
+          ),
+          findsOneWidget,
+        );
+
+        expect(
+          find.byKey(
+            const Key(
+              'relationship-analysis-completion-insight-body',
+            ),
+          ),
+          findsOneWidget,
+        );
+
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump();
+      },
+    );
+
+    testWidgets(
+      'resumed 3-of-4 batch compares insight against pre-batch state',
+      (tester) async {
+        final memory = <String, Map<String, dynamic>>{};
+
+        final persistence = RelationshipAnalysisPersistence(
+          loadOverride: (uid) async => memory[uid],
+          writeOverride: (uid, fields) async {
+            final target = memory.putIfAbsent(uid, () => <String, dynamic>{});
+            RelationshipAnalysisPersistence.mergeFields(target, fields);
+          },
+        );
+
+        final service = RelationshipAnalysisService(
+          persistence: persistence,
+          bankLoader: _StaticRelationshipBankLoader(bank),
+        );
+
+        var state = await service.beginMicroScan(
+          uid: 'u1',
+          state: RelationshipAnalysisState.empty(),
+        );
+
+        final questionIds = List<String>.from(state.activeMicroScanQuestionIds);
+
+        expect(questionIds, hasLength(4));
+
+        final answers = findInsightfulAnswers(questionIds);
+
+        for (var i = 0; i < 3; i++) {
+          final questionId = questionIds[i];
+
+          state = await service.submitAnswer(
+            uid: 'u1',
+            state: state,
+            questionId: questionId,
+            optionId: answers[questionId]!,
+          );
+        }
+
+        expect(state.activeMicroScanIndex, 3);
+        expect(state.hasActiveMicroScan, isTrue);
+
+        await pumpMicroScan(
+          tester,
+          service: service,
+        );
+
+        final finalQuestionId = questionIds[3];
+        final finalOptionId = answers[finalQuestionId]!;
+
+        expect(
+          find.byKey(
+            const Key('relationship-analysis-progress-label'),
+          ),
+          findsOneWidget,
+        );
+
+        expect(
+          find.byKey(
+            Key('relationship-analysis-option-$finalOptionId'),
+          ),
+          findsOneWidget,
+        );
+
+        await tester.tap(
+          find.byKey(
+            Key('relationship-analysis-option-$finalOptionId'),
+          ),
+        );
+        await tester.pump();
+
+        await tester.tap(
+          find.byKey(const Key('relationship-analysis-next')),
+        );
+        await pumpAsyncWork(tester);
+
+        expect(
+          find.byKey(
+            const Key('relationship-analysis-completion-insight'),
+          ),
+          findsOneWidget,
+        );
+
+        expect(
+          find.text('A new pattern emerged'),
+          findsOneWidget,
+        );
+
+        await tester.pumpWidget(const SizedBox.shrink());
+        await tester.pump();
+      },
+    );
   });
 
   group('profile card UX', () {

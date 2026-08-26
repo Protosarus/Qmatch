@@ -65,6 +65,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool get _showRelationshipAnalysisCard => false;
   late final ProfileService _profileService =
       widget.profileService ?? ProfileService();
 
@@ -320,12 +321,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onPhotoTap: widget.debugProfile != null ? () {} : _openPhotoEdit,
         onEditAnthem: widget.debugProfile != null ? () {} : _openAnthemEdit,
         onOpenAnthemLink: widget.debugProfile != null ? () {} : _openAnthemLink,
-        relationshipAnalysisCard: widget.debugProfile != null
-            ? null
-            : RelationshipAnalysisProfileCard(
-                state: _relationshipState,
-                onDeepen: _openRelationshipAnalysis,
-              ),
+        relationshipAnalysisCard:
+            widget.debugProfile != null || !_showRelationshipAnalysisCard
+                ? null
+                : RelationshipAnalysisProfileCard(
+                    state: _relationshipState,
+                    onDeepen: _openRelationshipAnalysis,
+                  ),
         photoImageProvider: widget.photoImageProvider,
         bottomInset: bottomInset,
         showResonanceBadge: _resonanceAccess,

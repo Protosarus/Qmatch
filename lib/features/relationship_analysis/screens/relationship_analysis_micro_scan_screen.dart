@@ -12,6 +12,9 @@ import '../../../l10n/app_localizations.dart';
 import '../domain/relationship_analysis_state.dart';
 import '../domain/relationship_bank_models.dart';
 import '../domain/relationship_dimensions.dart';
+import '../domain/relationship_insight_copy.dart';
+import '../domain/relationship_insight_engine.dart';
+import '../domain/relationship_scorer.dart';
 import '../services/relationship_analysis_service.dart';
 
 class RelationshipAnalysisMicroScanScreen extends StatefulWidget {
@@ -46,6 +49,14 @@ class _RelationshipAnalysisMicroScanScreenState
   bool _bankComplete = false;
   double _depthAtScanStart = 0.0;
 
+  final RelationshipInsightEngine _insightEngine =
+      const RelationshipInsightEngine();
+  final RelationshipInsightCopyResolver _insightCopyResolver =
+      const RelationshipInsightCopyResolver();
+
+  Set<String> _insightSignaturesAtScanStart = const {};
+  RelationshipInsight? _completionInsight;
+
   String get _uid =>
       widget.uidOverride ?? FirebaseAuth.instance.currentUser?.uid ?? '';
 
@@ -64,6 +75,8 @@ class _RelationshipAnalysisMicroScanScreenState
       _loadFailed = false;
       _bankComplete = false;
       _completedBatch = false;
+      _completionInsight = null;
+      _insightSignaturesAtScanStart = const {};
     });
     try {
       if (_uid.isEmpty) throw StateError('Not signed in');
@@ -80,6 +93,14 @@ class _RelationshipAnalysisMicroScanScreenState
         return;
       }
       _depthAtScanStart = state.analysisDepth;
+
+      final baselineState = _stateBeforeActiveBatch(
+        bank: bank,
+        state: state,
+      );
+      _insightSignaturesAtScanStart =
+          _insightEngine.derive(baselineState).map(_insightSignature).toSet();
+
       state = await _service.beginMicroScan(uid: _uid, state: state);
       if (!mounted) return;
       if (!state.hasActiveMicroScan) {
@@ -120,6 +141,52 @@ class _RelationshipAnalysisMicroScanScreenState
     return bank.byId[ids[index]];
   }
 
+  String _insightSignature(RelationshipInsight insight) {
+    return '${insight.family.name}:'
+        '${insight.firstBand.name}:'
+        '${insight.secondBand.name}';
+  }
+
+  RelationshipAnalysisState _stateBeforeActiveBatch({
+    required RelationshipAnalysisBank bank,
+    required RelationshipAnalysisState state,
+  }) {
+    final activeIds = state.activeMicroScanQuestionIds.toSet();
+    if (activeIds.isEmpty) return state;
+
+    final baselineAnswers = Map<String, String>.from(state.answersByQuestionId)
+      ..removeWhere((questionId, _) => activeIds.contains(questionId));
+
+    final snapshot = const RelationshipAnalysisScorer().score(
+      bank: bank,
+      answersByQuestionId: baselineAnswers,
+    );
+
+    return state.copyWith(
+      answersByQuestionId: baselineAnswers,
+      dimensionScores: snapshot.dimensionScores,
+      dimensionEvidenceCounts: snapshot.dimensionEvidenceCounts,
+      dimensionRawSignedEvidence: snapshot.dimensionRawSignedEvidence,
+      analysisDepth: snapshot.analysisDepth,
+    );
+  }
+
+  RelationshipInsight? _findCompletionInsight(
+    RelationshipAnalysisState state,
+  ) {
+    final current = _insightEngine.derive(state);
+
+    for (final insight in current) {
+      if (!_insightSignaturesAtScanStart.contains(
+        _insightSignature(insight),
+      )) {
+        return insight;
+      }
+    }
+
+    return null;
+  }
+
   Future<void> _onNext() async {
     final question = _currentQuestion;
     final optionId = _selectedOptionId;
@@ -138,6 +205,8 @@ class _RelationshipAnalysisMicroScanScreenState
       );
       if (!mounted) return;
       final completed = hadScan && !next.hasActiveMicroScan;
+      final completionInsight = completed ? _findCompletionInsight(next) : null;
+
       String? selected;
       if (next.hasActiveMicroScan) {
         final ids = next.activeMicroScanQuestionIds;
@@ -148,6 +217,7 @@ class _RelationshipAnalysisMicroScanScreenState
         _state = next;
         _selectedOptionId = selected;
         _completedBatch = completed;
+        _completionInsight = completionInsight;
         _bankComplete = _service.isBankComplete(next);
         _saving = false;
       });
@@ -413,6 +483,11 @@ class _RelationshipAnalysisMicroScanScreenState
         before == null ? null : (before * 100).round().clamp(0, 100);
     final showRange = beforePct != null && beforePct != afterPct;
 
+    final insight = _completedBatch ? _completionInsight : null;
+    final insightCopy =
+        insight == null ? null : _insightCopyResolver.resolve(insight);
+    final isTurkish = _lang == 'tr';
+
     return Padding(
       padding: const EdgeInsets.all(AppSpacing.xl),
       child: Column(
@@ -445,6 +520,61 @@ class _RelationshipAnalysisMicroScanScreenState
               height: 1.4,
             ),
           ),
+          if (insightCopy != null) ...[
+            const SizedBox(height: AppSpacing.lg),
+            Container(
+              key: const Key('relationship-analysis-completion-insight'),
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.md),
+              decoration: BoxDecoration(
+                color: AppColors.glassSurface,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(
+                  color: AppColors.resonanceViolet.withValues(alpha: 0.38),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    isTurkish
+                        ? 'Yeni bir örüntü belirdi'
+                        : 'A new pattern emerged',
+                    style: GoogleFonts.inter(
+                      color: AppColors.resonanceViolet,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    isTurkish ? insightCopy.titleTr : insightCopy.titleEn,
+                    key: const Key(
+                      'relationship-analysis-completion-insight-title',
+                    ),
+                    style: GoogleFonts.inter(
+                      color: AppColors.textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      height: 1.3,
+                    ),
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  Text(
+                    isTurkish ? insightCopy.bodyTr : insightCopy.bodyEn,
+                    key: const Key(
+                      'relationship-analysis-completion-insight-body',
+                    ),
+                    style: GoogleFonts.inter(
+                      color: AppColors.textSecondary,
+                      fontSize: 13,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
           const SizedBox(height: AppSpacing.lg),
           Text(
             l10n.relationshipAnalysisDepthLabel,
