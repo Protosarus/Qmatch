@@ -31,7 +31,12 @@ class MatchService {
         _call = call,
         super();
 
+  // Legacy endpoint remains live for older app versions.
   static const String likeCallableName = 'likeAndMaybeCreateMatch';
+
+  // Production endpoint colocated with Firestore.
+  static const String likeCallableNameEu = 'likeAndMaybeCreateMatchEu';
+  static const String likeCallableRegionEu = 'europe-west1';
 
   /// Trusted Like → mutual-match evaluation (`like_match_atomicity_v1`).
   ///
@@ -59,15 +64,24 @@ class MatchService {
   ) async {
     final custom = _call;
     if (custom != null) {
-      return custom(likeCallableName, data);
+      return custom(likeCallableNameEu, data);
     }
-    final functions = _functions ?? FirebaseFunctions.instance;
-    final result = await functions.httpsCallable(likeCallableName).call(data);
+
+    final functions = _functions ??
+        FirebaseFunctions.instanceFor(
+          region: likeCallableRegionEu,
+        );
+
+    final result = await functions.httpsCallable(likeCallableNameEu).call(data);
+
     final payload = result.data;
     if (payload is Map) {
       return Map<String, dynamic>.from(payload);
     }
-    throw StateError('Callable $likeCallableName returned a non-map payload.');
+
+    throw StateError(
+      'Callable $likeCallableNameEu returned a non-map payload.',
+    );
   }
 
   /// Backward-compatible alias — prefer [likeAndMaybeCreateMatch].
@@ -79,7 +93,10 @@ class MatchService {
     if (me == null) return const Stream<List<MatchModel>>.empty();
 
     // Keep query simple to avoid composite index requirements in MVP.
-    return FirestorePaths.matches().where('users', arrayContains: me.uid).snapshots().map(
+    return FirestorePaths.matches()
+        .where('users', arrayContains: me.uid)
+        .snapshots()
+        .map(
       (snapshot) {
         final items = snapshot.docs
             .map((d) => MatchModel.fromFirestore(d.id, d.data()))
@@ -184,8 +201,7 @@ class MatchService {
 
       final plan = MatchCloseLifecycleGate.plan(
         matchExists: matchExists,
-        currentMatchState:
-            matchExists ? matchData!['state'] as String? : null,
+        currentMatchState: matchExists ? matchData!['state'] as String? : null,
         actorIsMatchMember: actorIsMatchMember,
         target: target,
         threadExists: threadExists,

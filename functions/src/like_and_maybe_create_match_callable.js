@@ -89,13 +89,36 @@ async function handleLikeAndMaybeCreateMatch(request, deps = {}) {
   const messageRef = db.doc(`threads/${threadId}/messages/system_match_v1`);
 
   return db.runTransaction(async (tx) => {
-    const matchSnap = await tx.get(matchRef);
-    const ownSwipeSnap = await tx.get(ownSwipeRef);
-    const reverseSwipeSnap = await tx.get(reverseSwipeRef);
-    const viewerBlockSnap = await tx.get(viewerBlockRef);
-    const reverseBlockSnap = await tx.get(reverseBlockRef);
-    const viewerUserSnap = await tx.get(viewerUserRef);
-    const targetUserSnap = await tx.get(targetUserRef);
+    // Batch all transaction reads into one Firestore RPC.
+    // Production Admin Firestore supports Transaction.getAll().
+    // Promise.all fallback keeps lightweight test doubles compatible.
+    const [
+      matchSnap,
+      ownSwipeSnap,
+      reverseSwipeSnap,
+      viewerBlockSnap,
+      reverseBlockSnap,
+      viewerUserSnap,
+      targetUserSnap,
+    ] = typeof tx.getAll === 'function'
+      ? await tx.getAll(
+          matchRef,
+          ownSwipeRef,
+          reverseSwipeRef,
+          viewerBlockRef,
+          reverseBlockRef,
+          viewerUserRef,
+          targetUserRef,
+        )
+      : await Promise.all([
+          tx.get(matchRef),
+          tx.get(ownSwipeRef),
+          tx.get(reverseSwipeRef),
+          tx.get(viewerBlockRef),
+          tx.get(reverseBlockRef),
+          tx.get(viewerUserRef),
+          tx.get(targetUserRef),
+        ]);
 
     const plan = planLike({
       matchExists: matchSnap.exists,

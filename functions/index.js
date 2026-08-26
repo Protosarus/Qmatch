@@ -232,6 +232,16 @@ exports.likeAndMaybeCreateMatch = onCall(
 );
 exports.handleLikeAndMaybeCreateMatch =
   likeAndMaybeCreateMatch.handleLikeAndMaybeCreateMatch;
+
+/**
+ * EU-colocated Like + match create.
+ * Same trusted handler/payload as the legacy us-central1 callable.
+ * Firestore is europe-west1, so new clients should prefer this endpoint.
+ */
+exports.likeAndMaybeCreateMatchEu = onCall(
+  { region: 'europe-west1' },
+  (request) => likeAndMaybeCreateMatch.handleLikeAndMaybeCreateMatch(request),
+);
 const rewindPass = require('./src/rewind_pass_callable');
 
 /**
