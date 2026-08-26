@@ -5,6 +5,8 @@ class AssessmentPersonaReference {
     required this.titleEn,
     required this.descriptionTr,
     required this.descriptionEn,
+    required this.signatureTr,
+    required this.signatureEn,
     required this.asset,
   });
 
@@ -13,6 +15,8 @@ class AssessmentPersonaReference {
   final String titleEn;
   final String descriptionTr;
   final String descriptionEn;
+  final String signatureTr;
+  final String signatureEn;
   final String asset;
 }
 
@@ -26,27 +30,32 @@ const assessmentPersonaReferenceCatalog = <String, AssessmentPersonaReference>{
     id: 'uygulayici',
     titleTr: 'Uygulayıcı',
     titleEn: 'Executor',
-    descriptionTr: 'Plan yapan, harekete geçen ve sonuca odaklanan güç.',
-    descriptionEn:
-        'The power that plans, takes action, and focuses on results.',
+    descriptionTr: 'Planı eyleme, eylemi sonuca dönüştürür.',
+    descriptionEn: 'Turns plans into action, and action into results.',
+    signatureTr: 'Sonuç Odaklı',
+    signatureEn: 'Results Driven',
     asset: 'assets/images/assessment_persona_executor_reward_sparse.png',
   ),
   'koruyucu': AssessmentPersonaReference(
     id: 'koruyucu',
     titleTr: 'Koruyucu',
     titleEn: 'Guardian',
-    descriptionTr: 'Sevdiklerini koruyan, güven veren ve sadık kalan güç.',
+    descriptionTr: 'Bağ kurduğu insanlara güven ve aidiyet hissi verir.',
     descriptionEn:
-        'The power that protects loved ones, inspires trust, and remains loyal.',
+        'Creates a sense of trust and belonging for the people they value.',
+    signatureTr: 'Güven Veren',
+    signatureEn: 'Steady Trust',
     asset: 'assets/images/assessment_persona_guardian_reward_sparse.png',
   ),
   'bilge': AssessmentPersonaReference(
     id: 'bilge',
     titleTr: 'Bilge',
     titleEn: 'Sage',
-    descriptionTr: 'Bilgiyi arayan, anlayan ve başkalarına ışık tutan güç.',
+    descriptionTr: 'Bilgiyi derinleştirir, görünenin ardındaki anlamı arar.',
     descriptionEn:
-        'The power that seeks knowledge, understands it, and guides others.',
+        'Goes deeper into knowledge and searches for meaning beyond the obvious.',
+    signatureTr: 'Derin Kavrayış',
+    signatureEn: 'Deep Insight',
     asset: 'assets/images/assessment_persona_sage_reward_sparse.png',
   ),
   'lider': AssessmentPersonaReference(
@@ -54,73 +63,90 @@ const assessmentPersonaReferenceCatalog = <String, AssessmentPersonaReference>{
     titleTr: 'Lider',
     titleEn: 'Leader',
     descriptionTr:
-        'İlham veren, yönlendiren ve insanları arkasından sürükleyen güç.',
+        'Yönü belirler, insanları harekete geçirecek cesareti yaratır.',
     descriptionEn:
-        'The power that inspires, guides, and rallies people behind it.',
+        'Sets direction and inspires others with the courage to move.',
+    signatureTr: 'Yön Veren',
+    signatureEn: 'Guiding Force',
     asset: 'assets/images/assessment_persona_leader_reward_sparse.png',
   ),
   'muhafiz': AssessmentPersonaReference(
     id: 'muhafiz',
     titleTr: 'Muhafız',
     titleEn: 'Sentinel',
-    descriptionTr: 'Güvende tutan, düzen kuran ve istikrar sağlayan güç.',
+    descriptionTr: 'Düzeni korur, sınırları gözetir ve istikrarı sürdürür.',
     descriptionEn:
-        'The power that keeps others safe, establishes order, and provides stability.',
+        'Protects order, respects boundaries, and preserves stability.',
+    signatureTr: 'Sağlam Duruş',
+    signatureEn: 'Steady Ground',
     asset: 'assets/images/assessment_persona_guard_reward_sparse.png',
   ),
   'sifaci': AssessmentPersonaReference(
     id: 'sifaci',
     titleTr: 'Şifacı',
     titleEn: 'Healer',
-    descriptionTr: 'İyileştiren, dengeleyen ve şefkatiyle dönüştüren güç.',
-    descriptionEn:
-        'The power that heals, restores balance, and transforms through compassion.',
+    descriptionTr:
+        'Şefkatle yaklaşır, gerilimi yumuşatır ve dengeyi yeniden kurar.',
+    descriptionEn: 'Meets tension with compassion and helps restore balance.',
+    signatureTr: 'Şefkatli Denge',
+    signatureEn: 'Compassionate Balance',
     asset: 'assets/images/assessment_persona_healer_reward_sparse.png',
   ),
   'yargic': AssessmentPersonaReference(
     id: 'yargic',
     titleTr: 'Yargıç',
     titleEn: 'Judge',
-    descriptionTr:
-        'Adil olanı gören, doğru kararlar veren ve dengeyi sağlayan güç.',
+    descriptionTr: 'Ölçer, tartar ve en adil yolu bulmaya çalışır.',
     descriptionEn:
-        'The power that recognizes what is fair, makes sound decisions, and restores balance.',
+        'Weighs every side and searches for the fairest path forward.',
+    signatureTr: 'Adil Karar',
+    signatureEn: 'Fair Judgment',
     asset: 'assets/images/assessment_persona_judge_reward_sparse.png',
   ),
   'empat': AssessmentPersonaReference(
     id: 'empat',
     titleTr: 'Empat',
     titleEn: 'Empath',
-    descriptionTr: 'İnsanları anlayan, kalpten bağ kuran ve destek olan güç.',
+    descriptionTr:
+        'Söylenmeyeni de hisseder, karşısındakinin dünyasına yaklaşır.',
     descriptionEn:
-        'The power that understands people, connects from the heart, and offers support.',
+        'Senses what remains unspoken and moves closer to another person’s world.',
+    signatureTr: 'Derin Empati',
+    signatureEn: 'Deep Empathy',
     asset: 'assets/images/assessment_persona_empath_reward_sparse.png',
   ),
   'cesur': AssessmentPersonaReference(
     id: 'cesur',
     titleTr: 'Cesur',
     titleEn: 'Brave',
-    descriptionTr: 'Korkusuzca ilerleyen, risk alan ve meydan okuyan güç.',
+    descriptionTr:
+        'Belirsizliğe rağmen adım atar, geri çekilmek yerine yüzleşir.',
     descriptionEn:
-        'The power that moves forward fearlessly, takes risks, and embraces challenges.',
+        'Steps forward despite uncertainty and chooses to face what lies ahead.',
+    signatureTr: 'Cesur Adım',
+    signatureEn: 'Bold Step',
     asset: 'assets/images/assessment_persona_brave_reward_sparse.png',
   ),
   'kararli': AssessmentPersonaReference(
     id: 'kararli',
     titleTr: 'Kararlı',
     titleEn: 'Determined',
-    descriptionTr: 'Pes etmeyen, azimli ve hedeflerine ulaşan güç.',
-    descriptionEn:
-        'The power that never gives up, stays determined, and reaches its goals.',
+    descriptionTr: 'Bir hedef seçtiğinde engellere rağmen yönünü korur.',
+    descriptionEn: 'Once a goal is chosen, keeps course despite the obstacles.',
+    signatureTr: 'Sarsılmaz İrade',
+    signatureEn: 'Unshaken Will',
     asset: 'assets/images/assessment_persona_determined_reward_sparse.png',
   ),
   'vizyoner': AssessmentPersonaReference(
     id: 'vizyoner',
     titleTr: 'Vizyoner',
     titleEn: 'Visionary',
-    descriptionTr: 'Geleceği gören, hayal eden ve büyük düşünen güç.',
+    descriptionTr:
+        'Bugünün sınırlarının ötesinde neyin mümkün olabileceğini görür.',
     descriptionEn:
-        'The power that sees the future, imagines possibilities, and thinks big.',
+        'Sees what could become possible beyond the limits of today.',
+    signatureTr: 'Gelecek Görüsü',
+    signatureEn: 'Future Vision',
     asset: 'assets/images/assessment_persona_visionary_reward_sparse.png',
   ),
   'yaratici': AssessmentPersonaReference(
@@ -128,9 +154,11 @@ const assessmentPersonaReferenceCatalog = <String, AssessmentPersonaReference>{
     titleTr: 'Yaratıcı',
     titleEn: 'Creator',
     descriptionTr:
-        'Farklı düşünen, ortaya yeni şeyler koyan ve ilham veren güç.',
+        'Alışılmış olanı yeniden düşünür, kendine özgü yollar üretir.',
     descriptionEn:
-        'The power that thinks differently, creates new things, and inspires others.',
+        'Reimagines the familiar and creates distinctly original paths.',
+    signatureTr: 'Özgün Zihin',
+    signatureEn: 'Original Mind',
     asset: 'assets/images/assessment_persona_creator_reward_sparse.png',
   ),
   'iletisimci': AssessmentPersonaReference(
@@ -138,55 +166,66 @@ const assessmentPersonaReferenceCatalog = <String, AssessmentPersonaReference>{
     titleTr: 'İletişimci',
     titleEn: 'Communicator',
     descriptionTr:
-        'Kelimeleri doğru kullanan, duyguları ifade eden ve bağlantı kuran güç.',
+        'Düşüncelerini açık eder, kelimelerle yakınlık ve anlayış kurar.',
     descriptionEn:
-        'The power that chooses words well, expresses emotions, and builds connections.',
+        'Expresses thoughts clearly and builds understanding through words.',
+    signatureTr: 'Güçlü Bağ',
+    signatureEn: 'Strong Connection',
     asset: 'assets/images/assessment_persona_communicator_medallion.png',
   ),
   'analist': AssessmentPersonaReference(
     id: 'analist',
     titleTr: 'Analist',
     titleEn: 'Analyst',
-    descriptionTr:
-        'Detayları çözen, mantıkla sonuca ulaşan ve analiz eden güç.',
+    descriptionTr: 'Detayları ayırır, örüntüyü bulur ve sonucu mantıkla kurar.',
     descriptionEn:
-        'The power that deciphers details, reasons toward conclusions, and analyzes.',
+        'Breaks down details, finds the pattern, and builds conclusions through logic.',
+    signatureTr: 'Keskin Analiz',
+    signatureEn: 'Sharp Analysis',
     asset: 'assets/images/assessment_persona_analyst_medallion.png',
   ),
   'donusturucu': AssessmentPersonaReference(
     id: 'donusturucu',
     titleTr: 'Dönüştürücü',
     titleEn: 'Transformer',
-    descriptionTr: 'Değişimi başlatan, dönüşen ve başkalarını dönüştüren güç.',
+    descriptionTr: 'Değişimden kaçmaz; eskiyi dönüştürerek yeni bir yön açar.',
     descriptionEn:
-        'The power that initiates change, transforms, and transforms others.',
+        'Does not resist change; reshapes what exists to open a new direction.',
+    signatureTr: 'Değişim Gücü',
+    signatureEn: 'Power of Change',
     asset: 'assets/images/assessment_persona_transformer_medallion.png',
   ),
   'bagimsiz': AssessmentPersonaReference(
     id: 'bagimsiz',
     titleTr: 'Bağımsız',
     titleEn: 'Independent',
-    descriptionTr:
-        'Özgürlüğüne düşkün, kendi yolunu çizen ve bağımsız olan güç.',
+    descriptionTr: 'Kendi alanını korur, kararlarını kendi pusulasıyla verir.',
     descriptionEn:
-        'The power that values freedom, charts its own path, and remains independent.',
+        'Protects personal space and makes decisions by an inner compass.',
+    signatureTr: 'Özgür Rota',
+    signatureEn: 'Own Path',
     asset: 'assets/images/assessment_persona_independent_medallion.png',
   ),
   'sezgisel': AssessmentPersonaReference(
     id: 'sezgisel',
     titleTr: 'Sezgisel',
     titleEn: 'Intuitive',
-    descriptionTr: 'Sezgileri güçlü olan, derinleri gören ve hisseden güç.',
+    descriptionTr: 'İnce işaretleri yakalar, içinden gelen sese kulak verir.',
     descriptionEn:
-        'The power of strong intuition that sees and feels beneath the surface.',
+        'Notices subtle signals and listens closely to inner instinct.',
+    signatureTr: 'İçsel Sezgi',
+    signatureEn: 'Inner Intuition',
     asset: 'assets/images/assessment_persona_intuitive_medallion.png',
   ),
   'stratejist': AssessmentPersonaReference(
     id: 'stratejist',
     titleTr: 'Stratejist',
     titleEn: 'Strategist',
-    descriptionTr: 'Hamlelerini önceden gören, planlayan güç.',
-    descriptionEn: 'The power that sees and plans every move ahead.',
+    descriptionTr: 'Birkaç hamle sonrasını düşünür, yönünü buna göre kurar.',
+    descriptionEn:
+        'Thinks several moves ahead and shapes direction accordingly.',
+    signatureTr: 'Stratejik Öngörü',
+    signatureEn: 'Strategic Foresight',
     asset: 'assets/images/assessment_persona_strategist_knight_medallion.png',
   ),
 };

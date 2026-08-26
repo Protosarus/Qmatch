@@ -16,6 +16,8 @@ class AssessmentResultFrame extends StatelessWidget {
     required this.description,
     required this.ctaLabel,
     required this.onCta,
+    this.showCta = true,
+    this.plateLabel,
     this.tags = const [],
     this.personaAsset = _defaultPersonaAsset,
     this.statusLabel,
@@ -33,6 +35,8 @@ class AssessmentResultFrame extends StatelessWidget {
   final String personaAsset;
   final String ctaLabel;
   final VoidCallback onCta;
+  final bool showCta;
+  final String? plateLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +179,7 @@ class AssessmentResultFrame extends StatelessWidget {
                             color: const Color(0xFFF4DFA8),
                             fontSize: 14.5 * scale,
                             fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.italic,
                             height: 1.48,
                           ),
                         ),
@@ -214,20 +219,67 @@ class AssessmentResultFrame extends StatelessWidget {
                     ),
 
                   // Interactive Flutter CTA aligned to the blank fixed plate.
-                  Positioned(
-                    left: width * 0.205,
-                    right: width * 0.205,
-                    bottom: (height * 0.132).clamp(
-                      bottomSafe + 10,
-                      height * 0.16,
+                  if (showCta)
+                    Positioned(
+                      left: width * 0.205,
+                      right: width * 0.205,
+                      bottom: (height * 0.132).clamp(
+                        bottomSafe + 10,
+                        height * 0.16,
+                      ),
+                      height: height * 0.066,
+                      child: _ResultCta(
+                        label: ctaLabel,
+                        onPressed: onCta,
+                        scale: scale,
+                      ),
+                    )
+                  else if (plateLabel != null && plateLabel!.trim().isNotEmpty)
+                    Positioned(
+                      left: width * 0.205,
+                      right: width * 0.205,
+                      bottom: (height * 0.132).clamp(
+                        bottomSafe + 10,
+                        height * 0.16,
+                      ),
+                      height: height * 0.066,
+                      child: Center(
+                        child: ShaderMask(
+                          blendMode: BlendMode.srcIn,
+                          shaderCallback: (bounds) {
+                            return const LinearGradient(
+                              colors: [
+                                Color(0xFFFFF1B8),
+                                Color(0xFFFFD66B),
+                                Color(0xFFFFF0C2),
+                              ],
+                            ).createShader(bounds);
+                          },
+                          child: Text(
+                            plateLabel!.toUpperCase(),
+                            key: const Key('assessment-result-plate-label'),
+                            maxLines: 1,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.playfairDisplay(
+                              color: Colors.white,
+                              fontSize: 18.5 * scale,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.05,
+                              shadows: const [
+                                Shadow(
+                                  color: Color(0xB87A3900),
+                                  blurRadius: 14,
+                                ),
+                                Shadow(
+                                  color: Color(0x66FFD66B),
+                                  blurRadius: 22,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    height: height * 0.066,
-                    child: _ResultCta(
-                      label: ctaLabel,
-                      onPressed: onCta,
-                      scale: scale,
-                    ),
-                  ),
                 ],
               );
             },

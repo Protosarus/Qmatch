@@ -8,6 +8,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/entitlement_snapshot.dart';
+import '../../assessment/screens/persona_lab_screen.dart';
+import '../../assessment/services/persona_result_reader.dart';
+import '../../assessment/utils/assessment_persona_reference_catalog.dart';
 import '../../iap/services/entitlement_repository.dart';
 import '../../relationship_analysis/domain/relationship_analysis_state.dart';
 import '../../relationship_analysis/domain/relationship_dimensions.dart';
@@ -18,6 +21,7 @@ import '../../settings/screens/settings_screen.dart';
 import '../models/profile_read_result.dart';
 import '../models/user_profile_model.dart';
 import '../services/profile_service.dart';
+import '../widgets/qmatch_profile_persona_card.dart';
 import '../widgets/qmatch_profile_presentation.dart';
 import 'membership_screen.dart';
 import 'profile_anthem_edit_screen.dart';
@@ -73,6 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   ProfileReadStatus _status = ProfileReadStatus.failed;
   bool _loading = true;
   bool _resonanceAccess = false;
+  AssignedPersonaResult? _personaResult;
   RelationshipAnalysisState _relationshipState =
       RelationshipAnalysisState.empty();
   StreamSubscription<RelationshipAnalysisState>? _relationshipStateSubscription;
@@ -88,6 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _applyDebug();
     } else {
       _loadProfile();
+      _loadPersonaResult();
       _watchRelationshipAnalysis();
     }
     if (widget.debugResonanceAccess != null) {
@@ -223,6 +229,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  Future<void> _loadPersonaResult() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid.trim();
+    if (uid == null || uid.isEmpty) return;
+
+    try {
+      final result = await PersonaResultReader().readForUid(uid);
+      if (!mounted) return;
+      setState(() => _personaResult = result);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _personaResult = null);
+    }
+  }
+
+  Future<void> _openPersonaLab() async {
+    final result = _personaResult;
+    if (result == null) return;
+
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PersonaLabScreen(
+          primaryPersonaId: result.primaryPersonaId,
+          secondaryPersonaId: result.secondaryPersonaId,
+        ),
+      ),
+    );
+  }
+
   Future<void> _openRelationshipAnalysis() async {
     if (_relationshipState.answeredCount >=
         RelationshipAnalysisContract.questionCount) {
@@ -278,6 +313,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
+  Widget? _buildPersonaCard() {
+    final result = _personaResult;
+    if (result == null) return null;
+
+    final primary = assessmentPersonaReferenceCatalog[result.primaryPersonaId];
+    final secondary =
+        assessmentPersonaReferenceCatalog[result.secondaryPersonaId];
+
+    if (primary == null || secondary == null) return null;
+
+    final isTurkish =
+        Localizations.localeOf(context).languageCode.toLowerCase() == 'tr';
+
+    return QMatchProfilePersonaCard(
+      primaryTitle: isTurkish ? primary.titleTr : primary.titleEn,
+      secondaryTitle: isTurkish ? secondary.titleTr : secondary.titleEn,
+      personaAsset: primary.asset,
+      sectionLabel: isTurkish ? 'PERSONA’N' : 'YOUR PERSONA',
+      supportingLabel: isTurkish ? 'Destekleyen örüntü' : 'Supporting pattern',
+      openLabel: isTurkish ? 'Persona Lab’i aç →' : 'Open Persona Lab →',
+      onTap: _openPersonaLab,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -321,6 +380,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onPhotoTap: widget.debugProfile != null ? () {} : _openPhotoEdit,
         onEditAnthem: widget.debugProfile != null ? () {} : _openAnthemEdit,
         onOpenAnthemLink: widget.debugProfile != null ? () {} : _openAnthemLink,
+        personaCard: _buildPersonaCard(),
         relationshipAnalysisCard:
             widget.debugProfile != null || !_showRelationshipAnalysisCard
                 ? null

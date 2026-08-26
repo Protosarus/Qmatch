@@ -854,6 +854,7 @@ class QMatchProfileReadyView extends StatelessWidget {
     this.onPhotoTap,
     this.onEditAnthem,
     this.onOpenAnthemLink,
+    this.personaCard,
     this.relationshipAnalysisCard,
     this.photoImageProvider,
     this.bottomInset = 0,
@@ -872,6 +873,7 @@ class QMatchProfileReadyView extends StatelessWidget {
   final VoidCallback? onPhotoTap;
   final VoidCallback? onEditAnthem;
   final VoidCallback? onOpenAnthemLink;
+  final Widget? personaCard;
   final Widget? relationshipAnalysisCard;
   final ImageProvider? photoImageProvider;
   final double bottomInset;
@@ -908,6 +910,10 @@ class QMatchProfileReadyView extends StatelessWidget {
                 showResonanceBadge: showResonanceBadge,
                 resonanceBadgeSemanticLabel: resonanceBadgeSemanticLabel,
               ),
+              if (personaCard != null) ...[
+                const SizedBox(height: AppSpacing.md),
+                personaCard!,
+              ],
               if (membershipLabel != null && membershipLabel!.isNotEmpty) ...[
                 const SizedBox(height: AppSpacing.md),
                 QMatchProfileMembershipCard(
