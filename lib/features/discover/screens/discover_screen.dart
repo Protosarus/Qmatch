@@ -127,6 +127,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   bool _isLoading = true;
   bool _isActionLoading = false;
   bool _rewindBusy = false;
+  bool _rewindVisualBusy = false;
   String? _rewindTargetUid;
   _DiscoverRewindKind? _rewindKind;
   int _nextRewindActionId = 0;
@@ -670,8 +671,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     }
 
     // Visual Rewind is immediate.
+    // Backend safety remains locked independently from the short UI spinner.
     setState(() {
       _rewindBusy = true;
+      _rewindVisualBusy = true;
       _currentIndex = previousIndex;
       _rewindTargetUid = null;
       _rewindKind = null;
@@ -682,6 +685,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     });
 
     _precacheUpcomingCandidatePhotos();
+
+    // The card is already back locally. Do not expose Firebase latency through
+    // the Rewind control; finish its visual loading with the card motion.
+    unawaited(
+      Future<void>.delayed(
+        QMatchDiscoverSwipeableCard.flyOffDuration,
+        () {
+          if (!mounted || !_rewindVisualBusy) return;
+          setState(() => _rewindVisualBusy = false);
+        },
+      ),
+    );
 
     var restoreRewindOnFailure = true;
 
@@ -739,7 +754,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       );
     } finally {
       if (mounted) {
-        setState(() => _rewindBusy = false);
+        setState(() {
+          _rewindBusy = false;
+          _rewindVisualBusy = false;
+        });
       }
     }
   }
@@ -1117,7 +1135,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             child: Center(
               child: QMatchDiscoverRewindButton(
                 semanticLabel: rewindLabel,
-                loading: _rewindBusy,
+                loading: _rewindVisualBusy,
                 onPressed: (_rewindBusy || _rewindTargetUid == null)
                     ? null
                     : _onRewind,
@@ -1200,7 +1218,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             likeLabel: l10n.discoverLike,
             rewindLabel: rewindLabel,
             showRewind: true,
-            isRewindLoading: _rewindBusy,
+            isRewindLoading: _rewindVisualBusy,
             onRewind: (_rewindBusy || _showGestureOnboarding)
                 ? null
                 : (_rewindTargetUid == null ? null : _onRewind),
