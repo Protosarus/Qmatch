@@ -50,7 +50,7 @@ void main() {
       );
     });
 
-    test('successful Pass becomes rewindable only after Pass write', () {
+    test('Pass arms Rewind optimistically before backend completion', () {
       final start = screen.indexOf('Future<void> _onPass()');
       final end = screen.indexOf('Future<void> _onRewind()', start);
 
@@ -60,38 +60,46 @@ void main() {
       final body = screen.substring(start, end);
 
       final passCall = body.indexOf('_passUser(c.uid)');
-      final targetSet = body.indexOf('_rewindTargetUid = c.uid');
-      final kindSet = body.indexOf(
-        '_rewindKind = _DiscoverRewindKind.pass',
-      );
-      final advance = body.indexOf('_advance();');
+      final arm = body.indexOf('_armRewind(');
+      final advance = body.indexOf('_advanceDeck();');
 
       expect(passCall, greaterThanOrEqualTo(0));
-      expect(targetSet, greaterThan(passCall));
-      expect(kindSet, greaterThan(passCall));
-      expect(advance, greaterThan(kindSet));
+      expect(arm, greaterThan(passCall));
+      expect(
+        body.contains('kind: _DiscoverRewindKind.pass'),
+        isTrue,
+      );
+      expect(
+        body.contains('_DiscoverCommitState.rewindable'),
+        isTrue,
+      );
+      expect(advance, greaterThan(arm));
     });
 
-    test('one-sided Like becomes rewindable only for noMatch', () {
+    test('Like arms Rewind optimistically and resolves commit state later', () {
       final start = screen.indexOf('Future<void> _onLike()');
       expect(start, greaterThanOrEqualTo(0));
 
       final body = screen.substring(start);
 
       expect(
-        body.contains('outcome == LikeMatchOutcome.noMatch'),
+        body.contains('_armRewind('),
         isTrue,
       );
       expect(
-        body.contains('await advanceFuture;'),
+        body.contains('kind: _DiscoverRewindKind.like'),
         isTrue,
       );
       expect(
-        body.contains('_rewindTargetUid = c.uid'),
+        body.contains('_DiscoverCommitState.rewindable'),
         isTrue,
       );
       expect(
-        body.contains('_rewindKind = _DiscoverRewindKind.like'),
+        body.contains('_DiscoverCommitState.irreversible'),
+        isTrue,
+      );
+      expect(
+        body.contains('_advanceDeck();'),
         isTrue,
       );
     });
@@ -113,7 +121,15 @@ void main() {
       final noMatchBlock = body.substring(noMatch, createdMatch);
       expect(
         noMatchBlock.contains(
-          '_rewindKind = _DiscoverRewindKind.like',
+          '_DiscoverCommitState.rewindable',
+        ),
+        isTrue,
+      );
+
+      // Like Rewind is armed optimistically before the backend result.
+      expect(
+        body.contains(
+          'kind: _DiscoverRewindKind.like',
         ),
         isTrue,
       );
@@ -244,24 +260,25 @@ void main() {
       );
     });
 
-    test('normal action bar exposes Rewind when an action is rewindable', () {
+    test('normal action bar always exposes Rewind and uses visual loading', () {
       expect(
-        screen.contains('showRewind: _rewindTargetUid != null'),
+        screen.contains('showRewind: true'),
         isTrue,
       );
       expect(
-        screen.contains('isRewindLoading: _rewindBusy'),
+        screen.contains('isRewindLoading: _rewindVisualBusy'),
         isTrue,
       );
     });
 
-    test('empty deck preserves final-card Rewind', () {
+    test('empty deck keeps Rewind visible and disables it when unavailable',
+        () {
       expect(
-        screen.contains('if (_rewindTargetUid != null)'),
+        screen.contains('QMatchDiscoverRewindButton('),
         isTrue,
       );
       expect(
-        screen.contains('QMatchDiscoverRewindButton('),
+        screen.contains('_rewindTargetUid == null'),
         isTrue,
       );
     });

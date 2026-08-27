@@ -31,8 +31,14 @@ class SwipeService {
         _call = call,
         super();
 
+  // Legacy callable contract — preserved for compatibility/test injection.
   static const String rewindCallableName = 'rewindPass';
   static const String rewindLikeCallableName = 'rewindLike';
+
+  // Current production endpoints, colocated with Firestore.
+  static const String rewindCallableNameEu = 'rewindPassEu';
+  static const String rewindLikeCallableNameEu = 'rewindLikeEu';
+  static const String rewindCallableRegionEu = 'europe-west1';
 
   /// Pass: swipe-only write. Never mutates match/thread.
   Future<void> passUser(String targetUid) async {
@@ -118,8 +124,18 @@ class SwipeService {
       return custom(callableName, data);
     }
 
-    final functions = _functions ?? FirebaseFunctions.instance;
-    final result = await functions.httpsCallable(callableName).call(data);
+    final productionName = switch (callableName) {
+      rewindCallableName => rewindCallableNameEu,
+      rewindLikeCallableName => rewindLikeCallableNameEu,
+      _ => callableName,
+    };
+
+    final functions = _functions ??
+        FirebaseFunctions.instanceFor(
+          region: rewindCallableRegionEu,
+        );
+
+    final result = await functions.httpsCallable(productionName).call(data);
     final payload = result.data;
 
     if (payload is Map) {

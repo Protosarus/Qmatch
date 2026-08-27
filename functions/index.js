@@ -253,6 +253,15 @@ exports.rewindPass = onCall(
   { region: 'us-central1' },
   (request) => rewindPass.handleRewindPass(request),
 );
+
+/**
+ * EU-colocated Rewind Pass endpoint for current clients.
+ * Legacy us-central1 endpoint remains live for older app versions.
+ */
+exports.rewindPassEu = onCall(
+  { region: 'europe-west1' },
+  (request) => rewindPass.handleRewindPass(request),
+);
 exports.handleRewindPass = rewindPass.handleRewindPass;
 
 const rewindLike = require('./src/rewind_like_callable');
@@ -264,6 +273,15 @@ const rewindLike = require('./src/rewind_like_callable');
  */
 exports.rewindLike = onCall(
   { region: 'us-central1' },
+  (request) => rewindLike.handleRewindLike(request),
+);
+
+/**
+ * EU-colocated Rewind Like endpoint for current clients.
+ * Legacy us-central1 endpoint remains live for older app versions.
+ */
+exports.rewindLikeEu = onCall(
+  { region: 'europe-west1' },
   (request) => rewindLike.handleRewindLike(request),
 );
 exports.handleRewindLike = rewindLike.handleRewindLike;
