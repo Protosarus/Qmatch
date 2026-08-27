@@ -377,6 +377,37 @@ class AppLocalizationsEn extends AppLocalizations {
       'Verification failed. Please try again.';
 
   @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get resetPasswordTitle => 'Reset your password';
+
+  @override
+  String get resetPasswordBody =>
+      'Enter the email linked to your account and we’ll send you a secure password reset link.';
+
+  @override
+  String get sendResetLink => 'Send reset link';
+
+  @override
+  String get resetPasswordSent => 'Password reset email sent.';
+
+  @override
+  String get resetPasswordInvalidEmail => 'Please enter a valid email address.';
+
+  @override
+  String get resetPasswordTooManyRequests =>
+      'Too many attempts. Please wait a moment and try again.';
+
+  @override
+  String get resetPasswordNetworkError =>
+      'We couldn’t reach the server. Check your connection and try again.';
+
+  @override
+  String get resetPasswordFailed =>
+      'We couldn’t send the reset link right now. Please try again.';
+
+  @override
   String get loginWelcomeBack => 'Welcome';
 
   @override
@@ -838,6 +869,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsGroupHelp => 'Help & information';
+
+  @override
+  String get settingsResetPassword => 'Reset password';
+
+  @override
+  String get settingsResetPasswordSubtitle =>
+      'Send a secure reset link to your account email';
+
+  @override
+  String get settingsResetPasswordConfirmTitle => 'Reset password?';
+
+  @override
+  String get settingsResetPasswordConfirmBody =>
+      'We’ll send a secure password reset link to the email connected to this account.';
 
   @override
   String get settingsGroupAccount => 'Account';

@@ -257,6 +257,27 @@ class AuthService {
     );
   }
 
+  /// Sends a Firebase password-reset email.
+  ///
+  /// `user-not-found` is intentionally treated as success so account
+  /// existence is not exposed through the recovery flow.
+  Future<void> sendPasswordResetEmail(String email) async {
+    final normalizedEmail = email.trim().toLowerCase();
+
+    if (normalizedEmail.isEmpty) {
+      throw FirebaseAuthException(code: 'invalid-email');
+    }
+
+    try {
+      await _auth.sendPasswordResetEmail(email: normalizedEmail);
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'user-not-found') {
+        return;
+      }
+      rethrow;
+    }
+  }
+
   // Email ile kayıt
   Future<UserCredential> signUpWithEmail({
     required String email,

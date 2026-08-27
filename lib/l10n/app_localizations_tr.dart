@@ -377,6 +377,38 @@ class AppLocalizationsTr extends AppLocalizations {
       'Doğrulama başarısız. Lütfen tekrar dene.';
 
   @override
+  String get forgotPassword => 'Şifremi unuttum?';
+
+  @override
+  String get resetPasswordTitle => 'Şifreni sıfırla';
+
+  @override
+  String get resetPasswordBody =>
+      'Hesabına bağlı e-posta adresini gir; sana güvenli bir şifre sıfırlama bağlantısı gönderelim.';
+
+  @override
+  String get sendResetLink => 'Sıfırlama bağlantısı gönder';
+
+  @override
+  String get resetPasswordSent => 'Şifre sıfırlama e-postası gönderildi.';
+
+  @override
+  String get resetPasswordInvalidEmail =>
+      'Lütfen geçerli bir e-posta adresi gir.';
+
+  @override
+  String get resetPasswordTooManyRequests =>
+      'Çok fazla deneme yapıldı. Biraz bekleyip tekrar dene.';
+
+  @override
+  String get resetPasswordNetworkError =>
+      'Sunucuya ulaşılamadı. İnternet bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get resetPasswordFailed =>
+      'Şifre sıfırlama bağlantısı şu anda gönderilemedi. Lütfen tekrar dene.';
+
+  @override
   String get loginWelcomeBack => 'Hoş geldin';
 
   @override
@@ -835,6 +867,20 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get settingsGroupHelp => 'Yardım ve bilgi';
+
+  @override
+  String get settingsResetPassword => 'Şifreyi sıfırla';
+
+  @override
+  String get settingsResetPasswordSubtitle =>
+      'Hesabının e-posta adresine güvenli bir sıfırlama bağlantısı gönder';
+
+  @override
+  String get settingsResetPasswordConfirmTitle => 'Şifre sıfırlansın mı?';
+
+  @override
+  String get settingsResetPasswordConfirmBody =>
+      'Bu hesaba bağlı e-posta adresine güvenli bir şifre sıfırlama bağlantısı göndereceğiz.';
 
   @override
   String get settingsGroupAccount => 'Hesap';

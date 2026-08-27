@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -75,11 +76,135 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   bool get _showDebug => widget.debugForceDebugRow ?? DebugAccess.isAllowed;
 
+  bool get _showPasswordReset {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null || (user.email ?? '').trim().isEmpty) return false;
+
+      return user.providerData.any(
+        (provider) => provider.providerId == 'password',
+      );
+    } catch (_) {
+      // Widget tests and isolated previews may not initialize Firebase.
+      return false;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _loadDeletionPending();
     _loadPassport();
+  }
+
+  void _showPasswordResetNotice(
+    String message, {
+    bool isError = false,
+  }) {
+    if (!mounted) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          elevation: 0,
+          backgroundColor: const Color(0xF5111629),
+          margin: const EdgeInsets.fromLTRB(20, 0, 20, 105),
+          padding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+            side: BorderSide(
+              color: (isError ? AppColors.error : AppColors.resonanceViolet)
+                  .withValues(alpha: 0.55),
+            ),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  isError
+                      ? Icons.error_outline_rounded
+                      : Icons.check_circle_outline_rounded,
+                  color: isError ? AppColors.error : const Color(0xFFDAC8ED),
+                  size: 21,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    message,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xFFF3EFFA),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      height: 1.35,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+  }
+
+  Future<void> _sendPasswordReset() async {
+    final l10n = AppLocalizations.of(context)!;
+    final user = FirebaseAuth.instance.currentUser;
+    final email = user?.email?.trim();
+
+    if (!_showPasswordReset || email == null || email.isEmpty) {
+      return;
+    }
+
+    final shouldSend = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l10n.settingsResetPasswordConfirmTitle),
+        content: Text(l10n.settingsResetPasswordConfirmBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            key: const Key('qmatch-settings-reset-password-confirm'),
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l10n.sendResetLink),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldSend != true || !mounted) return;
+
+    try {
+      await AuthService().sendPasswordResetEmail(email);
+
+      if (!mounted) return;
+      _showPasswordResetNotice(l10n.resetPasswordSent);
+    } on FirebaseAuthException catch (error) {
+      if (!mounted) return;
+
+      final message = switch (error.code) {
+        'too-many-requests' => l10n.resetPasswordTooManyRequests,
+        'network-request-failed' => l10n.resetPasswordNetworkError,
+        _ => l10n.resetPasswordFailed,
+      };
+
+      _showPasswordResetNotice(message, isError: true);
+    } catch (_) {
+      if (!mounted) return;
+      _showPasswordResetNotice(
+        l10n.resetPasswordFailed,
+        isError: true,
+      );
+    }
   }
 
   Future<void> _loadDeletionPending() async {
@@ -361,6 +486,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       _SettingsGroup(
                         title: l10n.settingsGroupAccount,
                         children: [
+                          if (_showPasswordReset)
+                            QMatchSettingsTile(
+                              key: const Key('qmatch-settings-reset-password'),
+                              icon: Icons.lock_reset_outlined,
+                              title: l10n.settingsResetPassword,
+                              subtitle: l10n.settingsResetPasswordSubtitle,
+                              onTap: _sendPasswordReset,
+                            ),
                           QMatchSettingsTile(
                             key: const Key('qmatch-settings-delete'),
                             icon: Icons.delete_forever_outlined,

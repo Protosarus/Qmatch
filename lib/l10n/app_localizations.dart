@@ -752,6 +752,60 @@ abstract class AppLocalizations {
   /// **'Verification failed. Please try again.'**
   String get phoneSignupErrorVerificationFailed;
 
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the email linked to your account and we’ll send you a secure password reset link.'**
+  String get resetPasswordBody;
+
+  /// No description provided for @sendResetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reset link'**
+  String get sendResetLink;
+
+  /// No description provided for @resetPasswordSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset email sent.'**
+  String get resetPasswordSent;
+
+  /// No description provided for @resetPasswordInvalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address.'**
+  String get resetPasswordInvalidEmail;
+
+  /// No description provided for @resetPasswordTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again.'**
+  String get resetPasswordTooManyRequests;
+
+  /// No description provided for @resetPasswordNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t reach the server. Check your connection and try again.'**
+  String get resetPasswordNetworkError;
+
+  /// No description provided for @resetPasswordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t send the reset link right now. Please try again.'**
+  String get resetPasswordFailed;
+
   /// No description provided for @loginWelcomeBack.
   ///
   /// In en, this message translates to:
@@ -1579,6 +1633,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help & information'**
   String get settingsGroupHelp;
+
+  /// No description provided for @settingsResetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get settingsResetPassword;
+
+  /// No description provided for @settingsResetPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send a secure reset link to your account email'**
+  String get settingsResetPasswordSubtitle;
+
+  /// No description provided for @settingsResetPasswordConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password?'**
+  String get settingsResetPasswordConfirmTitle;
+
+  /// No description provided for @settingsResetPasswordConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We’ll send a secure password reset link to the email connected to this account.'**
+  String get settingsResetPasswordConfirmBody;
 
   /// No description provided for @settingsGroupAccount.
   ///
