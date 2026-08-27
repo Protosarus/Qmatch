@@ -28,6 +28,7 @@ class QMatchCandidateCard extends StatelessWidget {
     required this.candidate,
     this.photoImageProvider,
     this.showLegacyCompatibilityUi = false,
+    this.showDetails = true,
   });
 
   final DiscoverUserModel candidate;
@@ -37,6 +38,11 @@ class QMatchCandidateCard extends StatelessWidget {
 
   /// When true (`legacy_v1`), show category/archetype chips and hint text.
   final bool showLegacyCompatibilityUi;
+
+  /// False only for the pre-rendered Discover underlay.
+  /// Keeps the exact card geometry while preventing ghost text from showing
+  /// through the current card's glass details panel.
+  final bool showDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -113,19 +119,21 @@ class QMatchCandidateCard extends StatelessWidget {
               ),
               Expanded(
                 flex: detailsFlex,
-                child: SingleChildScrollView(
-                  key: const Key('qmatch-candidate-details-scroll'),
-                  padding: const EdgeInsets.fromLTRB(
-                    AppSpacing.md,
-                    AppSpacing.sm,
-                    AppSpacing.md,
-                    AppSpacing.md,
-                  ),
-                  child: _CandidateDetails(
-                    candidate: candidate,
-                    showLegacyCompatibilityUi: showLegacyCompatibilityUi,
-                  ),
-                ),
+                child: showDetails
+                    ? SingleChildScrollView(
+                        key: const Key('qmatch-candidate-details-scroll'),
+                        padding: const EdgeInsets.fromLTRB(
+                          AppSpacing.md,
+                          AppSpacing.sm,
+                          AppSpacing.md,
+                          AppSpacing.md,
+                        ),
+                        child: _CandidateDetails(
+                          candidate: candidate,
+                          showLegacyCompatibilityUi: showLegacyCompatibilityUi,
+                        ),
+                      )
+                    : const SizedBox.expand(),
               ),
             ],
           );

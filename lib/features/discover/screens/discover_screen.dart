@@ -1174,6 +1174,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       ),
                       child: QMatchCandidateCard(
                         candidate: nextCandidate,
+                        showDetails: false,
                         showLegacyCompatibilityUi: _discoverService
                             .rankingMode.usesLegacyCompatibilityScoring,
                       ),
