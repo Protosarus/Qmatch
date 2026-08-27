@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/debug/debug_access.dart';
 import '../../../core/navigation/auth_wrapper.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/theme/app_colors.dart';
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _deletionPendingLoaded = false;
   DiscoverPassportSnapshot _passport = DiscoverPassportSnapshot.worldwide;
 
-  bool get _showDebug => widget.debugForceDebugRow ?? kDebugMode;
+  bool get _showDebug => widget.debugForceDebugRow ?? DebugAccess.isAllowed;
 
   @override
   void initState() {

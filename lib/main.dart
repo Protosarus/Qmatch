@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
+import 'core/debug/debug_access.dart';
 import 'core/navigation/auth_wrapper.dart';
 import 'core/theme/app_theme.dart';
 import 'features/debug/debug_home_screen.dart';
@@ -47,8 +48,12 @@ class MyApp extends StatelessWidget {
       // Debug-only routes — not registered in release/profile.
       routes: {
         if (kDebugMode) ...{
-          DebugHomeScreen.routeName: (_) => const DebugHomeScreen(),
-          AssessmentAdminScreen.routeName: (_) => const AssessmentAdminScreen(),
+          DebugHomeScreen.routeName: (_) => DebugAccess.isAllowed
+              ? const DebugHomeScreen()
+              : const DebugAccessDeniedScreen(),
+          AssessmentAdminScreen.routeName: (_) => DebugAccess.isAllowed
+              ? const AssessmentAdminScreen()
+              : const DebugAccessDeniedScreen(),
         },
       },
     );
