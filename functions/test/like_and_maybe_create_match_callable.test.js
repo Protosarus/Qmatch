@@ -7,6 +7,7 @@ const {
   handleLikeAndMaybeCreateMatch,
   CALLABLE_NAME,
   OUTCOME,
+  PUBLIC_OUTCOME_KEYS,
 } = require('../src/like_and_maybe_create_match_callable');
 
 function eligibleUser(overrides = {}) {
@@ -33,6 +34,19 @@ function deps(db) {
     serverTimestamp: () => 'TS',
     nowMs: () => 1_700_000_000_000,
   };
+}
+
+function assertPublicResponse(res, outcome, likeRewindable) {
+  assert.strictEqual(res.outcome, outcome);
+  assert.strictEqual(res.like_rewindable, likeRewindable);
+  assert.deepStrictEqual(
+    Object.keys(res).sort(),
+    [...PUBLIC_OUTCOME_KEYS].sort(),
+  );
+  const blob = JSON.stringify(res);
+  assert.strictEqual(blob.includes('refuse'), false);
+  assert.strictEqual(blob.includes('blocked_uid'), false);
+  assert.strictEqual(blob.includes('reason'), false);
 }
 
 async function seedEligiblePair(db, a = 'userA', b = 'userB') {
@@ -68,7 +82,7 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userA', 'userB'),
       deps(db),
     );
-    assert.strictEqual(res.outcome, OUTCOME.noMatch);
+    assertPublicResponse(res, OUTCOME.noMatch, true);
     const swipe = await db.doc('users/userA/swipes/userB').get();
     assert.strictEqual(swipe.exists, true);
     assert.strictEqual(swipe.data().direction, 'like');
@@ -76,7 +90,6 @@ describe('likeAndMaybeCreateMatch callable', () => {
     assert.strictEqual(swipe.data().target_uid, 'userB');
     const match = await db.doc('matches/userA_userB').get();
     assert.strictEqual(match.exists, false);
-    assert.deepStrictEqual(Object.keys(res).sort(), ['outcome']);
   });
 
   it('reciprocal Like creates exactly one match + thread + system message', async () => {
@@ -87,7 +100,7 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userB', 'userA'),
       deps(db),
     );
-    assert.strictEqual(res.outcome, OUTCOME.createdNewMatch);
+    assertPublicResponse(res, OUTCOME.createdNewMatch, false);
 
     const match = await db.doc('matches/userA_userB').get();
     assert.strictEqual(match.exists, true);
@@ -134,8 +147,8 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userA', 'userB'),
       deps(db),
     );
-    assert.strictEqual(first.outcome, OUTCOME.noMatch);
-    assert.strictEqual(second.outcome, OUTCOME.noMatch);
+    assertPublicResponse(first, OUTCOME.noMatch, true);
+    assertPublicResponse(second, OUTCOME.noMatch, true);
     const swipe = await db.doc('users/userA/swipes/userB').get();
     assert.strictEqual(swipe.data().direction, 'like');
     assert.strictEqual(swipe.data().updated_at, 'TS');
@@ -166,7 +179,7 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userA', 'userB'),
       deps(db),
     );
-    assert.strictEqual(res.outcome, OUTCOME.existingActiveMatch);
+    assertPublicResponse(res, OUTCOME.existingActiveMatch, false);
     const match = await db.doc('matches/userA_userB').get();
     assert.strictEqual(match.data().match_created_by_uid, 'userB');
     const thread = await db.doc('threads/userA_userB').get();
@@ -187,14 +200,13 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userA', 'userB'),
       deps(db),
     );
-    assert.strictEqual(res.outcome, OUTCOME.noMatch);
+    assertPublicResponse(res, OUTCOME.noMatch, false);
     const swipe = await db.doc('users/userA/swipes/userB').get();
     assert.strictEqual(swipe.exists, false);
     const match = await db.doc('matches/userA_userB').get();
     assert.strictEqual(match.exists, false);
     const blob = JSON.stringify(res);
     assert.strictEqual(blob.includes('secret-viewer'), false);
-    assert.strictEqual(blob.includes('blocked_uid'), false);
   });
 
   it('reverse-block prevents Like and match without leaking block data', async () => {
@@ -209,15 +221,13 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userA', 'userB'),
       deps(db),
     );
-    assert.strictEqual(res.outcome, OUTCOME.noMatch);
+    assertPublicResponse(res, OUTCOME.noMatch, false);
     const swipe = await db.doc('users/userA/swipes/userB').get();
     assert.strictEqual(swipe.exists, false);
     const match = await db.doc('matches/userA_userB').get();
     assert.strictEqual(match.exists, false);
     const blob = JSON.stringify(res);
     assert.strictEqual(blob.includes('secret-reverse'), false);
-    assert.strictEqual(blob.includes('reason'), false);
-    assert.deepStrictEqual(Object.keys(res), ['outcome']);
   });
 
   it('inactive / ineligible target cannot Like or match', async () => {
@@ -231,7 +241,7 @@ describe('likeAndMaybeCreateMatch callable', () => {
       request('userA', 'userB'),
       deps(db),
     );
-    assert.strictEqual(res.outcome, OUTCOME.noMatch);
+    assertPublicResponse(res, OUTCOME.noMatch, false);
     const swipe = await db.doc('users/userA/swipes/userB').get();
     assert.strictEqual(swipe.exists, false);
     const match = await db.doc('matches/userA_userB').get();
@@ -240,5 +250,12 @@ describe('likeAndMaybeCreateMatch callable', () => {
 
   it('callable name is likeAndMaybeCreateMatch', () => {
     assert.strictEqual(CALLABLE_NAME, 'likeAndMaybeCreateMatch');
+  });
+
+  it('public response keys are only outcome and like_rewindable', () => {
+    assert.deepStrictEqual(
+      [...PUBLIC_OUTCOME_KEYS].sort(),
+      ['like_rewindable', 'outcome'],
+    );
   });
 });

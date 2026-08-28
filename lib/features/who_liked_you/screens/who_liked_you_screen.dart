@@ -93,8 +93,10 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     _fetch();
   }
 
-  static Future<LikeMatchOutcome> _productionLike(String uid) =>
-      SwipeService().likeUser(uid);
+  static Future<LikeMatchOutcome> _productionLike(String uid) async {
+    final result = await SwipeService().likeUser(uid);
+    return result.outcome;
+  }
 
   static Future<void> _productionPass(String uid) =>
       SwipeService().passUser(uid);

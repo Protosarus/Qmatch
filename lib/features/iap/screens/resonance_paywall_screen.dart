@@ -385,42 +385,24 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
                             alignment: WrapAlignment.center,
                             spacing: AppSpacing.md,
                             children: [
-                              TextButton(
-                                key: const Key(
+                              _PaywallLegalLink(
+                                buttonKey: const Key(
                                   'qmatch-resonance-paywall-terms',
                                 ),
+                                label: l10n.termsOfUseTitle,
                                 onPressed: () => _openLegal(
                                   title: l10n.termsOfUseTitle,
                                   body: l10n.termsOfUseBody,
                                 ),
-                                child: Text(
-                                  l10n.termsOfUseTitle,
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.softGold,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColors.softGold,
-                                  ),
-                                ),
                               ),
-                              TextButton(
-                                key: const Key(
+                              _PaywallLegalLink(
+                                buttonKey: const Key(
                                   'qmatch-resonance-paywall-privacy',
                                 ),
+                                label: l10n.privacyPolicyTitle,
                                 onPressed: () => _openLegal(
                                   title: l10n.privacyPolicyTitle,
                                   body: l10n.privacyPolicyBody,
-                                ),
-                                child: Text(
-                                  l10n.privacyPolicyTitle,
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.softGold,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: AppColors.softGold,
-                                  ),
                                 ),
                               ),
                             ],
@@ -430,6 +412,52 @@ class _ResonancePaywallScreenState extends State<ResonancePaywallScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PaywallLegalLink extends StatelessWidget {
+  const _PaywallLegalLink({
+    required this.buttonKey,
+    required this.label,
+    required this.onPressed,
+  });
+
+  /// Cool lavender — secondary to the CTA. No matching AppColors token.
+  static const Color _color = Color(0xFFB8B5D6);
+
+  final Key buttonKey;
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      key: buttonKey,
+      onPressed: onPressed,
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.pressed)) {
+            return AppColors.textPrimary;
+          }
+          return _color;
+        }),
+        overlayColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.pressed)) {
+            return AppColors.textPrimary.withValues(alpha: 0.08);
+          }
+          return Colors.transparent;
+        }),
+      ),
+      child: Text(
+        label,
+        style: GoogleFonts.inter(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          decoration: TextDecoration.underline,
+          decorationColor: _color,
         ),
       ),
     );

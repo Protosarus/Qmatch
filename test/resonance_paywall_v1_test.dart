@@ -606,6 +606,38 @@ void main() {
       expect(find.text('Privacy Policy'), findsWidgets);
     });
 
+    testWidgets('legal links use cool lavender not gold', (tester) async {
+      await _pumpPaywall(tester);
+      const linkColor = Color(0xFFB8B5D6);
+      for (final key in [
+        const Key('qmatch-resonance-paywall-terms'),
+        const Key('qmatch-resonance-paywall-privacy'),
+      ]) {
+        final button = tester.widget<TextButton>(find.byKey(key));
+        final foreground = button.style!.foregroundColor!;
+        expect(foreground.resolve(const <WidgetState>{}), linkColor);
+        expect(
+          foreground.resolve(const {WidgetState.pressed}),
+          AppColors.textPrimary,
+        );
+        expect(
+          foreground.resolve(const <WidgetState>{}),
+          isNot(AppColors.softGold),
+        );
+
+        final text = tester.widget<Text>(
+          find.descendant(
+            of: find.byKey(key),
+            matching: find.byType(Text),
+          ),
+        );
+        expect(text.style?.decoration, TextDecoration.underline);
+        expect(text.style?.decorationColor, linkColor);
+        expect(text.style?.color, isNot(AppColors.softGold));
+        expect(text.style?.decorationColor, isNot(AppColors.softGold));
+      }
+    });
+
     testWidgets('active entitlement still shows Resonance active copy',
         (tester) async {
       final iap = FakePaywallIap()
@@ -686,6 +718,19 @@ void main() {
       final snippet = src.substring(idx, idx + 180);
       expect(snippet.contains('0xFFDAC8ED'), isTrue);
       expect(snippet.contains('softGold'), isFalse);
+    });
+
+    test('legal links use cool lavender not gold', () {
+      final src = File(
+        'lib/features/iap/screens/resonance_paywall_screen.dart',
+      ).readAsStringSync();
+      final start = src.indexOf('class _PaywallLegalLink');
+      expect(start, greaterThanOrEqualTo(0));
+      final snippet = src.substring(start, start + 1200);
+      expect(snippet.contains('0xFFB8B5D6'), isTrue);
+      expect(snippet.contains('softGold'), isFalse);
+      expect(snippet.contains('AppColors.textPrimary'), isTrue);
+      expect(snippet.contains('TextDecoration.underline'), isTrue);
     });
 
     test('monthly and annual StoreKit ids stay frozen', () {

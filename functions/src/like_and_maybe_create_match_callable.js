@@ -2,7 +2,8 @@
  * Trusted Like + match-create callable.
  *
  * Admin-reads match / swipes / both block docs / both user docs.
- * Returns public outcome only — never block existence or reason.
+ * Returns public outcome + like_rewindable only — never block
+ * existence, block reason, or internal refusal names.
  */
 
 'use strict';
@@ -16,11 +17,12 @@ const {
   outcomeFromDecision,
   sortedPair,
   deterministicMatchId,
+  DECISION,
   OUTCOME,
 } = require('./like_match_atomicity');
 
 const CALLABLE_NAME = 'likeAndMaybeCreateMatch';
-const PUBLIC_OUTCOME_KEYS = Object.freeze(['outcome']);
+const PUBLIC_OUTCOME_KEYS = Object.freeze(['outcome', 'like_rewindable']);
 
 function requireAuthUid(request) {
   const uid = request.auth && request.auth.uid;
@@ -50,8 +52,25 @@ function nowMs(deps) {
   return Date.now();
 }
 
-function publicOutcome(outcome) {
-  return { outcome };
+/**
+ * Public Like result. `like_rewindable` is true only for a persisted
+ * one-sided Discover Like whose match decision is the normal
+ * non-mutual-like case. Never includes block reasons or internal
+ * refusal names.
+ */
+function isLikeRewindable(plan) {
+  return (
+    !!plan &&
+    plan.persistOwnLike === true &&
+    plan.matchDecision === DECISION.refuseNonMutualLike
+  );
+}
+
+function publicOutcome(outcome, likeRewindable) {
+  return {
+    outcome,
+    like_rewindable: likeRewindable === true,
+  };
 }
 
 /**
@@ -154,11 +173,13 @@ async function handleLikeAndMaybeCreateMatch(request, deps = {}) {
       tx.set(ownSwipeRef, likePayload, { merge: true });
     }
 
-    if (plan.matchDecision === 'idempotentActiveSuccess') {
-      return publicOutcome(OUTCOME.existingActiveMatch);
+    const likeRewindable = isLikeRewindable(plan);
+
+    if (plan.matchDecision === DECISION.idempotentActiveSuccess) {
+      return publicOutcome(OUTCOME.existingActiveMatch, likeRewindable);
     }
     if (!writeMatchArtifacts(plan.matchDecision)) {
-      return publicOutcome(OUTCOME.noMatch);
+      return publicOutcome(OUTCOME.noMatch, likeRewindable);
     }
 
     tx.set(matchRef, {
@@ -212,7 +233,7 @@ async function handleLikeAndMaybeCreateMatch(request, deps = {}) {
       moderation: null,
     });
 
-    return publicOutcome(outcomeFromDecision(plan.matchDecision));
+    return publicOutcome(outcomeFromDecision(plan.matchDecision), likeRewindable);
   });
 }
 

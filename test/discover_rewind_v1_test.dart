@@ -108,21 +108,25 @@ void main() {
       final start = screen.indexOf('Future<void> _onLike()');
       final body = screen.substring(start);
 
-      final noMatch = body.indexOf(
-        'outcome == LikeMatchOutcome.noMatch',
-      );
-      final createdMatch = body.indexOf(
-        'outcome == LikeMatchOutcome.createdNewMatch',
-      );
-
-      expect(noMatch, greaterThanOrEqualTo(0));
-      expect(createdMatch, greaterThan(noMatch));
-
-      final noMatchBlock = body.substring(noMatch, createdMatch);
+      expect(body.contains('shouldArmLikeRewind'), isTrue);
       expect(
-        noMatchBlock.contains(
-          '_DiscoverCommitState.rewindable',
-        ),
+        body.contains('_DiscoverCommitState.rewindable'),
+        isTrue,
+      );
+      expect(
+        body.contains('_DiscoverCommitState.irreversible'),
+        isTrue,
+      );
+      expect(
+        body.contains('_DiscoverCommitState.notCommitted'),
+        isTrue,
+      );
+      expect(
+        body.contains('LikeMatchOutcome.createdNewMatch'),
+        isTrue,
+      );
+      expect(
+        body.contains('LikeMatchOutcome.existingActiveMatch'),
         isTrue,
       );
 

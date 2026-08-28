@@ -174,7 +174,7 @@ void main() {
       expect(src.contains('likeAndMaybeCreateMatch'), isTrue);
       expect(src.contains("'likeAndMaybeCreateMatch'"), isTrue);
       expect(src.contains('like_match_atomicity_v1'), isTrue);
-      expect(src.contains('LikeMatchOutcomeMapper.fromWire'), isTrue);
+      expect(src.contains('LikeMatchResult.fromWire'), isTrue);
       expect(src.contains('LikeMatchAtomicityGate.planLike'), isFalse);
       expect(src.contains("doc('system_match_v1')"), isFalse);
       expect(src.contains('ownSwipeRef'), isFalse);

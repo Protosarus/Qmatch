@@ -1,12 +1,14 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { normalizeSnapshot } = require('./entitlement_access');
 const {
   deterministicMatchId,
 } = require('./like_match_atomicity');
 
 const CALLABLE_NAME = 'rewindLike';
 const PUBLIC_RESULT_KEYS = Object.freeze(['rewound']);
+const REWIND_REQUIRES_RESONANCE = 'Rewind requires Resonance.';
 
 function requireAuthUid(request) {
   const uid = request.auth && request.auth.uid;
@@ -46,6 +48,19 @@ function requireTargetUid(request, viewerUid) {
   return normalized;
 }
 
+function requireResonanceAccess(viewerUid, entitlementSnap) {
+  const entitlement = normalizeSnapshot(
+    viewerUid,
+    entitlementSnap && entitlementSnap.exists ? entitlementSnap.data() : null,
+  );
+  if (entitlement.resonance_access !== true) {
+    throw new HttpsError(
+      'permission-denied',
+      REWIND_REQUIRES_RESONANCE,
+    );
+  }
+}
+
 function resolveDb(deps) {
   if (deps && deps.db) return deps.db;
   return require('firebase-admin/firestore').getFirestore();
@@ -53,6 +68,10 @@ function resolveDb(deps) {
 
 /**
  * Trusted Discover Like Rewind.
+ *
+ * Authoritative Resonance entitlement is required before any
+ * swipe/match-specific refusal. Backend authorization is the security
+ * boundary.
  *
  * Deletes only the authenticated user's own one-sided Discover Like.
  *
@@ -72,6 +91,7 @@ async function handleRewindLike(request, deps = {}) {
   const matchId = deterministicMatchId(viewerUid, targetUid);
   const threadId = matchId;
 
+  const entitlementRef = db.doc(`entitlements/${viewerUid}`);
   const swipeRef = db.doc(
     `users/${viewerUid}/swipes/${targetUid}`,
   );
@@ -83,16 +103,20 @@ async function handleRewindLike(request, deps = {}) {
 
   return db.runTransaction(async (tx) => {
     const [
+      entitlementSnap,
       swipeSnap,
       matchSnap,
       threadSnap,
       systemMessageSnap,
     ] = await Promise.all([
+      tx.get(entitlementRef),
       tx.get(swipeRef),
       tx.get(matchRef),
       tx.get(threadRef),
       tx.get(systemMessageRef),
     ]);
+
+    requireResonanceAccess(viewerUid, entitlementSnap);
 
     if (!swipeSnap.exists) {
       throw new HttpsError(

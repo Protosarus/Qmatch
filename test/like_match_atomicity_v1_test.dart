@@ -157,7 +157,7 @@ void main() {
         'lib/features/matching/services/swipe_service.dart',
       ).readAsStringSync();
       final passIdx = swipe.indexOf('Future<void> passUser');
-      final likeIdx = swipe.indexOf('Future<LikeMatchOutcome> likeUser');
+      final likeIdx = swipe.indexOf('Future<LikeMatchResult> likeUser');
       expect(passIdx, greaterThanOrEqualTo(0));
       expect(likeIdx, greaterThan(passIdx));
       final passBody = swipe.substring(passIdx, likeIdx);
@@ -177,11 +177,11 @@ void main() {
       ).readAsStringSync();
       expect(src.contains('likeCallableName'), isTrue);
       expect(src.contains("'likeAndMaybeCreateMatch'"), isTrue);
-      expect(src.contains('LikeMatchOutcomeMapper.fromWire'), isTrue);
+      expect(src.contains('LikeMatchResult.fromWire'), isTrue);
       expect(src.contains('CompatibilityScoring'), isFalse);
       expect(src.contains('DiscoverService'), isFalse);
       final likeIdx = src.indexOf(
-        'Future<LikeMatchOutcome> likeAndMaybeCreateMatch',
+        'Future<LikeMatchResult> likeAndMaybeCreateMatch',
       );
       final unmatchIdx = src.indexOf('Future<void> unmatch');
       expect(likeIdx, greaterThanOrEqualTo(0));

@@ -11,6 +11,7 @@ import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../iap/domain/entitlement_snapshot.dart';
 import '../../iap/domain/resonance_paywall_feature.dart';
 import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../iap/services/entitlement_repository.dart';
@@ -50,6 +51,32 @@ bool shouldPrecacheDiscoverPhotoUrl(String? raw) {
   return true;
 }
 
+/// Client-side Discover Rewind tap routing.
+///
+/// Backend rewind authorization remains authoritative. This is not a
+/// security boundary.
+@visibleForTesting
+enum DiscoverRewindTapAction {
+  none,
+  paywall,
+  rewind,
+}
+
+@visibleForTesting
+bool resonanceAccessFromEntitlement(EntitlementSnapshot? snapshot) {
+  return snapshot?.resonanceAccess == true;
+}
+
+@visibleForTesting
+DiscoverRewindTapAction discoverRewindTapAction({
+  required bool hasRewindableAction,
+  required bool resonanceAccess,
+}) {
+  if (!hasRewindableAction) return DiscoverRewindTapAction.none;
+  if (resonanceAccess != true) return DiscoverRewindTapAction.paywall;
+  return DiscoverRewindTapAction.rewind;
+}
+
 enum _DiscoverRewindKind {
   pass,
   like,
@@ -74,6 +101,7 @@ class DiscoverScreen extends StatefulWidget {
     this.rewindPass,
     this.rewindLike,
     this.passportClient,
+    this.entitlements,
     this.openPaywall,
   });
 
@@ -107,7 +135,10 @@ class DiscoverScreen extends StatefulWidget {
   /// Shared Passport client (picker + optional DiscoverService).
   final DiscoverPassportClient? passportClient;
 
-  /// Test injection for Resonance paywall from Passport.
+  /// Test injection for trusted entitlement watch/fetch.
+  final EntitlementRepository? entitlements;
+
+  /// Test injection for Resonance paywall (Passport, Rewind).
   final Future<bool> Function(
     BuildContext context,
     ResonancePaywallFeature feature,
@@ -120,6 +151,8 @@ class DiscoverScreen extends StatefulWidget {
 class _DiscoverScreenState extends State<DiscoverScreen> {
   late final DiscoverService _discoverService;
   late final DiscoverPassportClient _passportClient;
+  late final EntitlementRepository _entitlements;
+  StreamSubscription<EntitlementSnapshot>? _entitlementSub;
   final SwipeService _swipeService = SwipeService();
   final AccountDeletionRequestService _deletionService =
       AccountDeletionRequestService();
@@ -145,6 +178,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   int _superResonancePurchased = 0;
   bool _superResonanceBusy = false;
   bool _superResonanceSheetOpen = false;
+  bool _resonanceAccess = false;
   List<DiscoverUserModel> _candidates = [];
   int _currentIndex = 0;
   DiscoverPassportSnapshot _passportSnapshot =
@@ -177,25 +211,55 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         DiscoverGestureOnboardingStore(
           viewerUid: FirebaseAuth.instance.currentUser?.uid,
         );
+    _entitlements = widget.entitlements ?? EntitlementRepository();
     _superResonance = widget.superResonance ??
         DiscoverSuperResonanceController(
-          entitlements: EntitlementRepository(),
+          entitlements: _entitlements,
           uidProvider: widget.uidProvider ??
               () => FirebaseAuth.instance.currentUser?.uid,
           iapClient: IosIapSession.instance.client,
         );
     DiscoverGestureOnboardingStore.guidanceRevision
         .addListener(_onGuidanceRevision);
+    _watchEntitlement();
     _loadDeletionPending();
+    debugPrint('Discover runtime uid=${FirebaseAuth.instance.currentUser?.uid}');
     _loadCandidates();
     _refreshSuperResonanceBalance();
   }
 
   @override
   void dispose() {
+    _entitlementSub?.cancel();
     DiscoverGestureOnboardingStore.guidanceRevision
         .removeListener(_onGuidanceRevision);
     super.dispose();
+  }
+
+  String? _viewerUid() {
+    return (widget.uidProvider ??
+        () => FirebaseAuth.instance.currentUser?.uid)();
+  }
+
+  void _watchEntitlement() {
+    _entitlementSub?.cancel();
+    final uid = _viewerUid();
+    if (uid == null || uid.isEmpty) {
+      _resonanceAccess = false;
+      return;
+    }
+    _entitlementSub = _entitlements.watch(uid).listen(
+      (snap) {
+        if (!mounted) return;
+        setState(() {
+          _resonanceAccess = resonanceAccessFromEntitlement(snap);
+        });
+      },
+      onError: (_) {
+        if (!mounted) return;
+        setState(() => _resonanceAccess = false);
+      },
+    );
   }
 
   void _onGuidanceRevision() {
@@ -640,6 +704,31 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Future<void>.value();
   }
 
+  /// Client-side Resonance gate for Discover Rewind.
+  ///
+  /// Backend rewind authorization remains authoritative. This UI check
+  /// is not a security boundary.
+  Future<void> _onRewindPressed() async {
+    // Client-side Resonance gate only. Backend rewind authorization remains authoritative;
+    // this UI check is not a security boundary.
+    final action = discoverRewindTapAction(
+      hasRewindableAction: _rewindTargetUid != null && !_rewindBusy,
+      resonanceAccess: _resonanceAccess,
+    );
+    switch (action) {
+      case DiscoverRewindTapAction.none:
+        return;
+      case DiscoverRewindTapAction.paywall:
+        await _openResonancePaywall(
+          context,
+          ResonancePaywallFeature.rewind,
+        );
+        return;
+      case DiscoverRewindTapAction.rewind:
+        await _onRewind();
+    }
+  }
+
   Future<void> _onRewind() async {
     final targetUid = _rewindTargetUid;
     final kind = _rewindKind;
@@ -786,19 +875,23 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
     QmatchPerf.mark('match.callable_start', likeTapSw.elapsed);
 
-    final likeFuture = _swipeService.likeUser(c.uid).then((outcome) {
+    final likeFuture = _swipeService.likeUser(c.uid).then((result) {
       QmatchPerf.mark('match.callable_response', likeTapSw.elapsed);
-      return outcome;
+      return result;
     });
 
     var irreversible = false;
 
     final commitFuture = likeFuture.then<_DiscoverCommitState>(
-      (outcome) {
-        if (outcome == LikeMatchOutcome.noMatch) {
+      (result) {
+        if (result.outcome == LikeMatchOutcome.createdNewMatch ||
+            result.outcome == LikeMatchOutcome.existingActiveMatch) {
+          return _DiscoverCommitState.irreversible;
+        }
+        if (result.shouldArmLikeRewind) {
           return _DiscoverCommitState.rewindable;
         }
-        return _DiscoverCommitState.irreversible;
+        return _DiscoverCommitState.notCommitted;
       },
       onError: (Object e, StackTrace st) {
         return _DiscoverCommitState.notCommitted;
@@ -839,14 +932,23 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     }());
 
     try {
-      final outcome = await likeFuture;
+      final result = await likeFuture;
+      debugPrint(
+        'Discover like result outcome=${result.outcome.name} '
+        'likeRewindable=${result.likeRewindable} targetUid=${c.uid}',
+      );
       if (!mounted) return;
 
-      if (outcome == LikeMatchOutcome.noMatch) {
+      final outcome = result.outcome;
+
+      if (result.shouldArmLikeRewind) {
         return;
       }
 
-      irreversible = true;
+      if (outcome == LikeMatchOutcome.createdNewMatch ||
+          outcome == LikeMatchOutcome.existingActiveMatch) {
+        irreversible = true;
+      }
 
       // Only this exact local action may clear its own Rewind.
       if (_rewindActionId == actionId) {
@@ -962,7 +1064,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     await entry.openFromDiscover(context);
   }
 
-  Future<bool> _openPassportPaywall(
+  Future<bool> _openResonancePaywall(
     BuildContext context,
     ResonancePaywallFeature feature,
   ) {
@@ -981,7 +1083,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       context,
       client: _passportClient,
       initial: _passportSnapshot,
-      openPaywall: _openPassportPaywall,
+      openPaywall: _openResonancePaywall,
       animateBackground: widget.animateBackground != false,
     );
     if (!mounted) return;
@@ -1138,7 +1240,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 loading: _rewindVisualBusy,
                 onPressed: (_rewindBusy || _rewindTargetUid == null)
                     ? null
-                    : _onRewind,
+                    : _onRewindPressed,
               ),
             ),
           ),
@@ -1222,7 +1324,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             isRewindLoading: _rewindVisualBusy,
             onRewind: (_rewindBusy || _showGestureOnboarding)
                 ? null
-                : (_rewindTargetUid == null ? null : _onRewind),
+                : (_rewindTargetUid == null ? null : _onRewindPressed),
             onPass: (_isActionLoading ||
                     _rewindBusy ||
                     _showGestureOnboarding ||

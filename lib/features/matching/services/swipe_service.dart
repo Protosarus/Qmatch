@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../core/utils/firestore_paths.dart';
 import 'match_service.dart';
@@ -64,7 +65,7 @@ class SwipeService {
   }
 
   /// Like: trusted callable persists Like + evaluates mutual match.
-  Future<LikeMatchOutcome> likeUser(String targetUid) async {
+  Future<LikeMatchResult> likeUser(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
@@ -187,8 +188,11 @@ class SwipeService {
       throw StateError('User is not authenticated.');
     }
 
-    final snap = await FirestorePaths.userSwipes(me.uid).get();
-    return snap.docs.map((d) => d.id).toSet();
+    final snapshot = await FirestorePaths.userSwipes(me.uid).get();
+    debugPrint(
+      'Discover swipe ids=${snapshot.docs.map((d) => d.id).toList()}',
+    );
+    return snapshot.docs.map((d) => d.id).toSet();
   }
 
   Future<SwipeModel?> getSwipeForTarget(String targetUid) async {

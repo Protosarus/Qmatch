@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../models/match_model.dart';
 import 'match_close_lifecycle_gate.dart';
-import 'like_match_atomicity_gate.dart';
 import 'like_match_outcome.dart';
 
 class MatchService {
@@ -42,9 +41,9 @@ class MatchService {
   ///
   /// Client does not run the Firestore transaction. Admin callable reads
   /// match, swipes, both blocks, and both user docs; writes Like and
-  /// match/thread/system_match_v1 when gates pass. Returns public outcome
-  /// only — never block existence or reason.
-  Future<LikeMatchOutcome> likeAndMaybeCreateMatch(String targetUid) async {
+  /// match/thread/system_match_v1 when gates pass. Returns public
+  /// `outcome` + `like_rewindable` only — never block existence or reason.
+  Future<LikeMatchResult> likeAndMaybeCreateMatch(String targetUid) async {
     final me = _auth.currentUser;
     if (me == null) {
       throw StateError('User is not authenticated.');
@@ -56,7 +55,7 @@ class MatchService {
     final raw = await _invokeLikeCallable({
       'target_uid': targetUid,
     });
-    return LikeMatchOutcomeMapper.fromWire(raw['outcome']);
+    return LikeMatchResult.fromWire(raw);
   }
 
   Future<Map<String, dynamic>> _invokeLikeCallable(
@@ -85,7 +84,7 @@ class MatchService {
   }
 
   /// Backward-compatible alias — prefer [likeAndMaybeCreateMatch].
-  Future<LikeMatchOutcome> createMatchIfMutualLike(String targetUid) =>
+  Future<LikeMatchResult> createMatchIfMutualLike(String targetUid) =>
       likeAndMaybeCreateMatch(targetUid);
 
   Stream<List<MatchModel>> getMyMatchesStream() {

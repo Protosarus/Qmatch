@@ -217,23 +217,32 @@ void main() {
       expect(src.contains('DiscoverMatchDialogAction.openChat'), isTrue);
       expect(src.contains('ChatDetailScreen'), isTrue);
       expect(src.contains('deterministicThreadId'), isTrue);
-      // existing active must not reopen success dialog
-      expect(src.contains('LikeMatchOutcome.existingActiveMatch'), isFalse);
+      expect(
+        src.contains('if (outcome == LikeMatchOutcome.createdNewMatch)'),
+        isTrue,
+      );
+      // dialog remains created_new_match-only; existing active is irreversible
+      final createdGate = src.indexOf(
+        'if (outcome == LikeMatchOutcome.createdNewMatch)',
+      );
+      final dialogCall = src.indexOf('showQMatchDiscoverMatchDialog');
+      expect(createdGate, greaterThanOrEqualTo(0));
+      expect(dialogCall, greaterThan(createdGate));
       // bool matched dialog path removed
       expect(src.contains('if (matched)'), isFalse);
     });
 
-    test('services return LikeMatchOutcome (not bare bool)', () {
+    test('services return LikeMatchResult (not bare bool)', () {
       final match = File(
         'lib/features/matching/services/match_service.dart',
       ).readAsStringSync();
       final swipe = File(
         'lib/features/matching/services/swipe_service.dart',
       ).readAsStringSync();
-      expect(match.contains('Future<LikeMatchOutcome> likeAndMaybeCreateMatch'),
+      expect(match.contains('Future<LikeMatchResult> likeAndMaybeCreateMatch'),
           isTrue);
-      expect(match.contains('LikeMatchOutcomeMapper.fromWire'), isTrue);
-      expect(swipe.contains('Future<LikeMatchOutcome> likeUser'), isTrue);
+      expect(match.contains('LikeMatchResult.fromWire'), isTrue);
+      expect(swipe.contains('Future<LikeMatchResult> likeUser'), isTrue);
     });
   });
 
