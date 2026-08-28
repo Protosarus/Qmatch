@@ -37,6 +37,24 @@
       ]
     },
     {
+      "collectionGroup": "public_profiles",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "discover_eligible",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "home_country",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "home_city",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "super_resonance_signals",
       "queryScope": "COLLECTION",
       "fields": [

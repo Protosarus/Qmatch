@@ -491,6 +491,22 @@ exports.handleSuperResonanceSignalCreated =
   superResonancePush.handleSuperResonanceSignalCreated;
 
 const activityFeed = require('./src/activity_feed');
+const publicProfilesProjection = require('./src/public_profiles_projection');
+
+/**
+ * Server-owned public profile projection (`public_profiles/{uid}`).
+ * Whitelist copy from users/{uid}. Never writes users/{uid}.
+ * Never grants discover_eligible — copies the stored boolean only.
+ */
+exports.syncPublicProfileOnUserWrite = onDocumentWritten(
+  {
+    document: 'users/{uid}',
+    region: 'europe-west1',
+  },
+  (event) => publicProfilesProjection.handlePublicProfileUserWritten(event),
+);
+exports.handlePublicProfileUserWritten =
+  publicProfilesProjection.handlePublicProfileUserWritten;
 
 exports.createActivityFromProfileUpdate = onDocumentWritten(
   {

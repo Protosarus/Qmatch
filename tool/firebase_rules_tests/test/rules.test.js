@@ -24,6 +24,8 @@ const {
   collection,
   addDoc,
   getDocs,
+  query,
+  where,
 } = require('firebase/firestore');
 const {
   ref,
@@ -1121,6 +1123,177 @@ describe('Super Resonance signal rules (super_resonance_signal_v1)', () => {
     await assertFails(
       deleteDoc(doc(db, 'super_resonance_signals/userA_userB')),
     );
+  });
+});
+
+describe('public_profiles rules', () => {
+  const eligiblePublic = {
+    name: 'B',
+    age: 28,
+    discover_eligible: true,
+    photos: ['https://example.com/b.jpg'],
+    profile_photo_url: 'https://example.com/b.jpg',
+  };
+
+  async function seedPublicProfile(uid, data) {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), `public_profiles/${uid}`), data);
+    });
+  }
+
+  it('unauthenticated public profile GET denied', async () => {
+    await seedPublicProfile('userB', eligiblePublic);
+    await assertFails(
+      getDoc(doc(unauthFirestore(), 'public_profiles/userB')),
+    );
+  });
+
+  it('authenticated eligible stranger GET allowed', async () => {
+    await seedPublicProfile('userB', eligiblePublic);
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'public_profiles/userB')),
+    );
+  });
+
+  it('authenticated ineligible stranger GET denied', async () => {
+    await seedPublicProfile('userB', {
+      ...eligiblePublic,
+      discover_eligible: false,
+    });
+    await assertFails(
+      getDoc(doc(authedFirestore('userA'), 'public_profiles/userB')),
+    );
+  });
+
+  it('owner may GET own ineligible public profile', async () => {
+    await seedPublicProfile('userA', {
+      ...eligiblePublic,
+      discover_eligible: false,
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'public_profiles/userA')),
+    );
+  });
+
+  it('matched peer GET allowed when discover_eligible is false', async () => {
+    await seedPublicProfile('userB', {
+      ...eligiblePublic,
+      discover_eligible: false,
+    });
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'matches/userA_userB'), {
+        users: ['userA', 'userB'],
+        user_a: 'userA',
+        user_b: 'userB',
+        state: 'active',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'public_profiles/userB')),
+    );
+  });
+
+  it('unmatched match does not allow GET of ineligible public profile', async () => {
+    await seedPublicProfile('userB', {
+      ...eligiblePublic,
+      discover_eligible: false,
+    });
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'matches/userA_userB'), {
+        users: ['userA', 'userB'],
+        user_a: 'userA',
+        user_b: 'userB',
+        state: 'unmatched',
+      });
+    });
+    await assertFails(
+      getDoc(doc(authedFirestore('userA'), 'public_profiles/userB')),
+    );
+  });
+
+  it('blocked match does not allow GET of ineligible public profile', async () => {
+    await seedPublicProfile('userB', {
+      ...eligiblePublic,
+      discover_eligible: false,
+    });
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'matches/userA_userB'), {
+        users: ['userA', 'userB'],
+        user_a: 'userA',
+        user_b: 'userB',
+        state: 'blocked',
+      });
+    });
+    await assertFails(
+      getDoc(doc(authedFirestore('userA'), 'public_profiles/userB')),
+    );
+  });
+
+  it('client create denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'public_profiles/userA'), {
+        name: 'A',
+        discover_eligible: true,
+      }),
+    );
+  });
+
+  it('client update denied', async () => {
+    await seedPublicProfile('userA', eligiblePublic);
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'public_profiles/userA'), {
+        name: 'Hacked',
+      }),
+    );
+  });
+
+  it('client delete denied', async () => {
+    await seedPublicProfile('userA', eligiblePublic);
+    await assertFails(
+      deleteDoc(doc(authedFirestore('userA'), 'public_profiles/userA')),
+    );
+  });
+
+  it('eligible collection query allowed; unfiltered list denied', async () => {
+    await seedPublicProfile('userB', eligiblePublic);
+    await seedPublicProfile('userC', {
+      ...eligiblePublic,
+      name: 'C',
+      discover_eligible: false,
+    });
+
+    await assertSucceeds(
+      getDocs(
+        query(
+          collection(authedFirestore('userA'), 'public_profiles'),
+          where('discover_eligible', '==', true),
+        ),
+      ),
+    );
+    await assertFails(
+      getDocs(collection(authedFirestore('userA'), 'public_profiles')),
+    );
+    await assertFails(
+      getDocs(collection(unauthFirestore(), 'public_profiles')),
+    );
+  });
+
+  it('does not weaken users/{uid} peer get/list', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'users/userB'), {
+        uid: 'userB',
+        discover_eligible: false,
+        email: 'secret@example.com',
+      });
+      await setDoc(doc(db, 'users/userC'), {
+        uid: 'userC',
+        discover_eligible: true,
+        email: 'c@example.com',
+      });
+    });
+    await assertFails(getDoc(doc(authedFirestore('userA'), 'users/userB')));
+    await assertSucceeds(getDoc(doc(authedFirestore('userA'), 'users/userC')));
   });
 });
 
