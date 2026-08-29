@@ -27,6 +27,7 @@ const {
   collectionGroup,
   query,
   where,
+  deleteField,
 } = require('firebase/firestore');
 const {
   ref,
@@ -442,6 +443,207 @@ describe('Firestore rules', () => {
       updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
         discover_eligible: false,
         account_deletion_requested: true,
+      }),
+    );
+  });
+});
+
+describe('C1 active and account-deletion protected writes', () => {
+  it('A create own users doc with active=true is allowed', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      }),
+    );
+  });
+
+  it('B create own users doc with active=false is denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: false,
+      }),
+    );
+  });
+
+  it('C client cannot update active true to false', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        active: false,
+      }),
+    );
+  });
+
+  it('D client cannot update active false to true', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: false,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        active: true,
+      }),
+    );
+  });
+
+  it('E unchanged active with unrelated allowed field update is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        name: 'Ada',
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        name: 'Ada Yeni',
+        active: true,
+      }),
+    );
+  });
+
+  it('F create with account_deletion_requested omitted or false is allowed', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      }),
+    );
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userB'), 'users/userB'), {
+        uid: 'userB',
+        discover_eligible: false,
+        active: true,
+        account_deletion_requested: false,
+      }),
+    );
+  });
+
+  it('G create with account_deletion_requested=true is denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        account_deletion_requested: true,
+      }),
+    );
+  });
+
+  it('H update missing account_deletion_requested to true is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: true,
+        active: true,
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        account_deletion_requested: true,
+        discover_eligible: false,
+      }),
+    );
+  });
+
+  it('H update false account_deletion_requested to true is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: true,
+        active: true,
+        account_deletion_requested: false,
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        account_deletion_requested: true,
+        discover_eligible: false,
+      }),
+    );
+  });
+
+  it('I true account_deletion_requested may stay true with another allowed field', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        account_deletion_requested: true,
+        name: 'Ada',
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        name: 'Ada Yeni',
+        account_deletion_requested: true,
+      }),
+    );
+  });
+
+  it('J client cannot update account_deletion_requested true to false', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        account_deletion_requested: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        account_deletion_requested: false,
+      }),
+    );
+  });
+
+  it('K client cannot delete account_deletion_requested after true', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        account_deletion_requested: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        account_deletion_requested: deleteField(),
+      }),
+    );
+  });
+
+  it('L non-boolean account_deletion_requested is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        account_deletion_requested: 'true',
+      }),
+    );
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        account_deletion_requested: 1,
       }),
     );
   });

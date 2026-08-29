@@ -242,7 +242,11 @@ service cloud.firestore {
       // Self-granting discover_eligible == true remains forbidden.
       let eligibleOk = !affected.hasAny(['discover_eligible'])
         || request.resource.data.discover_eligible == false;
-      return eligibleOk && !affected.hasAny([
+      // Owner may set account_deletion_requested to true; once true, only
+      // Admin may clear or change it.
+      let deletionOk = !affected.hasAny(['account_deletion_requested'])
+        || request.resource.data.account_deletion_requested == true;
+      return eligibleOk && deletionOk && !affected.hasAny([
         'iq_score',
         'eq_score',
         'compatibility',
@@ -250,7 +254,8 @@ service cloud.firestore {
         'moderation_state',
         'moderation_status',
         'account_deletion_status',
-        'uid'
+        'uid',
+        'active'
       ]);
     }
 
@@ -259,6 +264,14 @@ service cloud.firestore {
         && (
           !('discover_eligible' in request.resource.data)
           || request.resource.data.discover_eligible == false
+        )
+        && (
+          !('active' in request.resource.data)
+          || request.resource.data.active == true
+        )
+        && (
+          !('account_deletion_requested' in request.resource.data)
+          || request.resource.data.account_deletion_requested == false
         );
     }
 
