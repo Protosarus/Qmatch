@@ -443,6 +443,19 @@ exports.handleGetNotificationPrefs =
   notificationPrefs.handleGetNotificationPrefs;
 exports.handleSetNotificationPrefs =
   notificationPrefs.handleSetNotificationPrefs;
+const finalizeIq = require('./src/finalize_iq_v1');
+
+/**
+ * Trusted IQ session finalize (`admin_finalize_iq_v1`).
+ * Auth required. Structurally validates a locked 25-item IQ session and
+ * Admin-writes users/{uid}.assessment_verification_v1.iq.
+ * Does not score, store answers, grant Discover, or finalize EQ/Frequency.
+ * europe-west1 only: Firestore is EU-colocated; no US twin in C2-T2B.
+ */
+exports.finalizeIq = onCall(
+  { region: 'europe-west1' },
+  (request) => finalizeIq.handleFinalizeIq(request),
+);
 const newMessagePush = require('./src/new_message_push');
 
 /**
