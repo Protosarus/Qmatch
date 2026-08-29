@@ -269,13 +269,9 @@ service cloud.firestore {
 
     // users/{uid}
     match /users/{uid} {
-      // Owner full get; Discover candidates when eligible; ACTIVE matched peers.
-      allow get: if isOwner(uid)
-        || (isSignedIn() && resource.data.discover_eligible == true)
-        || isMatchedWith(uid);
-
-      // List required for Discover query; each returned doc still must pass get.
-      allow list: if isSignedIn();
+      // Parent document is owner-only. Peer display uses public_profiles/{uid}.
+      allow get: if isOwner(uid);
+      allow list: if false;
 
       allow create: if isOwner(uid) && userCreateProtectedDefaultsOk();
       allow update: if isOwner(uid) && userProtectedKeysUnchanged();

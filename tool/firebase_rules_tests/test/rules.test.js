@@ -1293,7 +1293,142 @@ describe('public_profiles rules', () => {
       });
     });
     await assertFails(getDoc(doc(authedFirestore('userA'), 'users/userB')));
-    await assertSucceeds(getDoc(doc(authedFirestore('userA'), 'users/userC')));
+    await assertFails(getDoc(doc(authedFirestore('userA'), 'users/userC')));
+  });
+});
+
+describe('users parent document lockdown', () => {
+  async function seedUser(uid, extra) {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), `users/${uid}`), {
+        uid,
+        name: uid,
+        discover_eligible: false,
+        ...extra,
+      });
+    });
+  }
+
+  it('A owner GET users/userA is allowed', async () => {
+    await seedUser('userA', { discover_eligible: false });
+    await assertSucceeds(getDoc(doc(authedFirestore('userA'), 'users/userA')));
+  });
+
+  it('B eligible stranger GET users/userB is denied', async () => {
+    await seedUser('userB', { discover_eligible: true });
+    await assertFails(getDoc(doc(authedFirestore('userA'), 'users/userB')));
+  });
+
+  it('C ineligible stranger GET users/userB is denied', async () => {
+    await seedUser('userB', { discover_eligible: false });
+    await assertFails(getDoc(doc(authedFirestore('userA'), 'users/userB')));
+  });
+
+  it('D active matched peer GET users/userB is denied', async () => {
+    await seedUser('userB', { discover_eligible: false });
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'matches/userA_userB'), {
+        users: ['userA', 'userB'],
+        user_a: 'userA',
+        user_b: 'userB',
+        state: 'active',
+      });
+    });
+    await assertFails(getDoc(doc(authedFirestore('userA'), 'users/userB')));
+  });
+
+  it('E authenticated users LIST is denied', async () => {
+    await seedUser('userA', { discover_eligible: true });
+    await seedUser('userB', { discover_eligible: true });
+    await assertFails(getDocs(collection(authedFirestore('userA'), 'users')));
+  });
+
+  it('F filtered users discover_eligible query is denied', async () => {
+    await seedUser('userB', { discover_eligible: true });
+    await assertFails(
+      getDocs(
+        query(
+          collection(authedFirestore('userA'), 'users'),
+          where('discover_eligible', '==', true),
+        ),
+      ),
+    );
+  });
+
+  it('G unauthenticated GET users/userB is denied', async () => {
+    await seedUser('userB', { discover_eligible: true });
+    await assertFails(getDoc(doc(unauthFirestore(), 'users/userB')));
+  });
+
+  it('H unauthenticated users LIST is denied', async () => {
+    await seedUser('userB', { discover_eligible: true });
+    await assertFails(getDocs(collection(unauthFirestore(), 'users')));
+  });
+
+  it('owner assessments GET still allowed after parent lock', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA/assessments/iq'), {
+        answers: { q1: 'own' },
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'users/userA/assessments/iq')),
+    );
+  });
+
+  it('owner blocks GET still allowed after parent lock', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA/blocks/userB'), {
+        blocked_uid: 'userB',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'users/userA/blocks/userB')),
+    );
+  });
+
+  it('owner swipes GET still allowed after parent lock', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA/swipes/userB'), {
+        direction: 'pass',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB')),
+    );
+  });
+
+  it('owner Passport preference GET still allowed after parent lock', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(
+        doc(ctx.firestore(), 'users/userA/preferences/discover_passport_v1'),
+        {
+          passport_enabled: false,
+          schema_version: 'discover_passport_v1',
+        },
+      );
+    });
+    await assertSucceeds(
+      getDoc(
+        doc(
+          authedFirestore('userA'),
+          'users/userA/preferences/discover_passport_v1',
+        ),
+      ),
+    );
+  });
+
+  it('reverse swipe GET by target remains allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userB/swipes/userA'), {
+        direction: 'like',
+        from_uid: 'userB',
+        target_uid: 'userA',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'users/userB/swipes/userA')),
+    );
   });
 });
 
