@@ -122,6 +122,38 @@ void main() {
     });
   });
 
+  group('DiscoverL1EligibilityGate — public_profiles local gates', () {
+    test('discover_eligible true + photo → pass without private L1 mirrors', () {
+      expect(
+        DiscoverL1EligibilityGate.passesPublicProfileLocalGates(
+          discoverEligible: true,
+          hasPhoto: true,
+        ),
+        isTrue,
+      );
+    });
+
+    test('discover_eligible false is rejected even with a photo', () {
+      expect(
+        DiscoverL1EligibilityGate.passesPublicProfileLocalGates(
+          discoverEligible: false,
+          hasPhoto: true,
+        ),
+        isFalse,
+      );
+    });
+
+    test('missing photo is still rejected', () {
+      expect(
+        DiscoverL1EligibilityGate.passesPublicProfileLocalGates(
+          discoverEligible: true,
+          hasPhoto: false,
+        ),
+        isFalse,
+      );
+    });
+  });
+
   group('DiscoverUserModel assessment_flow_completed mapping', () {
     test('maps assessment_flow_completed from Firestore', () {
       final onlyFlow = DiscoverUserModel.fromFirestore('u1', {
@@ -181,8 +213,8 @@ void main() {
       expect(src.contains('applyTrustedMembership'), isTrue);
       expect(src.contains('candidateBlockedViewer: false'), isTrue);
       expect(src.contains('excludedByBlocks'), isTrue);
-      expect(src.contains('passesLocalAccountGates'), isTrue);
-      expect(src.contains('assessmentFlowCompleted'), isTrue);
+      expect(src.contains('passesPublicProfileLocalGates'), isTrue);
+      expect(src.contains('passesLocalAccountGates'), isFalse);
       // Must not require only testCompleted anymore.
       expect(
         src.contains('!candidate.testCompleted || !candidate.profileCompleted'),
@@ -195,7 +227,7 @@ void main() {
       // L3 soft shadow must not participate in L1 gates.
       expect(src.contains('DiscoverL3SoftPreference'), isTrue);
       expect(
-        src.indexOf('passesLocalAccountGates') <
+        src.indexOf('passesPublicProfileLocalGates') <
             src.indexOf('_l3ShadowAttacher.attach'),
         isTrue,
       );

@@ -135,7 +135,7 @@ class DiscoverService {
     };
   }
 
-  /// Loads candidate profiles for Discover (simple query + local filters).
+  /// Loads Discover candidates from `public_profiles` (simple query + local filters).
   Future<List<DiscoverUserModel>> getCandidates({int limit = 30}) async {
     final me = _auth.currentUser;
     if (me == null) {
@@ -152,8 +152,7 @@ class DiscoverService {
     final plan = DiscoverEligibleQueryPlan.fromPassport(passport);
     lastQueryPlan = plan;
 
-    // Prefer discover_eligible to avoid composite index needs.
-    // TODO: Backfill discover_eligible for existing users if needed.
+    // Trusted public snapshot query. Peer `users/{uid}` docs are not read.
     final batchSize = (limit * 3).clamp(30, 120);
     final started = await QmatchPerf.trace('discover.firestore_batch', () {
       return Future.wait<Object?>([
@@ -175,7 +174,7 @@ class DiscoverService {
             if (plan.skipEligibleQuery) {
               return Future<QuerySnapshot<Map<String, dynamic>>?>.value(null);
             }
-            Query<Map<String, dynamic>> query = FirestorePaths.users()
+            Query<Map<String, dynamic>> query = FirestorePaths.publicProfiles()
                 .where('discover_eligible', isEqualTo: true);
             if (plan.usesDestinationFilter) {
               query = query
@@ -246,21 +245,12 @@ class DiscoverService {
         final data = doc.data();
         final candidate = DiscoverUserModel.fromFirestore(doc.id, data);
 
-        if (!DiscoverL1EligibilityGate.passesLocalAccountGates(
-          active: candidate.active,
-          profileCompleted: candidate.profileCompleted,
-          testCompleted: candidate.testCompleted,
-          assessmentFlowCompleted: candidate.assessmentFlowCompleted,
+        if (!DiscoverL1EligibilityGate.passesPublicProfileLocalGates(
+          discoverEligible: candidate.discoverEligible,
           hasPhoto: candidate.hasPhoto,
         )) {
-          if (!candidate.active) {
-            excludedInactive++;
-          } else if (!candidate.profileCompleted) {
-            excludedIncompleteProfile++;
-          } else if (!candidate.hasPhoto) {
+          if (!candidate.hasPhoto) {
             excludedMissingPhoto++;
-          } else {
-            excludedAssessmentIncomplete++;
           }
           continue;
         }

@@ -19,6 +19,11 @@ class DiscoverL1EligibilityGate {
 
   /// Local re-check aligned with trusted Discover eligibility derivation
   /// (`trusted_discover_eligibility_authority_v1` / Cloud Function).
+  ///
+  /// Use this on full `users/{uid}` documents (owner, match validity).
+  /// Discover peer candidates come from `public_profiles` and must use
+  /// [passesPublicProfileLocalGates] instead — those snapshots omit
+  /// `active` / completion mirrors.
   static bool passesLocalAccountGates({
     required bool active,
     required bool profileCompleted,
@@ -33,6 +38,18 @@ class DiscoverL1EligibilityGate {
       testCompleted: testCompleted,
       assessmentFlowCompleted: assessmentFlowCompleted,
     );
+  }
+
+  /// Client filters for a `public_profiles` candidate already returned by
+  /// `discover_eligible == true`. Account completion is the backend query;
+  /// do not require missing private L1 mirrors.
+  static bool passesPublicProfileLocalGates({
+    required bool discoverEligible,
+    required bool hasPhoto,
+  }) {
+    if (discoverEligible != true) return false;
+    if (!hasPhoto) return false;
+    return true;
   }
 
   /// Viewer-block is a client L1 hard exclude. Reverse-block is Admin-omitted

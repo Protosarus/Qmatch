@@ -9,6 +9,16 @@ class FirestorePaths {
   // Root collections
   static CollectionReference<Map<String, dynamic>> users() =>
       _db.collection('users');
+
+  /// Server-owned Discover/chat whitelist. Clients never write.
+  static CollectionReference<Map<String, dynamic>> publicProfiles() =>
+      _db.collection('public_profiles');
+
+  static DocumentReference<Map<String, dynamic>> publicProfileDoc(
+    String uid,
+  ) =>
+      publicProfiles().doc(uid);
+
   static CollectionReference<Map<String, dynamic>> matches() =>
       _db.collection('matches');
   static CollectionReference<Map<String, dynamic>> threads() =>

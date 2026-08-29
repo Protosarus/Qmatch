@@ -85,6 +85,21 @@ void main() {
       expect(ranked, hasLength(l1.length));
     });
 
+    test('absent last_active_at falls through to uid tiebreak', () {
+      final ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+        l1Eligible: [
+          _candidate(uid: 'zeta'),
+          _candidate(uid: 'alpha'),
+        ],
+        pairsByUid: {
+          'zeta': _l2(available: true, distance: 0.10),
+          'alpha': _l2(available: true, distance: 0.10),
+        },
+      );
+      expect(ranked.map((c) => c.uid).toList(), ['alpha', 'zeta']);
+      expect(ranked.every((c) => c.lastActiveAt == null), isTrue);
+    });
+
     test('available L2 ranks before unavailable; missing is not 0 or 0.5', () {
       final l1 = [
         _candidate(uid: 'missing', lastActive: tFresh),

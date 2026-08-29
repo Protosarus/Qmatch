@@ -478,8 +478,9 @@ void main() {
       expect(discover.contains('applyTrustedMembership'), isTrue);
     });
 
-    test('required users composite index exists', () {
+    test('required users and public_profiles composite indexes exist', () {
       final indexes = read('firestore.indexes.json');
+      expect(indexes.contains('"collectionGroup": "public_profiles"'), isTrue);
       expect(indexes.contains('"fieldPath": "discover_eligible"'), isTrue);
       expect(indexes.contains('"fieldPath": "home_country"'), isTrue);
       expect(indexes.contains('"fieldPath": "home_city"'), isTrue);

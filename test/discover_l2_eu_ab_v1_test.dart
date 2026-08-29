@@ -36,6 +36,7 @@ void main() {
     expect(wait.contains('orderBy'), isFalse);
     expect(wait.contains('startAfter'), isFalse);
     expect(wait.contains('FirestorePaths.userDoc(currentUid).get()'), isTrue);
+    expect(wait.contains('FirestorePaths.publicProfiles()'), isTrue);
     expect(wait.contains('_swipeService.getMySwipedUserIds()'), isTrue);
     expect(wait.contains('_loadBlockedByMe()'), isTrue);
 

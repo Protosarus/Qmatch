@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../assessment/utils/assessment_result_display_resolver.dart';
 
-/// Read model for Discover feed — maps `users/{uid}` documents in this project.
+/// Read model for Discover feed — maps `public_profiles/{uid}` snapshots.
+/// Private `users/{uid}` account/assessment fields are absent on this path.
 class DiscoverUserModel {
   final String uid;
   final String name;
@@ -34,6 +35,9 @@ class DiscoverUserModel {
   /// Flow-v2 assessment battery completion (existing flag; not a new gate).
   final bool assessmentFlowCompleted;
   final bool active;
+
+  /// Backend-authored public eligibility. Missing/non-true is false.
+  final bool discoverEligible;
 
   final double? compatibilityScore; // 0..1
   final String? compatibilityLabel;
@@ -68,6 +72,7 @@ class DiscoverUserModel {
     this.testCompleted = false,
     this.assessmentFlowCompleted = false,
     this.active = true,
+    this.discoverEligible = false,
     this.compatibilityScore,
     this.compatibilityLabel,
     this.compatibilityReasons,
@@ -102,6 +107,7 @@ class DiscoverUserModel {
     bool? testCompleted,
     bool? assessmentFlowCompleted,
     bool? active,
+    bool? discoverEligible,
     double? compatibilityScore,
     String? compatibilityLabel,
     List<String>? compatibilityReasons,
@@ -136,6 +142,7 @@ class DiscoverUserModel {
       assessmentFlowCompleted:
           assessmentFlowCompleted ?? this.assessmentFlowCompleted,
       active: active ?? this.active,
+      discoverEligible: discoverEligible ?? this.discoverEligible,
       compatibilityScore: compatibilityScore ?? this.compatibilityScore,
       compatibilityLabel: compatibilityLabel ?? this.compatibilityLabel,
       compatibilityReasons: compatibilityReasons ?? this.compatibilityReasons,
@@ -236,6 +243,7 @@ class DiscoverUserModel {
       assessmentFlowCompleted:
           data['assessment_flow_completed'] as bool? ?? false,
       active: data['active'] as bool? ?? true,
+      discoverEligible: data['discover_eligible'] == true,
     );
   }
 }
