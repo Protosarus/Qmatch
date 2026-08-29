@@ -28,6 +28,7 @@ const {
   query,
   where,
   deleteField,
+  serverTimestamp,
 } = require('firebase/firestore');
 const {
   ref,
@@ -644,6 +645,290 @@ describe('C1 active and account-deletion protected writes', () => {
     await assertFails(
       updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
         account_deletion_requested: 1,
+      }),
+    );
+  });
+});
+
+describe('C2-T1 assessment_verification_v1 protected writes', () => {
+  const trustedMap = {
+    schema_version: 'assessment_verification_v1',
+    flow: 'iq',
+    grant_reason: 'server_test',
+  };
+
+  it('A create own users doc with assessment_verification_v1 omitted is allowed', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      }),
+    );
+  });
+
+  it('B create with assessment_verification_v1 empty map is denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: {},
+      }),
+    );
+  });
+
+  it('C create with assessment_verification_v1.flow complete is denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: { flow: 'complete' },
+      }),
+    );
+  });
+
+  it('D create with assessment_verification_v1 null is denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: null,
+      }),
+    );
+  });
+
+  it('existing map: bio-only update is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        bio: 'hello',
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        bio: 'updated bio',
+      }),
+    );
+  });
+
+  it('existing map: profile_completed mirror rewrite is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        profile_completed: false,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertSucceeds(
+      setDoc(
+        doc(authedFirestore('userA'), 'users/userA'),
+        { profile_completed: true },
+        { merge: true },
+      ),
+    );
+  });
+
+  it('existing map: assessment completion mirrors remain writable', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        test_completed: false,
+        assessment_flow_completed: false,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertSucceeds(
+      setDoc(
+        doc(authedFirestore('userA'), 'users/userA'),
+        {
+          test_completed: true,
+          assessment_flow_completed: true,
+        },
+        { merge: true },
+      ),
+    );
+  });
+
+  it('existing map: last_active_at merge is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertSucceeds(
+      setDoc(
+        doc(authedFirestore('userA'), 'users/userA'),
+        {
+          last_active_at: serverTimestamp(),
+          updated_at: serverTimestamp(),
+        },
+        { merge: true },
+      ),
+    );
+  });
+
+  it('existing map: account_deletion_requested false to true is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: true,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertSucceeds(
+      setDoc(
+        doc(authedFirestore('userA'), 'users/userA'),
+        {
+          account_deletion_requested: true,
+          discover_eligible: false,
+        },
+        { merge: true },
+      ),
+    );
+  });
+
+  it('existing map: whole-map replacement is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        assessment_verification_v1: {
+          schema_version: 'assessment_verification_v1',
+          flow: 'complete',
+          grant_reason: 'forged',
+        },
+      }),
+    );
+  });
+
+  it('existing map: set to null is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        assessment_verification_v1: null,
+      }),
+    );
+  });
+
+  it('existing map: deleteField is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        assessment_verification_v1: deleteField(),
+      }),
+    );
+  });
+
+  it('existing map: nested flow mutation is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        'assessment_verification_v1.flow': 'complete',
+      }),
+    );
+  });
+
+  it('existing map: nested property addition is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        'assessment_verification_v1.iq.status': 'verified',
+      }),
+    );
+  });
+
+  it('absent map: ordinary profile merge is allowed', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        bio: 'legacy',
+      });
+    });
+    await assertSucceeds(
+      setDoc(
+        doc(authedFirestore('userA'), 'users/userA'),
+        { bio: 'legacy updated', profile_completed: true },
+        { merge: true },
+      ),
+    );
+  });
+
+  it('absent map: client adding assessment_verification_v1 is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        assessment_verification_v1: trustedMap,
+      }),
+    );
+  });
+
+  it('absent map: nested dot-path add is denied', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        'assessment_verification_v1.flow': 'complete',
       }),
     );
   });
