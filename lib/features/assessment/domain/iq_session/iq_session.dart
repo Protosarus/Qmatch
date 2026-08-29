@@ -1,6 +1,7 @@
 library;
 
 export 'iq_deterministic_rng.dart';
+export 'iq_finalize_request_mapper.dart';
 export 'iq_persisted_session_state.dart';
 export 'iq_session_composer.dart';
 export 'iq_session_contract.dart';

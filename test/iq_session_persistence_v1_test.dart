@@ -548,6 +548,7 @@ void main() {
         'lib/features/assessment/domain/iq_session/iq_persisted_session_state.dart',
         'lib/features/assessment/domain/iq_session/iq_session_persistence_repository.dart',
         'lib/features/assessment/domain/iq_session/iq_session_prefs_repository.dart',
+        'lib/features/assessment/domain/iq_session/iq_finalize_request_mapper.dart',
       ];
       for (final path in domainFiles) {
         final src = File(path).readAsStringSync();

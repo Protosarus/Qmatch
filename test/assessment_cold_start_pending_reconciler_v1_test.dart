@@ -116,7 +116,7 @@ void main() {
       );
     });
 
-    test('IQ: remote progress complete + local pending → finalize, then EQ route',
+    test('IQ: remote iq_completed + local pending → hold IQ, do not local-finalize',
         () async {
       const uid = 'uid_cold_iq';
       final repo = IqSessionMemoryRepository();
@@ -145,7 +145,7 @@ void main() {
         IqPersistedSessionStatus.completedPendingPersistence,
       );
 
-      // Simulate: remote progress already advanced to EQ.
+      // Remote mirror may already be true (finalizeIq writes iq_completed).
       final progress = _progress(
         destination: AssessmentFlowDestination.eq,
         iqCompleted: true,
@@ -157,23 +157,21 @@ void main() {
         iqRepository: repo,
         eqRepository: eqRepo,
         frequencyRepository: freqRepo,
-        loadIqBank: (_) async => iqBank,
       );
       final decision = await reconciler.reconcile(uid: uid, progress: progress);
 
+      final active = await repo.loadActiveSession(uid);
+      expect(active.isLoaded, isTrue);
       expect(
-        (await repo.loadActiveSession(uid)).isLoaded,
-        isFalse,
-        reason: 'local pending must clear after markRemoteFinalized',
+        active.state!.status,
+        IqPersistedSessionStatus.completedPendingPersistence,
       );
-      final stored = await repo.loadSession(uid, sid);
-      expect(stored.state!.remoteFinalized, isTrue);
-      expect(stored.state!.status, IqPersistedSessionStatus.completed);
-
-      // No pending left → follow progress (EQ).
-      expect(decision.destination, AssessmentFlowDestination.eq);
-      expect(decision.openAssessmentTestScreen, isFalse);
-      expect(decision.reason, 'progress_routing');
+      expect(active.state!.sessionId, sid);
+      expect(active.state!.remoteFinalized, isFalse);
+      expect(active.state!.answers.length, 25);
+      expect(decision.destination, AssessmentFlowDestination.iq);
+      expect(decision.openAssessmentTestScreen, isTrue);
+      expect(decision.reason, 'iq_pending_finalization');
     });
 
     test('EQ: remote progress complete + local pending → finalize, then Frequency',
@@ -302,7 +300,6 @@ void main() {
         iqRepository: repo,
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: FrequencySessionMemoryRepository(),
-        loadIqBank: (_) async => iqBank,
       ).reconcile(uid: uid, progress: progress);
 
       expect(
@@ -349,13 +346,32 @@ void main() {
         iqRepository: repo,
         eqRepository: eqRepo,
         frequencyRepository: freqRepo,
-        loadIqBank: (_) async => iqBank,
       );
       final first = await reconciler.reconcile(uid: uid, progress: progress);
       final second = await reconciler.reconcile(uid: uid, progress: progress);
       expect(first.destination, AssessmentFlowDestination.eq);
       expect(second.destination, AssessmentFlowDestination.eq);
       expect((await repo.loadSession(uid, sid)).state!.remoteFinalized, isTrue);
+    });
+
+    test(
+        'no local pending IQ + remote iq_completed → follow progress, not IQ',
+        () async {
+      const uid = 'uid_old_user';
+      final decision = await AssessmentColdStartPendingReconciler(
+        iqRepository: IqSessionMemoryRepository(),
+        eqRepository: EqSessionMemoryRepository(),
+        frequencyRepository: FrequencySessionMemoryRepository(),
+      ).reconcile(
+        uid: uid,
+        progress: _progress(
+          destination: AssessmentFlowDestination.eq,
+          iqCompleted: true,
+        ),
+      );
+      expect(decision.destination, AssessmentFlowDestination.eq);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
     });
   });
 }

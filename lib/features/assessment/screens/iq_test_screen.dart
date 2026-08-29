@@ -6,10 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/iq_bank/iq_bank.dart';
 import '../domain/iq_session/iq_session.dart';
-import '../domain/profile/profile.dart';
-import '../services/assessment_progress_service.dart';
-import '../services/canonical_assessment_persistence.dart';
 import '../services/iq_canonical_runtime_service.dart';
+import '../services/iq_pending_finalization_pipeline.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/assessment_widgets.dart';
 import 'eq_test_intro_screen.dart';
@@ -18,22 +16,30 @@ import 'eq_test_intro_screen.dart';
 ///
 /// Legacy 10-item assigned-set path is no longer used for new sessions.
 class IQTestScreen extends StatefulWidget {
-  const IQTestScreen({super.key});
+  const IQTestScreen({
+    super.key,
+    this.runtime,
+    this.pendingPipeline,
+  });
+
+  final IqCanonicalRuntimeService? runtime;
+  final IqPendingFinalizationPipeline? pendingPipeline;
 
   @override
   State<IQTestScreen> createState() => _IQTestScreenState();
 }
 
 class _IQTestScreenState extends State<IQTestScreen> {
-  final _runtime = IqCanonicalRuntimeService();
-  final _persistence = CanonicalAssessmentPersistence();
-  final _progress = AssessmentProgressService();
+  late final IqCanonicalRuntimeService _runtime;
+  late final IqPendingFinalizationPipeline _pendingPipeline;
 
   IqRecoveredBankDocument? _bank;
   IqPersistedSessionState? _session;
   String? _loadErrorCode;
   bool _isLoading = true;
   bool _didStartLoading = false;
+  bool _didAutoRetryPending = false;
+  bool _pipelineInFlight = false;
   bool _busy = false;
   String? _selectedOptionId;
   bool _showSelectAnswerWarning = false;
@@ -46,6 +52,9 @@ class _IQTestScreenState extends State<IQTestScreen> {
   @override
   void initState() {
     super.initState();
+    _runtime = widget.runtime ?? IqCanonicalRuntimeService();
+    _pendingPipeline = widget.pendingPipeline ??
+        IqPendingFinalizationPipeline.live(runtime: _runtime);
   }
 
   @override
@@ -105,13 +114,19 @@ class _IQTestScreenState extends State<IQTestScreen> {
       final idx = session.currentQuestionIndex;
       final plan = session.itemPlans[idx];
       final existing = session.answersByItemId[plan.itemId];
+      final pending = session.status ==
+          IqPersistedSessionStatus.completedPendingPersistence;
       setState(() {
         _bank = bank;
         _session = session;
         _selectedOptionId = existing?.selectedOptionId;
         _startedAt = DateTime.tryParse(session.startedAt) ?? DateTime.now();
         _isLoading = false;
+        if (pending) _busy = true;
       });
+      if (pending) {
+        _schedulePendingPipelineOnce(session);
+      }
     } catch (e) {
       debugPrint('Canonical IQ bootstrap failed: $e');
       if (!mounted) return;
@@ -138,7 +153,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
     if (session.status ==
         IqPersistedSessionStatus.completedPendingPersistence) {
       setState(() => _busy = true);
-      await _scorePersistFinalizeAndNavigate(
+      await _runPendingFinalizationPipeline(
         session: session,
         locale: locale,
         language: language,
@@ -212,7 +227,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
       }
       if (!mounted) return;
       setState(() => _session = completed.state);
-      await _scorePersistFinalizeAndNavigate(
+      await _runPendingFinalizationPipeline(
         session: completed.state!,
         locale: locale,
         language: language,
@@ -226,70 +241,58 @@ class _IQTestScreenState extends State<IQTestScreen> {
     }
   }
 
-  /// Score → remote persist → mark finalized → EQ Intro.
-  /// Safe to retry; does not call [answer].
-  Future<void> _scorePersistFinalizeAndNavigate({
+  ({String locale, String language}) _assessmentLocaleLanguage() {
+    final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final language = AssessmentLanguage.languageUsed(
+      languageCode: languageCode,
+    );
+    final locale = AssessmentLanguage.localeUsed(locale: Locale(language));
+    return (locale: locale, language: language);
+  }
+
+  /// One automatic pending retry per screen lifecycle (bootstrap only).
+  void _schedulePendingPipelineOnce(IqPersistedSessionState session) {
+    if (_didAutoRetryPending) return;
+    _didAutoRetryPending = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      if (_session?.sessionId != session.sessionId) return;
+      final loc = _assessmentLocaleLanguage();
+      unawaited(
+        _runPendingFinalizationPipeline(
+          session: session,
+          locale: loc.locale,
+          language: loc.language,
+        ),
+      );
+    });
+  }
+
+  /// finalizeIq → score → persist → markIqCompleted → markRemoteFinalized → EQ.
+  /// Safe to retry; does not call [answer]; never clears pending on failure.
+  Future<void> _runPendingFinalizationPipeline({
     required IqPersistedSessionState session,
     required String locale,
     required String language,
   }) async {
+    if (_pipelineInFlight) return;
+    _pipelineInFlight = true;
     try {
-      final scored = await _runtime.scoreCompleted(session);
-      if (!scored.ok || scored.result == null) {
-        if (!mounted) return;
-        _showErrorSnack(scored.code?.name ?? 'score_failed');
-        setState(() => _busy = false);
-        return;
-      }
-
-      try {
-        await _persistence.upsertCompletedAssessment(
-          assessmentType: 'iq',
-          fields: _persistence.buildCanonicalIq4dPayload(
-            result: scored.result!,
-            locale: locale,
-            languageUsed: language,
-            startedAt: _startedAt,
-          ),
-        );
-
-        final uid = _runtime.currentUid;
-        if (uid == null || uid.isEmpty) {
-          throw StateError('Owner UID unavailable for profile adapter');
-        }
-        final adapted = const IqTo20dRuntimeAdapter().adapt(
-          result: scored.result!,
-          ownerUid: uid,
-        );
-        if (!adapted.ok || adapted.fragment == null) {
-          throw StateError(
-              adapted.message ?? adapted.code?.name ?? 'adapt_failed');
-        }
-        // Profile before progress mirror — downstream must not see iq_completed
-        // without IQ4 on canonical_v1.
-        await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
-        await _progress.markIqCompleted(rawScore: null);
-      } catch (e) {
-        debugPrint('Canonical IQ result persistence failed: $e');
-        if (!mounted) return;
-        _showErrorSnack('persist_failed');
-        setState(() => _busy = false);
-        return;
-      }
-
-      final finalized = await _runtime.markRemoteFinalized(
-        sessionId: session.sessionId,
+      final outcome = await _pendingPipeline.run(
+        session: session,
+        locale: locale,
+        language: language,
+        startedAt: _startedAt,
       );
-      if (!finalized.ok || finalized.state == null) {
-        if (!mounted) return;
-        _showErrorSnack(finalized.code ?? 'finalize_failed');
+      if (!mounted) return;
+      if (!outcome.navigateToEq) {
+        _showErrorSnack(outcome.uiErrorCode ?? 'persist_failed');
         setState(() => _busy = false);
         return;
       }
-
-      if (!mounted) return;
       setState(() {
-        _session = finalized.state;
+        _session = outcome.session;
         _busy = false;
       });
       _openEqIntro();
@@ -298,6 +301,8 @@ class _IQTestScreenState extends State<IQTestScreen> {
       if (!mounted) return;
       _showErrorSnack('unexpected_error');
       setState(() => _busy = false);
+    } finally {
+      _pipelineInFlight = false;
     }
   }
 

@@ -325,14 +325,19 @@ void main() {
 
       final screen = File('lib/features/assessment/screens/iq_test_screen.dart')
           .readAsStringSync();
-      expect(screen.contains('IqTo20dRuntimeAdapter'), isTrue);
+      expect(screen.contains('IqPendingFinalizationPipeline'), isTrue);
       expect(screen.contains('EQTestIntroScreen'), isTrue);
       expect(screen.contains('_openEqIntro'), isTrue);
       expect(screen.contains('IqReasoningProfileScreen'), isFalse);
       expect(screen.contains('IqToEqTransitionScreen'), isFalse);
-      expect(screen.contains('upsertCanonicalProfileFragment'), isTrue);
       expect(screen.contains('PersonaReveal'), isFalse);
       expect(screen.contains('DiscoverService'), isFalse);
+
+      final pipeline = File(
+        'lib/features/assessment/services/iq_pending_finalization_pipeline.dart',
+      ).readAsStringSync();
+      expect(pipeline.contains('IqTo20dRuntimeAdapter'), isTrue);
+      expect(pipeline.contains('upsertCanonicalProfileFragment'), isTrue);
 
       final eq = File('lib/features/assessment/screens/eq_test_screen.dart')
           .readAsStringSync();

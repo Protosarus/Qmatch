@@ -8,7 +8,6 @@ import '../domain/eq_session/eq_session.dart';
 import '../domain/eq_session/eq_session_prefs_repository.dart';
 import '../domain/frequency_bank/frequency_bank.dart';
 import '../domain/frequency_session/frequency_session.dart';
-import '../domain/iq_bank/iq_bank.dart';
 import '../domain/iq_session/iq_session.dart';
 import '../domain/iq_session/iq_session_prefs_repository.dart';
 import '../models/assessment_progress.dart';
@@ -16,16 +15,20 @@ import '../models/assessment_progress.dart';
 /// Cold-start gate: local `completedPendingPersistence` must not be skipped
 /// when AuthWrapper routes by remote progress alone.
 ///
-/// Crash window covered:
-/// remote progress already written → app dies before [markRemoteFinalized]
-/// → cold start must finalize (or hold on that assessment), never restart.
+/// IQ: a durable local pending session always wins over `users.iq_completed`.
+/// Recovery owner is IQTestScreen (full pipeline including idempotent
+/// `finalizeIq`). This reconciler must **not** call markRemoteFinalized
+/// for IQ merely because the remote mirror is true — that mirror is also
+/// written by `finalizeIq` before client canonical persistence.
+///
+/// EQ / Frequency: unchanged. Crash window covered by local finalize when
+/// remote progress already says that module is complete.
 class AssessmentColdStartPendingReconciler {
   AssessmentColdStartPendingReconciler({
     IqSessionPersistenceRepository? iqRepository,
     EqSessionPersistenceRepository? eqRepository,
     FrequencySessionPersistenceRepository? frequencyRepository,
     AssetBundle? bundle,
-    Future<IqRecoveredBankDocument> Function(String bankLocale)? loadIqBank,
     Future<EqCanonicalBankDocument> Function(String bankLocale)? loadEqBank,
     Future<FrequencyCanonicalBankDocument> Function(String bankLocale)?
         loadFrequencyBank,
@@ -34,7 +37,6 @@ class AssessmentColdStartPendingReconciler {
         _frequencyRepo =
             frequencyRepository ?? FrequencySessionPrefsRepository(),
         _bundle = bundle ?? rootBundle,
-        _loadIqBank = loadIqBank,
         _loadEqBank = loadEqBank,
         _loadFrequencyBank = loadFrequencyBank;
 
@@ -42,8 +44,6 @@ class AssessmentColdStartPendingReconciler {
   final EqSessionPersistenceRepository _eqRepo;
   final FrequencySessionPersistenceRepository _frequencyRepo;
   final AssetBundle _bundle;
-  final Future<IqRecoveredBankDocument> Function(String bankLocale)?
-      _loadIqBank;
   final Future<EqCanonicalBankDocument> Function(String bankLocale)?
       _loadEqBank;
   final Future<FrequencyCanonicalBankDocument> Function(String bankLocale)?
@@ -132,45 +132,17 @@ class AssessmentColdStartPendingReconciler {
     );
   }
 
-  /// Idempotent: only [markRemoteFinalized] when remote progress already says
-  /// that module is complete (crash-after-progress window).
+  /// Finalize pending EQ/Frequency locals whose remote progress mirrors are
+  /// already set. IQ pending is never locally finalized here.
   Future<void> finalizeWhereRemoteProgressAlreadyComplete({
     required String uid,
     required AssessmentProgressSnapshot progress,
   }) async {
-    if (progress.iqCompleted) {
-      await _tryFinalizeIq(uid);
-    }
     if (progress.eqCompleted) {
       await _tryFinalizeEq(uid);
     }
     if (progress.frequencyCompleted || progress.assessmentFlowCompleted) {
       await _tryFinalizeFrequency(uid);
-    }
-  }
-
-  Future<void> _tryFinalizeIq(String uid) async {
-    final loaded = await _iqRepo.loadActiveSession(uid);
-    if (!loaded.isLoaded) return;
-    final session = loaded.state!;
-    if (session.status !=
-        IqPersistedSessionStatus.completedPendingPersistence) {
-      return;
-    }
-    try {
-      final bank = await _iqBankFor(session.bankLocale);
-      final manager = IqSessionManager(bank: bank, repository: _iqRepo);
-      final result = await manager.markRemoteFinalized(
-        ownerUid: uid,
-        sessionId: session.sessionId,
-      );
-      if (!result.ok) {
-        debugPrint(
-          'Cold-start IQ pending finalize failed: ${result.code} ${result.message}',
-        );
-      }
-    } catch (e) {
-      debugPrint('Cold-start IQ pending finalize error: $e');
     }
   }
 
@@ -225,16 +197,6 @@ class AssessmentColdStartPendingReconciler {
     }
   }
 
-  Future<IqRecoveredBankDocument> _iqBankFor(String bankLocale) async {
-    final loader = _loadIqBank;
-    if (loader != null) return loader(bankLocale);
-    final path = IqCanonicalRuntimeServicePaths.assetPathForLocale(bankLocale);
-    final raw = await _bundle.loadString(path);
-    return IqRecoveredBankDocument.fromJson(
-      jsonDecode(raw) as Map<String, dynamic>,
-    );
-  }
-
   Future<EqCanonicalBankDocument> _eqBankFor(String bankLocale) async {
     final loader = _loadEqBank;
     if (loader != null) return loader(bankLocale);
@@ -263,20 +225,6 @@ class AssessmentColdStartPendingReconciler {
     return FrequencyCanonicalBankDocument.fromJson(
       jsonDecode(raw) as Map<String, dynamic>,
     );
-  }
-}
-
-/// Avoid importing the full IQ runtime service for a static path helper.
-class IqCanonicalRuntimeServicePaths {
-  static String assetPathForLocale(String bankLocale) {
-    switch (bankLocale) {
-      case 'tr-TR':
-        return 'assets/data/assessment_v3/iq/iq_bank_tr_v1.json';
-      case 'en-US':
-        return 'assets/data/assessment_v3/iq/iq_bank_en_v1.json';
-      default:
-        throw ArgumentError('Unsupported bank locale: $bankLocale');
-    }
   }
 }
 
