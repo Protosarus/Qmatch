@@ -294,10 +294,10 @@ service cloud.firestore {
       }
 
       // Owner may Pass. Like create/update is Admin-only (trusted callable).
-      // Target may read reverse swipe.
+      // Swipe docs are owner-only. Target reverse GET is denied;
+      // inbound likes stay on Who Liked You / Super Resonance callables.
       match /swipes/{targetUid} {
-        allow read: if isSignedIn()
-          && (request.auth.uid == uid || request.auth.uid == targetUid);
+        allow read: if isOwner(uid);
 
         // Client may create only a Discover Pass.
         // Like creation remains Admin/callable only.

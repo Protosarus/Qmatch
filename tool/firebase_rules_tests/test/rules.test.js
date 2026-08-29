@@ -24,6 +24,7 @@ const {
   collection,
   addDoc,
   getDocs,
+  collectionGroup,
   query,
   where,
 } = require('firebase/firestore');
@@ -1418,7 +1419,7 @@ describe('users parent document lockdown', () => {
     );
   });
 
-  it('reverse swipe GET by target remains allowed', async () => {
+  it('reverse swipe GET by target is denied', async () => {
     await testEnv.withSecurityRulesDisabled(async (ctx) => {
       await setDoc(doc(ctx.firestore(), 'users/userB/swipes/userA'), {
         direction: 'like',
@@ -1426,8 +1427,139 @@ describe('users parent document lockdown', () => {
         target_uid: 'userA',
       });
     });
-    await assertSucceeds(
+    await assertFails(
       getDoc(doc(authedFirestore('userA'), 'users/userB/swipes/userA')),
+    );
+  });
+});
+
+describe('swipe reverse-read lockdown', () => {
+  async function seedSwipe(fromUid, targetUid, data) {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), `users/${fromUid}/swipes/${targetUid}`), {
+        from_uid: fromUid,
+        target_uid: targetUid,
+        ...data,
+      });
+    });
+  }
+
+  it('target cannot GET existing inbound Like', async () => {
+    await seedSwipe('userA', 'userB', {
+      direction: 'like',
+      from_uid: 'userA',
+      target_uid: 'userB',
+    });
+    await assertFails(
+      getDoc(doc(authedFirestore('userB'), 'users/userA/swipes/userB')),
+    );
+  });
+
+  it('target cannot GET existing inbound Pass', async () => {
+    await seedSwipe('userA', 'userB', { direction: 'pass' });
+    await assertFails(
+      getDoc(doc(authedFirestore('userB'), 'users/userA/swipes/userB')),
+    );
+  });
+
+  it('target GET of missing swipe is permission-denied', async () => {
+    await assertFails(
+      getDoc(doc(authedFirestore('userB'), 'users/userA/swipes/userB')),
+    );
+  });
+
+  it('owner GET own swipe is allowed', async () => {
+    await seedSwipe('userA', 'userB', { direction: 'pass' });
+    await assertSucceeds(
+      getDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB')),
+    );
+  });
+
+  it('owner LIST own swipes is allowed', async () => {
+    await seedSwipe('userA', 'userB', { direction: 'pass' });
+    await seedSwipe('userA', 'userC', { direction: 'like' });
+    await assertSucceeds(
+      getDocs(collection(authedFirestore('userA'), 'users/userA/swipes')),
+    );
+  });
+
+  it('owner client Pass CREATE is allowed', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        from_uid: 'userA',
+        target_uid: 'userB',
+        direction: 'pass',
+        source: 'discover',
+      }),
+    );
+  });
+
+  it('owner existing Pass to Pass UPDATE is allowed', async () => {
+    await seedSwipe('userA', 'userB', {
+      direction: 'pass',
+      source: 'discover',
+    });
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        direction: 'pass',
+        source: 'discover',
+      }),
+    );
+  });
+
+  it('owner client Like CREATE is denied', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        from_uid: 'userA',
+        target_uid: 'userB',
+        direction: 'like',
+        source: 'discover',
+      }),
+    );
+  });
+
+  it('owner cannot downgrade Admin Like to Pass', async () => {
+    await seedSwipe('userA', 'userB', {
+      direction: 'like',
+      source: 'discover',
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB'), {
+        direction: 'pass',
+      }),
+    );
+  });
+
+  it('client swipe DELETE is denied', async () => {
+    await seedSwipe('userA', 'userB', { direction: 'pass' });
+    await assertFails(
+      deleteDoc(doc(authedFirestore('userA'), 'users/userA/swipes/userB')),
+    );
+    await assertFails(
+      deleteDoc(doc(authedFirestore('userB'), 'users/userA/swipes/userB')),
+    );
+  });
+
+  it('peer LIST of another user swipes is denied', async () => {
+    await seedSwipe('userA', 'userB', { direction: 'like' });
+    await seedSwipe('userA', 'userC', { direction: 'pass' });
+    await assertFails(
+      getDocs(collection(authedFirestore('userB'), 'users/userA/swipes')),
+    );
+  });
+
+  it('inbound collection-group swipe query is denied', async () => {
+    await seedSwipe('userA', 'userB', {
+      direction: 'like',
+      target_uid: 'userB',
+    });
+    await assertFails(
+      getDocs(
+        query(
+          collectionGroup(authedFirestore('userB'), 'swipes'),
+          where('target_uid', '==', 'userB'),
+        ),
+      ),
     );
   });
 });
