@@ -131,7 +131,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
       Map<String, dynamic>? p;
       if (!deletionClosed) {
-        p = await _chat!.getUserPublicProfile(widget.otherUserId);
+        try {
+          p = await _chat!.getUserPublicProfile(widget.otherUserId);
+        } catch (e, st) {
+          debugPrint('ChatDetail public profile load failed: $e\n$st');
+        }
       }
 
       var blockedByMe = false;

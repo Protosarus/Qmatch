@@ -59,20 +59,22 @@ class ChatService {
     return ChatThreadModel.fromFirestore(threadId, data);
   }
 
+  /// Peer display snapshot from `public_profiles/{uid}`.
+  ///
+  /// Does not read `users/{uid}` and does not require `discover_eligible`.
+  /// Permission-denied / not-found (unmatch, block, tombstone) return null.
   Future<Map<String, dynamic>?> getUserPublicProfile(String uid) async {
-    final doc = await FirestorePaths.userDoc(uid).get();
-    final data = doc.data();
-    if (data == null) return null;
-
-    return {
-      'uid': uid,
-      'name': data['name'],
-      'age': data['age'],
-      'archetype': data['archetype'],
-      'category': data['category'],
-      'profile_photo_url': data['profile_photo_url'],
-      'photos': data['photos'],
-    };
+    try {
+      final doc = await FirestorePaths.publicProfileDoc(uid).get();
+      final data = doc.data();
+      if (!doc.exists || data == null) return null;
+      return chatPublicProfileFromData(uid, data);
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied' || e.code == 'not-found') {
+        return null;
+      }
+      rethrow;
+    }
   }
 
   String getOtherParticipantId(ChatThreadModel thread, String currentUid) {
@@ -397,4 +399,34 @@ class ChatService {
     });
     return thread;
   }
+}
+
+/// Display-only fields from a `public_profiles` document.
+///
+/// Does not copy private `users/{uid}` keys. Missing optionals stay absent/empty.
+/// `discover_eligible == false` is not a client rejection.
+Map<String, dynamic> chatPublicProfileFromData(
+  String uid,
+  Map<String, dynamic> data,
+) {
+  return {
+    'uid': uid,
+    'name': data['name'],
+    'age': data['age'],
+    'profile_photo_url': data['profile_photo_url'] is String
+        ? data['profile_photo_url']
+        : null,
+    'photos': _publicPhotoUrls(data['photos']),
+  };
+}
+
+List<String> _publicPhotoUrls(Object? raw) {
+  if (raw is! List) return const <String>[];
+  final out = <String>[];
+  for (final item in raw) {
+    if (item is! String) continue;
+    final trimmed = item.trim();
+    if (trimmed.isNotEmpty) out.add(trimmed);
+  }
+  return out;
 }
