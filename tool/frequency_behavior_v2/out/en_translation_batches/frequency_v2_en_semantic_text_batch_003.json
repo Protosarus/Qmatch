@@ -3,67 +3,74 @@
   "translation_version": "frequency_v2_en_semantic_v1",
   "items": {
     "frequency_v2_q0101": {
-      "prompt": "The second date went well. You didn't hear from them until noon the next day. Which behavior is closest to yours?",
+      "prompt": "The second date went well. By noon the next day, you still haven't heard from them. Which behavior is closest to yours?",
       "options": {
         "frequency_v2_q0101_a": "I use a small detail from yesterday to start the conversation myself.",
         "frequency_v2_q0101_b": "I wait for them to make the first move and carry on with my day as usual.",
         "frequency_v2_q0101_c": "I send a short, clear message like \"Yesterday was great.\"",
-        "frequency_v2_q0101_d": "I stay in my own flow for a few days and let contact happen naturally again."
-      }
+        "frequency_v2_q0101_d": "I'd keep to my own routine for a few days and let contact resume naturally."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0102": {
       "prompt": "Someone you've been seeing has been texting noticeably less over the past two days. What do you usually do?",
       "options": {
         "frequency_v2_q0102_a": "I say I noticed the change and ask if something is going on.",
         "frequency_v2_q0102_b": "I match their pace and see how it plays out for a while.",
-        "frequency_v2_q0102_c": "I don't change my own rhythm; I text when it comes to mind.",
+        "frequency_v2_q0102_c": "I don't change my own communication rhythm; I text when I think of them.",
         "frequency_v2_q0102_d": "I suggest a short call or meetup instead of a long text thread."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0103": {
       "prompt": "On one of your first dates, the conversation unexpectedly turned personal and they shared something private about themselves.",
       "options": {
         "frequency_v2_q0103_a": "I share something at a similar level of depth.",
-        "frequency_v2_q0103_b": "I listen carefully but save my own private side for later.",
-        "frequency_v2_q0103_c": "I ask what I'm curious about and keep my own part limited.",
+        "frequency_v2_q0103_b": "I listen carefully, but save sharing equally personal things about myself for later.",
+        "frequency_v2_q0103_c": "I ask about what I'm curious about, but keep what I share about myself limited.",
         "frequency_v2_q0103_d": "I prefer steering the conversation back to something lighter."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0104": {
       "prompt": "You've been seeing each other regularly for about two months, but you've never talked about what the relationship is.",
       "options": {
-        "frequency_v2_q0104_a": "At some point I bring it up and want to clarify where we're headed.",
+        "frequency_v2_q0104_a": "At some point, I'd bring it up and try to clarify where we're headed.",
         "frequency_v2_q0104_b": "If our behavior feels aligned, I'm fine continuing without putting a label on it.",
-        "frequency_v2_q0104_c": "I set a time limit for myself and watch how things go until then.",
+        "frequency_v2_q0104_c": "I give myself a time frame and watch how things unfold until then.",
         "frequency_v2_q0104_d": "If clarity doesn't emerge, I pull back a little and focus more on my own life."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0105": {
-      "prompt": "It's Saturday afternoon and you still don't have a plan for the day together.",
+      "prompt": "It's noon on Saturday and you still don't have a plan for the day together.",
       "options": {
-        "frequency_v2_q0105_a": "I put together two or three options and say let's pick one.",
+        "frequency_v2_q0105_a": "I come up with two or three options and suggest we pick one.",
         "frequency_v2_q0105_b": "I leave the day open; if something comes up, it comes up.",
         "frequency_v2_q0105_c": "I make my own plan and tell them they're welcome to join.",
         "frequency_v2_q0105_d": "This time I go with whatever they feel like doing."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0106": {
-      "prompt": "Someone you've been seeing for three weeks invites you to an evening with their close friend group.",
+      "prompt": "Someone you've been seeing for three weeks invites you to spend an evening with their close friends.",
       "options": {
-        "frequency_v2_q0106_a": "I go gladly; I like meeting their circle early on.",
+        "frequency_v2_q0106_a": "I'd be happy to go; I like meeting the people close to them early on.",
         "frequency_v2_q0106_b": "I go, but I don't feel I have to stay the whole evening.",
         "frequency_v2_q0106_c": "It feels a bit early; I'd rather we get to know each other better first.",
-        "frequency_v2_q0106_d": "I suggest a smaller hangout with a few people instead of a crowd."
-      }
+        "frequency_v2_q0106_d": "I'd suggest a smaller get-together with just a few people instead of a crowd."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0107": {
-      "prompt": "Your partner says, \"I need some alone time this weekend,\" about a weekend you'd been thinking of spending together.",
+      "prompt": "You were thinking of spending the weekend together, but your partner says, \"I need some alone time this weekend.\"",
       "options": {
-        "frequency_v2_q0107_a": "I make my own plans; I take this need in stride.",
+        "frequency_v2_q0107_a": "I'd make my own plans; needing that space feels natural to me.",
         "frequency_v2_q0107_b": "I give them space but I'd like a small check-in during the day.",
         "frequency_v2_q0107_c": "I want to clarify whether something is wrong between us.",
-        "frequency_v2_q0107_d": "If they want, I offer a setup where we're in the same space but each doing our own thing."
-      }
+        "frequency_v2_q0107_d": "If they wanted, I'd suggest being in the same place while each of us does our own thing."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0108": {
       "prompt": "On a busy workday when you're both swamped, how would you want communication to go?",
@@ -72,88 +79,98 @@
         "frequency_v2_q0108_b": "I like staying connected with short messages whenever there's a chance.",
         "frequency_v2_q0108_c": "A brief check-in at lunch or a set time in the late afternoon would be good.",
         "frequency_v2_q0108_d": "I go with whatever pace they're on that day."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0109": {
-      "prompt": "You got a midday message: \"I need to talk to you about something tonight,\" and then they went busy.",
+      "prompt": "You get a midday message: \"I need to talk to you about something tonight,\" and then they get busy.",
       "options": {
-        "frequency_v2_q0109_a": "I ask for a short hint about what it's about.",
+        "frequency_v2_q0109_a": "I ask for a quick hint about what it's about.",
         "frequency_v2_q0109_b": "I'm curious, but I can set it aside in my mind until tonight.",
         "frequency_v2_q0109_c": "A few possibilities cross my mind, but I don't message them.",
         "frequency_v2_q0109_d": "I clear time for tonight and carry on with my routine until then."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0110": {
-      "prompt": "They told you early on, more openly than you expected, that they miss you and really like you.",
+      "prompt": "At an earlier stage than you expected, they openly tell you they miss you and really like you.",
       "options": {
         "frequency_v2_q0110_a": "If I feel the same, I say so right away.",
         "frequency_v2_q0110_b": "It feels good, but I keep moving at my own pace.",
         "frequency_v2_q0110_c": "I prefer showing similar feelings more through actions.",
-        "frequency_v2_q0110_d": "I'm curious what those words mean to them and talk about it a bit."
-      }
+        "frequency_v2_q0110_d": "I'd be curious what those words mean to them and talk about it a little."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0111": {
       "prompt": "You have a free day. Your partner says, \"Let's not make any plans — we'll do whatever we feel like in the moment.\"",
       "options": {
-        "frequency_v2_q0111_a": "That suits me well; I leave the whole day open.",
+        "frequency_v2_q0111_a": "That feels great to me; I'd leave the whole day open.",
         "frequency_v2_q0111_b": "I'd at least want a rough idea of what we'll do.",
-        "frequency_v2_q0111_c": "I handle a few things on my own first, then join the flow together.",
-        "frequency_v2_q0111_d": "I'm fine going with their energy that day."
-      }
+        "frequency_v2_q0111_c": "I'd take care of a few things on my own first, then join them and go with the flow.",
+        "frequency_v2_q0111_d": "I'm happy to go with whatever they're in the mood for that day."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0112": {
       "prompt": "The plan you made for tonight fell through at the last minute.",
       "options": {
-        "frequency_v2_q0112_a": "I set a new day and then move on with my evening.",
+        "frequency_v2_q0112_a": "I'd pick another day, then get on with my evening.",
         "frequency_v2_q0112_b": "I don't hide that I'm upset; it's important to me that plans don't change easily.",
-        "frequency_v2_q0112_c": "I'm okay with it, but I'd rather talk about a new, clear date right away.",
-        "frequency_v2_q0112_d": "I don't make a big deal of it; I wait for them to start the next plan."
-      }
+        "frequency_v2_q0112_c": "I'd be okay with it, but I'd want to agree on a new date right away.",
+        "frequency_v2_q0112_d": "I wouldn't make a big deal of it; I'd wait for them to make the next plan."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0113": {
       "prompt": "You already had your own plans for the evening. An hour before, your partner says a few friends are coming over. What do you do?",
       "options": {
-        "frequency_v2_q0113_a": "I keep my plan and skip hanging out this time.",
-        "frequency_v2_q0113_b": "I drop in briefly, then go back to what I'd planned.",
-        "frequency_v2_q0113_c": "I change most of my plan and reshape the evening around the guests.",
+        "frequency_v2_q0113_a": "I'd stick with my own plan and not join them this time.",
+        "frequency_v2_q0113_b": "I'd join them briefly, then go back to what I'd planned.",
+        "frequency_v2_q0113_c": "I'd change most of my plans and reorganize my evening around the guests.",
         "frequency_v2_q0113_d": "I drop my previous plan entirely and go with however the evening unfolds."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0114": {
-      "prompt": "You're planning a few-day trip together.",
+      "prompt": "You're planning a trip of a few days together.",
       "options": {
         "frequency_v2_q0114_a": "I want transport, lodging, and key stops decided ahead of time.",
-        "frequency_v2_q0114_b": "I want the main framework set and most days shaped there.",
+        "frequency_v2_q0114_b": "I'd want the overall framework set, but let most of the days take shape once we're there.",
         "frequency_v2_q0114_c": "I like laying out a few options and making final picks together.",
         "frequency_v2_q0114_d": "If my partner enjoys planning, I largely leave it to them."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0115": {
-      "prompt": "You've started living together for a while. You're an early bird; your partner is a night owl.",
+      "prompt": "You've started spending long stretches of time together. You're an early bird; your partner is a night owl.",
       "options": {
-        "frequency_v2_q0115_a": "We each keep our own schedule; I won't change my sleep pattern to sync up.",
+        "frequency_v2_q0115_a": "We each keep our own schedule; I wouldn't change my sleep pattern just to sync up.",
         "frequency_v2_q0115_b": "We find a balance where some days follow my rhythm, some follow theirs.",
-        "frequency_v2_q0115_c": "I stretch my schedule noticeably to spend more time together.",
-        "frequency_v2_q0115_d": "We keep our hours but create a small shared ritual before sleep or after waking."
-      }
+        "frequency_v2_q0115_c": "I'd adjust my schedule quite a bit so we can spend more time together.",
+        "frequency_v2_q0115_d": "We'd keep our own schedules, but create a small shared ritual before bed or after waking up."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0116": {
-      "prompt": "Your partner wants to join a hobby you've done alone for years and that you enjoy on your own.",
+      "prompt": "Your partner wants to join a hobby you've enjoyed doing on your own for years.",
       "options": {
-        "frequency_v2_q0116_a": "I'm happy about it; sharing that space fully could strengthen our bond.",
+        "frequency_v2_q0116_a": "I'd be happy about it; fully sharing this part of my life could strengthen our bond.",
         "frequency_v2_q0116_b": "I suggest doing it together sometimes and on my own other times.",
-        "frequency_v2_q0116_c": "I clearly prefer keeping this hobby as personal space.",
+        "frequency_v2_q0116_c": "I'd clearly say I'd prefer to keep this hobby as my personal space.",
         "frequency_v2_q0116_d": "We try it together a few times and decide based on how it feels."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0117": {
-      "prompt": "After a very social month, you finally have a completely free Sunday.",
+      "prompt": "After a month packed with social interaction, you finally have a completely free Sunday.",
       "options": {
         "frequency_v2_q0117_a": "I want to spend most of the day alone.",
         "frequency_v2_q0117_b": "I want a quiet, one-on-one day at home with my partner.",
-        "frequency_v2_q0117_c": "Going out with my partner and close friends suits me better.",
-        "frequency_v2_q0117_d": "Part of the day alone and the rest with my partner works best."
-      }
+        "frequency_v2_q0117_c": "Going out with my partner and close friends would feel better to me.",
+        "frequency_v2_q0117_d": "Ideally, I'd spend part of the day alone and the rest with my partner."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0118": {
       "prompt": "You're celebrating an achievement that matters to you. Which feels most natural?",
@@ -162,25 +179,28 @@
         "frequency_v2_q0118_b": "A private evening with just my partner.",
         "frequency_v2_q0118_c": "A very small, low-key celebration or relaxing at home.",
         "frequency_v2_q0118_d": "I don't decide ahead of time; I see how I feel that day."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0119": {
-      "prompt": "Your partner doesn't want to join a friend group or hobby scene you really love.",
+      "prompt": "Your partner doesn't want to join you when you spend time with a friend group or do a hobby you really love.",
       "options": {
         "frequency_v2_q0119_a": "That's fine; that space can stay mine.",
         "frequency_v2_q0119_b": "I'd ask them to try it once; they might feel differently than they expect.",
-        "frequency_v2_q0119_c": "I might go to that scene less often for their comfort.",
-        "frequency_v2_q0119_d": "I try to create a new shared space we'd both want."
-      }
+        "frequency_v2_q0119_c": "I might spend less time in that setting to make them more comfortable.",
+        "frequency_v2_q0119_d": "I'd try to find something new that we'd both enjoy doing together."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0120": {
       "prompt": "In a one-year relationship, your partner says they may need to live in another city for two years because of work.",
       "options": {
-        "frequency_v2_q0120_a": "I keep my own setup and try to make the relationship work long-distance.",
-        "frequency_v2_q0120_b": "If conditions are right, I'm seriously open to going with them.",
+        "frequency_v2_q0120_a": "I'd keep my own routine and try to make long distance work.",
+        "frequency_v2_q0120_b": "If the circumstances made sense, I'd be genuinely open to moving with them.",
         "frequency_v2_q0120_c": "I weigh career, money, and daily life in detail before deciding.",
         "frequency_v2_q0120_d": "I look for a middle path like frequent visits rather than a full move."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0121": {
       "prompt": "Your partner calmly but clearly told you about a behavior of yours that bothers them.",
@@ -189,16 +209,18 @@
         "frequency_v2_q0121_b": "Rather than answer right away, I think it over and come back later.",
         "frequency_v2_q0121_c": "I explain my side clearly too; I don't promise to change immediately.",
         "frequency_v2_q0121_d": "I try acting differently for a while and see how it feels for both of us."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0122": {
-      "prompt": "During an argument, the other person's voice rises noticeably.",
+      "prompt": "During an argument, they noticeably raise their voice.",
       "options": {
-        "frequency_v2_q0122_a": "I keep talking in a stronger, clearer tone myself.",
+        "frequency_v2_q0122_a": "I'd keep speaking in a firmer, clearer tone too.",
         "frequency_v2_q0122_b": "I pause the conversation and ask to continue when things are calmer.",
-        "frequency_v2_q0122_c": "I prefer keeping at it so the issue doesn't stay open.",
+        "frequency_v2_q0122_c": "I'd rather keep working through it right then so the issue isn't left unresolved.",
         "frequency_v2_q0122_d": "I step away physically for a bit and calm down on my own."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0123": {
       "prompt": "Ten minutes later, you realize you snapped at your partner unnecessarily during a stressful moment.",
@@ -207,7 +229,8 @@
         "frequency_v2_q0123_b": "I soften the mood with a small gesture first and talk about it a little later.",
         "frequency_v2_q0123_c": "I explain why I was in that state and give context to what happened.",
         "frequency_v2_q0123_d": "I wait until we're both fully calm."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0124": {
       "prompt": "The same topic keeps turning into similar arguments.",
@@ -215,35 +238,39 @@
         "frequency_v2_q0124_a": "I want a long talk about what's driving this cycle.",
         "frequency_v2_q0124_b": "I'd rather set a clear rule or practical system so it doesn't repeat.",
         "frequency_v2_q0124_c": "I accept it may not be fully solvable and try to manage it.",
-        "frequency_v2_q0124_d": "I assess how fundamental an incompatibility this is for me."
-      }
+        "frequency_v2_q0124_d": "I'd assess how fundamental this incompatibility is for me."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0125": {
       "prompt": "The argument is over, but something still feels unresolved for you.",
       "options": {
-        "frequency_v2_q0125_a": "I bring it up again the same day; leaving it inside bothers me more.",
-        "frequency_v2_q0125_b": "I set a calmer time the next day to talk.",
-        "frequency_v2_q0125_c": "If our daily behavior goes back to normal, I can let it pass without another talk.",
+        "frequency_v2_q0125_a": "I'd bring it up again the same day; letting it sit unresolved bothers me more.",
+        "frequency_v2_q0125_b": "I'd set a time to talk calmly the next day.",
+        "frequency_v2_q0125_c": "If things go back to normal between us, I can let it go without another conversation.",
         "frequency_v2_q0125_d": "I'll talk if they bring it up again; I won't start it."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0126": {
-      "prompt": "It's clear your partner is down, but they say, \"Nothing's wrong, I'm fine.\"",
+      "prompt": "It's clear your partner is upset, but they say, \"Nothing's wrong, I'm fine.\"",
       "options": {
         "frequency_v2_q0126_a": "I ask once if they want to talk, then give them space.",
         "frequency_v2_q0126_b": "I don't push them to talk, but I stay physically or emotionally close.",
         "frequency_v2_q0126_c": "I carry on with my routine until they open up.",
-        "frequency_v2_q0126_d": "Having something closed between us bothers me, so I check in a bit more."
-      }
+        "frequency_v2_q0126_d": "Having an unspoken issue between us bothers me, so I'd check in a little more."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0127": {
       "prompt": "Your partner is describing a rough day at work and clearly struggling.",
       "options": {
         "frequency_v2_q0127_a": "I give them room to talk about how they feel before jumping to solutions.",
-        "frequency_v2_q0127_b": "I break the problem down and think through options that might help together.",
+        "frequency_v2_q0127_b": "I'd break the problem down and think through possible solutions together.",
         "frequency_v2_q0127_c": "I ask, \"Do you want me to listen, or help think through solutions?\"",
         "frequency_v2_q0127_d": "I help them take their mind off it and come back to the topic later."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0128": {
       "prompt": "Your partner asked for your take on a risky career decision.",
@@ -252,43 +279,48 @@
         "frequency_v2_q0128_b": "I talk first about how each option feels to them.",
         "frequency_v2_q0128_c": "I want them to decide and I'll support whichever path they choose.",
         "frequency_v2_q0128_d": "I tell them clearly which option I think is best."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0129": {
-      "prompt": "Your partner forgot something important to you and it cost you time.",
+      "prompt": "Your partner forgot to do something important for you, and it cost you time.",
       "options": {
         "frequency_v2_q0129_a": "I say plainly how it affected me in the moment.",
         "frequency_v2_q0129_b": "I fix the problem first and talk when things are calmer.",
         "frequency_v2_q0129_c": "I suggest setting up reminders or a system together so it doesn't happen again.",
         "frequency_v2_q0129_d": "If it's a one-off, I don't make a big deal of it and find my own workaround."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0130": {
-      "prompt": "You noticed you see an important life topic very differently.",
+      "prompt": "You realize that you see an important issue in life very differently.",
       "options": {
         "frequency_v2_q0130_a": "I want a long talk about where the difference comes from.",
         "frequency_v2_q0130_b": "I leave room for each of us to keep our own view.",
         "frequency_v2_q0130_c": "I think we can live with it without putting it at the center of the relationship.",
         "frequency_v2_q0130_d": "I look at whether the difference actually affects our day-to-day decisions."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0131": {
-      "prompt": "In a long-term relationship, which is closest to you on phones and digital privacy?",
+      "prompt": "In a long-term relationship, which view on phones and digital privacy feels closest to you?",
       "options": {
         "frequency_v2_q0131_a": "Knowing each other's passwords is fine, but we don't feel a need to check each other's devices.",
-        "frequency_v2_q0131_b": "Passwords are personal space; I prefer not to share them.",
+        "frequency_v2_q0131_b": "Passwords are part of my personal space; I'd rather not share them.",
         "frequency_v2_q0131_c": "We share when needed in the moment; I don't turn that into a standing rule.",
-        "frequency_v2_q0131_d": "Having digital space largely open feels more comfortable to me."
-      }
+        "frequency_v2_q0131_d": "I feel more comfortable when our digital lives are mostly open to each other."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0132": {
-      "prompt": "You noticed your partner interacting again on social media with an old flame; there's no obvious problem.",
+      "prompt": "You notice your partner interacting again on social media with someone they used to date; there's no obvious problem.",
       "options": {
         "frequency_v2_q0132_a": "I say I'm curious about the context and ask directly.",
         "frequency_v2_q0132_b": "I don't read too much into one signal; I watch whether it keeps happening.",
         "frequency_v2_q0132_c": "I don't treat digital interaction as a special issue; I don't dwell on it.",
-        "frequency_v2_q0132_d": "I think about where my digital boundary is and talk about it later."
-      }
+        "frequency_v2_q0132_d": "I'd think about where my boundaries are around online interactions and talk about it later."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0133": {
       "prompt": "Your partner clearly said they want to communicate more often than you do.",
@@ -297,16 +329,18 @@
         "frequency_v2_q0133_b": "I'd rather agree on a specific rhythm that works for both of us.",
         "frequency_v2_q0133_c": "I largely keep my natural communication rhythm.",
         "frequency_v2_q0133_d": "I let them initiate more and respond when I'm available."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0134": {
       "prompt": "This time you're the one who wants more contact; your partner reaches out less often.",
       "options": {
-        "frequency_v2_q0134_a": "I want at least a small shared touchpoint during the day.",
-        "frequency_v2_q0134_b": "I fill my own life more and try living with the gap.",
+        "frequency_v2_q0134_a": "I'd want at least a small, regular point of contact during the day.",
+        "frequency_v2_q0134_b": "I'd focus more on my own life and try to live with the difference.",
         "frequency_v2_q0134_c": "I initiate more when I need contact.",
-        "frequency_v2_q0134_d": "If the pace stays one-sided, I reduce how much I invest."
-      }
+        "frequency_v2_q0134_d": "If it keeps feeling one-sided, I'd reduce how much I invest in the relationship."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0135": {
       "prompt": "How do you most naturally show someone they matter to you?",
@@ -315,25 +349,28 @@
         "frequency_v2_q0135_b": "By doing things that make their life easier.",
         "frequency_v2_q0135_c": "Through physical closeness and time together.",
         "frequency_v2_q0135_d": "By giving them space and freedom of their own."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0136": {
-      "prompt": "When does sharing a major regret from your past feel most natural with a new partner?",
+      "prompt": "When would it feel most natural to share a major regret from your past with a new partner?",
       "options": {
         "frequency_v2_q0136_a": "At an early stage, once I feel trust building.",
         "frequency_v2_q0136_b": "When they share something at a similar depth.",
         "frequency_v2_q0136_c": "After the relationship feels well established.",
-        "frequency_v2_q0136_d": "Only if it comes up naturally and doesn't affect today's relationship."
-      }
+        "frequency_v2_q0136_d": "Only if it comes up naturally and doesn't affect the current relationship."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0137": {
-      "prompt": "Someone you're still early with told you something quite private and heavy.",
+      "prompt": "Someone you're still in the early stages with tells you something very personal and heavy.",
       "options": {
         "frequency_v2_q0137_a": "I share something at a similar depth about myself.",
-        "frequency_v2_q0137_b": "I listen and stay present, but I don't change my own opening-up pace.",
+        "frequency_v2_q0137_b": "I'd listen and stay present, but keep my own pace of opening up.",
         "frequency_v2_q0137_c": "I prefer slowing the conversation down a bit.",
-        "frequency_v2_q0137_d": "I focus more on understanding what their story means to them."
-      }
+        "frequency_v2_q0137_d": "I'd focus more on understanding what it means to them."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0138": {
       "prompt": "The topic of meeting each other's family or close circle came up.",
@@ -341,17 +378,19 @@
         "frequency_v2_q0138_a": "Meeting early doesn't bother me; it makes the relationship feel more real.",
         "frequency_v2_q0138_b": "It feels more meaningful once the direction of the relationship is clearer.",
         "frequency_v2_q0138_c": "I don't want to take that step until I feel ready.",
-        "frequency_v2_q0138_d": "I leave the timing mostly to the natural flow in their life."
-      }
+        "frequency_v2_q0138_d": "I'd mostly let the timing follow how things naturally unfold in their life."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0139": {
       "prompt": "In the first month of the relationship, your partner gave you a gift much more expensive than you expected.",
       "options": {
         "frequency_v2_q0139_a": "I appreciate the gesture; I'd want to reciprocate at a similar level later.",
-        "frequency_v2_q0139_b": "I accept it but say how the pace makes me uncomfortable.",
+        "frequency_v2_q0139_b": "I'd accept it, but say that moving this fast makes me uncomfortable.",
         "frequency_v2_q0139_c": "I suggest agreeing on smaller gestures from here on.",
-        "frequency_v2_q0139_d": "I don't read too much into the relationship from the gift; I enjoy the moment."
-      }
+        "frequency_v2_q0139_d": "I don't read too much into what the gift says about the relationship; I'd enjoy the moment."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0140": {
       "prompt": "Over recent weeks, your partner changed shared plans at the last minute several times.",
@@ -360,34 +399,38 @@
         "frequency_v2_q0140_b": "If it seems temporary, I stay flexible.",
         "frequency_v2_q0140_c": "I rely less on shared plans and keep my own alternatives ready.",
         "frequency_v2_q0140_d": "I try to understand why things keep shifting and talk about the root cause."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0141": {
-      "prompt": "Your partner left for a busy work trip abroad with a big time difference for a week.",
+      "prompt": "Your partner goes on a busy week-long work trip in a different time zone.",
       "options": {
         "frequency_v2_q0141_a": "Small, regular check-ins at the start or end of the day are enough for me.",
         "frequency_v2_q0141_b": "I like sharing photos and small moments whenever there's a chance during the day.",
-        "frequency_v2_q0141_c": "I largely leave how much we talk to their workload.",
-        "frequency_v2_q0141_d": "I live more independently that week and prefer reconnecting in depth when they're back."
-      }
+        "frequency_v2_q0141_c": "I'd mostly let their workload determine how much we communicate.",
+        "frequency_v2_q0141_d": "I'd focus more on my own life that week and reconnect more deeply when they're back."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0142": {
       "prompt": "You're both home and have been busy with your own things for a while; the place is quiet.",
       "options": {
         "frequency_v2_q0142_a": "At some point I want to start a conversation.",
         "frequency_v2_q0142_b": "Being quiet in the same space already feels like closeness to me.",
-        "frequency_v2_q0142_c": "Staying in separate rooms on our own tasks feels completely natural.",
+        "frequency_v2_q0142_c": "Being in separate rooms and getting on with our own things feels completely natural to me.",
         "frequency_v2_q0142_d": "I suggest something small we can do together."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0143": {
       "prompt": "Close friends say your new partner's energy doesn't match theirs.",
       "options": {
-        "frequency_v2_q0143_a": "I listen to what they saw and fold it into my own read.",
-        "frequency_v2_q0143_b": "I keep friend and relationship worlds separate and maintain both.",
-        "frequency_v2_q0143_c": "I try creating a few better shared settings so they can see each other differently.",
+        "frequency_v2_q0143_a": "I'd listen to what they're noticing and factor it into my own judgment.",
+        "frequency_v2_q0143_b": "I'd keep my friendships and relationship separate and continue both.",
+        "frequency_v2_q0143_c": "I'd create a few more shared situations where they can spend time together under different circumstances.",
         "frequency_v2_q0143_d": "I make clear the final call about my relationship is mine."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0144": {
       "prompt": "An unexpected large shared expense came up.",
@@ -396,16 +439,18 @@
         "frequency_v2_q0144_b": "I want to talk through both our stress first, then move to solutions.",
         "frequency_v2_q0144_c": "I don't panic; I assume the steps will become clear as we go.",
         "frequency_v2_q0144_d": "I prefer quickly splitting who covers which part of the cost."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0145": {
       "prompt": "Your partner forgot a date that matters to you.",
       "options": {
         "frequency_v2_q0145_a": "I say plainly how it made me feel.",
         "frequency_v2_q0145_b": "I suggest a shared reminder system so it doesn't happen again.",
-        "frequency_v2_q0145_c": "If the rest of the relationship is good, I don't load too much meaning onto one date.",
+        "frequency_v2_q0145_c": "If the rest of the relationship is good, I don't attach too much meaning to one date.",
         "frequency_v2_q0145_d": "I pull back a little and see whether they notice and how they'll make it up."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0146": {
       "prompt": "Your relationship feels pretty settled; you roughly know how weeks will go.",
@@ -413,44 +458,49 @@
         "frequency_v2_q0146_a": "That rhythm gives me peace; I don't look for surprises.",
         "frequency_v2_q0146_b": "Now and then I deliberately create spontaneity or a new experience.",
         "frequency_v2_q0146_c": "The relationship rhythm can stay steady; I look for novelty in my own hobbies.",
-        "frequency_v2_q0146_d": "I like some periods routine and others more active."
-      }
+        "frequency_v2_q0146_d": "I like some periods to be routine and others to be more active."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0147": {
       "prompt": "Your partner said, \"I need a bit more personal space.\"",
       "options": {
         "frequency_v2_q0147_a": "I want to talk about exactly what that means.",
         "frequency_v2_q0147_b": "I give them space without needing every detail.",
-        "frequency_v2_q0147_c": "I give space but want a small rhythm so we don't fully disconnect.",
-        "frequency_v2_q0147_d": "I widen my own space too and watch how the relationship finds a new rhythm."
-      }
+        "frequency_v2_q0147_c": "I'd give them space, but want a small routine of contact so we don't completely disconnect.",
+        "frequency_v2_q0147_d": "I'd give myself more space too and see how the relationship settles into a new rhythm."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0148": {
       "prompt": "This time your partner said, \"I want more time together and more closeness.\"",
       "options": {
-        "frequency_v2_q0148_a": "I try noticeably increasing shared time.",
-        "frequency_v2_q0148_b": "I ask what \"more closeness\" would look like concretely for them.",
+        "frequency_v2_q0148_a": "I'd try spending noticeably more time together.",
+        "frequency_v2_q0148_b": "I'd ask what \"more closeness\" actually means to them in practice.",
         "frequency_v2_q0148_c": "I say clearly how much I can give and keep my own space too.",
         "frequency_v2_q0148_d": "I prefer setting regular shared time and leaving the rest separate."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0149": {
       "prompt": "When you think about the next five years of the relationship, which feels closest?",
       "options": {
-        "frequency_v2_q0149_a": "Talking through big milestones and rough timing together suits me.",
+        "frequency_v2_q0149_a": "Talking through the big milestones and rough timing together feels good to me.",
         "frequency_v2_q0149_b": "Knowing the general direction is enough; I don't want details locked in now.",
-        "frequency_v2_q0149_c": "I keep my own career and life plan clear first; the relationship shapes around it.",
+        "frequency_v2_q0149_c": "I'd keep my own career and life plans clear first, and let the relationship take shape alongside them.",
         "frequency_v2_q0149_d": "I prefer seeing where it goes without looking too far ahead."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0150": {
-      "prompt": "Someone new you're seeing is moving noticeably faster and more clearly on the relationship than you are.",
+      "prompt": "Someone new you're seeing is moving noticeably faster and is much clearer about what they want from the relationship than you are.",
       "options": {
         "frequency_v2_q0150_a": "I try moving a bit faster to close the gap.",
         "frequency_v2_q0150_b": "I state my pace clearly and stick to it.",
-        "frequency_v2_q0150_c": "I talk about the difference and look for a tempo we both feel good about.",
-        "frequency_v2_q0150_d": "If the pace gap keeps feeling constant, I pull back a little."
-      }
+        "frequency_v2_q0150_c": "I'd talk about the difference and look for a pace that feels comfortable for both of us.",
+        "frequency_v2_q0150_d": "If the difference in pace keeps being noticeable, I'd pull back a little."
+      },
+      "translation_review_status": "REVIEWED"
     }
   }
 }

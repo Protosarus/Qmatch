@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 100) {
+      if (n >= 1 && n <= 150) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -181,7 +181,7 @@ void main() {
     }
   });
 
-  test('phase 6B/6C human wording corrections preserved', () {
+  test('phase 6B/6C/6D human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -189,6 +189,14 @@ void main() {
     final q74 = enPool.itemsById['frequency_v2_q0074']!;
     final q82 = enPool.itemsById['frequency_v2_q0082']!;
     final q100 = enPool.itemsById['frequency_v2_q0100']!;
+    final q101 = enPool.itemsById['frequency_v2_q0101']!;
+    final q105 = enPool.itemsById['frequency_v2_q0105']!;
+    final q110 = enPool.itemsById['frequency_v2_q0110']!;
+    final q115 = enPool.itemsById['frequency_v2_q0115']!;
+    final q129 = enPool.itemsById['frequency_v2_q0129']!;
+    final q132 = enPool.itemsById['frequency_v2_q0132']!;
+    final q141 = enPool.itemsById['frequency_v2_q0141']!;
+    final q150 = enPool.itemsById['frequency_v2_q0150']!;
     final q31d = q31.options.firstWhere((o) => o.optionId.endsWith('_d'));
     final q62b = q62.options.firstWhere((o) => o.optionId.endsWith('_b'));
     expect(q31d.text, contains("when they're still awake at night"));
@@ -200,6 +208,24 @@ void main() {
     expect(q82.prompt.toLowerCase(), isNot(contains('vibes')));
     expect(q100.prompt, contains('very clear about what they want'));
     expect(q100.prompt.toLowerCase(), isNot(contains('very direct')));
+    expect(
+      q101.prompt,
+      contains("By noon the next day, you still haven't heard from them."),
+    );
+    expect(q101.prompt, isNot(contains("didn't hear from them until noon")));
+    expect(q105.prompt, contains("It's noon on Saturday"));
+    expect(q110.prompt, contains('At an earlier stage than you expected'));
+    expect(q115.prompt, contains('spending long stretches of time together'));
+    expect(q115.prompt.toLowerCase(), isNot(contains('living together')));
+    expect(q129.prompt, contains('forgot to do something important for you'));
+    expect(q132.prompt, contains('someone they used to date'));
+    expect(q132.prompt.toLowerCase(), isNot(contains('old flame')));
+    expect(q141.prompt.toLowerCase(), isNot(contains('abroad')));
+    expect(q141.prompt.toLowerCase(), isNot(contains('big time difference')));
+    expect(
+      q150.prompt,
+      contains('much clearer about what they want from the relationship'),
+    );
   });
 
   test('EN bank registry path resolves', () {

@@ -9748,7 +9748,7 @@
     {
       "item_id": "frequency_v2_q0101",
       "locale": "en-US",
-      "prompt": "The second date went well. You didn't hear from them until noon the next day. Which behavior is closest to yours?",
+      "prompt": "The second date went well. By noon the next day, you still haven't heard from them. Which behavior is closest to yours?",
       "context": [
         "early_dating"
       ],
@@ -9826,7 +9826,7 @@
         },
         {
           "option_id": "frequency_v2_q0101_d",
-          "text": "I stay in my own flow for a few days and let contact happen naturally again.",
+          "text": "I'd keep to my own routine for a few days and let contact resume naturally.",
           "behavioral_weights": {
             "autonomy": 1.0,
             "closeness_pace": -1.0
@@ -9908,7 +9908,7 @@
         },
         {
           "option_id": "frequency_v2_q0102_c",
-          "text": "I don't change my own rhythm; I text when it comes to mind.",
+          "text": "I don't change my own communication rhythm; I text when I think of them.",
           "behavioral_weights": {
             "autonomy": 1.0,
             "contact_need": -1.0
@@ -9988,7 +9988,7 @@
         },
         {
           "option_id": "frequency_v2_q0103_b",
-          "text": "I listen carefully but save my own private side for later.",
+          "text": "I listen carefully, but save sharing equally personal things about myself for later.",
           "behavioral_weights": {
             "disclosure_pace": -1.0,
             "boundary_firmness": 1.0
@@ -10007,7 +10007,7 @@
         },
         {
           "option_id": "frequency_v2_q0103_c",
-          "text": "I ask what I'm curious about and keep my own part limited.",
+          "text": "I ask about what I'm curious about, but keep what I share about myself limited.",
           "behavioral_weights": {
             "disclosure_pace": -1.0,
             "initiative": 1.0
@@ -10069,7 +10069,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0104_a",
-          "text": "At some point I bring it up and want to clarify where we're headed.",
+          "text": "At some point, I'd bring it up and try to clarify where we're headed.",
           "behavioral_weights": {
             "uncertainty_tolerance": -2.0,
             "reassurance_need": 1.0,
@@ -10108,7 +10108,7 @@
         },
         {
           "option_id": "frequency_v2_q0104_c",
-          "text": "I set a time limit for myself and watch how things go until then.",
+          "text": "I give myself a time frame and watch how things unfold until then.",
           "behavioral_weights": {
             "structure_preference": 1.0,
             "boundary_firmness": 1.0
@@ -10149,7 +10149,7 @@
     {
       "item_id": "frequency_v2_q0105",
       "locale": "en-US",
-      "prompt": "It's Saturday afternoon and you still don't have a plan for the day together.",
+      "prompt": "It's noon on Saturday and you still don't have a plan for the day together.",
       "context": [
         "planning"
       ],
@@ -10169,7 +10169,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0105_a",
-          "text": "I put together two or three options and say let's pick one.",
+          "text": "I come up with two or three options and suggest we pick one.",
           "behavioral_weights": {
             "initiative": 2.0,
             "structure_preference": 1.0
@@ -10248,7 +10248,7 @@
     {
       "item_id": "frequency_v2_q0106",
       "locale": "en-US",
-      "prompt": "Someone you've been seeing for three weeks invites you to an evening with their close friend group.",
+      "prompt": "Someone you've been seeing for three weeks invites you to spend an evening with their close friends.",
       "context": [
         "early_dating",
         "social"
@@ -10268,7 +10268,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0106_a",
-          "text": "I go gladly; I like meeting their circle early on.",
+          "text": "I'd be happy to go; I like meeting the people close to them early on.",
           "behavioral_weights": {
             "closeness_pace": 2.0,
             "social_energy": 1.0
@@ -10325,7 +10325,7 @@
         },
         {
           "option_id": "frequency_v2_q0106_d",
-          "text": "I suggest a smaller hangout with a few people instead of a crowd.",
+          "text": "I'd suggest a smaller get-together with just a few people instead of a crowd.",
           "behavioral_weights": {
             "social_energy": -1.0,
             "initiative": 1.0
@@ -10347,7 +10347,7 @@
     {
       "item_id": "frequency_v2_q0107",
       "locale": "en-US",
-      "prompt": "Your partner says, \"I need some alone time this weekend,\" about a weekend you'd been thinking of spending together.",
+      "prompt": "You were thinking of spending the weekend together, but your partner says, \"I need some alone time this weekend.\"",
       "context": [
         "established"
       ],
@@ -10368,7 +10368,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0107_a",
-          "text": "I make my own plans; I take this need in stride.",
+          "text": "I'd make my own plans; needing that space feels natural to me.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "reassurance_need": -1.0
@@ -10425,7 +10425,7 @@
         },
         {
           "option_id": "frequency_v2_q0107_d",
-          "text": "If they want, I offer a setup where we're in the same space but each doing our own thing.",
+          "text": "If they wanted, I'd suggest being in the same place while each of us does our own thing.",
           "behavioral_weights": {
             "closeness_pace": 1.0,
             "autonomy": -1.0
@@ -10544,7 +10544,7 @@
     {
       "item_id": "frequency_v2_q0109",
       "locale": "en-US",
-      "prompt": "You got a midday message: \"I need to talk to you about something tonight,\" and then they went busy.",
+      "prompt": "You get a midday message: \"I need to talk to you about something tonight,\" and then they get busy.",
       "context": [
         "uncertainty"
       ],
@@ -10564,7 +10564,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0109_a",
-          "text": "I ask for a short hint about what it's about.",
+          "text": "I ask for a quick hint about what it's about.",
           "behavioral_weights": {
             "reassurance_need": 2.0,
             "uncertainty_tolerance": -2.0
@@ -10643,7 +10643,7 @@
     {
       "item_id": "frequency_v2_q0110",
       "locale": "en-US",
-      "prompt": "They told you early on, more openly than you expected, that they miss you and really like you.",
+      "prompt": "At an earlier stage than you expected, they openly tell you they miss you and really like you.",
       "context": [
         "early_dating",
         "uncertainty"
@@ -10722,7 +10722,7 @@
         },
         {
           "option_id": "frequency_v2_q0110_d",
-          "text": "I'm curious what those words mean to them and talk about it a bit.",
+          "text": "I'd be curious what those words mean to them and talk about it a little.",
           "behavioral_weights": {
             "initiative": 1.0,
             "reassurance_need": 1.0
@@ -10764,7 +10764,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0111_a",
-          "text": "That suits me well; I leave the whole day open.",
+          "text": "That feels great to me; I'd leave the whole day open.",
           "behavioral_weights": {
             "structure_preference": -2.0,
             "uncertainty_tolerance": 1.0
@@ -10801,7 +10801,7 @@
         },
         {
           "option_id": "frequency_v2_q0111_c",
-          "text": "I handle a few things on my own first, then join the flow together.",
+          "text": "I'd take care of a few things on my own first, then join them and go with the flow.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "structure_preference": -1.0
@@ -10820,7 +10820,7 @@
         },
         {
           "option_id": "frequency_v2_q0111_d",
-          "text": "I'm fine going with their energy that day.",
+          "text": "I'm happy to go with whatever they're in the mood for that day.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "initiative": -1.0
@@ -10863,7 +10863,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0112_a",
-          "text": "I set a new day and then move on with my evening.",
+          "text": "I'd pick another day, then get on with my evening.",
           "behavioral_weights": {
             "adaptability": 1.0,
             "autonomy": 1.0
@@ -10901,7 +10901,7 @@
         },
         {
           "option_id": "frequency_v2_q0112_c",
-          "text": "I'm okay with it, but I'd rather talk about a new, clear date right away.",
+          "text": "I'd be okay with it, but I'd want to agree on a new date right away.",
           "behavioral_weights": {
             "structure_preference": 1.0,
             "uncertainty_tolerance": -1.0
@@ -10920,7 +10920,7 @@
         },
         {
           "option_id": "frequency_v2_q0112_d",
-          "text": "I don't make a big deal of it; I wait for them to start the next plan.",
+          "text": "I wouldn't make a big deal of it; I'd wait for them to make the next plan.",
           "behavioral_weights": {
             "uncertainty_tolerance": 1.0,
             "initiative": -1.0
@@ -10958,7 +10958,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0113_a",
-          "text": "I keep my plan and skip hanging out this time.",
+          "text": "I'd stick with my own plan and not join them this time.",
           "behavioral_weights": {
             "structure_preference": 2.0
           },
@@ -10976,7 +10976,7 @@
         },
         {
           "option_id": "frequency_v2_q0113_b",
-          "text": "I drop in briefly, then go back to what I'd planned.",
+          "text": "I'd join them briefly, then go back to what I'd planned.",
           "behavioral_weights": {
             "structure_preference": 1.0
           },
@@ -10994,7 +10994,7 @@
         },
         {
           "option_id": "frequency_v2_q0113_c",
-          "text": "I change most of my plan and reshape the evening around the guests.",
+          "text": "I'd change most of my plans and reorganize my evening around the guests.",
           "behavioral_weights": {
             "structure_preference": -1.0
           },
@@ -11033,7 +11033,7 @@
     {
       "item_id": "frequency_v2_q0114",
       "locale": "en-US",
-      "prompt": "You're planning a few-day trip together.",
+      "prompt": "You're planning a trip of a few days together.",
       "context": [
         "planning"
       ],
@@ -11071,7 +11071,7 @@
         },
         {
           "option_id": "frequency_v2_q0114_b",
-          "text": "I want the main framework set and most days shaped there.",
+          "text": "I'd want the overall framework set, but let most of the days take shape once we're there.",
           "behavioral_weights": {
             "structure_preference": -1.0,
             "uncertainty_tolerance": 1.0
@@ -11131,7 +11131,7 @@
     {
       "item_id": "frequency_v2_q0115",
       "locale": "en-US",
-      "prompt": "You've started living together for a while. You're an early bird; your partner is a night owl.",
+      "prompt": "You've started spending long stretches of time together. You're an early bird; your partner is a night owl.",
       "context": [
         "established"
       ],
@@ -11152,7 +11152,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0115_a",
-          "text": "We each keep our own schedule; I won't change my sleep pattern to sync up.",
+          "text": "We each keep our own schedule; I wouldn't change my sleep pattern just to sync up.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "adaptability": -2.0
@@ -11190,7 +11190,7 @@
         },
         {
           "option_id": "frequency_v2_q0115_c",
-          "text": "I stretch my schedule noticeably to spend more time together.",
+          "text": "I'd adjust my schedule quite a bit so we can spend more time together.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "closeness_pace": 1.0
@@ -11209,7 +11209,7 @@
         },
         {
           "option_id": "frequency_v2_q0115_d",
-          "text": "We keep our hours but create a small shared ritual before sleep or after waking.",
+          "text": "We'd keep our own schedules, but create a small shared ritual before bed or after waking up.",
           "behavioral_weights": {
             "boundary_firmness": 1.0,
             "contact_need": 1.0
@@ -11231,7 +11231,7 @@
     {
       "item_id": "frequency_v2_q0116",
       "locale": "en-US",
-      "prompt": "Your partner wants to join a hobby you've done alone for years and that you enjoy on your own.",
+      "prompt": "Your partner wants to join a hobby you've enjoyed doing on your own for years.",
       "context": [
         "boundaries"
       ],
@@ -11251,7 +11251,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0116_a",
-          "text": "I'm happy about it; sharing that space fully could strengthen our bond.",
+          "text": "I'd be happy about it; fully sharing this part of my life could strengthen our bond.",
           "behavioral_weights": {
             "autonomy": -2.0,
             "closeness_pace": 2.0
@@ -11289,7 +11289,7 @@
         },
         {
           "option_id": "frequency_v2_q0116_c",
-          "text": "I clearly prefer keeping this hobby as personal space.",
+          "text": "I'd clearly say I'd prefer to keep this hobby as my personal space.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 2.0
@@ -11330,7 +11330,7 @@
     {
       "item_id": "frequency_v2_q0117",
       "locale": "en-US",
-      "prompt": "After a very social month, you finally have a completely free Sunday.",
+      "prompt": "After a month packed with social interaction, you finally have a completely free Sunday.",
       "context": [
         "established"
       ],
@@ -11387,7 +11387,7 @@
         },
         {
           "option_id": "frequency_v2_q0117_c",
-          "text": "Going out with my partner and close friends suits me better.",
+          "text": "Going out with my partner and close friends would feel better to me.",
           "behavioral_weights": {
             "social_energy": 2.0,
             "autonomy": -1.0
@@ -11406,7 +11406,7 @@
         },
         {
           "option_id": "frequency_v2_q0117_d",
-          "text": "Part of the day alone and the rest with my partner works best.",
+          "text": "Ideally, I'd spend part of the day alone and the rest with my partner.",
           "behavioral_weights": {
             "autonomy": 1.0,
             "structure_preference": 1.0
@@ -11526,7 +11526,7 @@
     {
       "item_id": "frequency_v2_q0119",
       "locale": "en-US",
-      "prompt": "Your partner doesn't want to join a friend group or hobby scene you really love.",
+      "prompt": "Your partner doesn't want to join you when you spend time with a friend group or do a hobby you really love.",
       "context": [
         "social",
         "boundaries"
@@ -11586,7 +11586,7 @@
         },
         {
           "option_id": "frequency_v2_q0119_c",
-          "text": "I might go to that scene less often for their comfort.",
+          "text": "I might spend less time in that setting to make them more comfortable.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "boundary_firmness": -1.0
@@ -11605,7 +11605,7 @@
         },
         {
           "option_id": "frequency_v2_q0119_d",
-          "text": "I try to create a new shared space we'd both want.",
+          "text": "I'd try to find something new that we'd both enjoy doing together.",
           "behavioral_weights": {
             "initiative": 1.0,
             "closeness_pace": 1.0
@@ -11648,7 +11648,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0120_a",
-          "text": "I keep my own setup and try to make the relationship work long-distance.",
+          "text": "I'd keep my own routine and try to make long distance work.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "adaptability": -2.0
@@ -11667,7 +11667,7 @@
         },
         {
           "option_id": "frequency_v2_q0120_b",
-          "text": "If conditions are right, I'm seriously open to going with them.",
+          "text": "If the circumstances made sense, I'd be genuinely open to moving with them.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "closeness_pace": 1.0
@@ -11827,7 +11827,7 @@
     {
       "item_id": "frequency_v2_q0122",
       "locale": "en-US",
-      "prompt": "During an argument, the other person's voice rises noticeably.",
+      "prompt": "During an argument, they noticeably raise their voice.",
       "context": [
         "conflict"
       ],
@@ -11846,7 +11846,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0122_a",
-          "text": "I keep talking in a stronger, clearer tone myself.",
+          "text": "I'd keep speaking in a firmer, clearer tone too.",
           "behavioral_weights": {
             "boundary_firmness": 1.0,
             "repair_style": 1.0
@@ -11884,7 +11884,7 @@
         },
         {
           "option_id": "frequency_v2_q0122_c",
-          "text": "I prefer keeping at it so the issue doesn't stay open.",
+          "text": "I'd rather keep working through it right then so the issue isn't left unresolved.",
           "behavioral_weights": {
             "repair_style": 2.0,
             "reassurance_need": 1.0
@@ -12103,7 +12103,7 @@
         },
         {
           "option_id": "frequency_v2_q0124_d",
-          "text": "I assess how fundamental an incompatibility this is for me.",
+          "text": "I'd assess how fundamental this incompatibility is for me.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "autonomy": 1.0
@@ -12146,7 +12146,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0125_a",
-          "text": "I bring it up again the same day; leaving it inside bothers me more.",
+          "text": "I'd bring it up again the same day; letting it sit unresolved bothers me more.",
           "behavioral_weights": {
             "repair_style": 2.0,
             "reassurance_need": 1.0
@@ -12165,7 +12165,7 @@
         },
         {
           "option_id": "frequency_v2_q0125_b",
-          "text": "I set a calmer time the next day to talk.",
+          "text": "I'd set a time to talk calmly the next day.",
           "behavioral_weights": {
             "structure_preference": 1.0,
             "repair_style": 1.0
@@ -12184,7 +12184,7 @@
         },
         {
           "option_id": "frequency_v2_q0125_c",
-          "text": "If our daily behavior goes back to normal, I can let it pass without another talk.",
+          "text": "If things go back to normal between us, I can let it go without another conversation.",
           "behavioral_weights": {
             "repair_style": -2.0,
             "adaptability": 1.0
@@ -12225,7 +12225,7 @@
     {
       "item_id": "frequency_v2_q0126",
       "locale": "en-US",
-      "prompt": "It's clear your partner is down, but they say, \"Nothing's wrong, I'm fine.\"",
+      "prompt": "It's clear your partner is upset, but they say, \"Nothing's wrong, I'm fine.\"",
       "context": [
         "uncertainty"
       ],
@@ -12304,7 +12304,7 @@
         },
         {
           "option_id": "frequency_v2_q0126_d",
-          "text": "Having something closed between us bothers me, so I check in a bit more.",
+          "text": "Having an unspoken issue between us bothers me, so I'd check in a little more.",
           "behavioral_weights": {
             "reassurance_need": 2.0,
             "repair_style": 1.0
@@ -12366,7 +12366,7 @@
         },
         {
           "option_id": "frequency_v2_q0127_b",
-          "text": "I break the problem down and think through options that might help together.",
+          "text": "I'd break the problem down and think through possible solutions together.",
           "behavioral_weights": {
             "repair_style": -2.0,
             "structure_preference": 1.0
@@ -12526,7 +12526,7 @@
     {
       "item_id": "frequency_v2_q0129",
       "locale": "en-US",
-      "prompt": "Your partner forgot something important to you and it cost you time.",
+      "prompt": "Your partner forgot to do something important for you, and it cost you time.",
       "context": [
         "conflict"
       ],
@@ -12624,7 +12624,7 @@
     {
       "item_id": "frequency_v2_q0130",
       "locale": "en-US",
-      "prompt": "You noticed you see an important life topic very differently.",
+      "prompt": "You realize that you see an important issue in life very differently.",
       "context": [
         "conflict"
       ],
@@ -12720,7 +12720,7 @@
     {
       "item_id": "frequency_v2_q0131",
       "locale": "en-US",
-      "prompt": "In a long-term relationship, which is closest to you on phones and digital privacy?",
+      "prompt": "In a long-term relationship, which view on phones and digital privacy feels closest to you?",
       "context": [
         "boundaries"
       ],
@@ -12760,7 +12760,7 @@
         },
         {
           "option_id": "frequency_v2_q0131_b",
-          "text": "Passwords are personal space; I prefer not to share them.",
+          "text": "Passwords are part of my personal space; I'd rather not share them.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 2.0
@@ -12798,7 +12798,7 @@
         },
         {
           "option_id": "frequency_v2_q0131_d",
-          "text": "Having digital space largely open feels more comfortable to me.",
+          "text": "I feel more comfortable when our digital lives are mostly open to each other.",
           "behavioral_weights": {
             "closeness_pace": 1.0,
             "reassurance_need": 2.0
@@ -12820,7 +12820,7 @@
     {
       "item_id": "frequency_v2_q0132",
       "locale": "en-US",
-      "prompt": "You noticed your partner interacting again on social media with an old flame; there's no obvious problem.",
+      "prompt": "You notice your partner interacting again on social media with someone they used to date; there's no obvious problem.",
       "context": [
         "uncertainty"
       ],
@@ -12898,7 +12898,7 @@
         },
         {
           "option_id": "frequency_v2_q0132_d",
-          "text": "I think about where my digital boundary is and talk about it later.",
+          "text": "I'd think about where my boundaries are around online interactions and talk about it later.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "structure_preference": 1.0
@@ -13037,7 +13037,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0134_a",
-          "text": "I want at least a small shared touchpoint during the day.",
+          "text": "I'd want at least a small, regular point of contact during the day.",
           "behavioral_weights": {
             "reassurance_need": 2.0,
             "structure_preference": 1.0
@@ -13056,7 +13056,7 @@
         },
         {
           "option_id": "frequency_v2_q0134_b",
-          "text": "I fill my own life more and try living with the gap.",
+          "text": "I'd focus more on my own life and try to live with the difference.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "uncertainty_tolerance": 1.0
@@ -13094,7 +13094,7 @@
         },
         {
           "option_id": "frequency_v2_q0134_d",
-          "text": "If the pace stays one-sided, I reduce how much I invest.",
+          "text": "If it keeps feeling one-sided, I'd reduce how much I invest in the relationship.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "contact_need": -1.0
@@ -13217,7 +13217,7 @@
     {
       "item_id": "frequency_v2_q0136",
       "locale": "en-US",
-      "prompt": "When does sharing a major regret from your past feel most natural with a new partner?",
+      "prompt": "When would it feel most natural to share a major regret from your past with a new partner?",
       "context": [
         "early_dating",
         "uncertainty"
@@ -13295,7 +13295,7 @@
         },
         {
           "option_id": "frequency_v2_q0136_d",
-          "text": "Only if it comes up naturally and doesn't affect today's relationship.",
+          "text": "Only if it comes up naturally and doesn't affect the current relationship.",
           "behavioral_weights": {
             "disclosure_pace": -2.0,
             "autonomy": 1.0
@@ -13317,7 +13317,7 @@
     {
       "item_id": "frequency_v2_q0137",
       "locale": "en-US",
-      "prompt": "Someone you're still early with told you something quite private and heavy.",
+      "prompt": "Someone you're still in the early stages with tells you something very personal and heavy.",
       "context": [
         "unclassified"
       ],
@@ -13355,7 +13355,7 @@
         },
         {
           "option_id": "frequency_v2_q0137_b",
-          "text": "I listen and stay present, but I don't change my own opening-up pace.",
+          "text": "I'd listen and stay present, but keep my own pace of opening up.",
           "behavioral_weights": {
             "disclosure_pace": -1.0,
             "boundary_firmness": 1.0
@@ -13393,7 +13393,7 @@
         },
         {
           "option_id": "frequency_v2_q0137_d",
-          "text": "I focus more on understanding what their story means to them.",
+          "text": "I'd focus more on understanding what it means to them.",
           "behavioral_weights": {
             "initiative": 1.0,
             "disclosure_pace": 0.0
@@ -13497,7 +13497,7 @@
         },
         {
           "option_id": "frequency_v2_q0138_d",
-          "text": "I leave the timing mostly to the natural flow in their life.",
+          "text": "I'd mostly let the timing follow how things naturally unfold in their life.",
           "behavioral_weights": {
             "adaptability": 1.0,
             "initiative": -1.0
@@ -13555,7 +13555,7 @@
         },
         {
           "option_id": "frequency_v2_q0139_b",
-          "text": "I accept it but say how the pace makes me uncomfortable.",
+          "text": "I'd accept it, but say that moving this fast makes me uncomfortable.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "closeness_pace": -1.0
@@ -13593,7 +13593,7 @@
         },
         {
           "option_id": "frequency_v2_q0139_d",
-          "text": "I don't read too much into the relationship from the gift; I enjoy the moment.",
+          "text": "I don't read too much into what the gift says about the relationship; I'd enjoy the moment.",
           "behavioral_weights": {
             "uncertainty_tolerance": 2.0
           },
@@ -13715,7 +13715,7 @@
     {
       "item_id": "frequency_v2_q0141",
       "locale": "en-US",
-      "prompt": "Your partner left for a busy work trip abroad with a big time difference for a week.",
+      "prompt": "Your partner goes on a busy week-long work trip in a different time zone.",
       "context": [
         "unclassified"
       ],
@@ -13774,7 +13774,7 @@
         },
         {
           "option_id": "frequency_v2_q0141_c",
-          "text": "I largely leave how much we talk to their workload.",
+          "text": "I'd mostly let their workload determine how much we communicate.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "initiative": -1.0
@@ -13793,7 +13793,7 @@
         },
         {
           "option_id": "frequency_v2_q0141_d",
-          "text": "I live more independently that week and prefer reconnecting in depth when they're back.",
+          "text": "I'd focus more on my own life that week and reconnect more deeply when they're back.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "contact_need": -2.0
@@ -13873,7 +13873,7 @@
         },
         {
           "option_id": "frequency_v2_q0142_c",
-          "text": "Staying in separate rooms on our own tasks feels completely natural.",
+          "text": "Being in separate rooms and getting on with our own things feels completely natural to me.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "contact_need": -1.0
@@ -13933,7 +13933,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0143_a",
-          "text": "I listen to what they saw and fold it into my own read.",
+          "text": "I'd listen to what they're noticing and factor it into my own judgment.",
           "behavioral_weights": {
             "social_energy": 1.0,
             "boundary_firmness": -1.0
@@ -13952,7 +13952,7 @@
         },
         {
           "option_id": "frequency_v2_q0143_b",
-          "text": "I keep friend and relationship worlds separate and maintain both.",
+          "text": "I'd keep my friendships and relationship separate and continue both.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -13971,7 +13971,7 @@
         },
         {
           "option_id": "frequency_v2_q0143_c",
-          "text": "I try creating a few better shared settings so they can see each other differently.",
+          "text": "I'd create a few more shared situations where they can spend time together under different circumstances.",
           "behavioral_weights": {
             "initiative": 2.0,
             "social_energy": 1.0
@@ -14169,7 +14169,7 @@
         },
         {
           "option_id": "frequency_v2_q0145_c",
-          "text": "If the rest of the relationship is good, I don't load too much meaning onto one date.",
+          "text": "If the rest of the relationship is good, I don't attach too much meaning to one date.",
           "behavioral_weights": {
             "uncertainty_tolerance": 2.0,
             "repair_style": -1.0
@@ -14287,7 +14287,7 @@
         },
         {
           "option_id": "frequency_v2_q0146_d",
-          "text": "I like some periods routine and others more active.",
+          "text": "I like some periods to be routine and others to be more active.",
           "behavioral_weights": {
             "adaptability": 1.0,
             "structure_preference": 0.0
@@ -14370,7 +14370,7 @@
         },
         {
           "option_id": "frequency_v2_q0147_c",
-          "text": "I give space but want a small rhythm so we don't fully disconnect.",
+          "text": "I'd give them space, but want a small routine of contact so we don't completely disconnect.",
           "behavioral_weights": {
             "contact_need": 1.0,
             "structure_preference": 1.0
@@ -14389,7 +14389,7 @@
         },
         {
           "option_id": "frequency_v2_q0147_d",
-          "text": "I widen my own space too and watch how the relationship finds a new rhythm.",
+          "text": "I'd give myself more space too and see how the relationship settles into a new rhythm.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -14433,7 +14433,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0148_a",
-          "text": "I try noticeably increasing shared time.",
+          "text": "I'd try spending noticeably more time together.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "closeness_pace": 1.0
@@ -14452,7 +14452,7 @@
         },
         {
           "option_id": "frequency_v2_q0148_b",
-          "text": "I ask what \"more closeness\" would look like concretely for them.",
+          "text": "I'd ask what \"more closeness\" actually means to them in practice.",
           "behavioral_weights": {
             "initiative": 1.0,
             "reassurance_need": 1.0
@@ -14531,7 +14531,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0149_a",
-          "text": "Talking through big milestones and rough timing together suits me.",
+          "text": "Talking through the big milestones and rough timing together feels good to me.",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "closeness_pace": 1.0
@@ -14569,7 +14569,7 @@
         },
         {
           "option_id": "frequency_v2_q0149_c",
-          "text": "I keep my own career and life plan clear first; the relationship shapes around it.",
+          "text": "I'd keep my own career and life plans clear first, and let the relationship take shape alongside them.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "closeness_pace": -1.0
@@ -14610,7 +14610,7 @@
     {
       "item_id": "frequency_v2_q0150",
       "locale": "en-US",
-      "prompt": "Someone new you're seeing is moving noticeably faster and more clearly on the relationship than you are.",
+      "prompt": "Someone new you're seeing is moving noticeably faster and is much clearer about what they want from the relationship than you are.",
       "context": [
         "early_dating"
       ],
@@ -14669,7 +14669,7 @@
         },
         {
           "option_id": "frequency_v2_q0150_c",
-          "text": "I talk about the difference and look for a tempo we both feel good about.",
+          "text": "I'd talk about the difference and look for a pace that feels comfortable for both of us.",
           "behavioral_weights": {
             "initiative": 1.0,
             "disclosure_pace": 1.0
@@ -14688,7 +14688,7 @@
         },
         {
           "option_id": "frequency_v2_q0150_d",
-          "text": "If the pace gap keeps feeling constant, I pull back a little.",
+          "text": "If the difference in pace keeps being noticeable, I'd pull back a little.",
           "behavioral_weights": {
             "boundary_firmness": 1.0,
             "closeness_pace": -1.0
