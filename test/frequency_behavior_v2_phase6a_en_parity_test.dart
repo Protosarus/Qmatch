@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B batch 001-050', () {
+  test('translation review status after phase 6B/6C EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 50) {
+      if (n >= 1 && n <= 100) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -181,15 +181,25 @@ void main() {
     }
   });
 
-  test('phase 6B human wording corrections preserved', () {
+  test('phase 6B/6C human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
+    final q62 = enPool.itemsById['frequency_v2_q0062']!;
+    final q74 = enPool.itemsById['frequency_v2_q0074']!;
+    final q82 = enPool.itemsById['frequency_v2_q0082']!;
+    final q100 = enPool.itemsById['frequency_v2_q0100']!;
     final q31d = q31.options.firstWhere((o) => o.optionId.endsWith('_d'));
+    final q62b = q62.options.firstWhere((o) => o.optionId.endsWith('_b'));
     expect(q31d.text, contains("when they're still awake at night"));
     expect(q45.prompt, isNot(contains('[place]')));
     expect(q49.prompt, contains('someone they used to date'));
     expect(q49.prompt.toLowerCase(), isNot(contains(' an ex')));
+    expect(q62b.text, contains("I'd be a little disappointed"));
+    expect(q74.prompt, contains("You haven't called it a relationship yet."));
+    expect(q82.prompt.toLowerCase(), isNot(contains('vibes')));
+    expect(q100.prompt, contains('very clear about what they want'));
+    expect(q100.prompt.toLowerCase(), isNot(contains('very direct')));
   });
 
   test('EN bank registry path resolves', () {
