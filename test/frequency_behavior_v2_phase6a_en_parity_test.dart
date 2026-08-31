@@ -156,9 +156,10 @@ void main() {
     }
   });
 
-  test('translation review defaults to pending human review', () {
+  test('translation review status after phase 6B batch 001-050', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
+      final id = row['item_id'] as String;
       expect(status, isNotNull);
       expect(
         {
@@ -169,10 +170,26 @@ void main() {
         },
         contains(status),
       );
-      if (status == FrequencyBehaviorV2Contract.translationReviewReviewed) {
-        fail('Unexpected REVIEWED without explicit human approval: ${row['item_id']}');
+      final n = int.parse(id.split('_q').last);
+      if (n >= 1 && n <= 50) {
+        expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
+            reason: id);
+      } else {
+        expect(status, isNot(FrequencyBehaviorV2Contract.translationReviewReviewed),
+            reason: id);
       }
     }
+  });
+
+  test('phase 6B human wording corrections preserved', () {
+    final q31 = enPool.itemsById['frequency_v2_q0031']!;
+    final q45 = enPool.itemsById['frequency_v2_q0045']!;
+    final q49 = enPool.itemsById['frequency_v2_q0049']!;
+    final q31d = q31.options.firstWhere((o) => o.optionId.endsWith('_d'));
+    expect(q31d.text, contains("when they're still awake at night"));
+    expect(q45.prompt, isNot(contains('[place]')));
+    expect(q49.prompt, contains('someone they used to date'));
+    expect(q49.prompt.toLowerCase(), isNot(contains(' an ex')));
   });
 
   test('EN bank registry path resolves', () {

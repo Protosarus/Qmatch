@@ -1,6 +1,6 @@
 # Frequency V2 Phase 6A — EN Semantic Parity Audit
 
-**Generated:** 2026-08-31 14:55 UTC
+**Generated:** 2026-08-31 15:32 UTC
 **Translation version:** `frequency_v2_en_semantic_v1`
 **EN pool version:** `frequency_behavior_pool_en_v2_draft1`
 **TR source pool:** `frequency_behavior_pool_tr_v2_draft1`
@@ -23,12 +23,13 @@
 ## Translation review status
 
 - `CROSS_CULTURAL_REVIEW_REQUIRED`: 2
-- `PENDING_HUMAN_REVIEW`: 424
+- `PENDING_HUMAN_REVIEW`: 374
+- `REVIEWED`: 50
 
 ## Translation triage flags
 
-- `possible_intensity_drift`: 89
-- `possible_unnatural_english`: 11
+- `possible_intensity_drift`: 92
+- `possible_unnatural_english`: 12
 - `possible_cultural_mismatch`: 2
 
 ## Human review batches
