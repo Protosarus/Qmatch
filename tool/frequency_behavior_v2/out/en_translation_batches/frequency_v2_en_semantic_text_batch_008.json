@@ -1,0 +1,456 @@
+{
+  "batch": "351_400",
+  "translation_version": "frequency_v2_en_semantic_v1",
+  "items": {
+    "frequency_v2_q0351": {
+      "prompt": "You did something (cooked, presented, drew) and your partner gave fairly constructive but critical feedback without you asking for their opinion.",
+      "options": {
+        "frequency_v2_q0351_a": "I filter the criticism through logic and gladly accept it if it's valid so I can improve.",
+        "frequency_v2_q0351_b": "I gently point out that I didn't ask for their opinion and make it clear I don't like unsolicited advice.",
+        "frequency_v2_q0351_c": "Being criticized kills my enthusiasm in the moment, my mood drops, and I go quiet toward them.",
+        "frequency_v2_q0351_d": "I immediately defend my work and explain at length why I did it that way."
+      }
+    },
+    "frequency_v2_q0352": {
+      "prompt": "What do you think about merging your profiles or passwords on shared platforms like Netflix or Spotify?",
+      "options": {
+        "frequency_v2_q0352_a": "We should definitely share — joint lists and one account strengthen our bond.",
+        "frequency_v2_q0352_b": "We could have a shared account, but I'd prefer my personal algorithm and history stay private.",
+        "frequency_v2_q0352_c": "I don't care much — if they share their password I'll use it, and if they ask I'll give mine.",
+        "frequency_v2_q0352_d": "I'm not against sharing, but I want it clear who pays for what from a budget standpoint."
+      }
+    },
+    "frequency_v2_q0353": {
+      "prompt": "During a dinner for two, your partner's phone stays on the table and notifications keep breaking their focus. What do you do?",
+      "options": {
+        "frequency_v2_q0353_a": "I'd clearly ask them to put the phone away for the meal.",
+        "frequency_v2_q0353_b": "I'd mention once that the notifications are distracting me.",
+        "frequency_v2_q0353_c": "I wouldn't say anything for now; I'd bring it up later if it keeps happening.",
+        "frequency_v2_q0353_d": "I wouldn't bring it up at all; I'd just get through the evening with the phone on the table."
+      }
+    },
+    "frequency_v2_q0354": {
+      "prompt": "It's 2 AM. You're about to sleep, but your partner started a very deep conversation about life, the universe, childhood, and fears.",
+      "options": {
+        "frequency_v2_q0354_a": "Even if it costs me sleep, I won't miss this moment — I'll join in and share my deepest secrets.",
+        "frequency_v2_q0354_b": "I'll listen and hold them, but I won't say much myself — just affirm them.",
+        "frequency_v2_q0354_c": "Even with my eyes closing, I'll try to give sensible answers and keep up with their train of thought.",
+        "frequency_v2_q0354_d": "\"These are great topics, but my brain shut down — can we talk properly over coffee tomorrow?\""
+      }
+    },
+    "frequency_v2_q0355": {
+      "prompt": "You're at work and your partner calls saying they found an injured cat or dog on the road and are bringing it home. You hadn't planned for this.",
+      "options": {
+        "frequency_v2_q0355_a": "Great — I'd be thrilled. I like when things unfold spontaneously and they show compassion.",
+        "frequency_v2_q0355_b": "I'd accept it but internally start calculating costs, potty training, and how it'll affect our routine.",
+        "frequency_v2_q0355_c": "I'd say you shouldn't bring a big responsibility home without asking me and look for a temporary solution.",
+        "frequency_v2_q0355_d": "Whatever they want — as long as they take responsibility, it's fine with me."
+      }
+    },
+    "frequency_v2_q0356": {
+      "prompt": "On day 2 of a week-long beach vacation you get bad sunburn or food poisoning and you're stuck in the room.",
+      "options": {
+        "frequency_v2_q0356_a": "I tell them to go enjoy the beach while I sleep so their vacation isn't ruined.",
+        "frequency_v2_q0356_b": "I expect them to stay with me in the room the whole time and cheer me up.",
+        "frequency_v2_q0356_c": "I'd find it reasonable for them to check on me every few hours but enjoy the rest of their vacation in between.",
+        "frequency_v2_q0356_d": "My mood drops, I feel guilty, and I suggest ending the trip because I ruined their fun."
+      }
+    },
+    "frequency_v2_q0357": {
+      "prompt": "You're about to take a long drive together, but your music tastes are completely opposite.",
+      "options": {
+        "frequency_v2_q0357_a": "Whoever's driving picks the music, or we take turns — their playlist, then mine.",
+        "frequency_v2_q0357_b": "I'll put up with their music — I'd rather have peace than argue about it on the road.",
+        "frequency_v2_q0357_c": "We both put in our headphones and retreat into our own worlds.",
+        "frequency_v2_q0357_d": "I put on neutral radio or a podcast neither of us loves or hates to find middle ground."
+      }
+    },
+    "frequency_v2_q0358": {
+      "prompt": "Your partner posted a controversial political or social view on social media that you strongly disagree with and find unsettling.",
+      "options": {
+        "frequency_v2_q0358_a": "I'd immediately post my opposing view in the comments — I won't shy away from debating them even online.",
+        "frequency_v2_q0358_b": "I ignore the post — their digital identity is entirely their own.",
+        "frequency_v2_q0358_c": "When they get home I'd warn them: \"Why did you post that? People will misunderstand.\"",
+        "frequency_v2_q0358_d": "Without judging, out of curiosity I'd ask \"What did you mean by that post?\" to understand where they're coming from."
+      }
+    },
+    "frequency_v2_q0359": {
+      "prompt": "You're at the movies and the couple behind you keeps talking loudly. Your partner looks bothered but says nothing.",
+      "options": {
+        "frequency_v2_q0359_a": "I turn around immediately and politely but firmly tell them to be quiet.",
+        "frequency_v2_q0359_b": "I whisper to my partner \"Want to switch seats?\" and find a non-confrontational fix.",
+        "frequency_v2_q0359_c": "I stay quiet too, try to hear the film, and wait for my partner to react or just endure it.",
+        "frequency_v2_q0359_d": "I make a loud \"Shhh!\" to send an anonymous warning and resolve it without direct tension."
+      }
+    },
+    "frequency_v2_q0360": {
+      "prompt": "You were meeting for coffee only, but your partner arrived with a big meaningful gift. (It's not a special occasion.)",
+      "options": {
+        "frequency_v2_q0360_a": "I'd love it — unplanned heartfelt surprises are my love language.",
+        "frequency_v2_q0360_b": "I'd be happy but feel a slight debt: \"I didn't bring anything — I'm embarrassed.\"",
+        "frequency_v2_q0360_c": "I'd accept it but say \"You didn't need to do this\" to keep some distance.",
+        "frequency_v2_q0360_d": "I'd match their energy and balance things by picking up the next bill or activity."
+      }
+    },
+    "frequency_v2_q0361": {
+      "prompt": "Your partner was suddenly laid off. They're very down and don't know what to do.",
+      "options": {
+        "frequency_v2_q0361_a": "In the first days I'm purely emotional support — I spoil them and don't bring up the topic.",
+        "frequency_v2_q0361_b": "I immediately offer to help update their résumé and start sending job listings.",
+        "frequency_v2_q0361_c": "I don't panic — I calculate how long our budget will last and draw a rational roadmap.",
+        "frequency_v2_q0361_d": "Their uncertainty affects me too — I struggle to hide my own anxiety."
+      }
+    },
+    "frequency_v2_q0362": {
+      "prompt": "Walking in the street or mall you're very fast, and your partner strolls slowly looking at shop windows.",
+      "options": {
+        "frequency_v2_q0362_a": "I fully adjust my pace to theirs and get used to walking at their tempo.",
+        "frequency_v2_q0362_b": "I can't help saying \"Come on, speed up — you're too slow\" and try to pull them to my pace.",
+        "frequency_v2_q0362_c": "I walk ahead at my speed, they follow at theirs, and we meet up in stores.",
+        "frequency_v2_q0362_d": "I expect them to hold my hand and slow me down — we equalize pace through touch."
+      }
+    },
+    "frequency_v2_q0363": {
+      "prompt": "While you're alone together at a venue, your partner invites a friend they ran into — someone you've never met — to join your table.",
+      "options": {
+        "frequency_v2_q0363_a": "I'd be very upset, feel our private time was hijacked, and go silent.",
+        "frequency_v2_q0363_b": "No problem at all — I love meeting new people and widening the conversation.",
+        "frequency_v2_q0363_c": "I'd politely say \"We were just about to leave\" or find an excuse to get up soon and set a boundary.",
+        "frequency_v2_q0363_d": "I'd wait for my partner to include me in the conversation and go along so I don't feel like an outsider."
+      }
+    },
+    "frequency_v2_q0364": {
+      "prompt": "Your partner keeps having small but steady jealousy episodes about your style or opposite-sex coworkers.",
+      "options": {
+        "frequency_v2_q0364_a": "I adjust my clothing or keep more distance from those coworkers to earn their trust.",
+        "frequency_v2_q0364_b": "I make clear this isn't negotiable: \"If you don't trust me, this won't work.\"",
+        "frequency_v2_q0364_c": "I talk through why they're jealous and try to reassure them with reasonable guarantees.",
+        "frequency_v2_q0364_d": "Deep down I take their jealousy as proof they really love me and kind of enjoy it."
+      }
+    },
+    "frequency_v2_q0365": {
+      "prompt": "Your partner seems to have forgotten a date that's meaningful to your relationship and is treating the day as normal. What do you do?",
+      "options": {
+        "frequency_v2_q0365_a": "I ask outright: \"Is this date still important to you?\"",
+        "frequency_v2_q0365_b": "I remind them of the date and see how they react.",
+        "frequency_v2_q0365_c": "I don't bring it up; I'll talk if they notice.",
+        "frequency_v2_q0365_d": "I don't treat forgetting as a sign about the relationship and carry on with the day."
+      }
+    },
+    "frequency_v2_q0366": {
+      "prompt": "A large friend group is coming over for dinner. What's your prep style?",
+      "options": {
+        "frequency_v2_q0366_a": "Menu, seating, music — everything planned days ahead and executed flawlessly.",
+        "frequency_v2_q0366_b": "Order food in, stock the fridge, prefer a relaxed chaotic vibe.",
+        "frequency_v2_q0366_c": "My partner decides what to cook; I set the table or assist.",
+        "frequency_v2_q0366_d": "I focus less on setup and more on conversation and the party's energy when people arrive."
+      }
+    },
+    "frequency_v2_q0367": {
+      "prompt": "You watched your favorite masterpiece film together, and they said \"That was the worst movie I've ever seen.\"",
+      "options": {
+        "frequency_v2_q0367_a": "\"We have different tastes\" — what it means to me doesn't change because of their opinion.",
+        "frequency_v2_q0367_b": "I'd spend a long time arguing why it's a masterpiece and trying to change their mind.",
+        "frequency_v2_q0367_c": "I'd take it personally — if they find something that moves me that repulsive, it makes me question our connection.",
+        "frequency_v2_q0367_d": "To avoid tension I'd agree: \"Yeah, some parts were boring.\""
+      }
+    },
+    "frequency_v2_q0368": {
+      "prompt": "You're on vacation, but this time your partner is very sick and can't leave the room.",
+      "options": {
+        "frequency_v2_q0368_a": "I cancel my vacation plans and stay by their bedside for three days making soup.",
+        "frequency_v2_q0368_b": "\"You rest — I'm going to the pool.\" I check in periodically but enjoy my trip too.",
+        "frequency_v2_q0368_c": "I ask whether they'd rather be alone and act accordingly.",
+        "frequency_v2_q0368_d": "I'm upset the trip is ruined and keep saying \"I wish this hadn't happened,\" dragging down the mood."
+      }
+    },
+    "frequency_v2_q0369": {
+      "prompt": "Your partner announced they want to switch to an artistic or freelance career they've dreamed of for years with no guaranteed income (e.g., musician).",
+      "options": {
+        "frequency_v2_q0369_a": "We make a financial plan together — I'll carry more of the household load for a while so they can pursue the dream.",
+        "frequency_v2_q0369_b": "That uncertainty scares me — \"Save up first, then try\" — I push them toward being rational.",
+        "frequency_v2_q0369_c": "It's their life and career — as long as it doesn't sink me financially, I'm behind whatever they do.",
+        "frequency_v2_q0369_d": "I get their excitement but inwardly cool off thinking it'll lower our standard of living."
+      }
+    },
+    "frequency_v2_q0370": {
+      "prompt": "At midnight an unlisted number texts your partner's phone: \"Are you asleep?\"",
+      "options": {
+        "frequency_v2_q0370_a": "I wake them or ask first thing in the morning \"Who is this number?\" and need a satisfying answer.",
+        "frequency_v2_q0370_b": "I put the phone on silent, assume wrong number, and go back to sleep.",
+        "frequency_v2_q0370_c": "I get suspicious, watch their behavior the next day, and wait for them to explain.",
+        "frequency_v2_q0370_d": "I secretly try to look up the number on my phone or apps."
+      }
+    },
+    "frequency_v2_q0371": {
+      "prompt": "Your partner recently started snoring extremely loudly and you can't sleep.",
+      "options": {
+        "frequency_v2_q0371_a": "I cuddle or nudge them to roll over — even if it wakes me, I insist on staying in the same bed.",
+        "frequency_v2_q0371_b": "I take my pillow to the couch or guest room to actually sleep.",
+        "frequency_v2_q0371_c": "In the morning I tell them directly: \"Your snoring keeps me up — you should see a doctor.\"",
+        "frequency_v2_q0371_d": "I quietly use earplugs or headphones without waking them and solve it myself."
+      }
+    },
+    "frequency_v2_q0372": {
+      "prompt": "There's someone in your partner's friend group who often kills the vibe. You're invited to the next group hang. What do you do?",
+      "options": {
+        "frequency_v2_q0372_a": "I skip this one because that person will be there.",
+        "frequency_v2_q0372_b": "I'll go but keep a clear distance from that person.",
+        "frequency_v2_q0372_c": "If I run into them I'll chat normally — no special distance.",
+        "frequency_v2_q0372_d": "I'll show up as usual and won't set any extra boundary with them."
+      }
+    },
+    "frequency_v2_q0373": {
+      "prompt": "You're watching a very dramatic film together and your partner starts sobbing.",
+      "options": {
+        "frequency_v2_q0373_a": "I get emotional too, maybe cry, and hold their hand tightly.",
+        "frequency_v2_q0373_b": "I quietly pass them tissues and let them cry without interrupting the movie.",
+        "frequency_v2_q0373_c": "I joke about a silly detail in the film to cheer them up.",
+        "frequency_v2_q0373_d": "\"It's just a movie — why are you so affected?\" I show I don't get the intensity."
+      }
+    },
+    "frequency_v2_q0374": {
+      "prompt": "On vacation together your partner forgot their toothbrush and used yours without asking.",
+      "options": {
+        "frequency_v2_q0374_a": "\"What's the big deal — we're one.\" I don't mind; I see it as closeness.",
+        "frequency_v2_q0374_b": "I'm very uncomfortable and react sharply: \"Why didn't you ask? That's a hygiene boundary.\"",
+        "frequency_v2_q0374_c": "I'm grossed out but say \"Let's grab one at the shop next time\" and buy myself a new one without making a scene.",
+        "frequency_v2_q0374_d": "\"At least tell me next time\" — but I wash it and keep using it without blowing it up."
+      }
+    },
+    "frequency_v2_q0375": {
+      "prompt": "Your partner suggests \"Let's open a café or business together — we work and earn side by side.\"",
+      "options": {
+        "frequency_v2_q0375_a": "I love the idea — turning our relationship into a shared project excites me.",
+        "frequency_v2_q0375_b": "Hard no — mixing relationship and work always ends badly in my experience.",
+        "frequency_v2_q0375_c": "\"Let's put risks, business plan, and roles on paper first, then decide.\"",
+        "frequency_v2_q0375_d": "\"You build it — I'll support from the outside.\" I leave initiative to them but stay connected."
+      }
+    },
+    "frequency_v2_q0376": {
+      "prompt": "You got up at night for water. When you return to bed you notice your partner is awake too.",
+      "options": {
+        "frequency_v2_q0376_a": "I seize the moment — cuddle, little kisses, or chat until we fall back asleep.",
+        "frequency_v2_q0376_b": "I murmur \"Still awake?\" and turn over to focus on my sleep.",
+        "frequency_v2_q0376_c": "If they reach for me I respond; if not I quietly get back in bed.",
+        "frequency_v2_q0376_d": "I do a quick check-in: \"Everything okay?\" to see if stress is keeping them up."
+      }
+    },
+    "frequency_v2_q0377": {
+      "prompt": "At a restaurant the bill arrives and your partner forgot their card at home. You had planned to split. What do you do?",
+      "options": {
+        "frequency_v2_q0377_a": "I cover the bill on the spot and adjust the plan for the rest of the night.",
+        "frequency_v2_q0377_b": "I pay now and suggest we settle up later.",
+        "frequency_v2_q0377_c": "I first look for another way to stick to the original split plan.",
+        "frequency_v2_q0377_d": "I don't want to close the bill differently unless the original payment arrangement is resolved."
+      }
+    },
+    "frequency_v2_q0378": {
+      "prompt": "In year two of your relationship your partner says they want to take a solo week-long backpacking trip.",
+      "options": {
+        "frequency_v2_q0378_a": "I'd feel jealous or hurt — vacations should be together; it feels like they don't want me.",
+        "frequency_v2_q0378_b": "Great idea — I'll enjoy having the place to myself while they're gone.",
+        "frequency_v2_q0378_c": "I'll support it but only if they call daily and share where they are.",
+        "frequency_v2_q0378_d": "\"Why can't I come too?\" I'd try to turn it into a trip for two."
+      }
+    },
+    "frequency_v2_q0379": {
+      "prompt": "You both joined the same gym. How should your workout dynamic work?",
+      "options": {
+        "frequency_v2_q0379_a": "We go together, lift together, rest together — it's a couple activity.",
+        "frequency_v2_q0379_b": "Same ride there, but inside we each put on headphones and follow our own program.",
+        "frequency_v2_q0379_c": "If our workouts match that day we pair up; if not, nobody waits.",
+        "frequency_v2_q0379_d": "I run the session — \"Let's move to this next\" — and push them to stay in shape."
+      }
+    },
+    "frequency_v2_q0380": {
+      "prompt": "At a party your partner had too much to drink and is getting sloppy and unsteady.",
+      "options": {
+        "frequency_v2_q0380_a": "I step in immediately, take their arm, and get them home discreetly.",
+        "frequency_v2_q0380_b": "I'm embarrassed and angry — I pull them aside and tell them sharply to pull themselves together.",
+        "frequency_v2_q0380_c": "I let them have fun and join in — drunk and wild night together.",
+        "frequency_v2_q0380_d": "I leave them with a friend or sit them down and keep mingling with others."
+      }
+    },
+    "frequency_v2_q0381": {
+      "prompt": "You have a very private journal of dark or deep thoughts you've kept for years. Your partner admits they found it on the table and read it.",
+      "options": {
+        "frequency_v2_q0381_a": "I'm furious my privacy was violated — I say that's an unforgivable boundary breach.",
+        "frequency_v2_q0381_b": "I'm shocked but pivot: \"Since you read it — what do you think about what's in there?\"",
+        "frequency_v2_q0381_c": "I'm upset but to avoid a fight I quietly throw it away or hide it and drop the subject.",
+        "frequency_v2_q0381_d": "\"Why did you read it — do you not trust me?\" I turn it into a trust fight."
+      }
+    },
+    "frequency_v2_q0382": {
+      "prompt": "Mid-winter your home boiler broke and you're suddenly facing a repair bill about one month's salary.",
+      "options": {
+        "frequency_v2_q0382_a": "Without panicking I call a repair person, negotiate, sort payment, and get it fixed.",
+        "frequency_v2_q0382_b": "I'm devastated we're broke and complain for days that bad luck always finds us.",
+        "frequency_v2_q0382_c": "I leave the solution to my partner — I just pay my share.",
+        "frequency_v2_q0382_d": "\"We'll sit in the cold, grab blankets, and wait until payday to fix it.\""
+      }
+    },
+    "frequency_v2_q0383": {
+      "prompt": "In a tough situation you like to plan around risks; your partner prefers to move more casually. You need to act together. What do you do?",
+      "options": {
+        "frequency_v2_q0383_a": "I noticeably shift toward their approach and loosen my plan.",
+        "frequency_v2_q0383_b": "I keep part of my plan and adapt part to their pace.",
+        "frequency_v2_q0383_c": "I run both approaches side by side and mostly keep my method.",
+        "frequency_v2_q0383_d": "Even acting together, I prefer not to change my method."
+      }
+    },
+    "frequency_v2_q0384": {
+      "prompt": "Your eating habits are completely different. (One snacks late at night; the other won't drink water after 6 PM.)",
+      "options": {
+        "frequency_v2_q0384_a": "I set a shared dinner time — at least one meal together at the table daily.",
+        "frequency_v2_q0384_b": "Everyone eats what they want when they want — meal times aren't a ritual for me.",
+        "frequency_v2_q0384_c": "I try to eat when they're hungry and sync my stomach to their rhythm.",
+        "frequency_v2_q0384_d": "I cook so I control menu and timing for both of us."
+      }
+    },
+    "frequency_v2_q0385": {
+      "prompt": "You sense your partner has secrets about their past that wouldn't harm you but you don't know them.",
+      "options": {
+        "frequency_v2_q0385_a": "Everyone deserves a private room — I won't ask or pry until they want to share.",
+        "frequency_v2_q0385_b": "It unsettles me — I ask directly: \"Are you hiding something from me?\"",
+        "frequency_v2_q0385_c": "I build trust by sharing my own secrets to encourage them to open up.",
+        "frequency_v2_q0385_d": "Their secrecy adds a bit of mystery I actually kind of enjoy."
+      }
+    },
+    "frequency_v2_q0386": {
+      "prompt": "Your partner started a new job and spends 14 hours a day at the computer. Even when you're home together you barely talk.",
+      "options": {
+        "frequency_v2_q0386_a": "I hate feeling alone in the same house — I'd ask them to limit work hours.",
+        "frequency_v2_q0386_b": "Perfect for me — I'll dive into my books, work, and quiet.",
+        "frequency_v2_q0386_c": "I quietly bring tea or coffee and touch their shoulder now and then to show I'm there.",
+        "frequency_v2_q0386_d": "\"At least let's eat dinner without the laptop\" — I organize a small boundary."
+      }
+    },
+    "frequency_v2_q0387": {
+      "prompt": "Your partner didn't reply to your message all day but you see them active on Instagram or Twitter.",
+      "options": {
+        "frequency_v2_q0387_a": "I make it clear I'm hurt: \"You won't text me but you're posting stories?\"",
+        "frequency_v2_q0387_b": "I know scrolling and messaging are different — I don't care.",
+        "frequency_v2_q0387_c": "I stop texting them and post things showing I'm having fun on my own feed.",
+        "frequency_v2_q0387_d": "I leave a funny comment on their story or tweet to start interaction there."
+      }
+    },
+    "frequency_v2_q0388": {
+      "prompt": "What's your gift strategy for an upcoming special occasion?",
+      "options": {
+        "frequency_v2_q0388_a": "Weeks ahead I secretly analyze what they need, buy it, and wrap it.",
+        "frequency_v2_q0388_b": "Last minute I wander the mall and pick whatever feels right in the moment.",
+        "frequency_v2_q0388_c": "I ask outright: \"What should I get you?\" to play it safe.",
+        "frequency_v2_q0388_d": "Instead of a gift I cook a nice dinner or give an experience (tickets)."
+      }
+    },
+    "frequency_v2_q0389": {
+      "prompt": "Your partner's out-of-town friend showed up unannounced at the door: \"Can I crash with you for a few days?\"",
+      "options": {
+        "frequency_v2_q0389_a": "I'm angry my partner put me in this spot and say the guest needs a hotel.",
+        "frequency_v2_q0389_b": "Internally annoyed but I say \"Of course, come in\" and sacrifice my home routine for a few days.",
+        "frequency_v2_q0389_c": "I tell my partner \"You handle it\" and stay in my room like there's no guest.",
+        "frequency_v2_q0389_d": "I immediately organize — where they'll sleep, host mode on."
+      }
+    },
+    "frequency_v2_q0390": {
+      "prompt": "Walking down the street or sitting in a café, a very tense argument about your relationship flares up.",
+      "options": {
+        "frequency_v2_q0390_a": "I don't care who's around — I can't hide my feelings, my voice rises, and we argue there.",
+        "frequency_v2_q0390_b": "\"Not here — we'll talk at home.\" I cut it off cold.",
+        "frequency_v2_q0390_c": "I'm so embarrassed by people staring I instantly say they're right and shut it down.",
+        "frequency_v2_q0390_d": "I keep the fight going in whispers or leaning over the table so outsiders don't notice."
+      }
+    },
+    "frequency_v2_q0391": {
+      "prompt": "At a café someone from your ex's close circle stops by your table, says hello briefly, and leaves. Your partner seems fine. What do you do?",
+      "options": {
+        "frequency_v2_q0391_a": "I ask outright if it bothered them.",
+        "frequency_v2_q0391_b": "I do a quick check: \"That was a little awkward, right?\"",
+        "frequency_v2_q0391_c": "I won't bring it up unless they do.",
+        "frequency_v2_q0391_d": "I see no sign of a problem and drop it completely."
+      }
+    },
+    "frequency_v2_q0392": {
+      "prompt": "Your partner said \"I'm done with the diet and gym — I'm going to live life\" and dropped months of discipline in one day.",
+      "options": {
+        "frequency_v2_q0392_a": "\"What made you feel that way — are you burned out?\" I try to understand the psychology.",
+        "frequency_v2_q0392_b": "Their body, not my business — they can eat, drink, and lounge however they want.",
+        "frequency_v2_q0392_c": "\"All that effort wasted — hang in a little longer.\" I push them back into the old routine.",
+        "frequency_v2_q0392_d": "I join them — \"Great idea, let's order pizza\" — and switch into that comfort too."
+      }
+    },
+    "frequency_v2_q0393": {
+      "prompt": "You're walking to an event when heavy rain suddenly makes your plan much harder. What do you do?",
+      "options": {
+        "frequency_v2_q0393_a": "I change the plan immediately — find transport or a nearby alternative.",
+        "frequency_v2_q0393_b": "I wait a bit; if it doesn't ease up I adjust the plan.",
+        "frequency_v2_q0393_c": "I try to stick to the original plan a while longer and only change if I have to.",
+        "frequency_v2_q0393_d": "I prefer not to change the plan until it's truly impossible."
+      }
+    },
+    "frequency_v2_q0394": {
+      "prompt": "Your partner has repeatedly broken the same small promise (being on time, doing a task).",
+      "options": {
+        "frequency_v2_q0394_a": "I say directly: \"This is wearing me out.\"",
+        "frequency_v2_q0394_b": "I tolerate it a while longer.",
+        "frequency_v2_q0394_c": "I bring up my own slip-ups too, mutually.",
+        "frequency_v2_q0394_d": "I quietly adjust my plans around them without saying anything."
+      }
+    },
+    "frequency_v2_q0395": {
+      "prompt": "Someone new you're seeing wants longer, more frequent meetups every time.",
+      "options": {
+        "frequency_v2_q0395_a": "I go along with it.",
+        "frequency_v2_q0395_b": "I keep my own pace.",
+        "frequency_v2_q0395_c": "I say \"Let's see each other a little less often.\"",
+        "frequency_v2_q0395_d": "If it gets too intense I'll naturally reduce how often we meet."
+      }
+    },
+    "frequency_v2_q0396": {
+      "prompt": "Living together, your partner often listens to loud music or talks loudly on the phone.",
+      "options": {
+        "frequency_v2_q0396_a": "I say \"Can we turn it down a bit?\"",
+        "frequency_v2_q0396_b": "I put on headphones or move to another room.",
+        "frequency_v2_q0396_c": "I try to get used to it.",
+        "frequency_v2_q0396_d": "I crank up my own noisy activities too."
+      }
+    },
+    "frequency_v2_q0397": {
+      "prompt": "Your partner wants to bring you to a celebration with their friend group. You don't know the group yet.",
+      "options": {
+        "frequency_v2_q0397_a": "I'll go and meet people.",
+        "frequency_v2_q0397_b": "I say \"Not this time.\"",
+        "frequency_v2_q0397_c": "I drop by briefly and leave early.",
+        "frequency_v2_q0397_d": "I suggest meeting in a smaller setting first."
+      }
+    },
+    "frequency_v2_q0398": {
+      "prompt": "While getting to know someone they keep bringing up early future plans (vacations, moving in together).",
+      "options": {
+        "frequency_v2_q0398_a": "I join in.",
+        "frequency_v2_q0398_b": "I say \"That's a bit early.\"",
+        "frequency_v2_q0398_c": "I listen but don't add my own plans.",
+        "frequency_v2_q0398_d": "If the pace speeds up I'll pull back."
+      }
+    },
+    "frequency_v2_q0399": {
+      "prompt": "In an argument your partner keeps derailing and won't get to the real issue.",
+      "options": {
+        "frequency_v2_q0399_a": "I say \"Let's get back to the main point.\"",
+        "frequency_v2_q0399_b": "I derail too.",
+        "frequency_v2_q0399_c": "I drop the topic entirely.",
+        "frequency_v2_q0399_d": "I try to open the emotional side."
+      }
+    },
+    "frequency_v2_q0400": {
+      "prompt": "Your partner shows jealousy or discomfort about one of your hobbies (sport, music, gaming, collecting).",
+      "options": {
+        "frequency_v2_q0400_a": "I cut back on the hobby a bit.",
+        "frequency_v2_q0400_b": "I say \"That's my space.\"",
+        "frequency_v2_q0400_c": "I try to include them in it.",
+        "frequency_v2_q0400_d": "I shut the conversation down."
+      }
+    }
+  }
+}

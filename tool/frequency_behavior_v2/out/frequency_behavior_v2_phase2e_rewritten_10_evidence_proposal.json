@@ -1,0 +1,868 @@
+{
+  "schema": "qmatch_frequency_behavior_v2_phase2e_rewritten_10_evidence_proposal",
+  "applied_to_pool": false,
+  "version": "frequency_evidence_prior_v1",
+  "calibration_status": "uncalibrated",
+  "review_status": "proposed",
+  "human_authority": "docs/qmatch_frequency_v2_phase2d_final_human_evidence_decisions.txt",
+  "runtime_selectable": false,
+  "question_count": 10,
+  "option_count": 40,
+  "stale_phase2b_evidence_invalidated": true,
+  "items": [
+    {
+      "question_id": "frequency_v2_q0020",
+      "primary_dimension": "uncertainty_tolerance",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0020_a",
+          "option_text": "Şimdilik olduğu gibi bırakırım; anlatmak isterse kendisi açar.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0020_b",
+          "option_text": "Bir kez “Emin misin?” diye sorar, cevabı aynıysa konuyu bırakırım.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0020_c",
+          "option_text": "Biraz zaman geçince o akşam tekrar sorup ne olduğunu anlamaya çalışırım.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0020_d",
+          "option_text": "Aradaki belirsizlik çözülmeden rahat edemem; ne olduğunu o anda netleştirmek isterim.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0026",
+      "primary_dimension": "uncertainty_tolerance",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0026_a",
+          "option_text": "Farklı düşünmeye devam edebileceğimizi kabul eder, konuyu açık bırakırım.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0026_b",
+          "option_text": "Bir kez daha konuşur, yine uzlaşamazsak farklı görüşlerle devam ederim.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0026_c",
+          "option_text": "İleride sorun olmaması için nerede ayrıştığımızı daha netleştirmek isterim.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0026_d",
+          "option_text": "Bu konuda ortak bir zemin bulmadan meseleyi kapanmış sayamam.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0030",
+      "primary_dimension": "uncertainty_tolerance",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0030_a",
+          "option_text": "Her şeyi aynı anda bilmek zorunda olmadığımı düşünür, konuyu onun açmasına bırakırım.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0030_b",
+          "option_text": "Kısaca sorarım; cevabı eksik kalsa da şimdilik üzerinde durmam.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0030_c",
+          "option_text": "O gün neden daha önce konuşulmadığını anlamak için biraz daha ayrıntı isterim.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0030_d",
+          "option_text": "Ne olduğunu ve neden daha önce söylemediğini ayrıntılı biçimde netleştirmeden konuyu bırakamam.",
+          "behavioral_weights": {
+            "uncertainty_tolerance": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0035",
+      "primary_dimension": "disclosure_pace",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0035_a",
+          "option_text": "Neler yaşadığımı ve nasıl hissettiğimi o anda ayrıntılı biçimde anlatırım.",
+          "behavioral_weights": {
+            "disclosure_pace": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0035_b",
+          "option_text": "Ana hatlarıyla anlatır, ayrıntıları zaman içinde paylaşırım.",
+          "behavioral_weights": {
+            "disclosure_pace": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0035_c",
+          "option_text": "Zorlandığımı söyler ama konuşmak için biraz daha zaman isterim.",
+          "behavioral_weights": {
+            "disclosure_pace": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0035_d",
+          "option_text": "Hazır olana kadar yaşadıklarımın çoğunu kendime saklarım.",
+          "behavioral_weights": {
+            "disclosure_pace": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0213",
+      "primary_dimension": "closeness_pace",
+      "question_evidence_quality": "MEDIUM",
+      "needs_human_review": true,
+      "needs_human_review_reasons": [
+        "wording_may_shift_across_cultures"
+      ],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0213_a",
+          "option_text": "Memnuniyetle kabul eder, bu adımı şimdi atmaya hazır hissederim.",
+          "behavioral_weights": {
+            "closeness_pace": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0213_b",
+          "option_text": "Kabul ederim ama daha küçük ve kısa bir tanışma olmasını tercih ederim.",
+          "behavioral_weights": {
+            "closeness_pace": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0213_c",
+          "option_text": "Biraz daha görüşüp sonra tanışmayı tercih ettiğimi söylerim.",
+          "behavioral_weights": {
+            "closeness_pace": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0213_d",
+          "option_text": "İlişki daha belirgin biçimde ilerlemeden aile tanışmasını ertelemek isterim.",
+          "behavioral_weights": {
+            "closeness_pace": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0317",
+      "primary_dimension": "repair_style",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0317_a",
+          "option_text": "Kısa süre içinde, hazır olduğunda konuşup toparlamak istediğimi belirten bir mesaj atarım.",
+          "behavioral_weights": {
+            "repair_style": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0317_b",
+          "option_text": "Biraz zaman verip aynı gün içinde konuşmayı yeniden açarım.",
+          "behavioral_weights": {
+            "repair_style": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0317_c",
+          "option_text": "O gün alan bırakır, ertesi gün sakinleşince konuyu yeniden açarım.",
+          "behavioral_weights": {
+            "repair_style": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0317_d",
+          "option_text": "Partnerim yeniden açmazsa ben de konuyu tekrar gündeme getirmem.",
+          "behavioral_weights": {
+            "repair_style": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0377",
+      "primary_dimension": "adaptability",
+      "question_evidence_quality": "MEDIUM",
+      "needs_human_review": true,
+      "needs_human_review_reasons": [
+        "wording_may_shift_across_cultures"
+      ],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0377_a",
+          "option_text": "O an hesabı ben kapatır, planı duruma göre değiştirip geceye devam ederim.",
+          "behavioral_weights": {
+            "adaptability": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0377_b",
+          "option_text": "Hesabı şimdilik ben öder, daha sonra aramızda halletmeyi öneririm.",
+          "behavioral_weights": {
+            "adaptability": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0377_c",
+          "option_text": "Önce baştaki paylaşım planını koruyabileceğimiz başka bir ödeme yolu ararım.",
+          "behavioral_weights": {
+            "adaptability": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0377_d",
+          "option_text": "Mümkünse baştaki ödeme düzeni çözülmeden hesabı farklı biçimde kapatmak istemem.",
+          "behavioral_weights": {
+            "adaptability": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The axis contrast is readable, but the scenario can shift across cultures. Priors stay uncalibrated and are not treated as truth or health scores."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0393",
+      "primary_dimension": "adaptability",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0393_a",
+          "option_text": "Koşula göre planı hemen değiştirir, ulaşım veya yakın bir alternatif bulurum.",
+          "behavioral_weights": {
+            "adaptability": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0393_b",
+          "option_text": "Kısa süre bekler, düzelmezse planı yeni koşula göre değiştiririm.",
+          "behavioral_weights": {
+            "adaptability": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0393_c",
+          "option_text": "Bir süre daha ilk planı sürdürmeye çalışır, ancak mecbur kalırsam değiştiririm.",
+          "behavioral_weights": {
+            "adaptability": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0393_d",
+          "option_text": "İlk plan gerçekten imkânsız hale gelene kadar değiştirmemeyi tercih ederim.",
+          "behavioral_weights": {
+            "adaptability": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0409",
+      "primary_dimension": "repair_style",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0409_a",
+          "option_text": "Uygun bir anda konuyu ben açıp arayı toparlamayı teklif ederim.",
+          "behavioral_weights": {
+            "repair_style": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0409_b",
+          "option_text": "Biraz normalleşmesini bekler, aynı gün içinde konuşmayı öneririm.",
+          "behavioral_weights": {
+            "repair_style": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0409_c",
+          "option_text": "O gün tekrar açmam; ertesi gün sakin bir zamanda geri dönerim.",
+          "behavioral_weights": {
+            "repair_style": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0409_d",
+          "option_text": "O kendisi gündeme getirmezse ben de konuyu yeniden açmam.",
+          "behavioral_weights": {
+            "repair_style": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    },
+    {
+      "question_id": "frequency_v2_q0410",
+      "primary_dimension": "closeness_pace",
+      "question_evidence_quality": "HIGH",
+      "needs_human_review": false,
+      "needs_human_review_reasons": [],
+      "options": [
+        {
+          "option_id": "frequency_v2_q0410_a",
+          "option_text": "Memnuniyetle kabul eder, iki günü de birlikte planlarım.",
+          "behavioral_weights": {
+            "closeness_pace": 2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0410_b",
+          "option_text": "Bir günün büyük bölümünü birlikte geçirip kalan zamanı ayrı tutmayı öneririm.",
+          "behavioral_weights": {
+            "closeness_pace": 1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0410_c",
+          "option_text": "Daha kısa bir buluşma önerir, tempoyu biraz daha yavaş tutarım.",
+          "behavioral_weights": {
+            "closeness_pace": -1.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "A milder ±1 pole can be as informative as ±2 when the wording is specific. Diagnostic value is not taken from weight magnitude."
+          }
+        },
+        {
+          "option_id": "frequency_v2_q0410_d",
+          "option_text": "Şimdilik bütün hafta sonunu birlikte geçirmek yerine ayrı ayrı görüşmeye devam etmeyi tercih ederim.",
+          "behavioral_weights": {
+            "closeness_pace": -2.0
+          },
+          "evidence_meta": {
+            "version": "frequency_evidence_prior_v1",
+            "calibration_status": "uncalibrated",
+            "review_status": "proposed",
+            "social_desirability": 0.5,
+            "obviousness": 0.5,
+            "behavioral_plausibility": 0.75,
+            "self_presentation_risk": 0.5,
+            "diagnostic_value": 0.75,
+            "ambiguity": 0.25,
+            "reviewer_rationale": "The rewritten four-way contrast is readable on the named primary; this option is a distinct pole among its siblings."
+          }
+        }
+      ]
+    }
+  ]
+}

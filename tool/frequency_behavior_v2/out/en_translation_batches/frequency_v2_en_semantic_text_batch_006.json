@@ -1,0 +1,456 @@
+{
+  "batch": "251_300",
+  "translation_version": "frequency_v2_en_semantic_v1",
+  "items": {
+    "frequency_v2_q0251": {
+      "prompt": "You're out doing weekly grocery shopping together. How do you usually like to manage the process?",
+      "options": {
+        "frequency_v2_q0251_a": "Stick to a list I wrote at home and move through the aisles quickly and completely.",
+        "frequency_v2_q0251_b": "Don't stick too closely to the list — browse the shelves and grab whatever catches our eye.",
+        "frequency_v2_q0251_c": "Mostly leave it to their lead — I approve what they pick and push the cart.",
+        "frequency_v2_q0251_d": "Split up before entering: \"You grab these, I'll grab those,\" and meet at checkout."
+      }
+    },
+    "frequency_v2_q0252": {
+      "prompt": "Your partner accidentally broke something at home with deep sentimental value to you (e.g., an old vase or mug).",
+      "options": {
+        "frequency_v2_q0252_a": "My first reflex is to show I'm annoyed, but I pull it together and forgive afterward.",
+        "frequency_v2_q0252_b": "Even though I'm upset, I say \"It's nothing — you're okay\" so they don't feel bad and close the topic entirely.",
+        "frequency_v2_q0252_c": "I wonder why they weren't careful, feel angry inside, but stay quiet to avoid a fight.",
+        "frequency_v2_q0252_d": "I say logically \"What's done is done\" and focus on cleaning up the pieces quickly."
+      }
+    },
+    "frequency_v2_q0253": {
+      "prompt": "You started a show you both love. You're eager to watch but they're not in the mood that night.",
+      "options": {
+        "frequency_v2_q0253_a": "I'd never watch alone — I'd wait days until they're ready; I won't break the shared activity.",
+        "frequency_v2_q0253_b": "I'd cave and watch an episode but not tell them or react while watching.",
+        "frequency_v2_q0253_c": "I'd say \"I'm continuing — catch up when you can\" and keep watching on my own terms.",
+        "frequency_v2_q0253_d": "I'd try to set a firm day: \"So when are we watching?\""
+      }
+    },
+    "frequency_v2_q0254": {
+      "prompt": "You have a fever and are spending the day resting at home. Your partner is home too. What does contact look like through the day?",
+      "options": {
+        "frequency_v2_q0254_a": "I want them near me often — I'd stay in close contact most of the day.",
+        "frequency_v2_q0254_b": "A check-in now and then or short chats is enough.",
+        "frequency_v2_q0254_c": "I call out when I need something; otherwise I stay to myself.",
+        "frequency_v2_q0254_d": "I keep contact to a minimum until I'm better — mostly alone."
+      }
+    },
+    "frequency_v2_q0255": {
+      "prompt": "You're heading to an event you were excited about (concert, theater) but hit terrible traffic and definitely won't make it.",
+      "options": {
+        "frequency_v2_q0255_a": "I'd melt down in the car, rebel, and drain the whole evening's energy.",
+        "frequency_v2_q0255_b": "I'd be sad about the tickets but quickly say \"Well then, let's eat somewhere\" and make a new plan.",
+        "frequency_v2_q0255_c": "I'd stay calm and say \"Whatever — let's go with what you suggest.\"",
+        "frequency_v2_q0255_d": "I'd put on my own music, go quiet, and focus on driving home."
+      }
+    },
+    "frequency_v2_q0256": {
+      "prompt": "You got your partner a gift but when they opened it, a half-second expression told you they didn't like it at all.",
+      "options": {
+        "frequency_v2_q0256_a": "I wouldn't let on — I'd move past the gift moment fast so I don't put them on the spot.",
+        "frequency_v2_q0256_b": "I'd say \"You didn't like it, did you? Please be honest\" and confront it right away.",
+        "frequency_v2_q0256_c": "I'd offer a practical fix: \"We can exchange it — I have the receipt.\"",
+        "frequency_v2_q0256_d": "I'd feel a small disappointment inside but try not to show it."
+      }
+    },
+    "frequency_v2_q0257": {
+      "prompt": "You met your partner's coworkers for the first time. The conversation (office gossip, etc.) feels foreign and boring to you.",
+      "options": {
+        "frequency_v2_q0257_a": "I'd sit quietly in a corner and give short answers only when asked.",
+        "frequency_v2_q0257_b": "I'd try to understand their world and ask active questions to join the conversation.",
+        "frequency_v2_q0257_c": "Even if I'm bored, I'd act interested and keep smiling so I don't leave my partner alone.",
+        "frequency_v2_q0257_d": "I'd text or signal my partner: \"I'm bored — let's leave soon.\""
+      }
+    },
+    "frequency_v2_q0258": {
+      "prompt": "You shared a deep book or article you love with your partner but they said \"So boring\" and cut you off.",
+      "options": {
+        "frequency_v2_q0258_a": "I'd take different tastes as totally normal and never bring it up again.",
+        "frequency_v2_q0258_b": "I'd try to explain the main idea another way so they get it.",
+        "frequency_v2_q0258_c": "I'd feel an intellectual disconnect inside and it would cool me off a bit.",
+        "frequency_v2_q0258_d": "I'd pivot to something we both enjoy — we don't have to love everything together."
+      }
+    },
+    "frequency_v2_q0259": {
+      "prompt": "When you wake up in the morning, what's your routine for starting the day?",
+      "options": {
+        "frequency_v2_q0259_a": "I want to hug them, say good morning, and chat right when I wake up.",
+        "frequency_v2_q0259_b": "I need at least half an hour of silence and my own coffee — talking tires me out.",
+        "frequency_v2_q0259_c": "I usually match their morning energy — energetic or quiet.",
+        "frequency_v2_q0259_d": "I get out of bed fast and start getting ready — I don't make much time for romantic routines."
+      }
+    },
+    "frequency_v2_q0260": {
+      "prompt": "A close friend of yours texts \"I'm downstairs, coming up for coffee\" while you're home with your partner, who's a mess.",
+      "options": {
+        "frequency_v2_q0260_a": "I'd tell my friend \"Not a good time — let's plan later\" and protect my partner's space.",
+        "frequency_v2_q0260_b": "I'd let my friend in and tell my partner \"Don't worry, they're not a stranger.\"",
+        "frequency_v2_q0260_c": "I'd panic-text my partner \"Friend's coming — get ready fast\" and scramble to tidy up.",
+        "frequency_v2_q0260_d": "I'd tell my partner \"Hang in the room if you want — we'll sit in the living room.\""
+      }
+    },
+    "frequency_v2_q0261": {
+      "prompt": "A small misunderstanding happened between you. Your partner is explaining at length, in detail, constantly defending themselves.",
+      "options": {
+        "frequency_v2_q0261_a": "I'd say \"Got it, no problem\" to stop them and cut the topic off.",
+        "frequency_v2_q0261_b": "I'd listen patiently to the end and respect their need to express themselves.",
+        "frequency_v2_q0261_c": "While they explain, I'd feel the need to tell my side at equal length.",
+        "frequency_v2_q0261_d": "The length would feel stifling — I'd say \"It's fine, let's move on.\""
+      }
+    },
+    "frequency_v2_q0262": {
+      "prompt": "You got an unexpected sizable bonus at work. You're in month four of the relationship.",
+      "options": {
+        "frequency_v2_q0262_a": "I'd call right away and share the joy and the amount enthusiastically.",
+        "frequency_v2_q0262_b": "I'd say I got a bonus but keep the amount and details to myself.",
+        "frequency_v2_q0262_c": "It's my individual financial win — I wouldn't feel the need to mention it at all.",
+        "frequency_v2_q0262_d": "At the next date I'd treat them to something nice and say \"Work went well\" and leave it there."
+      }
+    },
+    "frequency_v2_q0263": {
+      "prompt": "Working or sitting together, a constant rhythmic sound your partner makes (pen tapping, foot swinging) is driving you crazy.",
+      "options": {
+        "frequency_v2_q0263_a": "I'd politely say right away that it bothers me and ask them to stop.",
+        "frequency_v2_q0263_b": "I wouldn't say anything — I'd endure it or leave the room to handle it myself.",
+        "frequency_v2_q0263_c": "I'd hint indirectly with a joke or exaggerated sigh.",
+        "frequency_v2_q0263_d": "I'd put on music or redirect my attention and build tolerance to the sound."
+      }
+    },
+    "frequency_v2_q0264": {
+      "prompt": "You got very bad news about your own life. How do you tell your partner?",
+      "options": {
+        "frequency_v2_q0264_a": "In the shock of it I'd call them right away, maybe crying or panicking.",
+        "frequency_v2_q0264_b": "I'd digest it internally first, plan what to do, and only tell them the final status.",
+        "frequency_v2_q0264_c": "So I don't upset them too much I'd soften it and deliver it in a \"we'll handle it\" tone.",
+        "frequency_v2_q0264_d": "I wouldn't say it directly — I'd wait until I'm with them and let my face prompt them to ask."
+      }
+    },
+    "frequency_v2_q0265": {
+      "prompt": "You're out with your partner having fun, but your social battery is completely dead and you want to go home.",
+      "options": {
+        "frequency_v2_q0265_a": "\"You stay and enjoy — I'm taking a cab home\" — I'd solve it independently.",
+        "frequency_v2_q0265_b": "I wouldn't speak up — even dead tired I'd stay until the end so I don't kill their mood.",
+        "frequency_v2_q0265_c": "I'd whisper \"I'm really tired — should we leave?\" and ask to go together.",
+        "frequency_v2_q0265_d": "I'd sit in a corner on my phone and mentally check out."
+      }
+    },
+    "frequency_v2_q0266": {
+      "prompt": "Your partner forgot a simple task they said they'd do that day — one that matters to you too.",
+      "options": {
+        "frequency_v2_q0266_a": "I'd say it matters to me and nail down when it'll get done.",
+        "frequency_v2_q0266_b": "I'd remind them once and leave the rest to them.",
+        "frequency_v2_q0266_c": "Without saying anything I'd just do it myself this time.",
+        "frequency_v2_q0266_d": "I'd let it pass without bringing it up."
+      }
+    },
+    "frequency_v2_q0267": {
+      "prompt": "In year one of the relationship, your partner tells you what country they'd want to live in or their dream home in five years.",
+      "options": {
+        "frequency_v2_q0267_a": "I'd join those dreams and get excited about how we'd make them happen together.",
+        "frequency_v2_q0267_b": "I'd say it's beautiful but long-range planning always leaves me feeling uncertain.",
+        "frequency_v2_q0267_c": "I'd question how realistic it is financially and logically.",
+        "frequency_v2_q0267_d": "I'd listen but say \"Five years is a long way off — let's live in the now\" and pull it back to today."
+      }
+    },
+    "frequency_v2_q0268": {
+      "prompt": "You're in the same house — you're freezing but your partner runs hot and wants the window or AC open.",
+      "options": {
+        "frequency_v2_q0268_a": "I'd grab a blanket — easier for me to layer up than for them to suffer in the heat.",
+        "frequency_v2_q0268_b": "I'd negotiate until we find a middle ground (like locking the AC at a set temperature).",
+        "frequency_v2_q0268_c": "I'd suggest hanging in different rooms so everyone has their own comfort zone.",
+        "frequency_v2_q0268_d": "\"I'm freezing — close it\" — I'd push my physical limits hard."
+      }
+    },
+    "frequency_v2_q0269": {
+      "prompt": "You signed up for a new hobby class (ceramics, coding, etc.) that takes two evenings a week — entirely yours.",
+      "options": {
+        "frequency_v2_q0269_a": "It's my private space and world — I wouldn't talk about it much and I'd protect my individuality.",
+        "frequency_v2_q0269_b": "After every class I'd tell them at length what I learned and mentally include them.",
+        "frequency_v2_q0269_c": "If they wanted to join I'd be thrilled and offer to turn the class into something we share.",
+        "frequency_v2_q0269_d": "On the days I'm not in class I'd up my attention so they don't feel I'm drifting away."
+      }
+    },
+    "frequency_v2_q0270": {
+      "prompt": "During the day you sent your partner a video or meme you found hilarious. They replied with only a thumbs-up.",
+      "options": {
+        "frequency_v2_q0270_a": "I'd wonder why they were cold and feel quietly bothered by the lack of interest.",
+        "frequency_v2_q0270_b": "I'd assume they're busy, not dwell on it, and get back to my own thing.",
+        "frequency_v2_q0270_c": "I'd write \"You didn't like it, huh :)\" or send something else to try to reconnect.",
+        "frequency_v2_q0270_d": "I'd match their coolness in my next reply to show my reaction."
+      }
+    },
+    "frequency_v2_q0271": {
+      "prompt": "On vacation the room wasn't what you expected and you need a quick decision for the day. What do you do?",
+      "options": {
+        "frequency_v2_q0271_a": "I'd noticeably change the plan and make the day work another way.",
+        "frequency_v2_q0271_b": "I'd try a small fix first; if that fails, change the plan.",
+        "frequency_v2_q0271_c": "I'd wait a while for the original plan to recover, then change course.",
+        "frequency_v2_q0271_d": "I wouldn't want to change the current plan until the conditions we expected are met."
+      }
+    },
+    "frequency_v2_q0272": {
+      "prompt": "During conversation your partner mentioned a neutral memory that included an ex with no romantic subtext (e.g., \"I saw that movie with my ex\").",
+      "options": {
+        "frequency_v2_q0272_a": "I wouldn't fixate on relationship history — I'd stay on the story (the movie) and keep talking.",
+        "frequency_v2_q0272_b": "I wouldn't push in the moment; I'd shorten my replies afterward and steer the topic elsewhere.",
+        "frequency_v2_q0272_c": "I'd set a clear rule that exes' names shouldn't come up between us at all.",
+        "frequency_v2_q0272_d": "I'd see it as honesty and reciprocate with a similar story from my past."
+      }
+    },
+    "frequency_v2_q0273": {
+      "prompt": "You decided to try a new recipe together that evening. What's your kitchen style?",
+      "options": {
+        "frequency_v2_q0273_a": "I measure every ingredient precisely and follow the recipe to the letter.",
+        "frequency_v2_q0273_b": "I skim the recipe and improvise — a little from here, a little from there.",
+        "frequency_v2_q0273_c": "I want them to run the meal — if they say \"chop this,\" I chop; I stay out of the rest.",
+        "frequency_v2_q0273_d": "While cooking I keep the kitchen clean as I go so nothing gets messy."
+      }
+    },
+    "frequency_v2_q0274": {
+      "prompt": "You've been sitting on the couch together for half an hour without either of you saying a word. What do you do?",
+      "options": {
+        "frequency_v2_q0274_a": "I'd ask \"Are you bored / is something wrong?\" and break the silence.",
+        "frequency_v2_q0274_b": "I keep sitting quietly — I don't feel a need to talk.",
+        "frequency_v2_q0274_c": "I turn to my own thing or my phone; I don't break the silence.",
+        "frequency_v2_q0274_d": "I put on music or get up and do something else."
+      }
+    },
+    "frequency_v2_q0275": {
+      "prompt": "Your partner achieved a major individual success in their field.",
+      "options": {
+        "frequency_v2_q0275_a": "I'd claim it like my own win and tell people proudly with a \"We did it\" vibe.",
+        "frequency_v2_q0275_b": "I'd congratulate them wholeheartedly but wouldn't compare it to my own achievements — it's their journey.",
+        "frequency_v2_q0275_c": "I'd immediately organize a big surprise party or fancy dinner to celebrate.",
+        "frequency_v2_q0275_d": "I'd listen to their excitement and go along with whatever kind of celebration they want."
+      }
+    },
+    "frequency_v2_q0276": {
+      "prompt": "Early in a new relationship, your partner suddenly asks, \"What's your biggest fear or trauma in life?\"",
+      "options": {
+        "frequency_v2_q0276_a": "Without thinking I'd tell my deep story openly and without a filter.",
+        "frequency_v2_q0276_b": "I'd give a lighter or jokey answer to dodge it — I'd think it's too early.",
+        "frequency_v2_q0276_c": "I'd try to understand why they're asking and answer from an analytical, philosophical angle.",
+        "frequency_v2_q0276_d": "I'd share a little but quickly turn the question back to them."
+      }
+    },
+    "frequency_v2_q0277": {
+      "prompt": "It's Saturday — cleaning, laundry, grocery shopping, and other household tasks have piled up.",
+      "options": {
+        "frequency_v2_q0277_a": "\"Work first, rest later\" — I'd knock everything out in the morning and relax in the evening.",
+        "frequency_v2_q0277_b": "I'd spread tasks through the day in bits — a fixed cleaning hour would stress me out.",
+        "frequency_v2_q0277_c": "\"Not feeling it today — it'll wait until tomorrow\" — I'd shelve it all and enjoy myself.",
+        "frequency_v2_q0277_d": "We'd make a shared list; I do my part and don't meddle in when they do theirs."
+      }
+    },
+    "frequency_v2_q0278": {
+      "prompt": "While telling your partner about your career or family, they keep advising you on what you should do.",
+      "options": {
+        "frequency_v2_q0278_a": "I'd take their ideas seriously and find them useful as an objective outside view.",
+        "frequency_v2_q0278_b": "\"I just wanted you to listen — I didn't ask for advice\" — I'd draw a clear line.",
+        "frequency_v2_q0278_c": "I'd act like I'm following their advice but end up doing exactly what I wanted.",
+        "frequency_v2_q0278_d": "I'd feel criticized and get defensive, arguing why their advice won't work."
+      }
+    },
+    "frequency_v2_q0279": {
+      "prompt": "You're out with friends, your phone died, and you haven't reached your partner in five hours.",
+      "options": {
+        "frequency_v2_q0279_a": "No problem — I focus on the moment with friends and charge when I get home.",
+        "frequency_v2_q0279_b": "Thinking they'd worry, I'd borrow a phone or call from somewhere to send a quick update.",
+        "frequency_v2_q0279_c": "They'd stay on my mind — I'd stress about whether they texted me.",
+        "frequency_v2_q0279_d": "I'm fine — sometimes going fully offline feels good to me."
+      }
+    },
+    "frequency_v2_q0280": {
+      "prompt": "Your partner invited you to a fun dinner with their friend group but you're physically exhausted.",
+      "options": {
+        "frequency_v2_q0280_a": "I'd set exhaustion aside, match the energy, and join — I don't want to miss it.",
+        "frequency_v2_q0280_b": "I'd go but sit quietly in a corner — just physically present.",
+        "frequency_v2_q0280_c": "I'd politely decline, go home, and sleep — my rest comes first.",
+        "frequency_v2_q0280_d": "\"You go have fun — I'll rest at home and wait for you.\""
+      }
+    },
+    "frequency_v2_q0281": {
+      "prompt": "In the first weeks of a new relationship. While walking together, your partner starts noticeably increasing physical closeness. What do you do?",
+      "options": {
+        "frequency_v2_q0281_a": "I match it comfortably and naturally increase closeness.",
+        "frequency_v2_q0281_b": "I respond to small touches but keep the pace a bit slower.",
+        "frequency_v2_q0281_c": "I keep closeness more limited — I'd want a little more time first.",
+        "frequency_v2_q0281_d": "I'd clearly prefer physical closeness to move slower for now."
+      }
+    },
+    "frequency_v2_q0282": {
+      "prompt": "Your partner made what you'd call a luxury purchase (expensive bag or watch) and you're someone who loves saving.",
+      "options": {
+        "frequency_v2_q0282_a": "If it's their money I say nothing — their budget is entirely theirs.",
+        "frequency_v2_q0282_b": "I'd start analyzing internally whether this money difference will cause problems later.",
+        "frequency_v2_q0282_c": "I'd joke \"That much for this?\" and let my values show.",
+        "frequency_v2_q0282_d": "I'd focus on their joy and adapt — spending is part of life's pleasures."
+      }
+    },
+    "frequency_v2_q0283": {
+      "prompt": "You woke at 3 a.m. with intense future anxiety or fear. Your partner is asleep beside you.",
+      "options": {
+        "frequency_v2_q0283_a": "I'd wake them and ask for a hug and conversation to calm me down.",
+        "frequency_v2_q0283_b": "I wouldn't break their sleep — I'd get up, go to the living room, and deal with my thoughts alone.",
+        "frequency_v2_q0283_c": "I'd hold them tighter physically — even if they don't wake, body heat reassures me.",
+        "frequency_v2_q0283_d": "I'd watch or read something distracting on my phone and try to fall back asleep."
+      }
+    },
+    "frequency_v2_q0284": {
+      "prompt": "Your partner suddenly dyed or cut their hair a very different way — one you really don't like.",
+      "options": {
+        "frequency_v2_q0284_a": "I'd say I love it — I don't want to crush their excitement; I'll get used to it.",
+        "frequency_v2_q0284_b": "I'd be honest: \"The old look suited you better\" — I'd say my opinion clearly.",
+        "frequency_v2_q0284_c": "I'd give a neutral but supportive \"Change is good — brave of you\" response.",
+        "frequency_v2_q0284_d": "I'd struggle to adjust but keep it inside — I'd remind myself it's their body and their choice."
+      }
+    },
+    "frequency_v2_q0285": {
+      "prompt": "You're driving or walking somewhere together. Your partner says, \"We've never turned down this street — want to detour?\"",
+      "options": {
+        "frequency_v2_q0285_a": "Great idea — I'd rather get lost or discover new routes than stick to the destination.",
+        "frequency_v2_q0285_b": "I'd say okay but internally calculate \"Will this take too long? Is there traffic?\"",
+        "frequency_v2_q0285_c": "\"Let's not take an unknown road — we'll follow the navigation.\"",
+        "frequency_v2_q0285_d": "\"Whatever\" — if they're steering, I lean back and enjoy it."
+      }
+    },
+    "frequency_v2_q0286": {
+      "prompt": "Your partner introduced you to their closest (only) friend. All evening they talked and laughed about inside jokes.",
+      "options": {
+        "frequency_v2_q0286_a": "I'd feel left out, get upset, and bring it up with resentment after the night.",
+        "frequency_v2_q0286_b": "I'd enjoy watching their bond and observe without interfering.",
+        "frequency_v2_q0286_c": "Instead of staying quiet I'd say \"What's the story — tell me too\" and force my way into the circle.",
+        "frequency_v2_q0286_d": "Bored, I'd focus on my phone or text other friends."
+      }
+    },
+    "frequency_v2_q0287": {
+      "prompt": "An argument about something you both care about is heating up. At some point the conversation feels like too much for you. What do you do?",
+      "options": {
+        "frequency_v2_q0287_a": "I'd clearly say I want to stop here and end the conversation.",
+        "frequency_v2_q0287_b": "I'd talk a few more minutes then suggest a break.",
+        "frequency_v2_q0287_c": "I'd show I'm tired but keep going if they continue.",
+        "frequency_v2_q0287_d": "Even if it's too much, I'd wait for the conversation to end naturally."
+      }
+    },
+    "frequency_v2_q0288": {
+      "prompt": "Your partner is generally very indecisive — they leave where to go and what to eat up to you.",
+      "options": {
+        "frequency_v2_q0288_a": "I mostly enjoy it — managing the relationship and making decisions gives me confidence.",
+        "frequency_v2_q0288_b": "After a while the indecision wears me out — I'm drained when all responsibility lands on me.",
+        "frequency_v2_q0288_c": "If I'm indecisive too we can sit on the couch for hours doing nothing — I don't mind.",
+        "frequency_v2_q0288_d": "I'd gently push them to decide by offering different options."
+      }
+    },
+    "frequency_v2_q0289": {
+      "prompt": "Your partner showed you openly that their ex wished them happy birthday, then deleted it.",
+      "options": {
+        "frequency_v2_q0289_a": "I'd thank them for showing me but it would eat at me — my mood would drop noticeably that day.",
+        "frequency_v2_q0289_b": "I'd appreciate the honesty, not dwell on it even a minute, and move on.",
+        "frequency_v2_q0289_c": "I'd question why they deleted it and analyze the behavior — \"You didn't have to delete it.\"",
+        "frequency_v2_q0289_d": "\"You're not going to reply, right?\" — I'd set a clear boundary line."
+      }
+    },
+    "frequency_v2_q0290": {
+      "prompt": "Your partner is very sick but stubbornly says \"I'm not going to the doctor — I'll be fine\" and tries to go to work.",
+      "options": {
+        "frequency_v2_q0290_a": "I'd force them to the hospital or physically stop them from going — I'd decide for their good.",
+        "frequency_v2_q0290_b": "\"Your call — you're an adult\" — I'd let them face the consequences and focus on my life.",
+        "frequency_v2_q0290_c": "I'd offer to go to work with them or stay on video all day so they're never out of sight.",
+        "frequency_v2_q0290_d": "I'd try to explain with medical or practical reasons why their body needs rest."
+      }
+    },
+    "frequency_v2_q0291": {
+      "prompt": "In a relationship, what do you think about each having access to the other's digital calendars (work, appointments, schedules)?",
+      "options": {
+        "frequency_v2_q0291_a": "Perfect idea — we won't keep asking \"what's your plan today,\" everything's transparent and organized.",
+        "frequency_v2_q0291_b": "Not for me — I don't want to share a calendar like I'm accounting for where I am every moment.",
+        "frequency_v2_q0291_c": "Only shared vacations or important evenings should be on a joint calendar — the rest is private.",
+        "frequency_v2_q0291_d": "I don't love calendaring anyway — coordinating as things come up during the day feels more natural."
+      }
+    },
+    "frequency_v2_q0292": {
+      "prompt": "Your partner spilled their entire coffee on your new computer or a favorite piece of clothing.",
+      "options": {
+        "frequency_v2_q0292_a": "My reflex is to yell and snap — I'd let the stress pour out through my whole body.",
+        "frequency_v2_q0292_b": "With zero emotional display I'd grab a cloth and focus on cleaning and assessing damage.",
+        "frequency_v2_q0292_c": "If they're panicking I'd focus on calming them more than the computer — \"It's fine.\"",
+        "frequency_v2_q0292_d": "Even if I'm crushed I'd hold it in because they didn't mean it and go quiet."
+      }
+    },
+    "frequency_v2_q0293": {
+      "prompt": "How much do you share daily office or friend gossip with your partner?",
+      "options": {
+        "frequency_v2_q0293_a": "Every detail — who said what to whom — I'd tell excitedly as soon as I get home.",
+        "frequency_v2_q0293_b": "Only if it's someone they know or something truly interesting — briefly.",
+        "frequency_v2_q0293_c": "My outside world and partner world are separate — I won't spend home time on gossip.",
+        "frequency_v2_q0293_d": "If they love telling stories I'd listen with great interest but I wouldn't share much myself."
+      }
+    },
+    "frequency_v2_q0294": {
+      "prompt": "You want your side of the bed warm and theirs cool. How is balance achieved in bed?",
+      "options": {
+        "frequency_v2_q0294_a": "Separate comforters or different-weight covers — everyone gets their own zone.",
+        "frequency_v2_q0294_b": "I love cuddling to sleep so even if I overheat I'll stay under one comforter.",
+        "frequency_v2_q0294_c": "Set heat or AC to the exact middle — neither your preference nor mine wins.",
+        "frequency_v2_q0294_d": "After they fall asleep I adjust my covers — I don't turn it into bed negotiation."
+      }
+    },
+    "frequency_v2_q0295": {
+      "prompt": "You're quietly crying from the day's stress. Your partner notices and asks \"What happened?\" How do you respond?",
+      "options": {
+        "frequency_v2_q0295_a": "I'd explain in detail right then.",
+        "frequency_v2_q0295_b": "I'd say briefly what happened and open up more later.",
+        "frequency_v2_q0295_c": "I'd say I need a little time before I can talk and I'll come back to it.",
+        "frequency_v2_q0295_d": "I wouldn't explain why then — I'd keep it to myself."
+      }
+    },
+    "frequency_v2_q0296": {
+      "prompt": "You're on a strict diet. Your partner is eating burgers and pizza across from you and offering you some.",
+      "options": {
+        "frequency_v2_q0296_a": "\"Please don't eat that in front of me — it's hard\" — I'd set a boundary or go to another room.",
+        "frequency_v2_q0296_b": "I'm very disciplined — what they eat doesn't bother me; I enjoy my salad.",
+        "frequency_v2_q0296_c": "I'd cave — \"One time won't hurt\" — and break my diet to join them.",
+        "frequency_v2_q0296_d": "I'd be happy watching them enjoy it, laugh and decline — no drama."
+      }
+    },
+    "frequency_v2_q0297": {
+      "prompt": "You're trying to fix or assemble something at home and failing. Your partner came over, took the tool, and said \"Hold on, let me do it.\"",
+      "options": {
+        "frequency_v2_q0297_a": "I'd get very upset — feels like interference in my space. \"I can handle it — leave it.\"",
+        "frequency_v2_q0297_b": "I'd gladly hand it over — I like them lightening the load.",
+        "frequency_v2_q0297_c": "\"Let's do it together — you hold, I'll tighten\" — turn it into teamwork instantly.",
+        "frequency_v2_q0297_d": "I'd watch them work and give advice, trying to keep logical control of the process."
+      }
+    },
+    "frequency_v2_q0298": {
+      "prompt": "An outdoor picnic or festival you'd planned for months was completely canceled by sudden heavy rain that morning.",
+      "options": {
+        "frequency_v2_q0298_a": "I'd be devastated the day was ruined and complain for hours about the bad luck.",
+        "frequency_v2_q0298_b": "Despite the rain I'd create festival vibes at home — music on, picnic in the middle of the living room.",
+        "frequency_v2_q0298_c": "\"Nothing we can do\" — I'd instantly switch to a routine pajama day at home.",
+        "frequency_v2_q0298_d": "I'd immediately research indoor Plan B options (cinema, museum) and put them on the table."
+      }
+    },
+    "frequency_v2_q0299": {
+      "prompt": "You're at a party together — the vibe is boring and your partner says they're bored too. How do you leave?",
+      "options": {
+        "frequency_v2_q0299_a": "\"Let's go\" — we'd slip out without telling anyone or just text the host.",
+        "frequency_v2_q0299_b": "We'd say goodbye to everyone politely with various \"we're tired\" excuses.",
+        "frequency_v2_q0299_c": "Even if it's dull I'd suggest staying at least another hour — leaving immediately feels rude.",
+        "frequency_v2_q0299_d": "To liven things up I'd play music from my phone or suggest a new game or topic."
+      }
+    },
+    "frequency_v2_q0300": {
+      "prompt": "In year three of the relationship, your partner has gone down a very different spiritual or philosophical path (minimalism, retreat life, etc.).",
+      "options": {
+        "frequency_v2_q0300_a": "My own path and ideas are clear — I'd respect theirs but wouldn't join this new philosophy.",
+        "frequency_v2_q0300_b": "I'd want to take the journey with them and explore this philosophy together.",
+        "frequency_v2_q0300_c": "The pace of change scares me — I'd resist by asking \"What happened to how we used to be?\"",
+        "frequency_v2_q0300_d": "I'd explore with curiosity, adopt parts that make sense to me, and leave the rest out."
+      }
+    }
+  }
+}

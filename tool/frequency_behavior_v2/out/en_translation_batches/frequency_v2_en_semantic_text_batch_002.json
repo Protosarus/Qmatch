@@ -1,0 +1,456 @@
+{
+  "batch": "051_100",
+  "translation_version": "frequency_v2_en_semantic_v1",
+  "items": {
+    "frequency_v2_q0051": {
+      "prompt": "You've been texting someone you recently met for a few days. The conversation flows, but no one has suggested meeting up yet.",
+      "options": {
+        "frequency_v2_q0051_a": "Wait a few more days and let them suggest it.",
+        "frequency_v2_q0051_b": "Ask directly: \"Are you free this weekend?\"",
+        "frequency_v2_q0051_c": "Drop a light hint and go from their reaction.",
+        "frequency_v2_q0051_d": "If the pace is slow, I slow down too — I don't rush."
+      }
+    },
+    "frequency_v2_q0052": {
+      "prompt": "Someone you've been seeing hasn't been texting as often the last two days.",
+      "options": {
+        "frequency_v2_q0052_a": "Ask \"Did something happen?\"",
+        "frequency_v2_q0052_b": "Match their pace — I won't push.",
+        "frequency_v2_q0052_c": "Carry on with my normal life and text when they cross my mind.",
+        "frequency_v2_q0052_d": "Send a quick \"how are you?\" and gauge the situation."
+      }
+    },
+    "frequency_v2_q0053": {
+      "prompt": "On a first date the conversation is getting deep. They're starting to share personal things.",
+      "options": {
+        "frequency_v2_q0053_a": "Match them at a similar depth.",
+        "frequency_v2_q0053_b": "Listen, but I wouldn't share that much about myself right away.",
+        "frequency_v2_q0053_c": "Try to keep things a bit more surface-level.",
+        "frequency_v2_q0053_d": "Stay curious — ask questions to keep it going, but keep my own share limited."
+      }
+    },
+    "frequency_v2_q0054": {
+      "prompt": "You never nailed down a plan for the weekend. It's Saturday afternoon and things are still unclear.",
+      "options": {
+        "frequency_v2_q0054_a": "Ask \"What should we do?\" and get it sorted.",
+        "frequency_v2_q0054_b": "Make my own plans — I'll join if they reach out.",
+        "frequency_v2_q0054_c": "Wait for something spontaneous to come up.",
+        "frequency_v2_q0054_d": "Suggest a few options and let them pick."
+      }
+    },
+    "frequency_v2_q0055": {
+      "prompt": "When you're together, an evening out with their friend group comes up.",
+      "options": {
+        "frequency_v2_q0055_a": "I'd go — meeting new people energizes me.",
+        "frequency_v2_q0055_b": "Say \"not this time\" — I'd rather one-on-one time.",
+        "frequency_v2_q0055_c": "I'd go but keep the option to leave early open.",
+        "frequency_v2_q0055_d": "Say \"you go — I'll do my own thing.\""
+      }
+    },
+    "frequency_v2_q0056": {
+      "prompt": "An argument broke out. The issue isn't resolved, but there's tension in the air.",
+      "options": {
+        "frequency_v2_q0056_a": "I can't relax until we've talked through how we feel.",
+        "frequency_v2_q0056_b": "Find a practical fix and close the topic.",
+        "frequency_v2_q0056_c": "Stay quiet awhile and wait for things to calm down.",
+        "frequency_v2_q0056_d": "Say \"let's not talk right now — we'll come back to it.\""
+      }
+    },
+    "frequency_v2_q0057": {
+      "prompt": "You're in a long-term relationship. They've been more distant for a while.",
+      "options": {
+        "frequency_v2_q0057_a": "Ask directly: \"Has something changed?\"",
+        "frequency_v2_q0057_b": "Expand my own space and see if they come closer.",
+        "frequency_v2_q0057_c": "Take more initiative and try to reconnect.",
+        "frequency_v2_q0057_d": "Accept it and return to my own rhythm."
+      }
+    },
+    "frequency_v2_q0058": {
+      "prompt": "New match. The first messages are mutual, but the pace is slow.",
+      "options": {
+        "frequency_v2_q0058_a": "Try to pick up the pace by texting more often.",
+        "frequency_v2_q0058_b": "Match their tempo.",
+        "frequency_v2_q0058_c": "Take a few days off and try again later.",
+        "frequency_v2_q0058_d": "At this pace I start losing interest."
+      }
+    },
+    "frequency_v2_q0059": {
+      "prompt": "While living together, your partner has a long dinner planned with friends. You're invited.",
+      "options": {
+        "frequency_v2_q0059_a": "I'd go and enjoy it.",
+        "frequency_v2_q0059_b": "Say \"you go this time.\"",
+        "frequency_v2_q0059_c": "I'd go but leave after a set time.",
+        "frequency_v2_q0059_d": "Suggest an alternative one-on-one plan."
+      }
+    },
+    "frequency_v2_q0060": {
+      "prompt": "They shared something important and personal — family, a past relationship, a fear.",
+      "options": {
+        "frequency_v2_q0060_a": "I'd open up about something similar right away.",
+        "frequency_v2_q0060_b": "Listen, thank them, and bring my share later.",
+        "frequency_v2_q0060_c": "Ask them to open up more but say little about myself.",
+        "frequency_v2_q0060_d": "Say \"it's great you shared that\" and gently steer elsewhere."
+      }
+    },
+    "frequency_v2_q0061": {
+      "prompt": "What you usually do on weekday evenings isn't clearly defined.",
+      "options": {
+        "frequency_v2_q0061_a": "I like building a regular rhythm.",
+        "frequency_v2_q0061_b": "I want every evening to be different.",
+        "frequency_v2_q0061_c": "Sometimes planned, sometimes left open.",
+        "frequency_v2_q0061_d": "I adjust to their pace."
+      }
+    },
+    "frequency_v2_q0062": {
+      "prompt": "You had plans. At the last minute they said \"not today.\"",
+      "options": {
+        "frequency_v2_q0062_a": "I understand — we'll pick a new day.",
+        "frequency_v2_q0062_b": "I'd be a bit thrown, and they'd know it.",
+        "frequency_v2_q0062_c": "Say \"okay\" — but next time I want a clearer plan.",
+        "frequency_v2_q0062_d": "Switch to my own backup plan and don't dwell on it."
+      }
+    },
+    "frequency_v2_q0063": {
+      "prompt": "The relationship isn't defined. You've been seeing each other a few months but never talked about \"what we are.\"",
+      "options": {
+        "frequency_v2_q0063_a": "At some point I'd want to clarify.",
+        "frequency_v2_q0063_b": "I can keep going without a label.",
+        "frequency_v2_q0063_c": "Decide based on the situation — no rush.",
+        "frequency_v2_q0063_d": "Without a label I slowly pull back."
+      }
+    },
+    "frequency_v2_q0064": {
+      "prompt": "Silence after an argument.",
+      "options": {
+        "frequency_v2_q0064_a": "I'm the first to text or reach out.",
+        "frequency_v2_q0064_b": "Wait until they write.",
+        "frequency_v2_q0064_c": "Send a short \"should we talk?\"",
+        "frequency_v2_q0064_d": "Stay in my own space for a few days."
+      }
+    },
+    "frequency_v2_q0065": {
+      "prompt": "Your partner stated a boundary about you — time, a topic, a behavior — for the first time.",
+      "options": {
+        "frequency_v2_q0065_a": "Adapt right away.",
+        "frequency_v2_q0065_b": "Try to understand why, then decide.",
+        "frequency_v2_q0065_c": "Remind them of my boundaries too.",
+        "frequency_v2_q0065_d": "Struggle a bit but respect it."
+      }
+    },
+    "frequency_v2_q0066": {
+      "prompt": "Long day — you're both tired. How should the evening go?",
+      "options": {
+        "frequency_v2_q0066_a": "Quiet time at home together.",
+        "frequency_v2_q0066_b": "Go out and get some air.",
+        "frequency_v2_q0066_c": "Everyone does their own thing, then we come together.",
+        "frequency_v2_q0066_d": "Short chat and early to bed."
+      }
+    },
+    "frequency_v2_q0067": {
+      "prompt": "Someone new. The first few dates went by without physical closeness coming up.",
+      "options": {
+        "frequency_v2_q0067_a": "If the pace suits me, I'll wait.",
+        "frequency_v2_q0067_b": "At some point I'll bring it up.",
+        "frequency_v2_q0067_c": "Wait for their signals.",
+        "frequency_v2_q0067_d": "Slow physical closeness means I slow down emotionally too."
+      }
+    },
+    "frequency_v2_q0068": {
+      "prompt": "Your partner has less time for you because of work or stress.",
+      "options": {
+        "frequency_v2_q0068_a": "Say \"I need you too.\"",
+        "frequency_v2_q0068_b": "Understand, support them, and focus on my own stuff.",
+        "frequency_v2_q0068_c": "Suggest shorter alternative touchpoints.",
+        "frequency_v2_q0068_d": "If distance grows, I pull back too."
+      }
+    },
+    "frequency_v2_q0069": {
+      "prompt": "You're planning a vacation together. The details aren't clear yet.",
+      "options": {
+        "frequency_v2_q0069_a": "Plan early and nail everything down.",
+        "frequency_v2_q0069_b": "A general outline is enough — details can emerge on the spot.",
+        "frequency_v2_q0069_c": "Prepare a few options and let them choose.",
+        "frequency_v2_q0069_d": "Go along with their plan."
+      }
+    },
+    "frequency_v2_q0070": {
+      "prompt": "Your partner is going through a busy period and says being with them tonight would help. You already have personal plans. What do you do?",
+      "options": {
+        "frequency_v2_q0070_a": "Keep my plans and schedule a separate time to meet.",
+        "frequency_v2_q0070_b": "Keep part of my plan and spend part of the evening with them.",
+        "frequency_v2_q0070_c": "Change most of my plan and stay with them most of the evening.",
+        "frequency_v2_q0070_d": "Drop my plans entirely and spend the evening with them."
+      }
+    },
+    "frequency_v2_q0071": {
+      "prompt": "After the first few messages, they don't ask \"how are you\" or \"how was your day\" type questions.",
+      "options": {
+        "frequency_v2_q0071_a": "I ask — I expect reciprocity.",
+        "frequency_v2_q0071_b": "Doesn't matter — we'll find another way forward.",
+        "frequency_v2_q0071_c": "I stop asking too.",
+        "frequency_v2_q0071_d": "That kind of disinterest lowers my interest."
+      }
+    },
+    "frequency_v2_q0072": {
+      "prompt": "While living together, you both have separate social plans that clash.",
+      "options": {
+        "frequency_v2_q0072_a": "Prioritize shared time.",
+        "frequency_v2_q0072_b": "Everyone goes to their own plan.",
+        "frequency_v2_q0072_c": "Cancel one and go with the other.",
+        "frequency_v2_q0072_d": "Talk ahead of time and try to balance."
+      }
+    },
+    "frequency_v2_q0073": {
+      "prompt": "During an argument they raised their voice.",
+      "options": {
+        "frequency_v2_q0073_a": "I raise mine too — match them.",
+        "frequency_v2_q0073_b": "Stay calm: \"Let's not talk like this.\"",
+        "frequency_v2_q0073_c": "Leave the room.",
+        "frequency_v2_q0073_d": "Postpone the topic to another time."
+      }
+    },
+    "frequency_v2_q0074": {
+      "prompt": "You've been seeing someone new for a few weeks. You haven't called each other boyfriend/girlfriend yet.",
+      "options": {
+        "frequency_v2_q0074_a": "At some point I'd want to clarify.",
+        "frequency_v2_q0074_b": "Go with the flow.",
+        "frequency_v2_q0074_c": "I read it from their behavior — no need for words.",
+        "frequency_v2_q0074_d": "Without clarity I won't go further."
+      }
+    },
+    "frequency_v2_q0075": {
+      "prompt": "Your partner criticized something about you — like time management or communication style.",
+      "options": {
+        "frequency_v2_q0075_a": "Try to change right away.",
+        "frequency_v2_q0075_b": "Ask why and explain my side.",
+        "frequency_v2_q0075_c": "Acknowledge it but don't change.",
+        "frequency_v2_q0075_d": "Open the floor for mutual criticism."
+      }
+    },
+    "frequency_v2_q0076": {
+      "prompt": "You're reuniting after a long separation — a work trip, family time.",
+      "options": {
+        "frequency_v2_q0076_a": "I want intense contact and closeness right away.",
+        "frequency_v2_q0076_b": "We ease back in gradually.",
+        "frequency_v2_q0076_c": "Everyone settles into their own routine first.",
+        "frequency_v2_q0076_d": "Plan a structured \"reconnection\" evening."
+      }
+    },
+    "frequency_v2_q0077": {
+      "prompt": "You're both home one evening. TV, phones, silence.",
+      "options": {
+        "frequency_v2_q0077_a": "I want to talk.",
+        "frequency_v2_q0077_b": "Silence is fine too.",
+        "frequency_v2_q0077_c": "Suggest watching something together.",
+        "frequency_v2_q0077_d": "Do my own thing."
+      }
+    },
+    "frequency_v2_q0078": {
+      "prompt": "They're struggling to decide something — where to eat, when to meet.",
+      "options": {
+        "frequency_v2_q0078_a": "I decide.",
+        "frequency_v2_q0078_b": "Wait patiently.",
+        "frequency_v2_q0078_c": "Offer options.",
+        "frequency_v2_q0078_d": "Say \"you decide\" and step back."
+      }
+    },
+    "frequency_v2_q0079": {
+      "prompt": "For a while you've had a \"is everything okay?\" feeling, but it hasn't been discussed.",
+      "options": {
+        "frequency_v2_q0079_a": "I bring it up.",
+        "frequency_v2_q0079_b": "If they open it, we talk.",
+        "frequency_v2_q0079_c": "Try to read it from their behavior.",
+        "frequency_v2_q0079_d": "Ignore it and carry on."
+      }
+    },
+    "frequency_v2_q0080": {
+      "prompt": "After a first date with someone new — the \"how did it go\" moment.",
+      "options": {
+        "frequency_v2_q0080_a": "Text right away and say it went well.",
+        "frequency_v2_q0080_b": "Wait a day.",
+        "frequency_v2_q0080_c": "Reply if they text first.",
+        "frequency_v2_q0080_d": "Whatever the pace, I move at my own speed."
+      }
+    },
+    "frequency_v2_q0081": {
+      "prompt": "Meeting your partner's family or close circle came up.",
+      "options": {
+        "frequency_v2_q0081_a": "I'd want it sooner rather than later.",
+        "frequency_v2_q0081_b": "When the time comes.",
+        "frequency_v2_q0081_c": "When I'm ready.",
+        "frequency_v2_q0081_d": "Let it happen naturally — no rush."
+      }
+    },
+    "frequency_v2_q0082": {
+      "prompt": "You have plans. You're getting ready and they're giving \"maybe we'll cancel\" vibes.",
+      "options": {
+        "frequency_v2_q0082_a": "Nail it down.",
+        "frequency_v2_q0082_b": "If it cancels, I switch to my own plan.",
+        "frequency_v2_q0082_c": "Pressure them: \"Decide.\"",
+        "frequency_v2_q0082_d": "Stay flexible."
+      }
+    },
+    "frequency_v2_q0083": {
+      "prompt": "The argument ended, but something's still unresolved inside.",
+      "options": {
+        "frequency_v2_q0083_a": "Bring it up again.",
+        "frequency_v2_q0083_b": "Time will take care of it.",
+        "frequency_v2_q0083_c": "Express it another way — a message or a note.",
+        "frequency_v2_q0083_d": "Forget it and move on."
+      }
+    },
+    "frequency_v2_q0084": {
+      "prompt": "You feel they're encroaching on your personal space — your room, your time, your hobby.",
+      "options": {
+        "frequency_v2_q0084_a": "Say it directly.",
+        "frequency_v2_q0084_b": "Hint indirectly.",
+        "frequency_v2_q0084_c": "Create distance myself.",
+        "frequency_v2_q0084_d": "Try to get used to it."
+      }
+    },
+    "frequency_v2_q0085": {
+      "prompt": "For the weekend you want different things — one of you wants to stay in, the other wants to go out.",
+      "options": {
+        "frequency_v2_q0085_a": "Find middle ground.",
+        "frequency_v2_q0085_b": "This time I'll adapt.",
+        "frequency_v2_q0085_c": "This time they should adapt.",
+        "frequency_v2_q0085_d": "Make separate plans."
+      }
+    },
+    "frequency_v2_q0086": {
+      "prompt": "You're talking to someone new and past relationships come up.",
+      "options": {
+        "frequency_v2_q0086_a": "Share openly.",
+        "frequency_v2_q0086_b": "Touch on it in general terms.",
+        "frequency_v2_q0086_c": "Say \"no need for now.\"",
+        "frequency_v2_q0086_d": "If they share, I listen and say little about myself."
+      }
+    },
+    "frequency_v2_q0087": {
+      "prompt": "Someone you've been seeing keeps postponing plans, saying they're busy.",
+      "options": {
+        "frequency_v2_q0087_a": "Understand and wait.",
+        "frequency_v2_q0087_b": "Ask how long it'll last.",
+        "frequency_v2_q0087_c": "Suggest shorter meet-ups.",
+        "frequency_v2_q0087_d": "At this pace I slow down."
+      }
+    },
+    "frequency_v2_q0088": {
+      "prompt": "In your relationship you keep hitting the same type of disagreement.",
+      "options": {
+        "frequency_v2_q0088_a": "I want a deep talk about it.",
+        "frequency_v2_q0088_b": "Find a practical fix each time.",
+        "frequency_v2_q0088_c": "Close the topic and move on.",
+        "frequency_v2_q0088_d": "Say this is a boundary for me."
+      }
+    },
+    "frequency_v2_q0089": {
+      "prompt": "They expressed something positive about you — liking you, missing you, feeling attached.",
+      "options": {
+        "frequency_v2_q0089_a": "I reciprocate right away.",
+        "frequency_v2_q0089_b": "Thank them and proceed at my pace.",
+        "frequency_v2_q0089_c": "A bit surprised — I need to absorb it.",
+        "frequency_v2_q0089_d": "Show it through behavior without matching their words."
+      }
+    },
+    "frequency_v2_q0090": {
+      "prompt": "You're out and your partner is home. Late at night they ask \"when will you be home?\"",
+      "options": {
+        "frequency_v2_q0090_a": "Give a specific time.",
+        "frequency_v2_q0090_b": "Say \"soon.\"",
+        "frequency_v2_q0090_c": "Say \"relax, I'm on my way.\"",
+        "frequency_v2_q0090_d": "Keep going and reply later."
+      }
+    },
+    "frequency_v2_q0091": {
+      "prompt": "You've had a few dates with someone new. The next step isn't clear.",
+      "options": {
+        "frequency_v2_q0091_a": "I suggest something.",
+        "frequency_v2_q0091_b": "Wait for them to suggest.",
+        "frequency_v2_q0091_c": "Ask \"What are you thinking?\"",
+        "frequency_v2_q0091_d": "If the pace is slow, I slow down too."
+      }
+    },
+    "frequency_v2_q0092": {
+      "prompt": "Your partner said they don't want to join your hobby or friend group.",
+      "options": {
+        "frequency_v2_q0092_a": "Understand — we'll do it separately.",
+        "frequency_v2_q0092_b": "Ask them to try once.",
+        "frequency_v2_q0092_c": "I skip some of their plans too.",
+        "frequency_v2_q0092_d": "I expect them to be flexible about this."
+      }
+    },
+    "frequency_v2_q0093": {
+      "prompt": "After a long silence they texted again.",
+      "options": {
+        "frequency_v2_q0093_a": "Continue normally.",
+        "frequency_v2_q0093_b": "Ask \"Where were you?\"",
+        "frequency_v2_q0093_c": "Reply a bit distantly.",
+        "frequency_v2_q0093_d": "Happy about it — pick up the pace."
+      }
+    },
+    "frequency_v2_q0094": {
+      "prompt": "A move, a big purchase, or a family decision is coming up. Neither of you has started the conversation yet. What do you do?",
+      "options": {
+        "frequency_v2_q0094_a": "I open it and try to clarify the next step.",
+        "frequency_v2_q0094_b": "First suggest a time or an option.",
+        "frequency_v2_q0094_c": "Join the conversation if my partner opens it.",
+        "frequency_v2_q0094_d": "Wait until my partner brings a concrete option."
+      }
+    },
+    "frequency_v2_q0095": {
+      "prompt": "They're indirectly signaling something about you — fear, jealousy, a need.",
+      "options": {
+        "frequency_v2_q0095_a": "Ask directly.",
+        "frequency_v2_q0095_b": "Understand and adjust my behavior.",
+        "frequency_v2_q0095_c": "Wait for them to be clear.",
+        "frequency_v2_q0095_d": "Ignore it."
+      }
+    },
+    "frequency_v2_q0096": {
+      "prompt": "In the early months they're very planned and you're more spontaneous — or the other way around.",
+      "options": {
+        "frequency_v2_q0096_a": "Try to find middle ground.",
+        "frequency_v2_q0096_b": "Keep my style.",
+        "frequency_v2_q0096_c": "Adapt to their style.",
+        "frequency_v2_q0096_d": "Test whether the difference will cause problems."
+      }
+    },
+    "frequency_v2_q0097": {
+      "prompt": "A situation came up where you need to apologize.",
+      "options": {
+        "frequency_v2_q0097_a": "Apologize immediately and clearly.",
+        "frequency_v2_q0097_b": "Explain the situation and add an apology.",
+        "frequency_v2_q0097_c": "Make it up through actions.",
+        "frequency_v2_q0097_d": "Wait — it'll blow over."
+      }
+    },
+    "frequency_v2_q0098": {
+      "prompt": "Your partner has multiple social plans at once and wants to include you.",
+      "options": {
+        "frequency_v2_q0098_a": "I'll join.",
+        "frequency_v2_q0098_b": "I'm selective.",
+        "frequency_v2_q0098_c": "Say \"not this time.\"",
+        "frequency_v2_q0098_d": "Suggest my own plan."
+      }
+    },
+    "frequency_v2_q0099": {
+      "prompt": "You've noticed the relationship has felt a bit on autopilot lately — no big issue, but the pace has dropped. What do you do?",
+      "options": {
+        "frequency_v2_q0099_a": "I bring it up and suggest talking about what we could change.",
+        "frequency_v2_q0099_b": "Suggest a new shared plan without making it a big deal.",
+        "frequency_v2_q0099_c": "Watch a while longer to see if it shifts on its own.",
+        "frequency_v2_q0099_d": "I won't take a step unless my partner brings it up."
+      }
+    },
+    "frequency_v2_q0100": {
+      "prompt": "You're getting to know someone new. They're very direct and you're still exploring — or the other way around.",
+      "options": {
+        "frequency_v2_q0100_a": "Move toward clarity.",
+        "frequency_v2_q0100_b": "Keep my pace.",
+        "frequency_v2_q0100_c": "Talk about the difference.",
+        "frequency_v2_q0100_d": "If the pace doesn't match, I pull back."
+      }
+    }
+  }
+}
