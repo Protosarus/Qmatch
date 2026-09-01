@@ -30980,7 +30980,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0353_a",
-          "option_text": "Yemek boyunca telefonu kaldırmayı önermesini net biçimde isterim.",
+          "option_text": "Yemek boyunca telefonu kaldırmasını net biçimde isterim.",
           "behavioral_weights": {
             "boundary_firmness": 2.0
           },

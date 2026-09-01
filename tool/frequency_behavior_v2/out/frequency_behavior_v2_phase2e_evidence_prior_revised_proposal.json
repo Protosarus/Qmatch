@@ -5,7 +5,7 @@
   "calibration_status": "uncalibrated",
   "review_status": "proposed",
   "human_authority": "docs/qmatch_frequency_v2_phase2d_final_human_evidence_decisions.txt",
-  "source_phase2b_proposal_sha256": "b77ea92995ddf22684878b188435f01933f3d001631e32daa7431313dff3ef92",
+  "source_phase2b_proposal_sha256": "5393cf04d887912c03a1a151774812287343fcf75d4d1e9ed7c64b666977f6c3",
   "source_pool_fingerprint_sha256_before": "d03b2d8c77843d72baf072219c2c0dcae07a0d093dd1bf8c5268f0ef4ca6d56d",
   "source_pool_fingerprint_sha256_after_rewrites": "6acb86e18f1567890ea1c112fa54c0ffcdde2d9cda11f1c61e2ca0164d170518",
   "runtime_selectable": false,
@@ -30467,7 +30467,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0353_a",
-          "option_text": "Yemek boyunca telefonu kaldırmayı önermesini net biçimde isterim.",
+          "option_text": "Yemek boyunca telefonu kaldırmasını net biçimde isterim.",
           "behavioral_weights": {
             "boundary_firmness": 2.0
           },

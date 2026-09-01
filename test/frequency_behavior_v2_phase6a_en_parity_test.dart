@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1 EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1/6I/6I.1 EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 350) {
+      if (n >= 1 && n <= 400) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -187,7 +187,7 @@ void main() {
                 FrequencyBehaviorV2Contract.translationReviewReviewed,
           )
           .length,
-      350,
+      400,
     );
     final q227 = enReview['frequency_v2_q0227']!;
     expect(
@@ -205,7 +205,7 @@ void main() {
     );
   });
 
-  test('phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1 human wording corrections preserved', () {
+  test('phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1/6I/6I.1 human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -353,6 +353,46 @@ void main() {
     );
     expect(q350.prompt.toLowerCase(), isNot(contains('touchy')));
     expect(q350.prompt, contains('casual physical touch'));
+    final q356 = enPool.itemsById['frequency_v2_q0356']!;
+    final q370 = enPool.itemsById['frequency_v2_q0370']!;
+    final q374c = enPool.itemsById['frequency_v2_q0374']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_c'));
+    final q375b = enPool.itemsById['frequency_v2_q0375']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_b'));
+    final tr380 = trPool.itemsById['frequency_v2_q0380']!;
+    final q391 = enPool.itemsById['frequency_v2_q0391']!;
+    final q353 = enPool.itemsById['frequency_v2_q0353']!;
+    final trQ353 = trPool.itemsById['frequency_v2_q0353']!;
+    final q353a = q353.options.firstWhere((o) => o.optionId.endsWith('_a'));
+    final trQ353a = trQ353.options.firstWhere((o) => o.optionId.endsWith('_a'));
+    expect(q356.prompt.toLowerCase(), contains('sunstroke'));
+    expect(q356.prompt.toLowerCase(), isNot(contains('sunburn')));
+    expect(q370.prompt, contains("isn't saved in your partner's contacts"));
+    expect(q370.prompt.toLowerCase(), isNot(contains('unlisted')));
+    expect(q374c.text, contains('throw that toothbrush away'));
+    expect(q374c.text, contains('get myself a new one'));
+    expect(q375b.text.toLowerCase(), isNot(contains('in my experience')));
+    expect(tr380.primaryDimensions, isEmpty);
+    expect(tr380.semanticCluster, 'unassigned:social');
+    expect(q391.prompt.toLowerCase(), contains("your ex's close circle"));
+    expect(
+      trQ353a.text,
+      'Yemek boyunca telefonu kaldırmasını net biçimde isterim.',
+    );
+    expect(
+      q353a.text,
+      "I'd clearly ask them to put the phone away for the meal.",
+    );
+    expect(
+      q353.prompt,
+      'During a dinner for two, your partner\'s phone stays on the table and notifications keep breaking their focus. What do you do?',
+    );
+    expect(
+      enReview['frequency_v2_q0353']!['translation_review_status'],
+      FrequencyBehaviorV2Contract.translationReviewReviewed,
+    );
   });
 
   test('EN bank registry path resolves', () {

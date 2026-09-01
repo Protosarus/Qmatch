@@ -6,7 +6,7 @@
   "calibration_status": "uncalibrated",
   "source_proposal": "tool/frequency_behavior_v2/out/frequency_behavior_v2_phase2b_evidence_prior_proposal.json",
   "source_pool_fingerprint_sha256": "d03b2d8c77843d72baf072219c2c0dcae07a0d093dd1bf8c5268f0ef4ca6d56d",
-  "proposal_file_sha256_before": "b77ea92995ddf22684878b188435f01933f3d001631e32daa7431313dff3ef92",
+  "proposal_file_sha256_before": "5393cf04d887912c03a1a151774812287343fcf75d4d1e9ed7c64b666977f6c3",
   "runtime_selectable": false,
   "overall_finding": "OVERFLAGGED_BY_REVIEW_RULE",
   "overall_finding_notes": "The 397/408 needs_human_review rate is not a bank-wide evidence collapse. Phase 2B set needs_human_review whenever any option lacked a weight on the named primary (356 questions) and/or diagnostic_value was uncertain under that purity rule (372). Secondary weights, ±1 vs ±2, tied evidence scores, and ordinary mixed motives are acceptable behavioral complexity, not defects. After re-triage, REAL_REVIEW_REQUIRED=29, ACCEPTABLE_COMPLEXITY=365, CLEAN=14; KEEP_FLAG=29, CLEAR_FLAG=368.",
