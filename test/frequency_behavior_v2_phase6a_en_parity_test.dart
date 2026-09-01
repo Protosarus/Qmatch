@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C/6D/6E/6E.1 EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 200) {
+      if (n >= 1 && n <= 250) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -187,11 +187,16 @@ void main() {
                 FrequencyBehaviorV2Contract.translationReviewReviewed,
           )
           .length,
-      200,
+      250,
+    );
+    final q227 = enReview['frequency_v2_q0227']!;
+    expect(
+      (q227['translation_review_flags'] as List<dynamic>? ?? const []),
+      contains('possible_cultural_mismatch'),
     );
   });
 
-  test('phase 6B/6C/6D/6E/6E.1 human wording corrections preserved', () {
+  test('phase 6B/6C/6D/6E/6E.1/6F human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -259,6 +264,31 @@ void main() {
     expect(trQ160.prompt, contains('senin evinde'));
     expect(q160.prompt, contains('at your place'));
     expect(q160.prompt, contains('T-shirt in your bathroom'));
+    final q229 = enPool.itemsById['frequency_v2_q0229']!;
+    final q236 = enPool.itemsById['frequency_v2_q0236']!;
+    final q223 = enPool.itemsById['frequency_v2_q0223']!;
+    final q225 = enPool.itemsById['frequency_v2_q0225']!;
+    final q240 = enPool.itemsById['frequency_v2_q0240']!;
+    final q248 = enPool.itemsById['frequency_v2_q0248']!;
+    final q218a = enPool.itemsById['frequency_v2_q0218']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_a'));
+    final q240b = q240.options.firstWhere((o) => o.optionId.endsWith('_b'));
+    expect(
+      q229.prompt,
+      contains(
+        "Your partner thinks they're right, and you're insisting on your own view.",
+      ),
+    );
+    expect(q229.prompt.toLowerCase(), isNot(contains('you think your partner is right')));
+    expect(q236.prompt, contains('very touch-oriented'));
+    expect(q236.prompt.toLowerCase(), isNot(contains('very touchy')));
+    expect(q223.prompt, contains('They like to plan things carefully'));
+    expect(q225.prompt, contains('imagining a future together'));
+    expect(q240b.text, 'I\'d give them the broad outline.');
+    expect(q248.prompt, contains('still figuring things out'));
+    expect(q218a.text, contains('start the conversation right away'));
+    expect(q218a.text.toLowerCase(), isNot(contains('open up right away')));
   });
 
   test('EN bank registry path resolves', () {
