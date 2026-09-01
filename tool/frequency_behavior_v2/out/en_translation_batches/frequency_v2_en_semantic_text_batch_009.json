@@ -9,25 +9,31 @@
         "frequency_v2_q0401_b": "I say, \"I'm tired—we'll talk tomorrow.\"",
         "frequency_v2_q0401_c": "I give a quick recap and go back to my own thing.",
         "frequency_v2_q0401_d": "I suggest spending quiet time together."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0402": {
-      "prompt": "You've been seeing someone new for a few weeks. They want to tag you on social media or share a couple photo.",
+      "prompt": "You've been seeing someone new for a few weeks. They want to tag you on social media or share a photo of the two of you.",
       "options": {
         "frequency_v2_q0402_a": "I agree.",
         "frequency_v2_q0402_b": "I say, \"Not yet.\"",
         "frequency_v2_q0402_c": "I prefer to keep things private.",
         "frequency_v2_q0402_d": "If the pace picks up, I limit what gets shared."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0403": {
       "prompt": "Your partner started getting involved in—or offering opinions on—a family matter of yours (parents, siblings).",
       "options": {
         "frequency_v2_q0403_a": "I listen and consider it.",
-        "frequency_v2_q0403_b": "I say, \"Stay out of this.\"",
+        "frequency_v2_q0403_b": "I'd say, \"Don't get involved in this.\"",
         "frequency_v2_q0403_c": "I gently set my boundary.",
         "frequency_v2_q0403_d": "I shut the topic down completely."
-      }
+      },
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ]
     },
     "frequency_v2_q0404": {
       "prompt": "You had a plan. Your partner is leaving it vague: \"Maybe we'll do something else—I can't decide.\"",
@@ -36,7 +42,8 @@
         "frequency_v2_q0404_b": "I stay flexible.",
         "frequency_v2_q0404_c": "I prepare my own alternative.",
         "frequency_v2_q0404_d": "I say, \"Let's decide already.\""
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0405": {
       "prompt": "Your partner gives you a compliment—about your looks, intelligence, or character—in a way you find over the top.",
@@ -45,25 +52,31 @@
         "frequency_v2_q0405_b": "I say, \"That's a bit much.\"",
         "frequency_v2_q0405_c": "I say something similar back to them.",
         "frequency_v2_q0405_d": "I change the subject."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0406": {
-      "prompt": "You want a calm evening together. Your partner wants to open a heavy, long relationship topic right then. What do you do?",
+      "prompt": "You want to spend a quiet evening together, but your partner wants to start a long, serious conversation about the relationship right then. What do you do?",
       "options": {
-        "frequency_v2_q0406_a": "I clearly suggest not going there tonight and talking another time.",
+        "frequency_v2_q0406_a": "I'd clearly suggest leaving that conversation for another time instead of getting into it tonight.",
         "frequency_v2_q0406_b": "I listen briefly, then say I'd rather pick it up later.",
         "frequency_v2_q0406_c": "I say I'd prefer to keep things light but stay with it if the conversation continues.",
         "frequency_v2_q0406_d": "I give up my evening preference and fully engage in the talk."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0407": {
-      "prompt": "You're getting to know someone new. They use phrases like \"I miss you\" in every message or meetup.",
+      "prompt": "You're getting to know someone new. They say things like \"I miss you\" in almost every message or every time you meet.",
       "options": {
         "frequency_v2_q0407_a": "I respond in a similar way.",
         "frequency_v2_q0407_b": "I gently keep my own pace.",
-        "frequency_v2_q0407_c": "I say, \"Let's take this slower.\"",
+        "frequency_v2_q0407_c": "I'd say, \"Let's slow down a little.\"",
         "frequency_v2_q0407_d": "If it gets too intense, I pull back."
-      }
+      },
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ]
     },
     "frequency_v2_q0408": {
       "prompt": "Your partner keeps questioning a decision of yours—a job change, moving cities, or a hobby.",
@@ -72,16 +85,18 @@
         "frequency_v2_q0408_b": "I say, \"That's my decision.\"",
         "frequency_v2_q0408_c": "I listen to their view too.",
         "frequency_v2_q0408_d": "I shut the topic down."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0409": {
       "prompt": "After an argument, your partner wanted to be alone and went to their room. After a while they came back to the shared space, but the issue still isn't resolved. What do you do?",
       "options": {
-        "frequency_v2_q0409_a": "When the moment feels right, I bring it up and offer to repair things.",
+        "frequency_v2_q0409_a": "When the moment feels right, I'd bring the issue up myself and suggest that we sort things out.",
         "frequency_v2_q0409_b": "I wait for things to normalize a bit, then suggest talking the same day.",
         "frequency_v2_q0409_c": "I don't reopen it that day; I come back to it calmly the next day.",
         "frequency_v2_q0409_d": "If they don't bring it up, I won't either."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0410": {
       "prompt": "You've met someone new a few times. They're suggesting spending most of the coming weekend together. What do you do?",
@@ -89,17 +104,19 @@
         "frequency_v2_q0410_a": "I happily agree and plan both days together.",
         "frequency_v2_q0410_b": "I suggest spending most of one day together and keeping the rest separate.",
         "frequency_v2_q0410_c": "I suggest a shorter meetup and keep the pace a bit slower.",
-        "frequency_v2_q0410_d": "I'd rather keep meeting separately for now than spend the whole weekend together."
-      }
+        "frequency_v2_q0410_d": "For now, I'd rather keep seeing each other in shorter stretches than spend an entire weekend together."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0411": {
-      "prompt": "Your partner wants to both stay in and go out at the same time, and can't decide.",
+      "prompt": "Your partner can't decide whether to stay home or go out and keeps wanting both at once.",
       "options": {
         "frequency_v2_q0411_a": "I make the decision.",
         "frequency_v2_q0411_b": "I wait patiently.",
         "frequency_v2_q0411_c": "I offer options.",
         "frequency_v2_q0411_d": "I say, \"You decide.\""
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0412": {
       "prompt": "You're planning a trip together. Your partner wants every detail nailed down in advance.",
@@ -108,16 +125,21 @@
         "frequency_v2_q0412_b": "I say a general outline is enough.",
         "frequency_v2_q0412_c": "We find a middle ground.",
         "frequency_v2_q0412_d": "I say, \"You plan it—I'll go along.\""
-      }
+      },
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ]
     },
     "frequency_v2_q0413": {
       "prompt": "Your partner implies they're uncomfortable with how close you are to a friend.",
       "options": {
-        "frequency_v2_q0413_a": "I adjust the distance.",
+        "frequency_v2_q0413_a": "I'd put some distance between myself and that friend.",
         "frequency_v2_q0413_b": "I say, \"That's my friend.\"",
         "frequency_v2_q0413_c": "I suggest getting the three of you together.",
         "frequency_v2_q0413_d": "I shut the topic down."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0414": {
       "prompt": "While talking to someone new, they move into deep topics very quickly—family, past wounds, fears.",
@@ -125,8 +147,9 @@
         "frequency_v2_q0414_a": "I open up too.",
         "frequency_v2_q0414_b": "I listen but share little about myself.",
         "frequency_v2_q0414_c": "I say, \"Let's take this slower.\"",
-        "frequency_v2_q0414_d": "I try to lighten the topic."
-      }
+        "frequency_v2_q0414_d": "I'd try to steer the conversation toward lighter topics."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0415": {
       "prompt": "When your partner hears about something you achieved, they react less enthusiastically than you expected.",
@@ -135,25 +158,28 @@
         "frequency_v2_q0415_b": "I say, \"I was hoping you'd be a little more excited.\"",
         "frequency_v2_q0415_c": "I celebrate on my own.",
         "frequency_v2_q0415_d": "I bring it up again later."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0416": {
-      "prompt": "You've been seeing someone new for a few weeks. They said, \"I'm thinking seriously about this.\"",
+      "prompt": "You've been seeing someone new for a few weeks. They say, \"I'm thinking of this as something serious.\"",
       "options": {
         "frequency_v2_q0416_a": "I say, \"Me too.\"",
         "frequency_v2_q0416_b": "I say, \"I'm not there yet.\"",
         "frequency_v2_q0416_c": "I say, \"We'll see.\"",
         "frequency_v2_q0416_d": "If the pace speeds up, I step back."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0417": {
-      "prompt": "You went to an event together. Your partner is very social; you're more in the background.",
+      "prompt": "You go to an event together. Your partner is very social, while you're more reserved.",
       "options": {
         "frequency_v2_q0417_a": "I match their pace.",
         "frequency_v2_q0417_b": "I stay at my own pace.",
-        "frequency_v2_q0417_c": "After a while, I suggest splitting off.",
+        "frequency_v2_q0417_c": "After a while, I'd suggest leaving.",
         "frequency_v2_q0417_d": "I say, \"You have fun—I'll hang back.\""
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0418": {
       "prompt": "Your partner found out a secret of yours—health, family, or your past—and asked, \"Why didn't you tell me?\"",
@@ -162,25 +188,28 @@
         "frequency_v2_q0418_b": "I say, \"I wasn't ready.\"",
         "frequency_v2_q0418_c": "I say, \"You know now—that's enough.\"",
         "frequency_v2_q0418_d": "I shut the topic down."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0419": {
-      "prompt": "You're getting to know someone new. They're very touchy; you prefer more distance.",
+      "prompt": "You're getting to know someone new. They're very physically affectionate, while you prefer more personal space.",
       "options": {
         "frequency_v2_q0419_a": "I try to get used to it.",
         "frequency_v2_q0419_b": "I gently keep my distance.",
-        "frequency_v2_q0419_c": "I say, \"I'm a little slow with that.\"",
+        "frequency_v2_q0419_c": "I'd say, \"I move a little more slowly with physical closeness.\"",
         "frequency_v2_q0419_d": "If the pace doesn't fit, I pull back."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0420": {
-      "prompt": "Your partner is talking about something related to you—a feeling or a need—in an indirect way.",
+      "prompt": "Your partner is indirectly hinting at a feeling or need involving you.",
       "options": {
         "frequency_v2_q0420_a": "I ask directly.",
         "frequency_v2_q0420_b": "I pick up on it and respond accordingly.",
         "frequency_v2_q0420_c": "I wait for them to be clearer.",
         "frequency_v2_q0420_d": "I ignore it."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0421": {
       "prompt": "Your partner said they don't like a choice of yours—your hair, clothes, or a hobby.",
@@ -189,25 +218,31 @@
         "frequency_v2_q0421_b": "I say, \"That's my choice.\"",
         "frequency_v2_q0421_c": "I ask why.",
         "frequency_v2_q0421_d": "I don't care."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0422": {
       "prompt": "After a few dates with someone new, they said, \"I've been telling my friends about you.\"",
       "options": {
         "frequency_v2_q0422_a": "I start telling mine too.",
         "frequency_v2_q0422_b": "I say, \"That's a bit early.\"",
-        "frequency_v2_q0422_c": "I listen but don't share about myself.",
+        "frequency_v2_q0422_c": "I'd listen, but I wouldn't say much about myself.",
         "frequency_v2_q0422_d": "If the pace picks up, I slow down."
-      }
+      },
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ]
     },
     "frequency_v2_q0423": {
-      "prompt": "Your partner is juggling several social plans at once and wants to include you in all of them.",
+      "prompt": "Your partner is juggling several social plans at once and wants to include you too.",
       "options": {
         "frequency_v2_q0423_a": "I join in.",
         "frequency_v2_q0423_b": "I'm selective about which ones I go to.",
         "frequency_v2_q0423_c": "I say, \"Not this time.\"",
         "frequency_v2_q0423_d": "I suggest my own plan instead."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0424": {
       "prompt": "Your partner keeps bringing up a habit of yours—phone use, running late, messiness.",
@@ -216,25 +251,34 @@
         "frequency_v2_q0424_b": "I say, \"That's just how I am.\"",
         "frequency_v2_q0424_c": "I point out something of theirs in return.",
         "frequency_v2_q0424_d": "I ask them to drop it."
-      }
+      },
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ]
     },
     "frequency_v2_q0425": {
-      "prompt": "On an issue, your partner thinks they're right and won't back down.",
+      "prompt": "On a particular issue, your partner thinks they're right and won't back down.",
       "options": {
         "frequency_v2_q0425_a": "I look for a middle ground.",
         "frequency_v2_q0425_b": "I stand firm on my view.",
         "frequency_v2_q0425_c": "I shut the topic down.",
         "frequency_v2_q0425_d": "I ask more questions to understand."
-      }
+      },
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ]
     },
     "frequency_v2_q0426": {
       "prompt": "While texting someone new, they write long messages and you prefer shorter ones.",
       "options": {
         "frequency_v2_q0426_a": "I start writing longer messages too.",
         "frequency_v2_q0426_b": "I stick to my own style.",
-        "frequency_v2_q0426_c": "I say, \"I tend to write shorter.\"",
+        "frequency_v2_q0426_c": "I'd say, \"I tend to keep my messages short.\"",
         "frequency_v2_q0426_d": "If the pace doesn't fit, I text less often."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     }
   }
 }

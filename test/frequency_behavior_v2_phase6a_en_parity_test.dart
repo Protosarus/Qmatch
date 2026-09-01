@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1/6I/6I.1 EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1/6I/6I.1/6J EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 400) {
+      if (n >= 1 && n <= 426) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -187,7 +187,17 @@ void main() {
                 FrequencyBehaviorV2Contract.translationReviewReviewed,
           )
           .length,
-      400,
+      426,
+    );
+    expect(
+      enReview.values
+          .where(
+            (r) =>
+                r['translation_review_status'] ==
+                FrequencyBehaviorV2Contract.translationReviewPendingHuman,
+          )
+          .length,
+      0,
     );
     final q227 = enReview['frequency_v2_q0227']!;
     expect(
@@ -205,7 +215,7 @@ void main() {
     );
   });
 
-  test('phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1/6I/6I.1 human wording corrections preserved', () {
+  test('phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1/6I/6I.1/6J human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -392,6 +402,49 @@ void main() {
     expect(
       enReview['frequency_v2_q0353']!['translation_review_status'],
       FrequencyBehaviorV2Contract.translationReviewReviewed,
+    );
+    final q403b = enPool.itemsById['frequency_v2_q0403']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_b'));
+    expect(q403b.text, 'I\'d say, "Don\'t get involved in this."');
+    final q409Review = enReview['frequency_v2_q0409']!;
+    expect(
+      q409Review['translation_review_status'],
+      FrequencyBehaviorV2Contract.translationReviewReviewed,
+    );
+    expect(q409Review['drop_from_selectable'], isTrue);
+    expect(q409Review['selector_eligible'], isFalse);
+    final q417c = enPool.itemsById['frequency_v2_q0417']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_c'));
+    expect(q417c.text, "After a while, I'd suggest leaving.");
+    final q419 = enPool.itemsById['frequency_v2_q0419']!;
+    expect(q419.prompt.toLowerCase(), isNot(contains('touchy')));
+    expect(q419.prompt.toLowerCase(), contains('physically affectionate'));
+    final q423 = enPool.itemsById['frequency_v2_q0423']!;
+    expect(q423.prompt.toLowerCase(), isNot(contains('all of them')));
+    expect(q423.prompt.toLowerCase(), contains('include you too'));
+    final q426c = enPool.itemsById['frequency_v2_q0426']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_c'));
+    expect(q426c.text.toLowerCase(), contains('messages'));
+    expect(
+      (enReview['frequency_v2_q0403']!['translation_review_flags'] as List<dynamic>? ??
+              const [])
+          .contains('possible_intensity_drift'),
+      isTrue,
+    );
+    expect(
+      (enReview['frequency_v2_q0412']!['translation_review_flags'] as List<dynamic>? ??
+              const [])
+          .contains('possible_intensity_drift'),
+      isTrue,
+    );
+    expect(
+      (enReview['frequency_v2_q0424']!['translation_review_flags'] as List<dynamic>? ??
+              const [])
+          .contains('possible_intensity_drift'),
+      isTrue,
     );
   });
 
