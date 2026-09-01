@@ -10,7 +10,7 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -37,7 +37,7 @@
 
 #### `frequency_v2_q0301_d`
 - **TR:** O akşam yalnız kalmak yerine baştan sona birlikte olmayı tercih ederim.
-- **EN:** I'd rather be together start to finish than alone that evening.
+- **EN:** I'd rather spend the whole evening together than be alone that night.
 - **behavioral_weights:** `{"autonomy": -2.0}`
 
 ### Machine triage flags
@@ -50,7 +50,7 @@
 
 - **primary_dimension:** `contact_need`
 - **semantic_cluster:** `contact_need:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -90,13 +90,13 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Birlikte yaşarken temizlik konusunda farklı standartlarınız var.
 
-**EN:** While living together, you have different standards about cleanliness.
+**EN:** While living together, you have different standards of cleanliness.
 
 ### Options
 
@@ -112,7 +112,7 @@
 
 #### `frequency_v2_q0303_c`
 - **TR:** Onun standardına yaklaşırım.
-- **EN:** I match their standard.
+- **EN:** I'd move closer to their standard.
 - **behavioral_weights:** `{"adaptability": 2.0}`
 
 #### `frequency_v2_q0303_d`
@@ -130,13 +130,13 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizi sürpriz bir şekilde ziyarete geldi. Siz o sırada yalnız kalmak istiyordunuz.
 
-**EN:** Your partner showed up as a surprise visit. You wanted alone time right then.
+**EN:** Your partner unexpectedly shows up to see you. You wanted to be alone at that moment.
 
 ### Options
 
@@ -170,7 +170,7 @@
 
 - **primary_dimension:** `closeness_pace`
 - **semantic_cluster:** `closeness_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -182,7 +182,7 @@
 
 #### `frequency_v2_q0305_a`
 - **TR:** Ben de karşılık vermeye başlarım.
-- **EN:** I start giving back too.
+- **EN:** I'd start bringing them small gifts too.
 - **behavioral_weights:** `{"closeness_pace": 1.0, "initiative": 1.0}`
 
 #### `frequency_v2_q0305_b`
@@ -197,7 +197,7 @@
 
 #### `frequency_v2_q0305_d`
 - **TR:** Tempo hızlanırsa hediye alışverişini yavaşlatırım.
-- **EN:** If things speed up, I slow down the gift exchange.
+- **EN:** If the pace started to feel too fast, I'd slow down the gift-giving.
 - **behavioral_weights:** `{"autonomy": 1.0, "closeness_pace": -1.0}`
 
 ### Machine triage flags
@@ -210,7 +210,7 @@
 
 - **primary_dimension:** `repair_style`
 - **semantic_cluster:** `repair_style:conflict`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -227,17 +227,17 @@
 
 #### `frequency_v2_q0306_b`
 - **TR:** Ben de soğuklaşırım.
-- **EN:** I get cold too.
+- **EN:** I'd turn cold too.
 - **behavioral_weights:** `{"autonomy": 1.0, "repair_style": -1.0}`
 
 #### `frequency_v2_q0306_c`
 - **TR:** Duyguyu açmaya çalışırım.
-- **EN:** I try to open up the emotional side.
+- **EN:** I'd try to bring the emotions into the open.
 - **behavioral_weights:** `{"repair_style": 2.0, "initiative": 1.0}`
 
 #### `frequency_v2_q0306_d`
 - **TR:** Konuyu erteleyip ortamı değiştiririm.
-- **EN:** I table it and change the setting.
+- **EN:** I'd postpone the conversation and change the setting.
 - **behavioral_weights:** `{"uncertainty_tolerance": 1.0, "repair_style": 0.0}`
 
 ### Machine triage flags
@@ -250,7 +250,7 @@
 
 - **primary_dimension:** `social_energy`
 - **semantic_cluster:** `social_energy:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -290,13 +290,13 @@
 
 - **primary_dimension:** `closeness_pace`
 - **semantic_cluster:** `closeness_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yeni biriyle tanışıyorsunuz. O çok erken “seni özel hissediyorum” tarzı ifadeler kullanıyor.
 
-**EN:** You're getting to know someone new. They use early "you make me feel special" type lines.
+**EN:** You're getting to know someone new. Very early on, they start saying things like, "I feel like you're special."
 
 ### Options
 
@@ -312,12 +312,12 @@
 
 #### `frequency_v2_q0308_c`
 - **TR:** “Biraz yavaş gidelim” derim.
-- **EN:** I say "Let's take this slow."
+- **EN:** I'd say, "Let's slow things down a little."
 - **behavioral_weights:** `{"boundary_firmness": 2.0, "closeness_pace": -1.0}`
 
 #### `frequency_v2_q0308_d`
 - **TR:** Yoğunluk artarsa geri çekilirim.
-- **EN:** If it gets too intense, I pull back.
+- **EN:** If the intensity increased, I'd pull back.
 - **behavioral_weights:** `{"autonomy": 1.0, "uncertainty_tolerance": -1.0}`
 
 ### Machine triage flags
@@ -330,7 +330,7 @@
 
 - **primary_dimension:** `structure_preference`
 - **semantic_cluster:** `structure_preference:planning`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -357,7 +357,7 @@
 
 #### `frequency_v2_q0309_d`
 - **TR:** “Sen planla, ben uyarım” derim.
-- **EN:** I say "You plan it, I'll follow along."
+- **EN:** I'd say, "You plan it, I'll go along."
 - **behavioral_weights:** `{"adaptability": 1.0, "autonomy": -1.0}`
 
 ### Machine triage flags
@@ -370,7 +370,7 @@
 
 - **primary_dimension:** `repair_style`
 - **semantic_cluster:** `repair_style:conflict`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -410,7 +410,7 @@
 
 - **primary_dimension:** `boundary_firmness`
 - **semantic_cluster:** `boundary_firmness:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -450,29 +450,29 @@
 
 - **primary_dimension:** `initiative`
 - **semantic_cluster:** `initiative:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yeni biriyle birkaç haftadır görüşüyorsunuz. Henüz ortak bir arkadaş grubuna dahil olmadınız.
 
-**EN:** You've been seeing someone new for a few weeks. You haven't joined a shared friend group yet.
+**EN:** You've been seeing someone new for a few weeks. You haven't started spending time in a shared friend group yet.
 
 ### Options
 
 #### `frequency_v2_q0312_a`
 - **TR:** Ben öneririm.
-- **EN:** I suggest it.
+- **EN:** I'd be the one to suggest it.
 - **behavioral_weights:** `{"initiative": 2.0, "social_energy": 1.0}`
 
 #### `frequency_v2_q0312_b`
 - **TR:** O önerirse katılırım.
-- **EN:** If they suggest it, I'll join.
+- **EN:** If they suggested it, I'd join.
 - **behavioral_weights:** `{"adaptability": 1.0, "initiative": -1.0}`
 
 #### `frequency_v2_q0312_c`
 - **TR:** Biraz daha beklerim.
-- **EN:** I wait a bit longer.
+- **EN:** I'd wait a little longer.
 - **behavioral_weights:** `{"uncertainty_tolerance": 1.0, "closeness_pace": -1.0}`
 
 #### `frequency_v2_q0312_d`
@@ -490,13 +490,13 @@
 
 - **primary_dimension:** `boundary_firmness`
 - **semantic_cluster:** `boundary_firmness:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizinle ilgili bir konuyu (para durumu, aile sorunu, sağlık) açmak istiyor ama siz henüz o kadar yakın hissetmiyorsunuz.
 
-**EN:** Your partner wants to open up about something personal (money, family, health), but you don't feel that close yet.
+**EN:** Your partner wants to bring up something personal about you—your financial situation, a family problem, or your health—but you don't feel close enough yet.
 
 ### Options
 
@@ -512,7 +512,7 @@
 
 #### `frequency_v2_q0313_c`
 - **TR:** “Hazır olunca konuşuruz” derim.
-- **EN:** I say "We'll talk when I'm ready."
+- **EN:** I'd say, "We can talk about it when I'm ready."
 - **behavioral_weights:** `{"boundary_firmness": 1.0, "structure_preference": 1.0}`
 
 #### `frequency_v2_q0313_d`
@@ -530,7 +530,7 @@
 
 - **primary_dimension:** `initiative`
 - **semantic_cluster:** `initiative:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -570,7 +570,7 @@
 
 - **primary_dimension:** `reassurance_need`
 - **semantic_cluster:** `reassurance_need:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -610,13 +610,13 @@
 
 - **primary_dimension:** `closeness_pace`
 - **semantic_cluster:** `closeness_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yeni biriyle tanışıyorsunuz. O her buluşmada daha uzun süre kalmak istiyor.
 
-**EN:** You're getting to know someone new. They want to stay longer every date.
+**EN:** You're getting to know someone new. They want each date to last longer than the last.
 
 ### Options
 
@@ -627,7 +627,7 @@
 
 #### `frequency_v2_q0316_b`
 - **TR:** Kendi süremi korurum.
-- **EN:** I keep my own timing.
+- **EN:** I'd stick to my own time limit.
 - **behavioral_weights:** `{"autonomy": 1.0, "boundary_firmness": 1.0}`
 
 #### `frequency_v2_q0316_c`
@@ -637,7 +637,7 @@
 
 #### `frequency_v2_q0316_d`
 - **TR:** Tempo hızlanırsa sıklığı azaltırım.
-- **EN:** If the pace picks up, I see them less often.
+- **EN:** If the pace started getting faster, I'd reduce how often we met.
 - **behavioral_weights:** `{"autonomy": 1.0, "contact_need": -1.0}`
 
 ### Machine triage flags
@@ -650,7 +650,7 @@
 
 - **primary_dimension:** `repair_style`
 - **semantic_cluster:** `repair_style:conflict`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -662,12 +662,12 @@
 
 #### `frequency_v2_q0317_a`
 - **TR:** Kısa süre içinde, hazır olduğunda konuşup toparlamak istediğimi belirten bir mesaj atarım.
-- **EN:** I send a message soon saying I want to talk and repair things when they're ready.
+- **EN:** I'd send a message soon saying that, when they're ready, I'd like us to talk and sort things out.
 - **behavioral_weights:** `{"repair_style": 2.0}`
 
 #### `frequency_v2_q0317_b`
 - **TR:** Biraz zaman verip aynı gün içinde konuşmayı yeniden açarım.
-- **EN:** I give a little time and reopen the conversation the same day.
+- **EN:** I'd give them a little time, then bring the conversation up again later that same day.
 - **behavioral_weights:** `{"repair_style": 1.0}`
 
 #### `frequency_v2_q0317_c`
@@ -677,7 +677,7 @@
 
 #### `frequency_v2_q0317_d`
 - **TR:** Partnerim yeniden açmazsa ben de konuyu tekrar gündeme getirmem.
-- **EN:** If they don't reopen it, neither do I.
+- **EN:** If my partner didn't bring it up again, I wouldn't either.
 - **behavioral_weights:** `{"repair_style": -2.0}`
 
 ### Machine triage flags
@@ -690,13 +690,13 @@
 
 - **primary_dimension:** `initiative`
 - **semantic_cluster:** `initiative:planning`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizinle aynı anda hem evde kalmak hem de dışarı çıkmak istiyor ve karar veremiyor.
 
-**EN:** Your partner can't decide between staying in and going out and wants both.
+**EN:** Your partner can't decide whether to stay home or go out; they keep wanting both at once.
 
 ### Options
 
@@ -730,7 +730,7 @@
 
 - **primary_dimension:** `disclosure_pace`
 - **semantic_cluster:** `disclosure_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -770,7 +770,7 @@
 
 - **primary_dimension:** `social_energy`
 - **semantic_cluster:** `social_energy:social`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -792,12 +792,12 @@
 
 #### `frequency_v2_q0320_c`
 - **TR:** “Biraz daha az tanıtalım” derim.
-- **EN:** I say "Let's introduce me a little less."
+- **EN:** I'd say, "Can we slow down on the introductions a little?"
 - **behavioral_weights:** `{"boundary_firmness": 1.0, "social_energy": -1.0}`
 
 #### `frequency_v2_q0320_d`
 - **TR:** Bir süre sonra kenara çekilirim.
-- **EN:** I step aside after a while.
+- **EN:** After a while, I'd step away for a bit.
 - **behavioral_weights:** `{"autonomy": 1.0, "social_energy": -1.0}`
 
 ### Machine triage flags
@@ -810,7 +810,7 @@
 
 - **primary_dimension:** `autonomy, boundary_firmness`
 - **semantic_cluster:** `autonomy:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -850,24 +850,24 @@
 
 - **primary_dimension:** `closeness_pace`
 - **semantic_cluster:** `closeness_pace:uncertainty`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Uzun bir ayrılıktan sonra yeniden bir araya geldiniz. Partneriniz hemen eski yakınlığa dönmek istiyor.
 
-**EN:** After a long separation, you're back together. Your partner wants to jump straight back to old closeness.
+**EN:** After a long separation, you're back together. Your partner wants to return to your previous level of closeness right away.
 
 ### Options
 
 #### `frequency_v2_q0322_a`
 - **TR:** Karşılık veririm.
-- **EN:** I meet them there.
+- **EN:** I'd reciprocate.
 - **behavioral_weights:** `{"closeness_pace": 1.0, "adaptability": 1.0}`
 
 #### `frequency_v2_q0322_b`
 - **TR:** Yavaş yavaş alışırım.
-- **EN:** I ease back in slowly.
+- **EN:** I'd ease back into the closeness gradually.
 - **behavioral_weights:** `{"closeness_pace": -1.0, "adaptability": 1.0}`
 
 #### `frequency_v2_q0322_c`
@@ -877,7 +877,7 @@
 
 #### `frequency_v2_q0322_d`
 - **TR:** Kendi tempomu net şekilde korurum.
-- **EN:** I clearly keep my own pace.
+- **EN:** I'd clearly stick to my own pace.
 - **behavioral_weights:** `{"autonomy": 2.0, "boundary_firmness": 1.0}`
 
 ### Machine triage flags
@@ -890,7 +890,7 @@
 
 - **primary_dimension:** `uncertainty_tolerance`
 - **semantic_cluster:** `uncertainty_tolerance:planning`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -917,7 +917,7 @@
 
 #### `frequency_v2_q0323_d`
 - **TR:** “Karar verelim” diye baskı yaparım.
-- **EN:** I push to "let's decide."
+- **EN:** I'd push for us to make a decision.
 - **behavioral_weights:** `{"structure_preference": 1.0, "boundary_firmness": 1.0}`
 
 ### Machine triage flags
@@ -930,13 +930,13 @@
 
 - **primary_dimension:** `adaptability`
 - **semantic_cluster:** `adaptability:conflict`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizinle ilgili bir eleştiriyi (iletişim tarzı, zaman yönetimi) yumuşak bir şekilde dile getirdi.
 
-**EN:** Your partner gently raised a criticism about you (communication style, time management).
+**EN:** Your partner gently criticizes something about you, such as your communication style or time management.
 
 ### Options
 
@@ -970,13 +970,13 @@
 
 - **primary_dimension:** `closeness_pace`
 - **semantic_cluster:** `closeness_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yeni biriyle birkaç görüşme yaptınız. O “ciddi bir ilişki arıyorum” dedi. Siz henüz o kadar net değilsiniz.
 
-**EN:** After a few dates, someone new says "I'm looking for something serious." You're not that clear yet.
+**EN:** After a few dates, the person you're seeing says, "I'm looking for a serious relationship." You're not that sure yet.
 
 ### Options
 
@@ -992,7 +992,7 @@
 
 #### `frequency_v2_q0325_c`
 - **TR:** “Bakalım zaman ne gösterir” derim.
-- **EN:** I say "Let's see where time takes us."
+- **EN:** I'd say, "Let's see what happens over time."
 - **behavioral_weights:** `{"uncertainty_tolerance": 2.0}`
 
 #### `frequency_v2_q0325_d`
@@ -1010,7 +1010,7 @@
 
 - **primary_dimension:** `initiative`
 - **semantic_cluster:** `initiative:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1050,13 +1050,13 @@
 
 - **primary_dimension:** `disclosure_pace`
 - **semantic_cluster:** `disclosure_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizin bir ex’inizle ilgili meraklı sorular soruyor.
 
-**EN:** Your partner is asking curious questions about an ex of yours.
+**EN:** Your partner keeps asking questions about one of your exes.
 
 ### Options
 
@@ -1090,7 +1090,7 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:boundaries`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1112,7 +1112,7 @@
 
 #### `frequency_v2_q0328_c`
 - **TR:** Kısa bir “tamam” deyip kendi işime bakarım.
-- **EN:** A quick "okay" and back to my own thing.
+- **EN:** I'd just say a quick "okay" and go back to what I was doing.
 - **behavioral_weights:** `{"autonomy": 2.0}`
 
 #### `frequency_v2_q0328_d`
@@ -1130,7 +1130,7 @@
 
 - **primary_dimension:** `adaptability`
 - **semantic_cluster:** `adaptability:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1170,19 +1170,19 @@
 
 - **primary_dimension:** `disclosure_pace`
 - **semantic_cluster:** `disclosure_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizinle ilgili olumlu bir duyguyu (özlem, bağlılık) ilk kez açıkça ifade etti.
 
-**EN:** Your partner expressed a positive feeling about you (missing you, feeling attached) for the first time.
+**EN:** For the first time, your partner openly expresses a positive feeling toward you, such as missing you or feeling attached.
 
 ### Options
 
 #### `frequency_v2_q0330_a`
 - **TR:** Aynı şekilde karşılık veririm.
-- **EN:** I respond the same way.
+- **EN:** I'd respond in kind.
 - **behavioral_weights:** `{"disclosure_pace": 2.0, "closeness_pace": 1.0}`
 
 #### `frequency_v2_q0330_b`
@@ -1210,7 +1210,7 @@
 
 - **primary_dimension:** `repair_style`
 - **semantic_cluster:** `repair_style:conflict`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1222,7 +1222,7 @@
 
 #### `frequency_v2_q0331_a`
 - **TR:** Orta yol ararım.
-- **EN:** I look for middle ground.
+- **EN:** I'd look for a middle ground.
 - **behavioral_weights:** `{"adaptability": 1.0, "repair_style": 1.0}`
 
 #### `frequency_v2_q0331_b`
@@ -1250,7 +1250,7 @@
 
 - **primary_dimension:** `adaptability`
 - **semantic_cluster:** `adaptability:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1262,7 +1262,7 @@
 
 #### `frequency_v2_q0332_a`
 - **TR:** Planımı bozar, giderim.
-- **EN:** I break my plan and go.
+- **EN:** I'd cancel my existing plans and go.
 - **behavioral_weights:** `{"adaptability": 2.0, "social_energy": 1.0}`
 
 #### `frequency_v2_q0332_b`
@@ -1282,7 +1282,7 @@
 
 ### Machine triage flags
 
-- `possible_intensity_drift`
+- _(none)_
 
 ---
 
@@ -1290,13 +1290,13 @@
 
 - **primary_dimension:** `contact_need, adaptability`
 - **semantic_cluster:** `contact_need:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yeni biriyle mesajlaşırken o çok uzun yazıyor, siz daha kısa ve öz yazmayı seviyorsunuz.
 
-**EN:** While texting someone new, they write long messages; you prefer short and to the point.
+**EN:** While texting someone new, they write very long messages, while you prefer to keep yours short and to the point.
 
 ### Options
 
@@ -1330,7 +1330,7 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1342,7 +1342,7 @@
 
 #### `frequency_v2_q0334_a`
 - **TR:** Anlarım, ayrı yaparız.
-- **EN:** I get it—we do it separately.
+- **EN:** I'd understand and keep doing the hobby on my own.
 - **behavioral_weights:** `{"autonomy": 1.0, "adaptability": 1.0}`
 
 #### `frequency_v2_q0334_b`
@@ -1352,7 +1352,7 @@
 
 #### `frequency_v2_q0334_c`
 - **TR:** Ben de onun bazı şeylerine katılmam.
-- **EN:** I skip some of their things too.
+- **EN:** I'd also choose not to join some of the things they do.
 - **behavioral_weights:** `{"boundary_firmness": 1.0, "autonomy": 1.0}`
 
 #### `frequency_v2_q0334_d`
@@ -1370,13 +1370,13 @@
 
 - **primary_dimension:** `adaptability`
 - **semantic_cluster:** `adaptability:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Birlikte bir film seçerken sürekli aynı türde anlaşamıyorsunuz.
 
-**EN:** Picking a movie together, you keep disagreeing on the same genre.
+**EN:** When choosing a movie together, you keep disagreeing about which genre to watch.
 
 ### Options
 
@@ -1410,7 +1410,7 @@
 
 - **primary_dimension:** `initiative`
 - **semantic_cluster:** `initiative:unclassified`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1432,7 +1432,7 @@
 
 #### `frequency_v2_q0336_c`
 - **TR:** O netleşsin diye beklerim.
-- **EN:** I wait for them to be clear.
+- **EN:** I'd wait for them to make themselves clear.
 - **behavioral_weights:** `{"uncertainty_tolerance": 1.0}`
 
 #### `frequency_v2_q0336_d`
@@ -1450,7 +1450,7 @@
 
 - **primary_dimension:** `uncertainty_tolerance`
 - **semantic_cluster:** `uncertainty_tolerance:uncertainty`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1462,7 +1462,7 @@
 
 #### `frequency_v2_q0337_a`
 - **TR:** Normal devam ederim.
-- **EN:** I pick up as normal.
+- **EN:** I'd carry on as normal.
 - **behavioral_weights:** `{"uncertainty_tolerance": 2.0, "adaptability": 1.0}`
 
 #### `frequency_v2_q0337_b`
@@ -1477,7 +1477,7 @@
 
 #### `frequency_v2_q0337_d`
 - **TR:** Sevinir, tempo yükseltirim.
-- **EN:** I'm glad and ramp up the pace.
+- **EN:** I'd be happy and pick up the pace again.
 - **behavioral_weights:** `{"contact_need": 1.0, "closeness_pace": 1.0}`
 
 ### Machine triage flags
@@ -1490,7 +1490,7 @@
 
 - **primary_dimension:** `boundary_firmness`
 - **semantic_cluster:** `boundary_firmness:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1530,19 +1530,19 @@
 
 - **primary_dimension:** `closeness_pace`
 - **semantic_cluster:** `closeness_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yeni biriyle birkaç görüşme yaptınız. O fiziksel teması hızlandırıyor.
 
-**EN:** After a few dates, someone new is moving physical contact faster.
+**EN:** After a few dates, the person you're seeing starts increasing the pace of physical contact.
 
 ### Options
 
 #### `frequency_v2_q0339_a`
 - **TR:** Uyum sağlarım.
-- **EN:** I go along.
+- **EN:** I'd adapt to their pace.
 - **behavioral_weights:** `{"adaptability": 2.0, "closeness_pace": 1.0}`
 
 #### `frequency_v2_q0339_b`
@@ -1552,12 +1552,12 @@
 
 #### `frequency_v2_q0339_c`
 - **TR:** “Biraz yavaş” derim.
-- **EN:** I say "A little slower."
+- **EN:** I'd say, "Let's slow down a little."
 - **behavioral_weights:** `{"boundary_firmness": 2.0, "closeness_pace": -1.0}`
 
 #### `frequency_v2_q0339_d`
 - **TR:** Tempo uymuyorsa geri çekilirim.
-- **EN:** If the pace doesn't fit, I pull back.
+- **EN:** If the pace didn't feel right for me, I'd pull back.
 - **behavioral_weights:** `{"autonomy": 1.0, "closeness_pace": -1.0}`
 
 ### Machine triage flags
@@ -1570,7 +1570,7 @@
 
 - **primary_dimension:** `boundary_firmness`
 - **semantic_cluster:** `boundary_firmness:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1610,13 +1610,13 @@
 
 - **primary_dimension:** `disclosure_pace`
 - **semantic_cluster:** `disclosure_pace:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
-**TR:** Partneriniz sizinle ilgili bir sırrı paylaştı ve “kimseye söyleme” dedi.
+**TR:** Partneriniz kendisiyle ilgili bir sırrı sizinle paylaştı ve “kimseye söyleme” dedi.
 
-**EN:** Your partner shared a secret about you and said "don't tell anyone."
+**EN:** Your partner shared a personal secret about themselves with you and said, "Don't tell anyone."
 
 ### Options
 
@@ -1650,13 +1650,13 @@
 
 - **primary_dimension:** `adaptability`
 - **semantic_cluster:** `adaptability:planning`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Bir planınız vardı. Partneriniz son anda “içimden gelmiyor” dedi.
 
-**EN:** You had plans. Your partner canceled last minute: "I'm just not feeling it."
+**EN:** You had plans. At the last minute, your partner says, "I'm just not feeling it."
 
 ### Options
 
@@ -1667,7 +1667,7 @@
 
 #### `frequency_v2_q0342_b`
 - **TR:** Biraz bozulurum.
-- **EN:** I'm a little upset.
+- **EN:** I'd be a little disappointed.
 - **behavioral_weights:** `{"structure_preference": 1.0, "reassurance_need": 1.0}`
 
 #### `frequency_v2_q0342_c`
@@ -1690,13 +1690,13 @@
 
 - **primary_dimension:** `reassurance_need`
 - **semantic_cluster:** `reassurance_need:established`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partneriniz sizin bir başarınızı veya mutluluğunuzu görünce beklediğinizden daha az tepki verdi.
 
-**EN:** When your partner saw a win or moment of happiness of yours, they reacted less than you expected.
+**EN:** Your partner reacts less strongly than you expected to one of your achievements or moments of happiness.
 
 ### Options
 
@@ -1730,7 +1730,7 @@
 
 - **primary_dimension:** `boundary_firmness`
 - **semantic_cluster:** `boundary_firmness:social`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1742,12 +1742,12 @@
 
 #### `frequency_v2_q0344_a`
 - **TR:** Onun adına garsonu ben çağırır, kibarca yemeğin değiştirilmesini isterim.
-- **EN:** I call the waiter and politely ask for a replacement.
+- **EN:** I'd call the waiter over on their behalf and politely ask for the dish to be replaced.
 - **behavioral_weights:** `{"initiative": 2.0, "boundary_firmness": 1.0}`
 
 #### `frequency_v2_q0344_b`
 - **TR:** "Emin misin, değiştirelim" diye birkaç kez sorarım ama istemezse üstelemem.
-- **EN:** I ask "Are you sure? We can change it" a few times but don't push if they don't want to.
+- **EN:** I'd ask a few times, "Are you sure? We can send it back," but if they didn't want to, I wouldn't push.
 - **behavioral_weights:** `{"adaptability": 1.0}`
 
 #### `frequency_v2_q0344_c`
@@ -1757,7 +1757,7 @@
 
 #### `frequency_v2_q0344_d`
 - **TR:** Çıkışta "Bir dahakine söyleyelim, böyle geçiştirmek bana zor geliyor" derim.
-- **EN:** On the way out I say "Next time let's say something—brushing it off is hard for me."
+- **EN:** On the way out, I'd say, "Next time, let's say something; it's hard for me to just let it go like that."
 - **behavioral_weights:** `{"boundary_firmness": 2.0}`
 
 ### Machine triage flags
@@ -1770,7 +1770,7 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:boundaries`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1810,13 +1810,13 @@
 
 - **primary_dimension:** `adaptability`
 - **semantic_cluster:** `adaptability:support`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Yabancı bir şehre tatile gittiniz. Partnerin navigasyon görevini üstlendi ama sizi tamamen yanlış bir yere götürüp kaybettirdi.
 
-**EN:** On vacation in an unfamiliar city, your partner took navigation but took you completely the wrong way and got you lost.
+**EN:** You're on vacation in an unfamiliar city. Your partner takes charge of navigation but leads you completely the wrong way and gets you lost.
 
 ### Options
 
@@ -1832,7 +1832,7 @@
 
 #### `frequency_v2_q0346_c`
 - **TR:** Kendi telefonumdan sessizce haritayı açar, ona belli etmeden doğru yolu bulması için ufak kopyalar veririm.
-- **EN:** I quietly open the map on my phone and give small nudges so they find the right way without making it obvious.
+- **EN:** I'd quietly open the map on my own phone and give them little hints toward the right route without making it obvious.
 - **behavioral_weights:** `{"initiative": 1.0, "disclosure_pace": -1.0}`
 
 #### `frequency_v2_q0346_d`
@@ -1850,7 +1850,7 @@
 
 - **primary_dimension:** `reassurance_need`
 - **semantic_cluster:** `reassurance_need:early_dating`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1862,7 +1862,7 @@
 
 #### `frequency_v2_q0347_a`
 - **TR:** Sağlık olsun der, hemen kendi başıma veya arkadaşlarımla başka bir plan yaparım.
-- **EN:** I say no worries and make other plans on my own or with friends.
+- **EN:** I'd say, "I hope everything's okay," and immediately make another plan, either on my own or with friends.
 - **behavioral_weights:** `{"autonomy": 2.0, "uncertainty_tolerance": 2.0}`
 
 #### `frequency_v2_q0347_b`
@@ -1872,12 +1872,12 @@
 
 #### `frequency_v2_q0347_c`
 - **TR:** "Yapabileceğim bir şey var mı?" diye sorar, destekleyici bir modda hazır beklerim.
-- **EN:** I ask "Is there anything I can do?" and stay in a supportive, ready mode.
+- **EN:** I'd ask, "Is there anything I can do?" and stay available to support them.
 - **behavioral_weights:** `{"closeness_pace": 1.0, "contact_need": 1.0}`
 
 #### `frequency_v2_q0347_d`
 - **TR:** Telafi için yeni buluşma gününü onun ayarlamasını bekler, inisiyatifi tamamen ona bırakırım.
-- **EN:** I wait for them to set a new date to make it up—I leave the initiative entirely to them.
+- **EN:** I'd wait for them to arrange the next date to make up for the cancellation, leaving the initiative entirely to them.
 - **behavioral_weights:** `{"initiative": -2.0, "boundary_firmness": 1.0}`
 
 ### Machine triage flags
@@ -1890,7 +1890,7 @@
 
 - **primary_dimension:** `autonomy`
 - **semantic_cluster:** `autonomy:uncertainty`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1907,7 +1907,7 @@
 
 #### `frequency_v2_q0348_b`
 - **TR:** Kendi parası da olsa hayatı paylaştığımız için bana önceden haber vermemesine çok kırılırım.
-- **EN:** Even though it's their money, I'd be hurt they didn't tell me beforehand since we share a life.
+- **EN:** Even though it's their own money, I'd feel really hurt that they didn't tell me beforehand because we're sharing a life together.
 - **behavioral_weights:** `{"closeness_pace": 2.0, "reassurance_need": 1.0}`
 
 #### `frequency_v2_q0348_c`
@@ -1930,7 +1930,7 @@
 
 - **primary_dimension:** `structure_preference`
 - **semantic_cluster:** `structure_preference:planning`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
@@ -1957,7 +1957,7 @@
 
 #### `frequency_v2_q0349_d`
 - **TR:** İşi profesyonel birine taktırmayı veya eğer o çok istiyorsa onun tek başına kurmasını, benim sadece izlememi teklif ederim.
-- **EN:** I'd suggest hiring a pro, or if they're really into it, letting them assemble it alone while I just watch.
+- **EN:** I'd suggest having a professional assemble it, or, if they really wanted to do it themselves, letting them build it alone while I just watched.
 - **behavioral_weights:** `{"autonomy": 2.0, "boundary_firmness": 1.0}`
 
 ### Machine triage flags
@@ -1970,13 +1970,13 @@
 
 - **primary_dimension:** `reassurance_need`
 - **semantic_cluster:** `reassurance_need:social`
-- **translation_review_status:** `PENDING_HUMAN_REVIEW`
+- **translation_review_status:** `REVIEWED`
 
 ### Stems
 
 **TR:** Partnerin doğası gereği herkese (garsonlara, karşı cinse, iş arkadaşlarına) çok sıcakkanlı, şakacı ve dokunsal davranan biri.
 
-**EN:** By nature, your partner is very warm, playful, and touchy with everyone (waitstaff, the opposite sex, coworkers).
+**EN:** By nature, your partner is very warm and playful and uses a lot of casual physical touch with everyone—waitstaff, people of the opposite sex, coworkers.
 
 ### Options
 
@@ -1987,17 +1987,17 @@
 
 #### `frequency_v2_q0350_b`
 - **TR:** Dışarıdaki insanlarla benim aramdaki o özel sınırın (mesafenin) net olmamasından içten içe rahatsız olurum.
-- **EN:** I'm quietly unsettled that the special boundary between us and outsiders isn't clearer.
+- **EN:** I'd feel quietly uncomfortable that the special boundary—the sense of distance—between how they are with me and with other people isn't clearer.
 - **behavioral_weights:** `{"reassurance_need": 2.0, "boundary_firmness": 2.0}`
 
 #### `frequency_v2_q0350_c`
 - **TR:** Ortamdayken onu biraz frenlemeye, "bize" odaklanmasını sağlamaya çalışırım.
-- **EN:** In the moment I try to gently rein them in and keep the focus on us.
+- **EN:** When we're out, I'd try to rein them in a little and get them to focus more on "us."
 - **behavioral_weights:** `{"contact_need": 1.0, "closeness_pace": 1.0}`
 
 #### `frequency_v2_q0350_d`
 - **TR:** O sosyalleşirken ben de kendi alanımda başka insanlarla benzer şekilde kaynaşırım.
-- **EN:** While they socialize, I mingle with other people in a similar way in my own space.
+- **EN:** While they socialize, I'd mingle with other people in a similar way, independently of them.
 - **behavioral_weights:** `{"autonomy": 2.0, "social_energy": 1.0}`
 
 ### Machine triage flags

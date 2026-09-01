@@ -13978,7 +13978,7 @@
   },
   {
     "item_id": "frequency_v2_q0341",
-    "prompt": "Partneriniz sizinle ilgili bir sırrı paylaştı ve “kimseye söyleme” dedi.",
+    "prompt": "Partneriniz kendisiyle ilgili bir sırrı sizinle paylaştı ve “kimseye söyleme” dedi.",
     "primary_dimensions": [
       "disclosure_pace"
     ],

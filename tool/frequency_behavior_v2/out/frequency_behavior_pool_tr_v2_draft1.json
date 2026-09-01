@@ -33284,7 +33284,7 @@
     {
       "item_id": "frequency_v2_q0341",
       "locale": "tr-TR",
-      "prompt": "Partneriniz sizinle ilgili bir sırrı paylaştı ve “kimseye söyleme” dedi.",
+      "prompt": "Partneriniz kendisiyle ilgili bir sırrı sizinle paylaştı ve “kimseye söyleme” dedi.",
       "context": [
         "early_dating",
         "uncertainty"

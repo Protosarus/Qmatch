@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1 EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 300) {
+      if (n >= 1 && n <= 350) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -187,7 +187,7 @@ void main() {
                 FrequencyBehaviorV2Contract.translationReviewReviewed,
           )
           .length,
-      300,
+      350,
     );
     final q227 = enReview['frequency_v2_q0227']!;
     expect(
@@ -205,7 +205,7 @@ void main() {
     );
   });
 
-  test('phase 6B/6C/6D/6E/6E.1/6F/6G human wording corrections preserved', () {
+  test('phase 6B/6C/6D/6E/6E.1/6F/6G/6H/6H.1 human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -329,6 +329,30 @@ void main() {
     expect(tr252.semanticCluster, 'unassigned:conflict');
     expect(tr292.primaryDimensions, isEmpty);
     expect(tr292.semanticCluster, 'unassigned:support');
+    final q313 = enPool.itemsById['frequency_v2_q0313']!;
+    final q332 = enPool.itemsById['frequency_v2_q0332']!;
+    final q332a = q332.options.firstWhere((o) => o.optionId.endsWith('_a'));
+    final q341 = enPool.itemsById['frequency_v2_q0341']!;
+    final trQ341 = trPool.itemsById['frequency_v2_q0341']!;
+    final q350 = enPool.itemsById['frequency_v2_q0350']!;
+    expect(q313.prompt, contains('personal about you'));
+    expect(q313.prompt, contains('your financial situation'));
+    expect(q332a.text, "I'd cancel my existing plans and go.");
+    expect(enReview['frequency_v2_q0332']!['drop_from_selectable'], isTrue);
+    expect(
+      trQ341.prompt,
+      'Partneriniz kendisiyle ilgili bir sırrı sizinle paylaştı ve “kimseye söyleme” dedi.',
+    );
+    expect(
+      q341.prompt,
+      'Your partner shared a personal secret about themselves with you and said, "Don\'t tell anyone."',
+    );
+    expect(
+      enReview['frequency_v2_q0341']!['translation_review_status'],
+      FrequencyBehaviorV2Contract.translationReviewReviewed,
+    );
+    expect(q350.prompt.toLowerCase(), isNot(contains('touchy')));
+    expect(q350.prompt, contains('casual physical touch'));
   });
 
   test('EN bank registry path resolves', () {
