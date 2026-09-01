@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C/6D EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D/6E/6E.1 EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 150) {
+      if (n >= 1 && n <= 200) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -179,9 +179,19 @@ void main() {
             reason: id);
       }
     }
+    expect(
+      enReview.values
+          .where(
+            (r) =>
+                r['translation_review_status'] ==
+                FrequencyBehaviorV2Contract.translationReviewReviewed,
+          )
+          .length,
+      200,
+    );
   });
 
-  test('phase 6B/6C/6D human wording corrections preserved', () {
+  test('phase 6B/6C/6D/6E/6E.1 human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -226,6 +236,29 @@ void main() {
       q150.prompt,
       contains('much clearer about what they want from the relationship'),
     );
+    final q178 = enPool.itemsById['frequency_v2_q0178']!;
+    final q189 = enPool.itemsById['frequency_v2_q0189']!;
+    final q190 = enPool.itemsById['frequency_v2_q0190']!;
+    final q193 = enPool.itemsById['frequency_v2_q0193']!;
+    final q195 = enPool.itemsById['frequency_v2_q0195']!;
+    final q193a = q193.options.firstWhere((o) => o.optionId.endsWith('_a'));
+    final q195a = q195.options.firstWhere((o) => o.optionId.endsWith('_a'));
+    expect(q178.prompt, contains("You're on a 40-minute drive."));
+    expect(q178.prompt, isNot(contains('Forty minutes into a drive')));
+    expect(q189.prompt, contains('completely free day off'));
+    expect(q190.prompt, contains('At noon on the weekend'));
+    expect(q190.prompt, isNot(contains('Saturday afternoon')));
+    expect(q193a.text, contains('keep the gift'));
+    expect(q193a.text.toLowerCase(), isNot(contains('stash the gift')));
+    expect(
+      q195a.text,
+      contains('enter their password and secretly read the message'),
+    );
+    final q160 = enPool.itemsById['frequency_v2_q0160']!;
+    final trQ160 = trPool.itemsById['frequency_v2_q0160']!;
+    expect(trQ160.prompt, contains('senin evinde'));
+    expect(q160.prompt, contains('at your place'));
+    expect(q160.prompt, contains('T-shirt in your bathroom'));
   });
 
   test('EN bank registry path resolves', () {

@@ -8,8 +8,9 @@
         "frequency_v2_q0151_a": "Perfect idea — going off-plan and living in the moment is totally my thing.",
         "frequency_v2_q0151_b": "I'd love it, but I'd also quickly check what I had lined up for the rest of the day.",
         "frequency_v2_q0151_c": "I'd go with their energy — as long as they're leading, I don't much care where we end up.",
-        "frequency_v2_q0151_d": "I'd rather wrap up while the conversation's at its peak and save the rest for the next planned date."
-      }
+        "frequency_v2_q0151_d": "I'd feel safer ending things while the conversation is at its peak and leaving the rest for our next planned date."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0152": {
       "prompt": "You're in the early dating stage. You notice your partner still follows their ex on social media. What's your usual first reaction?",
@@ -18,16 +19,18 @@
         "frequency_v2_q0152_b": "It sticks in my mind a bit; I'd watch how interested they are in me more closely to reassure myself.",
         "frequency_v2_q0152_c": "I'd ask straight up, \"Are you still friends with your ex?\" and clear up the uncertainty right away.",
         "frequency_v2_q0152_d": "It bothers me, but instead of saying so I'd wait for them to unfollow on their own eventually."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0153": {
       "prompt": "Early on, instead of texting, they suddenly call you out of the blue with no warning.",
       "options": {
         "frequency_v2_q0153_a": "I'd be delighted — hearing their voice and getting real-time reactions feels much more genuine than texting.",
         "frequency_v2_q0153_b": "I'd answer, but I'm not a fan of surprise calls; I'd prefer a text asking \"are you free?\"",
-        "frequency_v2_q0153_c": "If I'm not busy I'll pick up; if I'm in the middle of something I'll decline and call back later. I'd take it in stride.",
+        "frequency_v2_q0153_c": "If I'm free, I'd answer. If I'm busy, I'd decline the call and get back to them later. I'd see it as normal.",
         "frequency_v2_q0153_d": "If I prefer texting, I'd keep the call short and steer things back to messages."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0154": {
       "prompt": "You're taking your first 3-day trip together. How should the planning process work?",
@@ -36,25 +39,28 @@
         "frequency_v2_q0154_b": "We should sit down together one free evening and plan every step jointly and equally.",
         "frequency_v2_q0154_c": "Whatever they want to do works for me — it's not the place, it's being together that matters.",
         "frequency_v2_q0154_d": "I'd suggest buying only round-trip tickets and figuring out the rest spontaneously once we're there."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0155": {
       "prompt": "Your partner has a bad flu and is lying in bed at home. How do you prefer to support them?",
       "options": {
         "frequency_v2_q0155_a": "I'd go over right away, make soup, and stay by their side until they're better.",
-        "frequency_v2_q0155_b": "I'd leave what they need (meds, food) at their door or order it in, and give them solitude to rest.",
+        "frequency_v2_q0155_b": "I'd drop off or order what they need—medicine, food—and give them space to rest.",
         "frequency_v2_q0155_c": "I'd keep texting to check how they're doing and stay at my own place until they say \"come over.\"",
         "frequency_v2_q0155_d": "I'd assume sick people want to be alone and just say to call me only if it's urgent."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0156": {
       "prompt": "You're six months into the relationship. Your partner suddenly invites you to dinner with the family they're very close to.",
       "options": {
         "frequency_v2_q0156_a": "I'd be thrilled — meeting their roots and family would deepen our bond a lot.",
-        "frequency_v2_q0156_b": "I'd go, but getting this deep into family stuff this early creates a little pressure for me.",
-        "frequency_v2_q0156_c": "I'd happily attend, but I'd spend the night mostly observing rather than talking about myself.",
-        "frequency_v2_q0156_d": "I'd steer the conversation, crack jokes, and try to make a good impression to ease the room."
-      }
+        "frequency_v2_q0156_b": "I'd go, but getting involved with family this early would make me feel a little pressured.",
+        "frequency_v2_q0156_c": "I'd gladly go, but I'd spend more of the evening observing them than talking about myself.",
+        "frequency_v2_q0156_d": "I'd take the lead in conversation and make jokes to ease the atmosphere and make a good impression."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0157": {
       "prompt": "You have a great photo together. Your partner says they want to post it on social media with you tagged.",
@@ -62,8 +68,9 @@
         "frequency_v2_q0157_a": "I'd love it — everyone knowing about us would make me feel secure and happy.",
         "frequency_v2_q0157_b": "They can post it, but I prefer not to showcase my private life much on my own account.",
         "frequency_v2_q0157_c": "I wouldn't care either way — I'd tell them to do whatever feels right to them.",
-        "frequency_v2_q0157_d": "I don't like living the relationship in public; I'd suggest keeping it between us."
-      }
+        "frequency_v2_q0157_d": "I don't like living out a relationship in public; I'd suggest keeping it between us."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0158": {
       "prompt": "Your partner has a habit of showing up 15–20 minutes late to meetups. After a while, what do you do?",
@@ -71,26 +78,29 @@
         "frequency_v2_q0158_a": "I'd draw a clear boundary: \"Making me wait feels disrespectful of my time,\" and ask them to fix it.",
         "frequency_v2_q0158_b": "Rather than trying to change them, I'd start deliberately showing up a little late too.",
         "frequency_v2_q0158_c": "I'd find something to do while waiting, accept it as part of who they are, and not dwell on it much.",
-        "frequency_v2_q0158_d": "I'd make teasing jokes each time they're late, but I wouldn't turn it into a big fight."
-      }
+        "frequency_v2_q0158_d": "Whenever they're late, I'd make a pointed joke about it, but I wouldn't turn it into a big argument."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0159": {
-      "prompt": "On the first few dates, what payment dynamic makes you feel most comfortable?",
+      "prompt": "On the first few dates, which way of handling the bill would make you feel most comfortable?",
       "options": {
         "frequency_v2_q0159_a": "Split the bill — everyone pays for what they ordered, or exactly half and half. That's fairest.",
-        "frequency_v2_q0159_b": "If I pay once, the next time they pay entirely — that flow feels more organic.",
+        "frequency_v2_q0159_b": "If I pay one time and they pay the whole bill the next time, that feels more natural to me.",
         "frequency_v2_q0159_c": "I don't much care who pays; if I feel like it I'll cover it and I don't keep score.",
         "frequency_v2_q0159_d": "If they won't let me pay at all, I'd find that protective and I'd like it."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0160": {
-      "prompt": "After staying over at their place for the first time, you notice they deliberately left their toothbrush and a t-shirt in the bathroom when they left in the morning.",
+      "prompt": "After your partner stays over at your place for the first time and leaves the next morning, you notice they deliberately left their toothbrush and T-shirt in your bathroom.",
       "options": {
         "frequency_v2_q0160_a": "I'd smile — them slowly claiming a little space in my life and that sense of belonging feels lovely.",
         "frequency_v2_q0160_b": "Someone moving into my space that fast makes me uneasy; we're not at that stage yet.",
         "frequency_v2_q0160_c": "I wouldn't read into it — I'd see it as a practical move so they're comfortable next time.",
         "frequency_v2_q0160_d": "I'd look for a chance to do the same at their place."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0161": {
       "prompt": "You both work from home and spend the whole day in the same house. What does your ideal work setup look like?",
@@ -99,79 +109,88 @@
         "frequency_v2_q0161_b": "Separate rooms, doors closed — fully in my own world while I work.",
         "frequency_v2_q0161_c": "We can be in the same space, but we both have headphones on and stay completely focused on work.",
         "frequency_v2_q0161_d": "It depends on the day — sometimes I'd drift over to them, sometimes I'd retreat to my corner. No hard rule."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0162": {
-      "prompt": "Your partner finally landed the big promotion they'd been waiting for months, but the company required them to attend a last-minute celebration dinner. Your plans got canceled.",
+      "prompt": "Your partner gets the major promotion they've been waiting months for, but the company requires them to attend a last-minute celebration dinner that evening. Your plans are cancelled.",
       "options": {
-        "frequency_v2_q0162_a": "I'd be happy for them, but I'd feel a quiet sting that they didn't celebrate with me.",
+        "frequency_v2_q0162_a": "I'd be happy for them, but I'd quietly feel a little disappointed that we didn't celebrate together.",
         "frequency_v2_q0162_b": "I'd find it completely reasonable, focus on their success, and reschedule our plans.",
-        "frequency_v2_q0162_c": "I'd keep texting that night — \"wish I were there\" — to stay connected.",
-        "frequency_v2_q0162_d": "I'd fill my evening with other plans and get on with my life until they're done and back."
-      }
+        "frequency_v2_q0162_c": "I'd keep in touch by texting them during the evening, saying things like, \"I wish I were there too.\"",
+        "frequency_v2_q0162_d": "I'd quickly make other plans for my evening and get on with my own life until they're finished and back."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0163": {
       "prompt": "You had a draining, unpleasant day. Your partner got great news and is buzzing with energy. When you meet up that evening, what do you do?",
       "options": {
         "frequency_v2_q0163_a": "I'd set my mood aside and noticeably match their energy.",
-        "frequency_v2_q0163_b": "I'd say I'm tired and try to find a middle tempo that works for both of us.",
+        "frequency_v2_q0163_b": "I'd say I'm tired and try to find a pace that works for both of us.",
         "frequency_v2_q0163_c": "I'd stay with them but mostly keep the evening at my slower pace.",
-        "frequency_v2_q0163_d": "I'd protect my mood and prefer to keep the evening short."
-      }
+        "frequency_v2_q0163_d": "I'd stay in my own mood and prefer to keep the evening short."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0164": {
-      "prompt": "You got a message from your partner that's unusually cold — something like \"Fine, whatever you say.\"",
+      "prompt": "You get an unusually cold message from your partner: \"Fine, okay, it's up to you.\"",
       "options": {
         "frequency_v2_q0164_a": "I'd call right away, read their tone, and try to resolve it on the spot.",
         "frequency_v2_q0164_b": "I'd ask directly, \"Are you giving me the silent treatment?\" to break through the passive communication.",
-        "frequency_v2_q0164_c": "I'd take what they wrote at face value, not read into it, and carry on normally.",
-        "frequency_v2_q0164_d": "I wouldn't reply; I'd wait for them to calm down or bring it up clearly themselves."
-      }
+        "frequency_v2_q0164_c": "I'd take the message literally and carry on as normal without looking for a hidden meaning.",
+        "frequency_v2_q0164_d": "I wouldn't reply; I'd wait for them to calm down or bring up the issue clearly themselves."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0165": {
       "prompt": "Your partner swapped out a small item at home (like a rug or a painting) without asking you — as a surprise.",
       "options": {
         "frequency_v2_q0165_a": "I'd be touched they were thoughtful and took something off my plate; I'd thank them right away.",
-        "frequency_v2_q0165_b": "A surprise is nice, but I'd be a little put off that my opinion wasn't asked in our shared space.",
+        "frequency_v2_q0165_b": "The surprise is nice, but I'd find it a little odd that my opinion wasn't asked about a choice in our shared living space.",
         "frequency_v2_q0165_c": "If their taste differs from mine, I'd be upset and question why they threw the old one away.",
         "frequency_v2_q0165_d": "I wouldn't care — furniture and details don't matter that much to me."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0166": {
-      "prompt": "You're on a long drive and an argument escalated. What's your ideal way to handle it?",
+      "prompt": "You're on a long drive when voices rise over an issue and it turns into an argument. What's your ideal way to handle it?",
       "options": {
         "frequency_v2_q0166_a": "Pull over or keep driving and talk until things are fully settled.",
         "frequency_v2_q0166_b": "Turn on the radio, go silent, and spend at least an hour alone with my own thoughts.",
-        "frequency_v2_q0166_c": "Cut it short with something like \"you're right, let's drop it\" so we don't ruin the rest of the trip.",
-        "frequency_v2_q0166_d": "Present my logical arguments to the end and make clear where they're wrong."
-      }
+        "frequency_v2_q0166_c": "I'd cut it short with \"You're right, let's drop it\" so the argument doesn't spoil the rest of the trip.",
+        "frequency_v2_q0166_d": "I'd lay out all my logical arguments and make it clear where I think they're wrong."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0167": {
-      "prompt": "You have one free day together. Your partner says a close friend is in crisis (say, a breakup) and they need to go be with them.",
+      "prompt": "It's your only free day to spend together. Your partner says a close friend is going through a major crisis, such as a breakup, and they need to go be with them.",
       "options": {
-        "frequency_v2_q0167_a": "\"Of course they should go\" — I'd support it; spending the day solo is fine with me.",
-        "frequency_v2_q0167_b": "I'd okay it, but I'd feel a small letdown that our plan fell through.",
-        "frequency_v2_q0167_c": "I'd offer, \"Should I come too? We can support them together.\"",
+        "frequency_v2_q0167_a": "I'd support them going—of course they should—and I'd be fine spending the day on my own.",
+        "frequency_v2_q0167_b": "I'd be okay with them going, but I'd still feel a little disappointed that our plans fell through.",
+        "frequency_v2_q0167_c": "I'd offer, \"I can come too, and we can support them together.\"",
         "frequency_v2_q0167_d": "I'd question whether the friend's crisis really warrants canceling our day."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0168": {
       "prompt": "You like getting up at 8 on weekend mornings. Your partner wants to sleep until 1 pm.",
       "options": {
-        "frequency_v2_q0168_a": "I'd make my own breakfast, head out, handle my errands, and they'd join me when they're up.",
+        "frequency_v2_q0168_a": "I'd have breakfast, go out and run my errands, and let them join me when they wake up.",
         "frequency_v2_q0168_b": "I'd get restless, hang around the bed, and try sweetly waking them up.",
         "frequency_v2_q0168_c": "I'd suggest meeting in the middle — them up a bit earlier, me sleeping in a bit later.",
         "frequency_v2_q0168_d": "I'd read or scroll next to them in bed and wait to start the day on their schedule."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0169": {
-      "prompt": "Nothing's going right in your life right now. How do you manage communication and support with your partner during this stretch?",
+      "prompt": "Things in your life are going badly. During a period like this, how do you handle communication and support with your partner?",
       "options": {
         "frequency_v2_q0169_a": "I'd text or call more often, talk through my day, and clearly ask them to be there.",
-        "frequency_v2_q0169_b": "I'd suggest splitting concrete tasks — bills, errands — and ask them to take one on.",
-        "frequency_v2_q0169_c": "I'd pull back and keep to myself until I'm ready to bring it up.",
-        "frequency_v2_q0169_d": "I'd suggest a distraction — going out or doing something light to get my head clear."
-      }
+        "frequency_v2_q0169_b": "I'd suggest sharing practical tasks like meals or bills and ask them to take one of them on.",
+        "frequency_v2_q0169_c": "I'd reduce contact and withdraw into myself until I'm ready to bring it up.",
+        "frequency_v2_q0169_d": "I'd suggest doing something to take my mind off things, like going out or doing something light."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0170": {
       "prompt": "After a bad fight you said, \"I need a few hours alone.\" But your partner keeps trying to talk things through.",
@@ -179,62 +198,69 @@
         "frequency_v2_q0170_a": "I'd back down, drop my need for space, and start talking to calm them down.",
         "frequency_v2_q0170_b": "I'd say sharply, \"I asked you to give me space,\" and leave the room or the house.",
         "frequency_v2_q0170_c": "I'd let them talk but make it obvious I'm not listening — just waiting it out.",
-        "frequency_v2_q0170_d": "I'd calmly explain why talking now would make things worse and set a boundary with a time — \"let's talk tonight.\""
-      }
+        "frequency_v2_q0170_d": "I'd calmly explain why talking right now could make things worse and set a clear time boundary, like \"Let's talk tonight.\""
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0171": {
       "prompt": "At a place you're visiting, you notice the bartender/server openly flirting with your partner. Your partner just smiles politely.",
       "options": {
         "frequency_v2_q0171_a": "I'd be upset with my partner; I'd expect them to show they're bothered or set a boundary.",
-        "frequency_v2_q0171_b": "I'd find it amusing — I might even like that others find them attractive; if I trust them, I wouldn't dwell on it.",
-        "frequency_v2_q0171_c": "I'd step in, use physical touch or conversation to make it clear to the server that they're mine.",
-        "frequency_v2_q0171_d": "After we leave, I'd bring it up jokingly to gauge their reaction."
-      }
+        "frequency_v2_q0171_b": "I'd find it amusing; if I fully trust my partner, I might even enjoy seeing them get attention.",
+        "frequency_v2_q0171_c": "I'd step in and use physical contact or conversation to signal to the bartender that my partner is \"mine.\"",
+        "frequency_v2_q0171_d": "After we leave, I'd bring it up jokingly and gauge my partner's reaction."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0172": {
-      "prompt": "You're shopping for furniture for a place you'll live in together. What's your usual approach?",
+      "prompt": "You're shopping for furniture for the home you'll share. How do you usually make the choices?",
       "options": {
-        "frequency_v2_q0172_a": "Lists, measurements, and a plan before we go — we stick to it and get out fast.",
+        "frequency_v2_q0172_a": "Before we go, we'd make a list, take measurements, stick closely to the plan, and get out quickly.",
         "frequency_v2_q0172_b": "We wander the store and pick pieces we like in the moment that match our mood.",
-        "frequency_v2_q0172_c": "I handle most of the details — my eye and organization are better; they mostly approve.",
+        "frequency_v2_q0172_c": "I'd choose most of the details because I think I have a better eye and am more organized; they'd usually approve.",
         "frequency_v2_q0172_d": "Whatever they love works for me — peace at home matters more than the color of the couch."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0173": {
       "prompt": "Your partner says they want to quit their stable job of many years and start a risky venture.",
       "options": {
-        "frequency_v2_q0173_a": "I'd test them with structural, realistic questions: \"What's plan B? How long can our budget last?\"",
+        "frequency_v2_q0173_a": "I'd test the idea with practical, structured questions like, \"What's plan B? How long can our budget last?\"",
         "frequency_v2_q0173_b": "I'd support them following their passion all the way — we'll figure it out as we go.",
         "frequency_v2_q0173_c": "I'd worry a lot but hide it so I don't dampen their excitement.",
         "frequency_v2_q0173_d": "I'd offer to do the research and market analysis together and share the load."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0174": {
       "prompt": "You adopted a dog because your partner really wanted one. But morning walks have mostly fallen to you.",
       "options": {
         "frequency_v2_q0174_a": "I'd refuse clearly: \"You wanted this — the responsibility is yours.\"",
-        "frequency_v2_q0174_b": "I'd keep walking without saying anything — the dog is both our responsibility now.",
-        "frequency_v2_q0174_c": "I'd make a schedule with rules for who walks which days.",
-        "frequency_v2_q0174_d": "I'd joke about it now and then to remind them of their share, but I wouldn't make it a crisis."
-      }
+        "frequency_v2_q0174_b": "I'd keep doing the morning walks without complaining; after all, the dog is now both our responsibility.",
+        "frequency_v2_q0174_c": "I'd make a schedule that clearly sets which days each of us handles the walk.",
+        "frequency_v2_q0174_d": "I'd occasionally make a joking but pointed comment to remind them of their responsibility, without turning it into a major conflict."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0175": {
       "prompt": "You have a 10-day vacation window. What's your ideal scenario?",
       "options": {
         "frequency_v2_q0175_a": "Phones off, isolated from the world in a cabin somewhere with no one else around.",
-        "frequency_v2_q0175_b": "A lively route or resort with other couples/friends and lots of activities.",
+        "frequency_v2_q0175_b": "A lively, social resort or trip with other couples or friends around and lots of activities.",
         "frequency_v2_q0175_c": "Days where we each do our own thing (they swim, I visit museums) and meet up in the evenings.",
         "frequency_v2_q0175_d": "A cultural tour with every detail planned — where we eat each day already decided."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0176": {
-      "prompt": "Your partner watched a documentary and decided to go fully vegan or follow a very strict diet from that day on.",
+      "prompt": "Your partner watches a documentary and decides to go fully vegan or start a very strict diet.",
       "options": {
-        "frequency_v2_q0176_a": "I'd adapt my diet too and follow a rule that nothing harmful comes into the house.",
-        "frequency_v2_q0176_b": "I'd respect their choice but wouldn't change what I eat — we'd cook two different menus at home.",
+        "frequency_v2_q0176_a": "I'd follow their rule of keeping anything they consider \"harmful\" out of the house and change my diet to join them.",
+        "frequency_v2_q0176_b": "I'd respect their decision, but I wouldn't give up the foods I eat; we'd prepare two different meals at home.",
         "frequency_v2_q0176_c": "I'd worry about how much this would limit us when eating out.",
-        "frequency_v2_q0176_d": "I'd watch from a distance first to see how long they stick with it, then adjust."
-      }
+        "frequency_v2_q0176_d": "I'd watch from a distance at first to see how long they can keep it up, then adjust depending on how it goes."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0177": {
       "prompt": "How do you share a deep physical or psychological insecurity with your partner?",
@@ -242,80 +268,89 @@
         "frequency_v2_q0177_a": "I'd be transparent early in the relationship — I want them to know and love all of me.",
         "frequency_v2_q0177_b": "I'd never open up on my own; I'd only mention it if it became a real issue.",
         "frequency_v2_q0177_c": "As they slowly share their own vulnerabilities, I'd gradually open up mine too.",
-        "frequency_v2_q0177_d": "I'd explain it rationally, briefly and clearly, without dramatizing it."
-      }
+        "frequency_v2_q0177_d": "I'd explain it briefly and clearly, almost like stating a fact, without dramatizing it."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0178": {
-      "prompt": "You're 40 minutes into a car ride. Your partner turned off the radio, is staring at the road, and not talking.",
+      "prompt": "You're on a 40-minute drive. Your partner turns off the radio, looks at the road, and doesn't say anything.",
       "options": {
         "frequency_v2_q0178_a": "I'd feel the need to break the silence — \"Why did you go quiet? What are you thinking?\"",
         "frequency_v2_q0178_b": "I'd enjoy the quiet too and drift into my own thoughts.",
-        "frequency_v2_q0178_c": "I'd get bored, turn the music back on, or crack a joke to liven things up.",
-        "frequency_v2_q0178_d": "I'd assume something's bothering them and offer support — holding their hand or touching their leg."
-      }
+        "frequency_v2_q0178_c": "I'd get bored, turn the music back on, or bring up something funny to liven things up.",
+        "frequency_v2_q0178_d": "I'd assume something is bothering them and offer support by holding their hand or touching their leg."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0179": {
-      "prompt": "Your partner got obsessed with a new hobby/project. For 3 days they've barely left the computer and hardly talk to you.",
+      "prompt": "Your partner has become intensely absorbed in a new hobby or project. For three days, they've barely left the computer and have hardly talked to you.",
       "options": {
-        "frequency_v2_q0179_a": "I'd feel undervalued and ask them to put a stop to it.",
-        "frequency_v2_q0179_b": "I'd appreciate their passion but set a condition — \"at least let's have dinner together.\"",
+        "frequency_v2_q0179_a": "I'd feel unvalued because I'm getting so little attention and ask them to put an end to this situation.",
+        "frequency_v2_q0179_b": "I'd appreciate their passion, but I'd insist that we at least have dinner together so we don't lose our connection.",
         "frequency_v2_q0179_c": "Great opportunity — I'd dive into my own backlog of shows, games, or friends.",
-        "frequency_v2_q0179_d": "I'd bring them coffee and snacks and support their project from the background."
-      }
+        "frequency_v2_q0179_d": "I'd bring them coffee and snacks to support the project and quietly stay present in the background."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0180": {
       "prompt": "You hit an unexpected financial loss that affects you both. How do you handle that evening?",
       "options": {
-        "frequency_v2_q0180_a": "I'd immediately write up a plan — how bad it is and exactly what steps we'll take.",
-        "frequency_v2_q0180_b": "I'd at least nail down a first step and when we'll revisit it.",
-        "frequency_v2_q0180_c": "I'd wait a few days before making a plan.",
-        "frequency_v2_q0180_d": "I'd carry on with daily life for now without a special plan."
-      }
+        "frequency_v2_q0180_a": "I'd immediately write down exactly how much we're short and the steps we'll take to close the gap.",
+        "frequency_v2_q0180_b": "I'd at least clarify the first step and when we'll look at the situation again.",
+        "frequency_v2_q0180_c": "I'd wait a few days and make a plan later.",
+        "frequency_v2_q0180_d": "For now, I'd carry on with our daily routine without making a special plan."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0181": {
-      "prompt": "You're only two months in. Mid-conversation your partner jokes, \"We'll name our future kids this.\"",
+      "prompt": "You're only two months into the relationship. During a conversation, your partner jokes, \"We'll give our future kids this name.\"",
       "options": {
-        "frequency_v2_q0181_a": "A warm feeling would wash over me — I like that they're as hopeful about this as I am.",
+        "frequency_v2_q0181_a": "I'd feel a warm rush; I'd like knowing they look at the relationship with as much hope as I do.",
         "frequency_v2_q0181_b": "Even as a joke, big talk this early makes me want to pull back.",
-        "frequency_v2_q0181_c": "I'd joke back, but inwardly I'd note \"too soon\" and file it away.",
-        "frequency_v2_q0181_d": "I'd laugh it off to keep the moment light but change the subject before it gets serious."
-      }
+        "frequency_v2_q0181_c": "I'd joke back, but internally I'd think, \"It's still very early,\" and make a mental note of it.",
+        "frequency_v2_q0181_d": "I'd laugh it off so I don't spoil the moment, but I'd quickly change the subject in case it starts becoming serious."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0182": {
-      "prompt": "Friday afternoon. Your partner shows up at your work and says, \"Throw a couple things in your bag — our flight's in an hour. We're leaving for the weekend!\"",
+      "prompt": "It's Friday afternoon. Your partner shows up at your workplace and says, \"Pack a couple of things—we have a flight in an hour. We're going away for the weekend!\"",
       "options": {
-        "frequency_v2_q0182_a": "I'd lose my mind with excitement — them in control and huge surprises like this are the peak for me.",
-        "frequency_v2_q0182_b": "I'd be happy but might interrupt the moment with practical questions: \"Where? Is lodging booked? What's the weather?\"",
-        "frequency_v2_q0182_c": "I'd stress out — I had my own plans and things to handle; I wish they'd asked first.",
-        "frequency_v2_q0182_d": "I'd get organized fast, pack my bag, and go along with whatever they say without much trouble."
-      }
+        "frequency_v2_q0182_a": "I'd be wildly excited; I love them taking control and pulling off huge surprises like this.",
+        "frequency_v2_q0182_b": "I'd be happy, but I might interrupt the moment with practical questions like, \"Where are we going? Is the accommodation booked? What's the weather like?\"",
+        "frequency_v2_q0182_c": "I'd be very stressed. I already had my own plans and things I needed to take care of; I'd have wanted them to ask me first.",
+        "frequency_v2_q0182_d": "I'd get organized, pack quickly, and have no trouble adapting to whatever they have planned."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0183": {
       "prompt": "You're telling them about a problem and they keep offering solutions. You actually just want to vent. What do you do?",
       "options": {
         "frequency_v2_q0183_a": "I'd say, \"I don't need solutions right now — I just need you to listen.\"",
-        "frequency_v2_q0183_b": "I'd ask them to listen first and save suggestions for later.",
-        "frequency_v2_q0183_c": "Even though I'd prefer differently, I'd keep listening without cutting them off.",
-        "frequency_v2_q0183_d": "I wouldn't say what I need; I'd let the conversation proceed on their terms."
-      }
+        "frequency_v2_q0183_b": "I'd ask them to listen first and save the suggestions for later.",
+        "frequency_v2_q0183_c": "Even though I'd prefer something different, I'd keep listening to their suggestions without stopping them.",
+        "frequency_v2_q0183_d": "I wouldn't say what I need; I'd let the conversation continue in the direction they take it."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0184": {
-      "prompt": "Your partner is cramming for a big exam/project and says, \"We might not see each other on weekends this month — I need to study.\"",
+      "prompt": "Your partner is preparing for an intense exam or project and says, \"We might not be able to see each other on weekends this month—I need to study.\"",
       "options": {
         "frequency_v2_q0184_a": "A month feels like a long time — if they can't even make time for coffee, I'd think they're pulling away.",
         "frequency_v2_q0184_b": "No problem — a great opening for my own social life and solo time.",
-        "frequency_v2_q0184_c": "If that's what they need for their future, I'd follow the rules fully and cheer them on.",
+        "frequency_v2_q0184_c": "If that's what they need to do for their future, I'd fully respect the arrangement and encourage them.",
         "frequency_v2_q0184_d": "We might not meet, but I'd suggest long phone calls every night before bed."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0185": {
       "prompt": "Your most trusted friend says they don't think your partner is right for you and that the relationship isn't good for you.",
       "options": {
         "frequency_v2_q0185_a": "I'd get defensive, fiercely protect my partner, and set a clear boundary with my friend.",
-        "frequency_v2_q0185_b": "I'd take it seriously — they might see something from the outside that I'm missing.",
+        "frequency_v2_q0185_b": "I'd take it seriously and think it through; my friend might see something from the outside that I can't.",
         "frequency_v2_q0185_c": "I'd shut it down with \"we're fine\" and keep my friendships separate from the relationship.",
-        "frequency_v2_q0185_d": "I'd be emotionally shaken — my friend's disapproval would create inner unease."
-      }
+        "frequency_v2_q0185_d": "I'd be emotionally affected; my friend's disapproval would leave me feeling uneasy inside."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0186": {
       "prompt": "You yelled during a big fight. Ten minutes later you realize you were completely in the wrong.",
@@ -324,133 +359,148 @@
         "frequency_v2_q0186_b": "I'd go to them right away, swallow my pride, and say, \"I misunderstood — I'm really sorry.\"",
         "frequency_v2_q0186_c": "Instead of addressing it directly, I'd soften things with actions — making coffee or bringing something they like.",
         "frequency_v2_q0186_d": "I'd acknowledge where they're right but also bring their part to the table — what they did that triggered my reaction."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0187": {
-      "prompt": "You're watching a movie together but your partner keeps on their phone, smiling and texting someone.",
+      "prompt": "You're watching a movie together, but your partner keeps using their phone, smiling and messaging people.",
       "options": {
-        "frequency_v2_q0187_a": "I'd be upset — using your phone while we're together feels disrespectful to me.",
-        "frequency_v2_q0187_b": "I wouldn't care — them texting friends during a movie doesn't bother me.",
+        "frequency_v2_q0187_a": "I'd be very bothered; I'd see being on the phone while we're spending time together as disrespectful to me.",
+        "frequency_v2_q0187_b": "I wouldn't mind; them messaging friends while we're watching the movie wouldn't bother me.",
         "frequency_v2_q0187_c": "I'd ask, \"Who are you texting? What was funny?\" and try to join the conversation.",
         "frequency_v2_q0187_d": "I'd pick up my own phone and retreat into my own digital world."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0188": {
-      "prompt": "You're invited to your partner's cousin's 500-person wedding with lots of dancing. You don't know anyone there.",
+      "prompt": "You're invited to your partner's cousin's 500-person wedding, with lots of dancing. You don't know anyone there.",
       "options": {
-        "frequency_v2_q0188_a": "Crowds, noise, and strangers exhaust me — I'd say I don't want to go and let them go alone.",
-        "frequency_v2_q0188_b": "I'd go for their sake, stick by their side all night, and try to get through it.",
+        "frequency_v2_q0188_a": "Crowds, noise, and people I don't know wear me out; I'd say I don't want to go and let my partner go without me.",
+        "frequency_v2_q0188_b": "I'd go for their sake and stay close to them all night to get through it.",
         "frequency_v2_q0188_c": "I'd go, start conversations with strangers at the table, and make my own fun.",
-        "frequency_v2_q0188_d": "I'd agree upfront: \"I'll come, but we leave after two hours.\""
-      }
+        "frequency_v2_q0188_d": "I'd make an agreement upfront: \"I'll come, but we'll stay for two hours and leave early.\""
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0189": {
-      "prompt": "After weeks of busy days, you have a completely empty vacation day with zero plans. How does the day start?",
+      "prompt": "After weeks, you finally have a completely free day off with nothing planned. How does your day start?",
       "options": {
-        "frequency_v2_q0189_a": "With a to-do list: \"I'll clean the house, watch that film, finish that book.\"",
-        "frequency_v2_q0189_b": "Hours in bed doing whatever I feel like, not even tracking the time.",
-        "frequency_v2_q0189_c": "I'd ask my partner, \"What are we doing today — what's your plan?\" and wait for them to set the tone.",
-        "frequency_v2_q0189_d": "I'd head straight out the door, wander streets and cafés, and mix with people."
-      }
+        "frequency_v2_q0189_a": "I'd start with a list of goals like, \"Clean the house, watch that movie, finish that book.\"",
+        "frequency_v2_q0189_b": "I'd spend hours in bed, doing whatever I feel like in the moment and even losing track of time.",
+        "frequency_v2_q0189_c": "I'd ask my partner, \"What are we doing today? What's your plan?\" and wait for them to give the day some direction.",
+        "frequency_v2_q0189_d": "I'd head out as soon as I wake up—into the streets, cafés, and around other people."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0190": {
-      "prompt": "You texted on a weekend afternoon. It was read, but your partner didn't reply for a full six hours.",
+      "prompt": "At noon on the weekend, you send your partner a message. They read it but don't reply for a full six hours.",
       "options": {
         "frequency_v2_q0190_a": "I'd spiral — worrying something happened or they're mad at me.",
         "frequency_v2_q0190_b": "They probably had something on, forgot their phone, etc. — I'd carry on with my day as usual.",
-        "frequency_v2_q0190_c": "I'd be annoyed they read it and went silent; I'd decide not to text again until they do.",
+        "frequency_v2_q0190_c": "I'd get annoyed that they read it and left it there, and decide I won't message again until they do.",
         "frequency_v2_q0190_d": "After 2–3 hours I'd send a follow-up: \"Hey, is everything okay?\""
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0191": {
-      "prompt": "Once your relationship settles into a daily rhythm, what feels most natural for keeping the bond going?",
+      "prompt": "Once your relationship settles into a daily routine, what feels most natural to you for keeping the connection going?",
       "options": {
-        "frequency_v2_q0191_a": "I'd say \"I'm here for you / so glad you're in my life\" a few times a day and keep verbal closeness alive.",
-        "frequency_v2_q0191_b": "We'd spend time side by side even without talking — quiet companionship is enough for me.",
-        "frequency_v2_q0191_c": "Everyone handles their own day; we meet up in shared time in the evening.",
-        "frequency_v2_q0191_d": "I'd keep the shared calendar and budget clear — I want to know what's happening when."
-      }
+        "frequency_v2_q0191_a": "A few times during the day, I'd openly say things like \"I'm here for you\" or \"I'm glad you're in my life\" to keep verbal closeness alive.",
+        "frequency_v2_q0191_b": "I'd spend time side by side even without talking; quiet companionship is enough for me.",
+        "frequency_v2_q0191_c": "During the day we'd each do our own thing, then come together for shared time in the evening.",
+        "frequency_v2_q0191_d": "I'd keep our shared calendar and financial plans clear; I like knowing what is happening and when."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0192": {
       "prompt": "After bad news you sit quietly at home. Your partner says they want to stay by your side. What do you do?",
       "options": {
-        "frequency_v2_q0192_a": "I'd say I need to be alone for a while.",
-        "frequency_v2_q0192_b": "I'd want them in the same house but I'd pull into my own space a bit.",
-        "frequency_v2_q0192_c": "I'd let them sit with me and mostly spend the time together.",
+        "frequency_v2_q0192_a": "I'd say I want to be alone for a while.",
+        "frequency_v2_q0192_b": "I'd want them to stay in the same home, but I'd retreat into my own space a little.",
+        "frequency_v2_q0192_c": "I'd let them sit with me and spend most of the time together.",
         "frequency_v2_q0192_d": "I wouldn't want to be alone right then — I'd ask them not to leave."
-      }
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0193": {
-      "prompt": "On your birthday your partner gave you a gift that's clearly not your style — carelessly chosen or misunderstood.",
+      "prompt": "On your birthday, your partner gives you a gift that's clearly not your style and seems to have been chosen without much thought or based on a misunderstanding of your taste.",
       "options": {
-        "frequency_v2_q0193_a": "I wouldn't let on — the thought counts; I'd act happy and stash the gift away.",
-        "frequency_v2_q0193_b": "I'd thank them but say clearly, \"This isn't my style — should we exchange it together?\"",
-        "frequency_v2_q0193_c": "I'd thank them in the moment, barely use the gift, and bring it up indirectly later.",
-        "frequency_v2_q0193_d": "I'd joke, \"Did you really buy this for me?\" and soften my way into making my preference clear."
-      }
+        "frequency_v2_q0193_a": "I wouldn't let it show. I'd tell myself that the thought is what matters, act happy, and keep the gift.",
+        "frequency_v2_q0193_b": "I'd thank them, but openly say, \"This isn't really my style—should we exchange it together?\"",
+        "frequency_v2_q0193_c": "I'd thank them in the moment, use the gift very little afterward, and bring it up indirectly later.",
+        "frequency_v2_q0193_d": "I'd joke, \"Did you seriously get this for me?\" and use humor to soften the moment while making my opinion clear."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0194": {
-      "prompt": "You each have separate friend groups that don't mesh well. You're figuring out Friday night.",
+      "prompt": "You have very different friend groups that don't get along particularly well. You need to decide what to do on Friday night.",
       "options": {
-        "frequency_v2_q0194_a": "We'd each go out with our own friends — I'd treat that as freedom.",
-        "frequency_v2_q0194_b": "I wouldn't force the groups together, but I'd alternate — their group one Friday, mine the next.",
-        "frequency_v2_q0194_c": "I'd skip my friends and make a one-on-one plan with my partner — that feels more reliable.",
-        "frequency_v2_q0194_d": "I'd arrange a big shared event (say, a concert) and hope both groups have to mingle."
-      }
+        "frequency_v2_q0194_a": "We'd each go out with our own friends; I'd see that as a kind of freedom for both of us.",
+        "frequency_v2_q0194_b": "I wouldn't force the groups together, but I'd suggest spending one Friday with their group and the next with mine.",
+        "frequency_v2_q0194_c": "I'd rather skip seeing friends and make a plan for just the two of us; I'd see that as the more reliable option.",
+        "frequency_v2_q0194_d": "I'd arrange a big shared event, like a concert, and hope it forces the two groups to mix a little."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0195": {
       "prompt": "You saw a suspicious message notification on your partner's phone (screen locked).",
       "options": {
-        "frequency_v2_q0195_a": "It would eat at me — I'd sneak a look when they're asleep or in the shower.",
-        "frequency_v2_q0195_b": "I'd pick up the phone right there and confront them: \"Who's this message from?\"",
+        "frequency_v2_q0195_a": "It would eat at me; when they're asleep or in the shower, I'd enter their password and secretly read the message.",
+        "frequency_v2_q0195_b": "I'd pick up the phone and confront them right there: \"Who is that message from?\"",
         "frequency_v2_q0195_c": "I'd hold back — going through their phone crosses a line for me.",
-        "frequency_v2_q0195_d": "I'd watch from a distance for days, watching for follow-up messages or odd behavior."
-      }
+        "frequency_v2_q0195_d": "I'd watch from a distance for days to see whether more messages appear or their behavior seems unusual."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0196": {
-      "prompt": "Sunday morning, no plans. You're both on the couch.",
+      "prompt": "It's Sunday morning. You have no plans and you're both sitting on the couch.",
       "options": {
-        "frequency_v2_q0196_a": "\"Let's get up — we're going out for breakfast\" — I'd kick-start the day and raise the energy.",
-        "frequency_v2_q0196_b": "I'd keep reading my book or scrolling until they ask \"what should we do?\"",
-        "frequency_v2_q0196_c": "Sundays shouldn't need a plan — I'd happily stay in pajamas all day.",
-        "frequency_v2_q0196_d": "I'd ask questions to decide together: \"What do you want to eat — should we go out or stay in?\""
-      }
+        "frequency_v2_q0196_a": "I'd say, \"Come on, get up—we're going to that place for breakfast,\" raise the energy, and get the day started myself.",
+        "frequency_v2_q0196_b": "I'd quietly keep reading my book or scrolling on my phone until they ask, \"What should we do?\"",
+        "frequency_v2_q0196_c": "I think Sundays shouldn't be planned at all; I'd happily spend the whole day in pajamas.",
+        "frequency_v2_q0196_d": "I'd ask questions like, \"What do you want to eat? Should we go out or stay in?\" so we can decide together."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0197": {
-      "prompt": "In a future marriage or serious partnership, how do you expect finances to work?",
+      "prompt": "In a future marriage or serious long-term relationship, how would you expect finances to be handled?",
       "options": {
-        "frequency_v2_q0197_a": "One shared account — the yours/mine split should disappear entirely.",
-        "frequency_v2_q0197_b": "A joint pool for household costs, but each person's salary and savings stay in their own account.",
-        "frequency_v2_q0197_c": "I'd want to handle the money — I'd manage bills and budgeting so I can relax.",
-        "frequency_v2_q0197_d": "I wouldn't set rigid rules upfront — a natural balance based on income and need."
-      }
+        "frequency_v2_q0197_a": "There should be one joint account, and the idea of \"your money\" and \"my money\" should disappear completely.",
+        "frequency_v2_q0197_b": "There should be a shared pool for household expenses, while each person's salary and personal savings stay in their own account.",
+        "frequency_v2_q0197_c": "I'd want to handle the finances; I'd feel more comfortable managing the bills and budget.",
+        "frequency_v2_q0197_d": "I wouldn't set strict rules in advance; we'd find a natural balance based on the circumstances, income, and needs."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0198": {
-      "prompt": "Your partner is inexplicably grumpy today, arguing with everything and giving off negative energy.",
+      "prompt": "For no clear reason, your partner is very grouchy that day, objects to everything, and gives off a lot of negative energy.",
       "options": {
         "frequency_v2_q0198_a": "The negativity would rub off on me — I'd start snapping back.",
-        "frequency_v2_q0198_b": "I'd leave them alone and keep physical and emotional distance until they settle.",
-        "frequency_v2_q0198_c": "I'd try to lift their mood — do things they like, crack jokes to lighten the room.",
-        "frequency_v2_q0198_d": "I'd keep probing — \"What's wrong? Why are you like this?\" until I get a rational explanation."
-      }
+        "frequency_v2_q0198_b": "I'd leave them alone and keep some physical and emotional distance until their mood improves.",
+        "frequency_v2_q0198_c": "I'd do things they like and make jokes to try to lift their mood.",
+        "frequency_v2_q0198_d": "I'd keep asking, \"What's wrong? Why are you like this?\" until I get an explanation that makes sense to me."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0199": {
-      "prompt": "You're still in the getting-to-know-you stage. Your partner keeps talking about old memories, high school, and childhood.",
+      "prompt": "You're still in the early stages of getting to know each other. Your partner keeps talking about old memories, high school, and childhood.",
       "options": {
         "frequency_v2_q0199_a": "I'd love it — I'd share my own past too and jump into the deep conversation quickly.",
-        "frequency_v2_q0199_b": "I'd listen with interest but keep my answers surface-level — I'm not ready to open up that much yet.",
-        "frequency_v2_q0199_c": "Focusing this much on the past bores me — I'd rather talk about now and the future.",
-        "frequency_v2_q0199_d": "I'd steer toward lighter, outward-facing topics — music, movies, current events."
-      }
+        "frequency_v2_q0199_b": "I'd listen with interest, but give more surface-level answers because I'm not ready to open up that much yet.",
+        "frequency_v2_q0199_c": "I'd get bored with so much focus on the past; I'd rather focus on life now and the future.",
+        "frequency_v2_q0199_d": "I'd try to steer the conversation toward lighter, more social topics like music, movies, or current events."
+      },
+      "translation_review_status": "REVIEWED"
     },
     "frequency_v2_q0200": {
-      "prompt": "Your partner keeps insisting, \"You'd look better if you did your hair/style this way.\"",
+      "prompt": "Your partner keeps suggesting changes to your clothes or hairstyle, saying, \"You'd look better if you did it this way.\"",
       "options": {
-        "frequency_v2_q0200_a": "I'd trust their taste and happily try the look to make them happy.",
-        "frequency_v2_q0200_b": "I might try it a few times, but I wouldn't stray from what I actually like.",
-        "frequency_v2_q0200_c": "My appearance is entirely mine — I'd state clearly that I don't welcome input on it.",
-        "frequency_v2_q0200_d": "I'd adopt it if the critique makes sense, but I wouldn't change my style just because they want me to."
-      }
+        "frequency_v2_q0200_a": "I'd trust their taste and happily try the style to make them happy.",
+        "frequency_v2_q0200_b": "I might try it a few times, but fundamentally I'd stick with what I like.",
+        "frequency_v2_q0200_c": "My appearance is entirely my own; I'd clearly say that I don't like them interfering with it.",
+        "frequency_v2_q0200_d": "If I think the criticism makes sense, I'd take it on board, but I wouldn't change my style just because they want me to."
+      },
+      "translation_review_status": "REVIEWED"
     }
   }
 }

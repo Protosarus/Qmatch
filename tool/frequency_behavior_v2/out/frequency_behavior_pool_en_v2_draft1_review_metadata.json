@@ -329,13 +329,13 @@
     "phase2f_reviewed_option_count": 1620,
     "phase2f_pending_drop_option_count": 84,
     "translation_review_status_counts": {
-      "REVIEWED": 150,
-      "PENDING_HUMAN_REVIEW": 274,
+      "REVIEWED": 200,
+      "PENDING_HUMAN_REVIEW": 224,
       "CROSS_CULTURAL_REVIEW_REQUIRED": 2
     },
     "translation_review_flag_counts": {
-      "possible_intensity_drift": 91,
-      "possible_unnatural_english": 12,
+      "possible_intensity_drift": 90,
+      "possible_unnatural_english": 13,
       "possible_cultural_mismatch": 2
     },
     "translation_version": "frequency_v2_en_semantic_v1"
@@ -13390,7 +13390,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "İlk buluşmanızda kahve içtiniz ve sohbet çok iyi aktı. İki saat geçti ve partnerin \"Buradan çıkıp bilmediğimiz bir sokağa girelim, kaybolalım\" dedi. Ne hissedersin?",
       "translation_target_prompt_en": "On your first date you're having coffee and the conversation is going really well. Two hours in, your partner says, \"Let's get out of here and wander down a street we've never seen — let's get lost.\" How do you feel?"
@@ -13471,7 +13471,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Flört dönemindesiniz. Partnerinin, eski sevgilisiyle sosyal medyada hala takipleştiğini fark ettin. İlk tepkin genelde ne olur?",
       "translation_target_prompt_en": "You're in the early dating stage. You notice your partner still follows their ex on social media. What's your usual first reaction?"
@@ -13558,7 +13558,7 @@
       "rewrite_pending": false,
       "selector_eligible": false,
       "selector_exclusion_reason": "drop_from_selectable_pool",
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
@@ -13644,7 +13644,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Birlikte ilk kez 3 günlük bir tatile çıkacaksınız. Planlama süreci sence nasıl işlemeli?",
       "translation_target_prompt_en": "You're taking your first 3-day trip together. How should the planning process work?"
@@ -13734,7 +13734,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin ağır bir grip oldu ve evde yatıyor. Ona nasıl destek olmayı tercih edersin?",
       "translation_target_prompt_en": "Your partner has a bad flu and is lying in bed at home. How do you prefer to support them?"
@@ -13810,7 +13810,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "İlişkinizin 6. ayındasınız. Partnerin seni aniden, çok sevdiği ailesiyle bir akşam yemeğine davet etti.",
       "translation_target_prompt_en": "You're six months into the relationship. Your partner suddenly invites you to dinner with the family they're very close to."
@@ -13902,7 +13902,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
@@ -13992,7 +13992,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
@@ -14073,12 +14073,13 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
+        "possible_unnatural_english",
         "possible_intensity_drift"
       ],
       "translation_source_prompt_tr": "İlk birkaç buluşmada hesap ödeme dinamiklerinin nasıl olması seni en rahat hissettirir?",
-      "translation_target_prompt_en": "On the first few dates, what payment dynamic makes you feel most comfortable?"
+      "translation_target_prompt_en": "On the first few dates, which way of handling the bill would make you feel most comfortable?"
     },
     {
       "item_id": "frequency_v2_q0160",
@@ -14160,12 +14161,12 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
-      "translation_source_prompt_tr": "Partnerin kendi evinde ilk defa gece kalıp sabah gittikten sonra, bilerek diş fırçasını ve tişörtünü banyoda bıraktığını fark ettin.",
-      "translation_target_prompt_en": "After staying over at their place for the first time, you notice they deliberately left their toothbrush and a t-shirt in the bathroom when they left in the morning."
+      "translation_source_prompt_tr": "Partnerin senin evinde ilk defa gece kalıp sabah gittikten sonra, bilerek diş fırçasını ve tişörtünü banyoda bıraktığını fark ettin.",
+      "translation_target_prompt_en": "After your partner stays over at your place for the first time and leaves the next morning, you notice they deliberately left their toothbrush and T-shirt in your bathroom."
     },
     {
       "item_id": "frequency_v2_q0161",
@@ -14251,7 +14252,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "İkiniz de home-office çalışıyorsunuz ve bütün gün aynı evdesiniz. İdeal çalışma ortamın nasıldır?",
       "translation_target_prompt_en": "You both work from home and spend the whole day in the same house. What does your ideal work setup look like?"
@@ -14332,10 +14333,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin aylardır beklediği çok büyük bir terfiyi aldı ama şirket onu akşam ani bir kutlama yemeğine zorunlu tuttu. Sizin planınız iptal oldu.",
-      "translation_target_prompt_en": "Your partner finally landed the big promotion they'd been waiting for months, but the company required them to attend a last-minute celebration dinner. Your plans got canceled."
+      "translation_target_prompt_en": "Your partner gets the major promotion they've been waiting months for, but the company requires them to attend a last-minute celebration dinner that evening. Your plans are cancelled."
     },
     {
       "item_id": "frequency_v2_q0163",
@@ -14423,7 +14424,7 @@
       "selector_eligible": true,
       "selector_exclusion_reason": null,
       "phase1g_status": "rewrite_applied",
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
@@ -14512,10 +14513,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerinden, normalde kullanmadığı kadar soğuk ve \"İyi peki, sen bilirsin.\" şeklinde bir mesaj aldın.",
-      "translation_target_prompt_en": "You got a message from your partner that's unusually cold — something like \"Fine, whatever you say.\""
+      "translation_target_prompt_en": "You get an unusually cold message from your partner: \"Fine, okay, it's up to you.\""
     },
     {
       "item_id": "frequency_v2_q0165",
@@ -14602,7 +14603,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin, evdeki küçük bir eşyayı (örn: halı, tablo) sana hiç sormadan yenisiyle değiştirmiş ve sana sürpriz yapmış.",
       "translation_target_prompt_en": "Your partner swapped out a small item at home (like a rug or a painting) without asking you — as a surprise."
@@ -14690,10 +14691,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Arabada uzun yoldasınız ve bir konu yüzünden sesler yükseldi, kavga çıktı. İdeal çözüm yöntemin nedir?",
-      "translation_target_prompt_en": "You're on a long drive and an argument escalated. What's your ideal way to handle it?"
+      "translation_target_prompt_en": "You're on a long drive when voices rise over an issue and it turns into an argument. What's your ideal way to handle it?"
     },
     {
       "item_id": "frequency_v2_q0167",
@@ -14773,12 +14774,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
-      "translation_review_flags": [
-        "possible_intensity_drift"
-      ],
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [],
       "translation_source_prompt_tr": "Birlikte geçireceğiniz tek boş gününüz. Partnerin, yakın bir arkadaşının büyük bir krizi (örn: ayrılık) olduğunu ve onun yanına gitmesi gerektiğini söyledi.",
-      "translation_target_prompt_en": "You have one free day together. Your partner says a close friend is in crisis (say, a breakup) and they need to go be with them."
+      "translation_target_prompt_en": "It's your only free day to spend together. Your partner says a close friend is going through a major crisis, such as a breakup, and they need to go be with them."
     },
     {
       "item_id": "frequency_v2_q0168",
@@ -14865,7 +14864,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Sen hafta sonu sabah 8'de kalkıp güne başlamayı seviyorsun. Partnerin ise öğlen 1'e kadar uyumak istiyor.",
       "translation_target_prompt_en": "You like getting up at 8 on weekend mornings. Your partner wants to sleep until 1 pm."
@@ -14948,10 +14947,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Hayatındaki işler hiç yolunda gitmiyor. Bu dönemde partnerinle iletişimini ve desteği nasıl yönetirsin?",
-      "translation_target_prompt_en": "Nothing's going right in your life right now. How do you manage communication and support with your partner during this stretch?"
+      "translation_target_prompt_en": "Things in your life are going badly. During a period like this, how do you handle communication and support with your partner?"
     },
     {
       "item_id": "frequency_v2_q0170",
@@ -15044,7 +15043,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
@@ -15126,7 +15125,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Gittiğiniz bir mekanda barmenin/garsonun partnerine açıkça flörtöz davrandığını fark ettin. Partnerin ise sadece kibarca gülümsedi.",
       "translation_target_prompt_en": "At a place you're visiting, you notice the bartender/server openly flirting with your partner. Your partner just smiles politely."
@@ -15215,10 +15214,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Ortak yaşayacağınız eve eşya bakıyorsunuz. Seçim süreciniz genelde nasıldır?",
-      "translation_target_prompt_en": "You're shopping for furniture for a place you'll live in together. What's your usual approach?"
+      "translation_target_prompt_en": "You're shopping for furniture for the home you'll share. How do you usually make the choices?"
     },
     {
       "item_id": "frequency_v2_q0173",
@@ -15286,7 +15285,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin yıllardır çalıştığı garantili işinden istifa edip, riskli bir girişim kurmak istediğini söyledi.",
       "translation_target_prompt_en": "Your partner says they want to quit their stable job of many years and start a risky venture."
@@ -15376,7 +15375,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
@@ -15467,10 +15466,8 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
-      "translation_review_flags": [
-        "possible_intensity_drift"
-      ],
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [],
       "translation_source_prompt_tr": "10 günlük uzun bir tatil fırsatınız var. İdeal tatil senaryon hangisidir?",
       "translation_target_prompt_en": "You have a 10-day vacation window. What's your ideal scenario?"
     },
@@ -15565,10 +15562,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin bir belgesel izledi ve o günden sonra tamamen vegan/çok sıkı bir diyete geçmeye karar verdi.",
-      "translation_target_prompt_en": "Your partner watched a documentary and decided to go fully vegan or follow a very strict diet from that day on."
+      "translation_target_prompt_en": "Your partner watches a documentary and decides to go fully vegan or start a very strict diet."
     },
     {
       "item_id": "frequency_v2_q0177",
@@ -15641,7 +15638,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Bedensel veya psikolojik derin bir özgüvensizliğini partnerinle nasıl paylaşırsın?",
       "translation_target_prompt_en": "How do you share a deep physical or psychological insecurity with your partner?"
@@ -15712,10 +15709,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Arabada 40 dakikalık bir yoldasınız. Partnerin radyoyu kapattı, yola bakıyor ve hiç konuşmuyor.",
-      "translation_target_prompt_en": "You're 40 minutes into a car ride. Your partner turned off the radio, is staring at the road, and not talking."
+      "translation_target_prompt_en": "You're on a 40-minute drive. Your partner turns off the radio, looks at the road, and doesn't say anything."
     },
     {
       "item_id": "frequency_v2_q0179",
@@ -15797,10 +15794,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin yeni bir hobiye/projeye fena takıldı. 3 gündür bilgisayar başından kalkmıyor, seninle çok az konuşuyor.",
-      "translation_target_prompt_en": "Your partner got obsessed with a new hobby/project. For 3 days they've barely left the computer and hardly talk to you."
+      "translation_target_prompt_en": "Your partner has become intensely absorbed in a new hobby or project. For three days, they've barely left the computer and have hardly talked to you."
     },
     {
       "item_id": "frequency_v2_q0180",
@@ -15873,7 +15870,7 @@
       "selector_eligible": true,
       "selector_exclusion_reason": null,
       "phase1g_status": "rewrite_applied",
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "İkinizi de etkileyen beklenmedik bir maddi kayıp oldu. O akşam nasıl ilerlersin?",
       "translation_target_prompt_en": "You hit an unexpected financial loss that affects you both. How do you handle that evening?"
@@ -15949,12 +15946,12 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
       "translation_source_prompt_tr": "Daha 2. aydasınız. Partnerin bir sohbet sırasında \"Gelecekteki çocuklarımıza şu ismi koyarız\" diye bir espri yaptı.",
-      "translation_target_prompt_en": "You're only two months in. Mid-conversation your partner jokes, \"We'll name our future kids this.\""
+      "translation_target_prompt_en": "You're only two months into the relationship. During a conversation, your partner jokes, \"We'll give our future kids this name.\""
     },
     {
       "item_id": "frequency_v2_q0182",
@@ -16041,10 +16038,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Cuma öğleden sonra. Partnerin iş yerine geldi ve \"Çantana iki parça eşya koy, 1 saat sonra uçağımız var, hafta sonu gidiyoruz!\" dedi.",
-      "translation_target_prompt_en": "Friday afternoon. Your partner shows up at your work and says, \"Throw a couple things in your bag — our flight's in an hour. We're leaving for the weekend!\""
+      "translation_target_prompt_en": "It's Friday afternoon. Your partner shows up at your workplace and says, \"Pack a couple of things—we have a flight in an hour. We're going away for the weekend!\""
     },
     {
       "item_id": "frequency_v2_q0183",
@@ -16134,7 +16131,7 @@
       "selector_eligible": true,
       "selector_exclusion_reason": null,
       "phase1g_status": "rewrite_applied",
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Bir derdini anlatırken partnerin sürekli çözüm önerileri vermeye başlıyor. O anda aslında sadece anlatmak istiyorsun. Ne yaparsın?",
       "translation_target_prompt_en": "You're telling them about a problem and they keep offering solutions. You actually just want to vent. What do you do?"
@@ -16214,12 +16211,12 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
       "translation_source_prompt_tr": "Partnerin çok yoğun bir sınava/projeye hazırlanıyor ve \"Bu ay hafta sonları görüşemeyebiliriz, ders çalışmalıyım\" dedi.",
-      "translation_target_prompt_en": "Your partner is cramming for a big exam/project and says, \"We might not see each other on weekends this month — I need to study.\""
+      "translation_target_prompt_en": "Your partner is preparing for an intense exam or project and says, \"We might not be able to see each other on weekends this month—I need to study.\""
     },
     {
       "item_id": "frequency_v2_q0185",
@@ -16301,7 +16298,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "En güvendiğin arkadaşın, partnerinin sana pek uygun olmadığını ve sana iyi gelmediğini düşündüğünü söyledi.",
       "translation_target_prompt_en": "Your most trusted friend says they don't think your partner is right for you and that the relationship isn't good for you."
@@ -16388,7 +16385,7 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Büyük bir kavgada bağırdın, çağırdın. Ancak 10 dakika sonra aslında tamamen *senin haksız olduğunu* fark ettin.",
       "translation_target_prompt_en": "You yelled during a big fight. Ten minutes later you realize you were completely in the wrong."
@@ -16485,10 +16482,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Akşam birlikte film izliyorsunuz ama partnerin sürekli telefonuyla oynuyor, gülümsüyor, birilerine yazıyor.",
-      "translation_target_prompt_en": "You're watching a movie together but your partner keeps on their phone, smiling and texting someone."
+      "translation_target_prompt_en": "You're watching a movie together, but your partner keeps using their phone, smiling and messaging people."
     },
     {
       "item_id": "frequency_v2_q0188",
@@ -16575,10 +16572,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerinin kuzeninin 500 kişilik, bol halaylı/danslı düğününe davetlisiniz. Orada senin hiç tanıdığın yok.",
-      "translation_target_prompt_en": "You're invited to your partner's cousin's 500-person wedding with lots of dancing. You don't know anyone there."
+      "translation_target_prompt_en": "You're invited to your partner's cousin's 500-person wedding, with lots of dancing. You don't know anyone there."
     },
     {
       "item_id": "frequency_v2_q0189",
@@ -16659,10 +16656,12 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
-      "translation_review_flags": [],
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ],
       "translation_source_prompt_tr": "Haftalar sonra tamamen boş, sıfır planlı bir tatil günün var. Gün nasıl başlar?",
-      "translation_target_prompt_en": "After weeks of busy days, you have a completely empty vacation day with zero plans. How does the day start?"
+      "translation_target_prompt_en": "After weeks, you finally have a completely free day off with nothing planned. How does your day start?"
     },
     {
       "item_id": "frequency_v2_q0190",
@@ -16740,12 +16739,12 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [
         "possible_intensity_drift"
       ],
       "translation_source_prompt_tr": "Hafta sonu öğlen mesaj attın, görüldü oldu ama partnerin tam 6 saat boyunca cevap vermedi.",
-      "translation_target_prompt_en": "You texted on a weekend afternoon. It was read, but your partner didn't reply for a full six hours."
+      "translation_target_prompt_en": "At noon on the weekend, you send your partner a message. They read it but don't reply for a full six hours."
     },
     {
       "item_id": "frequency_v2_q0191",
@@ -16822,10 +16821,10 @@
       "rewrite_pending": false,
       "selector_eligible": false,
       "selector_exclusion_reason": "drop_from_selectable_pool",
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "İlişkiniz günlük rutine oturduğunda, bağı sürdürmek sana en doğal olarak nasıl gelir?",
-      "translation_target_prompt_en": "Once your relationship settles into a daily rhythm, what feels most natural for keeping the bond going?"
+      "translation_target_prompt_en": "Once your relationship settles into a daily routine, what feels most natural to you for keeping the connection going?"
     },
     {
       "item_id": "frequency_v2_q0192",
@@ -16904,7 +16903,7 @@
       "selector_eligible": true,
       "selector_exclusion_reason": null,
       "phase1g_status": "rewrite_applied",
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Kötü bir haber aldıktan sonra evde sessizce oturuyorsun. Partnerin yanında kalmak istediğini söylüyor. Ne yaparsın?",
       "translation_target_prompt_en": "After bad news you sit quietly at home. Your partner says they want to stay by your side. What do you do?"
@@ -16989,12 +16988,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
-      "translation_review_flags": [
-        "possible_intensity_drift"
-      ],
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [],
       "translation_source_prompt_tr": "Doğum gününde partnerin sana hiç tarzın olmayan, belli ki özenmeden seçilmiş veya yanlış anlaşılmış bir hediye aldı.",
-      "translation_target_prompt_en": "On your birthday your partner gave you a gift that's clearly not your style — carelessly chosen or misunderstood."
+      "translation_target_prompt_en": "On your birthday, your partner gives you a gift that's clearly not your style and seems to have been chosen without much thought or based on a misunderstanding of your taste."
     },
     {
       "item_id": "frequency_v2_q0194",
@@ -17080,10 +17077,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "İkinizin de çok ayrı, birbiriyle pek anlaşamayan arkadaş grupları var. Cuma akşamı planı yapılacak.",
-      "translation_target_prompt_en": "You each have separate friend groups that don't mesh well. You're figuring out Friday night."
+      "translation_target_prompt_en": "You have very different friend groups that don't get along particularly well. You need to decide what to do on Friday night."
     },
     {
       "item_id": "frequency_v2_q0195",
@@ -17165,8 +17162,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
-      "translation_review_flags": [],
+      "translation_review_status": "REVIEWED",
+      "translation_review_flags": [
+        "possible_intensity_drift"
+      ],
       "translation_source_prompt_tr": "Partnerinin telefonunda şüpheli bir mesaj bildirimi gördün (ekran kilitli).",
       "translation_target_prompt_en": "You saw a suspicious message notification on your partner's phone (screen locked)."
     },
@@ -17254,10 +17253,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Pazar sabahı, hiçbir plan yok. İkiniz de koltukta oturuyorsunuz.",
-      "translation_target_prompt_en": "Sunday morning, no plans. You're both on the couch."
+      "translation_target_prompt_en": "It's Sunday morning. You have no plans and you're both sitting on the couch."
     },
     {
       "item_id": "frequency_v2_q0197",
@@ -17338,10 +17337,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Gelecekte evlilik veya ciddi bir beraberlikte maddi hesapların nasıl olmasını beklersin?",
-      "translation_target_prompt_en": "In a future marriage or serious partnership, how do you expect finances to work?"
+      "translation_target_prompt_en": "In a future marriage or serious long-term relationship, how would you expect finances to be handled?"
     },
     {
       "item_id": "frequency_v2_q0198",
@@ -17433,10 +17432,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin o gün nedensiz yere çok huysuz, her şeye itiraz ediyor ve negatif bir enerji yayıyor.",
-      "translation_target_prompt_en": "Your partner is inexplicably grumpy today, arguing with everything and giving off negative energy."
+      "translation_target_prompt_en": "For no clear reason, your partner is very grouchy that day, objects to everything, and gives off a lot of negative energy."
     },
     {
       "item_id": "frequency_v2_q0199",
@@ -17504,10 +17503,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Henüz tanışma aşamasındasınız. Partnerin sürekli eski anılarından, lise yıllarından ve çocukluğundan bahsediyor.",
-      "translation_target_prompt_en": "You're still in the getting-to-know-you stage. Your partner keeps talking about old memories, high school, and childhood."
+      "translation_target_prompt_en": "You're still in the early stages of getting to know each other. Your partner keeps talking about old memories, high school, and childhood."
     },
     {
       "item_id": "frequency_v2_q0200",
@@ -17608,10 +17607,10 @@
       "rewrite_pending": false,
       "selector_eligible": true,
       "selector_exclusion_reason": null,
-      "translation_review_status": "PENDING_HUMAN_REVIEW",
+      "translation_review_status": "REVIEWED",
       "translation_review_flags": [],
       "translation_source_prompt_tr": "Partnerin, senin giyim tarzın veya saç şeklinle ilgili \"Şöyle yapsan sana daha çok yakışır\" diye ısrarlı bir öneride bulunuyor.",
-      "translation_target_prompt_en": "Your partner keeps insisting, \"You'd look better if you did your hair/style this way.\""
+      "translation_target_prompt_en": "Your partner keeps suggesting changes to your clothes or hairstyle, saying, \"You'd look better if you did it this way.\""
     },
     {
       "item_id": "frequency_v2_q0201",

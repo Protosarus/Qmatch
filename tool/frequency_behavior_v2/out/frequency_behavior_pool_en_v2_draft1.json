@@ -14787,7 +14787,7 @@
         },
         {
           "option_id": "frequency_v2_q0151_d",
-          "text": "I'd rather wrap up while the conversation's at its peak and save the rest for the next planned date.",
+          "text": "I'd feel safer ending things while the conversation is at its peak and leaving the rest for our next planned date.",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "closeness_pace": -1.0
@@ -14968,7 +14968,7 @@
         },
         {
           "option_id": "frequency_v2_q0153_c",
-          "text": "If I'm not busy I'll pick up; if I'm in the middle of something I'll decline and call back later. I'd take it in stride.",
+          "text": "If I'm free, I'd answer. If I'm busy, I'd decline the call and get back to them later. I'd see it as normal.",
           "behavioral_weights": {
             "uncertainty_tolerance": 1.0,
             "boundary_firmness": 1.0
@@ -15145,7 +15145,7 @@
         },
         {
           "option_id": "frequency_v2_q0155_b",
-          "text": "I'd leave what they need (meds, food) at their door or order it in, and give them solitude to rest.",
+          "text": "I'd drop off or order what they need—medicine, food—and give them space to rest.",
           "behavioral_weights": {
             "autonomy": 1.0
           },
@@ -15240,7 +15240,7 @@
         },
         {
           "option_id": "frequency_v2_q0156_b",
-          "text": "I'd go, but getting this deep into family stuff this early creates a little pressure for me.",
+          "text": "I'd go, but getting involved with family this early would make me feel a little pressured.",
           "behavioral_weights": {
             "disclosure_pace": -1.0,
             "autonomy": 1.0
@@ -15259,7 +15259,7 @@
         },
         {
           "option_id": "frequency_v2_q0156_c",
-          "text": "I'd happily attend, but I'd spend the night mostly observing rather than talking about myself.",
+          "text": "I'd gladly go, but I'd spend more of the evening observing them than talking about myself.",
           "behavioral_weights": {
             "disclosure_pace": -2.0,
             "social_energy": -1.0
@@ -15278,7 +15278,7 @@
         },
         {
           "option_id": "frequency_v2_q0156_d",
-          "text": "I'd steer the conversation, crack jokes, and try to make a good impression to ease the room.",
+          "text": "I'd take the lead in conversation and make jokes to ease the atmosphere and make a good impression.",
           "behavioral_weights": {
             "initiative": 2.0,
             "social_energy": 2.0
@@ -15379,7 +15379,7 @@
         },
         {
           "option_id": "frequency_v2_q0157_d",
-          "text": "I don't like living the relationship in public; I'd suggest keeping it between us.",
+          "text": "I don't like living out a relationship in public; I'd suggest keeping it between us.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "autonomy": 2.0
@@ -15475,7 +15475,7 @@
         },
         {
           "option_id": "frequency_v2_q0158_d",
-          "text": "I'd make teasing jokes each time they're late, but I wouldn't turn it into a big fight.",
+          "text": "Whenever they're late, I'd make a pointed joke about it, but I wouldn't turn it into a big argument.",
           "behavioral_weights": {
             "disclosure_pace": -1.0
           },
@@ -15496,7 +15496,7 @@
     {
       "item_id": "frequency_v2_q0159",
       "locale": "en-US",
-      "prompt": "On the first few dates, what payment dynamic makes you feel most comfortable?",
+      "prompt": "On the first few dates, which way of handling the bill would make you feel most comfortable?",
       "context": [
         "early_dating"
       ],
@@ -15536,7 +15536,7 @@
         },
         {
           "option_id": "frequency_v2_q0159_b",
-          "text": "If I pay once, the next time they pay entirely — that flow feels more organic.",
+          "text": "If I pay one time and they pay the whole bill the next time, that feels more natural to me.",
           "behavioral_weights": {
             "structure_preference": -1.0,
             "closeness_pace": 1.0
@@ -15596,7 +15596,7 @@
     {
       "item_id": "frequency_v2_q0160",
       "locale": "en-US",
-      "prompt": "After staying over at their place for the first time, you notice they deliberately left their toothbrush and a t-shirt in the bathroom when they left in the morning.",
+      "prompt": "After your partner stays over at your place for the first time and leaves the next morning, you notice they deliberately left their toothbrush and T-shirt in your bathroom.",
       "context": [
         "early_dating",
         "uncertainty"
@@ -15795,7 +15795,7 @@
     {
       "item_id": "frequency_v2_q0162",
       "locale": "en-US",
-      "prompt": "Your partner finally landed the big promotion they'd been waiting for months, but the company required them to attend a last-minute celebration dinner. Your plans got canceled.",
+      "prompt": "Your partner gets the major promotion they've been waiting months for, but the company requires them to attend a last-minute celebration dinner that evening. Your plans are cancelled.",
       "context": [
         "support"
       ],
@@ -15817,7 +15817,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0162_a",
-          "text": "I'd be happy for them, but I'd feel a quiet sting that they didn't celebrate with me.",
+          "text": "I'd be happy for them, but I'd quietly feel a little disappointed that we didn't celebrate together.",
           "behavioral_weights": {
             "reassurance_need": 2.0,
             "boundary_firmness": -1.0
@@ -15854,7 +15854,7 @@
         },
         {
           "option_id": "frequency_v2_q0162_c",
-          "text": "I'd keep texting that night — \"wish I were there\" — to stay connected.",
+          "text": "I'd keep in touch by texting them during the evening, saying things like, \"I wish I were there too.\"",
           "behavioral_weights": {
             "contact_need": 2.0,
             "closeness_pace": 1.0
@@ -15873,7 +15873,7 @@
         },
         {
           "option_id": "frequency_v2_q0162_d",
-          "text": "I'd fill my evening with other plans and get on with my life until they're done and back.",
+          "text": "I'd quickly make other plans for my evening and get on with my own life until they're finished and back.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "initiative": 1.0
@@ -15928,7 +15928,7 @@
         },
         {
           "option_id": "frequency_v2_q0163_b",
-          "text": "I'd say I'm tired and try to find a middle tempo that works for both of us.",
+          "text": "I'd say I'm tired and try to find a pace that works for both of us.",
           "behavioral_weights": {
             "adaptability": 1.0
           },
@@ -15964,7 +15964,7 @@
         },
         {
           "option_id": "frequency_v2_q0163_d",
-          "text": "I'd protect my mood and prefer to keep the evening short.",
+          "text": "I'd stay in my own mood and prefer to keep the evening short.",
           "behavioral_weights": {
             "adaptability": -2.0
           },
@@ -15985,7 +15985,7 @@
     {
       "item_id": "frequency_v2_q0164",
       "locale": "en-US",
-      "prompt": "You got a message from your partner that's unusually cold — something like \"Fine, whatever you say.\"",
+      "prompt": "You get an unusually cold message from your partner: \"Fine, okay, it's up to you.\"",
       "context": [
         "conflict"
       ],
@@ -16043,7 +16043,7 @@
         },
         {
           "option_id": "frequency_v2_q0164_c",
-          "text": "I'd take what they wrote at face value, not read into it, and carry on normally.",
+          "text": "I'd take the message literally and carry on as normal without looking for a hidden meaning.",
           "behavioral_weights": {
             "uncertainty_tolerance": 1.0
           },
@@ -16061,7 +16061,7 @@
         },
         {
           "option_id": "frequency_v2_q0164_d",
-          "text": "I wouldn't reply; I'd wait for them to calm down or bring it up clearly themselves.",
+          "text": "I wouldn't reply; I'd wait for them to calm down or bring up the issue clearly themselves.",
           "behavioral_weights": {
             "autonomy": 1.0,
             "initiative": -2.0
@@ -16124,7 +16124,7 @@
         },
         {
           "option_id": "frequency_v2_q0165_b",
-          "text": "A surprise is nice, but I'd be a little put off that my opinion wasn't asked in our shared space.",
+          "text": "The surprise is nice, but I'd find it a little odd that my opinion wasn't asked about a choice in our shared living space.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "structure_preference": 1.0
@@ -16184,7 +16184,7 @@
     {
       "item_id": "frequency_v2_q0166",
       "locale": "en-US",
-      "prompt": "You're on a long drive and an argument escalated. What's your ideal way to handle it?",
+      "prompt": "You're on a long drive when voices rise over an issue and it turns into an argument. What's your ideal way to handle it?",
       "context": [
         "conflict"
       ],
@@ -16237,7 +16237,7 @@
         },
         {
           "option_id": "frequency_v2_q0166_c",
-          "text": "Cut it short with something like \"you're right, let's drop it\" so we don't ruin the rest of the trip.",
+          "text": "I'd cut it short with \"You're right, let's drop it\" so the argument doesn't spoil the rest of the trip.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "boundary_firmness": -2.0
@@ -16256,7 +16256,7 @@
         },
         {
           "option_id": "frequency_v2_q0166_d",
-          "text": "Present my logical arguments to the end and make clear where they're wrong.",
+          "text": "I'd lay out all my logical arguments and make it clear where I think they're wrong.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "repair_style": -1.0
@@ -16278,7 +16278,7 @@
     {
       "item_id": "frequency_v2_q0167",
       "locale": "en-US",
-      "prompt": "You have one free day together. Your partner says a close friend is in crisis (say, a breakup) and they need to go be with them.",
+      "prompt": "It's your only free day to spend together. Your partner says a close friend is going through a major crisis, such as a breakup, and they need to go be with them.",
       "context": [
         "planning"
       ],
@@ -16299,7 +16299,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0167_a",
-          "text": "\"Of course they should go\" — I'd support it; spending the day solo is fine with me.",
+          "text": "I'd support them going—of course they should—and I'd be fine spending the day on my own.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "reassurance_need": -2.0
@@ -16318,7 +16318,7 @@
         },
         {
           "option_id": "frequency_v2_q0167_b",
-          "text": "I'd okay it, but I'd feel a small letdown that our plan fell through.",
+          "text": "I'd be okay with them going, but I'd still feel a little disappointed that our plans fell through.",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "reassurance_need": 1.0
@@ -16337,7 +16337,7 @@
         },
         {
           "option_id": "frequency_v2_q0167_c",
-          "text": "I'd offer, \"Should I come too? We can support them together.\"",
+          "text": "I'd offer, \"I can come too, and we can support them together.\"",
           "behavioral_weights": {
             "closeness_pace": 2.0,
             "social_energy": 1.0
@@ -16398,7 +16398,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0168_a",
-          "text": "I'd make my own breakfast, head out, handle my errands, and they'd join me when they're up.",
+          "text": "I'd have breakfast, go out and run my errands, and let them join me when they wake up.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -16476,7 +16476,7 @@
     {
       "item_id": "frequency_v2_q0169",
       "locale": "en-US",
-      "prompt": "Nothing's going right in your life right now. How do you manage communication and support with your partner during this stretch?",
+      "prompt": "Things in your life are going badly. During a period like this, how do you handle communication and support with your partner?",
       "context": [
         "support"
       ],
@@ -16517,7 +16517,7 @@
         },
         {
           "option_id": "frequency_v2_q0169_b",
-          "text": "I'd suggest splitting concrete tasks — bills, errands — and ask them to take one on.",
+          "text": "I'd suggest sharing practical tasks like meals or bills and ask them to take one of them on.",
           "behavioral_weights": {
             "closeness_pace": 1.0,
             "initiative": 1.0
@@ -16536,7 +16536,7 @@
         },
         {
           "option_id": "frequency_v2_q0169_c",
-          "text": "I'd pull back and keep to myself until I'm ready to bring it up.",
+          "text": "I'd reduce contact and withdraw into myself until I'm ready to bring it up.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 2.0
@@ -16555,7 +16555,7 @@
         },
         {
           "option_id": "frequency_v2_q0169_d",
-          "text": "I'd suggest a distraction — going out or doing something light to get my head clear.",
+          "text": "I'd suggest doing something to take my mind off things, like going out or doing something light.",
           "behavioral_weights": {
             "social_energy": 1.0,
             "adaptability": 1.0
@@ -16654,7 +16654,7 @@
         },
         {
           "option_id": "frequency_v2_q0170_d",
-          "text": "I'd calmly explain why talking now would make things worse and set a boundary with a time — \"let's talk tonight.\"",
+          "text": "I'd calmly explain why talking right now could make things worse and set a clear time boundary, like \"Let's talk tonight.\"",
           "behavioral_weights": {
             "repair_style": -1.0,
             "structure_preference": 1.0
@@ -16716,7 +16716,7 @@
         },
         {
           "option_id": "frequency_v2_q0171_b",
-          "text": "I'd find it amusing — I might even like that others find them attractive; if I trust them, I wouldn't dwell on it.",
+          "text": "I'd find it amusing; if I fully trust my partner, I might even enjoy seeing them get attention.",
           "behavioral_weights": {
             "uncertainty_tolerance": 2.0,
             "autonomy": 1.0
@@ -16735,7 +16735,7 @@
         },
         {
           "option_id": "frequency_v2_q0171_c",
-          "text": "I'd step in, use physical touch or conversation to make it clear to the server that they're mine.",
+          "text": "I'd step in and use physical contact or conversation to signal to the bartender that my partner is \"mine.\"",
           "behavioral_weights": {
             "reassurance_need": 1.0,
             "contact_need": 1.0
@@ -16754,7 +16754,7 @@
         },
         {
           "option_id": "frequency_v2_q0171_d",
-          "text": "After we leave, I'd bring it up jokingly to gauge their reaction.",
+          "text": "After we leave, I'd bring it up jokingly and gauge my partner's reaction.",
           "behavioral_weights": {
             "disclosure_pace": -1.0
           },
@@ -16775,7 +16775,7 @@
     {
       "item_id": "frequency_v2_q0172",
       "locale": "en-US",
-      "prompt": "You're shopping for furniture for a place you'll live in together. What's your usual approach?",
+      "prompt": "You're shopping for furniture for the home you'll share. How do you usually make the choices?",
       "context": [
         "established"
       ],
@@ -16796,7 +16796,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0172_a",
-          "text": "Lists, measurements, and a plan before we go — we stick to it and get out fast.",
+          "text": "Before we go, we'd make a list, take measurements, stick closely to the plan, and get out quickly.",
           "behavioral_weights": {
             "structure_preference": 2.0
           },
@@ -16833,7 +16833,7 @@
         },
         {
           "option_id": "frequency_v2_q0172_c",
-          "text": "I handle most of the details — my eye and organization are better; they mostly approve.",
+          "text": "I'd choose most of the details because I think I have a better eye and am more organized; they'd usually approve.",
           "behavioral_weights": {
             "initiative": 2.0,
             "autonomy": 1.0
@@ -16894,7 +16894,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0173_a",
-          "text": "I'd test them with structural, realistic questions: \"What's plan B? How long can our budget last?\"",
+          "text": "I'd test the idea with practical, structured questions like, \"What's plan B? How long can our budget last?\"",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "uncertainty_tolerance": -2.0
@@ -17010,7 +17010,7 @@
         },
         {
           "option_id": "frequency_v2_q0174_b",
-          "text": "I'd keep walking without saying anything — the dog is both our responsibility now.",
+          "text": "I'd keep doing the morning walks without complaining; after all, the dog is now both our responsibility.",
           "behavioral_weights": {
             "boundary_firmness": -2.0,
             "adaptability": 2.0
@@ -17029,7 +17029,7 @@
         },
         {
           "option_id": "frequency_v2_q0174_c",
-          "text": "I'd make a schedule with rules for who walks which days.",
+          "text": "I'd make a schedule that clearly sets which days each of us handles the walk.",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "initiative": 1.0
@@ -17048,7 +17048,7 @@
         },
         {
           "option_id": "frequency_v2_q0174_d",
-          "text": "I'd joke about it now and then to remind them of their share, but I wouldn't make it a crisis.",
+          "text": "I'd occasionally make a joking but pointed comment to remind them of their responsibility, without turning it into a major conflict.",
           "behavioral_weights": {
             "disclosure_pace": -1.0
           },
@@ -17110,7 +17110,7 @@
         },
         {
           "option_id": "frequency_v2_q0175_b",
-          "text": "A lively route or resort with other couples/friends and lots of activities.",
+          "text": "A lively, social resort or trip with other couples or friends around and lots of activities.",
           "behavioral_weights": {
             "social_energy": 2.0,
             "adaptability": 1.0
@@ -17170,7 +17170,7 @@
     {
       "item_id": "frequency_v2_q0176",
       "locale": "en-US",
-      "prompt": "Your partner watched a documentary and decided to go fully vegan or follow a very strict diet from that day on.",
+      "prompt": "Your partner watches a documentary and decides to go fully vegan or start a very strict diet.",
       "context": [
         "established"
       ],
@@ -17191,7 +17191,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0176_a",
-          "text": "I'd adapt my diet too and follow a rule that nothing harmful comes into the house.",
+          "text": "I'd follow their rule of keeping anything they consider \"harmful\" out of the house and change my diet to join them.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "boundary_firmness": -2.0
@@ -17210,7 +17210,7 @@
         },
         {
           "option_id": "frequency_v2_q0176_b",
-          "text": "I'd respect their choice but wouldn't change what I eat — we'd cook two different menus at home.",
+          "text": "I'd respect their decision, but I wouldn't give up the foods I eat; we'd prepare two different meals at home.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "autonomy": 2.0
@@ -17248,7 +17248,7 @@
         },
         {
           "option_id": "frequency_v2_q0176_d",
-          "text": "I'd watch from a distance first to see how long they stick with it, then adjust.",
+          "text": "I'd watch from a distance at first to see how long they can keep it up, then adjust depending on how it goes.",
           "behavioral_weights": {
             "disclosure_pace": -1.0
           },
@@ -17347,7 +17347,7 @@
         },
         {
           "option_id": "frequency_v2_q0177_d",
-          "text": "I'd explain it rationally, briefly and clearly, without dramatizing it.",
+          "text": "I'd explain it briefly and clearly, almost like stating a fact, without dramatizing it.",
           "behavioral_weights": {
             "closeness_pace": -1.0
           },
@@ -17368,7 +17368,7 @@
     {
       "item_id": "frequency_v2_q0178",
       "locale": "en-US",
-      "prompt": "You're 40 minutes into a car ride. Your partner turned off the radio, is staring at the road, and not talking.",
+      "prompt": "You're on a 40-minute drive. Your partner turns off the radio, looks at the road, and doesn't say anything.",
       "context": [
         "established"
       ],
@@ -17427,7 +17427,7 @@
         },
         {
           "option_id": "frequency_v2_q0178_c",
-          "text": "I'd get bored, turn the music back on, or crack a joke to liven things up.",
+          "text": "I'd get bored, turn the music back on, or bring up something funny to liven things up.",
           "behavioral_weights": {
             "social_energy": 1.0
           },
@@ -17445,7 +17445,7 @@
         },
         {
           "option_id": "frequency_v2_q0178_d",
-          "text": "I'd assume something's bothering them and offer support — holding their hand or touching their leg.",
+          "text": "I'd assume something is bothering them and offer support by holding their hand or touching their leg.",
           "behavioral_weights": {
             "closeness_pace": 1.0,
             "reassurance_need": 1.0
@@ -17467,7 +17467,7 @@
     {
       "item_id": "frequency_v2_q0179",
       "locale": "en-US",
-      "prompt": "Your partner got obsessed with a new hobby/project. For 3 days they've barely left the computer and hardly talk to you.",
+      "prompt": "Your partner has become intensely absorbed in a new hobby or project. For three days, they've barely left the computer and have hardly talked to you.",
       "context": [
         "established"
       ],
@@ -17489,7 +17489,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0179_a",
-          "text": "I'd feel undervalued and ask them to put a stop to it.",
+          "text": "I'd feel unvalued because I'm getting so little attention and ask them to put an end to this situation.",
           "behavioral_weights": {
             "reassurance_need": 2.0,
             "boundary_firmness": 1.0
@@ -17508,7 +17508,7 @@
         },
         {
           "option_id": "frequency_v2_q0179_b",
-          "text": "I'd appreciate their passion but set a condition — \"at least let's have dinner together.\"",
+          "text": "I'd appreciate their passion, but I'd insist that we at least have dinner together so we don't lose our connection.",
           "behavioral_weights": {
             "structure_preference": 1.0,
             "contact_need": 1.0
@@ -17546,7 +17546,7 @@
         },
         {
           "option_id": "frequency_v2_q0179_d",
-          "text": "I'd bring them coffee and snacks and support their project from the background.",
+          "text": "I'd bring them coffee and snacks to support the project and quietly stay present in the background.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "closeness_pace": 1.0
@@ -17583,7 +17583,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0180_a",
-          "text": "I'd immediately write up a plan — how bad it is and exactly what steps we'll take.",
+          "text": "I'd immediately write down exactly how much we're short and the steps we'll take to close the gap.",
           "behavioral_weights": {
             "structure_preference": 2.0
           },
@@ -17601,7 +17601,7 @@
         },
         {
           "option_id": "frequency_v2_q0180_b",
-          "text": "I'd at least nail down a first step and when we'll revisit it.",
+          "text": "I'd at least clarify the first step and when we'll look at the situation again.",
           "behavioral_weights": {
             "structure_preference": 1.0
           },
@@ -17619,7 +17619,7 @@
         },
         {
           "option_id": "frequency_v2_q0180_c",
-          "text": "I'd wait a few days before making a plan.",
+          "text": "I'd wait a few days and make a plan later.",
           "behavioral_weights": {
             "structure_preference": -1.0
           },
@@ -17637,7 +17637,7 @@
         },
         {
           "option_id": "frequency_v2_q0180_d",
-          "text": "I'd carry on with daily life for now without a special plan.",
+          "text": "For now, I'd carry on with our daily routine without making a special plan.",
           "behavioral_weights": {
             "structure_preference": -2.0
           },
@@ -17658,7 +17658,7 @@
     {
       "item_id": "frequency_v2_q0181",
       "locale": "en-US",
-      "prompt": "You're only two months in. Mid-conversation your partner jokes, \"We'll name our future kids this.\"",
+      "prompt": "You're only two months into the relationship. During a conversation, your partner jokes, \"We'll give our future kids this name.\"",
       "context": [
         "early_dating"
       ],
@@ -17679,7 +17679,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0181_a",
-          "text": "A warm feeling would wash over me — I like that they're as hopeful about this as I am.",
+          "text": "I'd feel a warm rush; I'd like knowing they look at the relationship with as much hope as I do.",
           "behavioral_weights": {
             "closeness_pace": 2.0,
             "reassurance_need": 1.0
@@ -17717,7 +17717,7 @@
         },
         {
           "option_id": "frequency_v2_q0181_c",
-          "text": "I'd joke back, but inwardly I'd note \"too soon\" and file it away.",
+          "text": "I'd joke back, but internally I'd think, \"It's still very early,\" and make a mental note of it.",
           "behavioral_weights": {
             "uncertainty_tolerance": 1.0
           },
@@ -17735,7 +17735,7 @@
         },
         {
           "option_id": "frequency_v2_q0181_d",
-          "text": "I'd laugh it off to keep the moment light but change the subject before it gets serious.",
+          "text": "I'd laugh it off so I don't spoil the moment, but I'd quickly change the subject in case it starts becoming serious.",
           "behavioral_weights": {
             "boundary_firmness": -1.0,
             "disclosure_pace": -1.0
@@ -17757,7 +17757,7 @@
     {
       "item_id": "frequency_v2_q0182",
       "locale": "en-US",
-      "prompt": "Friday afternoon. Your partner shows up at your work and says, \"Throw a couple things in your bag — our flight's in an hour. We're leaving for the weekend!\"",
+      "prompt": "It's Friday afternoon. Your partner shows up at your workplace and says, \"Pack a couple of things—we have a flight in an hour. We're going away for the weekend!\"",
       "context": [
         "unclassified"
       ],
@@ -17778,7 +17778,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0182_a",
-          "text": "I'd lose my mind with excitement — them in control and huge surprises like this are the peak for me.",
+          "text": "I'd be wildly excited; I love them taking control and pulling off huge surprises like this.",
           "behavioral_weights": {
             "structure_preference": -2.0,
             "initiative": -2.0
@@ -17797,7 +17797,7 @@
         },
         {
           "option_id": "frequency_v2_q0182_b",
-          "text": "I'd be happy but might interrupt the moment with practical questions: \"Where? Is lodging booked? What's the weather?\"",
+          "text": "I'd be happy, but I might interrupt the moment with practical questions like, \"Where are we going? Is the accommodation booked? What's the weather like?\"",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "uncertainty_tolerance": -1.0
@@ -17816,7 +17816,7 @@
         },
         {
           "option_id": "frequency_v2_q0182_c",
-          "text": "I'd stress out — I had my own plans and things to handle; I wish they'd asked first.",
+          "text": "I'd be very stressed. I already had my own plans and things I needed to take care of; I'd have wanted them to ask me first.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -17835,7 +17835,7 @@
         },
         {
           "option_id": "frequency_v2_q0182_d",
-          "text": "I'd get organized fast, pack my bag, and go along with whatever they say without much trouble.",
+          "text": "I'd get organized, pack quickly, and have no trouble adapting to whatever they have planned.",
           "behavioral_weights": {
             "adaptability": 2.0
           },
@@ -17889,7 +17889,7 @@
         },
         {
           "option_id": "frequency_v2_q0183_b",
-          "text": "I'd ask them to listen first and save suggestions for later.",
+          "text": "I'd ask them to listen first and save the suggestions for later.",
           "behavioral_weights": {
             "boundary_firmness": 1.0
           },
@@ -17907,7 +17907,7 @@
         },
         {
           "option_id": "frequency_v2_q0183_c",
-          "text": "Even though I'd prefer differently, I'd keep listening without cutting them off.",
+          "text": "Even though I'd prefer something different, I'd keep listening to their suggestions without stopping them.",
           "behavioral_weights": {
             "boundary_firmness": -1.0
           },
@@ -17925,7 +17925,7 @@
         },
         {
           "option_id": "frequency_v2_q0183_d",
-          "text": "I wouldn't say what I need; I'd let the conversation proceed on their terms.",
+          "text": "I wouldn't say what I need; I'd let the conversation continue in the direction they take it.",
           "behavioral_weights": {
             "boundary_firmness": -2.0
           },
@@ -17946,7 +17946,7 @@
     {
       "item_id": "frequency_v2_q0184",
       "locale": "en-US",
-      "prompt": "Your partner is cramming for a big exam/project and says, \"We might not see each other on weekends this month — I need to study.\"",
+      "prompt": "Your partner is preparing for an intense exam or project and says, \"We might not be able to see each other on weekends this month—I need to study.\"",
       "context": [
         "unclassified"
       ],
@@ -18003,7 +18003,7 @@
         },
         {
           "option_id": "frequency_v2_q0184_c",
-          "text": "If that's what they need for their future, I'd follow the rules fully and cheer them on.",
+          "text": "If that's what they need to do for their future, I'd fully respect the arrangement and encourage them.",
           "behavioral_weights": {
             "structure_preference": 2.0
           },
@@ -18083,7 +18083,7 @@
         },
         {
           "option_id": "frequency_v2_q0185_b",
-          "text": "I'd take it seriously — they might see something from the outside that I'm missing.",
+          "text": "I'd take it seriously and think it through; my friend might see something from the outside that I can't.",
           "behavioral_weights": {
             "uncertainty_tolerance": -1.0
           },
@@ -18120,7 +18120,7 @@
         },
         {
           "option_id": "frequency_v2_q0185_d",
-          "text": "I'd be emotionally shaken — my friend's disapproval would create inner unease.",
+          "text": "I'd be emotionally affected; my friend's disapproval would leave me feeling uneasy inside.",
           "behavioral_weights": {
             "reassurance_need": 1.0,
             "social_energy": 1.0
@@ -18236,7 +18236,7 @@
     {
       "item_id": "frequency_v2_q0187",
       "locale": "en-US",
-      "prompt": "You're watching a movie together but your partner keeps on their phone, smiling and texting someone.",
+      "prompt": "You're watching a movie together, but your partner keeps using their phone, smiling and messaging people.",
       "context": [
         "boundaries"
       ],
@@ -18257,7 +18257,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0187_a",
-          "text": "I'd be upset — using your phone while we're together feels disrespectful to me.",
+          "text": "I'd be very bothered; I'd see being on the phone while we're spending time together as disrespectful to me.",
           "behavioral_weights": {
             "contact_need": 2.0,
             "boundary_firmness": 1.0
@@ -18276,7 +18276,7 @@
         },
         {
           "option_id": "frequency_v2_q0187_b",
-          "text": "I wouldn't care — them texting friends during a movie doesn't bother me.",
+          "text": "I wouldn't mind; them messaging friends while we're watching the movie wouldn't bother me.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": -2.0
@@ -18335,7 +18335,7 @@
     {
       "item_id": "frequency_v2_q0188",
       "locale": "en-US",
-      "prompt": "You're invited to your partner's cousin's 500-person wedding with lots of dancing. You don't know anyone there.",
+      "prompt": "You're invited to your partner's cousin's 500-person wedding, with lots of dancing. You don't know anyone there.",
       "context": [
         "social"
       ],
@@ -18356,7 +18356,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0188_a",
-          "text": "Crowds, noise, and strangers exhaust me — I'd say I don't want to go and let them go alone.",
+          "text": "Crowds, noise, and people I don't know wear me out; I'd say I don't want to go and let my partner go without me.",
           "behavioral_weights": {
             "social_energy": -2.0,
             "autonomy": 2.0
@@ -18375,7 +18375,7 @@
         },
         {
           "option_id": "frequency_v2_q0188_b",
-          "text": "I'd go for their sake, stick by their side all night, and try to get through it.",
+          "text": "I'd go for their sake and stay close to them all night to get through it.",
           "behavioral_weights": {
             "social_energy": -1.0,
             "adaptability": 2.0
@@ -18413,7 +18413,7 @@
         },
         {
           "option_id": "frequency_v2_q0188_d",
-          "text": "I'd agree upfront: \"I'll come, but we leave after two hours.\"",
+          "text": "I'd make an agreement upfront: \"I'll come, but we'll stay for two hours and leave early.\"",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "structure_preference": 1.0
@@ -18435,7 +18435,7 @@
     {
       "item_id": "frequency_v2_q0189",
       "locale": "en-US",
-      "prompt": "After weeks of busy days, you have a completely empty vacation day with zero plans. How does the day start?",
+      "prompt": "After weeks, you finally have a completely free day off with nothing planned. How does your day start?",
       "context": [
         "planning"
       ],
@@ -18456,7 +18456,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0189_a",
-          "text": "With a to-do list: \"I'll clean the house, watch that film, finish that book.\"",
+          "text": "I'd start with a list of goals like, \"Clean the house, watch that movie, finish that book.\"",
           "behavioral_weights": {
             "structure_preference": 2.0,
             "autonomy": 1.0
@@ -18475,7 +18475,7 @@
         },
         {
           "option_id": "frequency_v2_q0189_b",
-          "text": "Hours in bed doing whatever I feel like, not even tracking the time.",
+          "text": "I'd spend hours in bed, doing whatever I feel like in the moment and even losing track of time.",
           "behavioral_weights": {
             "structure_preference": -2.0,
             "uncertainty_tolerance": 2.0
@@ -18494,7 +18494,7 @@
         },
         {
           "option_id": "frequency_v2_q0189_c",
-          "text": "I'd ask my partner, \"What are we doing today — what's your plan?\" and wait for them to set the tone.",
+          "text": "I'd ask my partner, \"What are we doing today? What's your plan?\" and wait for them to give the day some direction.",
           "behavioral_weights": {
             "initiative": -2.0,
             "contact_need": 1.0
@@ -18513,7 +18513,7 @@
         },
         {
           "option_id": "frequency_v2_q0189_d",
-          "text": "I'd head straight out the door, wander streets and cafés, and mix with people.",
+          "text": "I'd head out as soon as I wake up—into the streets, cafés, and around other people.",
           "behavioral_weights": {
             "social_energy": 2.0,
             "autonomy": 1.0
@@ -18535,7 +18535,7 @@
     {
       "item_id": "frequency_v2_q0190",
       "locale": "en-US",
-      "prompt": "You texted on a weekend afternoon. It was read, but your partner didn't reply for a full six hours.",
+      "prompt": "At noon on the weekend, you send your partner a message. They read it but don't reply for a full six hours.",
       "context": [
         "unclassified"
       ],
@@ -18594,7 +18594,7 @@
         },
         {
           "option_id": "frequency_v2_q0190_c",
-          "text": "I'd be annoyed they read it and went silent; I'd decide not to text again until they do.",
+          "text": "I'd get annoyed that they read it and left it there, and decide I won't message again until they do.",
           "behavioral_weights": {
             "boundary_firmness": 1.0
           },
@@ -18634,7 +18634,7 @@
     {
       "item_id": "frequency_v2_q0191",
       "locale": "en-US",
-      "prompt": "Once your relationship settles into a daily rhythm, what feels most natural for keeping the bond going?",
+      "prompt": "Once your relationship settles into a daily routine, what feels most natural to you for keeping the connection going?",
       "context": [
         "established"
       ],
@@ -18656,7 +18656,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0191_a",
-          "text": "I'd say \"I'm here for you / so glad you're in my life\" a few times a day and keep verbal closeness alive.",
+          "text": "A few times during the day, I'd openly say things like \"I'm here for you\" or \"I'm glad you're in my life\" to keep verbal closeness alive.",
           "behavioral_weights": {
             "reassurance_need": 2.0,
             "disclosure_pace": 1.0
@@ -18675,7 +18675,7 @@
         },
         {
           "option_id": "frequency_v2_q0191_b",
-          "text": "We'd spend time side by side even without talking — quiet companionship is enough for me.",
+          "text": "I'd spend time side by side even without talking; quiet companionship is enough for me.",
           "behavioral_weights": {
             "closeness_pace": 2.0
           },
@@ -18693,7 +18693,7 @@
         },
         {
           "option_id": "frequency_v2_q0191_c",
-          "text": "Everyone handles their own day; we meet up in shared time in the evening.",
+          "text": "During the day we'd each do our own thing, then come together for shared time in the evening.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -18712,7 +18712,7 @@
         },
         {
           "option_id": "frequency_v2_q0191_d",
-          "text": "I'd keep the shared calendar and budget clear — I want to know what's happening when.",
+          "text": "I'd keep our shared calendar and financial plans clear; I like knowing what is happening and when.",
           "behavioral_weights": {
             "uncertainty_tolerance": -2.0,
             "structure_preference": 2.0
@@ -18749,7 +18749,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0192_a",
-          "text": "I'd say I need to be alone for a while.",
+          "text": "I'd say I want to be alone for a while.",
           "behavioral_weights": {
             "autonomy": 2.0
           },
@@ -18767,7 +18767,7 @@
         },
         {
           "option_id": "frequency_v2_q0192_b",
-          "text": "I'd want them in the same house but I'd pull into my own space a bit.",
+          "text": "I'd want them to stay in the same home, but I'd retreat into my own space a little.",
           "behavioral_weights": {
             "autonomy": 1.0
           },
@@ -18785,7 +18785,7 @@
         },
         {
           "option_id": "frequency_v2_q0192_c",
-          "text": "I'd let them sit with me and mostly spend the time together.",
+          "text": "I'd let them sit with me and spend most of the time together.",
           "behavioral_weights": {
             "autonomy": -1.0
           },
@@ -18824,7 +18824,7 @@
     {
       "item_id": "frequency_v2_q0193",
       "locale": "en-US",
-      "prompt": "On your birthday your partner gave you a gift that's clearly not your style — carelessly chosen or misunderstood.",
+      "prompt": "On your birthday, your partner gives you a gift that's clearly not your style and seems to have been chosen without much thought or based on a misunderstanding of your taste.",
       "context": [
         "established"
       ],
@@ -18844,7 +18844,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0193_a",
-          "text": "I wouldn't let on — the thought counts; I'd act happy and stash the gift away.",
+          "text": "I wouldn't let it show. I'd tell myself that the thought is what matters, act happy, and keep the gift.",
           "behavioral_weights": {
             "boundary_firmness": -2.0,
             "adaptability": 2.0
@@ -18863,7 +18863,7 @@
         },
         {
           "option_id": "frequency_v2_q0193_b",
-          "text": "I'd thank them but say clearly, \"This isn't my style — should we exchange it together?\"",
+          "text": "I'd thank them, but openly say, \"This isn't really my style—should we exchange it together?\"",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "disclosure_pace": 2.0
@@ -18882,7 +18882,7 @@
         },
         {
           "option_id": "frequency_v2_q0193_c",
-          "text": "I'd thank them in the moment, barely use the gift, and bring it up indirectly later.",
+          "text": "I'd thank them in the moment, use the gift very little afterward, and bring it up indirectly later.",
           "behavioral_weights": {
             "reassurance_need": 1.0,
             "disclosure_pace": -1.0
@@ -18901,7 +18901,7 @@
         },
         {
           "option_id": "frequency_v2_q0193_d",
-          "text": "I'd joke, \"Did you really buy this for me?\" and soften my way into making my preference clear.",
+          "text": "I'd joke, \"Did you seriously get this for me?\" and use humor to soften the moment while making my opinion clear.",
           "behavioral_weights": {
             "uncertainty_tolerance": 1.0
           },
@@ -18922,7 +18922,7 @@
     {
       "item_id": "frequency_v2_q0194",
       "locale": "en-US",
-      "prompt": "You each have separate friend groups that don't mesh well. You're figuring out Friday night.",
+      "prompt": "You have very different friend groups that don't get along particularly well. You need to decide what to do on Friday night.",
       "context": [
         "social"
       ],
@@ -18944,7 +18944,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0194_a",
-          "text": "We'd each go out with our own friends — I'd treat that as freedom.",
+          "text": "We'd each go out with our own friends; I'd see that as a kind of freedom for both of us.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -18963,7 +18963,7 @@
         },
         {
           "option_id": "frequency_v2_q0194_b",
-          "text": "I wouldn't force the groups together, but I'd alternate — their group one Friday, mine the next.",
+          "text": "I wouldn't force the groups together, but I'd suggest spending one Friday with their group and the next with mine.",
           "behavioral_weights": {
             "structure_preference": 1.0,
             "adaptability": 2.0
@@ -18982,7 +18982,7 @@
         },
         {
           "option_id": "frequency_v2_q0194_c",
-          "text": "I'd skip my friends and make a one-on-one plan with my partner — that feels more reliable.",
+          "text": "I'd rather skip seeing friends and make a plan for just the two of us; I'd see that as the more reliable option.",
           "behavioral_weights": {
             "social_energy": -2.0,
             "closeness_pace": 1.0
@@ -19001,7 +19001,7 @@
         },
         {
           "option_id": "frequency_v2_q0194_d",
-          "text": "I'd arrange a big shared event (say, a concert) and hope both groups have to mingle.",
+          "text": "I'd arrange a big shared event, like a concert, and hope it forces the two groups to mix a little.",
           "behavioral_weights": {
             "social_energy": 2.0,
             "initiative": 2.0
@@ -19042,7 +19042,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0195_a",
-          "text": "It would eat at me — I'd sneak a look when they're asleep or in the shower.",
+          "text": "It would eat at me; when they're asleep or in the shower, I'd enter their password and secretly read the message.",
           "behavioral_weights": {
             "uncertainty_tolerance": -2.0,
             "boundary_firmness": -1.0
@@ -19061,7 +19061,7 @@
         },
         {
           "option_id": "frequency_v2_q0195_b",
-          "text": "I'd pick up the phone right there and confront them: \"Who's this message from?\"",
+          "text": "I'd pick up the phone and confront them right there: \"Who is that message from?\"",
           "behavioral_weights": {
             "initiative": 2.0,
             "disclosure_pace": 1.0
@@ -19098,7 +19098,7 @@
         },
         {
           "option_id": "frequency_v2_q0195_d",
-          "text": "I'd watch from a distance for days, watching for follow-up messages or odd behavior.",
+          "text": "I'd watch from a distance for days to see whether more messages appear or their behavior seems unusual.",
           "behavioral_weights": {
             "reassurance_need": 1.0,
             "uncertainty_tolerance": -2.0
@@ -19120,7 +19120,7 @@
     {
       "item_id": "frequency_v2_q0196",
       "locale": "en-US",
-      "prompt": "Sunday morning, no plans. You're both on the couch.",
+      "prompt": "It's Sunday morning. You have no plans and you're both sitting on the couch.",
       "context": [
         "established"
       ],
@@ -19141,7 +19141,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0196_a",
-          "text": "\"Let's get up — we're going out for breakfast\" — I'd kick-start the day and raise the energy.",
+          "text": "I'd say, \"Come on, get up—we're going to that place for breakfast,\" raise the energy, and get the day started myself.",
           "behavioral_weights": {
             "initiative": 2.0,
             "social_energy": 1.0
@@ -19160,7 +19160,7 @@
         },
         {
           "option_id": "frequency_v2_q0196_b",
-          "text": "I'd keep reading my book or scrolling until they ask \"what should we do?\"",
+          "text": "I'd quietly keep reading my book or scrolling on my phone until they ask, \"What should we do?\"",
           "behavioral_weights": {
             "initiative": -2.0,
             "autonomy": 1.0
@@ -19179,7 +19179,7 @@
         },
         {
           "option_id": "frequency_v2_q0196_c",
-          "text": "Sundays shouldn't need a plan — I'd happily stay in pajamas all day.",
+          "text": "I think Sundays shouldn't be planned at all; I'd happily spend the whole day in pajamas.",
           "behavioral_weights": {
             "structure_preference": -2.0,
             "social_energy": -2.0
@@ -19198,7 +19198,7 @@
         },
         {
           "option_id": "frequency_v2_q0196_d",
-          "text": "I'd ask questions to decide together: \"What do you want to eat — should we go out or stay in?\"",
+          "text": "I'd ask questions like, \"What do you want to eat? Should we go out or stay in?\" so we can decide together.",
           "behavioral_weights": {
             "closeness_pace": 1.0,
             "boundary_firmness": -1.0
@@ -19220,7 +19220,7 @@
     {
       "item_id": "frequency_v2_q0197",
       "locale": "en-US",
-      "prompt": "In a future marriage or serious partnership, how do you expect finances to work?",
+      "prompt": "In a future marriage or serious long-term relationship, how would you expect finances to be handled?",
       "context": [
         "planning"
       ],
@@ -19240,7 +19240,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0197_a",
-          "text": "One shared account — the yours/mine split should disappear entirely.",
+          "text": "There should be one joint account, and the idea of \"your money\" and \"my money\" should disappear completely.",
           "behavioral_weights": {
             "closeness_pace": 2.0,
             "autonomy": -2.0
@@ -19259,7 +19259,7 @@
         },
         {
           "option_id": "frequency_v2_q0197_b",
-          "text": "A joint pool for household costs, but each person's salary and savings stay in their own account.",
+          "text": "There should be a shared pool for household expenses, while each person's salary and personal savings stay in their own account.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "structure_preference": 1.0
@@ -19278,7 +19278,7 @@
         },
         {
           "option_id": "frequency_v2_q0197_c",
-          "text": "I'd want to handle the money — I'd manage bills and budgeting so I can relax.",
+          "text": "I'd want to handle the finances; I'd feel more comfortable managing the bills and budget.",
           "behavioral_weights": {
             "initiative": 2.0,
             "structure_preference": 2.0
@@ -19297,7 +19297,7 @@
         },
         {
           "option_id": "frequency_v2_q0197_d",
-          "text": "I wouldn't set rigid rules upfront — a natural balance based on income and need.",
+          "text": "I wouldn't set strict rules in advance; we'd find a natural balance based on the circumstances, income, and needs.",
           "behavioral_weights": {
             "uncertainty_tolerance": 2.0,
             "structure_preference": -2.0
@@ -19319,7 +19319,7 @@
     {
       "item_id": "frequency_v2_q0198",
       "locale": "en-US",
-      "prompt": "Your partner is inexplicably grumpy today, arguing with everything and giving off negative energy.",
+      "prompt": "For no clear reason, your partner is very grouchy that day, objects to everything, and gives off a lot of negative energy.",
       "context": [
         "support"
       ],
@@ -19358,7 +19358,7 @@
         },
         {
           "option_id": "frequency_v2_q0198_b",
-          "text": "I'd leave them alone and keep physical and emotional distance until they settle.",
+          "text": "I'd leave them alone and keep some physical and emotional distance until their mood improves.",
           "behavioral_weights": {
             "autonomy": 2.0,
             "boundary_firmness": 1.0
@@ -19377,7 +19377,7 @@
         },
         {
           "option_id": "frequency_v2_q0198_c",
-          "text": "I'd try to lift their mood — do things they like, crack jokes to lighten the room.",
+          "text": "I'd do things they like and make jokes to try to lift their mood.",
           "behavioral_weights": {
             "adaptability": 2.0,
             "reassurance_need": 1.0
@@ -19396,7 +19396,7 @@
         },
         {
           "option_id": "frequency_v2_q0198_d",
-          "text": "I'd keep probing — \"What's wrong? Why are you like this?\" until I get a rational explanation.",
+          "text": "I'd keep asking, \"What's wrong? Why are you like this?\" until I get an explanation that makes sense to me.",
           "behavioral_weights": {
             "uncertainty_tolerance": -2.0,
             "initiative": 1.0
@@ -19418,7 +19418,7 @@
     {
       "item_id": "frequency_v2_q0199",
       "locale": "en-US",
-      "prompt": "You're still in the getting-to-know-you stage. Your partner keeps talking about old memories, high school, and childhood.",
+      "prompt": "You're still in the early stages of getting to know each other. Your partner keeps talking about old memories, high school, and childhood.",
       "context": [
         "early_dating"
       ],
@@ -19457,7 +19457,7 @@
         },
         {
           "option_id": "frequency_v2_q0199_b",
-          "text": "I'd listen with interest but keep my answers surface-level — I'm not ready to open up that much yet.",
+          "text": "I'd listen with interest, but give more surface-level answers because I'm not ready to open up that much yet.",
           "behavioral_weights": {
             "disclosure_pace": -2.0,
             "boundary_firmness": 1.0
@@ -19476,7 +19476,7 @@
         },
         {
           "option_id": "frequency_v2_q0199_c",
-          "text": "Focusing this much on the past bores me — I'd rather talk about now and the future.",
+          "text": "I'd get bored with so much focus on the past; I'd rather focus on life now and the future.",
           "behavioral_weights": {
             "structure_preference": 1.0
           },
@@ -19494,7 +19494,7 @@
         },
         {
           "option_id": "frequency_v2_q0199_d",
-          "text": "I'd steer toward lighter, outward-facing topics — music, movies, current events.",
+          "text": "I'd try to steer the conversation toward lighter, more social topics like music, movies, or current events.",
           "behavioral_weights": {
             "social_energy": 1.0,
             "disclosure_pace": -1.0
@@ -19516,7 +19516,7 @@
     {
       "item_id": "frequency_v2_q0200",
       "locale": "en-US",
-      "prompt": "Your partner keeps insisting, \"You'd look better if you did your hair/style this way.\"",
+      "prompt": "Your partner keeps suggesting changes to your clothes or hairstyle, saying, \"You'd look better if you did it this way.\"",
       "context": [
         "established"
       ],
@@ -19535,7 +19535,7 @@
       "options": [
         {
           "option_id": "frequency_v2_q0200_a",
-          "text": "I'd trust their taste and happily try the look to make them happy.",
+          "text": "I'd trust their taste and happily try the style to make them happy.",
           "behavioral_weights": {
             "boundary_firmness": -2.0,
             "adaptability": 2.0
@@ -19554,7 +19554,7 @@
         },
         {
           "option_id": "frequency_v2_q0200_b",
-          "text": "I might try it a few times, but I wouldn't stray from what I actually like.",
+          "text": "I might try it a few times, but fundamentally I'd stick with what I like.",
           "behavioral_weights": {
             "boundary_firmness": 1.0,
             "uncertainty_tolerance": 1.0
@@ -19573,7 +19573,7 @@
         },
         {
           "option_id": "frequency_v2_q0200_c",
-          "text": "My appearance is entirely mine — I'd state clearly that I don't welcome input on it.",
+          "text": "My appearance is entirely my own; I'd clearly say that I don't like them interfering with it.",
           "behavioral_weights": {
             "boundary_firmness": 2.0,
             "autonomy": 2.0
@@ -19592,7 +19592,7 @@
         },
         {
           "option_id": "frequency_v2_q0200_d",
-          "text": "I'd adopt it if the critique makes sense, but I wouldn't change my style just because they want me to.",
+          "text": "If I think the criticism makes sense, I'd take it on board, but I wouldn't change my style just because they want me to.",
           "behavioral_weights": {
             "autonomy": 1.0
           },

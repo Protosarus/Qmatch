@@ -6553,7 +6553,7 @@
   },
   {
     "item_id": "frequency_v2_q0160",
-    "prompt": "Partnerin kendi evinde ilk defa gece kalıp sabah gittikten sonra, bilerek diş fırçasını ve tişörtünü banyoda bıraktığını fark ettin.",
+    "prompt": "Partnerin senin evinde ilk defa gece kalıp sabah gittikten sonra, bilerek diş fırçasını ve tişörtünü banyoda bıraktığını fark ettin.",
     "primary_dimensions": [
       "closeness_pace"
     ],
