@@ -156,7 +156,7 @@ void main() {
     }
   });
 
-  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F EN human review batches', () {
+  test('translation review status after phase 6B/6C/6D/6E/6E.1/6F/6G EN human review batches', () {
     for (final row in enReview.values) {
       final status = row['translation_review_status'] as String?;
       final id = row['item_id'] as String;
@@ -171,7 +171,7 @@ void main() {
         contains(status),
       );
       final n = int.parse(id.split('_q').last);
-      if (n >= 1 && n <= 250) {
+      if (n >= 1 && n <= 300) {
         expect(status, FrequencyBehaviorV2Contract.translationReviewReviewed,
             reason: id);
       } else {
@@ -187,16 +187,25 @@ void main() {
                 FrequencyBehaviorV2Contract.translationReviewReviewed,
           )
           .length,
-      250,
+      300,
     );
     final q227 = enReview['frequency_v2_q0227']!;
     expect(
       (q227['translation_review_flags'] as List<dynamic>? ?? const []),
       contains('possible_cultural_mismatch'),
     );
+    final q260 = enReview['frequency_v2_q0260']!;
+    expect(
+      (q260['translation_review_flags'] as List<dynamic>? ?? const []),
+      contains('possible_cultural_mismatch'),
+    );
+    expect(
+      (q260['translation_review_flags'] as List<dynamic>? ?? const []),
+      contains('possible_intensity_drift'),
+    );
   });
 
-  test('phase 6B/6C/6D/6E/6E.1/6F human wording corrections preserved', () {
+  test('phase 6B/6C/6D/6E/6E.1/6F/6G human wording corrections preserved', () {
     final q31 = enPool.itemsById['frequency_v2_q0031']!;
     final q45 = enPool.itemsById['frequency_v2_q0045']!;
     final q49 = enPool.itemsById['frequency_v2_q0049']!;
@@ -289,6 +298,37 @@ void main() {
     expect(q248.prompt, contains('still figuring things out'));
     expect(q218a.text, contains('start the conversation right away'));
     expect(q218a.text.toLowerCase(), isNot(contains('open up right away')));
+    final q258 = enPool.itemsById['frequency_v2_q0258']!;
+    final q260 = enPool.itemsById['frequency_v2_q0260']!;
+    final q265 = enPool.itemsById['frequency_v2_q0265']!;
+    final q268d = enPool.itemsById['frequency_v2_q0268']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_d'));
+    final q281 = enPool.itemsById['frequency_v2_q0281']!;
+    final q285d = enPool.itemsById['frequency_v2_q0285']!
+        .options
+        .firstWhere((o) => o.optionId.endsWith('_d'));
+    final q294 = enPool.itemsById['frequency_v2_q0294']!;
+    final q260c = q260.options.firstWhere((o) => o.optionId.endsWith('_c'));
+    final tr252 = trPool.itemsById['frequency_v2_q0252']!;
+    final tr292 = trPool.itemsById['frequency_v2_q0292']!;
+    expect(q258.prompt.toLowerCase(), contains('dismiss it with'));
+    expect(q258.prompt.toLowerCase(), isNot(contains('cut you off')));
+    expect(q260.prompt, contains('looks a bit disheveled'));
+    expect(q260c.text.toLowerCase(), isNot(contains('panic-text')));
+    expect(q265.prompt.toLowerCase(), contains("they're having a great time"));
+    expect(
+      q268d.text,
+      'I\'d say, "I\'m freezing—close it," and firmly insist on my own physical comfort.',
+    );
+    expect(q281.prompt.startsWith("You're in the first weeks"), isTrue);
+    expect(q285d.text, contains('leading the way'));
+    expect(q285d.text.toLowerCase(), isNot(contains('steering')));
+    expect(q294.prompt.toLowerCase(), isNot(contains('balance achieved in bed')));
+    expect(tr252.primaryDimensions, isEmpty);
+    expect(tr252.semanticCluster, 'unassigned:conflict');
+    expect(tr292.primaryDimensions, isEmpty);
+    expect(tr292.semanticCluster, 'unassigned:support');
   });
 
   test('EN bank registry path resolves', () {
