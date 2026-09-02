@@ -1920,6 +1920,93 @@ describe('users parent document lockdown', () => {
   });
 });
 
+describe('frequency_v2 server-authoritative result rules', () => {
+  const resultPath = 'users/userA/assessments/frequency_v2';
+  const resultBody = {
+    schema_version: 'qmatch_frequency_behavior_v2_result_v1',
+    assessment_type: 'frequency_v2',
+    status: 'completed',
+    source: 'admin_finalize_frequency_v2_v1',
+    session_id: 'frequency_v2_rules_test',
+  };
+
+  it('owner can read their frequency_v2 result', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), resultPath), resultBody);
+    });
+    await assertSucceeds(getDoc(doc(authedFirestore('userA'), resultPath)));
+  });
+
+  it('owner cannot create frequency_v2', async () => {
+    await assertFails(
+      setDoc(doc(authedFirestore('userA'), resultPath), resultBody),
+    );
+  });
+
+  it('owner cannot update frequency_v2', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), resultPath), resultBody);
+    });
+    await assertFails(
+      updateDoc(doc(authedFirestore('userA'), resultPath), {
+        status: 'forged',
+      }),
+    );
+  });
+
+  it('owner cannot delete frequency_v2', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), resultPath), resultBody);
+    });
+    await assertFails(deleteDoc(doc(authedFirestore('userA'), resultPath)));
+  });
+
+  it('another user cannot read or write frequency_v2', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), resultPath), resultBody);
+    });
+    await assertFails(getDoc(doc(authedFirestore('userB'), resultPath)));
+    await assertFails(
+      setDoc(doc(authedFirestore('userB'), resultPath), resultBody),
+    );
+    await assertFails(
+      updateDoc(doc(authedFirestore('userB'), resultPath), { status: 'x' }),
+    );
+    await assertFails(deleteDoc(doc(authedFirestore('userB'), resultPath)));
+  });
+
+  it('existing V1 assessment write behavior remains unchanged', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/assessments/iq'), {
+        answers: { q1: 'a' },
+      }),
+    );
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/assessments/eq'), {
+        answers: { q1: 'a' },
+      }),
+    );
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/assessments/frequency'), {
+        assessment_type: 'frequency',
+      }),
+    );
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA/assessments/persona'), {
+        assessment_type: 'persona',
+      }),
+    );
+    await assertSucceeds(
+      updateDoc(doc(authedFirestore('userA'), 'users/userA/assessments/iq'), {
+        answers: { q1: 'b' },
+      }),
+    );
+    await assertSucceeds(
+      deleteDoc(doc(authedFirestore('userA'), 'users/userA/assessments/iq')),
+    );
+  });
+});
+
 describe('swipe reverse-read lockdown', () => {
   async function seedSwipe(fromUid, targetUid, data) {
     await testEnv.withSecurityRulesDisabled(async (ctx) => {

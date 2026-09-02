@@ -476,7 +476,7 @@ describe('finalizeIq callable', () => {
     assert.ok(block.includes("region: 'europe-west1'"));
     assert.ok(!index.includes('finalizeIqEu'));
     assert.ok(!index.includes('finalizeEq'));
-    assert.ok(!index.includes('finalizeFrequency'));
+    assert.ok(!/\bexports\.finalizeFrequency\s*=/.test(index));
     assert.ok(!index.includes('exports.handleFinalizeIq'));
   });
 });

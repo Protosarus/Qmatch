@@ -456,6 +456,20 @@ exports.finalizeIq = onCall(
   { region: 'europe-west1' },
   (request) => finalizeIq.handleFinalizeIq(request),
 );
+const finalizeFrequencyV2 = require('./src/finalize_frequency_v2_v1');
+
+/**
+ * Trusted Frequency V2 session finalize (`admin_finalize_frequency_v2_v1`).
+ * Auth required. Validates a locked 50-item V2 session, scores server-side,
+ * and Admin-writes users/{uid}/assessments/frequency_v2 only.
+ * Does not write users/{uid}, V1 frequency, canonical_v1, Discover, matching,
+ * or completion flags. Registered locally; not client-wired. V2 stays dormant.
+ * europe-west1 only.
+ */
+exports.finalizeFrequencyV2 = onCall(
+  { region: 'europe-west1' },
+  (request) => finalizeFrequencyV2.handleFinalizeFrequencyV2(request),
+);
 const newMessagePush = require('./src/new_message_push');
 
 /**
