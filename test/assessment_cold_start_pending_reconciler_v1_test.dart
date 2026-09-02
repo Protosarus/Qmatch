@@ -174,7 +174,7 @@ void main() {
       expect(decision.reason, 'iq_pending_finalization');
     });
 
-    test('EQ: remote progress complete + local pending → finalize, then Frequency',
+    test('EQ: remote progress complete + local pending → hold EQ test',
         () async {
       const uid = 'uid_cold_eq';
       final repo = EqSessionMemoryRepository();
@@ -211,10 +211,18 @@ void main() {
         loadEqBank: (_) async => eqBank,
       ).reconcile(uid: uid, progress: progress);
 
-      expect((await repo.loadActiveSession(uid)).isLoaded, isFalse);
-      expect((await repo.loadSession(uid, sid)).state!.remoteFinalized, isTrue);
-      expect(decision.destination, AssessmentFlowDestination.frequency);
-      expect(decision.openAssessmentTestScreen, isFalse);
+      final active = await repo.loadActiveSession(uid);
+      expect(active.isLoaded, isTrue);
+      expect(
+        active.state!.status,
+        EqPersistedSessionStatus.completedPendingPersistence,
+      );
+      expect(active.state!.sessionId, sid);
+      expect(active.state!.remoteFinalized, isFalse);
+      expect(active.state!.answers.length, 30);
+      expect(decision.destination, AssessmentFlowDestination.eq);
+      expect(decision.openAssessmentTestScreen, isTrue);
+      expect(decision.reason, 'eq_pending_finalization');
     });
 
     test(
@@ -370,6 +378,27 @@ void main() {
         ),
       );
       expect(decision.destination, AssessmentFlowDestination.eq);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
+    });
+
+    test(
+        'no local pending EQ + remote eq_completed → follow progress, not EQ',
+        () async {
+      const uid = 'uid_old_eq_user';
+      final decision = await AssessmentColdStartPendingReconciler(
+        iqRepository: IqSessionMemoryRepository(),
+        eqRepository: EqSessionMemoryRepository(),
+        frequencyRepository: FrequencySessionMemoryRepository(),
+      ).reconcile(
+        uid: uid,
+        progress: _progress(
+          destination: AssessmentFlowDestination.frequency,
+          iqCompleted: true,
+          eqCompleted: true,
+        ),
+      );
+      expect(decision.destination, AssessmentFlowDestination.frequency);
       expect(decision.openAssessmentTestScreen, isFalse);
       expect(decision.reason, 'progress_routing');
     });

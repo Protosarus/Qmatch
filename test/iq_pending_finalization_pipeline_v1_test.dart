@@ -538,6 +538,7 @@ void main() {
       'lib/features/assessment/services/assessment_cold_start_pending_reconciler.dart',
     ).readAsStringSync();
     expect(reconciler.contains('_tryFinalizeIq'), isFalse);
+    expect(reconciler.contains('_tryFinalizeEq'), isFalse);
     expect(reconciler.contains('IqFinalizeCallableClient'), isFalse);
     expect(reconciler.contains("httpsCallable('finalizeIq')"), isFalse);
   });

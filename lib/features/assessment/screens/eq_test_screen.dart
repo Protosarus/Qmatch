@@ -6,34 +6,38 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/eq_bank/eq_bank.dart';
 import '../domain/eq_session/eq_session.dart';
-import '../domain/profile/profile.dart';
-import '../services/assessment_progress_service.dart';
-import '../services/canonical_assessment_persistence.dart';
-import '../services/canonical_assessment_profile_reconciler.dart';
 import '../services/eq_canonical_runtime_service.dart';
+import '../services/eq_pending_finalization_pipeline.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/assessment_widgets.dart';
 import 'frequency_intro_screen.dart';
 
 /// Canonical 30-item EQ session — behavioral tendency, not correctness.
 class EQTestScreen extends StatefulWidget {
-  const EQTestScreen({super.key});
+  const EQTestScreen({
+    super.key,
+    this.runtime,
+    this.pendingPipeline,
+  });
+
+  final EqCanonicalRuntimeService? runtime;
+  final EqPendingFinalizationPipeline? pendingPipeline;
 
   @override
   State<EQTestScreen> createState() => _EQTestScreenState();
 }
 
 class _EQTestScreenState extends State<EQTestScreen> {
-  final _runtime = EqCanonicalRuntimeService();
-  final _persistence = CanonicalAssessmentPersistence();
-  final _progress = AssessmentProgressService();
-  final _reconciler = CanonicalAssessmentProfileReconciler();
+  late final EqCanonicalRuntimeService _runtime;
+  late final EqPendingFinalizationPipeline _pendingPipeline;
 
   EqPersistedSessionState? _session;
   EqCanonicalBankDocument? _bank;
   String? _selectedOptionId;
   bool _isLoading = true;
   bool _didStartLoading = false;
+  bool _didAutoRetryPending = false;
+  bool _pipelineInFlight = false;
   bool _isFinishing = false;
   bool _busy = false;
   String? _loadError;
@@ -47,6 +51,9 @@ class _EQTestScreenState extends State<EQTestScreen> {
   @override
   void initState() {
     super.initState();
+    _runtime = widget.runtime ?? EqCanonicalRuntimeService();
+    _pendingPipeline = widget.pendingPipeline ??
+        EqPendingFinalizationPipeline.live(runtime: _runtime);
   }
 
   @override
@@ -110,6 +117,8 @@ class _EQTestScreenState extends State<EQTestScreen> {
       final bank = await _runtime.loadBankForLocale(session.bankLocale);
       final existing = session.answersByItemId[
           session.itemPlans[session.currentQuestionIndex].itemId];
+      final pending = session.status ==
+          EqPersistedSessionStatus.completedPendingPersistence;
       if (!mounted) return;
       setState(() {
         _session = session;
@@ -117,7 +126,14 @@ class _EQTestScreenState extends State<EQTestScreen> {
         _selectedOptionId = existing?.selectedOptionId;
         _startedAt = DateTime.tryParse(session.startedAt) ?? DateTime.now();
         _isLoading = false;
+        if (pending) {
+          _busy = true;
+          _isFinishing = true;
+        }
       });
+      if (pending) {
+        _schedulePendingPipelineOnce(session);
+      }
     } catch (e) {
       debugPrint('EQ canonical bootstrap failed: $e');
       if (!mounted) return;
@@ -131,7 +147,13 @@ class _EQTestScreenState extends State<EQTestScreen> {
   Future<void> _onContinue() async {
     final session = _session;
     final bank = _bank;
-    if (session == null || bank == null || _isFinishing || _busy) return;
+    if (session == null ||
+        bank == null ||
+        _isFinishing ||
+        _busy ||
+        _pipelineInFlight) {
+      return;
+    }
 
     final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
         WidgetsBinding.instance.platformDispatcher.locale.languageCode;
@@ -142,7 +164,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
 
     if (session.status ==
         EqPersistedSessionStatus.completedPendingPersistence) {
-      await _finalizeRemoteAndNavigate(
+      setState(() {
+        _busy = true;
+        _isFinishing = true;
+      });
+      await _runPendingFinalizationPipeline(
         session: session,
         locale: locale,
         language: language,
@@ -222,7 +248,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
       }
       if (!mounted) return;
       setState(() => _session = completed.state);
-      await _finalizeRemoteAndNavigate(
+      await _runPendingFinalizationPipeline(
         session: completed.state!,
         locale: locale,
         language: language,
@@ -235,96 +261,100 @@ class _EQTestScreenState extends State<EQTestScreen> {
         SnackBar(content: Text(l10n.iqCanonicalPersistError)),
       );
     } finally {
-      if (mounted) setState(() => _busy = false);
+      if (mounted) {
+        setState(() {
+          _busy = false;
+          if (!_pipelineInFlight) _isFinishing = false;
+        });
+      }
     }
   }
 
-  /// Score → persist eq → reconcile IQ4 → EQ→20D → markEq → finalize session.
-  Future<void> _finalizeRemoteAndNavigate({
+  ({String locale, String language}) _assessmentLocaleLanguage() {
+    final languageCode = Localizations.maybeLocaleOf(context)?.languageCode ??
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final language = AssessmentLanguage.languageUsed(
+      languageCode: languageCode,
+    );
+    final locale = AssessmentLanguage.localeUsed(locale: Locale(language));
+    return (locale: locale, language: language);
+  }
+
+  /// One automatic pending retry per screen lifecycle (bootstrap only).
+  void _schedulePendingPipelineOnce(EqPersistedSessionState session) {
+    if (_didAutoRetryPending) return;
+    _didAutoRetryPending = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      if (_session?.sessionId != session.sessionId) return;
+      final loc = _assessmentLocaleLanguage();
+      unawaited(
+        _runPendingFinalizationPipeline(
+          session: session,
+          locale: loc.locale,
+          language: loc.language,
+        ),
+      );
+    });
+  }
+
+  /// finalizeEq → existing client score → assessments/eq → canonical_v1 →
+  /// markEqCompleted → markRemoteFinalized → Frequency intro.
+  ///
+  /// Scoring is never a substitute for a failed server finalize.
+  Future<void> _runPendingFinalizationPipeline({
     required EqPersistedSessionState session,
     required String locale,
     required String language,
   }) async {
-    setState(() => _isFinishing = true);
-    final l10n = AppLocalizations.of(context)!;
+    if (_pipelineInFlight) return;
+    _pipelineInFlight = true;
+    setState(() {
+      _isFinishing = true;
+      _busy = true;
+    });
     try {
-      final scored = await _runtime.scoreCompleted(session);
-      if (!scored.ok || scored.result == null) {
-        throw StateError(scored.message ?? 'EQ scoring failed');
-      }
-      final result = scored.result!;
-
-      await _persistence.upsertCompletedAssessment(
-        assessmentType: 'eq',
-        fields: _persistence.buildCanonicalEq10dPayload(
-          result: result,
-          sessionId: session.sessionId,
-          locale: locale,
-          languageUsed: language,
-          startedAt: _startedAt,
-        ),
+      final outcome = await _pendingPipeline.run(
+        session: session,
+        locale: locale,
+        language: language,
+        startedAt: _startedAt,
       );
-
-      final uid = _runtime.currentUid;
-      if (uid == null || uid.isEmpty) {
-        throw StateError('Owner UID unavailable');
-      }
-
-      final repair = await _reconciler.ensureIq4(ownerUid: uid);
-      if (!repair.ok) {
-        debugPrint(
-            'EQ pre-req IQ4 repair failed: ${repair.code} ${repair.message}');
-        if (!mounted) return;
-        setState(() => _isFinishing = false);
+      if (!mounted) return;
+      if (!outcome.navigateToFrequency) {
+        setState(() {
+          _isFinishing = false;
+          _busy = false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.assessmentPrerequisiteRepairError)),
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.iqCanonicalPersistError),
+          ),
         );
         return;
       }
-
-      final existingProfile = await _persistence.getCanonicalProfile(uid: uid);
-      final existingIq = _reconciler.measuredOfModule(existingProfile, 'iq');
-
-      final adapted = const EqTo20dRuntimeAdapter().adapt(
-        result: result,
-        ownerUid: uid,
-        sessionId: session.sessionId,
-        existingIqDimensions: existingIq,
-      );
-      if (!adapted.ok || adapted.fragment == null) {
-        throw StateError(adapted.message ?? 'EQ→20D adapt failed');
-      }
-      await _persistence.upsertCanonicalProfileFragment(adapted.fragment!);
-      await _progress.markEqCompleted();
-
-      final finalized = await _runtime.markRemoteFinalized(
-        sessionId: session.sessionId,
-      );
-      if (!finalized.ok || finalized.state == null) {
-        throw StateError(
-          finalized.message.isNotEmpty
-              ? finalized.message
-              : 'EQ finalize failed',
-        );
-      }
-
-      debugPrint('✅ Canonical EQ completed — navigating to Frequency');
-      if (!mounted) return;
       setState(() {
-        _session = finalized.state;
+        _session = outcome.session;
         _isFinishing = false;
+        _busy = false;
       });
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const FrequencyIntroScreen()),
       );
     } catch (e) {
       debugPrint('❌ Error saving canonical EQ results: $e');
-      if (mounted) {
-        setState(() => _isFinishing = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.iqCanonicalPersistError)),
-        );
-      }
+      if (!mounted) return;
+      setState(() {
+        _isFinishing = false;
+        _busy = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.iqCanonicalPersistError),
+        ),
+      );
+    } finally {
+      _pipelineInFlight = false;
     }
   }
 
@@ -494,7 +524,9 @@ class _EQTestScreenState extends State<EQTestScreen> {
                         : (_selectedOptionId != null &&
                             !_isFinishing &&
                             !_busy),
-                    onPressed: (_isFinishing || _busy) ? () {} : _onContinue,
+                    onPressed: (_isFinishing || _busy || _pipelineInFlight)
+                        ? () {}
+                        : _onContinue,
                   ),
                 ],
               ),
