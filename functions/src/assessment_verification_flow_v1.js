@@ -55,7 +55,7 @@ function resolveTrustedFlow(existingFlow, derivedFlow) {
   return derived;
 }
 
-function preserveGrantReason(existing, resolvedFlow) {
+function preserveGrantReason(existing, resolvedFlow, source) {
   if (
     PRESERVED_GRANT_FLOWS.has(resolvedFlow) &&
     existing &&
@@ -63,6 +63,9 @@ function preserveGrantReason(existing, resolvedFlow) {
     existing.grant_reason.trim() !== ''
   ) {
     return existing.grant_reason;
+  }
+  if (typeof source === 'string' && source.trim() !== '') {
+    return source;
   }
   return 'admin_finalize_iq_v1';
 }

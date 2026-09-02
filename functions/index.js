@@ -456,6 +456,19 @@ exports.finalizeIq = onCall(
   { region: 'europe-west1' },
   (request) => finalizeIq.handleFinalizeIq(request),
 );
+const finalizeEq = require('./src/finalize_eq_v1');
+
+/**
+ * Trusted EQ session finalize (`admin_finalize_eq_v1`).
+ * Auth required. Structurally validates a locked 30-item EQ session and
+ * Admin-writes users/{uid}.assessment_verification_v1.eq plus eq_completed.
+ * Does not score, store answers, grant Discover, or finalize IQ/Frequency.
+ * Registered locally; not client-wired. europe-west1 only.
+ */
+exports.finalizeEq = onCall(
+  { region: 'europe-west1' },
+  (request) => finalizeEq.handleFinalizeEq(request),
+);
 const finalizeFrequencyV2 = require('./src/finalize_frequency_v2_v1');
 
 /**

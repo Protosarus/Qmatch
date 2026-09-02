@@ -465,7 +465,7 @@ describe('finalizeIq callable', () => {
     assert.strictEqual(userData(db).iq_completed, true);
   });
 
-  it('index.js exports exactly one europe-west1 finalizeIq and no EQ/Frequency twins', () => {
+  it('index.js exports exactly one europe-west1 finalizeIq and no Frequency V1 twin', () => {
     const index = fs.readFileSync(
       path.join(__dirname, '../index.js'),
       'utf8',
@@ -475,7 +475,7 @@ describe('finalizeIq callable', () => {
     const block = index.slice(start, start + 220);
     assert.ok(block.includes("region: 'europe-west1'"));
     assert.ok(!index.includes('finalizeIqEu'));
-    assert.ok(!index.includes('finalizeEq'));
+    assert.ok(index.includes('exports.finalizeEq = onCall('));
     assert.ok(!/\bexports\.finalizeFrequency\s*=/.test(index));
     assert.ok(!index.includes('exports.handleFinalizeIq'));
   });

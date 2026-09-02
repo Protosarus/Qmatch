@@ -65,5 +65,13 @@ describe('assessment_verification_flow_v1', () => {
       preserveGrantReason({ grant_reason: 'legacy' }, 'iq'),
       'admin_finalize_iq_v1',
     );
+    assert.strictEqual(
+      preserveGrantReason(
+        { grant_reason: 'legacy' },
+        'iq_eq',
+        'admin_finalize_eq_v1',
+      ),
+      'admin_finalize_eq_v1',
+    );
   });
 });
