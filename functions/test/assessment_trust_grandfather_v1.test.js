@@ -43,13 +43,30 @@ function frozenSnapshot(data) {
   return out;
 }
 
-function verifiedModule(id) {
+function verifiedModule(id, extra = {}) {
   return {
     status: 'verified',
     source: 'admin_finalize_iq_v1',
     session_id: id,
     bank_version: 'bank_x',
     catalog_version: DEFAULT_CATALOG_VERSION,
+    ...extra,
+  };
+}
+
+function trustedCompleteVerification(extra = {}) {
+  return {
+    schema_version: VERIFICATION_SCHEMA,
+    flow: 'complete',
+    grant_reason: 'admin_finalize_frequency_v1',
+    catalog_version: DEFAULT_CATALOG_VERSION,
+    iq: verifiedModule('iq_keep'),
+    eq: { ...verifiedModule('eq_keep'), source: 'admin_finalize_eq_v1' },
+    frequency: {
+      ...verifiedModule('freq_keep'),
+      source: 'admin_finalize_frequency_v1',
+    },
+    ...extra,
   };
 }
 
@@ -91,6 +108,16 @@ describe('assessment_trust_grandfather_v1 planner', () => {
     assert.strictEqual(planGrandfatherWrite(user).write, null);
   });
 
+  it('discover_eligible=true + profile incomplete => no grandfather write', () => {
+    const user = eligibleUser({ profile_completed: false });
+    assert.strictEqual(deriveDiscoverEligible(user), false);
+    assert.strictEqual(
+      classifyGrandfatherCandidate(user),
+      CLASSIFICATIONS.storedEligibleButFormulaFalse,
+    );
+    assert.strictEqual(planGrandfatherWrite(user).write, null);
+  });
+
   it('discover_eligible=true + no photo => no grandfather write', () => {
     const user = eligibleUser({
       profile_photo_url: '',
@@ -110,23 +137,31 @@ describe('assessment_trust_grandfather_v1 planner', () => {
     assert.strictEqual(planGrandfatherWrite(user).write, null);
   });
 
-  it('trusted complete => unchanged', () => {
-    const iq = verifiedModule('iq_keep');
-    const eq = { ...verifiedModule('eq_keep'), source: 'admin_finalize_eq_v1' };
-    const frequency = {
-      ...verifiedModule('freq_keep'),
-      source: 'admin_finalize_frequency_v1',
-    };
+  it('flow=complete without trusted modules is NOT trusted-complete', () => {
     const user = eligibleUser({
       assessment_verification_v1: {
         schema_version: VERIFICATION_SCHEMA,
         flow: 'complete',
-        grant_reason: 'admin_finalize_frequency_v1',
-        catalog_version: DEFAULT_CATALOG_VERSION,
-        iq,
-        eq,
-        frequency,
+        grant_reason: 'client_claimed',
       },
+    });
+    const planned = planGrandfatherWrite(user);
+    assert.strictEqual(
+      planned.classification,
+      CLASSIFICATIONS.grandfatherCandidate,
+    );
+    assert.ok(planned.write);
+    assert.strictEqual(planned.write.assessment_verification_v1.flow, PRESERVED_FLOW);
+    assert.strictEqual(
+      planned.write.assessment_verification_v1.grant_reason,
+      MIGRATION_GRANT_REASON,
+    );
+    assert.strictEqual(planned.write.assessment_verification_v1.iq, undefined);
+  });
+
+  it('trusted complete => unchanged', () => {
+    const user = eligibleUser({
+      assessment_verification_v1: trustedCompleteVerification(),
     });
     const before = JSON.parse(JSON.stringify(user.assessment_verification_v1));
     const planned = planGrandfatherWrite(user);
@@ -238,6 +273,32 @@ describe('assessment_trust_grandfather_v1 planner', () => {
     );
   });
 
+  it('existing module timestamps and session IDs preserved', () => {
+    const iq = verifiedModule('iq_ts', { verified_at: '2024-01-02T03:04:05Z' });
+    const eq = {
+      status: 'verified',
+      source: 'admin_finalize_eq_v1',
+      session_id: 'eq_ts',
+      verified_at: '2024-02-03T04:05:06Z',
+    };
+    const planned = planGrandfatherWrite(
+      eligibleUser({
+        assessment_verification_v1: {
+          flow: 'iq_eq',
+          server_owned_marker: 'keep-me',
+          iq,
+          eq,
+        },
+      }),
+    );
+    const next = planned.write.assessment_verification_v1;
+    assert.strictEqual(next.iq.session_id, 'iq_ts');
+    assert.strictEqual(next.iq.verified_at, '2024-01-02T03:04:05Z');
+    assert.strictEqual(next.eq.session_id, 'eq_ts');
+    assert.strictEqual(next.eq.verified_at, '2024-02-03T04:05:06Z');
+    assert.strictEqual(next.server_owned_marker, 'keep-me');
+  });
+
   it('no Frequency V2 sibling introduced', () => {
     const planned = planGrandfatherWrite(
       eligibleUser({
@@ -301,6 +362,7 @@ describe('assessment_trust_grandfather_v1 planner', () => {
       discover_eligible: true,
       profile_photo_url: 'https://example.com/p.jpg',
     });
+    const before = frozenSnapshot(user);
     const planned = planGrandfatherWrite(user);
     const keys = Object.keys(planned.write);
     assert.deepStrictEqual(keys, ['assessment_verification_v1']);
@@ -311,6 +373,13 @@ describe('assessment_trust_grandfather_v1 planner', () => {
         frozen,
       );
     }
+    assert.strictEqual(user.discover_eligible, before.discover_eligible);
+    assert.strictEqual(user.test_completed, before.test_completed);
+    assert.strictEqual(
+      user.assessment_flow_completed,
+      before.assessment_flow_completed,
+    );
+    assert.deepStrictEqual(frozenSnapshot(user), before);
   });
 
   it('malformed assessment_verification handled safely', () => {
@@ -410,7 +479,7 @@ describe('assessment_trust_grandfather_v1 scan / apply path', () => {
     const users = {
       u1: eligibleUser(),
       u2: eligibleUser({
-        assessment_verification_v1: { flow: 'complete' },
+        assessment_verification_v1: trustedCompleteVerification(),
       }),
       u3: eligibleUser(),
       u4: eligibleUser({ account_deletion_requested: true }),
@@ -440,7 +509,7 @@ describe('assessment_trust_grandfather_v1 scan / apply path', () => {
     await db.doc('users/u1').set(eligibleUser({ display_name: 'keep-me' }));
     await db.doc('users/u2').set(
       eligibleUser({
-        assessment_verification_v1: { flow: 'complete' },
+        assessment_verification_v1: trustedCompleteVerification(),
       }),
     );
     await db.doc('users/u3').set(eligibleUser({ test_completed: true }));
@@ -573,6 +642,11 @@ describe('assessment_trust_grandfather_v1 CLI gates', () => {
     assert.strictEqual(src.includes('firebase-admin'), false);
     assert.strictEqual(src.includes('getFirestore'), false);
     assert.strictEqual(src.includes("require('./discover_eligibility')"), true);
+    assert.strictEqual(
+      src.includes("require('./assessment_verification_flow_v1')"),
+      true,
+    );
+    assert.strictEqual(src.includes('moduleIsTrusted'), true);
     assert.strictEqual(src.includes('finalizeFrequencyV2'), false);
     assert.strictEqual(src.includes('runtime_selectable'), false);
     assert.strictEqual(POLICY, 'assessment_trust_grandfather_v1');

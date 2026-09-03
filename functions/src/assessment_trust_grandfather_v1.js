@@ -14,6 +14,7 @@
  */
 
 const { deriveDiscoverEligible } = require('./discover_eligibility');
+const { moduleIsTrusted } = require('./assessment_verification_flow_v1');
 
 const POLICY = 'assessment_trust_grandfather_v1';
 const VERIFICATION_SCHEMA = 'assessment_verification_v1';
@@ -71,6 +72,29 @@ function copyModule(mod) {
   return { ...mod };
 }
 
+function moduleSlotMalformed(verification) {
+  if (!isPlainObject(verification)) return false;
+  for (const key of ['iq', 'eq', 'frequency']) {
+    if (
+      Object.prototype.hasOwnProperty.call(verification, key) &&
+      verification[key] != null &&
+      !isPlainObject(verification[key])
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function isGenuinelyTrustedComplete(verification) {
+  return (
+    isPlainObject(verification) &&
+    moduleIsTrusted(verification.iq) &&
+    moduleIsTrusted(verification.eq) &&
+    moduleIsTrusted(verification.frequency)
+  );
+}
+
 function existingCatalogVersion(verification) {
   if (!isPlainObject(verification)) return DEFAULT_CATALOG_VERSION;
   const raw = verification.catalog_version;
@@ -110,6 +134,9 @@ function classifyGrandfatherCandidate(userData) {
   ) {
     return CLASSIFICATIONS.malformedVerification;
   }
+  if (moduleSlotMalformed(verification)) {
+    return CLASSIFICATIONS.malformedVerification;
+  }
 
   const storedEligible = data.discover_eligible === true;
   const formulaEligible = deriveDiscoverEligible(data);
@@ -124,13 +151,14 @@ function classifyGrandfatherCandidate(userData) {
     return CLASSIFICATIONS.notEligible;
   }
 
+  if (isGenuinelyTrustedComplete(verification)) {
+    return CLASSIFICATIONS.alreadyTrustedComplete;
+  }
+
   const flow =
     isPlainObject(verification) && typeof verification.flow === 'string'
       ? verification.flow
       : '';
-  if (flow === TRUSTED_COMPLETE_FLOW) {
-    return CLASSIFICATIONS.alreadyTrustedComplete;
-  }
   if (flow === PRESERVED_FLOW) {
     return CLASSIFICATIONS.alreadyPreC2Preserved;
   }
@@ -153,18 +181,21 @@ function planGrandfatherWrite(userData) {
   const existing = isPlainObject(userData)
     ? userData.assessment_verification_v1
     : null;
-  const next = {
-    schema_version: VERIFICATION_SCHEMA,
-    flow: PRESERVED_FLOW,
-    grant_reason: MIGRATION_GRANT_REASON,
-    catalog_version: existingCatalogVersion(existing),
-  };
+  const next = isPlainObject(existing) ? { ...existing } : {};
+  delete next.frequency_v2;
+  next.schema_version = VERIFICATION_SCHEMA;
+  next.flow = PRESERVED_FLOW;
+  next.grant_reason = MIGRATION_GRANT_REASON;
+  next.catalog_version = existingCatalogVersion(existing);
   const iq = copyModule(existing && existing.iq);
   const eq = copyModule(existing && existing.eq);
   const frequency = copyModule(existing && existing.frequency);
   if (iq) next.iq = iq;
+  else delete next.iq;
   if (eq) next.eq = eq;
+  else delete next.eq;
   if (frequency) next.frequency = frequency;
+  else delete next.frequency;
 
   return {
     classification,
