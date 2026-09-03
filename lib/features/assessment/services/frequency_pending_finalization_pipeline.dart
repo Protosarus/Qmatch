@@ -1,7 +1,6 @@
 import '../domain/frequency_scoring/frequency_scoring.dart';
 import '../domain/frequency_session/frequency_session.dart';
 import '../domain/profile/profile.dart';
-import 'assessment_progress_service.dart';
 import 'canonical_assessment_persistence.dart';
 import 'canonical_assessment_profile_reconciler.dart';
 import 'frequency_canonical_runtime_service.dart';
@@ -13,7 +12,6 @@ enum FrequencyPendingPipelineStep {
   score,
   persistAssessment,
   persistCanonical,
-  markAssessmentFlowCompleted,
   markRemoteFinalized,
 }
 
@@ -38,7 +36,7 @@ class FrequencyPendingPipelineResult {
 /// Single owner of:
 /// finalizeFrequency → existing client Frequency V1 score →
 /// assessments/frequency → canonical_v1 Frequency 6D fragment →
-/// markAssessmentFlowCompleted → markRemoteFinalized.
+/// markRemoteFinalized.
 ///
 /// `finalizeFrequency` success (including `frequency_completed=true`) does
 /// **not** complete local persistence. Scoring is never a substitute for a
@@ -68,7 +66,6 @@ class FrequencyPendingFinalizationPipeline {
       required String locale,
       required String language,
     }) persistCanonical,
-    required Future<void> Function() markAssessmentFlowCompleted,
     required Future<FrequencySessionWriteResult> Function(String sessionId)
         markRemoteFinalized,
     String? Function()? currentUid,
@@ -76,7 +73,6 @@ class FrequencyPendingFinalizationPipeline {
         _scoreCompleted = scoreCompleted,
         _persistAssessment = persistAssessment,
         _persistCanonical = persistCanonical,
-        _markAssessmentFlowCompleted = markAssessmentFlowCompleted,
         _markRemoteFinalized = markRemoteFinalized,
         _currentUid = currentUid;
 
@@ -85,12 +81,10 @@ class FrequencyPendingFinalizationPipeline {
     FrequencyCanonicalRuntimeService? runtime,
     CanonicalAssessmentPersistence? persistence,
     CanonicalAssessmentProfileReconciler? reconciler,
-    AssessmentProgressService? progress,
   }) {
     final rt = runtime ?? FrequencyCanonicalRuntimeService();
     final persist = persistence ?? CanonicalAssessmentPersistence();
     final repair = reconciler ?? CanonicalAssessmentProfileReconciler();
-    final prog = progress ?? AssessmentProgressService();
     return FrequencyPendingFinalizationPipeline(
       finalizeClient: finalizeClient ?? FrequencyFinalizeCallableClient(),
       scoreCompleted: rt.scoreCompleted,
@@ -148,7 +142,6 @@ class FrequencyPendingFinalizationPipeline {
         }
         await persist.upsertCanonicalProfileFragment(adapted.fragment!);
       },
-      markAssessmentFlowCompleted: prog.markAssessmentFlowCompleted,
       markRemoteFinalized: (sessionId) =>
           rt.markRemoteFinalized(sessionId: sessionId),
       currentUid: () => rt.currentUid,
@@ -175,7 +168,6 @@ class FrequencyPendingFinalizationPipeline {
     required String locale,
     required String language,
   }) _persistCanonical;
-  final Future<void> Function() _markAssessmentFlowCompleted;
   final Future<FrequencySessionWriteResult> Function(String sessionId)
       _markRemoteFinalized;
   final String? Function()? _currentUid;
@@ -251,8 +243,6 @@ class FrequencyPendingFinalizationPipeline {
         language: language,
       );
       steps.add(FrequencyPendingPipelineStep.persistCanonical);
-      await _markAssessmentFlowCompleted();
-      steps.add(FrequencyPendingPipelineStep.markAssessmentFlowCompleted);
     } catch (_) {
       return FrequencyPendingPipelineResult(
         navigateToPersona: false,

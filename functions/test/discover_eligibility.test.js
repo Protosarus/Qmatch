@@ -2,26 +2,68 @@
 
 const assert = require('assert');
 const {
+  RELEVANT_KEYS,
   deriveDiscoverEligible,
   planDiscoverEligibleWrite,
   hasValidPhoto,
+  hasTrustedAssessmentDiscoverGrant,
   relevantFieldsChanged,
 } = require('../src/discover_eligibility');
+const {
+  deriveLegacyDiscoverEligiblePreTrust,
+} = require('../src/legacy_discover_eligibility_pre_trust_v1');
+
+function trustedBattery(extra = {}) {
+  return {
+    schema_version: 'assessment_verification_v1',
+    flow: 'complete',
+    grant_reason: 'admin_finalize_frequency_v1',
+    iq: { status: 'verified' },
+    eq: { status: 'verified' },
+    frequency: { status: 'verified' },
+    ...extra,
+  };
+}
+
+function grandfatherGrant() {
+  return {
+    schema_version: 'assessment_verification_v1',
+    flow: 'pre_c2_preserved',
+    grant_reason: 'pre_trust_migration_preserved',
+    catalog_version: 'assessment_finalize_catalog_v1',
+  };
+}
 
 function validBase(overrides = {}) {
   return {
     active: true,
-    test_completed: true,
-    assessment_flow_completed: false,
     profile_completed: true,
     profile_photo_url: 'https://example.com/p.jpg',
     account_deletion_requested: false,
     discover_eligible: false,
+    assessment_verification_v1: trustedBattery(),
     ...overrides,
   };
 }
 
 describe('trusted_discover_eligibility_authority_v1', () => {
+  it('RELEVANT_KEYS use verification, not client completion flags', () => {
+    assert.deepStrictEqual(
+      [...RELEVANT_KEYS],
+      [
+        'active',
+        'profile_completed',
+        'profile_photo_url',
+        'photos',
+        'account_deletion_requested',
+        'discover_eligible',
+        'assessment_verification_v1',
+      ],
+    );
+    assert.ok(!RELEVANT_KEYS.includes('test_completed'));
+    assert.ok(!RELEVANT_KEYS.includes('assessment_flow_completed'));
+  });
+
   it('incomplete -> false', () => {
     assert.strictEqual(deriveDiscoverEligible({}), false);
     assert.strictEqual(deriveDiscoverEligible(null), false);
@@ -29,8 +71,6 @@ describe('trusted_discover_eligibility_authority_v1', () => {
       deriveDiscoverEligible({
         active: true,
         profile_completed: false,
-        test_completed: false,
-        assessment_flow_completed: false,
       }),
       false,
     );
@@ -40,8 +80,7 @@ describe('trusted_discover_eligibility_authority_v1', () => {
     assert.strictEqual(
       deriveDiscoverEligible(
         validBase({
-          test_completed: false,
-          assessment_flow_completed: false,
+          assessment_verification_v1: undefined,
           profile_completed: true,
         }),
       ),
@@ -54,7 +93,6 @@ describe('trusted_discover_eligibility_authority_v1', () => {
       deriveDiscoverEligible(
         validBase({
           profile_completed: false,
-          test_completed: true,
         }),
       ),
       false,
@@ -80,7 +118,10 @@ describe('trusted_discover_eligibility_authority_v1', () => {
       ),
       false,
     );
-    assert.strictEqual(hasValidPhoto(validBase({ profile_photo_url: '' , photos: [] })), false);
+    assert.strictEqual(
+      hasValidPhoto(validBase({ profile_photo_url: '', photos: [] })),
+      false,
+    );
   });
 
   it('all canonical requirements -> true', () => {
@@ -96,30 +137,118 @@ describe('trusted_discover_eligibility_authority_v1', () => {
     );
   });
 
-  it('either assessment completion flag works', () => {
+  it('old client completion flags no longer grant eligibility', () => {
+    const flagsOnly = validBase({
+      assessment_verification_v1: undefined,
+      test_completed: true,
+      assessment_flow_completed: true,
+    });
+    assert.strictEqual(deriveDiscoverEligible(flagsOnly), false);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(flagsOnly), true);
     assert.strictEqual(
       deriveDiscoverEligible(
         validBase({
+          assessment_verification_v1: undefined,
           test_completed: true,
           assessment_flow_completed: false,
+        }),
+      ),
+      false,
+    );
+    assert.strictEqual(
+      deriveDiscoverEligible(
+        validBase({
+          assessment_verification_v1: undefined,
+          test_completed: false,
+          assessment_flow_completed: true,
+        }),
+      ),
+      false,
+    );
+  });
+
+  it('grandfather pre_c2_preserved grant remains eligible without client flags', () => {
+    assert.strictEqual(
+      deriveDiscoverEligible(
+        validBase({
+          test_completed: false,
+          assessment_flow_completed: false,
+          assessment_verification_v1: grandfatherGrant(),
         }),
       ),
       true,
     );
     assert.strictEqual(
+      hasTrustedAssessmentDiscoverGrant({
+        assessment_verification_v1: grandfatherGrant(),
+      }),
+      true,
+    );
+  });
+
+  it('trusted V1 battery path requires IQ + EQ + Frequency V1', () => {
+    const profileReady = {
+      active: true,
+      profile_completed: true,
+      profile_photo_url: 'https://example.com/p.jpg',
+    };
+    assert.strictEqual(
+      deriveDiscoverEligible({
+        ...profileReady,
+        assessment_verification_v1: { iq: { status: 'verified' } },
+      }),
+      false,
+    );
+    assert.strictEqual(
+      deriveDiscoverEligible({
+        ...profileReady,
+        assessment_verification_v1: {
+          iq: { status: 'verified' },
+          eq: { status: 'verified' },
+        },
+      }),
+      false,
+    );
+    assert.strictEqual(
+      deriveDiscoverEligible({
+        ...profileReady,
+        assessment_verification_v1: {
+          frequency: { status: 'verified' },
+        },
+      }),
+      false,
+    );
+    assert.strictEqual(
+      deriveDiscoverEligible({
+        ...profileReady,
+        assessment_verification_v1: trustedBattery(),
+      }),
+      true,
+    );
+  });
+
+  it('flow=complete alone and Frequency V2 alone do not grant', () => {
+    const profileReady = validBase({
+      assessment_verification_v1: {
+        flow: 'complete',
+        grant_reason: 'client_claimed',
+      },
+    });
+    assert.strictEqual(deriveDiscoverEligible(profileReady), false);
+    assert.strictEqual(
       deriveDiscoverEligible(
         validBase({
-          test_completed: false,
-          assessment_flow_completed: true,
+          assessment_verification_v1: undefined,
+          assessments_frequency_v2: { status: 'completed' },
+          frequency_v2: { status: 'completed' },
         }),
       ),
-      true,
+      false,
     );
   });
 
   it('active false -> false', () => {
     assert.strictEqual(deriveDiscoverEligible(validBase({ active: false })), false);
-    // Missing active is not eligible (strict == true).
     assert.strictEqual(
       deriveDiscoverEligible(validBase({ active: undefined })),
       false,
@@ -151,7 +280,6 @@ describe('trusted_discover_eligibility_authority_v1', () => {
     assert.strictEqual(plan1.shouldWrite, false);
     assert.strictEqual(plan1.derived, true);
 
-    // Simulated CF write of discover_eligible only → second invocation no-ops.
     const afterCfWrite = validBase({ discover_eligible: true });
     const beforeCfWrite = validBase({ discover_eligible: false });
     const planGrant = planDiscoverEligibleWrite(beforeCfWrite, {
@@ -164,9 +292,11 @@ describe('trusted_discover_eligibility_authority_v1', () => {
       profile_completed: false,
       discover_eligible: false,
     });
-    assert.strictEqual(planDiscoverEligibleWrite(ineligible, ineligible).shouldWrite, false);
+    assert.strictEqual(
+      planDiscoverEligibleWrite(ineligible, ineligible).shouldWrite,
+      false,
+    );
 
-    // Unrelated field change with correct flag → no write.
     const beforeBio = validBase({ discover_eligible: true, bio: 'a' });
     const afterBio = validBase({ discover_eligible: true, bio: 'b' });
     assert.strictEqual(planDiscoverEligibleWrite(beforeBio, afterBio).shouldWrite, false);
@@ -218,7 +348,6 @@ describe('trusted_discover_eligibility_authority_v1', () => {
   });
 
   it('empty photos + stale primary URL still counts as hasPhoto (until cleared)', () => {
-    // Client must clear primary; CF does not invent deletes.
     assert.strictEqual(
       hasValidPhoto({
         photos: [],
@@ -246,5 +375,17 @@ describe('trusted_discover_eligibility_authority_v1', () => {
       ),
       true,
     );
+  });
+
+  it('changing client flags is not a relevant eligibility field change', () => {
+    const before = validBase({ test_completed: false });
+    const after = validBase({ test_completed: true });
+    assert.strictEqual(relevantFieldsChanged(before, after), false);
+  });
+
+  it('changing assessment_verification_v1 is relevant', () => {
+    const before = validBase({ assessment_verification_v1: undefined });
+    const after = validBase();
+    assert.strictEqual(relevantFieldsChanged(before, after), true);
   });
 });

@@ -3,8 +3,9 @@
 /// [test_completed] compatibility:
 /// - **Legacy (no `assessment_flow_version`):** historically meant IQ+EQ HH…LL
 ///   grid finished (often before Frequency existed).
-/// - **Flow v2:** set only after IQ + EQ + complete Frequency — used as a
-///   legacy Discover/`discover_eligible` gate, not as the sole router.
+/// - **Flow v2:** historically set after IQ + EQ + complete Frequency as a
+///   legacy Discover/`discover_eligible` client flag. Live Discover no longer
+///   treats this as authority. Routing uses module completion.
 enum AssessmentModuleStatus {
   notStarted,
   inProgress,

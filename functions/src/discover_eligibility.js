@@ -2,10 +2,18 @@
  * Trusted Discover eligibility derivation (`trusted_discover_eligibility_authority_v1`).
  *
  * Canonical:
+ *   account_deletion_requested != true &&
  *   active == true &&
- *   (test_completed == true || assessment_flow_completed == true) &&
  *   profile_completed == true &&
- *   hasPhoto == true
+ *   hasValidPhoto &&
+ *   hasTrustedAssessmentDiscoverGrant
+ *
+ * Assessment grant is Admin-owned verification only:
+ *   trusted IQ + EQ + Frequency V1 modules
+ *   OR pre_c2_preserved + pre_trust_migration_preserved
+ *
+ * Client flags (test_completed / assessment_flow_completed) and
+ * flow=complete alone are not proof. Frequency V2 is not a grant path.
  *
  * Missing required data => false.
  * Deletion soft-marker or inactive => false.
@@ -15,16 +23,20 @@
 
 'use strict';
 
+const {
+  hasTrustedV1Battery,
+  hasPreTrustMigrationGrant,
+} = require('./assessment_verification_flow_v1');
+
 /** Fields that can change derived discover_eligible. */
 const RELEVANT_KEYS = Object.freeze([
   'active',
-  'test_completed',
-  'assessment_flow_completed',
   'profile_completed',
   'profile_photo_url',
   'photos',
   'account_deletion_requested',
   'discover_eligible',
+  'assessment_verification_v1',
 ]);
 
 /**
@@ -59,6 +71,18 @@ function hasValidPhoto(data) {
  * @param {Record<string, unknown>|null|undefined} data
  * @returns {boolean}
  */
+function hasTrustedAssessmentDiscoverGrant(data) {
+  if (!data || typeof data !== 'object') return false;
+  const verification = data.assessment_verification_v1;
+  if (hasTrustedV1Battery(verification)) return true;
+  if (hasPreTrustMigrationGrant(verification)) return true;
+  return false;
+}
+
+/**
+ * @param {Record<string, unknown>|null|undefined} data
+ * @returns {boolean}
+ */
 function deriveDiscoverEligible(data) {
   if (!data || typeof data !== 'object') return false;
 
@@ -68,13 +92,8 @@ function deriveDiscoverEligible(data) {
   // Strict: missing active is not eligible.
   if (data.active !== true) return false;
   if (data.profile_completed !== true) return false;
-
-  const assessmentsDone =
-    data.test_completed === true ||
-    data.assessment_flow_completed === true;
-  if (!assessmentsDone) return false;
-
   if (!hasValidPhoto(data)) return false;
+  if (!hasTrustedAssessmentDiscoverGrant(data)) return false;
 
   return true;
 }
@@ -124,6 +143,7 @@ function relevantFieldsChanged(beforeData, afterData) {
 module.exports = {
   RELEVANT_KEYS,
   hasValidPhoto,
+  hasTrustedAssessmentDiscoverGrant,
   deriveDiscoverEligible,
   planDiscoverEligibleWrite,
   relevantFieldsChanged,

@@ -259,7 +259,28 @@ service cloud.firestore {
           && request.resource.data.assessment_verification_v1
             == resource.data.assessment_verification_v1
         );
-      return eligibleOk && deletionOk && verificationOk && !affected.hasAny([
+      // Client cannot self-grant the old Discover completion bypass.
+      let testCompletedOk = !affected.hasAny(['test_completed'])
+        || request.resource.data.test_completed != true
+        || (
+          'test_completed' in resource.data
+          && resource.data.test_completed == true
+        );
+      let flowCompletedOk = !affected.hasAny(['assessment_flow_completed'])
+        || request.resource.data.assessment_flow_completed != true
+        || (
+          'assessment_flow_completed' in resource.data
+          && resource.data.assessment_flow_completed == true
+        );
+      let testCompletedAtOk = !affected.hasAny(['test_completed_at'])
+        || (
+          'test_completed_at' in resource.data
+          && request.resource.data.test_completed_at
+            == resource.data.test_completed_at
+        );
+      return eligibleOk && deletionOk && verificationOk
+        && testCompletedOk && flowCompletedOk && testCompletedAtOk
+        && !affected.hasAny([
         'iq_score',
         'eq_score',
         'compatibility',
@@ -287,7 +308,16 @@ service cloud.firestore {
           !('account_deletion_requested' in request.resource.data)
           || request.resource.data.account_deletion_requested == false
         )
-        && !('assessment_verification_v1' in request.resource.data);
+        && !('assessment_verification_v1' in request.resource.data)
+        && (
+          !('test_completed' in request.resource.data)
+          || request.resource.data.test_completed == false
+        )
+        && (
+          !('assessment_flow_completed' in request.resource.data)
+          || request.resource.data.assessment_flow_completed == false
+        )
+        && !('test_completed_at' in request.resource.data);
     }
 
     // Deny-by-default for unknown paths.

@@ -88,7 +88,11 @@ def has_valid_photo(data: dict[str, Any]) -> bool:
 
 
 def derive_discover_eligible(data: dict[str, Any] | None) -> bool:
-    """Must match functions/src/discover_eligibility.js."""
+    """Frozen PRE-TRUST formula.
+
+    Must match ``functions/src/legacy_discover_eligibility_pre_trust_v1.js``.
+    Must not track live Discover after the trusted-assessment cutover.
+    """
     if not isinstance(data, dict):
         return False
     if data.get("account_deletion_requested") is True:

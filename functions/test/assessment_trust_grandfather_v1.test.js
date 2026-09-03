@@ -2,7 +2,9 @@
 
 const assert = require('assert');
 const { MemoryFirestore } = require('./memory_firestore');
-const { deriveDiscoverEligible } = require('../src/discover_eligibility');
+const {
+  deriveLegacyDiscoverEligiblePreTrust,
+} = require('../src/legacy_discover_eligibility_pre_trust_v1');
 const {
   POLICY,
   VERIFICATION_SCHEMA,
@@ -73,7 +75,7 @@ function trustedCompleteVerification(extra = {}) {
 describe('assessment_trust_grandfather_v1 planner', () => {
   it('discover_eligible=true + old formula true => candidate', () => {
     const user = eligibleUser();
-    assert.strictEqual(deriveDiscoverEligible(user), true);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(user), true);
     assert.strictEqual(
       classifyGrandfatherCandidate(user),
       CLASSIFICATIONS.grandfatherCandidate,
@@ -90,7 +92,7 @@ describe('assessment_trust_grandfather_v1 planner', () => {
 
   it('discover_eligible=true + deletion requested => stored_eligible_but_formula_false', () => {
     const user = eligibleUser({ account_deletion_requested: true });
-    assert.strictEqual(deriveDiscoverEligible(user), false);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(user), false);
     assert.strictEqual(
       classifyGrandfatherCandidate(user),
       CLASSIFICATIONS.storedEligibleButFormulaFalse,
@@ -100,7 +102,7 @@ describe('assessment_trust_grandfather_v1 planner', () => {
 
   it('discover_eligible=true + inactive => no grandfather write', () => {
     const user = eligibleUser({ active: false });
-    assert.strictEqual(deriveDiscoverEligible(user), false);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(user), false);
     assert.strictEqual(
       classifyGrandfatherCandidate(user),
       CLASSIFICATIONS.storedEligibleButFormulaFalse,
@@ -110,7 +112,7 @@ describe('assessment_trust_grandfather_v1 planner', () => {
 
   it('discover_eligible=true + profile incomplete => no grandfather write', () => {
     const user = eligibleUser({ profile_completed: false });
-    assert.strictEqual(deriveDiscoverEligible(user), false);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(user), false);
     assert.strictEqual(
       classifyGrandfatherCandidate(user),
       CLASSIFICATIONS.storedEligibleButFormulaFalse,
@@ -123,13 +125,13 @@ describe('assessment_trust_grandfather_v1 planner', () => {
       profile_photo_url: '',
       photos: [],
     });
-    assert.strictEqual(deriveDiscoverEligible(user), false);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(user), false);
     assert.strictEqual(planGrandfatherWrite(user).write, null);
   });
 
   it('formula true but discover_eligible=false => report only, no grandfather', () => {
     const user = eligibleUser({ discover_eligible: false });
-    assert.strictEqual(deriveDiscoverEligible(user), true);
+    assert.strictEqual(deriveLegacyDiscoverEligiblePreTrust(user), true);
     assert.strictEqual(
       classifyGrandfatherCandidate(user),
       CLASSIFICATIONS.formulaTrueButStoredFalse,
@@ -641,12 +643,17 @@ describe('assessment_trust_grandfather_v1 CLI gates', () => {
     );
     assert.strictEqual(src.includes('firebase-admin'), false);
     assert.strictEqual(src.includes('getFirestore'), false);
-    assert.strictEqual(src.includes("require('./discover_eligibility')"), true);
+    assert.strictEqual(
+      src.includes("require('./legacy_discover_eligibility_pre_trust_v1')"),
+      true,
+    );
+    assert.strictEqual(src.includes("require('./discover_eligibility')"), false);
     assert.strictEqual(
       src.includes("require('./assessment_verification_flow_v1')"),
       true,
     );
-    assert.strictEqual(src.includes('moduleIsTrusted'), true);
+    assert.strictEqual(src.includes('hasTrustedV1Battery'), true);
+    assert.strictEqual(src.includes('moduleIsTrusted'), false);
     assert.strictEqual(src.includes('finalizeFrequencyV2'), false);
     assert.strictEqual(src.includes('runtime_selectable'), false);
     assert.strictEqual(POLICY, 'assessment_trust_grandfather_v1');

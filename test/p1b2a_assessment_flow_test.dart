@@ -181,9 +181,9 @@ void main() {
       patch.remove('updated_at');
       patch.remove('test_completed_at');
       expect(patch['frequency_completed'], isTrue);
-      expect(patch['assessment_flow_completed'], isTrue);
+      expect(patch.containsKey('assessment_flow_completed'), isFalse);
       expect(patch['assessment_flow_version'], 2);
-      expect(patch['test_completed'], isTrue);
+      expect(patch.containsKey('test_completed'), isFalse);
       expect(patch.containsKey('archetype'), isFalse);
       expect(patch.containsKey('category'), isFalse);
       expect(patch.containsKey('primary_persona_id'), isFalse);

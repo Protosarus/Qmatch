@@ -293,12 +293,8 @@ class FrequencyService {
       fields['frequency_type'] = result.type;
       fields['frequency_tags'] = result.tags;
       fields['frequency_score'] = result.scoreTotal;
-      // Full battery complete — Discover/legacy gate (see AssessmentProgress).
-      fields['assessment_flow_completed'] = true;
       fields['assessment_flow_version'] =
           AssessmentProgressSnapshot.flowVersionV2;
-      fields['test_completed'] = true;
-      fields['test_completed_at'] = FieldValue.serverTimestamp();
     }
     // Incomplete: do not write frequency_type / tags / score / flow flags.
     return fields;

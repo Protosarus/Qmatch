@@ -80,6 +80,31 @@ void main() {
         index.contains('trusted_discover_eligibility_authority_v1'),
         isTrue,
       );
+      final eligibility = File('functions/src/discover_eligibility.js')
+          .readAsStringSync();
+      expect(eligibility.contains('hasTrustedAssessmentDiscoverGrant'), isTrue);
+      expect(
+        File('functions/src/legacy_discover_eligibility_pre_trust_v1.js')
+            .existsSync(),
+        isTrue,
+      );
+    });
+
+    test('live Frequency pipeline no longer writes client completion flags', () {
+      final pipeline = File(
+        'lib/features/assessment/services/frequency_pending_finalization_pipeline.dart',
+      ).readAsStringSync();
+      expect(pipeline.contains('markAssessmentFlowCompleted'), isFalse);
+      final progress = File(
+        'lib/features/assessment/services/assessment_progress_service.dart',
+      ).readAsStringSync();
+      expect(progress.contains("'test_completed': true"), isFalse);
+      expect(progress.contains("'assessment_flow_completed': true"), isFalse);
+      final freq = File(
+        'lib/features/assessment/services/frequency_service.dart',
+      ).readAsStringSync();
+      expect(freq.contains("'test_completed': true"), isFalse);
+      expect(freq.contains("'assessment_flow_completed': true"), isFalse);
     });
   });
 }

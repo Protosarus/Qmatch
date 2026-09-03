@@ -32,6 +32,27 @@ function moduleIsTrusted(mod) {
   return isPlainObject(mod) && TRUSTED_MODULE_STATUSES.has(mod.status);
 }
 
+/**
+ * Genuine current V1 trusted battery: IQ + EQ + Frequency V1 modules.
+ * Does not treat flow=complete, client flags, or Frequency V2 as proof.
+ */
+function hasTrustedV1Battery(verification) {
+  const map = isPlainObject(verification) ? verification : {};
+  return (
+    moduleIsTrusted(map.iq) &&
+    moduleIsTrusted(map.eq) &&
+    moduleIsTrusted(map.frequency)
+  );
+}
+
+function hasPreTrustMigrationGrant(verification) {
+  return (
+    isPlainObject(verification) &&
+    verification.flow === 'pre_c2_preserved' &&
+    verification.grant_reason === 'pre_trust_migration_preserved'
+  );
+}
+
 function deriveProgressionFlow(verification) {
   const map = isPlainObject(verification) ? verification : {};
   const iq = moduleIsTrusted(map.iq);
@@ -75,6 +96,8 @@ module.exports = {
   PRESERVED_GRANT_FLOWS,
   FLOW_RANK,
   moduleIsTrusted,
+  hasTrustedV1Battery,
+  hasPreTrustMigrationGrant,
   deriveProgressionFlow,
   resolveTrustedFlow,
   preserveGrantReason,

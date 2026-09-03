@@ -6,9 +6,46 @@ const {
   resolveTrustedFlow,
   preserveGrantReason,
   moduleIsTrusted,
+  hasTrustedV1Battery,
+  hasPreTrustMigrationGrant,
 } = require('../src/assessment_verification_flow_v1');
 
 describe('assessment_verification_flow_v1', () => {
+  it('hasTrustedV1Battery requires IQ + EQ + Frequency V1', () => {
+    assert.strictEqual(hasTrustedV1Battery(null), false);
+    assert.strictEqual(hasTrustedV1Battery({ flow: 'complete' }), false);
+    assert.strictEqual(
+      hasTrustedV1Battery({ iq: { status: 'verified' } }),
+      false,
+    );
+    assert.strictEqual(
+      hasTrustedV1Battery({
+        iq: { status: 'verified' },
+        eq: { status: 'verified' },
+      }),
+      false,
+    );
+    assert.strictEqual(
+      hasTrustedV1Battery({
+        iq: { status: 'verified' },
+        eq: { status: 'verified' },
+        frequency: { status: 'verified' },
+      }),
+      true,
+    );
+    assert.strictEqual(
+      hasPreTrustMigrationGrant({
+        flow: 'pre_c2_preserved',
+        grant_reason: 'pre_trust_migration_preserved',
+      }),
+      true,
+    );
+    assert.strictEqual(
+      hasPreTrustMigrationGrant({ flow: 'complete' }),
+      false,
+    );
+  });
+
   it('treats verified and grandfathered modules as trusted', () => {
     assert.strictEqual(moduleIsTrusted({ status: 'verified' }), true);
     assert.strictEqual(moduleIsTrusted({ status: 'grandfathered' }), true);

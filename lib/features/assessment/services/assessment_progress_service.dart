@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../../core/utils/firestore_paths.dart';
 import '../domain/persona_scoring/persona_runtime_result_policy.dart';
@@ -515,24 +514,21 @@ class AssessmentProgressService {
     );
   }
 
-  /// Complete Frequency (six dimensions) closes the assessment battery.
+  /// Deprecated leftover. Live Frequency completion does not call this.
+  ///
+  /// Must not write `test_completed`, `assessment_flow_completed`, or
+  /// `test_completed_at` — those are no longer client Discover authority.
+  /// Server `finalizeFrequency` already writes `frequency_completed`.
   Future<void> markAssessmentFlowCompleted() async {
     final uid = _authOrThrow.currentUser?.uid;
     if (uid == null) return;
     await _db.collection('users').doc(uid).set(
       {
         'frequency_completed': true,
-        'assessment_flow_completed': true,
         'assessment_flow_version': AssessmentProgressSnapshot.flowVersionV2,
-        // Legacy Discover gate: only after all three assessments.
-        'test_completed': true,
-        'test_completed_at': FieldValue.serverTimestamp(),
         'updated_at': FieldValue.serverTimestamp(),
       },
       SetOptions(merge: true),
-    );
-    debugPrint(
-      'Assessment flow v2 complete: frequency_completed + test_completed',
     );
   }
 }

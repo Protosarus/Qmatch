@@ -13,8 +13,12 @@
  * Pure: no Firebase I/O.
  */
 
-const { deriveDiscoverEligible } = require('./discover_eligibility');
-const { moduleIsTrusted } = require('./assessment_verification_flow_v1');
+const {
+  deriveLegacyDiscoverEligiblePreTrust,
+} = require('./legacy_discover_eligibility_pre_trust_v1');
+const {
+  hasTrustedV1Battery,
+} = require('./assessment_verification_flow_v1');
 
 const POLICY = 'assessment_trust_grandfather_v1';
 const VERIFICATION_SCHEMA = 'assessment_verification_v1';
@@ -87,12 +91,7 @@ function moduleSlotMalformed(verification) {
 }
 
 function isGenuinelyTrustedComplete(verification) {
-  return (
-    isPlainObject(verification) &&
-    moduleIsTrusted(verification.iq) &&
-    moduleIsTrusted(verification.eq) &&
-    moduleIsTrusted(verification.frequency)
-  );
+  return hasTrustedV1Battery(verification);
 }
 
 function existingCatalogVersion(verification) {
@@ -139,7 +138,7 @@ function classifyGrandfatherCandidate(userData) {
   }
 
   const storedEligible = data.discover_eligible === true;
-  const formulaEligible = deriveDiscoverEligible(data);
+  const formulaEligible = deriveLegacyDiscoverEligiblePreTrust(data);
 
   if (storedEligible && !formulaEligible) {
     return CLASSIFICATIONS.storedEligibleButFormulaFalse;

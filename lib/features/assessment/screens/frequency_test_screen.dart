@@ -311,8 +311,7 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
   }
 
   /// finalizeFrequency → existing client score → assessments/frequency →
-  /// canonical_v1 → markAssessmentFlowCompleted → markRemoteFinalized →
-  /// Persona assignment gate.
+  /// canonical_v1 → markRemoteFinalized → Persona assignment gate.
   ///
   /// Scoring is never a substitute for a failed server finalize.
   Future<void> _runPendingFinalizationPipeline({

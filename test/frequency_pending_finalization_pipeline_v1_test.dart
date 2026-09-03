@@ -86,7 +86,6 @@ FrequencyPendingFinalizationPipeline _pipeline({
   required FrequencyFinalizeCallableClient client,
   Future<void> Function()? persistAssessment,
   Future<void> Function()? persistCanonical,
-  Future<void> Function()? markCompleted,
   Future<FrequencySessionWriteResult> Function(String sessionId)?
       markRemoteFinalized,
   Future<FrequencyScoringOutcome> Function(FrequencyPersistedSessionState session)?
@@ -121,9 +120,6 @@ FrequencyPendingFinalizationPipeline _pipeline({
       required language,
     }) async {
       if (persistCanonical != null) await persistCanonical();
-    },
-    markAssessmentFlowCompleted: () async {
-      if (markCompleted != null) await markCompleted();
     },
     markRemoteFinalized: markRemoteFinalized ??
         (sessionId) {
@@ -164,7 +160,7 @@ void main() {
   });
 
   test(
-      'success order: finalizeFrequency then score, assessments/frequency, canonical, progress, local finalize',
+      'success order: finalizeFrequency then score, assessments/frequency, canonical, local finalize',
       () async {
     const uid = 'uid_freq_ok';
     final built = await _pending(bank: bank, uid: uid, seed: 'ok-seed');
@@ -228,8 +224,6 @@ void main() {
         expect(sessionId, built.sid);
         steps.add('persistCanonical');
       },
-      markAssessmentFlowCompleted: () async =>
-          steps.add('markAssessmentFlowCompleted'),
       markRemoteFinalized: (sessionId) {
         expect(
           steps,
@@ -238,7 +232,6 @@ void main() {
             'score',
             'persistAssessment',
             'persistCanonical',
-            'markAssessmentFlowCompleted',
           ],
         );
         return built.manager
@@ -262,14 +255,12 @@ void main() {
       'score',
       'persistAssessment',
       'persistCanonical',
-      'markAssessmentFlowCompleted',
     ]);
     expect(outcome.completedSteps, [
       FrequencyPendingPipelineStep.finalizeFrequency,
       FrequencyPendingPipelineStep.score,
       FrequencyPendingPipelineStep.persistAssessment,
       FrequencyPendingPipelineStep.persistCanonical,
-      FrequencyPendingPipelineStep.markAssessmentFlowCompleted,
       FrequencyPendingPipelineStep.markRemoteFinalized,
     ]);
 
@@ -343,7 +334,6 @@ void main() {
       }) async {
         persisted = true;
       },
-      markAssessmentFlowCompleted: () async => persisted = true,
       markRemoteFinalized: (sessionId) {
         return built.manager
             .markRemoteFinalized(ownerUid: uid, sessionId: sessionId);
@@ -642,12 +632,11 @@ void main() {
   });
 
   test(
-      'CASE 5: progress written then markRemoteFinalized fails; pending remains',
+      'CASE 5: canonical persisted then markRemoteFinalized fails; pending remains',
       () async {
     const uid = 'uid_freq_local_fail';
     final built = await _pending(bank: bank, uid: uid, seed: 'local-fail');
     var localAttempts = 0;
-    var progressMarks = 0;
     final pipeline = _pipeline(
       bank: bank,
       manager: built.manager,
@@ -663,7 +652,6 @@ void main() {
           };
         },
       ),
-      markCompleted: () async => progressMarks++,
       markRemoteFinalized: (sessionId) async {
         localAttempts++;
         if (localAttempts == 1) {
@@ -691,9 +679,7 @@ void main() {
       FrequencyPendingPipelineStep.score,
       FrequencyPendingPipelineStep.persistAssessment,
       FrequencyPendingPipelineStep.persistCanonical,
-      FrequencyPendingPipelineStep.markAssessmentFlowCompleted,
     ]);
-    expect(progressMarks, 1);
     expect(
       (await built.repo.loadActiveSession(uid)).state!.remoteFinalized,
       isFalse,
@@ -706,7 +692,6 @@ void main() {
     );
     expect(retry.navigateToPersona, isTrue);
     expect(localAttempts, 2);
-    expect(progressMarks, 2);
     expect(
       (await built.repo.loadSession(uid, built.sid)).state!.remoteFinalized,
       isTrue,
@@ -826,7 +811,7 @@ void main() {
       'lib/features/assessment/services/frequency_pending_finalization_pipeline.dart',
     ).readAsStringSync();
     expect(pipelineSrc.contains('scoreCompleted'), isTrue);
-    expect(pipelineSrc.contains('markAssessmentFlowCompleted'), isTrue);
+    expect(pipelineSrc.contains('markAssessmentFlowCompleted'), isFalse);
     expect(pipelineSrc.contains('FrequencyTo20dRuntimeAdapter'), isTrue);
     expect(pipelineSrc.contains('buildCanonicalFrequency6dPayload'), isTrue);
     expect(pipelineSrc.contains('ensureIq4AndEq10'), isTrue);
@@ -852,8 +837,8 @@ void main() {
     ).readAsStringSync();
     expect(progress.contains('markAssessmentFlowCompleted'), isTrue);
     expect(progress.contains("'frequency_completed': true"), isTrue);
-    expect(progress.contains("'assessment_flow_completed': true"), isTrue);
-    expect(progress.contains("'test_completed': true"), isTrue);
+    expect(progress.contains("'assessment_flow_completed': true"), isFalse);
+    expect(progress.contains("'test_completed': true"), isFalse);
 
     final adapter = File(
       'lib/features/assessment/domain/profile/frequency_to_20d_runtime_adapter.dart',

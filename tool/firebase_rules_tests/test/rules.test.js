@@ -736,7 +736,7 @@ describe('C2-T1 assessment_verification_v1 protected writes', () => {
     );
   });
 
-  it('existing map: assessment completion mirrors remain writable', async () => {
+  it('existing map: owner cannot self-grant test_completed or flow completed', async () => {
     await testEnv.withSecurityRulesDisabled(async (ctx) => {
       await setDoc(doc(ctx.firestore(), 'users/userA'), {
         uid: 'userA',
@@ -747,7 +747,7 @@ describe('C2-T1 assessment_verification_v1 protected writes', () => {
         assessment_verification_v1: trustedMap,
       });
     });
-    await assertSucceeds(
+    await assertFails(
       setDoc(
         doc(authedFirestore('userA'), 'users/userA'),
         {
@@ -756,6 +756,59 @@ describe('C2-T1 assessment_verification_v1 protected writes', () => {
         },
         { merge: true },
       ),
+    );
+  });
+
+  it('existing map: owner cannot write test_completed_at', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        assessment_verification_v1: trustedMap,
+      });
+    });
+    await assertFails(
+      setDoc(
+        doc(authedFirestore('userA'), 'users/userA'),
+        { test_completed_at: serverTimestamp() },
+        { merge: true },
+      ),
+    );
+  });
+
+  it('create: test_completed false or omitted is allowed; true is denied', async () => {
+    await assertSucceeds(
+      setDoc(doc(authedFirestore('userA'), 'users/userA'), {
+        uid: 'userA',
+        discover_eligible: false,
+        active: true,
+        test_completed: false,
+      }),
+    );
+    await assertFails(
+      setDoc(doc(authedFirestore('userC'), 'users/userC'), {
+        uid: 'userC',
+        discover_eligible: false,
+        active: true,
+        test_completed: true,
+      }),
+    );
+    await assertFails(
+      setDoc(doc(authedFirestore('userD'), 'users/userD'), {
+        uid: 'userD',
+        discover_eligible: false,
+        active: true,
+        assessment_flow_completed: true,
+      }),
+    );
+    await assertFails(
+      setDoc(doc(authedFirestore('userE'), 'users/userE'), {
+        uid: 'userE',
+        discover_eligible: false,
+        active: true,
+        test_completed_at: serverTimestamp(),
+      }),
     );
   });
 
