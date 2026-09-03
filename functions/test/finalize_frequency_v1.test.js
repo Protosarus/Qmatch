@@ -422,6 +422,47 @@ describe('finalizeFrequency callable', () => {
     }
   });
 
+  it('preserves pre_c2_preserved grandfather grant after a new verified Frequency V1', async () => {
+    const db = new MemoryFirestore();
+    const iq = {
+      status: 'verified',
+      source: 'admin_finalize_iq_v1',
+      session_id: 'iq_keep',
+    };
+    const eq = {
+      status: 'verified',
+      source: 'admin_finalize_eq_v1',
+      session_id: 'eq_keep',
+    };
+    await seedUser(db, {
+      assessment_verification_v1: {
+        schema_version: VERIFICATION_SCHEMA,
+        flow: 'pre_c2_preserved',
+        grant_reason: 'pre_trust_migration_preserved',
+        catalog_version: CATALOG_VERSION,
+        iq,
+        eq,
+      },
+    });
+    const res = await handleFinalizeFrequency(
+      request('userA', buildFrequencyPayload()),
+      deps(db),
+    );
+    assert.strictEqual(res.ok, true);
+    assert.strictEqual(res.flow, 'pre_c2_preserved');
+    const trusted = userData(db).assessment_verification_v1;
+    assert.strictEqual(trusted.flow, 'pre_c2_preserved');
+    assert.strictEqual(trusted.grant_reason, 'pre_trust_migration_preserved');
+    assert.strictEqual(trusted.frequency.status, 'verified');
+    assert.notStrictEqual(trusted.frequency.status, 'grandfathered');
+    assert.deepStrictEqual(trusted.iq, iq);
+    assert.deepStrictEqual(trusted.eq, eq);
+    assert.strictEqual(
+      Object.prototype.hasOwnProperty.call(trusted, 'frequency_v2'),
+      false,
+    );
+  });
+
   it('rejects a malformed session with zero writes', async () => {
     const db = new MemoryFirestore();
     await seedUser(db);

@@ -426,6 +426,37 @@ describe('finalizeIq callable', () => {
     }
   });
 
+  it('preserves pre_c2_preserved grandfather grant after a new verified IQ', async () => {
+    const db = new MemoryFirestore();
+    const eq = {
+      status: 'verified',
+      source: 'admin_finalize_eq_v1',
+      session_id: 'eq_keep',
+    };
+    await seedUser(db, {
+      assessment_verification_v1: {
+        schema_version: VERIFICATION_SCHEMA,
+        flow: 'pre_c2_preserved',
+        grant_reason: 'pre_trust_migration_preserved',
+        catalog_version: CATALOG_VERSION,
+        eq,
+      },
+    });
+    const res = await handleFinalizeIq(
+      request('userA', buildIqPayload()),
+      deps(db),
+    );
+    assert.strictEqual(res.ok, true);
+    assert.strictEqual(res.flow, 'pre_c2_preserved');
+    const trusted = userData(db).assessment_verification_v1;
+    assert.strictEqual(trusted.flow, 'pre_c2_preserved');
+    assert.strictEqual(trusted.grant_reason, 'pre_trust_migration_preserved');
+    assert.strictEqual(trusted.iq.status, 'verified');
+    assert.notStrictEqual(trusted.iq.status, 'grandfathered');
+    assert.deepStrictEqual(trusted.eq, eq);
+    assert.strictEqual(trusted.frequency, undefined);
+  });
+
   it('preserves existing trusted EQ/Frequency submaps', async () => {
     const db = new MemoryFirestore();
     const eq = { status: 'verified', session_id: 'eq_keep' };

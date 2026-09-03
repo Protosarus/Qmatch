@@ -574,6 +574,37 @@ describe('finalizeEq callable', () => {
     }
   });
 
+  it('preserves pre_c2_preserved grandfather grant after a new verified EQ', async () => {
+    const db = new MemoryFirestore();
+    const iq = {
+      status: 'verified',
+      source: 'admin_finalize_iq_v1',
+      session_id: 'iq_keep',
+    };
+    await seedUser(db, {
+      assessment_verification_v1: {
+        schema_version: VERIFICATION_SCHEMA,
+        flow: 'pre_c2_preserved',
+        grant_reason: 'pre_trust_migration_preserved',
+        catalog_version: CATALOG_VERSION,
+        iq,
+      },
+    });
+    const res = await handleFinalizeEq(
+      request('userA', buildEqPayload()),
+      deps(db),
+    );
+    assert.strictEqual(res.ok, true);
+    assert.strictEqual(res.flow, 'pre_c2_preserved');
+    const trusted = userData(db).assessment_verification_v1;
+    assert.strictEqual(trusted.flow, 'pre_c2_preserved');
+    assert.strictEqual(trusted.grant_reason, 'pre_trust_migration_preserved');
+    assert.strictEqual(trusted.eq.status, 'verified');
+    assert.notStrictEqual(trusted.eq.status, 'grandfathered');
+    assert.deepStrictEqual(trusted.iq, iq);
+    assert.strictEqual(trusted.frequency, undefined);
+  });
+
   it('rejects a valid IQ session and does not write', async () => {
     const db = new MemoryFirestore();
     await seedUser(db);
