@@ -1,0 +1,171 @@
+{
+  "schema_version": "trusted_discover_cutover_parity_fixtures_v1",
+  "cases": [
+    {
+      "id": "pre_c2_grandfather",
+      "user": {
+        "active": true,
+        "discover_eligible": true,
+        "profile_completed": true,
+        "test_completed": false,
+        "assessment_flow_completed": false,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "photos": ["https://example.com/p.jpg"],
+        "account_deletion_requested": false,
+        "assessment_verification_v1": {
+          "schema_version": "assessment_verification_v1",
+          "flow": "pre_c2_preserved",
+          "grant_reason": "pre_trust_migration_preserved",
+          "catalog_version": "assessment_finalize_catalog_v1"
+        }
+      }
+    },
+    {
+      "id": "full_trusted_v1",
+      "user": {
+        "active": true,
+        "discover_eligible": true,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessment_verification_v1": {
+          "schema_version": "assessment_verification_v1",
+          "flow": "complete",
+          "grant_reason": "admin_finalize_frequency_v1",
+          "iq": { "status": "verified" },
+          "eq": { "status": "verified" },
+          "frequency": { "status": "verified" }
+        }
+      }
+    },
+    {
+      "id": "iq_only",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessment_verification_v1": {
+          "iq": { "status": "verified" }
+        }
+      }
+    },
+    {
+      "id": "iq_eq_only",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessment_verification_v1": {
+          "iq": { "status": "verified" },
+          "eq": { "status": "verified" }
+        }
+      }
+    },
+    {
+      "id": "flow_complete_only",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessment_verification_v1": {
+          "flow": "complete",
+          "grant_reason": "client_claimed"
+        }
+      }
+    },
+    {
+      "id": "test_completed_only",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "test_completed": true,
+        "assessment_flow_completed": false,
+        "profile_photo_url": "https://example.com/p.jpg"
+      }
+    },
+    {
+      "id": "assessment_flow_completed_only",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "test_completed": false,
+        "assessment_flow_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg"
+      }
+    },
+    {
+      "id": "inactive",
+      "user": {
+        "active": false,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessment_verification_v1": {
+          "flow": "pre_c2_preserved",
+          "grant_reason": "pre_trust_migration_preserved"
+        }
+      }
+    },
+    {
+      "id": "no_photo",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "",
+        "photos": [],
+        "assessment_verification_v1": {
+          "iq": { "status": "verified" },
+          "eq": { "status": "verified" },
+          "frequency": { "status": "verified" }
+        }
+      }
+    },
+    {
+      "id": "profile_incomplete",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": false,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessment_verification_v1": {
+          "iq": { "status": "verified" },
+          "eq": { "status": "verified" },
+          "frequency": { "status": "verified" }
+        }
+      }
+    },
+    {
+      "id": "deletion_requested",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "account_deletion_requested": true,
+        "assessment_verification_v1": {
+          "flow": "pre_c2_preserved",
+          "grant_reason": "pre_trust_migration_preserved"
+        }
+      }
+    },
+    {
+      "id": "frequency_v2_only",
+      "user": {
+        "active": true,
+        "discover_eligible": false,
+        "profile_completed": true,
+        "profile_photo_url": "https://example.com/p.jpg",
+        "assessments_frequency_v2": { "status": "completed" },
+        "frequency_v2": { "status": "completed" },
+        "assessment_verification_v1": {
+          "frequency_v2": { "status": "completed" }
+        }
+      }
+    }
+  ]
+}
