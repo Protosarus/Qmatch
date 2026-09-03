@@ -1,3 +1,4 @@
+export 'frequency_finalize_request_mapper.dart';
 export 'frequency_persisted_session_state.dart';
 export 'frequency_session_contract.dart';
 export 'frequency_session_manager.dart';

@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../domain/eq_bank/eq_bank.dart';
@@ -27,8 +24,12 @@ import '../models/assessment_progress.dart';
 /// **not** call markRemoteFinalized for EQ merely because the remote mirror
 /// is true.
 ///
-/// Frequency: unchanged. Crash window covered by local finalize when
-/// remote progress already says that module is complete.
+/// Frequency: same crash-window rule as IQ/EQ. `finalizeFrequency` writes
+/// `frequency_completed=true` before client score / assessments/frequency /
+/// canonical_v1 / progress. Recovery owner is FrequencyTestScreen
+/// (`FrequencyPendingFinalizationPipeline`). This reconciler must **not**
+/// call markRemoteFinalized for Frequency merely because remote
+/// `frequency_completed` or `assessment_flow_completed` is true.
 class AssessmentColdStartPendingReconciler {
   AssessmentColdStartPendingReconciler({
     IqSessionPersistenceRepository? iqRepository,
@@ -41,20 +42,18 @@ class AssessmentColdStartPendingReconciler {
   })  : _iqRepo = iqRepository ?? IqSessionPrefsRepository(),
         _eqRepo = eqRepository ?? EqSessionPrefsRepository(),
         _frequencyRepo =
-            frequencyRepository ?? FrequencySessionPrefsRepository(),
-        _bundle = bundle ?? rootBundle,
-        _loadFrequencyBank = loadFrequencyBank {
-    // loadEqBank is retained for constructor compatibility. EQ pending is
-    // never locally finalized here (`finalizeEq` writes eq_completed first).
+            frequencyRepository ?? FrequencySessionPrefsRepository() {
+    // loadEqBank / loadFrequencyBank / bundle are retained for constructor
+    // compatibility. IQ, EQ, and Frequency pending are never locally
+    // finalized here (server mirrors are written before client persistence).
     assert(loadEqBank == null || true);
+    assert(loadFrequencyBank == null || true);
+    assert(bundle == null || true);
   }
 
   final IqSessionPersistenceRepository _iqRepo;
   final EqSessionPersistenceRepository _eqRepo;
   final FrequencySessionPersistenceRepository _frequencyRepo;
-  final AssetBundle _bundle;
-  final Future<FrequencyCanonicalBankDocument> Function(String bankLocale)?
-      _loadFrequencyBank;
 
   /// Pure routing decision after optional local finalize attempts.
   static AssessmentColdStartDecision decide({
@@ -91,8 +90,8 @@ class AssessmentColdStartPendingReconciler {
     );
   }
 
-  /// Finalize pending locals whose remote progress mirrors are already set,
-  /// then decide routing (hold on any still-pending module).
+  /// Decide routing (hold on any still-pending module). Does not locally
+  /// mark pending sessions remote-finalized from remote progress mirrors.
   Future<AssessmentColdStartDecision> reconcile({
     required String uid,
     required AssessmentProgressSnapshot progress,
@@ -139,58 +138,13 @@ class AssessmentColdStartPendingReconciler {
     );
   }
 
-  /// Finalize pending Frequency locals whose remote progress mirrors are
-  /// already set. IQ and EQ pending are never locally finalized here.
+  /// No-op. IQ, EQ, and Frequency pending sessions are recovered by their
+  /// test-screen pipelines. Remote `*_completed` mirrors are not proof that
+  /// client scoring / result / canonical / progress writes finished.
   Future<void> finalizeWhereRemoteProgressAlreadyComplete({
     required String uid,
     required AssessmentProgressSnapshot progress,
-  }) async {
-    if (progress.frequencyCompleted || progress.assessmentFlowCompleted) {
-      await _tryFinalizeFrequency(uid);
-    }
-  }
-
-  Future<void> _tryFinalizeFrequency(String uid) async {
-    final loaded = await _frequencyRepo.loadActiveSession(uid);
-    if (!loaded.isLoaded) return;
-    final session = loaded.state!;
-    if (session.status !=
-        FrequencyPersistedSessionStatus.completedPendingPersistence) {
-      return;
-    }
-    try {
-      final bank = await _frequencyBankFor(session.bankLocale);
-      final manager =
-          FrequencySessionManager(bank: bank, repository: _frequencyRepo);
-      final result = await manager.markRemoteFinalized(
-        ownerUid: uid,
-        sessionId: session.sessionId,
-      );
-      if (!result.ok) {
-        debugPrint(
-          'Cold-start Frequency pending finalize failed: ${result.code} ${result.message}',
-        );
-      }
-    } catch (e) {
-      debugPrint('Cold-start Frequency pending finalize error: $e');
-    }
-  }
-
-  Future<FrequencyCanonicalBankDocument> _frequencyBankFor(
-    String bankLocale,
-  ) async {
-    final loader = _loadFrequencyBank;
-    if (loader != null) return loader(bankLocale);
-    final path = switch (bankLocale) {
-      'tr-TR' => FrequencyBankContract.trAssetPath,
-      'en-US' => FrequencyBankContract.enAssetPath,
-      _ => FrequencyBankContract.trAssetPath,
-    };
-    final raw = await _bundle.loadString(path);
-    return FrequencyCanonicalBankDocument.fromJson(
-      jsonDecode(raw) as Map<String, dynamic>,
-    );
-  }
+  }) async {}
 }
 
 class AssessmentColdStartDecision {

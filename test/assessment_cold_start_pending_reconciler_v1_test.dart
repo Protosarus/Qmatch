@@ -226,7 +226,7 @@ void main() {
     });
 
     test(
-        'Frequency: remote flow complete + local pending → finalize, then profile',
+        'Frequency: remote frequency_completed + local pending → hold Frequency test',
         () async {
       const uid = 'uid_cold_freq';
       final repo = FrequencySessionMemoryRepository();
@@ -255,7 +255,7 @@ void main() {
         iqCompleted: true,
         eqCompleted: true,
         frequencyCompleted: true,
-        assessmentFlowCompleted: true,
+        assessmentFlowCompleted: false,
       );
 
       final decision = await AssessmentColdStartPendingReconciler(
@@ -265,10 +265,118 @@ void main() {
         loadFrequencyBank: (_) async => frequencyBank,
       ).reconcile(uid: uid, progress: progress);
 
+      final active = await repo.loadActiveSession(uid);
+      expect(active.isLoaded, isTrue);
+      expect(
+        active.state!.status,
+        FrequencyPersistedSessionStatus.completedPendingPersistence,
+      );
+      expect(active.state!.sessionId, sid);
+      expect(active.state!.remoteFinalized, isFalse);
+      expect(active.state!.answers.length, 50);
+      expect(decision.destination, AssessmentFlowDestination.frequency);
+      expect(decision.openAssessmentTestScreen, isTrue);
+      expect(decision.reason, 'frequency_pending_finalization');
+    });
+
+    test(
+        'Frequency: remote assessment_flow_completed + local pending → hold Frequency test',
+        () async {
+      const uid = 'uid_cold_freq_flow';
+      final repo = FrequencySessionMemoryRepository();
+      final manager = FrequencySessionManager(
+        bank: frequencyBank,
+        repository: repo,
+        idFactory: FrequencySessionIdFactory(random: Random(17)),
+      );
+      final created = await manager.getOrCreateActiveSession(
+        ownerUid: uid,
+        sessionSeed: 'cold-freq-flow',
+      );
+      final sid = created.state!.sessionId;
+      for (final p in created.state!.itemPlans) {
+        await manager.answer(
+          ownerUid: uid,
+          sessionId: sid,
+          itemId: p.itemId,
+          selectedOptionId: p.displayedOptionIds.first,
+        );
+      }
+      await manager.complete(ownerUid: uid, sessionId: sid);
+
+      final progress = _progress(
+        destination: AssessmentFlowDestination.profileSetup,
+        iqCompleted: true,
+        eqCompleted: true,
+        frequencyCompleted: false,
+        assessmentFlowCompleted: true,
+      );
+
+      final decision = await AssessmentColdStartPendingReconciler(
+        iqRepository: IqSessionMemoryRepository(),
+        eqRepository: EqSessionMemoryRepository(),
+        frequencyRepository: repo,
+      ).reconcile(uid: uid, progress: progress);
+
+      expect((await repo.loadActiveSession(uid)).isLoaded, isTrue);
+      expect(
+        (await repo.loadSession(uid, sid)).state!.remoteFinalized,
+        isFalse,
+      );
+      expect(decision.destination, AssessmentFlowDestination.frequency);
+      expect(decision.openAssessmentTestScreen, isTrue);
+      expect(decision.reason, 'frequency_pending_finalization');
+    });
+
+    test(
+        'Frequency completed non-pending + remote flow complete → follow progress',
+        () async {
+      const uid = 'uid_cold_freq_done';
+      final repo = FrequencySessionMemoryRepository();
+      final manager = FrequencySessionManager(
+        bank: frequencyBank,
+        repository: repo,
+        idFactory: FrequencySessionIdFactory(random: Random(18)),
+      );
+      final created = await manager.getOrCreateActiveSession(
+        ownerUid: uid,
+        sessionSeed: 'cold-freq-done',
+      );
+      final sid = created.state!.sessionId;
+      for (final p in created.state!.itemPlans) {
+        await manager.answer(
+          ownerUid: uid,
+          sessionId: sid,
+          itemId: p.itemId,
+          selectedOptionId: p.displayedOptionIds.first,
+        );
+      }
+      await manager.complete(ownerUid: uid, sessionId: sid);
+      await manager.markRemoteFinalized(ownerUid: uid, sessionId: sid);
+
+      final decision = await AssessmentColdStartPendingReconciler(
+        iqRepository: IqSessionMemoryRepository(),
+        eqRepository: EqSessionMemoryRepository(),
+        frequencyRepository: repo,
+      ).reconcile(
+        uid: uid,
+        progress: _progress(
+          destination: AssessmentFlowDestination.profileSetup,
+          iqCompleted: true,
+          eqCompleted: true,
+          frequencyCompleted: true,
+          assessmentFlowCompleted: true,
+        ),
+      );
+
       expect((await repo.loadActiveSession(uid)).isLoaded, isFalse);
-      expect((await repo.loadSession(uid, sid)).state!.remoteFinalized, isTrue);
+      expect(
+        (await repo.loadSession(uid, sid)).state!.remoteFinalized,
+        isTrue,
+      );
       expect(decision.destination, AssessmentFlowDestination.profileSetup);
       expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
     });
 
     test(
