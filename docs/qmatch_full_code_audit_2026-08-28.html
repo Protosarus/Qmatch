@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QMatch tam kod denetimi — 28 Ağustos 2026</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --muted: #555;
+      --line: #ddd;
+      --bg: #fff;
+      --krit: #8b1e1e;
+      --high: #8a5a00;
+      --mid: #333;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 32px 24px 64px;
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    h1 { font-size: 26px; font-weight: 700; margin: 0 0 8px; }
+    h2 { font-size: 18px; margin: 32px 0 12px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+    h3 { font-size: 15px; margin: 20px 0 8px; }
+    p, li { color: var(--ink); }
+    .meta { color: var(--muted); font-size: 13px; margin: 0 0 24px; }
+    .howto {
+      background: #f4f4f4;
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+    .stats { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0 24px; }
+    .stat {
+      flex: 1;
+      min-width: 120px;
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+    }
+    .stat b { display: block; font-size: 22px; }
+    .stat span { font-size: 12px; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 20px; }
+    th, td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: #f7f7f7; font-weight: 600; }
+    .sev { font-weight: 700; white-space: nowrap; }
+    .sev.k { color: var(--krit); }
+    .sev.y { color: var(--high); }
+    code, .path { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+    ul { padding-left: 1.2em; }
+    .ok { margin: 0; }
+    footer { margin-top: 40px; font-size: 12px; color: var(--muted); }
+    @media print {
+      .howto { display: none; }
+      body { max-width: none; padding: 12mm; }
+      a { color: inherit; text-decoration: none; }
+      h2 { break-after: avoid; }
+      table, .stat { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <h1>QMatch tam kod denetimi</h1>
+  <p class="meta">
+    Tarih: 28 Ağustos 2026 · Kaynak: yerel repo Qmatch-main 2 · Yöntem: salt okuma statik inceleme.
+    Uygulama kodu değiştirilmedi. Canlı Firebase pentest yapılmadı.
+  </p>
+
+  <div class="howto">
+    <strong>PDF kaydetmek için:</strong> bu dosyayı tarayıcıda aç
+    (<span class="path">docs/qmatch_full_code_audit_2026-08-28.html</span>)
+    → <kbd>Cmd</kbd>+<kbd>P</kbd> → PDF → Kaydet.
+    Bu kutu yazdırırken gizlenir.
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>2</b><span>Kritik güvenlik</span></div>
+    <div class="stat"><b>4</b><span>Yüksek</span></div>
+    <div class="stat"><b>4</b><span>Orta</span></div>
+    <div class="stat"><b>1</b><span>Düşük / hijyen</span></div>
+  </div>
+
+  <p>
+    Uygulama <strong>dürüst istemci + Cloud Functions</strong> varsayımıyla iyi kilitlenmiş
+    (Like callable, entitlement, Rewind match koruması, debug ekranları release’de kapalı).
+    Asıl açıklar Firestore rules’ın callable’lardan <strong>daha geniş izin vermesi</strong>:
+    değiştirilmiş bir istemci para duvarını ve gizliliği delabilir.
+  </p>
+
+  <h2>1. Kritik</h2>
+  <h3>1.1 Discover get/list tam kullanıcı belgesini verir</h3>
+  <p>
+    <span class="path">firestore.rules</span> (yaklaşık 272–278) ·
+    <span class="path">lib/core/services/auth_service.dart</span>
+  </p>
+  <p>
+    Giriş yapmış herkes <code>discover_eligible == true</code> olan
+    <code>users/{uid}</code> belgesini <strong>get</strong> edebilir. Alan maskesi yok.
+    Auth aynı belgeye <code>email</code> ve <code>phone_number</code> yazar.
+    Resmi uygulama bunları kartta göstermese de başka bir istemci ham belgeyi alır.
+  </p>
+
+  <h3>1.2 Who Liked You kurallarla aşılabilir</h3>
+  <p><span class="path">firestore.rules</span> (yaklaşık 302–304) · swipe collection-group index</p>
+  <p>
+    Hedef <code>users/{liker}/swipes/{me}</code> okuyabilir.
+    Resonance callable olmadan inbound like listesi çekilebilir.
+    Ücretli özellik rules’ta yok, yalnızca fonksiyonda var.
+  </p>
+
+  <h2>2. Yüksek</h2>
+  <h3>2.1 discover_eligible girdileri istemci yazılabilir</h3>
+  <p>
+    Cloud Function <code>discover_eligible=true</code> yazar (doğru), ama
+    <code>test_completed</code>, <code>assessment_flow_completed</code>,
+    <code>profile_completed</code>, <code>photos</code>, <code>active</code>
+    owner yazabilir. Sahte istemci değerlendirme yapmadan Discover’a girebilir.
+  </p>
+
+  <h3>2.2 canonical_v1 sahibi tarafından yazılabilir</h3>
+  <p>
+    <span class="path">users/{uid}/profiles/canonical_v1</span> owner create/update.
+    Production L2 sıralama buna güvenir. 20D vektör sahte üretilebilir.
+  </p>
+
+  <h3>2.3 User create koruması zayıf; match hâlâ istemci yaratılabilir</h3>
+  <p>
+    Update’te skor/moderation kilitli, <strong>create</strong>’te değil.
+    <code>matches</code> create, callable’daki canlı-kullanıcı kontrolünü yapmaz.
+  </p>
+
+  <h3>2.4 Canlı Giphy anahtarı GitHub’da</h3>
+  <p>
+    <span class="path">config/secrets.local.json</span> commit <code>bd05624</code>.
+    <code>.gitignore</code>’da olsa da tracked; history’de kalır. Kota / abuse riski.
+    Firebase client apiKey’leri (firebase_options) client uygulamada normaldir;
+    service account bu repoda görülmedi.
+  </p>
+
+  <h2>3. Orta — ürün ve kod</h2>
+  <h3>3.1 Like sonrası Rewind fail-close</h3>
+  <p>
+    <span class="path">DiscoverScreen._onLike</span> ·
+    <span class="path">LikeMatchResult.shouldArmLikeRewind</span>
+  </p>
+  <p>
+    Rewind yalnızca <code>outcome == no_match</code> ve
+    <code>like_rewindable == true</code> ise kalır. Seed
+    <code>qmatch_stage_b2_seed_10</code> gibi profillerde backend
+    <code>likeRewindable=false</code> döner; Rewind hedefi silinir; buton disabled;
+    paywall açılmaz. Pass aynı paywall’ı açar çünkü Pass bu bayrağı kullanmaz.
+  </p>
+
+  <h3>3.2 18+ yalnızca UI</h3>
+  <p>
+    Yaş seçici 18–80. Rules <code>age</code> doğrulamaz. Doğrudan Firestore’a
+    12 yazılabilir. Who Liked You callable &lt;18 süzer; Discover Firestore path süzmez.
+  </p>
+
+  <h3>3.3 Profil fotoğrafı her signed-in kullanıcıya açık</h3>
+  <p>
+    <span class="path">storage.rules</span> <code>profile_photos/{userId}/*</code>
+    — belgelenmiş tradeoff. Path bilinirse Discover dışı hesap fotoğrafları da okunur.
+  </p>
+
+  <h3>3.4 Hesap silme wipe değil</h3>
+  <p>
+    Talep belgesi + Discover’dan soft çıkış. Auth, Storage, mesaj silme operasyona bağlı.
+    <code>account_deletion_requested</code> korumalı alan değil.
+  </p>
+
+  <h2>4. Düşük</h2>
+  <p>
+    Geçici <code>debugPrint</code>’ler <code>main</code>’de:
+    runtime uid (<span class="path">discover_screen.dart</span>),
+    swipe id listesi (<span class="path">swipe_service.dart</span>),
+    Like outcome. Release’de çoğu kesilir; debug/profile’da sızar.
+  </p>
+
+  <h2>5. Ne sağlam</h2>
+  <ul class="ok">
+    <li>Like istemci yazamaz; Admin transaction. Public cevap yalnızca <code>outcome</code> + <code>like_rewindable</code>. Block reason sızmaz.</li>
+    <li>Entitlement istemci yazamaz. Satın alma iddiası grant etmez (<code>clientClaimsCanGrant</code> false).</li>
+    <li>Rewind Resonance ister; Like rewind match/thread varsa reddeder.</li>
+    <li>FCM token client R/W kapalı.</li>
+    <li>Debug/admin yalnızca <code>kDebugMode</code> + owner email. Release’de yok.</li>
+    <li>Assessment route gate hata olunca fail-closed. Production L2 ranking trusted callable.</li>
+  </ul>
+
+  <h2>6. Ürün ve operasyon</h2>
+  <table>
+    <thead>
+      <tr><th>Konu</th><th>Durum</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Android IAP</td>
+        <td>Kasıtlı kapalı (<code>Platform.isIOS</code>). Paywall açılır, satın alma yok.</td>
+      </tr>
+      <tr>
+        <td>Stage B2 seed’ler</td>
+        <td><code>qmatch_stage_b2_seed_*</code> Discover’da; istemci filtrelemez.</td>
+      </tr>
+      <tr>
+        <td>Rewind Functions deploy</td>
+        <td>Kaynakta <code>resonance_access</code> var. Canlı EU deploy bu incelemede doğrulanmadı.</td>
+      </tr>
+      <tr>
+        <td>App Check</td>
+        <td>Kodda Firebase App Check yok. Auth’lu sahte istemci callable çağırabilir.</td>
+      </tr>
+      <tr>
+        <td>Boost</td>
+        <td>Product id ve bakiye var; Discover UX yok.</td>
+      </tr>
+      <tr>
+        <td>Report spam</td>
+        <td>Limitsiz <code>reports</code> create.</td>
+      </tr>
+      <tr>
+        <td>Dual EU/US functions</td>
+        <td>İstemci EU callable çağırır. İki bölge senkron deploy edilmezse sapma olur.</td>
+      </tr>
+      <tr>
+        <td>Chat</td>
+        <td>İstemci yazar, rules ile sınırlı. Giphy key dart-define ile binary’de olabilir.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>7. Önerilen öncelik (uygulanmadı)</h2>
+  <ol>
+    <li>Reverse-swipe okumasını kapat; Who Liked You yalnızca callable.</li>
+    <li>Public profil / Discover kartını callable yap; email ve telefon Discover get’te olmasın.</li>
+    <li>Assessment bitiş bayrakları + <code>canonical_v1</code> yazımını Admin’e al; user create’te protected key’leri kilitle.</li>
+    <li>Giphy key rotate et; debug print’leri sil.</li>
+    <li>Persist edilmiş Like’ta Rewind’ı <code>like_rewindable</code> yüzünden körleme; seed’leri production Discover’dan çıkar.</li>
+    <li>Canlı projede rules’ın bu incelemedeki dosyayla aynı olup olmadığını Firebase console’dan doğrula.</li>
+  </ol>
+
+  <h2>8. Kapsam</h2>
+  <p>
+    Tarandı: <span class="path">firestore.rules</span>,
+    <span class="path">storage.rules</span>,
+    <span class="path">functions/src</span>,
+    Discover / matching / IAP / chat / auth / hesap silme / debug erişimi.
+    Her widget satırı tek tek değil; güvenlik ve ürün-kritik yüzeyler uçtan uca.
+  </p>
+
+  <footer>
+    QMatch tam kod denetimi · 28 Ağustos 2026 · statik kaynak incelemesi · pentest değil
+  </footer>
+</body>
+</html>

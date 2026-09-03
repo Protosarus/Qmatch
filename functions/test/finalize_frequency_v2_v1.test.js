@@ -227,7 +227,11 @@ describe('finalizeFrequencyV2 callable', () => {
     const start = index.indexOf('exports.finalizeFrequencyV2 = onCall(');
     const block = index.slice(start, start + 240);
     assert.ok(block.includes("region: 'europe-west1'"));
-    assert.ok(!/\bexports\.finalizeFrequency\s*=/.test(index));
+    assert.ok(index.includes('exports.finalizeFrequency = onCall('));
+    assert.notStrictEqual(
+      index.indexOf('exports.finalizeFrequency = onCall('),
+      index.indexOf('exports.finalizeFrequencyV2 = onCall('),
+    );
     assert.ok(!index.includes('exports.handleFinalizeFrequencyV2'));
   });
 
