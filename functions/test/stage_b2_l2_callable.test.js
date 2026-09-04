@@ -17,6 +17,7 @@ const {
   DIMENSION_IDS,
   IQ_IDS,
   EQ_IDS,
+  FREQUENCY_IDS,
   compareMeasuredPresence,
   measuredScoresFromCanonicalProfile,
 } = require('../src/canonical_20d_group_normalized_shadow');
@@ -613,6 +614,7 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(res.pairs[0].available, true);
     assert.strictEqual(res.pairs[0].structural_distance, 0.0);
     assert.strictEqual(res.pairs[0].frequency_v2, undefined);
+    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
     assert.strictEqual(
       db.requested.some((p) => p.includes('assessments/frequency_v2')),
       false,
@@ -623,6 +625,8 @@ describe('compareStageB2Structural callable', () => {
     const blob = JSON.stringify(res);
     assert.strictEqual(blob.includes('frequency_v2'), false);
     assert.strictEqual(blob.includes('frequency_fit_index'), false);
+    assert.strictEqual(blob.includes('compatibility_v2'), false);
+    assert.strictEqual(blob.includes('compatibility_index'), false);
     assert.strictEqual(blob.includes('normalized_behavior'), false);
     assert.strictEqual(blob.includes('frequency_v2_sess_secret'), false);
   });
@@ -666,6 +670,7 @@ describe('compareStageB2Structural callable', () => {
       res.pairs[0].frequency_v2.pair_fit_version,
       'frequency_behavior_v2_pair_fit_v1',
     );
+    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
     const blob = JSON.stringify(res);
     assert.strictEqual(blob.includes('normalized_behavior'), false);
     assert.strictEqual(blob.includes('provisional_confidence'), false);
@@ -845,6 +850,282 @@ describe('compareStageB2Structural callable', () => {
       { db },
     );
     assert.strictEqual(res.pairs[0].frequency_v2, undefined);
+    assert.strictEqual(
+      db.requested.some((p) => p.includes('assessments/frequency_v2')),
+      false,
+    );
+    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
+  });
+
+  it('compatibility opt-in returns fusion without changing structural distance', async () => {
+    const inner = new MemoryFirestore();
+    await inner
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.6 }));
+    await inner
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.6 }));
+    const db = trackingDb(inner);
+    const baseline = await handleCompareStageB2Structural(
+      request('viewer', ['near']),
+      { db: inner },
+    );
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], {
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(
+      res.pairs[0].structural_distance,
+      baseline.pairs[0].structural_distance,
+    );
+    assert.strictEqual(res.pairs[0].frequency_v2, undefined);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, true);
+    assert.strictEqual(res.pairs[0].compatibility_v2.compatibility_index, 100);
+    assert.strictEqual(res.pairs[0].compatibility_v2.structural_fit, 1);
+    assert.strictEqual(res.pairs[0].compatibility_v2.frequency_fit, 1);
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.policy_version,
+      'qmatch_compatibility_fusion_v2_policy_v1',
+    );
+    const v2Reads = db.requested.filter((p) =>
+      p.includes('assessments/frequency_v2'),
+    );
+    assert.deepStrictEqual(v2Reads, [
+      'users/viewer/assessments/frequency_v2',
+      'users/near/assessments/frequency_v2',
+    ]);
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('normalized_behavior'), false);
+    assert.strictEqual(blob.includes('logical_reasoning'), false);
+    assert.strictEqual(blob.includes('contact_need'), false);
+    assert.strictEqual(blob.includes('frequency_v2_sess_secret'), false);
+  });
+
+  it('compatibility + V2 opt-in share one V2 read round', async () => {
+    const inner = new MemoryFirestore();
+    await inner
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.25 }));
+    await inner
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.25 }));
+    const db = trackingDb(inner);
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], {
+        include_frequency_v2_diagnostics: true,
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].frequency_v2.available, true);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, true);
+    const v2Reads = db.requested.filter((p) =>
+      p.includes('assessments/frequency_v2'),
+    );
+    assert.strictEqual(v2Reads.length, 2);
+  });
+
+  it('compatibility opt-in identical IQ/EQ ignores V1 Frequency then follows V2', async () => {
+    const db = new MemoryFirestore();
+    const viewer = {
+      ...fill(IQ_IDS, 0.5),
+      ...fill(EQ_IDS, 0.5),
+      ...fill(FREQUENCY_IDS, 0.05),
+    };
+    const sameIqEqFarV1 = {
+      ...fill(IQ_IDS, 0.5),
+      ...fill(EQ_IDS, 0.5),
+      ...fill(FREQUENCY_IDS, 0.95),
+    };
+    await db.doc('users/viewer/profiles/canonical_v1').set(canonicalDoc(viewer));
+    await db
+      .doc('users/far_v1/profiles/canonical_v1')
+      .set(canonicalDoc(sameIqEqFarV1));
+    await db
+      .doc('users/poor_v2/profiles/canonical_v1')
+      .set(canonicalDoc(sameIqEqFarV1));
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.8, pc: 1, cc: 1 }));
+    await db
+      .doc('users/far_v1/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.8, pc: 1, cc: 1 }));
+    await db
+      .doc('users/poor_v2/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: -0.8, pc: 1, cc: 1 }));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['far_v1', 'poor_v2'], {
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.ok(res.pairs[0].structural_distance > 0);
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.structural_fit,
+      res.pairs[1].compatibility_v2.structural_fit,
+    );
+    assert.strictEqual(res.pairs[0].compatibility_v2.structural_fit, 1);
+    assert.strictEqual(res.pairs[0].compatibility_v2.compatibility_index, 100);
+    assert.ok(
+      res.pairs[1].compatibility_v2.compatibility_index <
+        res.pairs[0].compatibility_v2.compatibility_index,
+    );
+  });
+
+  it('compatibility missing V2 is unavailable and does not fill 50', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], {
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, false);
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.unavailable_reason,
+      'viewer_frequency_v2_missing',
+    );
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.compatibility_index,
+      undefined,
+    );
+  });
+
+  it('compatibility malformed V2 is unavailable', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    await db.doc('users/near/assessments/frequency_v2').set(
+      frequencyV2Doc({ extraDoc: { source: 'client_write' } }),
+    );
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], {
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, false);
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.unavailable_reason,
+      'candidate_frequency_v2_malformed',
+    );
+  });
+
+  it('compatibility IQ+EQ missing is unavailable even with V2', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(FREQUENCY_IDS, 0.2)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(FREQUENCY_IDS, 0.8)));
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.1 }));
+    await db
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.1 }));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], {
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, false);
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.unavailable_reason,
+      'non_frequency_structural_unavailable',
+    );
+  });
+
+  it('compatibility reverse-blocked candidate is omitted with no leak', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/ok/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/blocked_me/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db.doc('users/blocked_me/blocks/viewer').set({
+      blocked_uid: 'viewer',
+      reason: 'secret-block-reason',
+    });
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    await db.doc('users/ok/assessments/frequency_v2').set(frequencyV2Doc());
+    await db
+      .doc('users/blocked_me/assessments/frequency_v2')
+      .set(frequencyV2Doc({ extraDoc: { session_id: 'blocked-v2-session' } }));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['blocked_me', 'ok'], {
+        include_compatibility_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.deepStrictEqual(res.candidate_uids, ['ok']);
+    assert.strictEqual(res.pairs.length, 1);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, true);
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('blocked_me'), false);
+    assert.strictEqual(blob.includes('blocked-v2-session'), false);
+    assert.strictEqual(blob.includes('secret-block-reason'), false);
+  });
+
+  it('string true does not opt in compatibility diagnostics', async () => {
+    const inner = new MemoryFirestore();
+    await inner
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    const db = trackingDb(inner);
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], {
+        include_compatibility_v2_diagnostics: 'true',
+      }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
     assert.strictEqual(
       db.requested.some((p) => p.includes('assessments/frequency_v2')),
       false,

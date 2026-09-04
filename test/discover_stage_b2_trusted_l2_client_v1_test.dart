@@ -203,7 +203,9 @@ void main() {
     final batch = await client.compareForL1Batch(candidateUids: ['c1']);
     expect(seen!.keys, ['candidate_uids']);
     expect(seen!.containsKey('include_frequency_v2_diagnostics'), isFalse);
+    expect(seen!.containsKey('include_compatibility_v2_diagnostics'), isFalse);
     expect(batch.pairs[0].frequencyV2, isNull);
+    expect(batch.pairs[0].compatibilityV2, isNull);
     expect(batch.pairs[0].structuralDistance, 0.11);
   });
 
@@ -259,6 +261,66 @@ void main() {
     expect(src.contains('includeFrequencyV2Diagnostics: true'), isFalse);
     expect(
       src.contains('include_frequency_v2_diagnostics'),
+      isFalse,
+    );
+  });
+
+  test('opt-in parses compatibility_v2 and drops privacy fields', () async {
+    Map<String, dynamic>? seen;
+    final client = DiscoverStageB2TrustedL2Client(
+      call: (name, data) async {
+        seen = data;
+        return {
+          'candidate_uids': ['c1'],
+          'pairs': [
+            {
+              'available': true,
+              'structural_distance': 0.2,
+              'total_coverage': 1.0,
+              'comparable_dimensions': 20,
+              'compatibility_v2': {
+                'available': true,
+                'compatibility_index': 75.0,
+                'policy_version': 'qmatch_compatibility_fusion_v2_policy_v1',
+                'structural_fit': 1.0,
+                'frequency_fit': 0.5,
+                'structural_coverage': 1.0,
+                'frequency_pair_support': 0.0,
+                'logical_reasoning': 0.9,
+                'normalized_behavior': 0.4,
+                'session_id': 'secret',
+                'contact_need': 0.1,
+              },
+            },
+          ],
+        };
+      },
+    );
+    final batch = await client.compareForL1Batch(
+      candidateUids: ['c1'],
+      includeCompatibilityV2Diagnostics: true,
+    );
+    expect(seen!['include_compatibility_v2_diagnostics'], isTrue);
+    expect(seen!.containsKey('include_frequency_v2_diagnostics'), isFalse);
+    expect(batch.pairs[0].structuralDistance, 0.2);
+    expect(batch.pairs[0].compatibilityV2!.available, isTrue);
+    expect(batch.pairs[0].compatibilityV2!.compatibilityIndex, 75.0);
+    expect(
+      batch.pairs[0].compatibilityV2!.policyVersion,
+      'qmatch_compatibility_fusion_v2_policy_v1',
+    );
+    expect(batch.pairs[0].compatibilityV2!.structuralFit, 1.0);
+    expect(batch.pairs[0].compatibilityV2!.frequencyFit, 0.5);
+  });
+
+  test('production DiscoverService does not enable compatibility diagnostics',
+      () {
+    final src = File(
+      'lib/features/discover/services/discover_service.dart',
+    ).readAsStringSync();
+    expect(src.contains('includeCompatibilityV2Diagnostics: true'), isFalse);
+    expect(
+      src.contains('include_compatibility_v2_diagnostics'),
       isFalse,
     );
   });

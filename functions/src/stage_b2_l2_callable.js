@@ -6,8 +6,10 @@
  * Returns pair diagnostics only — never peer 20D vectors or block docs.
  *
  * Optional dormant `include_frequency_v2_diagnostics=true` may add a nested
- * Frequency V2 aggregate diagnostic. Default/absent is false and must not
- * change structural reads, schema, distance, or ranking inputs.
+ * Frequency V2 aggregate diagnostic. Optional dormant
+ * `include_compatibility_v2_diagnostics=true` may add nested compatibility_v2
+ * fusion. Default/absent is false and must not change structural reads,
+ * schema, distance, or ranking inputs.
  */
 
 'use strict';
@@ -15,6 +17,7 @@
 const { HttpsError } = require('firebase-functions/v2/https');
 const {
   compareMeasuredPresence,
+  compareIqEqMeasuredPresence,
   measuredScoresFromCanonicalProfile,
   SCORING_VERSION,
 } = require('./canonical_20d_group_normalized_shadow');
@@ -28,6 +31,10 @@ const {
   publicFrequencyV2FromFit,
   publicFrequencyV2Unavailable,
 } = require('./frequency_behavior_v2_pair_fit');
+const {
+  fuseCompatibilityV2,
+  publicCompatibilityV2,
+} = require('./compatibility_fusion_v2');
 
 const CALLABLE_NAME = 'compareStageB2Structural';
 const MAX_CANDIDATE_UIDS = 120;
@@ -71,6 +78,27 @@ function wantsFrequencyV2Diagnostics(data) {
   return data.include_frequency_v2_diagnostics === true;
 }
 
+function wantsCompatibilityV2Diagnostics(data) {
+  return data.include_compatibility_v2_diagnostics === true;
+}
+
+function frequencyV2InputFromParsed(viewerParsed, candidateParsed) {
+  const viewerReason = publicUnavailableReason(viewerParsed, 'viewer');
+  if (viewerReason) {
+    return { available: false, unavailable_reason: viewerReason };
+  }
+  const candidateReason = publicUnavailableReason(candidateParsed, 'candidate');
+  if (candidateReason) {
+    return { available: false, unavailable_reason: candidateReason };
+  }
+  const fit = fitFromParsedUsers(viewerParsed, candidateParsed);
+  return {
+    available: true,
+    overall_supported_fit: fit.overall_supported_fit,
+    overall_pair_support: fit.overall_pair_support,
+  };
+}
+
 function attachFrequencyV2Diagnostic(pair, viewerParsed, candidateParsed) {
   const viewerReason = publicUnavailableReason(viewerParsed, 'viewer');
   if (viewerReason) {
@@ -84,6 +112,26 @@ function attachFrequencyV2Diagnostic(pair, viewerParsed, candidateParsed) {
   }
   pair.frequency_v2 = publicFrequencyV2FromFit(
     fitFromParsedUsers(viewerParsed, candidateParsed),
+  );
+  return pair;
+}
+
+function attachCompatibilityV2Diagnostic(
+  pair,
+  viewerScores,
+  candScores,
+  viewerParsed,
+  candidateParsed,
+) {
+  const structural =
+    viewerScores && candScores
+      ? compareIqEqMeasuredPresence(viewerScores, candScores)
+      : { available: false };
+  pair.compatibility_v2 = publicCompatibilityV2(
+    fuseCompatibilityV2(
+      structural,
+      frequencyV2InputFromParsed(viewerParsed, candidateParsed),
+    ),
   );
   return pair;
 }
@@ -220,12 +268,17 @@ async function handleCompareStageB2Structural(request, deps = {}) {
     }
     timings.candidate_count = candidateUids.length;
 
-    const includeFrequencyV2 = wantsFrequencyV2Diagnostics(data);
+    const includeFrequencyV2Public = wantsFrequencyV2Diagnostics(data);
+    const includeCompatibilityV2 = wantsCompatibilityV2Diagnostics(data);
+    const includeFrequencyV2Reads =
+      includeFrequencyV2Public || includeCompatibilityV2;
 
     const db = resolveDb(deps);
     // Viewer canonical, candidate canonicals, and reverse-block exists-checks
     // have no data dependency. One BatchGet preserves the same snapshots.
-    // V2 result docs are included in the same round only when explicitly opted in.
+    // V2 result docs are included in the same round only when V2 or
+    // compatibility diagnostics are explicitly opted in. Compatibility
+    // implies the V2 reads; it does not fetch a second round.
     const tBatchGet = nowMs();
     const refs = [
       db.doc(canonicalPath(viewerUid)),
@@ -234,7 +287,7 @@ async function handleCompareStageB2Structural(request, deps = {}) {
         db.doc(reverseBlockPath(uid, viewerUid)),
       ),
     ];
-    if (includeFrequencyV2) {
+    if (includeFrequencyV2Reads) {
       refs.push(db.doc(frequencyV2Path(viewerUid)));
       for (const uid of candidateUids) {
         refs.push(db.doc(frequencyV2Path(uid)));
@@ -251,10 +304,10 @@ async function handleCompareStageB2Structural(request, deps = {}) {
     const viewerSnap = snaps[0];
     const candidateSnaps = snaps.slice(1, 1 + n);
     const reverseBlockSnaps = snaps.slice(1 + n, 1 + n + n);
-    const viewerV2Parsed = includeFrequencyV2
+    const viewerV2Parsed = includeFrequencyV2Reads
       ? parseFrequencyV2Snapshot(snaps[1 + n + n])
       : null;
-    const candidateV2Snaps = includeFrequencyV2
+    const candidateV2Snaps = includeFrequencyV2Reads
       ? snaps.slice(2 + n + n, 2 + n + n + n)
       : [];
 
@@ -278,27 +331,33 @@ async function handleCompareStageB2Structural(request, deps = {}) {
       membershipMs += elapsedMs(tMembership);
 
       const tScore = nowMs();
+      const candSnap = candidateSnaps[i];
+      const candScores = measuredScoresFromCanonicalProfile(
+        candSnap && candSnap.exists ? candSnap.data() : null,
+      );
       let pair;
       if (!viewerScores) {
         pair = publicUnavailable('viewer_canonical_profile_missing');
+      } else if (!candScores) {
+        pair = publicUnavailable('candidate_canonical_profile_missing');
       } else {
-        const candSnap = candidateSnaps[i];
-        const candScores = measuredScoresFromCanonicalProfile(
-          candSnap && candSnap.exists ? candSnap.data() : null,
+        pair = toPublicPair(
+          compareMeasuredPresence(viewerScores, candScores),
         );
-        if (!candScores) {
-          pair = publicUnavailable('candidate_canonical_profile_missing');
-        } else {
-          pair = toPublicPair(
-            compareMeasuredPresence(viewerScores, candScores),
-          );
-        }
       }
-      if (includeFrequencyV2) {
-        attachFrequencyV2Diagnostic(
+      const candV2Parsed = includeFrequencyV2Reads
+        ? parseFrequencyV2Snapshot(candidateV2Snaps[i])
+        : null;
+      if (includeFrequencyV2Public) {
+        attachFrequencyV2Diagnostic(pair, viewerV2Parsed, candV2Parsed);
+      }
+      if (includeCompatibilityV2) {
+        attachCompatibilityV2Diagnostic(
           pair,
+          viewerScores,
+          candScores,
           viewerV2Parsed,
-          parseFrequencyV2Snapshot(candidateV2Snaps[i]),
+          candV2Parsed,
         );
       }
       pairs.push(pair);
@@ -331,5 +390,6 @@ module.exports = {
   toPublicPair,
   publicUnavailable,
   wantsFrequencyV2Diagnostics,
+  wantsCompatibilityV2Diagnostics,
   frequencyV2Path,
 };

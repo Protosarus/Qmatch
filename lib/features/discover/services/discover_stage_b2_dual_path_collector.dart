@@ -354,6 +354,7 @@ class DiscoverStageB2TrustedPairResult {
     required this.comparableDimensions,
     this.unavailableReason,
     this.frequencyV2,
+    this.compatibilityV2,
   });
 
   factory DiscoverStageB2TrustedPairResult.unavailable(String reason) {
@@ -377,6 +378,9 @@ class DiscoverStageB2TrustedPairResult {
     final frequencyV2 = DiscoverStageB2FrequencyV2Diagnostic.tryParse(
       raw['frequency_v2'],
     );
+    final compatibilityV2 = DiscoverStageB2CompatibilityV2Diagnostic.tryParse(
+      raw['compatibility_v2'],
+    );
     if (!available) {
       return DiscoverStageB2TrustedPairResult(
         available: false,
@@ -385,6 +389,7 @@ class DiscoverStageB2TrustedPairResult {
         unavailableReason: raw['unavailable_reason'] as String? ??
             'candidate_canonical_profile_missing',
         frequencyV2: frequencyV2,
+        compatibilityV2: compatibilityV2,
       );
     }
     return DiscoverStageB2TrustedPairResult(
@@ -393,6 +398,7 @@ class DiscoverStageB2TrustedPairResult {
       totalCoverage: coverage,
       comparableDimensions: dims,
       frequencyV2: frequencyV2,
+      compatibilityV2: compatibilityV2,
     );
   }
 
@@ -406,6 +412,12 @@ class DiscoverStageB2TrustedPairResult {
   /// callable was explicitly asked for `include_frequency_v2_diagnostics`.
   /// Never used by [DiscoverStructuralL2Ranking].
   final DiscoverStageB2FrequencyV2Diagnostic? frequencyV2;
+
+  /// Optional dormant compatibility fusion diagnostic. Absent unless the
+  /// callable was explicitly asked for `include_compatibility_v2_diagnostics`.
+  /// Never used by [DiscoverStructuralL2Ranking] and never shown as a
+  /// user-facing compatibility percentage in this phase.
+  final DiscoverStageB2CompatibilityV2Diagnostic? compatibilityV2;
 
   /// Rankable only when the trusted callable returned a finite distance.
   /// Missing / failed L2 is never treated as 0, 0.5, or 0.42.
@@ -467,6 +479,67 @@ class DiscoverStageB2FrequencyV2Diagnostic {
   final double? overallSupportedFit;
   final double? overallPairSupport;
   final String? pairFitVersion;
+  final String? unavailableReason;
+}
+
+/// Privacy-safe compatibility fusion diagnostic from Stage B2.
+///
+/// Aggregate fields only. Never stores IQ/EQ/V1 Frequency/12D vectors,
+/// per-dimension V2 values, answers, session IDs, or density matrices.
+class DiscoverStageB2CompatibilityV2Diagnostic {
+  const DiscoverStageB2CompatibilityV2Diagnostic({
+    required this.available,
+    this.compatibilityIndex,
+    this.policyVersion,
+    this.structuralFit,
+    this.frequencyFit,
+    this.structuralCoverage,
+    this.frequencyPairSupport,
+    this.unavailableReason,
+  });
+
+  factory DiscoverStageB2CompatibilityV2Diagnostic.unavailable(String reason) {
+    return DiscoverStageB2CompatibilityV2Diagnostic(
+      available: false,
+      unavailableReason: reason,
+    );
+  }
+
+  static DiscoverStageB2CompatibilityV2Diagnostic? tryParse(Object? raw) {
+    if (raw == null) return null;
+    if (raw is! Map) {
+      return DiscoverStageB2CompatibilityV2Diagnostic.unavailable(
+        'malformed_compatibility_v2',
+      );
+    }
+    final available = raw['available'] == true;
+    if (!available) {
+      return DiscoverStageB2CompatibilityV2Diagnostic(
+        available: false,
+        policyVersion: raw['policy_version'] as String?,
+        unavailableReason:
+            raw['unavailable_reason'] as String? ?? 'unavailable',
+      );
+    }
+    return DiscoverStageB2CompatibilityV2Diagnostic(
+      available: true,
+      compatibilityIndex: (raw['compatibility_index'] as num?)?.toDouble(),
+      policyVersion: raw['policy_version'] as String?,
+      structuralFit: (raw['structural_fit'] as num?)?.toDouble(),
+      frequencyFit: (raw['frequency_fit'] as num?)?.toDouble(),
+      structuralCoverage: (raw['structural_coverage'] as num?)?.toDouble(),
+      frequencyPairSupport:
+          (raw['frequency_pair_support'] as num?)?.toDouble(),
+    );
+  }
+
+  final bool available;
+  final double? compatibilityIndex;
+  final String? policyVersion;
+  final double? structuralFit;
+  final double? frequencyFit;
+  final double? structuralCoverage;
+  final double? frequencyPairSupport;
   final String? unavailableReason;
 }
 

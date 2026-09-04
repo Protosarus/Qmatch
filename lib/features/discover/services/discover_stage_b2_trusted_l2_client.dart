@@ -66,12 +66,16 @@ class DiscoverStageB2TrustedL2Client {
   Future<DiscoverStageB2TrustedBatch> compareForL1Batch({
     required List<String> candidateUids,
     bool includeFrequencyV2Diagnostics = false,
+    bool includeCompatibilityV2Diagnostics = false,
   }) async {
     final payload = <String, dynamic>{
       'candidate_uids': candidateUids,
     };
     if (includeFrequencyV2Diagnostics) {
       payload['include_frequency_v2_diagnostics'] = true;
+    }
+    if (includeCompatibilityV2Diagnostics) {
+      payload['include_compatibility_v2_diagnostics'] = true;
     }
     final raw = await _invoke(payload);
     final pairsRaw = raw['pairs'];

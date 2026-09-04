@@ -394,6 +394,9 @@ void main() {
       expect(ranking.contains('frequency_fit_index'), isFalse);
       expect(ranking.contains('frequencyV2'), isFalse);
       expect(ranking.contains('frequency_v2'), isFalse);
+      expect(ranking.contains('compatibility_index'), isFalse);
+      expect(ranking.contains('compatibilityV2'), isFalse);
+      expect(ranking.contains('compatibility_v2'), isFalse);
 
       final a = _candidate(uid: 'a', lastActive: tStale);
       final b = _candidate(uid: 'b', lastActive: tStale);
@@ -426,6 +429,46 @@ void main() {
       final ranked = DiscoverStructuralL2Ranking.rankL1Batch(
         l1Eligible: [a, b],
         pairsByUid: {'a': highV2, 'b': lowV2},
+      );
+      expect(ranked.map((c) => c.uid).toList(), ['b', 'a']);
+    });
+
+    test('compatibility fusion diagnostic is not a ranking input', () {
+      final a = _candidate(uid: 'a', lastActive: tStale);
+      final b = _candidate(uid: 'b', lastActive: tStale);
+      final highFusion = DiscoverStageB2TrustedPairResult(
+        available: true,
+        structuralDistance: 0.4,
+        totalCoverage: 1,
+        comparableDimensions: 20,
+        compatibilityV2: const DiscoverStageB2CompatibilityV2Diagnostic(
+          available: true,
+          compatibilityIndex: 99,
+          policyVersion: 'qmatch_compatibility_fusion_v2_policy_v1',
+          structuralFit: 0.5,
+          frequencyFit: 0.99,
+          structuralCoverage: 1,
+          frequencyPairSupport: 1,
+        ),
+      );
+      final lowFusion = DiscoverStageB2TrustedPairResult(
+        available: true,
+        structuralDistance: 0.1,
+        totalCoverage: 1,
+        comparableDimensions: 20,
+        compatibilityV2: const DiscoverStageB2CompatibilityV2Diagnostic(
+          available: true,
+          compatibilityIndex: 1,
+          policyVersion: 'qmatch_compatibility_fusion_v2_policy_v1',
+          structuralFit: 0.9,
+          frequencyFit: 0.01,
+          structuralCoverage: 1,
+          frequencyPairSupport: 1,
+        ),
+      );
+      final ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+        l1Eligible: [a, b],
+        pairsByUid: {'a': highFusion, 'b': lowFusion},
       );
       expect(ranked.map((c) => c.uid).toList(), ['b', 'a']);
     });

@@ -12,7 +12,10 @@ const {
   SCORING_VERSION,
   POLICY_STATUS,
   compareMeasuredPresence,
+  compareIqEqMeasuredPresence,
   measuredScoresFromCanonicalProfile,
+  IQ_EQ_REGISTRY,
+  IQ_EQ_WEIGHT_SUM,
 } = require('../src/canonical_20d_group_normalized_shadow');
 
 function fill(ids, v) {
@@ -198,5 +201,106 @@ describe('canonical_20d_group_normalized_shadow_distance_v1 Dart parity', () => 
       measuredScoresFromCanonicalProfile({ measured_dimensions: [] }),
       null,
     );
+  });
+});
+
+describe('compareIqEqMeasuredPresence (Frequency V1 excluded)', () => {
+  it('derived IQ/EQ weights renormalize over frozen IQ+EQ only', () => {
+    assert.strictEqual(IQ_EQ_REGISTRY, 14);
+    assert.ok(Math.abs(IQ_EQ_WEIGHT_SUM - (IQ_WEIGHT + EQ_WEIGHT)) < 1e-12);
+    const a = { ...fill(IQ_IDS, 0.5), ...fill(EQ_IDS, 0.5) };
+    const r = compareIqEqMeasuredPresence(a, { ...a });
+    assert.strictEqual(r.available, true);
+    assert.strictEqual(r.frequency, undefined);
+    assert.strictEqual(r.frequencyExcluded, true);
+    assert.strictEqual(r.combinedDistance, 0.0);
+    assert.strictEqual(r.totalComparableDimensionCount, 14);
+    assert.strictEqual(r.totalRegistryDimensionCount, 14);
+    assert.strictEqual(r.totalCoverage, 1.0);
+    assert.ok(
+      Math.abs(r.iq.effectiveWeight - IQ_WEIGHT / IQ_EQ_WEIGHT_SUM) < 1e-12,
+    );
+    assert.ok(
+      Math.abs(r.eq.effectiveWeight - EQ_WEIGHT / IQ_EQ_WEIGHT_SUM) < 1e-12,
+    );
+    assert.ok(Math.abs(r.iq.effectiveWeight + r.eq.effectiveWeight - 1) < 1e-12);
+  });
+
+  it('identical IQ/EQ with opposite V1 Frequency stay structurally identical', () => {
+    const iqEq = { ...fill(IQ_IDS, 0.4), ...fill(EQ_IDS, 0.6) };
+    const a = { ...iqEq, ...fill(FREQUENCY_IDS, 0.05) };
+    const b = { ...iqEq, ...fill(FREQUENCY_IDS, 0.95) };
+    const iqeq = compareIqEqMeasuredPresence(a, b);
+    const full = compareMeasuredPresence(a, b);
+    assert.strictEqual(iqeq.available, true);
+    assert.strictEqual(iqeq.combinedDistance, 0.0);
+    assert.strictEqual(iqeq.iq.distance, 0.0);
+    assert.strictEqual(iqeq.eq.distance, 0.0);
+    assert.ok(full.combinedDistance > 0);
+    assert.ok(full.frequency.distance > 0);
+  });
+
+  it('existing 20D compareMeasuredPresence is unchanged by Frequency disagreement', () => {
+    const me = {
+      ...fill(IQ_IDS, 0.5),
+      ...fill(EQ_IDS, 0.5),
+      ...fill(FREQUENCY_IDS, 0.1),
+    };
+    const other = {
+      ...fill(IQ_IDS, 0.5),
+      ...fill(EQ_IDS, 0.5),
+      ...fill(FREQUENCY_IDS, 0.9),
+    };
+    const group = compareMeasuredPresence(me, other);
+    assert.ok(Math.abs(group.combinedDistanceSquared - FREQUENCY_WEIGHT * 0.64) < 1e-9);
+  });
+
+  it('IQ missing / EQ present renormalizes the structural half onto EQ', () => {
+    const a = fill(EQ_IDS, 0.2);
+    const b = fill(EQ_IDS, 0.8);
+    const r = compareIqEqMeasuredPresence(a, b);
+    assert.strictEqual(r.available, true);
+    assert.strictEqual(r.iq.available, false);
+    assert.strictEqual(r.eq.available, true);
+    assert.strictEqual(r.eq.effectiveWeight, 1.0);
+    assert.ok(Math.abs(r.eq.distanceSquared - 0.36) < 1e-12);
+    assert.ok(Math.abs(r.combinedDistanceSquared - 0.36) < 1e-12);
+    assert.strictEqual(r.totalComparableDimensionCount, 10);
+    assert.ok(Math.abs(r.totalCoverage - 10 / 14) < 1e-12);
+  });
+
+  it('EQ missing / IQ present renormalizes the structural half onto IQ', () => {
+    const a = fill(IQ_IDS, 0.1);
+    const b = fill(IQ_IDS, 0.9);
+    const r = compareIqEqMeasuredPresence(a, b);
+    assert.strictEqual(r.available, true);
+    assert.strictEqual(r.eq.available, false);
+    assert.strictEqual(r.iq.available, true);
+    assert.strictEqual(r.iq.effectiveWeight, 1.0);
+    assert.ok(Math.abs(r.iq.distanceSquared - 0.64) < 1e-12);
+    assert.ok(Math.abs(r.combinedDistanceSquared - 0.64) < 1e-12);
+    assert.strictEqual(r.totalComparableDimensionCount, 4);
+    assert.ok(Math.abs(r.totalCoverage - 4 / 14) < 1e-12);
+  });
+
+  it('IQ+EQ both missing is unavailable and does not impute', () => {
+    const a = fill(FREQUENCY_IDS, 0.1);
+    const b = fill(FREQUENCY_IDS, 0.9);
+    const r = compareIqEqMeasuredPresence(a, b);
+    assert.strictEqual(r.available, false);
+    assert.strictEqual(r.combinedDistance, null);
+    assert.strictEqual(r.combinedDistanceSquared, null);
+    assert.strictEqual(r.totalCoverage, 0.0);
+    const full = compareMeasuredPresence(a, b);
+    assert.strictEqual(full.available, true);
+  });
+
+  it('max IQ/EQ gap has combined distance 1', () => {
+    const a = { ...fill(IQ_IDS, 0.0), ...fill(EQ_IDS, 0.0) };
+    const b = { ...fill(IQ_IDS, 1.0), ...fill(EQ_IDS, 1.0) };
+    const r = compareIqEqMeasuredPresence(a, b);
+    assert.strictEqual(r.available, true);
+    assert.ok(Math.abs(r.combinedDistance - 1.0) < 1e-12);
+    assert.ok(r.combinedDistance <= 1.0);
   });
 });

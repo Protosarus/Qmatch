@@ -48,6 +48,8 @@ const EQ_WEIGHT = 0.400000;
 const FREQUENCY_WEIGHT = 0.466667;
 
 const TOTAL_REGISTRY = 20;
+const IQ_EQ_REGISTRY = IQ_IDS.length + EQ_IDS.length;
+const IQ_EQ_WEIGHT_SUM = IQ_WEIGHT + EQ_WEIGHT;
 
 /**
  * @param {unknown} raw
@@ -188,6 +190,70 @@ function compareMeasuredPresence(a, b) {
 }
 
 /**
+ * IQ+EQ only. Same measured-presence math as compareMeasuredPresence,
+ * but Frequency V1 dimensions are never inputs. Existing 20D compare is
+ * unchanged.
+ *
+ * @param {Record<string, number>} a
+ * @param {Record<string, number>} b
+ */
+function compareIqEqMeasuredPresence(a, b) {
+  const iq = moduleDistance('iq', IQ_IDS, IQ_WEIGHT, a, b);
+  const eq = moduleDistance('eq', EQ_IDS, EQ_WEIGHT, a, b);
+
+  const availableModules = [iq, eq].filter((m) => m.available);
+  const totalComparable =
+    iq.comparableDimensionCount + eq.comparableDimensionCount;
+  const totalCoverage =
+    IQ_EQ_REGISTRY === 0 ? 0.0 : totalComparable / IQ_EQ_REGISTRY;
+
+  const base = {
+    scoringVersion: SCORING_VERSION,
+    registryVersion: REGISTRY_VERSION,
+    frequencyExcluded: true,
+  };
+
+  if (availableModules.length === 0) {
+    return {
+      available: false,
+      iq,
+      eq,
+      combinedDistanceSquared: null,
+      combinedDistance: null,
+      totalComparableDimensionCount: 0,
+      totalRegistryDimensionCount: IQ_EQ_REGISTRY,
+      totalCoverage: 0.0,
+      ...base,
+    };
+  }
+
+  const weightSum = availableModules.reduce(
+    (s, m) => s + m.configuredWeight,
+    0.0,
+  );
+
+  let combinedSq = 0.0;
+  function withEffective(m) {
+    if (!m.available || weightSum <= 0) return m;
+    const effective = m.configuredWeight / weightSum;
+    combinedSq += effective * m.distanceSquared;
+    return { ...m, effectiveWeight: effective };
+  }
+
+  return {
+    available: true,
+    iq: withEffective(iq),
+    eq: withEffective(eq),
+    combinedDistanceSquared: combinedSq,
+    combinedDistance: Math.sqrt(combinedSq),
+    totalComparableDimensionCount: totalComparable,
+    totalRegistryDimensionCount: IQ_EQ_REGISTRY,
+    totalCoverage,
+    ...base,
+  };
+}
+
+/**
  * Parse `users/{uid}/profiles/canonical_v1` the same way as
  * DiscoverCanonical20dShadowSubjectBuilder.fromCanonicalProfile.
  * @param {Record<string, unknown>|null|undefined} profile
@@ -230,5 +296,8 @@ module.exports = {
   FREQUENCY_WEIGHT,
   validMeasuredScore,
   compareMeasuredPresence,
+  compareIqEqMeasuredPresence,
   measuredScoresFromCanonicalProfile,
+  IQ_EQ_REGISTRY,
+  IQ_EQ_WEIGHT_SUM,
 };
