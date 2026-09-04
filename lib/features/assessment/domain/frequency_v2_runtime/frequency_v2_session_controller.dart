@@ -20,6 +20,8 @@ class FrequencyV2SessionController {
 
   FrequencyV2LoadedBank get bank => _bank;
 
+  FrequencyV2SessionManager get manager => _manager;
+
   FrequencyV2SessionItemPlan? get currentPlan {
     final state = session;
     if (state == null || state.itemPlans.isEmpty) return null;

@@ -48,6 +48,26 @@ class FrequencyV2PendingFinalizationPipeline {
         _markRemoteFinalized = markRemoteFinalized,
         _currentUid = currentUid;
 
+  /// Live debug/device construction. Does not write Firestore results itself.
+  factory FrequencyV2PendingFinalizationPipeline.live({
+    required FrequencyV2SessionManager manager,
+    FrequencyV2FinalizeCallableClient? finalizeClient,
+    String? Function()? currentUid,
+  }) {
+    return FrequencyV2PendingFinalizationPipeline(
+      finalizeClient: finalizeClient ?? FrequencyV2FinalizeCallableClient(),
+      markRemoteFinalized: ({
+        required String ownerUid,
+        required String sessionId,
+      }) =>
+          manager.markRemoteFinalized(
+        ownerUid: ownerUid,
+        sessionId: sessionId,
+      ),
+      currentUid: currentUid,
+    );
+  }
+
   final FrequencyV2FinalizeCallableClient _finalizeClient;
   final Future<FrequencyV2SessionWriteResult> Function({
     required String ownerUid,

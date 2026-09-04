@@ -47,8 +47,11 @@ void main() {
       'lib/features/assessment/screens/frequency_v2_test_screen.dart',
     ).readAsStringSync();
     expect(src.contains('FrequencyQuestionPanel'), isTrue);
+    expect(src.contains('FrequencyV2PendingFinalizationPipeline'), isTrue);
+    expect(src.contains('_pipelineInFlight'), isTrue);
     expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
     expect(src.contains('Directory.current'), isFalse);
+    expect(src.contains('PersonaAssignmentGateScreen'), isFalse);
     expect(src.contains('FrequencyProgressHeader'), isTrue);
     expect(src.contains('QAssessmentProgress'), isTrue);
     expect(src.toLowerCase().contains('true personality'), isFalse);

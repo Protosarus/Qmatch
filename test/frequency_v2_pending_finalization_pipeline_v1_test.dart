@@ -78,9 +78,11 @@ void main() {
         ),
       );
       final result = await pipeline.run(session: pending.session);
-      expect(result.destination, FrequencyV2PendingPipelineDestination.stayOnSession);
+      expect(result.destination,
+          FrequencyV2PendingPipelineDestination.stayOnSession);
       expect(result.failureKind, FrequencyV2FinalizeFailureKind.retryable);
-      final still = await pending.repo.loadSession('owner-p', pending.session.sessionId);
+      final still =
+          await pending.repo.loadSession('owner-p', pending.session.sessionId);
       expect(
         still.state!.status,
         FrequencyV2PersistedSessionStatus.completedPendingPersistence,
@@ -107,7 +109,8 @@ void main() {
         ),
       );
       final result = await pipeline.run(session: pending.session);
-      expect(result.failureKind, FrequencyV2FinalizeFailureKind.nonRetryableSession);
+      expect(result.failureKind,
+          FrequencyV2FinalizeFailureKind.nonRetryableSession);
       expect(
         (await pending.repo.loadSession('owner-p', pending.session.sessionId))
             .state!
@@ -177,7 +180,8 @@ void main() {
         ),
       );
       final result = await pipeline.run(session: pending.session);
-      expect(result.failureKind, FrequencyV2FinalizeFailureKind.sessionConflict);
+      expect(
+          result.failureKind, FrequencyV2FinalizeFailureKind.sessionConflict);
       expect(
         (await pending.repo.loadSession('owner-p', pending.session.sessionId))
             .state!
@@ -197,6 +201,9 @@ void main() {
       expect(src.contains("'discover_eligible'"), isFalse);
       expect(src.contains("'assessment_verification_v1'"), isFalse);
       expect(src.contains('persistCanonical'), isFalse);
+      expect(
+          src.contains('FrequencyV2PendingFinalizationPipeline.live'), isTrue);
+      expect(src.contains('FrequencyV2FinalizeCallableClient()'), isTrue);
     });
   });
 }
