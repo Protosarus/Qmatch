@@ -15,11 +15,24 @@ class FrequencyBehaviorV2BankRegistry {
         FrequencyBehaviorV2Contract.draftPoolEnRelativePath,
   };
 
+  static const Map<String, String> draftReviewPathsByVersionLocale = {
+    '${FrequencyBehaviorV2Contract.poolVersionTrDraft1}|${FrequencyBehaviorV2Contract.localeTr}':
+        FrequencyBehaviorV2Contract.draftReviewRelativePath,
+    '${FrequencyBehaviorV2Contract.poolVersionEnDraft1}|${FrequencyBehaviorV2Contract.localeEn}':
+        FrequencyBehaviorV2Contract.draftReviewEnRelativePath,
+  };
+
   static String? draftPath({
     required String poolVersion,
     required String locale,
   }) =>
       draftPathsByVersionLocale['$poolVersion|$locale'];
+
+  static String? draftReviewPath({
+    required String poolVersion,
+    required String locale,
+  }) =>
+      draftReviewPathsByVersionLocale['$poolVersion|$locale'];
 
   static bool isRuntimeSelectable(String poolVersion) {
     // Draft versions are never live-selectable.

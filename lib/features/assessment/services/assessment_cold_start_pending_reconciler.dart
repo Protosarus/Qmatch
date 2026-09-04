@@ -5,6 +5,7 @@ import '../domain/eq_session/eq_session.dart';
 import '../domain/eq_session/eq_session_prefs_repository.dart';
 import '../domain/frequency_bank/frequency_bank.dart';
 import '../domain/frequency_session/frequency_session.dart';
+import '../domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import '../domain/iq_session/iq_session.dart';
 import '../domain/iq_session/iq_session_prefs_repository.dart';
 import '../models/assessment_progress.dart';
@@ -35,6 +36,8 @@ class AssessmentColdStartPendingReconciler {
     IqSessionPersistenceRepository? iqRepository,
     EqSessionPersistenceRepository? eqRepository,
     FrequencySessionPersistenceRepository? frequencyRepository,
+    FrequencyV2SessionPersistenceRepository? frequencyV2Repository,
+    FrequencyRuntimeTrack Function()? frequencyRuntimeTrack,
     AssetBundle? bundle,
     Future<EqCanonicalBankDocument> Function(String bankLocale)? loadEqBank,
     Future<FrequencyCanonicalBankDocument> Function(String bankLocale)?
@@ -42,7 +45,11 @@ class AssessmentColdStartPendingReconciler {
   })  : _iqRepo = iqRepository ?? IqSessionPrefsRepository(),
         _eqRepo = eqRepository ?? EqSessionPrefsRepository(),
         _frequencyRepo =
-            frequencyRepository ?? FrequencySessionPrefsRepository() {
+            frequencyRepository ?? FrequencySessionPrefsRepository(),
+        _frequencyV2Repo =
+            frequencyV2Repository ?? FrequencyV2SessionPrefsRepository(),
+        _frequencyRuntimeTrack = frequencyRuntimeTrack ??
+            (() => FrequencyRuntimeSelectionPolicy.resolve()) {
     // loadEqBank / loadFrequencyBank / bundle are retained for constructor
     // compatibility. IQ, EQ, and Frequency pending are never locally
     // finalized here (server mirrors are written before client persistence).
@@ -54,6 +61,8 @@ class AssessmentColdStartPendingReconciler {
   final IqSessionPersistenceRepository _iqRepo;
   final EqSessionPersistenceRepository _eqRepo;
   final FrequencySessionPersistenceRepository _frequencyRepo;
+  final FrequencyV2SessionPersistenceRepository _frequencyV2Repo;
+  final FrequencyRuntimeTrack Function() _frequencyRuntimeTrack;
 
   /// Pure routing decision after optional local finalize attempts.
   static AssessmentColdStartDecision decide({
@@ -61,6 +70,8 @@ class AssessmentColdStartPendingReconciler {
     required bool eqPendingFinalization,
     required bool frequencyPendingFinalization,
     required AssessmentFlowDestination progressDestination,
+    bool frequencyV2PendingFinalization = false,
+    FrequencyRuntimeTrack runtimeTrack = FrequencyRuntimeTrack.v1,
   }) {
     if (iqPendingFinalization) {
       return const AssessmentColdStartDecision(
@@ -74,6 +85,14 @@ class AssessmentColdStartPendingReconciler {
         destination: AssessmentFlowDestination.eq,
         openAssessmentTestScreen: true,
         reason: 'eq_pending_finalization',
+      );
+    }
+    if (runtimeTrack == FrequencyRuntimeTrack.v2 &&
+        frequencyV2PendingFinalization) {
+      return const AssessmentColdStartDecision(
+        destination: AssessmentFlowDestination.frequency,
+        openAssessmentTestScreen: true,
+        reason: 'frequency_v2_pending_finalization',
       );
     }
     if (frequencyPendingFinalization) {
@@ -110,21 +129,35 @@ class AssessmentColdStartPendingReconciler {
       progress: progress,
     );
 
+    final track = _frequencyRuntimeTrack();
     final pending = await peekPendingFinalization(uid: uid);
     return decide(
       iqPendingFinalization: pending.iq,
       eqPendingFinalization: pending.eq,
       frequencyPendingFinalization: pending.frequency,
+      frequencyV2PendingFinalization: pending.frequencyV2,
+      runtimeTrack: track,
       progressDestination: progress.destination,
     );
   }
 
-  Future<({bool iq, bool eq, bool frequency})> peekPendingFinalization({
+  Future<({bool iq, bool eq, bool frequency, bool frequencyV2})>
+      peekPendingFinalization({
     required String uid,
   }) async {
     final iq = await _iqRepo.loadActiveSession(uid);
     final eq = await _eqRepo.loadActiveSession(uid);
     final frequency = await _frequencyRepo.loadActiveSession(uid);
+    // V2 prefs are not consulted while the centralized gate is V1.
+    // That keeps live V1 cold-start routing and V1 tests unchanged, and
+    // leaves any dormant V2 session untouched.
+    final includeFrequencyV2 =
+        _frequencyRuntimeTrack() == FrequencyRuntimeTrack.v2;
+    final frequencyV2 = includeFrequencyV2
+        ? await _frequencyV2Repo.loadActiveSession(uid)
+        : const FrequencyV2SessionLoadResult(
+            code: FrequencyV2SessionLoadCode.notFound,
+          );
     return (
       iq: iq.isLoaded &&
           iq.state!.status ==
@@ -135,6 +168,9 @@ class AssessmentColdStartPendingReconciler {
       frequency: frequency.isLoaded &&
           frequency.state!.status ==
               FrequencyPersistedSessionStatus.completedPendingPersistence,
+      frequencyV2: frequencyV2.isLoaded &&
+          frequencyV2.state!.status ==
+              FrequencyV2PersistedSessionStatus.completedPendingPersistence,
     );
   }
 
