@@ -5,6 +5,9 @@ import 'frequency_behavior_v2_contract.dart';
 /// Live Frequency routing must NOT call this. V1 sessions stay bound to
 /// `frequency_bank_*_v1` via persisted `bank_version` + `bank_locale`.
 /// Future runtime loaders must key by version, not locale alone.
+///
+/// [isRuntimeSelectable] stays false. Reviewed pools may be bundled as
+/// dormant Flutter assets without becoming the release track.
 class FrequencyBehaviorV2BankRegistry {
   FrequencyBehaviorV2BankRegistry._();
 
@@ -22,6 +25,20 @@ class FrequencyBehaviorV2BankRegistry {
         FrequencyBehaviorV2Contract.draftReviewEnRelativePath,
   };
 
+  static const Map<String, String> runtimeAssetPathsByVersionLocale = {
+    '${FrequencyBehaviorV2Contract.poolVersionTrDraft1}|${FrequencyBehaviorV2Contract.localeTr}':
+        FrequencyBehaviorV2Contract.runtimePoolAssetPathTr,
+    '${FrequencyBehaviorV2Contract.poolVersionEnDraft1}|${FrequencyBehaviorV2Contract.localeEn}':
+        FrequencyBehaviorV2Contract.runtimePoolAssetPathEn,
+  };
+
+  static const Map<String, String> runtimeReviewAssetPathsByVersionLocale = {
+    '${FrequencyBehaviorV2Contract.poolVersionTrDraft1}|${FrequencyBehaviorV2Contract.localeTr}':
+        FrequencyBehaviorV2Contract.runtimeReviewAssetPathTr,
+    '${FrequencyBehaviorV2Contract.poolVersionEnDraft1}|${FrequencyBehaviorV2Contract.localeEn}':
+        FrequencyBehaviorV2Contract.runtimeReviewAssetPathEn,
+  };
+
   static String? draftPath({
     required String poolVersion,
     required String locale,
@@ -33,6 +50,18 @@ class FrequencyBehaviorV2BankRegistry {
     required String locale,
   }) =>
       draftReviewPathsByVersionLocale['$poolVersion|$locale'];
+
+  static String? runtimeAssetPath({
+    required String poolVersion,
+    required String locale,
+  }) =>
+      runtimeAssetPathsByVersionLocale['$poolVersion|$locale'];
+
+  static String? runtimeReviewAssetPath({
+    required String poolVersion,
+    required String locale,
+  }) =>
+      runtimeReviewAssetPathsByVersionLocale['$poolVersion|$locale'];
 
   static bool isRuntimeSelectable(String poolVersion) {
     // Draft versions are never live-selectable.

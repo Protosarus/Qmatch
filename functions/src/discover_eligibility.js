@@ -1,19 +1,24 @@
 /**
  * Trusted Discover eligibility derivation (`trusted_discover_eligibility_authority_v1`).
  *
- * Canonical:
+ * Canonical profile gate:
  *   account_deletion_requested != true &&
  *   active == true &&
  *   profile_completed == true &&
  *   hasValidPhoto &&
  *   hasTrustedAssessmentDiscoverGrant
  *
- * Assessment grant is Admin-owned verification only:
- *   trusted IQ + EQ + Frequency V1 modules
- *   OR pre_c2_preserved + pre_trust_migration_preserved
+ * Assessment grant (`trusted_discover_assessment_grant_v2`):
+ *   PATH A: trusted IQ + EQ + Frequency V1 modules
+ *   PATH B: trusted IQ + EQ + valid authoritative Frequency V2 result
+ *   PATH C: pre_c2_preserved + pre_trust_migration_preserved
+ *
+ * `assessment_verification_v1.frequency` remains Frequency V1 only.
+ * Frequency V2 proof is users/{uid}/assessments/frequency_v2 parsed by the
+ * strict result parser. It is never copied onto users/{uid}.
  *
  * Client flags (test_completed / assessment_flow_completed) and
- * flow=complete alone are not proof. Frequency V2 is not a grant path.
+ * flow=complete alone are not proof.
  *
  * Missing required data => false.
  * Deletion soft-marker or inactive => false.
@@ -25,10 +30,14 @@
 
 const {
   hasTrustedV1Battery,
+  hasTrustedIqEq,
   hasPreTrustMigrationGrant,
 } = require('./assessment_verification_flow_v1');
 
-/** Fields that can change derived discover_eligible. */
+const ASSESSMENT_GRANT_POLICY_VERSION =
+  'trusted_discover_assessment_grant_v2';
+
+/** Fields that can change derived discover_eligible on users/{uid}. */
 const RELEVANT_KEYS = Object.freeze([
   'active',
   'profile_completed',
@@ -67,7 +76,14 @@ function hasValidPhoto(data) {
   return false;
 }
 
+function isTrustedFrequencyV2Proof(parsed) {
+  return !!(parsed && parsed.ok === true);
+}
+
 /**
+ * User-document-only grant: V1 battery or grandfather.
+ * Cannot see Frequency V2 (cross-document). Kept for backward-compatible tests.
+ *
  * @param {Record<string, unknown>|null|undefined} data
  * @returns {boolean}
  */
@@ -81,20 +97,52 @@ function hasTrustedAssessmentDiscoverGrant(data) {
 
 /**
  * @param {Record<string, unknown>|null|undefined} data
+ * @param {{ ok?: boolean }|null|undefined} frequencyV2Parsed
+ * @returns {boolean}
+ */
+function hasTrustedAssessmentDiscoverGrantWithProof(data, frequencyV2Parsed) {
+  if (!data || typeof data !== 'object') return false;
+  const verification = data.assessment_verification_v1;
+  if (hasTrustedV1Battery(verification)) return true;
+  if (hasPreTrustMigrationGrant(verification)) return true;
+  if (
+    hasTrustedIqEq(verification) &&
+    isTrustedFrequencyV2Proof(frequencyV2Parsed)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * User-only derivation (PATH A / PATH C). Does not accept V2 proof.
+ *
+ * @param {Record<string, unknown>|null|undefined} data
  * @returns {boolean}
  */
 function deriveDiscoverEligible(data) {
+  return deriveDiscoverEligibleWithAssessmentProof(data, {
+    frequencyV2Result: { ok: false, code: 'not_consulted' },
+  });
+}
+
+/**
+ * Shared V1 / V2 / grandfather derivation.
+ *
+ * @param {Record<string, unknown>|null|undefined} data
+ * @param {{ frequencyV2Result?: { ok?: boolean }|null }} [proof]
+ * @returns {boolean}
+ */
+function deriveDiscoverEligibleWithAssessmentProof(data, proof) {
   if (!data || typeof data !== 'object') return false;
 
-  // Soft deletion / leave Discover immediately.
   if (data.account_deletion_requested === true) return false;
-
-  // Strict: missing active is not eligible.
   if (data.active !== true) return false;
   if (data.profile_completed !== true) return false;
   if (!hasValidPhoto(data)) return false;
-  if (!hasTrustedAssessmentDiscoverGrant(data)) return false;
 
+  const parsed = proof && proof.frequencyV2Result;
+  if (!hasTrustedAssessmentDiscoverGrantWithProof(data, parsed)) return false;
   return true;
 }
 
@@ -109,8 +157,19 @@ function deriveDiscoverEligible(data) {
  * @returns {{ shouldWrite: boolean, derived: boolean, previous: boolean|undefined }}
  */
 function planDiscoverEligibleWrite(beforeData, afterData) {
+  return planDiscoverEligibleWriteWithProof(beforeData, afterData, {
+    frequencyV2Result: { ok: false, code: 'not_consulted' },
+  });
+}
+
+/**
+ * @param {Record<string, unknown>|null|undefined} beforeData
+ * @param {Record<string, unknown>|null|undefined} afterData
+ * @param {{ frequencyV2Result?: { ok?: boolean }|null }} [proof]
+ */
+function planDiscoverEligibleWriteWithProof(beforeData, afterData, proof) {
   void beforeData;
-  const derived = deriveDiscoverEligible(afterData);
+  const derived = deriveDiscoverEligibleWithAssessmentProof(afterData, proof);
   const stored =
     afterData && typeof afterData === 'object'
       ? afterData.discover_eligible
@@ -142,9 +201,14 @@ function relevantFieldsChanged(beforeData, afterData) {
 
 module.exports = {
   RELEVANT_KEYS,
+  ASSESSMENT_GRANT_POLICY_VERSION,
   hasValidPhoto,
+  isTrustedFrequencyV2Proof,
   hasTrustedAssessmentDiscoverGrant,
+  hasTrustedAssessmentDiscoverGrantWithProof,
   deriveDiscoverEligible,
+  deriveDiscoverEligibleWithAssessmentProof,
   planDiscoverEligibleWrite,
+  planDiscoverEligibleWriteWithProof,
   relevantFieldsChanged,
 };

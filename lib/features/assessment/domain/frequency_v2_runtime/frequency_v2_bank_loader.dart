@@ -40,38 +40,49 @@ class FrequencyV2LoadedBank {
 
 /// Loads reviewed Frequency V2 pools by `pool_version` AND locale.
 ///
-/// Does not make the bank live-selectable. Tests may load from the repo
-/// filesystem; a Flutter [AssetBundle] is optional.
+/// App runtime uses [AssetBundle] paths under `assets/assessment/frequency_v2/`.
+/// Tests/tooling may inject [repoRoot] to read the reviewed `tool/` sources.
+/// Default construction does not use [Directory.current].
 class FrequencyV2BankLoader {
   FrequencyV2BankLoader({
     this.repoRoot,
-    this.bundle,
-  });
+    AssetBundle? bundle,
+  }) : bundle = bundle ?? (repoRoot == null ? rootBundle : null);
 
   final String? repoRoot;
   final AssetBundle? bundle;
 
-  String get _root => repoRoot ?? Directory.current.path;
+  bool get usesFilesystem => repoRoot != null;
 
   Future<FrequencyV2LoadedBank> load({
     required String poolVersion,
     required String locale,
     String? expectedTranslationVersion,
   }) async {
-    final path = FrequencyBehaviorV2BankRegistry.draftPath(
-      poolVersion: poolVersion,
-      locale: locale,
-    );
+    final path = usesFilesystem
+        ? FrequencyBehaviorV2BankRegistry.draftPath(
+            poolVersion: poolVersion,
+            locale: locale,
+          )
+        : FrequencyBehaviorV2BankRegistry.runtimeAssetPath(
+            poolVersion: poolVersion,
+            locale: locale,
+          );
     if (path == null) {
       throw FrequencyV2BankLoadException(
         'unknown_bank',
         'No reviewed V2 bank for $poolVersion|$locale',
       );
     }
-    final reviewPath = FrequencyBehaviorV2BankRegistry.draftReviewPath(
-      poolVersion: poolVersion,
-      locale: locale,
-    );
+    final reviewPath = usesFilesystem
+        ? FrequencyBehaviorV2BankRegistry.draftReviewPath(
+            poolVersion: poolVersion,
+            locale: locale,
+          )
+        : FrequencyBehaviorV2BankRegistry.runtimeReviewAssetPath(
+            poolVersion: poolVersion,
+            locale: locale,
+          );
     if (reviewPath == null) {
       throw FrequencyV2BankLoadException(
         'unknown_review',
@@ -194,20 +205,24 @@ class FrequencyV2BankLoader {
   }
 
   Future<Map<String, dynamic>> _loadJsonObject(String relativePath) async {
-    final file = File('$_root/$relativePath');
-    if (await file.exists()) {
+    if (repoRoot != null) {
+      final file = File('$repoRoot/$relativePath');
+      if (!await file.exists()) {
+        throw FrequencyV2BankLoadException('missing_source', relativePath);
+      }
       final decoded = jsonDecode(await file.readAsString());
       if (decoded is Map<String, dynamic>) return decoded;
       if (decoded is Map) return Map<String, dynamic>.from(decoded);
       throw FrequencyV2BankLoadException('invalid_json', relativePath);
     }
     final asset = bundle;
-    if (asset != null) {
-      final text = await asset.loadString(relativePath);
-      final decoded = jsonDecode(text);
-      if (decoded is Map<String, dynamic>) return decoded;
-      if (decoded is Map) return Map<String, dynamic>.from(decoded);
+    if (asset == null) {
+      throw FrequencyV2BankLoadException('missing_source', relativePath);
     }
-    throw FrequencyV2BankLoadException('missing_source', relativePath);
+    final text = await asset.loadString(relativePath);
+    final decoded = jsonDecode(text);
+    if (decoded is Map<String, dynamic>) return decoded;
+    if (decoded is Map) return Map<String, dynamic>.from(decoded);
+    throw FrequencyV2BankLoadException('invalid_json', relativePath);
   }
 }

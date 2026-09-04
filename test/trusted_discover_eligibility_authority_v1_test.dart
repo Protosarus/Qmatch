@@ -25,7 +25,8 @@ void main() {
 
     test('AuthService does not client-grant discover_eligible on test complete',
         () {
-      final src = File('lib/core/services/auth_service.dart').readAsStringSync();
+      final src =
+          File('lib/core/services/auth_service.dart').readAsStringSync();
       expect(src.contains('_refreshDiscoverEligibility'), isFalse);
       // Signup may still seed false; must never write true.
       expect(src.contains("'discover_eligible': true"), isFalse);
@@ -75,13 +76,17 @@ void main() {
       );
       final index = File('functions/index.js').readAsStringSync();
       expect(index.contains('recomputeDiscoverEligibleOnUserWrite'), isTrue);
+      expect(
+        index.contains('recomputeDiscoverEligibleOnFrequencyV2Write'),
+        isTrue,
+      );
       expect(index.contains('planDiscoverEligibleWrite'), isTrue);
       expect(
         index.contains('trusted_discover_eligibility_authority_v1'),
         isTrue,
       );
-      final eligibility = File('functions/src/discover_eligibility.js')
-          .readAsStringSync();
+      final eligibility =
+          File('functions/src/discover_eligibility.js').readAsStringSync();
       expect(eligibility.contains('hasTrustedAssessmentDiscoverGrant'), isTrue);
       expect(
         File('functions/src/legacy_discover_eligibility_pre_trust_v1.js')
@@ -90,7 +95,8 @@ void main() {
       );
     });
 
-    test('live Frequency pipeline no longer writes client completion flags', () {
+    test('live Frequency pipeline no longer writes client completion flags',
+        () {
       final pipeline = File(
         'lib/features/assessment/services/frequency_pending_finalization_pipeline.dart',
       ).readAsStringSync();

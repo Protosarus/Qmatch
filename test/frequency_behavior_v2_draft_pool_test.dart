@@ -543,7 +543,13 @@ void main() {
       () {
     final pubspec =
         File('${Directory.current.path}/pubspec.yaml').readAsStringSync();
-    expect(pubspec.contains('frequency_behavior_pool_tr_v2'), isFalse);
+    expect(pubspec.contains('tool/frequency_behavior_v2/out/'), isFalse);
+    expect(
+      pubspec.contains(
+        'assets/assessment/frequency_v2/frequency_behavior_pool_tr_v2_draft1.json',
+      ),
+      isTrue,
+    );
     expect(pubspec.contains('frequency_bank_tr_v1.json'), isTrue);
     final runtime = File(
       '${Directory.current.path}/lib/features/assessment/services/frequency_canonical_runtime_service.dart',

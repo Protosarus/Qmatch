@@ -9,7 +9,8 @@ import 'support/frequency_v2_runtime_test_helpers.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('V2 controller exposes question, 4 options, TR/EN bank, and 1..50 progress',
+  test(
+      'V2 controller exposes question, 4 options, TR/EN bank, and 1..50 progress',
       () async {
     final bank = await FrequencyV2RuntimeTestHarness.loadTr();
     final pending = await FrequencyV2RuntimeTestHarness.pendingSession(
@@ -46,6 +47,8 @@ void main() {
       'lib/features/assessment/screens/frequency_v2_test_screen.dart',
     ).readAsStringSync();
     expect(src.contains('FrequencyQuestionPanel'), isTrue);
+    expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
+    expect(src.contains('Directory.current'), isFalse);
     expect(src.contains('FrequencyProgressHeader'), isTrue);
     expect(src.contains('QAssessmentProgress'), isTrue);
     expect(src.toLowerCase().contains('true personality'), isFalse);

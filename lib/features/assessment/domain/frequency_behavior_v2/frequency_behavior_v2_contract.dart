@@ -142,8 +142,7 @@ class FrequencyBehaviorV2Contract {
   static const String statusDraftNotRuntime = 'draft_not_runtime';
 
   /// Translation review statuses (separate from evidence review).
-  static const String translationReviewPendingHuman =
-      'PENDING_HUMAN_REVIEW';
+  static const String translationReviewPendingHuman = 'PENDING_HUMAN_REVIEW';
   static const String translationReviewReviewed = 'REVIEWED';
   static const String translationReviewCrossCultural =
       'CROSS_CULTURAL_REVIEW_REQUIRED';
@@ -183,6 +182,15 @@ class FrequencyBehaviorV2Contract {
       'tool/frequency_behavior_v2/out/frequency_behavior_pool_en_v2_draft1.json';
   static const String draftReviewEnRelativePath =
       'tool/frequency_behavior_v2/out/frequency_behavior_pool_en_v2_draft1_review_metadata.json';
+  static const String runtimeAssetDirectory = 'assets/assessment/frequency_v2';
+  static const String runtimePoolAssetPathTr =
+      '$runtimeAssetDirectory/frequency_behavior_pool_tr_v2_draft1.json';
+  static const String runtimeReviewAssetPathTr =
+      '$runtimeAssetDirectory/frequency_behavior_pool_tr_v2_draft1_review_metadata.json';
+  static const String runtimePoolAssetPathEn =
+      '$runtimeAssetDirectory/frequency_behavior_pool_en_v2_draft1.json';
+  static const String runtimeReviewAssetPathEn =
+      '$runtimeAssetDirectory/frequency_behavior_pool_en_v2_draft1_review_metadata.json';
   static const String phase6aEnParityAuditRelativePath =
       'tool/frequency_behavior_v2/out/frequency_v2_phase6a_en_parity_audit.md';
   static const String phase6aEnSemanticParityContractRelativePath =

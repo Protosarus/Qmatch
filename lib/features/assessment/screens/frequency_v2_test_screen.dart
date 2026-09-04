@@ -1,21 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../domain/frequency_v2_runtime/frequency_v2_runtime.dart';
+import '../utils/assessment_language.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_progress.dart';
 import '../widgets/q_assessment_scaffold.dart';
 
 /// Dormant Frequency V2 question UI. Not selected by live routing while
 /// [FrequencyRuntimeSelectionPolicy] resolves to V1.
+///
+/// When no [controller] is injected, the screen loads reviewed TR/EN banks
+/// from the Flutter asset bundle rather than developer `tool/` paths.
 class FrequencyV2TestScreen extends StatefulWidget {
   const FrequencyV2TestScreen({
     super.key,
     this.controller,
+    this.assetRuntime,
+    this.auth,
     this.onLocked,
   });
 
   final FrequencyV2SessionController? controller;
+  final FrequencyV2AssetRuntime? assetRuntime;
+  final FirebaseAuth? auth;
   final VoidCallback? onLocked;
 
   @override
@@ -23,7 +32,42 @@ class FrequencyV2TestScreen extends StatefulWidget {
 }
 
 class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
-  FrequencyV2SessionController? get _controller => widget.controller;
+  FrequencyV2SessionController? _owned;
+  bool _didStartLoading = false;
+  String? _loadError;
+
+  FrequencyV2SessionController? get _controller => widget.controller ?? _owned;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.controller != null || _didStartLoading) return;
+    _didStartLoading = true;
+    _bootstrapFromAssets();
+  }
+
+  Future<void> _bootstrapFromAssets() async {
+    try {
+      final uid = (widget.auth ?? FirebaseAuth.instance).currentUser?.uid;
+      if (uid == null || uid.isEmpty) {
+        if (!mounted) return;
+        setState(() => _loadError = 'owner_unavailable');
+        return;
+      }
+      final languageCode = AssessmentLanguage.languageUsed(context: context);
+      final runtime = widget.assetRuntime ?? FrequencyV2AssetRuntime();
+      final bank = await runtime.loadBankForLanguageCode(languageCode);
+      final controller = await runtime.createSession(
+        bank: bank,
+        ownerUid: uid,
+      );
+      if (!mounted) return;
+      setState(() => _owned = controller);
+    } catch (error) {
+      if (!mounted) return;
+      setState(() => _loadError = error.toString());
+    }
+  }
 
   Future<void> _select(String optionId) async {
     final controller = _controller;
@@ -66,7 +110,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         children: [
           const FrequencyQuestionTopBar(),
           Text(
-            locale,
+            _loadError ?? locale,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               color: Colors.white.withValues(alpha: 0.55),

@@ -63,6 +63,10 @@ flutter:
     - assets/data/assessment_v3/eq/eq_bank_en_v1.json
     - assets/data/assessment_v3/frequency/frequency_bank_tr_v1.json
     - assets/data/assessment_v3/frequency/frequency_bank_en_v1.json
+    - assets/assessment/frequency_v2/frequency_behavior_pool_tr_v2_draft1.json
+    - assets/assessment/frequency_v2/frequency_behavior_pool_tr_v2_draft1_review_metadata.json
+    - assets/assessment/frequency_v2/frequency_behavior_pool_en_v2_draft1.json
+    - assets/assessment/frequency_v2/frequency_behavior_pool_en_v2_draft1_review_metadata.json
     - assets/data/relationship_analysis_v1.json
     - assets/images/chat_wallpaper_dark.png
     # Golden-test font stand-ins (Roboto renamed). Not intended app UI fonts.

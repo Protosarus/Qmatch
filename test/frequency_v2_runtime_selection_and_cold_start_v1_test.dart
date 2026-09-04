@@ -71,6 +71,25 @@ void main() {
       ),
       FrequencyRuntimeTrack.v2,
     );
+    expect(
+      FrequencyRuntimeSelectionPolicy.resolve(
+        debugInternalV2Override: false,
+      ),
+      FrequencyRuntimeTrack.v1,
+    );
+    expect(
+      FrequencyRuntimeSelectionPolicy.resolve(
+        debugInternalV2Override: true,
+      ),
+      FrequencyRuntimeTrack.v2,
+    );
+    expect(
+      FrequencyRuntimeSelectionPolicy.resolve(
+        isRuntimeSelectable: (_) => false,
+        debugInternalV2Override: true,
+      ),
+      FrequencyRuntimeTrack.v2,
+    );
   });
 
   test('V2 cold-start branch is unreachable while track is V1', () {
@@ -121,10 +140,56 @@ void main() {
     expect(decision.openAssessmentTestScreen, isFalse);
   });
 
-  test('V2 pools stay out of the Flutter asset bundle while dormant', () {
-    final pubspec = File('${Directory.current.path}/pubspec.yaml')
-        .readAsStringSync();
-    expect(pubspec.contains('frequency_behavior_pool_tr_v2'), isFalse);
-    expect(pubspec.contains('frequency_behavior_pool_en_v2'), isFalse);
+  test('V2 pools are bundled as dormant assets; release track stays V1', () {
+    final pubspec =
+        File('${Directory.current.path}/pubspec.yaml').readAsStringSync();
+    expect(pubspec.contains('tool/frequency_behavior_v2/out/'), isFalse);
+    expect(
+      pubspec.contains(
+        'assets/assessment/frequency_v2/frequency_behavior_pool_tr_v2_draft1.json',
+      ),
+      isTrue,
+    );
+    expect(
+      pubspec.contains(
+        'assets/assessment/frequency_v2/frequency_behavior_pool_en_v2_draft1.json',
+      ),
+      isTrue,
+    );
+    expect(
+      pubspec.contains(
+        'assets/assessment/frequency_v2/frequency_behavior_pool_tr_v2_draft1_review_metadata.json',
+      ),
+      isTrue,
+    );
+    expect(
+      pubspec.contains(
+        'assets/assessment/frequency_v2/frequency_behavior_pool_en_v2_draft1_review_metadata.json',
+      ),
+      isTrue,
+    );
+    expect(
+      FrequencyBehaviorV2BankRegistry.isRuntimeSelectable(
+        FrequencyBehaviorV2Contract.poolVersionTrDraft1,
+      ),
+      isFalse,
+    );
+
+    final intro = File(
+      'lib/features/assessment/screens/frequency_intro_screen.dart',
+    ).readAsStringSync();
+    expect(intro.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
+    expect(intro.contains('FrequencyRuntimeSelectionPolicy.resolve()'), isTrue);
+
+    final policy = File(
+      'lib/features/assessment/domain/frequency_v2_runtime/frequency_runtime_selection_policy.dart',
+    ).readAsStringSync();
+    expect(policy.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isTrue);
+    expect(policy.contains('kDebugMode && _internalV2FromDefine'), isTrue);
+
+    final ranking = File(
+      'lib/features/discover/services/discover_structural_l2_ranking.dart',
+    ).readAsStringSync();
+    expect(ranking.contains("modeWireValue = 'structural_l2_v1'"), isTrue);
   });
 }

@@ -71,7 +71,11 @@ describe('store_iap_secrets_binding_v1', () => {
     );
     const getNotifKeys = secretKeysFromFunction(idx.getNotificationPrefs);
     const setNotifKeys = secretKeysFromFunction(idx.setNotificationPrefs);
+    const v2DiscoverKeys = secretKeysFromFunction(
+      idx.recomputeDiscoverEligibleOnFrequencyV2Write,
+    );
     assert.deepStrictEqual(discoverKeys, []);
+    assert.deepStrictEqual(v2DiscoverKeys, []);
     assert.deepStrictEqual(deletionKeys, []);
     assert.deepStrictEqual(whoLikedKeys, []);
     assert.deepStrictEqual(whoLikedEuKeys, []);
@@ -92,6 +96,7 @@ describe('store_iap_secrets_binding_v1', () => {
       assert.strictEqual(inboxSuperEuKeys.includes(name), false);
       assert.strictEqual(getNotifKeys.includes(name), false);
       assert.strictEqual(setNotifKeys.includes(name), false);
+      assert.strictEqual(v2DiscoverKeys.includes(name), false);
     }
   });
 

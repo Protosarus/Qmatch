@@ -1,13 +1,16 @@
 'use strict';
 
 const { initializeApp } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
 const { onDocumentWritten, onDocumentCreated } = require('firebase-functions/v2/firestore');
 const { onCall, onRequest } = require('firebase-functions/v2/https');
 const {
   deriveDiscoverEligible,
   planDiscoverEligibleWrite,
 } = require('./src/discover_eligibility');
+const {
+  handleRecomputeDiscoverEligibleOnUserWrite,
+  handleRecomputeDiscoverEligibleOnFrequencyV2Write,
+} = require('./src/recompute_discover_eligible_authority');
 const {
   shouldRunCloseAllOnUserWrite,
 } = require('./src/deletion_close_all');
@@ -44,32 +47,20 @@ exports.recomputeDiscoverEligibleOnUserWrite = onDocumentWritten(
     document: 'users/{uid}',
     region: 'us-central1',
   },
-  async (event) => {
-    const afterSnap = event.data && event.data.after;
-    if (!afterSnap || !afterSnap.exists) {
-      return null;
-    }
+  (event) => handleRecomputeDiscoverEligibleOnUserWrite(event),
+);
 
-    const beforeSnap = event.data && event.data.before;
-    const beforeData = beforeSnap && beforeSnap.exists ? beforeSnap.data() : null;
-    const afterData = afterSnap.data() || {};
-
-    const plan = planDiscoverEligibleWrite(beforeData, afterData);
-    if (!plan.shouldWrite) {
-      return null;
-    }
-
-    // Write only the derived flag — do not touch updated_at (avoids extra churn).
-    await getFirestore().doc(afterSnap.ref.path).update({
-      discover_eligible: plan.derived,
-    });
-
-    return {
-      uid: event.params.uid,
-      discover_eligible: plan.derived,
-      policy: 'trusted_discover_eligibility_authority_v1',
-    };
+/**
+ * Trusted Discover eligibility when Frequency V2 result docs change.
+ * europe-west1 to match Firestore / finalizeFrequencyV2. Source-registered
+ * only — not deployed in 8C.1. Writes discover_eligible exclusively.
+ */
+exports.recomputeDiscoverEligibleOnFrequencyV2Write = onDocumentWritten(
+  {
+    document: 'users/{uid}/assessments/frequency_v2',
+    region: 'europe-west1',
   },
+  (event) => handleRecomputeDiscoverEligibleOnFrequencyV2Write(event),
 );
 
 /**

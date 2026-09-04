@@ -45,6 +45,11 @@ function hasTrustedV1Battery(verification) {
   );
 }
 
+function hasTrustedIqEq(verification) {
+  const map = isPlainObject(verification) ? verification : {};
+  return moduleIsTrusted(map.iq) && moduleIsTrusted(map.eq);
+}
+
 function hasPreTrustMigrationGrant(verification) {
   return (
     isPlainObject(verification) &&
@@ -97,6 +102,7 @@ module.exports = {
   FLOW_RANK,
   moduleIsTrusted,
   hasTrustedV1Battery,
+  hasTrustedIqEq,
   hasPreTrustMigrationGrant,
   deriveProgressionFlow,
   resolveTrustedFlow,

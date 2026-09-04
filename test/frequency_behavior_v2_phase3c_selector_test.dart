@@ -282,7 +282,7 @@ void main() {
     expect(
       File('${Directory.current.path}/pubspec.yaml')
           .readAsStringSync()
-          .contains('frequency_behavior_pool_tr_v2'),
+          .contains('tool/frequency_behavior_v2/out/'),
       isFalse,
     );
     expect(FrequencyBehaviorV2Contract.softClusterLookahead, 2);
