@@ -5,7 +5,7 @@ import 'discover_stage_b2_dual_path_collector.dart';
 ///
 /// Smaller [DiscoverStageB2TrustedPairResult.structuralDistance] is better.
 /// Missing or failed L2 is never coerced to a neutral fill score.
-/// Persona, RVI, and later matching layers are not inputs.
+/// Persona, RVI, Frequency V2 pair-fit, and later matching layers are not inputs.
 class DiscoverStructuralL2Ranking {
   DiscoverStructuralL2Ranking._();
 

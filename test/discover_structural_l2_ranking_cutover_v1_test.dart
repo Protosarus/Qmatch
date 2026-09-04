@@ -386,5 +386,48 @@ void main() {
       expect(screen.contains('showLegacyCompatibilityUi:'), isTrue);
       expect(screen.contains('usesLegacyCompatibilityScoring'), isTrue);
     });
+
+    test('Frequency V2 diagnostic is not a ranking input', () {
+      final ranking = File(
+        'lib/features/discover/services/discover_structural_l2_ranking.dart',
+      ).readAsStringSync();
+      expect(ranking.contains('frequency_fit_index'), isFalse);
+      expect(ranking.contains('frequencyV2'), isFalse);
+      expect(ranking.contains('frequency_v2'), isFalse);
+
+      final a = _candidate(uid: 'a', lastActive: tStale);
+      final b = _candidate(uid: 'b', lastActive: tStale);
+      final highV2 = DiscoverStageB2TrustedPairResult(
+        available: true,
+        structuralDistance: 0.4,
+        totalCoverage: 1,
+        comparableDimensions: 20,
+        frequencyV2: const DiscoverStageB2FrequencyV2Diagnostic(
+          available: true,
+          frequencyFitIndex: 99,
+          overallSupportedFit: 0.99,
+          overallPairSupport: 1,
+          pairFitVersion: 'frequency_behavior_v2_pair_fit_v1',
+        ),
+      );
+      final lowV2 = DiscoverStageB2TrustedPairResult(
+        available: true,
+        structuralDistance: 0.1,
+        totalCoverage: 1,
+        comparableDimensions: 20,
+        frequencyV2: const DiscoverStageB2FrequencyV2Diagnostic(
+          available: true,
+          frequencyFitIndex: 1,
+          overallSupportedFit: 0.01,
+          overallPairSupport: 1,
+          pairFitVersion: 'frequency_behavior_v2_pair_fit_v1',
+        ),
+      );
+      final ranked = DiscoverStructuralL2Ranking.rankL1Batch(
+        l1Eligible: [a, b],
+        pairsByUid: {'a': highV2, 'b': lowV2},
+      );
+      expect(ranked.map((c) => c.uid).toList(), ['b', 'a']);
+    });
   });
 }

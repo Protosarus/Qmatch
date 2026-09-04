@@ -353,6 +353,7 @@ class DiscoverStageB2TrustedPairResult {
     required this.totalCoverage,
     required this.comparableDimensions,
     this.unavailableReason,
+    this.frequencyV2,
   });
 
   factory DiscoverStageB2TrustedPairResult.unavailable(String reason) {
@@ -373,6 +374,9 @@ class DiscoverStageB2TrustedPairResult {
     final available = raw['available'] == true;
     final coverage = (raw['total_coverage'] as num?)?.toDouble() ?? 0.0;
     final dims = (raw['comparable_dimensions'] as num?)?.toInt() ?? 0;
+    final frequencyV2 = DiscoverStageB2FrequencyV2Diagnostic.tryParse(
+      raw['frequency_v2'],
+    );
     if (!available) {
       return DiscoverStageB2TrustedPairResult(
         available: false,
@@ -380,6 +384,7 @@ class DiscoverStageB2TrustedPairResult {
         comparableDimensions: dims,
         unavailableReason: raw['unavailable_reason'] as String? ??
             'candidate_canonical_profile_missing',
+        frequencyV2: frequencyV2,
       );
     }
     return DiscoverStageB2TrustedPairResult(
@@ -387,6 +392,7 @@ class DiscoverStageB2TrustedPairResult {
       structuralDistance: (raw['structural_distance'] as num?)?.toDouble(),
       totalCoverage: coverage,
       comparableDimensions: dims,
+      frequencyV2: frequencyV2,
     );
   }
 
@@ -396,6 +402,11 @@ class DiscoverStageB2TrustedPairResult {
   final int comparableDimensions;
   final String? unavailableReason;
 
+  /// Optional dormant Frequency V2 aggregate diagnostic. Absent unless the
+  /// callable was explicitly asked for `include_frequency_v2_diagnostics`.
+  /// Never used by [DiscoverStructuralL2Ranking].
+  final DiscoverStageB2FrequencyV2Diagnostic? frequencyV2;
+
   /// Rankable only when the trusted callable returned a finite distance.
   /// Missing / failed L2 is never treated as 0, 0.5, or 0.42.
   bool get isRankable {
@@ -404,6 +415,59 @@ class DiscoverStageB2TrustedPairResult {
     if (d == null || d.isNaN || d.isInfinite || d < 0) return false;
     return true;
   }
+}
+
+/// Privacy-safe Frequency V2 pair diagnostic from Stage B2.
+///
+/// Aggregate fields only. Never stores peer 12D, support rows, session IDs,
+/// answers, or 24D artifacts even if a payload mistakenly includes them.
+class DiscoverStageB2FrequencyV2Diagnostic {
+  const DiscoverStageB2FrequencyV2Diagnostic({
+    required this.available,
+    this.frequencyFitIndex,
+    this.overallSupportedFit,
+    this.overallPairSupport,
+    this.pairFitVersion,
+    this.unavailableReason,
+  });
+
+  factory DiscoverStageB2FrequencyV2Diagnostic.unavailable(String reason) {
+    return DiscoverStageB2FrequencyV2Diagnostic(
+      available: false,
+      unavailableReason: reason,
+    );
+  }
+
+  static DiscoverStageB2FrequencyV2Diagnostic? tryParse(Object? raw) {
+    if (raw == null) return null;
+    if (raw is! Map) {
+      return DiscoverStageB2FrequencyV2Diagnostic.unavailable(
+        'malformed_frequency_v2',
+      );
+    }
+    final available = raw['available'] == true;
+    if (!available) {
+      return DiscoverStageB2FrequencyV2Diagnostic(
+        available: false,
+        pairFitVersion: raw['pair_fit_version'] as String?,
+        unavailableReason: raw['unavailable_reason'] as String? ?? 'unavailable',
+      );
+    }
+    return DiscoverStageB2FrequencyV2Diagnostic(
+      available: true,
+      frequencyFitIndex: (raw['frequency_fit_index'] as num?)?.toDouble(),
+      overallSupportedFit: (raw['overall_supported_fit'] as num?)?.toDouble(),
+      overallPairSupport: (raw['overall_pair_support'] as num?)?.toDouble(),
+      pairFitVersion: raw['pair_fit_version'] as String?,
+    );
+  }
+
+  final bool available;
+  final double? frequencyFitIndex;
+  final double? overallSupportedFit;
+  final double? overallPairSupport;
+  final String? pairFitVersion;
+  final String? unavailableReason;
 }
 
 /// One privacy-safe dual-path pair diagnostic.

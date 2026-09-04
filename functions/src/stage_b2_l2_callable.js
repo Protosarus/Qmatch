@@ -4,6 +4,10 @@
  * Admin-reads owner-only canonical_v1 for viewer + L1 candidate UIDs.
  * Admin-omits reverse-blocked candidates (candidate blocked viewer).
  * Returns pair diagnostics only — never peer 20D vectors or block docs.
+ *
+ * Optional dormant `include_frequency_v2_diagnostics=true` may add a nested
+ * Frequency V2 aggregate diagnostic. Default/absent is false and must not
+ * change structural reads, schema, distance, or ranking inputs.
  */
 
 'use strict';
@@ -14,6 +18,16 @@ const {
   measuredScoresFromCanonicalProfile,
   SCORING_VERSION,
 } = require('./canonical_20d_group_normalized_shadow');
+const contract = require('./frequency_behavior_v2_contract');
+const {
+  parseFrequencyV2Snapshot,
+  publicUnavailableReason,
+} = require('./frequency_behavior_v2_result_parser');
+const {
+  fitFromParsedUsers,
+  publicFrequencyV2FromFit,
+  publicFrequencyV2Unavailable,
+} = require('./frequency_behavior_v2_pair_fit');
 
 const CALLABLE_NAME = 'compareStageB2Structural';
 const MAX_CANDIDATE_UIDS = 120;
@@ -47,6 +61,31 @@ function canonicalPath(uid) {
 
 function reverseBlockPath(candidateUid, viewerUid) {
   return `users/${candidateUid}/blocks/${viewerUid}`;
+}
+
+function frequencyV2Path(uid) {
+  return `users/${uid}/assessments/${contract.RESULT_DOC_ID}`;
+}
+
+function wantsFrequencyV2Diagnostics(data) {
+  return data.include_frequency_v2_diagnostics === true;
+}
+
+function attachFrequencyV2Diagnostic(pair, viewerParsed, candidateParsed) {
+  const viewerReason = publicUnavailableReason(viewerParsed, 'viewer');
+  if (viewerReason) {
+    pair.frequency_v2 = publicFrequencyV2Unavailable(viewerReason);
+    return pair;
+  }
+  const candidateReason = publicUnavailableReason(candidateParsed, 'candidate');
+  if (candidateReason) {
+    pair.frequency_v2 = publicFrequencyV2Unavailable(candidateReason);
+    return pair;
+  }
+  pair.frequency_v2 = publicFrequencyV2FromFit(
+    fitFromParsedUsers(viewerParsed, candidateParsed),
+  );
+  return pair;
 }
 
 function publicUnavailable(reason) {
@@ -181,9 +220,12 @@ async function handleCompareStageB2Structural(request, deps = {}) {
     }
     timings.candidate_count = candidateUids.length;
 
+    const includeFrequencyV2 = wantsFrequencyV2Diagnostics(data);
+
     const db = resolveDb(deps);
     // Viewer canonical, candidate canonicals, and reverse-block exists-checks
     // have no data dependency. One BatchGet preserves the same snapshots.
+    // V2 result docs are included in the same round only when explicitly opted in.
     const tBatchGet = nowMs();
     const refs = [
       db.doc(canonicalPath(viewerUid)),
@@ -192,6 +234,12 @@ async function handleCompareStageB2Structural(request, deps = {}) {
         db.doc(reverseBlockPath(uid, viewerUid)),
       ),
     ];
+    if (includeFrequencyV2) {
+      refs.push(db.doc(frequencyV2Path(viewerUid)));
+      for (const uid of candidateUids) {
+        refs.push(db.doc(frequencyV2Path(uid)));
+      }
+    }
     const snaps = await getAllSnaps(db, refs);
     const batchMs = elapsedMs(tBatchGet);
     // Existing keys kept. Do not sum the three GET fields — IO is one round.
@@ -203,6 +251,12 @@ async function handleCompareStageB2Structural(request, deps = {}) {
     const viewerSnap = snaps[0];
     const candidateSnaps = snaps.slice(1, 1 + n);
     const reverseBlockSnaps = snaps.slice(1 + n, 1 + n + n);
+    const viewerV2Parsed = includeFrequencyV2
+      ? parseFrequencyV2Snapshot(snaps[1 + n + n])
+      : null;
+    const candidateV2Snaps = includeFrequencyV2
+      ? snaps.slice(2 + n + n, 2 + n + n + n)
+      : [];
 
     const tViewerScores = nowMs();
     const viewerScores = measuredScoresFromCanonicalProfile(
@@ -224,21 +278,30 @@ async function handleCompareStageB2Structural(request, deps = {}) {
       membershipMs += elapsedMs(tMembership);
 
       const tScore = nowMs();
+      let pair;
       if (!viewerScores) {
-        pairs.push(publicUnavailable('viewer_canonical_profile_missing'));
-        scoringMs += elapsedMs(tScore);
-        continue;
+        pair = publicUnavailable('viewer_canonical_profile_missing');
+      } else {
+        const candSnap = candidateSnaps[i];
+        const candScores = measuredScoresFromCanonicalProfile(
+          candSnap && candSnap.exists ? candSnap.data() : null,
+        );
+        if (!candScores) {
+          pair = publicUnavailable('candidate_canonical_profile_missing');
+        } else {
+          pair = toPublicPair(
+            compareMeasuredPresence(viewerScores, candScores),
+          );
+        }
       }
-      const candSnap = candidateSnaps[i];
-      const candScores = measuredScoresFromCanonicalProfile(
-        candSnap && candSnap.exists ? candSnap.data() : null,
-      );
-      if (!candScores) {
-        pairs.push(publicUnavailable('candidate_canonical_profile_missing'));
-        scoringMs += elapsedMs(tScore);
-        continue;
+      if (includeFrequencyV2) {
+        attachFrequencyV2Diagnostic(
+          pair,
+          viewerV2Parsed,
+          parseFrequencyV2Snapshot(candidateV2Snaps[i]),
+        );
       }
-      pairs.push(toPublicPair(compareMeasuredPresence(viewerScores, candScores)));
+      pairs.push(pair);
       scoringMs += elapsedMs(tScore);
     }
     timings.membership_filter_ms = membershipMs;
@@ -267,4 +330,6 @@ module.exports = {
   sanitizePair,
   toPublicPair,
   publicUnavailable,
+  wantsFrequencyV2Diagnostics,
+  frequencyV2Path,
 };

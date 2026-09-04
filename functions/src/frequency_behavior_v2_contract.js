@@ -67,6 +67,39 @@ const CANONICAL_DIMENSIONS = Object.freeze([
 
 const CANONICAL_DIMENSION_SET = new Set(CANONICAL_DIMENSIONS);
 
+const PAIR_FIT_VERSION = 'frequency_behavior_v2_pair_fit_v1';
+const PAIR_FIT_POLICY_VERSION = 'frequency_pair_fit_policy_v1';
+const PAIR_RELATION_VERSION = 'frequency_behavior_v2_pair_relation_v1';
+const PAIR_FIT_POLICY_SIMILARITY_LINEAR = 'SIMILARITY_LINEAR';
+const PAIR_FIT_POLICY_SIMILARITY_TOLERANT = 'SIMILARITY_TOLERANT';
+const PAIR_FIT_LINEAR_POLICY_DIMENSIONS = Object.freeze([
+  'contact_need',
+  'closeness_pace',
+  'autonomy',
+  'reassurance_need',
+  'uncertainty_tolerance',
+  'disclosure_pace',
+  'boundary_firmness',
+  'repair_style',
+]);
+const PAIR_FIT_TOLERANT_POLICY_DIMENSIONS = Object.freeze([
+  'initiative',
+  'social_energy',
+  'structure_preference',
+  'adaptability',
+]);
+const PAIR_FIT_LINEAR_POLICY_DIMENSION_SET = new Set(
+  PAIR_FIT_LINEAR_POLICY_DIMENSIONS,
+);
+const PAIR_FIT_TOLERANT_POLICY_DIMENSION_SET = new Set(
+  PAIR_FIT_TOLERANT_POLICY_DIMENSIONS,
+);
+
+const RESULT_SCHEMA_VERSION = 'qmatch_frequency_behavior_v2_result_v1';
+const RESULT_SOURCE = 'admin_finalize_frequency_v2_v1';
+const RESULT_STATUS = 'completed';
+const RESULT_DOC_ID = 'frequency_v2';
+
 function isCanonicalDimension(id) {
   return CANONICAL_DIMENSION_SET.has(id);
 }
@@ -115,5 +148,18 @@ module.exports = {
   FLAG_CONTEXT_SENSITIVE,
   CANONICAL_DIMENSIONS,
   CANONICAL_DIMENSION_SET,
+  PAIR_FIT_VERSION,
+  PAIR_FIT_POLICY_VERSION,
+  PAIR_RELATION_VERSION,
+  PAIR_FIT_POLICY_SIMILARITY_LINEAR,
+  PAIR_FIT_POLICY_SIMILARITY_TOLERANT,
+  PAIR_FIT_LINEAR_POLICY_DIMENSIONS,
+  PAIR_FIT_TOLERANT_POLICY_DIMENSIONS,
+  PAIR_FIT_LINEAR_POLICY_DIMENSION_SET,
+  PAIR_FIT_TOLERANT_POLICY_DIMENSION_SET,
+  RESULT_SCHEMA_VERSION,
+  RESULT_SOURCE,
+  RESULT_STATUS,
+  RESULT_DOC_ID,
   isCanonicalDimension,
 };

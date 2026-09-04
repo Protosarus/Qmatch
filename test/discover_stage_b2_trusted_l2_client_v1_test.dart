@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:qmatch/features/discover/services/discover_stage_b2_dual_path_collector.dart';
 import 'package:qmatch/features/discover/services/discover_stage_b2_trusted_l2_client.dart';
 
 void main() {
@@ -178,5 +179,87 @@ void main() {
     final batch = await client.compareForL1Batch(candidateUids: ['c1']);
     expect(seenName, 'compareStageB2Structural');
     expect(batch.pairs[0].structuralDistance, 0.42);
+  });
+
+  test('default request omits V2 opt-in and ignores nested frequency_v2 if absent',
+      () async {
+    Map<String, dynamic>? seen;
+    final client = DiscoverStageB2TrustedL2Client(
+      call: (name, data) async {
+        seen = data;
+        return {
+          'candidate_uids': ['c1'],
+          'pairs': [
+            {
+              'available': true,
+              'structural_distance': 0.11,
+              'total_coverage': 1.0,
+              'comparable_dimensions': 20,
+            },
+          ],
+        };
+      },
+    );
+    final batch = await client.compareForL1Batch(candidateUids: ['c1']);
+    expect(seen!.keys, ['candidate_uids']);
+    expect(seen!.containsKey('include_frequency_v2_diagnostics'), isFalse);
+    expect(batch.pairs[0].frequencyV2, isNull);
+    expect(batch.pairs[0].structuralDistance, 0.11);
+  });
+
+  test('opt-in parses aggregate V2 diagnostic and drops privacy fields', () async {
+    Map<String, dynamic>? seen;
+    final client = DiscoverStageB2TrustedL2Client(
+      call: (name, data) async {
+        seen = data;
+        return {
+          'candidate_uids': ['c1'],
+          'pairs': [
+            {
+              'available': true,
+              'structural_distance': 0.2,
+              'total_coverage': 1.0,
+              'comparable_dimensions': 20,
+              'frequency_v2': {
+                'available': true,
+                'frequency_fit_index': 87.5,
+                'overall_supported_fit': 0.875,
+                'overall_pair_support': 0.9,
+                'pair_fit_version': 'frequency_behavior_v2_pair_fit_v1',
+                'normalized_behavior': 0.4,
+                'x_a': 0.9,
+                'session_id': 'secret',
+                'contact_need': 0.1,
+              },
+            },
+          ],
+        };
+      },
+    );
+    final batch = await client.compareForL1Batch(
+      candidateUids: ['c1'],
+      includeFrequencyV2Diagnostics: true,
+    );
+    expect(seen!['include_frequency_v2_diagnostics'], isTrue);
+    expect(batch.pairs[0].structuralDistance, 0.2);
+    expect(batch.pairs[0].frequencyV2!.available, isTrue);
+    expect(batch.pairs[0].frequencyV2!.frequencyFitIndex, 87.5);
+    expect(batch.pairs[0].frequencyV2!.overallSupportedFit, 0.875);
+    expect(batch.pairs[0].frequencyV2!.overallPairSupport, 0.9);
+    expect(
+      batch.pairs[0].frequencyV2!.pairFitVersion,
+      'frequency_behavior_v2_pair_fit_v1',
+    );
+  });
+
+  test('production DiscoverService does not enable V2 diagnostics', () {
+    final src = File(
+      'lib/features/discover/services/discover_service.dart',
+    ).readAsStringSync();
+    expect(src.contains('includeFrequencyV2Diagnostics: true'), isFalse);
+    expect(
+      src.contains('include_frequency_v2_diagnostics'),
+      isFalse,
+    );
   });
 }

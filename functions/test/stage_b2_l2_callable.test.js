@@ -45,10 +45,44 @@ function fill(ids, v) {
   return out;
 }
 
-function request(uid, candidateUids) {
+function request(uid, candidateUids, extra = {}) {
   return {
     auth: uid ? { uid } : null,
-    data: { candidate_uids: candidateUids },
+    data: { candidate_uids: candidateUids, ...extra },
+  };
+}
+
+function frequencyV2Doc({ nb = 0.25, pc = 1, cc = 1, extraRow, extraDoc } = {}) {
+  const contract = require('../src/frequency_behavior_v2_contract');
+  const dimensions = contract.CANONICAL_DIMENSIONS.map((id) => ({
+    dimension_id: id,
+    normalized_behavior: typeof nb === 'number' ? nb : nb[id],
+    provisional_confidence: typeof pc === 'number' ? pc : pc[id],
+    confidence_completeness: typeof cc === 'number' ? cc : cc[id],
+    ...(extraRow || {}),
+  }));
+  return {
+    schema_version: contract.RESULT_SCHEMA_VERSION,
+    assessment_type: contract.ASSESSMENT_TYPE,
+    status: contract.RESULT_STATUS,
+    source: contract.RESULT_SOURCE,
+    session_id: 'frequency_v2_sess_secret',
+    dimensions,
+    ...(extraDoc || {}),
+  };
+}
+
+function trackingDb(inner) {
+  const requested = [];
+  return {
+    requested,
+    doc(path) {
+      requested.push(path);
+      return inner.doc(path);
+    },
+    getAll(...refs) {
+      return inner.getAll(...refs);
+    },
   };
 }
 
@@ -555,5 +589,265 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(snaps[1].exists, false);
     assert.strictEqual(snaps[2].exists, true);
     assert.strictEqual(snaps[2].data().n, 3);
+  });
+
+  it('default request does not read or return Frequency V2 even if docs exist', async () => {
+    const inner = new MemoryFirestore();
+    await inner
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.9 }));
+    await inner
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: -0.9 }));
+    const db = trackingDb(inner);
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near']),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0.0);
+    assert.strictEqual(res.pairs[0].frequency_v2, undefined);
+    assert.strictEqual(
+      db.requested.some((p) => p.includes('assessments/frequency_v2')),
+      false,
+    );
+    for (const key of Object.keys(res.pairs[0])) {
+      assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
+    }
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('frequency_v2'), false);
+    assert.strictEqual(blob.includes('frequency_fit_index'), false);
+    assert.strictEqual(blob.includes('normalized_behavior'), false);
+    assert.strictEqual(blob.includes('frequency_v2_sess_secret'), false);
+  });
+
+  it('empty candidate list keeps existing semantics', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    const res = await handleCompareStageB2Structural(request('viewer', []), {
+      db,
+    });
+    assert.deepStrictEqual(res, { pairs: [], candidate_uids: [] });
+  });
+
+  it('opt-in valid V2 returns structural plus aggregate diagnostic', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.6 }));
+    await db
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.6 }));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], { include_frequency_v2_diagnostics: true }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0.0);
+    assert.strictEqual(res.pairs[0].frequency_v2.available, true);
+    assert.strictEqual(res.pairs[0].frequency_v2.frequency_fit_index, 100);
+    assert.strictEqual(res.pairs[0].frequency_v2.overall_supported_fit, 1);
+    assert.strictEqual(res.pairs[0].frequency_v2.overall_pair_support, 1);
+    assert.strictEqual(
+      res.pairs[0].frequency_v2.pair_fit_version,
+      'frequency_behavior_v2_pair_fit_v1',
+    );
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('normalized_behavior'), false);
+    assert.strictEqual(blob.includes('provisional_confidence'), false);
+    assert.strictEqual(blob.includes('x_a'), false);
+    assert.strictEqual(blob.includes('contact_need'), false);
+    assert.strictEqual(blob.includes('frequency_v2_sess_secret'), false);
+    assert.strictEqual(blob.includes('raw_fit'), false);
+  });
+
+  it('opt-in missing viewer V2 leaves structural intact', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], { include_frequency_v2_diagnostics: true }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0.0);
+    assert.strictEqual(res.pairs[0].frequency_v2.available, false);
+    assert.strictEqual(
+      res.pairs[0].frequency_v2.unavailable_reason,
+      'viewer_frequency_v2_missing',
+    );
+  });
+
+  it('opt-in missing candidate V2 leaves structural intact', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], { include_frequency_v2_diagnostics: true }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(
+      res.pairs[0].frequency_v2.unavailable_reason,
+      'candidate_frequency_v2_missing',
+    );
+  });
+
+  it('opt-in malformed candidate V2 leaves structural intact', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    await db.doc('users/near/assessments/frequency_v2').set(
+      frequencyV2Doc({ extraDoc: { source: 'client_write' } }),
+    );
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], { include_frequency_v2_diagnostics: true }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, true);
+    assert.strictEqual(res.pairs[0].structural_distance, 0.0);
+    assert.strictEqual(
+      res.pairs[0].frequency_v2.unavailable_reason,
+      'candidate_frequency_v2_malformed',
+    );
+  });
+
+  it('opt-in V2 can be available when canonical is missing', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.6 }));
+    await db
+      .doc('users/near/assessments/frequency_v2')
+      .set(frequencyV2Doc({ nb: 0.6 }));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], { include_frequency_v2_diagnostics: true }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].available, false);
+    assert.strictEqual(
+      res.pairs[0].unavailable_reason,
+      'viewer_canonical_profile_missing',
+    );
+    assert.strictEqual(res.pairs[0].frequency_v2.available, true);
+    assert.strictEqual(res.pairs[0].frequency_v2.frequency_fit_index, 100);
+  });
+
+  it('opt-in reverse-blocked candidate is omitted with no V2 leak', async () => {
+    const db = new MemoryFirestore();
+    await db
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/ok/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db
+      .doc('users/blocked_me/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.4)));
+    await db.doc('users/blocked_me/blocks/viewer').set({
+      blocked_uid: 'viewer',
+      reason: 'secret-block-reason',
+    });
+    await db
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    await db
+      .doc('users/ok/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    await db
+      .doc('users/blocked_me/assessments/frequency_v2')
+      .set(frequencyV2Doc({ extraDoc: { session_id: 'blocked-v2-session' } }));
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['blocked_me', 'ok'], {
+        include_frequency_v2_diagnostics: true,
+      }),
+      { db },
+    );
+    assert.deepStrictEqual(res.candidate_uids, ['ok']);
+    assert.strictEqual(res.pairs.length, 1);
+    assert.strictEqual(res.pairs[0].frequency_v2.available, true);
+    const blob = JSON.stringify(res);
+    assert.strictEqual(blob.includes('blocked_me'), false);
+    assert.strictEqual(blob.includes('blocked-v2-session'), false);
+    assert.strictEqual(blob.includes('secret-block-reason'), false);
+  });
+
+  it('opt-in empty candidate list keeps empty payload', async () => {
+    const db = new MemoryFirestore();
+    const res = await handleCompareStageB2Structural(
+      request('viewer', [], { include_frequency_v2_diagnostics: true }),
+      { db },
+    );
+    assert.deepStrictEqual(res, { pairs: [], candidate_uids: [] });
+  });
+
+  it('opt-in still rejects >120 candidates', async () => {
+    const tooMany = Array.from({ length: MAX_CANDIDATE_UIDS + 1 }, (_, i) => `u${i}`);
+    await assert.rejects(
+      () =>
+        handleCompareStageB2Structural(
+          request('viewer', tooMany, { include_frequency_v2_diagnostics: true }),
+          { db: new MemoryFirestore() },
+        ),
+      (err) => err instanceof HttpsError && err.code === 'invalid-argument',
+    );
+  });
+
+  it('string true does not opt in V2 diagnostics', async () => {
+    const inner = new MemoryFirestore();
+    await inner
+      .doc('users/viewer/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/near/profiles/canonical_v1')
+      .set(canonicalDoc(fill(DIMENSION_IDS, 0.45)));
+    await inner
+      .doc('users/viewer/assessments/frequency_v2')
+      .set(frequencyV2Doc());
+    const db = trackingDb(inner);
+    const res = await handleCompareStageB2Structural(
+      request('viewer', ['near'], { include_frequency_v2_diagnostics: 'true' }),
+      { db },
+    );
+    assert.strictEqual(res.pairs[0].frequency_v2, undefined);
+    assert.strictEqual(
+      db.requested.some((p) => p.includes('assessments/frequency_v2')),
+      false,
+    );
   });
 });

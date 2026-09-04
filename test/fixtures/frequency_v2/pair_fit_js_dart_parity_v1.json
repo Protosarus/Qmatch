@@ -1,0 +1,2206 @@
+{
+  "schema_version": "qmatch_frequency_v2_pair_fit_js_dart_parity_v1",
+  "pair_fit_version": "frequency_behavior_v2_pair_fit_v1",
+  "pair_fit_policy_version": "frequency_pair_fit_policy_v1",
+  "pair_relation_version": "frequency_behavior_v2_pair_relation_v1",
+  "tolerance": 1e-9,
+  "fixture_count": 12,
+  "fixtures": [
+    {
+      "id": "identical_full_support",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 0.6,
+          "closeness_pace": 0.6,
+          "initiative": 0.6,
+          "autonomy": 0.6,
+          "reassurance_need": 0.6,
+          "uncertainty_tolerance": 0.6,
+          "disclosure_pace": 0.6,
+          "boundary_firmness": 0.6,
+          "repair_style": 0.6,
+          "social_energy": 0.6,
+          "structure_preference": 0.6,
+          "adaptability": 0.6
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 0.6,
+          "closeness_pace": 0.6,
+          "initiative": 0.6,
+          "autonomy": 0.6,
+          "reassurance_need": 0.6,
+          "uncertainty_tolerance": 0.6,
+          "disclosure_pace": 0.6,
+          "boundary_firmness": 0.6,
+          "repair_style": 0.6,
+          "social_energy": 0.6,
+          "structure_preference": 0.6,
+          "adaptability": 0.6
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 1,
+        "overall_pair_support": 1,
+        "frequency_fit_index": 100,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "identical_zero_support",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": -0.3,
+          "closeness_pace": -0.3,
+          "initiative": -0.3,
+          "autonomy": -0.3,
+          "reassurance_need": -0.3,
+          "uncertainty_tolerance": -0.3,
+          "disclosure_pace": -0.3,
+          "boundary_firmness": -0.3,
+          "repair_style": -0.3,
+          "social_energy": -0.3,
+          "structure_preference": -0.3,
+          "adaptability": -0.3
+        },
+        "provisional_confidence": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": -0.3,
+          "closeness_pace": -0.3,
+          "initiative": -0.3,
+          "autonomy": -0.3,
+          "reassurance_need": -0.3,
+          "uncertainty_tolerance": -0.3,
+          "disclosure_pace": -0.3,
+          "boundary_firmness": -0.3,
+          "repair_style": -0.3,
+          "social_energy": -0.3,
+          "structure_preference": -0.3,
+          "adaptability": -0.3
+        },
+        "provisional_confidence": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 0.5,
+        "overall_pair_support": 0,
+        "frequency_fit_index": 50,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "opposite_extremes_full_support",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": -1,
+          "closeness_pace": -1,
+          "initiative": -1,
+          "autonomy": -1,
+          "reassurance_need": -1,
+          "uncertainty_tolerance": -1,
+          "disclosure_pace": -1,
+          "boundary_firmness": -1,
+          "repair_style": -1,
+          "social_energy": -1,
+          "structure_preference": -1,
+          "adaptability": -1
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 0,
+        "overall_supported_fit": 0,
+        "overall_pair_support": 1,
+        "frequency_fit_index": 0,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "tolerant_mid_difference",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 1,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 0.9791666666666666,
+        "overall_supported_fit": 0.9791666666666666,
+        "overall_pair_support": 1,
+        "frequency_fit_index": 97.91666666666666,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0.75,
+            "supported_fit": 0.75,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "linear_opposite_one_dim",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 1,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": -1,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 0.9166666666666666,
+        "overall_supported_fit": 0.9166666666666666,
+        "overall_pair_support": 1,
+        "frequency_fit_index": 91.66666666666666,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "low_support_identical",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 0.4,
+          "closeness_pace": 0.4,
+          "initiative": 0.4,
+          "autonomy": 0.4,
+          "reassurance_need": 0.4,
+          "uncertainty_tolerance": 0.4,
+          "disclosure_pace": 0.4,
+          "boundary_firmness": 0.4,
+          "repair_style": 0.4,
+          "social_energy": 0.4,
+          "structure_preference": 0.4,
+          "adaptability": 0.4
+        },
+        "provisional_confidence": {
+          "contact_need": 0.25,
+          "closeness_pace": 0.25,
+          "initiative": 0.25,
+          "autonomy": 0.25,
+          "reassurance_need": 0.25,
+          "uncertainty_tolerance": 0.25,
+          "disclosure_pace": 0.25,
+          "boundary_firmness": 0.25,
+          "repair_style": 0.25,
+          "social_energy": 0.25,
+          "structure_preference": 0.25,
+          "adaptability": 0.25
+        },
+        "confidence_completeness": {
+          "contact_need": 0.8,
+          "closeness_pace": 0.8,
+          "initiative": 0.8,
+          "autonomy": 0.8,
+          "reassurance_need": 0.8,
+          "uncertainty_tolerance": 0.8,
+          "disclosure_pace": 0.8,
+          "boundary_firmness": 0.8,
+          "repair_style": 0.8,
+          "social_energy": 0.8,
+          "structure_preference": 0.8,
+          "adaptability": 0.8
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 0.4,
+          "closeness_pace": 0.4,
+          "initiative": 0.4,
+          "autonomy": 0.4,
+          "reassurance_need": 0.4,
+          "uncertainty_tolerance": 0.4,
+          "disclosure_pace": 0.4,
+          "boundary_firmness": 0.4,
+          "repair_style": 0.4,
+          "social_energy": 0.4,
+          "structure_preference": 0.4,
+          "adaptability": 0.4
+        },
+        "provisional_confidence": {
+          "contact_need": 0.25,
+          "closeness_pace": 0.25,
+          "initiative": 0.25,
+          "autonomy": 0.25,
+          "reassurance_need": 0.25,
+          "uncertainty_tolerance": 0.25,
+          "disclosure_pace": 0.25,
+          "boundary_firmness": 0.25,
+          "repair_style": 0.25,
+          "social_energy": 0.25,
+          "structure_preference": 0.25,
+          "adaptability": 0.25
+        },
+        "confidence_completeness": {
+          "contact_need": 0.8,
+          "closeness_pace": 0.8,
+          "initiative": 0.8,
+          "autonomy": 0.8,
+          "reassurance_need": 0.8,
+          "uncertainty_tolerance": 0.8,
+          "disclosure_pace": 0.8,
+          "boundary_firmness": 0.8,
+          "repair_style": 0.8,
+          "social_energy": 0.8,
+          "structure_preference": 0.8,
+          "adaptability": 0.8
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 0.5999999999999999,
+        "overall_pair_support": 0.19999999999999998,
+        "frequency_fit_index": 59.999999999999986,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.6,
+            "pair_support": 0.2
+          }
+        ]
+      }
+    },
+    {
+      "id": "mixed_support_zero_b",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 0.5,
+          "closeness_pace": 0.5,
+          "initiative": 0.5,
+          "autonomy": 0.5,
+          "reassurance_need": 0.5,
+          "uncertainty_tolerance": 0.5,
+          "disclosure_pace": 0.5,
+          "boundary_firmness": 0.5,
+          "repair_style": 0.5,
+          "social_energy": 0.5,
+          "structure_preference": 0.5,
+          "adaptability": 0.5
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 0.5,
+          "closeness_pace": 0.5,
+          "initiative": 0.5,
+          "autonomy": 0.5,
+          "reassurance_need": 0.5,
+          "uncertainty_tolerance": 0.5,
+          "disclosure_pace": 0.5,
+          "boundary_firmness": 0.5,
+          "repair_style": 0.5,
+          "social_energy": 0.5,
+          "structure_preference": 0.5,
+          "adaptability": 0.5
+        },
+        "provisional_confidence": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 0.5,
+        "overall_pair_support": 0,
+        "frequency_fit_index": 50,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "completeness_zero",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 0.2,
+          "closeness_pace": 0.2,
+          "initiative": 0.2,
+          "autonomy": 0.2,
+          "reassurance_need": 0.2,
+          "uncertainty_tolerance": 0.2,
+          "disclosure_pace": 0.2,
+          "boundary_firmness": 0.2,
+          "repair_style": 0.2,
+          "social_energy": 0.2,
+          "structure_preference": 0.2,
+          "adaptability": 0.2
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 0.2,
+          "closeness_pace": 0.2,
+          "initiative": 0.2,
+          "autonomy": 0.2,
+          "reassurance_need": 0.2,
+          "uncertainty_tolerance": 0.2,
+          "disclosure_pace": 0.2,
+          "boundary_firmness": 0.2,
+          "repair_style": 0.2,
+          "social_energy": 0.2,
+          "structure_preference": 0.2,
+          "adaptability": 0.2
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 0.5,
+        "overall_pair_support": 0,
+        "frequency_fit_index": 50,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "boundary_x_minus_one",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": -1,
+          "closeness_pace": -1,
+          "initiative": -1,
+          "autonomy": -1,
+          "reassurance_need": -1,
+          "uncertainty_tolerance": -1,
+          "disclosure_pace": -1,
+          "boundary_firmness": -1,
+          "repair_style": -1,
+          "social_energy": -1,
+          "structure_preference": -1,
+          "adaptability": -1
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": -1,
+          "closeness_pace": -1,
+          "initiative": -1,
+          "autonomy": -1,
+          "reassurance_need": -1,
+          "uncertainty_tolerance": -1,
+          "disclosure_pace": -1,
+          "boundary_firmness": -1,
+          "repair_style": -1,
+          "social_energy": -1,
+          "structure_preference": -1,
+          "adaptability": -1
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 1,
+        "overall_pair_support": 1,
+        "frequency_fit_index": 100,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "boundary_x_plus_one",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 1,
+        "overall_pair_support": 1,
+        "frequency_fit_index": 100,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 1,
+            "pair_support": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "confidence_completeness_boundary",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "confidence_completeness": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": 0,
+          "closeness_pace": 0,
+          "initiative": 0,
+          "autonomy": 0,
+          "reassurance_need": 0,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 0,
+          "boundary_firmness": 0,
+          "repair_style": 0,
+          "social_energy": 0,
+          "structure_preference": 0,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 1,
+        "overall_supported_fit": 0.5,
+        "overall_pair_support": 0,
+        "frequency_fit_index": 50,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 1,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "all_12_mixed_values_and_support",
+      "user_a": {
+        "normalized_behavior": {
+          "contact_need": 1,
+          "closeness_pace": 0.8,
+          "initiative": 0.6,
+          "autonomy": 0.4,
+          "reassurance_need": 0.2,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": -0.2,
+          "boundary_firmness": -0.4,
+          "repair_style": -0.6,
+          "social_energy": -0.8,
+          "structure_preference": -1,
+          "adaptability": 0.5
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 0.5,
+          "autonomy": 1,
+          "reassurance_need": 0.25,
+          "uncertainty_tolerance": 0,
+          "disclosure_pace": 1,
+          "boundary_firmness": 0.8,
+          "repair_style": 1,
+          "social_energy": 0.2,
+          "structure_preference": 1,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 0.8,
+          "initiative": 1,
+          "autonomy": 1,
+          "reassurance_need": 0.8,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 1,
+          "boundary_firmness": 1,
+          "repair_style": 0.8,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "user_b": {
+        "normalized_behavior": {
+          "contact_need": -1,
+          "closeness_pace": -0.5,
+          "initiative": 0,
+          "autonomy": 0.5,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 0.25,
+          "disclosure_pace": -0.25,
+          "boundary_firmness": 0.75,
+          "repair_style": -0.75,
+          "social_energy": 0.1,
+          "structure_preference": -0.1,
+          "adaptability": 0
+        },
+        "provisional_confidence": {
+          "contact_need": 1,
+          "closeness_pace": 0.5,
+          "initiative": 1,
+          "autonomy": 0,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 1,
+          "disclosure_pace": 0.25,
+          "boundary_firmness": 1,
+          "repair_style": 0.8,
+          "social_energy": 1,
+          "structure_preference": 0,
+          "adaptability": 1
+        },
+        "confidence_completeness": {
+          "contact_need": 1,
+          "closeness_pace": 1,
+          "initiative": 0.8,
+          "autonomy": 1,
+          "reassurance_need": 1,
+          "uncertainty_tolerance": 0.8,
+          "disclosure_pace": 1,
+          "boundary_firmness": 0.8,
+          "repair_style": 1,
+          "social_energy": 1,
+          "structure_preference": 1,
+          "adaptability": 1
+        }
+      },
+      "expected": {
+        "overall_raw_fit": 0.711875,
+        "overall_supported_fit": 0.5664338202116658,
+        "overall_pair_support": 0.5216115212556057,
+        "frequency_fit_index": 56.64338202116658,
+        "dimensions": [
+          {
+            "dimension_id": "contact_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0,
+            "supported_fit": 0,
+            "pair_support": 1
+          },
+          {
+            "dimension_id": "closeness_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.35,
+            "supported_fit": 0.4051316701949486,
+            "pair_support": 0.6324555320336759
+          },
+          {
+            "dimension_id": "initiative",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0.91,
+            "supported_fit": 0.7593067681338072,
+            "pair_support": 0.6324555320336759
+          },
+          {
+            "dimension_id": "autonomy",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.95,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "reassurance_need",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.6,
+            "supported_fit": 0.5447213595499958,
+            "pair_support": 0.4472135954999579
+          },
+          {
+            "dimension_id": "uncertainty_tolerance",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.875,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "disclosure_pace",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.975,
+            "supported_fit": 0.7375,
+            "pair_support": 0.5
+          },
+          {
+            "dimension_id": "boundary_firmness",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.42500000000000004,
+            "supported_fit": 0.44000000000000006,
+            "pair_support": 0.8
+          },
+          {
+            "dimension_id": "repair_style",
+            "policy_type": "SIMILARITY_LINEAR",
+            "raw_fit": 0.925,
+            "supported_fit": 0.8400000000000001,
+            "pair_support": 0.8
+          },
+          {
+            "dimension_id": "social_energy",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0.7975,
+            "supported_fit": 0.6330460446612375,
+            "pair_support": 0.4472135954999579
+          },
+          {
+            "dimension_id": "structure_preference",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0.7975,
+            "supported_fit": 0.5,
+            "pair_support": 0
+          },
+          {
+            "dimension_id": "adaptability",
+            "policy_type": "SIMILARITY_TOLERANT",
+            "raw_fit": 0.9375,
+            "supported_fit": 0.9375,
+            "pair_support": 1
+          }
+        ]
+      }
+    }
+  ]
+}
