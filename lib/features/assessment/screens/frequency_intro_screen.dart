@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../l10n/app_localizations.dart';
-import '../domain/frequency_v2_runtime/frequency_runtime_selection_policy.dart';
+import '../domain/frequency_v2_runtime/frequency_runtime_test_screen_factory.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_scaffold.dart';
-import 'frequency_test_screen.dart';
-import 'frequency_v2_test_screen.dart';
 
 class FrequencyIntroScreen extends StatelessWidget {
   const FrequencyIntroScreen({super.key});
@@ -75,13 +73,10 @@ class FrequencyIntroScreen extends StatelessWidget {
                 label: l10n.startFrequencyTest,
                 active: true,
                 onPressed: () {
-                  final track = FrequencyRuntimeSelectionPolicy.resolve();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => track == FrequencyRuntimeTrack.v2
-                          ? const FrequencyV2TestScreen()
-                          : const FrequencyTestScreen(),
+                      builder: (_) => FrequencyRuntimeTestScreenFactory.build(),
                     ),
                   );
                 },

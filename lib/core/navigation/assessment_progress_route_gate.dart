@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../debug/qmatch_perf.dart';
+import '../../features/assessment/domain/frequency_v2_runtime/frequency_runtime_test_screen_factory.dart';
 import '../../features/assessment/models/assessment_progress.dart';
 import '../../features/assessment/screens/eq_test_intro_screen.dart';
 import '../../features/assessment/screens/eq_test_screen.dart';
 import '../../features/assessment/screens/frequency_intro_screen.dart';
-import '../../features/assessment/screens/frequency_test_screen.dart';
 import '../../features/assessment/screens/iq_test_intro_screen.dart';
 import '../../features/assessment/screens/iq_test_screen.dart';
 import '../../features/assessment/screens/persona_assignment_gate_screen.dart';
@@ -139,8 +139,10 @@ Widget buildAssessmentDestination(AssessmentColdStartDecision decision) {
           ? const EQTestScreen()
           : const EQTestIntroScreen();
     case AssessmentFlowDestination.frequency:
+      // Pending recovery (including V2) must use the shared factory so a
+      // V2 locked session is not opened on the V1 Frequency test screen.
       return decision.openAssessmentTestScreen
-          ? const FrequencyTestScreen()
+          ? FrequencyRuntimeTestScreenFactory.build()
           : const FrequencyIntroScreen();
     case AssessmentFlowDestination.persona:
       return const PersonaAssignmentGateScreen();

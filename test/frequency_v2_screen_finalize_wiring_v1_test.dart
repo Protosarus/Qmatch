@@ -323,10 +323,14 @@ void main() {
         'lib/features/assessment/screens/frequency_intro_screen.dart',
       ).readAsStringSync();
       expect(
-          intro.contains('FrequencyRuntimeSelectionPolicy.resolve()'), isTrue);
+        intro.contains('FrequencyRuntimeTestScreenFactory.build()'),
+        isTrue,
+      );
       expect(intro.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
-      expect(intro.contains('FrequencyTestScreen'), isTrue);
-      expect(intro.contains('FrequencyV2TestScreen'), isTrue);
+      expect(
+          intro.contains('FrequencyRuntimeSelectionPolicy.resolve()'), isFalse);
+      expect(intro.contains('FrequencyTestScreen'), isFalse);
+      expect(intro.contains('FrequencyV2TestScreen'), isFalse);
     });
 
     test('debug internal routing reaches wired V2 screen', () {
@@ -348,6 +352,7 @@ void main() {
         src.contains(FrequencyV2TestScreen.internalCompletionTitle),
         isTrue,
       );
+      expect(src.contains('exitInternalCompletion'), isTrue);
       expect(src.contains('PersonaAssignmentGateScreen'), isFalse);
     });
 

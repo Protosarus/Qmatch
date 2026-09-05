@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_runtime.dart';
-import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_session_controller.dart';
 
 import 'support/frequency_v2_runtime_test_helpers.dart';
 
@@ -50,6 +49,10 @@ void main() {
     expect(src.contains('FrequencyV2PendingFinalizationPipeline'), isTrue);
     expect(src.contains('_pipelineInFlight'), isTrue);
     expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
+    expect(src.contains('bank.locale'), isFalse);
+    expect(src.contains("'tr-TR'"), isFalse);
+    expect(src.contains('exitInternalCompletion'), isTrue);
+    expect(src.contains('internalContinueKey'), isTrue);
     expect(src.contains('Directory.current'), isFalse);
     expect(src.contains('PersonaAssignmentGateScreen'), isFalse);
     expect(src.contains('FrequencyProgressHeader'), isTrue);

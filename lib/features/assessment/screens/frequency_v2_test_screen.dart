@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/notifications/message_push_tap_host.dart';
+import '../../../core/notifications/notification_registration_host.dart';
+import '../../../l10n/app_localizations.dart';
 import '../domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import '../domain/frequency_v2_runtime/frequency_v2_screen_finalize_coordinator.dart';
 import '../services/frequency_v2_pending_finalization_pipeline.dart';
@@ -26,6 +29,8 @@ class FrequencyV2TestScreen extends StatefulWidget {
     this.pendingPipeline,
     this.auth,
     this.onLocked,
+    this.onInternalContinue,
+    this.selectionHold = selectionHoldDuration,
   });
 
   final FrequencyV2SessionController? controller;
@@ -34,8 +39,41 @@ class FrequencyV2TestScreen extends StatefulWidget {
   final FirebaseAuth? auth;
   final VoidCallback? onLocked;
 
+  /// Test hook. Production uses [exitInternalCompletion].
+  final VoidCallback? onInternalContinue;
+
+  /// Visible confirmation before the session advances. Tests may shorten it.
+  final Duration selectionHold;
+
+  static const Duration selectionHoldDuration = Duration(milliseconds: 350);
+
   static const String internalCompletionTitle =
       'Frequency V2 internal test completed';
+
+  static const Key internalContinueKey = Key('frequency-v2-internal-continue');
+
+  /// Leaves the internal V2 test without writing completion flags, Persona,
+  /// or Discover eligibility.
+  ///
+  /// Pushed routes (intro / debug home): one [Navigator.pop].
+  /// Root / cold-start (this screen is the assessment-gate child): push the
+  /// existing main shell so AuthWrapper stays mounted. V2 finalize does not
+  /// bump [AuthRoutingRefresh], so the gate will not immediately re-open
+  /// Frequency.
+  static void exitInternalCompletion(BuildContext context) {
+    final nav = Navigator.of(context);
+    if (nav.canPop()) {
+      nav.pop();
+      return;
+    }
+    nav.push(
+      MaterialPageRoute<void>(
+        builder: (_) => const NotificationRegistrationHost(
+          child: MessagePushTapHost(),
+        ),
+      ),
+    );
+  }
 
   @override
   State<FrequencyV2TestScreen> createState() => _FrequencyV2TestScreenState();
@@ -51,6 +89,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
   bool _showDormantCompletion = false;
   String? _loadError;
   String? _uiErrorCode;
+  int? _heldOptionIndex;
 
   FrequencyV2SessionController? get _controller => widget.controller ?? _owned;
 
@@ -148,7 +187,20 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     });
   }
 
-  Future<void> _select(String optionId) async {
+  /// [FrequencyQuestionPanel] reports 1-based option values (1..N).
+  void _onPanelSelected(int oneBasedValue) {
+    final controller = _controller;
+    final plan = controller?.currentPlan;
+    if (controller == null || plan == null) return;
+    if (_inputsLocked) return;
+    final index = oneBasedValue - 1;
+    if (index < 0 || index >= plan.presentedOptionOrder.length) {
+      return;
+    }
+    unawaited(_select(plan.presentedOptionOrder[index], visualIndex: index));
+  }
+
+  Future<void> _select(String optionId, {required int visualIndex}) async {
     final controller = _controller;
     if (controller == null) return;
     if (_isFinishing ||
@@ -167,12 +219,21 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         status != FrequencyV2PersistedSessionStatus.inProgress) {
       return;
     }
-    setState(() => _busy = true);
+    setState(() {
+      _busy = true;
+      _heldOptionIndex = visualIndex;
+    });
+    if (widget.selectionHold > Duration.zero) {
+      await Future<void>.delayed(widget.selectionHold);
+    }
+    if (!mounted) return;
     try {
       await controller.selectOption(optionId);
       await controller.lockIfComplete();
       if (!mounted) return;
-      setState(() {});
+      setState(() {
+        _heldOptionIndex = null;
+      });
       if (controller.session?.status ==
           FrequencyV2PersistedSessionStatus.completedPendingPersistence) {
         widget.onLocked?.call();
@@ -182,6 +243,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
       if (mounted) {
         setState(() {
           _busy = false;
+          _heldOptionIndex = null;
           if (!_pipelineInFlight && !_showDormantCompletion) {
             _isFinishing = false;
           }
@@ -236,11 +298,20 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     }
   }
 
+  void _onInternalContinue() {
+    if (widget.onInternalContinue != null) {
+      widget.onInternalContinue!();
+      return;
+    }
+    FrequencyV2TestScreen.exitInternalCompletion(context);
+  }
+
   bool get _inputsLocked =>
       _isFinishing ||
       _busy ||
       _pipelineInFlight ||
       _showDormantCompletion ||
+      _heldOptionIndex != null ||
       _controller?.session?.status ==
           FrequencyV2PersistedSessionStatus.completedPendingPersistence;
 
@@ -261,13 +332,15 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     final selectedIndex = selectedId == null || plan == null
         ? null
         : plan.presentedOptionOrder.indexOf(selectedId);
+    final visualIndex = _heldOptionIndex ??
+        (selectedIndex != null && selectedIndex >= 0 ? selectedIndex : null);
     final compact = MediaQuery.sizeOf(context).height < 700;
-    final locale = controller?.bank.locale ?? '';
-    final statusLine = _uiErrorCode ?? _loadError ?? locale;
+    final statusLine = _uiErrorCode ?? _loadError;
     final retryable = _uiErrorCode != null &&
         !_showDormantCompletion &&
         controller?.session?.status ==
             FrequencyV2PersistedSessionStatus.completedPendingPersistence;
+    final l10n = AppLocalizations.of(context);
 
     return QAssessmentScaffold(
       richBackdrop: true,
@@ -276,14 +349,15 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const FrequencyQuestionTopBar(),
-          Text(
-            statusLine,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.inter(
-              color: Colors.white.withValues(alpha: 0.55),
-              fontSize: 11,
+          if (statusLine != null)
+            Text(
+              statusLine,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.inter(
+                color: Colors.white.withValues(alpha: 0.55),
+                fontSize: 11,
+              ),
             ),
-          ),
           FrequencyProgressHeader(
             label:
                 '${controller?.progressIndex ?? 1} / ${controller?.progressTotal ?? 50}',
@@ -297,34 +371,18 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
           const SizedBox(height: 8),
           Expanded(
             child: _showDormantCompletion
-                ? Center(
-                    child: Text(
-                      FrequencyV2TestScreen.internalCompletionTitle,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: Colors.white.withValues(alpha: 0.88),
-                        fontSize: 16,
-                        height: 1.3,
-                      ),
-                    ),
+                ? _InternalCompletionPane(
+                    title: FrequencyV2TestScreen.internalCompletionTitle,
+                    continueLabel: l10n?.assessmentContinue ?? 'Continue',
+                    onContinue: _onInternalContinue,
                   )
                 : FrequencyQuestionPanel(
                     compact: compact,
                     eyebrow: 'Frequency',
                     question: item?.prompt ?? '',
                     labels: labels,
-                    selectedValue: selectedIndex != null && selectedIndex >= 0
-                        ? selectedIndex
-                        : null,
-                    onSelected: (index) {
-                      if (_inputsLocked) return;
-                      if (plan == null ||
-                          index < 0 ||
-                          index >= plan.presentedOptionOrder.length) {
-                        return;
-                      }
-                      _select(plan.presentedOptionOrder[index]);
-                    },
+                    selectedValue: visualIndex != null ? visualIndex + 1 : null,
+                    onSelected: _onPanelSelected,
                   ),
           ),
           if (retryable)
@@ -344,6 +402,56 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
             ),
         ],
       ),
+    );
+  }
+}
+
+class _InternalCompletionPane extends StatelessWidget {
+  const _InternalCompletionPane({
+    required this.title,
+    required this.continueLabel,
+    required this.onContinue,
+  });
+
+  final String title;
+  final String continueLabel;
+  final VoidCallback onContinue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Expanded(child: FrequencyWaveHero()),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.playfairDisplay(
+            color: Colors.white.withValues(alpha: 0.92),
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            height: 1.25,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          'Internal debug result only. Discover, Persona, and V1 Frequency '
+          'were not written.',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.inter(
+            color: Colors.white.withValues(alpha: 0.72),
+            fontSize: 13,
+            height: 1.35,
+          ),
+        ),
+        const SizedBox(height: 18),
+        FrequencyContinueButton(
+          key: FrequencyV2TestScreen.internalContinueKey,
+          label: continueLabel,
+          active: true,
+          onPressed: onContinue,
+        ),
+        const SizedBox(height: 8),
+      ],
     );
   }
 }

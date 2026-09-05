@@ -179,7 +179,10 @@ void main() {
       'lib/features/assessment/screens/frequency_intro_screen.dart',
     ).readAsStringSync();
     expect(intro.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
-    expect(intro.contains('FrequencyRuntimeSelectionPolicy.resolve()'), isTrue);
+    expect(
+      intro.contains('FrequencyRuntimeTestScreenFactory.build()'),
+      isTrue,
+    );
 
     final policy = File(
       'lib/features/assessment/domain/frequency_v2_runtime/frequency_runtime_selection_policy.dart',

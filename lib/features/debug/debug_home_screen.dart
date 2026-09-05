@@ -11,7 +11,7 @@ import '../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../core/widgets/qmatch_primary_action.dart';
 import '../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../l10n/app_localizations.dart';
-import '../assessment/screens/frequency_test_screen.dart';
+import '../assessment/domain/frequency_v2_runtime/frequency_runtime_test_screen_factory.dart';
 import '../discover/services/discover_gesture_onboarding_store.dart';
 import '../profile/screens/profile_setup_screen.dart';
 import 'screens/assessment_admin_screen.dart';
@@ -126,7 +126,8 @@ class DebugHomeScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => const FrequencyTestScreen(),
+                                builder: (_) =>
+                                    FrequencyRuntimeTestScreenFactory.build(),
                               ),
                             );
                           },

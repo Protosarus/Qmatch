@@ -300,18 +300,31 @@ class FrequencyQuestionPanel extends StatelessWidget {
               ),
               SizedBox(height: compact ? 5 : 9),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    for (var i = 0; i < labels.length; i++)
-                      FrequencyAnswerOptionRow(
-                        value: i + 1,
-                        label: labels[i],
-                        selected: selectedValue == i + 1,
-                        compact: compact,
-                        onTap: () => onSelected(i + 1),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      physics: const ClampingScrollPhysics(),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: constraints.maxHeight,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            for (var i = 0; i < labels.length; i++)
+                              FrequencyAnswerOptionRow(
+                                key: Key('frequency-answer-option-$i'),
+                                value: i + 1,
+                                label: labels[i],
+                                selected: selectedValue == i + 1,
+                                compact: compact,
+                                onTap: () => onSelected(i + 1),
+                              ),
+                          ],
+                        ),
                       ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ],
