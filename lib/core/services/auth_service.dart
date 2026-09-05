@@ -4,10 +4,30 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../notifications/notification_registration_service.dart';
+import 'auth_provider_resolver.dart';
+import 'user_document_ensure.dart';
+
+typedef EmailPasswordCreate = Future<UserCredential> Function({
+  required String email,
+  required String password,
+});
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  AuthService({
+    FirebaseAuth? auth,
+    FirebaseFirestore? firestore,
+    EmailPasswordCreate? createUserWithEmailAndPassword,
+  })  : _authOverride = auth,
+        _firestoreOverride = firestore,
+        _createEmailUser = createUserWithEmailAndPassword;
+
+  final FirebaseAuth? _authOverride;
+  final FirebaseFirestore? _firestoreOverride;
+  final EmailPasswordCreate? _createEmailUser;
+
+  FirebaseAuth get _auth => _authOverride ?? FirebaseAuth.instance;
+  FirebaseFirestore get _firestore =>
+      _firestoreOverride ?? FirebaseFirestore.instance;
 
   /// Masks middle digits so logs never include a full phone number.
   static String maskPhoneForLog(String phone) {
@@ -214,47 +234,48 @@ class AuthService {
   }
 
   Future<void> ensureUserDocumentForPhoneUser(User user) async {
-    final ref = _firestore.collection('users').doc(user.uid);
-    final doc = await ref.get();
+    await _ensureUserDocument(_ensureInputFor(user));
+  }
 
-    final phoneNumber = user.phoneNumber;
-
-    if (!doc.exists) {
-      await ref.set(
-        {
-          'uid': user.uid,
-          'phone_number': phoneNumber,
-          // Do not seed null Auth displayName into canonical `name`.
-          // Display-name gate collects and writes a validated value.
-          if (user.displayName != null && user.displayName!.trim().isNotEmpty)
-            'name': user.displayName!.trim(),
-          'email': user.email,
-          'auth_provider': 'phone',
-          'test_completed': false,
-          'frequency_completed': false,
-          'profile_completed': false,
-          'discover_eligible': false,
-          'active': true,
-          'created_at': FieldValue.serverTimestamp(),
-          'updated_at': FieldValue.serverTimestamp(),
-          'last_active_at': FieldValue.serverTimestamp(),
-        },
-        SetOptions(merge: true),
-      );
-      return;
-    }
-
-    // Existing doc: only merge safe fields.
-    await ref.set(
-      {
-        if (phoneNumber != null && phoneNumber.isNotEmpty)
-          'phone_number': phoneNumber,
-        'auth_provider': 'phone',
-        'updated_at': FieldValue.serverTimestamp(),
-        'last_active_at': FieldValue.serverTimestamp(),
-      },
-      SetOptions(merge: true),
+  UserDocumentEnsureInput _ensureInputFor(
+    User user, {
+    String? nameOverride,
+    String? emailOverride,
+  }) {
+    return UserDocumentEnsureInput(
+      uid: user.uid,
+      authProvider: AuthProviderResolver.resolveFromUser(user),
+      phoneNumber: user.phoneNumber,
+      email: emailOverride ?? user.email,
+      displayName: nameOverride ?? user.displayName,
     );
+  }
+
+  Map<String, dynamic> _createdEnsureView(UserDocumentEnsureInput input) {
+    final seededName = input.displayName?.trim() ?? '';
+    if (seededName.isEmpty) return <String, dynamic>{};
+    return <String, dynamic>{'name': seededName};
+  }
+
+  Future<Map<String, dynamic>?> _ensureUserDocument(
+    UserDocumentEnsureInput input,
+  ) async {
+    final ref = _firestore.collection('users').doc(input.uid);
+    return _firestore.runTransaction((tx) async {
+      final snap = await tx.get(ref);
+      final existing = snap.data();
+      final write = UserDocumentEnsure.decide(
+        existing: existing,
+        input: input,
+        timestamp: FieldValue.serverTimestamp,
+      );
+      if (write.isCreate) {
+        tx.set(ref, write.fields);
+        return _createdEnsureView(input);
+      }
+      tx.set(ref, write.fields, SetOptions(merge: true));
+      return existing;
+    });
   }
 
   /// Sends a Firebase password-reset email.
@@ -278,60 +299,44 @@ class AuthService {
     }
   }
 
-  // Email ile kayıt
+  // Email ile kayıt. FirebaseAuthException stays typed for Phase 2 UI.
   Future<UserCredential> signUpWithEmail({
     required String email,
     required String password,
     required String name,
   }) async {
-    try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+    final create = _createEmailUser ?? _auth.createUserWithEmailAndPassword;
+    final userCredential = await create(
+      email: email,
+      password: password,
+    );
 
-      // Display name güncelle
-      await userCredential.user?.updateDisplayName(name);
-
-      // Email verification gönder
-      await userCredential.user?.sendEmailVerification();
-
-      return userCredential;
-    } catch (e) {
-      throw e.toString();
-    }
+    await userCredential.user?.updateDisplayName(name);
+    await userCredential.user?.sendEmailVerification();
+    return userCredential;
   }
 
-  // Firestore'a kullanıcı kaydet (signup sonrası)
+  // Firestore'a kullanıcı kaydet (signup sonrası).
+  // Create-if-missing only — never resets an existing user document.
   Future<void> createUserInFirestore({
     required String uid,
     required String name,
     required String email,
   }) async {
-    try {
-      // P1B-1: omit optional assessment mirrors (never write null keys that
-      // would erase valid scores if this path is reused on an existing uid).
-      // P2C-1C-4A: never seed a placeholder like "User"; omit `name` when empty
-      // so the display-name gate collects a real value.
-      final trimmedName = name.trim();
-      await _firestore.collection('users').doc(uid).set({
-        'uid': uid,
-        if (trimmedName.isNotEmpty) 'name': trimmedName,
-        'email': email,
-        'auth_provider': 'email',
-        'test_completed': false,
-        'frequency_completed': false,
-        'profile_completed': false,
-        'discover_eligible': false,
-        'active': true,
-        'created_at': FieldValue.serverTimestamp(),
-        'updated_at': FieldValue.serverTimestamp(),
-        'last_active_at': FieldValue.serverTimestamp(),
-      });
-    } catch (e) {
-      debugPrint('Error creating user in Firestore: $e');
-      throw e.toString();
-    }
+    final user = _auth.currentUser;
+    final input = user != null && user.uid == uid
+        ? _ensureInputFor(user, nameOverride: name, emailOverride: email)
+        : UserDocumentEnsureInput(
+            uid: uid,
+            authProvider: AuthProviderResolver.resolve(
+              providerIds: const [AuthProviderResolver.passwordProviderId],
+              phoneNumber: user?.phoneNumber,
+            ),
+            phoneNumber: user?.phoneNumber,
+            email: email,
+            displayName: name,
+          );
+    await _ensureUserDocument(input);
   }
 
   // Kullanıcı dokümanının var olduğundan emin ol.
@@ -340,36 +345,7 @@ class AuthService {
   Future<Map<String, dynamic>?> ensureUserDocumentExists() async {
     final user = _auth.currentUser;
     if (user == null) return null;
-
-    final doc = await _firestore.collection('users').doc(user.uid).get();
-    if (!doc.exists) {
-      // If signed in with phone, create a phone-first doc.
-      if ((user.phoneNumber ?? '').isNotEmpty) {
-        await ensureUserDocumentForPhoneUser(user);
-      } else {
-        await createUserInFirestore(
-          uid: user.uid,
-          name: user.displayName?.trim() ?? '',
-          email: user.email ?? '',
-        );
-      }
-      final seededName = user.displayName?.trim() ?? '';
-      if (seededName.isEmpty) return <String, dynamic>{};
-      return <String, dynamic>{'name': seededName};
-    }
-    // Keep last active fresh without overwriting onboarding fields.
-    try {
-      await _firestore.collection('users').doc(user.uid).set(
-        {
-          'updated_at': FieldValue.serverTimestamp(),
-          'last_active_at': FieldValue.serverTimestamp(),
-        },
-        SetOptions(merge: true),
-      );
-    } catch (e) {
-      debugPrint('Error updating last_active: $e');
-    }
-    return doc.data();
+    return _ensureUserDocument(_ensureInputFor(user));
   }
 
   // Kullanıcı test durumunu kontrol et.
@@ -487,11 +463,7 @@ class AuthService {
 
   // Email doğrulama tekrar gönder
   Future<void> resendVerificationEmail() async {
-    try {
-      await _auth.currentUser?.sendEmailVerification();
-    } catch (e) {
-      throw 'Failed to send verification email';
-    }
+    await _auth.currentUser?.sendEmailVerification();
   }
 
   // Çıkış yap

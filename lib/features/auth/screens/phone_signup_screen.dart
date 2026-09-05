@@ -10,7 +10,7 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
-import '../../../core/navigation/auth_wrapper.dart';
+import '../../../core/navigation/auth_navigation.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_gradients.dart';
@@ -295,10 +295,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
           _sendInFlight = false;
           if (!mounted) return;
           setState(() => _isLoading = false);
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (_) => const AuthWrapper()),
-            (route) => false,
-          );
+          AuthNavigation.completeAuthentication(context);
         },
         onFailed: (message) {
           _sendInFlight = false;
@@ -364,10 +361,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
       );
       if (!mounted) return;
       setState(() => _isLoading = false);
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const AuthWrapper()),
-        (route) => false,
-      );
+      AuthNavigation.completeAuthentication(context);
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       final message = switch (e.code) {

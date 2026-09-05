@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/navigation/auth_wrapper.dart';
+import '../../../core/navigation/auth_navigation.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_gradients.dart';
@@ -123,10 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const AuthWrapper()),
-        );
+        AuthNavigation.completeAuthentication(context);
       }
     } on FirebaseAuthException catch (e) {
       String errorMessage;
