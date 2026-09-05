@@ -4,9 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/notifications/message_push_tap_host.dart';
-import '../../../core/notifications/notification_registration_host.dart';
-import '../../../l10n/app_localizations.dart';
+import '../../../core/navigation/auth_routing_refresh.dart';
+import '../../../core/services/auth_service.dart';
 import '../domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import '../domain/frequency_v2_runtime/frequency_v2_screen_finalize_coordinator.dart';
 import '../services/frequency_v2_pending_finalization_pipeline.dart';
@@ -14,13 +13,13 @@ import '../utils/assessment_language.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_progress.dart';
 import '../widgets/q_assessment_scaffold.dart';
+import 'persona_assignment_gate_screen.dart';
 
-/// Internal Frequency V2 question UI. Not selected by live routing while
-/// [FrequencyRuntimeSelectionPolicy] resolves to V1.
+/// Live Frequency V2 question UI.
 ///
 /// When no [controller] is injected, the screen loads reviewed TR/EN banks
-/// from the Flutter asset bundle rather than developer `tool/` paths.
-/// After lock it runs [FrequencyV2PendingFinalizationPipeline] itself.
+/// from the Flutter asset bundle. After lock it runs
+/// [FrequencyV2PendingFinalizationPipeline] and continues to Persona.
 class FrequencyV2TestScreen extends StatefulWidget {
   const FrequencyV2TestScreen({
     super.key,
@@ -29,7 +28,7 @@ class FrequencyV2TestScreen extends StatefulWidget {
     this.pendingPipeline,
     this.auth,
     this.onLocked,
-    this.onInternalContinue,
+    this.onProductContinue,
     this.selectionHold = selectionHoldDuration,
   });
 
@@ -39,41 +38,13 @@ class FrequencyV2TestScreen extends StatefulWidget {
   final FirebaseAuth? auth;
   final VoidCallback? onLocked;
 
-  /// Test hook. Production uses [exitInternalCompletion].
-  final VoidCallback? onInternalContinue;
+  /// Test hook. Production navigates to [PersonaAssignmentGateScreen].
+  final VoidCallback? onProductContinue;
 
   /// Visible confirmation before the session advances. Tests may shorten it.
   final Duration selectionHold;
 
   static const Duration selectionHoldDuration = Duration(milliseconds: 350);
-
-  static const String internalCompletionTitle =
-      'Frequency V2 internal test completed';
-
-  static const Key internalContinueKey = Key('frequency-v2-internal-continue');
-
-  /// Leaves the internal V2 test without writing completion flags, Persona,
-  /// or Discover eligibility.
-  ///
-  /// Pushed routes (intro / debug home): one [Navigator.pop].
-  /// Root / cold-start (this screen is the assessment-gate child): push the
-  /// existing main shell so AuthWrapper stays mounted. V2 finalize does not
-  /// bump [AuthRoutingRefresh], so the gate will not immediately re-open
-  /// Frequency.
-  static void exitInternalCompletion(BuildContext context) {
-    final nav = Navigator.of(context);
-    if (nav.canPop()) {
-      nav.pop();
-      return;
-    }
-    nav.push(
-      MaterialPageRoute<void>(
-        builder: (_) => const NotificationRegistrationHost(
-          child: MessagePushTapHost(),
-        ),
-      ),
-    );
-  }
 
   @override
   State<FrequencyV2TestScreen> createState() => _FrequencyV2TestScreenState();
@@ -86,7 +57,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
   bool _pipelineInFlight = false;
   bool _isFinishing = false;
   bool _busy = false;
-  bool _showDormantCompletion = false;
+  bool _continuingToProduct = false;
   String? _loadError;
   String? _uiErrorCode;
   int? _heldOptionIndex;
@@ -207,7 +178,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         _busy ||
         _pipelineInFlight ||
         _finalize?.isBusy == true ||
-        _showDormantCompletion) {
+        _continuingToProduct) {
       return;
     }
     final status = controller.session?.status;
@@ -244,7 +215,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         setState(() {
           _busy = false;
           _heldOptionIndex = null;
-          if (!_pipelineInFlight && !_showDormantCompletion) {
+          if (!_pipelineInFlight && !_continuingToProduct) {
             _isFinishing = false;
           }
         });
@@ -277,13 +248,8 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         _controller!.session = outcome.session;
       }
       if (outcome.destination ==
-          FrequencyV2PendingPipelineDestination.dormantCompletion) {
-        setState(() {
-          _showDormantCompletion = true;
-          _isFinishing = false;
-          _busy = false;
-          _uiErrorCode = null;
-        });
+          FrequencyV2PendingPipelineDestination.productCompletion) {
+        await _continueToProduct();
         return;
       }
       setState(() {
@@ -298,19 +264,37 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     }
   }
 
-  void _onInternalContinue() {
-    if (widget.onInternalContinue != null) {
-      widget.onInternalContinue!();
+  Future<void> _continueToProduct() async {
+    if (_continuingToProduct) return;
+    _continuingToProduct = true;
+    if (widget.onProductContinue != null) {
+      widget.onProductContinue!();
+      if (mounted) {
+        setState(() {
+          _isFinishing = false;
+          _busy = false;
+          _uiErrorCode = null;
+        });
+      }
       return;
     }
-    FrequencyV2TestScreen.exitInternalCompletion(context);
+    AuthRoutingRefresh.bump();
+    final profileCompleted = await AuthService().hasCompletedProfile();
+    if (!mounted) return;
+    await Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+        builder: (_) => PersonaAssignmentGateScreen(
+          profileCompleted: profileCompleted,
+        ),
+      ),
+    );
   }
 
   bool get _inputsLocked =>
       _isFinishing ||
       _busy ||
       _pipelineInFlight ||
-      _showDormantCompletion ||
+      _continuingToProduct ||
       _heldOptionIndex != null ||
       _controller?.session?.status ==
           FrequencyV2PersistedSessionStatus.completedPendingPersistence;
@@ -337,11 +321,10 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     final compact = MediaQuery.sizeOf(context).height < 700;
     final statusLine = _uiErrorCode ?? _loadError;
     final retryable = _uiErrorCode != null &&
-        !_showDormantCompletion &&
+        _uiErrorCode != 'FREQUENCY_V2_ALREADY_FINALIZED' &&
+        !_continuingToProduct &&
         controller?.session?.status ==
             FrequencyV2PersistedSessionStatus.completedPendingPersistence;
-    final l10n = AppLocalizations.of(context);
-
     return QAssessmentScaffold(
       richBackdrop: true,
       backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
@@ -370,20 +353,14 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: _showDormantCompletion
-                ? _InternalCompletionPane(
-                    title: FrequencyV2TestScreen.internalCompletionTitle,
-                    continueLabel: l10n?.assessmentContinue ?? 'Continue',
-                    onContinue: _onInternalContinue,
-                  )
-                : FrequencyQuestionPanel(
-                    compact: compact,
-                    eyebrow: 'Frequency',
-                    question: item?.prompt ?? '',
-                    labels: labels,
-                    selectedValue: visualIndex != null ? visualIndex + 1 : null,
-                    onSelected: _onPanelSelected,
-                  ),
+            child: FrequencyQuestionPanel(
+              compact: compact,
+              eyebrow: 'Frequency',
+              question: item?.prompt ?? '',
+              labels: labels,
+              selectedValue: visualIndex != null ? visualIndex + 1 : null,
+              onSelected: _onPanelSelected,
+            ),
           ),
           if (retryable)
             Padding(
@@ -402,56 +379,6 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
             ),
         ],
       ),
-    );
-  }
-}
-
-class _InternalCompletionPane extends StatelessWidget {
-  const _InternalCompletionPane({
-    required this.title,
-    required this.continueLabel,
-    required this.onContinue,
-  });
-
-  final String title;
-  final String continueLabel;
-  final VoidCallback onContinue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Expanded(child: FrequencyWaveHero()),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.playfairDisplay(
-            color: Colors.white.withValues(alpha: 0.92),
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-            height: 1.25,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          'Internal debug result only. Discover, Persona, and V1 Frequency '
-          'were not written.',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            color: Colors.white.withValues(alpha: 0.72),
-            fontSize: 13,
-            height: 1.35,
-          ),
-        ),
-        const SizedBox(height: 18),
-        FrequencyContinueButton(
-          key: FrequencyV2TestScreen.internalContinueKey,
-          label: continueLabel,
-          active: true,
-          onPressed: onContinue,
-        ),
-        const SizedBox(height: 8),
-      ],
     );
   }
 }

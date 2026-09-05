@@ -1,7 +1,6 @@
-/// Dormant Frequency behavioral V2 pool contracts.
+/// Frequency behavioral V2 pool contracts.
 ///
-/// Not selected by live Frequency routing. Does not write canonical 6D or 20D
-/// Frequency slots. Does not map 12D → 6D.
+/// Does not write canonical 6D or 20D Frequency slots. Does not map 12D → 6D.
 class FrequencyBehaviorV2Contract {
   FrequencyBehaviorV2Contract._();
 

@@ -44,12 +44,12 @@ class FrequencyV2SessionItemPlan {
       };
 
   factory FrequencyV2SessionItemPlan.fromJson(Map<String, dynamic> json) {
-    final order = json['presented_option_order'] ?? json['displayed_option_ids'];
+    final order =
+        json['presented_option_order'] ?? json['displayed_option_ids'];
     return FrequencyV2SessionItemPlan(
       itemId: json['item_id'] as String,
       primaryDimension: json['primary_dimension'] as String? ?? '',
-      presentedOptionOrder:
-          (order as List).map((e) => e.toString()).toList(),
+      presentedOptionOrder: (order as List).map((e) => e.toString()).toList(),
     );
   }
 }

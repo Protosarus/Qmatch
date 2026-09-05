@@ -35,6 +35,10 @@ class PersonaRuntimeHandoffPersistence {
     'prototype_version',
   };
 
+  static const Set<String> optionalResultKeys = {
+    'source',
+  };
+
   static const Set<String> forbiddenResultKeys = {
     'confidence',
     'confidence_score',
@@ -83,6 +87,10 @@ class PersonaRuntimeHandoffPersistence {
       'policy_version': result.policyVersion,
       'prototype_version': result.prototypeVersion,
     };
+    final source = result.source?.trim();
+    if (source != null && source.isNotEmpty) {
+      fields['source'] = source;
+    }
 
     assertAllowlist(fields);
     return fields;
@@ -90,7 +98,8 @@ class PersonaRuntimeHandoffPersistence {
 
   static void assertAllowlist(Map<String, dynamic> fields) {
     for (final key in fields.keys) {
-      if (!allowedResultKeys.contains(key)) {
+      if (!allowedResultKeys.contains(key) &&
+          !optionalResultKeys.contains(key)) {
         throw StateError('Forbidden persona persistence key: $key');
       }
       if (forbiddenResultKeys.contains(key)) {

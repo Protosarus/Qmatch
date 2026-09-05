@@ -22,3 +22,8 @@ export 'persona_shadow_input.dart';
 export 'persona_shadow_result.dart';
 export 'persona_shadow_scoring_config.dart';
 export 'persona_shadow_stress_simulator.dart';
+export 'persona_v2_contract.dart';
+export 'persona_v2_frequency_prototypes.dart';
+export 'persona_v2_request.dart';
+export 'persona_v2_request_builder.dart';
+export 'persona_v2_scorer.dart';

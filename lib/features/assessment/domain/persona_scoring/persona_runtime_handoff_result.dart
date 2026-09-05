@@ -11,6 +11,7 @@ class PersonaRuntimeHandoffResult {
     required this.configVersion,
     required this.prototypeVersion,
     required this.policyVersion,
+    this.source,
   });
 
   /// Nearest persona (argmin distance).
@@ -26,6 +27,9 @@ class PersonaRuntimeHandoffResult {
   final String configVersion;
   final String prototypeVersion;
   final String policyVersion;
+
+  /// Optional writer source. V2 assignments persist [PersonaV2Contract.source].
+  final String? source;
 
   /// Wire map for future persistence. Omits % / confidence / affinity fields.
   Map<String, dynamic> toWireMap() => {

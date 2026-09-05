@@ -25,12 +25,10 @@ import '../models/assessment_progress.dart';
 /// **not** call markRemoteFinalized for EQ merely because the remote mirror
 /// is true.
 ///
-/// Frequency: same crash-window rule as IQ/EQ. `finalizeFrequency` writes
-/// `frequency_completed=true` before client score / assessments/frequency /
-/// canonical_v1 / progress. Recovery owner is FrequencyTestScreen
-/// (`FrequencyPendingFinalizationPipeline`). This reconciler must **not**
-/// call markRemoteFinalized for Frequency merely because remote
-/// `frequency_completed` or `assessment_flow_completed` is true.
+/// Frequency: live recovery is V2 only (`FrequencyV2TestScreen`).
+/// A leftover local V1 pending session is not reopened. This reconciler
+/// must **not** call markRemoteFinalized merely because remote mirrors
+/// are true.
 class AssessmentColdStartPendingReconciler {
   AssessmentColdStartPendingReconciler({
     IqSessionPersistenceRepository? iqRepository,
@@ -71,7 +69,7 @@ class AssessmentColdStartPendingReconciler {
     required bool frequencyPendingFinalization,
     required AssessmentFlowDestination progressDestination,
     bool frequencyV2PendingFinalization = false,
-    FrequencyRuntimeTrack runtimeTrack = FrequencyRuntimeTrack.v1,
+    FrequencyRuntimeTrack runtimeTrack = FrequencyRuntimeTrack.v2,
   }) {
     if (iqPendingFinalization) {
       return const AssessmentColdStartDecision(
@@ -87,20 +85,16 @@ class AssessmentColdStartPendingReconciler {
         reason: 'eq_pending_finalization',
       );
     }
-    if (runtimeTrack == FrequencyRuntimeTrack.v2 &&
-        frequencyV2PendingFinalization) {
+    if (frequencyV2PendingFinalization) {
       return const AssessmentColdStartDecision(
         destination: AssessmentFlowDestination.frequency,
         openAssessmentTestScreen: true,
         reason: 'frequency_v2_pending_finalization',
       );
     }
-    if (frequencyPendingFinalization) {
-      return const AssessmentColdStartDecision(
-        destination: AssessmentFlowDestination.frequency,
-        openAssessmentTestScreen: true,
-        reason: 'frequency_pending_finalization',
-      );
+    if (frequencyPendingFinalization &&
+        runtimeTrack == FrequencyRuntimeTrack.v2) {
+      // Leftover V1 local sessions are not reopened.
     }
     return AssessmentColdStartDecision(
       destination: progressDestination,
@@ -148,16 +142,7 @@ class AssessmentColdStartPendingReconciler {
     final iq = await _iqRepo.loadActiveSession(uid);
     final eq = await _eqRepo.loadActiveSession(uid);
     final frequency = await _frequencyRepo.loadActiveSession(uid);
-    // V2 prefs are not consulted while the centralized gate is V1.
-    // That keeps live V1 cold-start routing and V1 tests unchanged, and
-    // leaves any dormant V2 session untouched.
-    final includeFrequencyV2 =
-        _frequencyRuntimeTrack() == FrequencyRuntimeTrack.v2;
-    final frequencyV2 = includeFrequencyV2
-        ? await _frequencyV2Repo.loadActiveSession(uid)
-        : const FrequencyV2SessionLoadResult(
-            code: FrequencyV2SessionLoadCode.notFound,
-          );
+    final frequencyV2 = await _frequencyV2Repo.loadActiveSession(uid);
     return (
       iq: iq.isLoaded &&
           iq.state!.status ==

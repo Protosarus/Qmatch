@@ -49,14 +49,21 @@ void main() {
   final tStale = t0.subtract(const Duration(days: 90));
 
   group('DiscoverRankingMode', () {
-    test('active production mode is structural_l2_v1', () {
-      expect(DiscoverRankingMode.active, DiscoverRankingMode.structuralL2V1);
-      expect(DiscoverRankingMode.active.wireValue, 'structural_l2_v1');
+    test('active production mode is compatibility_fusion_v2', () {
+      expect(
+        DiscoverRankingMode.active,
+        DiscoverRankingMode.compatibilityFusionV2,
+      );
+      expect(DiscoverRankingMode.active.wireValue, 'compatibility_fusion_v2');
       expect(DiscoverRankingMode.legacyV1.wireValue, 'legacy_v1');
       expect(DiscoverRankingMode.fromWire('legacy_v1'),
           DiscoverRankingMode.legacyV1);
       expect(DiscoverRankingMode.fromWire('structural_l2_v1'),
           DiscoverRankingMode.structuralL2V1);
+      expect(
+        DiscoverRankingMode.fromWire('compatibility_fusion_v2'),
+        DiscoverRankingMode.compatibilityFusionV2,
+      );
       expect(DiscoverRankingMode.fromWire('nope'), isNull);
       expect(
         Canonical20dGroupNormalizedShadowContract.liveDiscoverRanking,
@@ -160,7 +167,8 @@ void main() {
       expect(ranked.map((c) => c.uid).toList(), ['new', 'old']);
     });
 
-    test('dropOmittedUids removes reverse-blocked UIDs; L2 order unchanged', () {
+    test('dropOmittedUids removes reverse-blocked UIDs; L2 order unchanged',
+        () {
       final l1 = [
         _candidate(uid: 'far', lastActive: tFresh),
         _candidate(uid: 'blocked_me', lastActive: tFresh),
@@ -208,7 +216,8 @@ void main() {
       );
     });
 
-    test('legacy_v1 orders by CompatibilityScoring only after trusted omit', () {
+    test('legacy_v1 orders by CompatibilityScoring only after trusted omit',
+        () {
       final l1 = [
         _candidate(uid: 'blocked_me', lastActive: tFresh, legacyScore: 0.95),
         _candidate(uid: 'near', lastActive: tStale, legacyScore: 0.20),
@@ -234,7 +243,8 @@ void main() {
       expect(legacy.map((c) => c.uid).toList(), ['mid', 'near']);
     });
 
-    test('structural_l2_v1 success path still ranks by distance after omit', () {
+    test('structural_l2_v1 success path still ranks by distance after omit',
+        () {
       final l1 = [
         _candidate(uid: 'far', lastActive: tFresh),
         _candidate(uid: 'blocked_me', lastActive: tFresh),
@@ -387,16 +397,14 @@ void main() {
       expect(screen.contains('usesLegacyCompatibilityScoring'), isTrue);
     });
 
-    test('Frequency V2 diagnostic is not a ranking input', () {
+    test('Frequency V2 diagnostic alone does not rank; fusion does', () {
       final ranking = File(
         'lib/features/discover/services/discover_structural_l2_ranking.dart',
       ).readAsStringSync();
-      expect(ranking.contains('frequency_fit_index'), isFalse);
-      expect(ranking.contains('frequencyV2'), isFalse);
-      expect(ranking.contains('frequency_v2'), isFalse);
-      expect(ranking.contains('compatibility_index'), isFalse);
-      expect(ranking.contains('compatibilityV2'), isFalse);
-      expect(ranking.contains('compatibility_v2'), isFalse);
+      expect(ranking.contains('compatibility_fusion_v2'), isTrue);
+      expect(ranking.contains('fusionRankDistance'), isTrue);
+      expect(
+          ranking.contains('qmatch_compatibility_fusion_v2_policy_v1'), isTrue);
 
       final a = _candidate(uid: 'a', lastActive: tStale);
       final b = _candidate(uid: 'b', lastActive: tStale);
@@ -433,7 +441,7 @@ void main() {
       expect(ranked.map((c) => c.uid).toList(), ['b', 'a']);
     });
 
-    test('compatibility fusion diagnostic is not a ranking input', () {
+    test('compatibility fusion is the live ranking input', () {
       final a = _candidate(uid: 'a', lastActive: tStale);
       final b = _candidate(uid: 'b', lastActive: tStale);
       final highFusion = DiscoverStageB2TrustedPairResult(
@@ -470,7 +478,7 @@ void main() {
         l1Eligible: [a, b],
         pairsByUid: {'a': highFusion, 'b': lowFusion},
       );
-      expect(ranked.map((c) => c.uid).toList(), ['b', 'a']);
+      expect(ranked.map((c) => c.uid).toList(), ['a', 'b']);
     });
   });
 }

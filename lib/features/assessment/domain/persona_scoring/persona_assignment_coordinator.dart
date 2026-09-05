@@ -1,10 +1,13 @@
 import '../../services/canonical_assessment_persistence.dart';
+import '../frequency_v2_runtime/frequency_v2_result_authority.dart';
 import 'persona_handoff_request_builder.dart';
 import 'persona_runtime_asset_loader.dart';
 import 'persona_runtime_handoff_persistence.dart';
 import 'persona_runtime_handoff_result.dart';
 import 'persona_runtime_handoff_service.dart';
 import 'persona_runtime_result_policy.dart';
+import 'persona_v2_request_builder.dart';
+import 'persona_v2_scorer.dart';
 
 enum PersonaAssignmentSource { reused, assigned }
 
@@ -41,6 +44,7 @@ class PersonaAssignmentCoordinator {
     Future<Map<String, dynamic>?> Function(String uid, String type)?
         loadAssessment,
     PersonaRuntimeHandoffService? handoffOverride,
+    PersonaV2Scorer? v2ScorerOverride,
   })  : _persistence = persistence ?? CanonicalAssessmentPersistence(),
         _handoffPersistence =
             handoffPersistence ?? PersonaRuntimeHandoffPersistence(),
@@ -48,7 +52,8 @@ class PersonaAssignmentCoordinator {
         _loadPersonaDoc = loadPersonaDoc,
         _loadCanonicalProfile = loadCanonicalProfile,
         _loadAssessment = loadAssessment,
-        _handoffOverride = handoffOverride;
+        _handoffOverride = handoffOverride,
+        _v2ScorerOverride = v2ScorerOverride;
 
   final CanonicalAssessmentPersistence _persistence;
   final PersonaRuntimeHandoffPersistence _handoffPersistence;
@@ -59,8 +64,9 @@ class PersonaAssignmentCoordinator {
   final Future<Map<String, dynamic>?> Function(String uid, String type)?
       _loadAssessment;
   final PersonaRuntimeHandoffService? _handoffOverride;
+  final PersonaV2Scorer? _v2ScorerOverride;
 
-  /// Reuse current-version persona when present; otherwise assign+persist.
+  /// Reuse a valid Persona; otherwise assign from V2 or legacy 20D.
   Future<PersonaAssignmentOutcome> resolveForUid(String uid) async {
     try {
       final existing = await _personaDoc(uid);
@@ -77,9 +83,45 @@ class PersonaAssignmentCoordinator {
       }
       final iq = await _assessment(uid, 'iq');
       final eq = await _assessment(uid, 'eq');
+      if (iq == null || eq == null) {
+        throw StateError('IQ and EQ assessments required for Persona');
+      }
+
+      final frequencyV2 = await _assessment(uid, 'frequency_v2');
+      if (FrequencyV2ResultAuthority.isAuthoritativeCompleted(frequencyV2)) {
+        final request = PersonaV2RequestBuilder.fromAuthoritativeSources(
+          ownerUid: uid,
+          canonicalProfile: profile,
+          iqAssessment: iq,
+          eqAssessment: eq,
+          frequencyV2Assessment: frequencyV2!,
+        );
+        final scorer = _v2ScorerOverride ??
+            PersonaV2Scorer(
+              legacyCatalog: (await _assetLoader.loadShadow()).catalog,
+            );
+        final result = scorer.assign(request);
+        await _handoffPersistence.persistResult(
+          ownerUid: uid,
+          result: result,
+        );
+        return PersonaAssignmentOutcome.ok(
+          result: result,
+          source: PersonaAssignmentSource.assigned,
+        );
+      }
+
+      if (frequencyV2 != null) {
+        throw StateError(
+          'Frequency V2 result is present but not authoritative',
+        );
+      }
+
       final frequency = await _assessment(uid, 'frequency');
-      if (iq == null || eq == null || frequency == null) {
-        throw StateError('IQ/EQ/Frequency assessments required for Persona');
+      if (frequency == null) {
+        throw StateError(
+          'Persona requires authoritative Frequency V2 or legacy Frequency V1',
+        );
       }
 
       final request = PersonaHandoffRequestBuilder.fromCanonicalSources(
@@ -137,6 +179,7 @@ class PersonaAssignmentCoordinator {
       configVersion: doc['config_version'] as String,
       prototypeVersion: doc['prototype_version'] as String,
       policyVersion: doc['policy_version'] as String,
+      source: doc['source'] as String?,
     );
   }
 }

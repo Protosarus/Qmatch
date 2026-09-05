@@ -52,8 +52,8 @@ exports.recomputeDiscoverEligibleOnUserWrite = onDocumentWritten(
 
 /**
  * Trusted Discover eligibility when Frequency V2 result docs change.
- * europe-west1 to match Firestore / finalizeFrequencyV2. Source-registered
- * only — not deployed in 8C.1. Writes discover_eligible exclusively.
+ * europe-west1 to match Firestore / finalizeFrequencyV2.
+ * Writes discover_eligible exclusively. Selective deploy required.
  */
 exports.recomputeDiscoverEligibleOnFrequencyV2Write = onDocumentWritten(
   {
@@ -189,10 +189,12 @@ const stageB2L2 = require('./src/stage_b2_l2_callable');
 const canonical20dGroupNormalized = require('./src/canonical_20d_group_normalized_shadow');
 
 /**
- * Stage B2 trusted L2 comparison (`canonical_20d_group_normalized_shadow_distance_v1`).
- * Admin-reads canonical_v1; Admin-omits reverse-blocked candidates.
- * Returns pair diagnostics + included candidate_uids only. Never block docs.
- * Client ranks Discover from the returned distances.
+ * Stage B2 trusted L2 comparison.
+ * Admin-reads canonical_v1 and Frequency V2; Admin-omits reverse-blocked
+ * candidates. Returns pair diagnostics + included candidate_uids only.
+ * Live `compatibility_v2` uses `qmatch_compatibility_fusion_v2_policy_v1`.
+ * Client ranks Discover from fusion distance, falling back to IQ+EQ
+ * structural distance when V2 fusion is unavailable.
  */
 exports.compareStageB2Structural = onCall(
   { region: 'us-central1', minInstances: 1 },
@@ -480,8 +482,7 @@ const finalizeFrequencyV2 = require('./src/finalize_frequency_v2_v1');
  * Auth required. Validates a locked 50-item V2 session, scores server-side,
  * and Admin-writes users/{uid}/assessments/frequency_v2 only.
  * Does not write users/{uid}, V1 frequency, canonical_v1, Discover, matching,
- * or completion flags. Registered locally; not client-wired. V2 stays dormant.
- * europe-west1 only.
+ * or completion flags. europe-west1 only.
  */
 exports.finalizeFrequencyV2 = onCall(
   { region: 'europe-west1' },

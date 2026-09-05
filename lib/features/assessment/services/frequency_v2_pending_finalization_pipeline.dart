@@ -7,7 +7,7 @@ enum FrequencyV2PendingPipelineStep {
 }
 
 enum FrequencyV2PendingPipelineDestination {
-  dormantCompletion,
+  productCompletion,
   stayOnSession,
 }
 
@@ -31,7 +31,7 @@ class FrequencyV2PendingPipelineResult {
 
 /// Crash-safe V2 pipeline:
 /// locked session → finalizeFrequencyV2 → confirm success →
-/// mark LOCAL V2 session remotely finalized → dormant completion.
+/// mark LOCAL V2 session remotely finalized → product completion.
 ///
 /// The callable writes `users/{uid}/assessments/frequency_v2`.
 /// This pipeline must not write that document, V1 Frequency results,
@@ -100,6 +100,18 @@ class FrequencyV2PendingFinalizationPipeline {
     try {
       finalizeResult = await _finalizeClient.finalize(mapped.payload!);
     } on FrequencyV2FinalizeException catch (e) {
+      if (e.code == 'FREQUENCY_V2_ALREADY_FINALIZED') {
+        final marked = await _markRemoteFinalized(
+          ownerUid: session.ownerUid,
+          sessionId: session.sessionId,
+        );
+        return FrequencyV2PendingPipelineResult(
+          destination: FrequencyV2PendingPipelineDestination.productCompletion,
+          completedSteps: steps,
+          session: marked.state ?? session,
+          finalize: null,
+        );
+      }
       return FrequencyV2PendingPipelineResult(
         destination: FrequencyV2PendingPipelineDestination.stayOnSession,
         completedSteps: steps,
@@ -127,7 +139,7 @@ class FrequencyV2PendingFinalizationPipeline {
     steps.add(FrequencyV2PendingPipelineStep.markRemoteFinalized);
 
     return FrequencyV2PendingPipelineResult(
-      destination: FrequencyV2PendingPipelineDestination.dormantCompletion,
+      destination: FrequencyV2PendingPipelineDestination.productCompletion,
       completedSteps: steps,
       session: marked.state,
       finalize: finalizeResult,

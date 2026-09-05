@@ -9,7 +9,6 @@ import 'package:qmatch/core/navigation/assessment_progress_route_gate.dart';
 import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_runtime_test_screen_factory.dart';
 import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import 'package:qmatch/features/assessment/models/assessment_progress.dart';
-import 'package:qmatch/features/assessment/screens/frequency_test_screen.dart';
 import 'package:qmatch/features/assessment/screens/frequency_v2_test_screen.dart';
 import 'package:qmatch/features/assessment/services/assessment_cold_start_pending_reconciler.dart';
 import 'package:qmatch/features/assessment/services/frequency_v2_finalize_callable_client.dart';
@@ -63,10 +62,10 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   GoogleFonts.config.allowRuntimeFetching = false;
 
-  test('shared factory maps tracks and keeps release default on V1', () {
+  test('shared factory always builds Frequency V2', () {
     expect(
-      FrequencyRuntimeTestScreenFactory.build(track: FrequencyRuntimeTrack.v1),
-      isA<FrequencyTestScreen>(),
+      FrequencyRuntimeTestScreenFactory.build(),
+      isA<FrequencyV2TestScreen>(),
     );
     expect(
       FrequencyRuntimeTestScreenFactory.build(track: FrequencyRuntimeTrack.v2),
@@ -74,19 +73,11 @@ void main() {
     );
     expect(
       FrequencyRuntimeTestScreenFactory.build(debugInternalV2Override: false),
-      isA<FrequencyTestScreen>(),
-    );
-    expect(
-      FrequencyRuntimeTestScreenFactory.build(debugInternalV2Override: true),
       isA<FrequencyV2TestScreen>(),
     );
     expect(
       FrequencyRuntimeSelectionPolicy.resolve(debugInternalV2Override: false),
-      FrequencyRuntimeTrack.v1,
-    );
-    expect(
-      FrequencyRuntimeTestScreenFactory.build(),
-      isA<FrequencyTestScreen>(),
+      FrequencyRuntimeTrack.v2,
     );
   });
 
@@ -105,9 +96,12 @@ void main() {
       expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
     }
     expect(intro.contains('const FrequencyTestScreen()'), isFalse);
+    expect(intro.contains('FrequencyTestScreen('), isFalse);
     expect(intro.contains('const FrequencyV2TestScreen()'), isFalse);
     expect(gate.contains('const FrequencyTestScreen()'), isFalse);
+    expect(gate.contains('FrequencyTestScreen('), isFalse);
     expect(debug.contains('const FrequencyTestScreen()'), isFalse);
+    expect(debug.contains('FrequencyTestScreen('), isFalse);
 
     final gateTest = buildAssessmentDestination(
       const AssessmentColdStartDecision(
@@ -122,17 +116,12 @@ void main() {
     );
   });
 
-  test('run_qmatch.sh prints V1/V2 runtime banners without enabling V2', () {
+  test('run_qmatch.sh advertises Frequency V2 as the default runtime', () {
     final src = File('tool/run_qmatch.sh').readAsStringSync();
-    expect(src.contains('QMatch runtime: INTERNAL FREQUENCY V2'), isTrue);
-    expect(src.contains('QMatch runtime: DEFAULT FREQUENCY V1'), isTrue);
-    expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL=true'), isTrue);
+    expect(src.contains('QMatch runtime: FREQUENCY V2'), isTrue);
+    expect(src.contains('DEFAULT FREQUENCY V1'), isFalse);
+    expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
     expect(src.contains('secrets.local.json'), isTrue);
-    expect(
-      src.contains('QMATCH_FREQUENCY_V2_INTERNAL=true') &&
-          src.contains('v2_internal=true'),
-      isTrue,
-    );
   });
 
   testWidgets('FrequencyQuestionPanel fourth option is tappable',
@@ -213,7 +202,7 @@ void main() {
     expect(find.textContaining('tr-TR'), findsNothing);
   });
 
-  testWidgets('successful dormant V2 completion has a working exit action',
+  testWidgets('successful V2 completion continues via product hook',
       (tester) async {
     final bank = (await tester.runAsync(FrequencyV2RuntimeTestHarness.loadTr))!;
     final pending = await FrequencyV2RuntimeTestHarness.pendingSession(
@@ -240,24 +229,19 @@ void main() {
         FrequencyV2TestScreen(
           controller: controller,
           pendingPipeline: pipeline,
-          onInternalContinue: () => continued += 1,
+          onProductContinue: () => continued += 1,
         ),
       ),
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
 
-    expect(find.text(FrequencyV2TestScreen.internalCompletionTitle),
-        findsOneWidget);
-    expect(
-        find.byKey(FrequencyV2TestScreen.internalContinueKey), findsOneWidget);
-    await tester.tap(find.byKey(FrequencyV2TestScreen.internalContinueKey));
-    await tester.pump();
     expect(continued, 1);
+    expect(find.textContaining('internal test completed'), findsNothing);
     expect(
       File('lib/features/assessment/screens/frequency_v2_test_screen.dart')
           .readAsStringSync()
-          .contains('NotificationRegistrationHost'),
+          .contains('PersonaAssignmentGateScreen'),
       isTrue,
     );
   });

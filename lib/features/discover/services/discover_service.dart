@@ -410,7 +410,10 @@ class DiscoverService {
       );
     }
     try {
-      return await _stageB2TrustedL2.compareForL1Batch(candidateUids: uids);
+      return await _stageB2TrustedL2.compareForL1Batch(
+        candidateUids: uids,
+        includeCompatibilityV2Diagnostics: true,
+      );
     } catch (e, st) {
       debugPrint('Discover trusted membership fail-closed: $e\n$st');
       return DiscoverStageB2TrustedBatch.callableFailed(uids);

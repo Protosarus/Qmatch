@@ -28,9 +28,9 @@ void main() {
       final src =
           File('lib/core/services/auth_service.dart').readAsStringSync();
       expect(src.contains('_refreshDiscoverEligibility'), isFalse);
-      // Signup may still seed false; must never write true.
+      // Auth never writes the flag; Discover eligibility is server-owned.
       expect(src.contains("'discover_eligible': true"), isFalse);
-      expect(src.contains("'discover_eligible': false"), isTrue);
+      expect(src.contains('"discover_eligible": true'), isFalse);
     });
 
     test('Frequency completion does not call client eligibility refresh', () {

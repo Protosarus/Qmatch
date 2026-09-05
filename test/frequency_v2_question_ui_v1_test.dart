@@ -51,10 +51,9 @@ void main() {
     expect(src.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
     expect(src.contains('bank.locale'), isFalse);
     expect(src.contains("'tr-TR'"), isFalse);
-    expect(src.contains('exitInternalCompletion'), isTrue);
-    expect(src.contains('internalContinueKey'), isTrue);
+    expect(src.contains('PersonaAssignmentGateScreen'), isTrue);
+    expect(src.contains('AuthRoutingRefresh.bump()'), isTrue);
     expect(src.contains('Directory.current'), isFalse);
-    expect(src.contains('PersonaAssignmentGateScreen'), isFalse);
     expect(src.contains('FrequencyProgressHeader'), isTrue);
     expect(src.contains('QAssessmentProgress'), isTrue);
     expect(src.toLowerCase().contains('true personality'), isFalse);

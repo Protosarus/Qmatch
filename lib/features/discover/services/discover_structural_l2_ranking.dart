@@ -3,13 +3,19 @@ import 'discover_stage_b2_dual_path_collector.dart';
 
 /// Ranks an already-filtered L1 Discover batch from trusted L2 pairs.
 ///
-/// Smaller [DiscoverStageB2TrustedPairResult.structuralDistance] is better.
-/// Missing or failed L2 is never coerced to a neutral fill score.
-/// Persona, RVI, Frequency V2 pair-fit, versioned fusion diagnostics, and later matching layers are not inputs.
+/// Live ranking uses Frequency V2 fusion when available.
+///
+/// Smaller fusion distance (`1 - compatibility_index/100`) is better.
+/// Pairs without a valid V2 fusion fall back to IQ+EQ
+/// [DiscoverStageB2TrustedPairResult.structuralDistance].
+/// V1 Frequency is never an input. Missing V2 does not crash or fabricate.
 class DiscoverStructuralL2Ranking {
   DiscoverStructuralL2Ranking._();
 
-  static const String modeWireValue = 'structural_l2_v1';
+  static const String modeWireValue = 'compatibility_fusion_v2';
+  static const String structuralFallbackModeWireValue = 'structural_l2_v1';
+  static const String fusionPolicyVersion =
+      'qmatch_compatibility_fusion_v2_policy_v1';
 
   static Map<String, DiscoverStageB2TrustedPairResult> pairsByUid({
     required List<String> candidateUids,
@@ -35,13 +41,15 @@ class DiscoverStructuralL2Ranking {
     ranked.sort((a, b) {
       final pa = pairsByUid[a.uid];
       final pb = pairsByUid[b.uid];
-      return compare(
+      return compareFusion(
         aUid: a.uid,
         bUid: b.uid,
-        aRankable: pa?.isRankable ?? false,
-        bRankable: pb?.isRankable ?? false,
-        aDistance: pa?.structuralDistance,
-        bDistance: pb?.structuralDistance,
+        aFusionDistance: pa?.fusionRankDistance,
+        bFusionDistance: pb?.fusionRankDistance,
+        aStructuralRankable: pa?.isRankable ?? false,
+        bStructuralRankable: pb?.isRankable ?? false,
+        aStructuralDistance: pa?.structuralDistance,
+        bStructuralDistance: pb?.structuralDistance,
         aLastActiveMs: a.lastActiveAt?.millisecondsSinceEpoch ?? 0,
         bLastActiveMs: b.lastActiveAt?.millisecondsSinceEpoch ?? 0,
       );
@@ -72,7 +80,61 @@ class DiscoverStructuralL2Ranking {
     required Iterable<String> returnedUids,
   }) {
     final keep = returnedUids.toSet();
-    return [for (final c in candidates) if (keep.contains(c.uid)) c];
+    return [
+      for (final c in candidates)
+        if (keep.contains(c.uid)) c
+    ];
+  }
+
+  static int compareFusion({
+    required String aUid,
+    required String bUid,
+    required double? aFusionDistance,
+    required double? bFusionDistance,
+    required bool aStructuralRankable,
+    required bool bStructuralRankable,
+    required double? aStructuralDistance,
+    required double? bStructuralDistance,
+    required int aLastActiveMs,
+    required int bLastActiveMs,
+  }) {
+    final aKey = _rankKey(
+      fusionDistance: aFusionDistance,
+      structuralRankable: aStructuralRankable,
+      structuralDistance: aStructuralDistance,
+    );
+    final bKey = _rankKey(
+      fusionDistance: bFusionDistance,
+      structuralRankable: bStructuralRankable,
+      structuralDistance: bStructuralDistance,
+    );
+    final aOk = aKey != null;
+    final bOk = bKey != null;
+    if (aOk != bOk) return aOk ? -1 : 1;
+    if (aOk && bOk) {
+      final byKey = aKey.compareTo(bKey);
+      if (byKey != 0) return byKey;
+    }
+    final byRecency = bLastActiveMs.compareTo(aLastActiveMs);
+    if (byRecency != 0) return byRecency;
+    return aUid.compareTo(bUid);
+  }
+
+  static double? _rankKey({
+    required double? fusionDistance,
+    required bool structuralRankable,
+    required double? structuralDistance,
+  }) {
+    if (fusionDistance != null &&
+        !fusionDistance.isNaN &&
+        !fusionDistance.isInfinite &&
+        fusionDistance >= 0) {
+      return fusionDistance;
+    }
+    if (_rankableDistance(structuralRankable, structuralDistance)) {
+      return structuralDistance;
+    }
+    return null;
   }
 
   static int compare({

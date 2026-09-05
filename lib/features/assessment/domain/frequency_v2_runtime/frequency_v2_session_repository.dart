@@ -29,8 +29,7 @@ class FrequencyV2SessionStorageKeys {
   static String session(String uid, String sessionId) =>
       '$prefix.session.$uid.$sessionId';
 
-  static String sessionPrefix(String ownerUid) =>
-      '$prefix.session.$ownerUid.';
+  static String sessionPrefix(String ownerUid) => '$prefix.session.$ownerUid.';
 }
 
 enum FrequencyV2SessionLoadCode {
@@ -179,7 +178,8 @@ class FrequencyV2SessionMemoryRepository
 
 class FrequencyV2SessionPrefsRepository
     implements FrequencyV2SessionPersistenceRepository {
-  FrequencyV2SessionPrefsRepository({SharedPreferences? prefs}) : _prefs = prefs;
+  FrequencyV2SessionPrefsRepository({SharedPreferences? prefs})
+      : _prefs = prefs;
 
   SharedPreferences? _prefs;
 
@@ -280,8 +280,7 @@ class FrequencyV2SessionPrefsRepository
     await prefs.remove(
       FrequencyV2SessionStorageKeys.session(ownerUid, sessionId),
     );
-    final activeKey =
-        FrequencyV2SessionStorageKeys.activePointer(ownerUid);
+    final activeKey = FrequencyV2SessionStorageKeys.activePointer(ownerUid);
     if (prefs.getString(activeKey) == sessionId) {
       await prefs.remove(activeKey);
     }

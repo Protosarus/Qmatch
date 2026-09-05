@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/utils/firestore_paths.dart';
+import '../domain/frequency_v2_runtime/frequency_v2_result_authority.dart';
 import '../domain/persona_scoring/persona_runtime_result_policy.dart';
 import '../models/assessment_progress.dart';
 import '../models/frequency_model.dart';
@@ -67,6 +68,10 @@ class AssessmentProgressService {
       FirestorePaths.userAssessmentDoc(uid, 'frequency').get(),
       FirestorePaths.userAssessmentDoc(
         uid,
+        FrequencyV2ResultAuthority.resultDocId,
+      ).get(),
+      FirestorePaths.userAssessmentDoc(
+        uid,
         PersonaRuntimeResultPolicy.assessmentType,
       ).get(),
       FirestorePaths.userAssessmentAssignmentDoc(uid, 'iq').get(),
@@ -80,16 +85,18 @@ class AssessmentProgressService {
     final iqDoc = fetched[1] as DocumentSnapshot<Map<String, dynamic>>;
     final eqDoc = fetched[2] as DocumentSnapshot<Map<String, dynamic>>;
     final freqDoc = fetched[3] as DocumentSnapshot<Map<String, dynamic>>;
-    final personaDoc = fetched[4] as DocumentSnapshot<Map<String, dynamic>>;
-    final iqAsg = fetched[5] as DocumentSnapshot<Map<String, dynamic>>;
-    final eqAsg = fetched[6] as DocumentSnapshot<Map<String, dynamic>>;
-    final freqAsg = fetched[7] as DocumentSnapshot<Map<String, dynamic>>;
+    final freqV2Doc = fetched[4] as DocumentSnapshot<Map<String, dynamic>>;
+    final personaDoc = fetched[5] as DocumentSnapshot<Map<String, dynamic>>;
+    final iqAsg = fetched[6] as DocumentSnapshot<Map<String, dynamic>>;
+    final eqAsg = fetched[7] as DocumentSnapshot<Map<String, dynamic>>;
+    final freqAsg = fetched[8] as DocumentSnapshot<Map<String, dynamic>>;
 
     final snapshot = resolveFromMaps(
       userDoc: resolvedUserDoc,
       iqAssessment: iqDoc.data(),
       eqAssessment: eqDoc.data(),
       frequencyAssessment: freqDoc.data(),
+      frequencyV2Assessment: freqV2Doc.data(),
       personaAssessment: personaDoc.data(),
       iqAssignment: iqAsg.data(),
       eqAssignment: eqAsg.data(),
@@ -102,7 +109,7 @@ class AssessmentProgressService {
       persistence: persistence,
     );
     var check = reconciler.inspectProfileMap(
-      fetched[8] as Map<String, dynamic>?,
+      fetched[9] as Map<String, dynamic>?,
     );
 
     if (snapshot.iqCompleted && !check.hasExactIq4) {
@@ -175,6 +182,7 @@ class AssessmentProgressService {
     Map<String, dynamic>? iqAssessment,
     Map<String, dynamic>? eqAssessment,
     Map<String, dynamic>? frequencyAssessment,
+    Map<String, dynamic>? frequencyV2Assessment,
     Map<String, dynamic>? personaAssessment,
     Map<String, dynamic>? iqAssignment,
     Map<String, dynamic>? eqAssignment,
@@ -200,6 +208,7 @@ class AssessmentProgressService {
       assignment: frequencyAssignment,
       mirrorCompleted: userDoc?['frequency_completed'] == true,
       mirrorStatus: userDoc?['frequency_status'] as String?,
+      frequencyV2Assessment: frequencyV2Assessment,
     );
 
     var iqCompleted = iq.status == AssessmentModuleStatus.completed;
@@ -434,7 +443,16 @@ class AssessmentProgressService {
     required Map<String, dynamic>? assignment,
     required bool mirrorCompleted,
     required String? mirrorStatus,
+    Map<String, dynamic>? frequencyV2Assessment,
   }) {
+    if (FrequencyV2ResultAuthority.isAuthoritativeCompleted(
+      frequencyV2Assessment,
+    )) {
+      return (
+        status: AssessmentModuleStatus.completed,
+        source: 'frequency_v2',
+      );
+    }
     if (assessment != null) {
       final status = assessment['status'] as String?;
       if (status == FrequencyResult.statusIncomplete ||

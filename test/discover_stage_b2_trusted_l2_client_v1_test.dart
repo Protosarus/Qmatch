@@ -155,7 +155,8 @@ void main() {
     expect(batch.pairs[0].structuralDistance, 0.1);
   });
 
-  test('debugUseUsCentral1 runtime flag rolls back to US without ranking changes',
+  test(
+      'debugUseUsCentral1 runtime flag rolls back to US without ranking changes',
       () async {
     DiscoverStageB2TrustedL2Client.debugUseUsCentral1 = true;
     String? seenName;
@@ -181,7 +182,8 @@ void main() {
     expect(batch.pairs[0].structuralDistance, 0.42);
   });
 
-  test('default request omits V2 opt-in and ignores nested frequency_v2 if absent',
+  test(
+      'default request omits V2 opt-in and ignores nested frequency_v2 if absent',
       () async {
     Map<String, dynamic>? seen;
     final client = DiscoverStageB2TrustedL2Client(
@@ -209,7 +211,8 @@ void main() {
     expect(batch.pairs[0].structuralDistance, 0.11);
   });
 
-  test('opt-in parses aggregate V2 diagnostic and drops privacy fields', () async {
+  test('opt-in parses aggregate V2 diagnostic and drops privacy fields',
+      () async {
     Map<String, dynamic>? seen;
     final client = DiscoverStageB2TrustedL2Client(
       call: (name, data) async {
@@ -313,15 +316,11 @@ void main() {
     expect(batch.pairs[0].compatibilityV2!.frequencyFit, 0.5);
   });
 
-  test('production DiscoverService does not enable compatibility diagnostics',
-      () {
+  test('production DiscoverService enables live compatibility fusion', () {
     final src = File(
       'lib/features/discover/services/discover_service.dart',
     ).readAsStringSync();
-    expect(src.contains('includeCompatibilityV2Diagnostics: true'), isFalse);
-    expect(
-      src.contains('include_compatibility_v2_diagnostics'),
-      isFalse,
-    );
+    expect(src.contains('includeCompatibilityV2Diagnostics: true'), isTrue);
+    expect(src.contains('includeFrequencyV2Diagnostics: true'), isFalse);
   });
 }

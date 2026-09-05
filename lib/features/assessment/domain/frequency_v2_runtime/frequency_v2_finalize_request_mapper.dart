@@ -125,8 +125,7 @@ class FrequencyV2FinalizeRequestMapper {
       }
       itemPlans.add({
         'item_id': plan.itemId,
-        'presented_option_order':
-            List<String>.from(plan.presentedOptionOrder),
+        'presented_option_order': List<String>.from(plan.presentedOptionOrder),
       });
       answers.add({
         'item_id': plan.itemId,

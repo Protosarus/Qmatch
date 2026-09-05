@@ -32,14 +32,15 @@ void main() {
       (tester) async {
     await pumpReveal(tester);
 
-    expect(find.byKey(const Key('persona-reveal-primary-title')), findsOneWidget);
+    expect(
+        find.byKey(const Key('persona-reveal-primary-title')), findsOneWidget);
     expect(find.text('Analyst'), findsOneWidget);
     expect(
       find.byKey(const Key('persona-reveal-primary-description')),
       findsOneWidget,
     );
     expect(
-      find.textContaining('deciphers details', findRichText: true),
+      find.textContaining('Breaks down details', findRichText: true),
       findsOneWidget,
     );
     expect(

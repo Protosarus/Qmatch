@@ -1,7 +1,4 @@
-/// Pins for the dormant Frequency V2 Flutter runtime bridge (Phase 8A).
-///
-/// Does not activate V2. Live routing must still resolve to Frequency V1
-/// while [FrequencyBehaviorV2BankRegistry.isRuntimeSelectable] is false.
+/// Pins for the live Frequency V2 Flutter runtime.
 class FrequencyV2RuntimeContract {
   FrequencyV2RuntimeContract._();
 

@@ -10,8 +10,7 @@ import 'frequency_v2_session_repository.dart';
 
 /// Asset-backed Frequency V2 session factory for debug/device testing.
 ///
-/// Does not use [Directory.current] or `tool/` paths. Release routing still
-/// stays on V1 until [FrequencyRuntimeSelectionPolicy] resolves V2.
+/// Does not use [Directory.current] or `tool/` paths. Live routing is V2.
 class FrequencyV2AssetRuntime {
   FrequencyV2AssetRuntime({
     AssetBundle? bundle,

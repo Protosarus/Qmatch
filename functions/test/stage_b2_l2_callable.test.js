@@ -13,6 +13,26 @@ const {
   toPublicPair,
   publicUnavailable,
 } = require('../src/stage_b2_l2_callable');
+
+const LIVE_PUBLIC_PAIR_KEYS = Object.freeze([
+  ...PUBLIC_PAIR_KEYS,
+  'compatibility_v2',
+  'frequency_v2',
+]);
+
+function missingV2Fusion() {
+  return {
+    available: false,
+    policy_version: 'qmatch_compatibility_fusion_v2_policy_v1',
+    unavailable_reason: 'viewer_frequency_v2_missing',
+  };
+}
+
+function assertLivePairKeys(pair) {
+  for (const key of Object.keys(pair)) {
+    assert.ok(LIVE_PUBLIC_PAIR_KEYS.includes(key), key);
+  }
+}
 const {
   DIMENSION_IDS,
   IQ_IDS,
@@ -137,9 +157,8 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(blob.includes('omitted_uids'), false);
     assert.strictEqual(blob.includes('reverse_block'), false);
     for (const pair of res.pairs) {
-      for (const key of Object.keys(pair)) {
-        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
-      }
+      assertLivePairKeys(pair);
+      assert.strictEqual(pair.compatibility_v2.available, false);
     }
   });
 
@@ -210,11 +229,8 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(blob.includes('secret-block-reason'), false);
     assert.strictEqual(blob.includes('omitted_uids'), false);
     assert.strictEqual(blob.includes('reverse_block'), false);
-    assert.strictEqual(blob.includes('reason'), false);
     for (const pair of res.pairs) {
-      for (const key of Object.keys(pair)) {
-        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
-      }
+      assertLivePairKeys(pair);
     }
   });
 
@@ -392,9 +408,7 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(res.pairs[0].structural_distance, 0.0);
     assert.strictEqual(res.pairs[1].available, true);
     for (const pair of res.pairs) {
-      for (const key of Object.keys(pair)) {
-        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
-      }
+      assertLivePairKeys(pair);
     }
 
     assert.strictEqual(lines.length, 1);
@@ -495,6 +509,9 @@ describe('compareStageB2Structural callable', () => {
       'users/far/profiles/canonical_v1',
       'users/near/blocks/viewer',
       'users/far/blocks/viewer',
+      'users/viewer/assessments/frequency_v2',
+      'users/near/assessments/frequency_v2',
+      'users/far/assessments/frequency_v2',
     ]);
     assert.deepStrictEqual(res.candidate_uids, ['near']);
     assert.strictEqual(res.pairs.length, 1);
@@ -512,7 +529,10 @@ describe('compareStageB2Structural callable', () => {
     );
     assert.deepStrictEqual(res.candidate_uids, ['ok']);
     assert.deepStrictEqual(res.pairs, [
-      publicUnavailable('viewer_canonical_profile_missing'),
+      {
+        ...publicUnavailable('viewer_canonical_profile_missing'),
+        compatibility_v2: missingV2Fusion(),
+      },
     ]);
   });
 
@@ -554,9 +574,12 @@ describe('compareStageB2Structural callable', () => {
 
     assert.deepStrictEqual(res.candidate_uids, ['missing', 'near', 'far']);
     assert.deepStrictEqual(res.pairs, [
-      publicUnavailable('candidate_canonical_profile_missing'),
-      nearPair,
-      farPair,
+      {
+        ...publicUnavailable('candidate_canonical_profile_missing'),
+        compatibility_v2: missingV2Fusion(),
+      },
+      { ...nearPair, compatibility_v2: missingV2Fusion() },
+      { ...farPair, compatibility_v2: missingV2Fusion() },
     ]);
     assert.strictEqual(res.pairs[1].structural_distance, 0.0);
     assert.ok(res.pairs[2].structural_distance > 0);
@@ -569,9 +592,7 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(blob.includes('should-not-leak'), false);
     assert.strictEqual(blob.includes('sess-secret'), false);
     for (const pair of res.pairs) {
-      for (const key of Object.keys(pair)) {
-        assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
-      }
+      assertLivePairKeys(pair);
     }
   });
 
@@ -592,7 +613,7 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(snaps[2].data().n, 3);
   });
 
-  it('default request does not read or return Frequency V2 even if docs exist', async () => {
+  it('default request returns live fusion and omits public frequency_v2 diagnostic', async () => {
     const inner = new MemoryFirestore();
     await inner
       .doc('users/viewer/profiles/canonical_v1')
@@ -614,19 +635,17 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(res.pairs[0].available, true);
     assert.strictEqual(res.pairs[0].structural_distance, 0.0);
     assert.strictEqual(res.pairs[0].frequency_v2, undefined);
-    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, true);
+    assert.strictEqual(
+      res.pairs[0].compatibility_v2.policy_version,
+      'qmatch_compatibility_fusion_v2_policy_v1',
+    );
     assert.strictEqual(
       db.requested.some((p) => p.includes('assessments/frequency_v2')),
-      false,
+      true,
     );
-    for (const key of Object.keys(res.pairs[0])) {
-      assert.ok(PUBLIC_PAIR_KEYS.includes(key), key);
-    }
     const blob = JSON.stringify(res);
-    assert.strictEqual(blob.includes('frequency_v2'), false);
     assert.strictEqual(blob.includes('frequency_fit_index'), false);
-    assert.strictEqual(blob.includes('compatibility_v2'), false);
-    assert.strictEqual(blob.includes('compatibility_index'), false);
     assert.strictEqual(blob.includes('normalized_behavior'), false);
     assert.strictEqual(blob.includes('frequency_v2_sess_secret'), false);
   });
@@ -670,7 +689,7 @@ describe('compareStageB2Structural callable', () => {
       res.pairs[0].frequency_v2.pair_fit_version,
       'frequency_behavior_v2_pair_fit_v1',
     );
-    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, true);
     const blob = JSON.stringify(res);
     assert.strictEqual(blob.includes('normalized_behavior'), false);
     assert.strictEqual(blob.includes('provisional_confidence'), false);
@@ -852,9 +871,9 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(res.pairs[0].frequency_v2, undefined);
     assert.strictEqual(
       db.requested.some((p) => p.includes('assessments/frequency_v2')),
-      false,
+      true,
     );
-    assert.strictEqual(res.pairs[0].compatibility_v2, undefined);
+    assert.strictEqual(res.pairs[0].compatibility_v2.available, false);
   });
 
   it('compatibility opt-in returns fusion without changing structural distance', async () => {
@@ -1107,7 +1126,7 @@ describe('compareStageB2Structural callable', () => {
     assert.strictEqual(blob.includes('secret-block-reason'), false);
   });
 
-  it('string true does not opt in compatibility diagnostics', async () => {
+  it('explicit false opts out of live compatibility fusion', async () => {
     const inner = new MemoryFirestore();
     await inner
       .doc('users/viewer/profiles/canonical_v1')
@@ -1121,7 +1140,7 @@ describe('compareStageB2Structural callable', () => {
     const db = trackingDb(inner);
     const res = await handleCompareStageB2Structural(
       request('viewer', ['near'], {
-        include_compatibility_v2_diagnostics: 'true',
+        include_compatibility_v2_diagnostics: false,
       }),
       { db },
     );

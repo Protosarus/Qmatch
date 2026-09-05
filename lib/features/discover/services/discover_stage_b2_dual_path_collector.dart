@@ -408,15 +408,11 @@ class DiscoverStageB2TrustedPairResult {
   final int comparableDimensions;
   final String? unavailableReason;
 
-  /// Optional dormant Frequency V2 aggregate diagnostic. Absent unless the
-  /// callable was explicitly asked for `include_frequency_v2_diagnostics`.
-  /// Never used by [DiscoverStructuralL2Ranking].
+  /// Optional Frequency V2 aggregate diagnostic.
   final DiscoverStageB2FrequencyV2Diagnostic? frequencyV2;
 
-  /// Optional dormant compatibility fusion diagnostic. Absent unless the
-  /// callable was explicitly asked for `include_compatibility_v2_diagnostics`.
-  /// Never used by [DiscoverStructuralL2Ranking] and never shown as a
-  /// user-facing compatibility percentage in this phase.
+  /// Live compatibility fusion (`qmatch_compatibility_fusion_v2_policy_v1`).
+  /// V1 Frequency is never present here.
   final DiscoverStageB2CompatibilityV2Diagnostic? compatibilityV2;
 
   /// Rankable only when the trusted callable returned a finite distance.
@@ -426,6 +422,21 @@ class DiscoverStageB2TrustedPairResult {
     final d = structuralDistance;
     if (d == null || d.isNaN || d.isInfinite || d < 0) return false;
     return true;
+  }
+
+  /// Fusion rank key: `1 - compatibility_index/100`. Null when V2 fusion
+  /// is missing or malformed. Callers must fall back to [structuralDistance].
+  double? get fusionRankDistance {
+    final fusion = compatibilityV2;
+    if (fusion == null || fusion.available != true) return null;
+    final index = fusion.compatibilityIndex;
+    if (index == null || index.isNaN || index.isInfinite) return null;
+    if (index < 0 || index > 100) return null;
+    if (fusion.policyVersion != null &&
+        fusion.policyVersion != 'qmatch_compatibility_fusion_v2_policy_v1') {
+      return null;
+    }
+    return 1.0 - (index / 100.0);
   }
 }
 
@@ -462,7 +473,8 @@ class DiscoverStageB2FrequencyV2Diagnostic {
       return DiscoverStageB2FrequencyV2Diagnostic(
         available: false,
         pairFitVersion: raw['pair_fit_version'] as String?,
-        unavailableReason: raw['unavailable_reason'] as String? ?? 'unavailable',
+        unavailableReason:
+            raw['unavailable_reason'] as String? ?? 'unavailable',
       );
     }
     return DiscoverStageB2FrequencyV2Diagnostic(
@@ -528,8 +540,7 @@ class DiscoverStageB2CompatibilityV2Diagnostic {
       structuralFit: (raw['structural_fit'] as num?)?.toDouble(),
       frequencyFit: (raw['frequency_fit'] as num?)?.toDouble(),
       structuralCoverage: (raw['structural_coverage'] as num?)?.toDouble(),
-      frequencyPairSupport:
-          (raw['frequency_pair_support'] as num?)?.toDouble(),
+      frequencyPairSupport: (raw['frequency_pair_support'] as num?)?.toDouble(),
     );
   }
 

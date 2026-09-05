@@ -3,14 +3,22 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:qmatch/core/navigation/assessment_progress_route_gate.dart';
 import 'package:qmatch/features/assessment/domain/eq_bank/eq_bank.dart';
 import 'package:qmatch/features/assessment/domain/eq_session/eq_session.dart';
 import 'package:qmatch/features/assessment/domain/frequency_bank/frequency_bank.dart';
+import 'package:qmatch/features/assessment/domain/frequency_behavior_v2/frequency_behavior_v2_contract.dart';
 import 'package:qmatch/features/assessment/domain/frequency_session/frequency_session.dart';
+import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_runtime_test_screen_factory.dart';
+import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import 'package:qmatch/features/assessment/domain/iq_bank/iq_bank.dart';
 import 'package:qmatch/features/assessment/domain/iq_session/iq_session.dart';
+import 'package:qmatch/features/assessment/domain/persona_scoring/persona_v2_contract.dart';
 import 'package:qmatch/features/assessment/models/assessment_progress.dart';
+import 'package:qmatch/features/assessment/screens/frequency_v2_test_screen.dart';
 import 'package:qmatch/features/assessment/services/assessment_cold_start_pending_reconciler.dart';
+import 'package:qmatch/features/assessment/services/assessment_progress_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 AssessmentProgressSnapshot _progress({
   required AssessmentFlowDestination destination,
@@ -34,8 +42,7 @@ AssessmentProgressSnapshot _progress({
     frequencyIncomplete: false,
     iqCompleted: iqCompleted,
     eqCompleted: eqCompleted,
-    allAssessmentsCompleted:
-        iqCompleted && eqCompleted && frequencyCompleted,
+    allAssessmentsCompleted: iqCompleted && eqCompleted && frequencyCompleted,
     assessmentFlowCompleted: assessmentFlowCompleted,
     canonicalPersonaAvailable: false,
     profileCompleted: false,
@@ -43,6 +50,97 @@ AssessmentProgressSnapshot _progress({
     resolutionSource: 'test',
     reason: null,
   );
+}
+
+AssessmentColdStartPendingReconciler _reconciler({
+  IqSessionPersistenceRepository? iqRepository,
+  EqSessionPersistenceRepository? eqRepository,
+  FrequencySessionPersistenceRepository? frequencyRepository,
+  FrequencyV2SessionPersistenceRepository? frequencyV2Repository,
+  Future<EqCanonicalBankDocument> Function(String bankLocale)? loadEqBank,
+  Future<FrequencyCanonicalBankDocument> Function(String bankLocale)?
+      loadFrequencyBank,
+}) {
+  return AssessmentColdStartPendingReconciler(
+    iqRepository: iqRepository ?? IqSessionMemoryRepository(),
+    eqRepository: eqRepository ?? EqSessionMemoryRepository(),
+    frequencyRepository:
+        frequencyRepository ?? FrequencySessionMemoryRepository(),
+    frequencyV2Repository:
+        frequencyV2Repository ?? FrequencyV2SessionMemoryRepository(),
+    loadEqBank: loadEqBank,
+    loadFrequencyBank: loadFrequencyBank,
+  );
+}
+
+FrequencyV2PersistedSessionState _v2Session({
+  required String uid,
+  required FrequencyV2PersistedSessionStatus status,
+  String sessionId = 'frequency_v2_sess_test',
+  bool remoteFinalized = false,
+}) {
+  return FrequencyV2PersistedSessionState(
+    schemaVersion: FrequencyV2RuntimeContract.persistedSchemaVersion,
+    sessionId: sessionId,
+    ownerUid: uid,
+    sessionSeed: 'cold-v2',
+    bankVersion: FrequencyBehaviorV2Contract.poolVersionTrDraft1,
+    bankLocale: FrequencyBehaviorV2Contract.localeTr,
+    selectionPolicyVersion: FrequencyBehaviorV2Contract.selectionPolicyVersion,
+    selectorVersion: FrequencyBehaviorV2Contract.selectorVersion,
+    itemPlans: const [],
+    currentQuestionIndex: 0,
+    answers: const [],
+    startedAt: '2026-09-05T00:00:00.000Z',
+    updatedAt: '2026-09-05T00:00:00.000Z',
+    completedAt: '2026-09-05T00:00:00.000Z',
+    status: status,
+    remoteFinalized: remoteFinalized,
+  );
+}
+
+Map<String, dynamic> _validFrequencyV2() {
+  return {
+    'schema_version': FrequencyV2ResultAuthority.resultSchemaVersion,
+    'assessment_type': FrequencyV2ResultAuthority.assessmentType,
+    'status': FrequencyV2ResultAuthority.resultStatus,
+    'source': FrequencyV2ResultAuthority.resultSource,
+    'dimensions': [
+      for (final id in FrequencyBehaviorV2Contract.canonicalDimensions)
+        {
+          'dimension_id': id,
+          'normalized_behavior': 0.1,
+          'provisional_confidence': 1,
+          'confidence_completeness': 1,
+        },
+    ],
+  };
+}
+
+class _CorruptV2Repo implements FrequencyV2SessionPersistenceRepository {
+  @override
+  Future<void> saveSession(FrequencyV2PersistedSessionState state) async {}
+
+  @override
+  Future<FrequencyV2SessionLoadResult> loadActiveSession(
+    String ownerUid,
+  ) async {
+    return const FrequencyV2SessionLoadResult(
+      code: FrequencyV2SessionLoadCode.corrupt,
+      message: 'Malformed persisted V2 session',
+    );
+  }
+
+  @override
+  Future<FrequencyV2SessionLoadResult> loadSession(
+    String ownerUid,
+    String sessionId,
+  ) async {
+    return loadActiveSession(ownerUid);
+  }
+
+  @override
+  Future<void> deleteSession(String ownerUid, String sessionId) async {}
 }
 
 void main() {
@@ -82,15 +180,32 @@ void main() {
       expect(d.openAssessmentTestScreen, isTrue);
     });
 
-    test('Frequency pending blocks profileSetup progress route', () {
+    test('stale V1 Frequency pending does not reopen Frequency', () {
       final d = AssessmentColdStartPendingReconciler.decide(
         iqPendingFinalization: false,
         eqPendingFinalization: false,
         frequencyPendingFinalization: true,
+        frequencyV2PendingFinalization: false,
+        runtimeTrack: FrequencyRuntimeTrack.v2,
+        progressDestination: AssessmentFlowDestination.profileSetup,
+      );
+      expect(d.destination, AssessmentFlowDestination.profileSetup);
+      expect(d.openAssessmentTestScreen, isFalse);
+      expect(d.reason, 'progress_routing');
+    });
+
+    test('V2 Frequency pending blocks profileSetup progress route', () {
+      final d = AssessmentColdStartPendingReconciler.decide(
+        iqPendingFinalization: false,
+        eqPendingFinalization: false,
+        frequencyPendingFinalization: false,
+        frequencyV2PendingFinalization: true,
+        runtimeTrack: FrequencyRuntimeTrack.v2,
         progressDestination: AssessmentFlowDestination.profileSetup,
       );
       expect(d.destination, AssessmentFlowDestination.frequency);
       expect(d.openAssessmentTestScreen, isTrue);
+      expect(d.reason, 'frequency_v2_pending_finalization');
     });
   });
 
@@ -116,7 +231,8 @@ void main() {
       );
     });
 
-    test('IQ: remote iq_completed + local pending → hold IQ, do not local-finalize',
+    test(
+        'IQ: remote iq_completed + local pending → hold IQ, do not local-finalize',
         () async {
       const uid = 'uid_cold_iq';
       final repo = IqSessionMemoryRepository();
@@ -153,7 +269,7 @@ void main() {
 
       final eqRepo = EqSessionMemoryRepository();
       final freqRepo = FrequencySessionMemoryRepository();
-      final reconciler = AssessmentColdStartPendingReconciler(
+      final reconciler = _reconciler(
         iqRepository: repo,
         eqRepository: eqRepo,
         frequencyRepository: freqRepo,
@@ -204,7 +320,7 @@ void main() {
         eqCompleted: true,
       );
 
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: IqSessionMemoryRepository(),
         eqRepository: repo,
         frequencyRepository: FrequencySessionMemoryRepository(),
@@ -226,7 +342,7 @@ void main() {
     });
 
     test(
-        'Frequency: remote frequency_completed + local pending → hold Frequency test',
+        'stale V1 Frequency pending is ignored even if remote frequency_completed',
         () async {
       const uid = 'uid_cold_freq';
       final repo = FrequencySessionMemoryRepository();
@@ -258,7 +374,7 @@ void main() {
         assessmentFlowCompleted: false,
       );
 
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: IqSessionMemoryRepository(),
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: repo,
@@ -274,13 +390,13 @@ void main() {
       expect(active.state!.sessionId, sid);
       expect(active.state!.remoteFinalized, isFalse);
       expect(active.state!.answers.length, 50);
-      expect(decision.destination, AssessmentFlowDestination.frequency);
-      expect(decision.openAssessmentTestScreen, isTrue);
-      expect(decision.reason, 'frequency_pending_finalization');
+      expect(decision.destination, AssessmentFlowDestination.profileSetup);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
     });
 
     test(
-        'Frequency: remote assessment_flow_completed + local pending → hold Frequency test',
+        'stale V1 Frequency pending is ignored even if assessment_flow_completed',
         () async {
       const uid = 'uid_cold_freq_flow';
       final repo = FrequencySessionMemoryRepository();
@@ -312,7 +428,7 @@ void main() {
         assessmentFlowCompleted: true,
       );
 
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: IqSessionMemoryRepository(),
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: repo,
@@ -323,9 +439,9 @@ void main() {
         (await repo.loadSession(uid, sid)).state!.remoteFinalized,
         isFalse,
       );
-      expect(decision.destination, AssessmentFlowDestination.frequency);
-      expect(decision.openAssessmentTestScreen, isTrue);
-      expect(decision.reason, 'frequency_pending_finalization');
+      expect(decision.destination, AssessmentFlowDestination.profileSetup);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
     });
 
     test(
@@ -354,7 +470,7 @@ void main() {
       await manager.complete(ownerUid: uid, sessionId: sid);
       await manager.markRemoteFinalized(ownerUid: uid, sessionId: sid);
 
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: IqSessionMemoryRepository(),
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: repo,
@@ -379,8 +495,7 @@ void main() {
       expect(decision.reason, 'progress_routing');
     });
 
-    test(
-        'IQ pending without remote progress → hold on IQ test (do not skip)',
+    test('IQ pending without remote progress → hold on IQ test (do not skip)',
         () async {
       const uid = 'uid_cold_hold';
       final repo = IqSessionMemoryRepository();
@@ -412,7 +527,7 @@ void main() {
         iqCompleted: false,
       );
 
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: repo,
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: FrequencySessionMemoryRepository(),
@@ -458,7 +573,7 @@ void main() {
       );
       final eqRepo = EqSessionMemoryRepository();
       final freqRepo = FrequencySessionMemoryRepository();
-      final reconciler = AssessmentColdStartPendingReconciler(
+      final reconciler = _reconciler(
         iqRepository: repo,
         eqRepository: eqRepo,
         frequencyRepository: freqRepo,
@@ -470,11 +585,10 @@ void main() {
       expect((await repo.loadSession(uid, sid)).state!.remoteFinalized, isTrue);
     });
 
-    test(
-        'no local pending IQ + remote iq_completed → follow progress, not IQ',
+    test('no local pending IQ + remote iq_completed → follow progress, not IQ',
         () async {
       const uid = 'uid_old_user';
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: IqSessionMemoryRepository(),
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: FrequencySessionMemoryRepository(),
@@ -490,11 +604,10 @@ void main() {
       expect(decision.reason, 'progress_routing');
     });
 
-    test(
-        'no local pending EQ + remote eq_completed → follow progress, not EQ',
+    test('no local pending EQ + remote eq_completed → follow progress, not EQ',
         () async {
       const uid = 'uid_old_eq_user';
-      final decision = await AssessmentColdStartPendingReconciler(
+      final decision = await _reconciler(
         iqRepository: IqSessionMemoryRepository(),
         eqRepository: EqSessionMemoryRepository(),
         frequencyRepository: FrequencySessionMemoryRepository(),
@@ -509,6 +622,250 @@ void main() {
       expect(decision.destination, AssessmentFlowDestination.frequency);
       expect(decision.openAssessmentTestScreen, isFalse);
       expect(decision.reason, 'progress_routing');
+    });
+  });
+
+  group('Frequency V2 cold-start contract', () {
+    test('A stale V1 pending never reopens V1 Frequency', () async {
+      const uid = 'uid_v1_leftover';
+      final v1 = FrequencySessionMemoryRepository();
+      final manager = FrequencySessionManager(
+        bank: FrequencyCanonicalBankDocument.fromJson(
+          jsonDecode(File(FrequencyBankContract.trAssetPath).readAsStringSync())
+              as Map<String, dynamic>,
+        ),
+        repository: v1,
+        idFactory: FrequencySessionIdFactory(random: Random(21)),
+      );
+      final created = await manager.getOrCreateActiveSession(
+        ownerUid: uid,
+        sessionSeed: 'leftover-v1',
+      );
+      final sid = created.state!.sessionId;
+      for (final p in created.state!.itemPlans) {
+        await manager.answer(
+          ownerUid: uid,
+          sessionId: sid,
+          itemId: p.itemId,
+          selectedOptionId: p.displayedOptionIds.first,
+        );
+      }
+      await manager.complete(ownerUid: uid, sessionId: sid);
+
+      final decision = await _reconciler(frequencyRepository: v1).reconcile(
+        uid: uid,
+        progress: _progress(
+          destination: AssessmentFlowDestination.persona,
+          iqCompleted: true,
+          eqCompleted: true,
+          frequencyCompleted: true,
+        ),
+      );
+      expect((await v1.loadActiveSession(uid)).isLoaded, isTrue);
+      expect(decision.destination, AssessmentFlowDestination.persona);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
+    });
+
+    test('B unfinished V2 pending resumes V2 Frequency', () async {
+      const uid = 'uid_v2_pending';
+      final v2 = FrequencyV2SessionMemoryRepository();
+      await v2.saveSession(
+        _v2Session(
+          uid: uid,
+          status: FrequencyV2PersistedSessionStatus.completedPendingPersistence,
+        ),
+      );
+      final decision = await _reconciler(frequencyV2Repository: v2).reconcile(
+        uid: uid,
+        progress: _progress(
+          destination: AssessmentFlowDestination.profileSetup,
+          iqCompleted: true,
+          eqCompleted: true,
+          frequencyCompleted: true,
+        ),
+      );
+      expect(decision.destination, AssessmentFlowDestination.frequency);
+      expect(decision.openAssessmentTestScreen, isTrue);
+      expect(decision.reason, 'frequency_v2_pending_finalization');
+      expect(
+        buildAssessmentDestination(decision),
+        isA<FrequencyV2TestScreen>(),
+      );
+    });
+
+    test('C finalized V2 without local pending skips Frequency', () async {
+      final snap = AssessmentProgressService.resolveFromMaps(
+        userDoc: {
+          'assessment_flow_version': 2,
+          'iq_completed': true,
+          'eq_completed': true,
+        },
+        iqAssessment: {'status': 'completed'},
+        eqAssessment: {'status': 'completed'},
+        frequencyV2Assessment: _validFrequencyV2(),
+      );
+      expect(snap.frequencyCompleted, isTrue);
+      expect(snap.destination, AssessmentFlowDestination.persona);
+
+      final decision = await _reconciler().reconcile(
+        uid: 'uid_v2_final',
+        progress: snap,
+      );
+      expect(decision.destination, AssessmentFlowDestination.persona);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
+    });
+
+    test('D finalized V2 + missing Persona routes Persona', () {
+      final snap = AssessmentProgressService.resolveFromMaps(
+        userDoc: {
+          'assessment_flow_version': 2,
+          'iq_completed': true,
+          'eq_completed': true,
+        },
+        iqAssessment: {'status': 'completed'},
+        eqAssessment: {'status': 'completed'},
+        frequencyV2Assessment: _validFrequencyV2(),
+      );
+      expect(snap.canonicalPersonaAvailable, isFalse);
+      expect(snap.destination, AssessmentFlowDestination.persona);
+    });
+
+    test('E existing Persona is reused and continues to ProfileSetup', () {
+      final snap = AssessmentProgressService.resolveFromMaps(
+        userDoc: {
+          'assessment_flow_version': 2,
+          'iq_completed': true,
+          'eq_completed': true,
+          'profile_completed': false,
+        },
+        iqAssessment: {'status': 'completed'},
+        eqAssessment: {'status': 'completed'},
+        frequencyV2Assessment: _validFrequencyV2(),
+        personaAssessment: {
+          'primary_persona_id': 'bagimsiz',
+          'secondary_persona_id': 'analist',
+          'raw_delta_d': 0.04,
+          'scoring_version': PersonaV2Contract.scoringVersion,
+          'config_version': PersonaV2Contract.configVersion,
+          'policy_version': PersonaV2Contract.policyVersion,
+          'prototype_version': PersonaV2Contract.prototypeVersion,
+          'source': PersonaV2Contract.source,
+        },
+      );
+      expect(snap.canonicalPersonaAvailable, isTrue);
+      expect(snap.destination, AssessmentFlowDestination.profileSetup);
+    });
+
+    test(
+        'F live cold-start Frequency path never constructs FrequencyTestScreen',
+        () {
+      final factory = File(
+        'lib/features/assessment/domain/frequency_v2_runtime/frequency_runtime_test_screen_factory.dart',
+      ).readAsStringSync();
+      expect(factory.contains('FrequencyV2TestScreen'), isTrue);
+      expect(factory.contains('FrequencyTestScreen('), isFalse);
+
+      final gate = File(
+        'lib/core/navigation/assessment_progress_route_gate.dart',
+      ).readAsStringSync();
+      expect(
+          gate.contains('FrequencyRuntimeTestScreenFactory.build()'), isTrue);
+      expect(gate.contains('FrequencyTestScreen('), isFalse);
+
+      final built = FrequencyRuntimeTestScreenFactory.build();
+      expect(built, isA<FrequencyV2TestScreen>());
+    });
+
+    test('G SharedPreferences V2 peek is deterministic with test binding',
+        () async {
+      TestWidgetsFlutterBinding.ensureInitialized();
+      SharedPreferences.setMockInitialValues({});
+      const uid = 'uid_v2_prefs';
+      final prefsRepo = FrequencyV2SessionPrefsRepository();
+      await prefsRepo.saveSession(
+        _v2Session(
+          uid: uid,
+          status: FrequencyV2PersistedSessionStatus.completedPendingPersistence,
+        ),
+      );
+      final loaded = await prefsRepo.loadActiveSession(uid);
+      expect(loaded.isLoaded, isTrue);
+      expect(
+        loaded.state!.status,
+        FrequencyV2PersistedSessionStatus.completedPendingPersistence,
+      );
+
+      final decision = await _reconciler(
+        frequencyV2Repository: prefsRepo,
+      ).reconcile(
+        uid: uid,
+        progress: _progress(
+          destination: AssessmentFlowDestination.main,
+          iqCompleted: true,
+          eqCompleted: true,
+          frequencyCompleted: true,
+        ),
+      );
+      expect(decision.reason, 'frequency_v2_pending_finalization');
+      expect(decision.openAssessmentTestScreen, isTrue);
+    });
+
+    test('H malformed V2 pending fails safely and follows progress', () async {
+      final decision = await _reconciler(
+        frequencyV2Repository: _CorruptV2Repo(),
+      ).reconcile(
+        uid: 'uid_v2_bad',
+        progress: _progress(
+          destination: AssessmentFlowDestination.frequency,
+          iqCompleted: true,
+          eqCompleted: true,
+        ),
+      );
+      expect(decision.destination, AssessmentFlowDestination.frequency);
+      expect(decision.openAssessmentTestScreen, isFalse);
+      expect(decision.reason, 'progress_routing');
+    });
+
+    test('I reconciler does not mark a pending V2 session remote-finalized',
+        () async {
+      const uid = 'uid_v2_once';
+      final v2 = FrequencyV2SessionMemoryRepository();
+      await v2.saveSession(
+        _v2Session(
+          uid: uid,
+          status: FrequencyV2PersistedSessionStatus.completedPendingPersistence,
+        ),
+      );
+      final reconciler = _reconciler(frequencyV2Repository: v2);
+      final progress = _progress(
+        destination: AssessmentFlowDestination.persona,
+        iqCompleted: true,
+        eqCompleted: true,
+        frequencyCompleted: true,
+      );
+      final first = await reconciler.reconcile(uid: uid, progress: progress);
+      final second = await reconciler.reconcile(uid: uid, progress: progress);
+      expect(first.reason, 'frequency_v2_pending_finalization');
+      expect(second.reason, 'frequency_v2_pending_finalization');
+      final active = await v2.loadActiveSession(uid);
+      expect(active.isLoaded, isTrue);
+      expect(active.state!.remoteFinalized, isFalse);
+      expect(
+        active.state!.status,
+        FrequencyV2PersistedSessionStatus.completedPendingPersistence,
+      );
+    });
+
+    test('J reconciler never writes a V1 Frequency assessment record', () {
+      final src = File(
+        'lib/features/assessment/services/assessment_cold_start_pending_reconciler.dart',
+      ).readAsStringSync();
+      expect(src.contains("upsertCompletedAssessment"), isFalse);
+      expect(src.contains("'frequency'"), isFalse);
+      expect(src.contains('assessments/frequency'), isFalse);
+      expect(src.contains('FrequencyTestScreen'), isFalse);
     });
   });
 }

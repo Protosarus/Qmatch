@@ -8,8 +8,8 @@ import 'discover_structural_l2_ranking.dart';
 /// Calls trusted Stage B2 L2.
 ///
 /// Supplies L1 Discover candidate UIDs only. Does not read peer canonical_v1
-/// or peer block docs. Production ranking (`structural_l2_v1`) uses the
-/// returned distances; `legacy_v1` uses CompatibilityScoring for order only
+/// or peer block docs. Production ranking uses live Frequency V2 fusion
+/// with IQ+EQ structural fallback; `legacy_v1` uses CompatibilityScoring for order only
 /// after this membership filter. Reverse-blocked UIDs are omitted from
 /// [DiscoverStageB2TrustedBatch.returnedUids]. Callable failure must
 /// fail-close — never show the unverified L1 batch.

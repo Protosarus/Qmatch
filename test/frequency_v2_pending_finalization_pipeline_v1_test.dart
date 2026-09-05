@@ -50,7 +50,7 @@ void main() {
       final result = await pipeline.run(session: pending.session);
       expect(
         result.destination,
-        FrequencyV2PendingPipelineDestination.dormantCompletion,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
       expect(result.completedSteps, [
         FrequencyV2PendingPipelineStep.finalizeFrequencyV2,
@@ -160,7 +160,7 @@ void main() {
       expect(result.session!.remoteFinalized, isTrue);
     });
 
-    test('session conflict retains local pending', () async {
+    test('already-finalized recovers as product completion', () async {
       final bank = await FrequencyV2RuntimeTestHarness.loadTr();
       final pending = await FrequencyV2RuntimeTestHarness.pendingSession(
         bank: bank,
@@ -181,12 +181,16 @@ void main() {
       );
       final result = await pipeline.run(session: pending.session);
       expect(
-          result.failureKind, FrequencyV2FinalizeFailureKind.sessionConflict);
+        result.destination,
+        FrequencyV2PendingPipelineDestination.productCompletion,
+      );
+      expect(result.failureKind, isNull);
+      expect(result.uiErrorCode, isNull);
       expect(
         (await pending.repo.loadSession('owner-p', pending.session.sessionId))
             .state!
-            .status,
-        FrequencyV2PersistedSessionStatus.completedPendingPersistence,
+            .remoteFinalized,
+        isTrue,
       );
     });
 

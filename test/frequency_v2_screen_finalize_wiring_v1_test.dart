@@ -91,7 +91,7 @@ void main() {
       expect(calls, 1);
       expect(
         result!.destination,
-        FrequencyV2PendingPipelineDestination.dormantCompletion,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
       expect(result.session!.remoteFinalized, isTrue);
     });
@@ -115,20 +115,16 @@ void main() {
       final result = await coordinator.runIfPending(pending.session);
       expect(
         result!.destination,
-        FrequencyV2PendingPipelineDestination.dormantCompletion,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
       expect(result.session!.remoteFinalized, isTrue);
       expect(
         result.session!.status,
         FrequencyV2PersistedSessionStatus.completed,
       );
-      expect(
-        FrequencyV2TestScreen.internalCompletionTitle,
-        'Frequency V2 internal test completed',
-      );
     });
 
-    test('same-session idempotent success is dormant completion', () async {
+    test('same-session idempotent success is product completion', () async {
       final bank = await FrequencyV2RuntimeTestHarness.loadTr();
       final pending = await FrequencyV2RuntimeTestHarness.pendingSession(
         bank: bank,
@@ -147,7 +143,7 @@ void main() {
       expect(result!.finalize!.idempotent, isTrue);
       expect(
         result.destination,
-        FrequencyV2PendingPipelineDestination.dormantCompletion,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
       expect(result.session!.remoteFinalized, isTrue);
     });
@@ -189,7 +185,7 @@ void main() {
       final retry = await coordinator.runIfPending(still.state);
       expect(
         retry!.destination,
-        FrequencyV2PendingPipelineDestination.dormantCompletion,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
       expect(calls, 2);
     });
@@ -260,12 +256,11 @@ void main() {
       expect(calls, 1);
       expect(
         result!.destination,
-        FrequencyV2PendingPipelineDestination.dormantCompletion,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
     });
 
-    test('different-session already-finalized is not treated as success',
-        () async {
+    test('already-finalized V2 recovers as product completion', () async {
       final bank = await FrequencyV2RuntimeTestHarness.loadTr();
       final pending = await FrequencyV2RuntimeTestHarness.pendingSession(
         bank: bank,
@@ -288,36 +283,18 @@ void main() {
       );
       final result = await coordinator.runIfPending(pending.session);
       expect(
-          result!.failureKind, FrequencyV2FinalizeFailureKind.sessionConflict);
-      expect(
-        result.destination,
-        FrequencyV2PendingPipelineDestination.stayOnSession,
+        result!.destination,
+        FrequencyV2PendingPipelineDestination.productCompletion,
       );
-      expect(result.uiErrorCode, 'FREQUENCY_V2_ALREADY_FINALIZED');
-      final still = await pending.repo.loadSession(
-        'wire-owner',
-        pending.session.sessionId,
-      );
-      expect(
-        still.state!.status,
-        FrequencyV2PersistedSessionStatus.completedPendingPersistence,
-      );
-      expect(still.state!.remoteFinalized, isFalse);
+      expect(result.uiErrorCode, isNull);
     });
 
-    test('release/default routing remains V1 and intro uses centralized policy',
-        () {
+    test('release/default routing is V2 and intro uses the shared factory', () {
       expect(
         FrequencyRuntimeSelectionPolicy.resolve(
           debugInternalV2Override: false,
         ),
-        FrequencyRuntimeTrack.v1,
-      );
-      expect(
-        FrequencyBehaviorV2BankRegistry.isRuntimeSelectable(
-          FrequencyBehaviorV2Contract.poolVersionTrDraft1,
-        ),
-        isFalse,
+        FrequencyRuntimeTrack.v2,
       );
       final intro = File(
         'lib/features/assessment/screens/frequency_intro_screen.dart',
@@ -327,13 +304,10 @@ void main() {
         isTrue,
       );
       expect(intro.contains('QMATCH_FREQUENCY_V2_INTERNAL'), isFalse);
-      expect(
-          intro.contains('FrequencyRuntimeSelectionPolicy.resolve()'), isFalse);
       expect(intro.contains('FrequencyTestScreen'), isFalse);
-      expect(intro.contains('FrequencyV2TestScreen'), isFalse);
     });
 
-    test('debug internal routing reaches wired V2 screen', () {
+    test('wired V2 screen continues into Persona after finalize', () {
       expect(
         FrequencyRuntimeSelectionPolicy.resolve(
           isRuntimeSelectable: (_) => false,
@@ -348,12 +322,9 @@ void main() {
       expect(src.contains('.live('), isTrue);
       expect(src.contains('_runPendingFinalizationPipeline'), isTrue);
       expect(src.contains('tryClaimBootstrapRetry'), isTrue);
-      expect(
-        src.contains(FrequencyV2TestScreen.internalCompletionTitle),
-        isTrue,
-      );
-      expect(src.contains('exitInternalCompletion'), isTrue);
-      expect(src.contains('PersonaAssignmentGateScreen'), isFalse);
+      expect(src.contains('PersonaAssignmentGateScreen'), isTrue);
+      expect(src.contains('AuthRoutingRefresh.bump()'), isTrue);
+      expect(src.contains('internalCompletionTitle'), isFalse);
     });
 
     test('wired client path does not write server authority fields', () {

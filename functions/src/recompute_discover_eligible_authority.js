@@ -1,8 +1,9 @@
 /**
- * Trusted Discover eligibility writers (source-prep, not deployed in 8C.1).
+ * Trusted Discover eligibility writers.
  *
  * Both user-document and Frequency V2 result paths use the same derivation
  * and may write only `discover_eligible`.
+ * `recomputeDiscoverEligibleOnFrequencyV2Write` requires selective deploy.
  */
 
 'use strict';

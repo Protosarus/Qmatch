@@ -12,25 +12,10 @@ fi
 
 cd "$ROOT_DIR"
 
-v2_internal=false
-for arg in "$@"; do
-  case "$arg" in
-    --dart-define=QMATCH_FREQUENCY_V2_INTERNAL=true)
-      v2_internal=true
-      ;;
-  esac
-done
-
 echo ""
-if [[ "$v2_internal" == true ]]; then
-  echo "=============================================="
-  echo "QMatch runtime: INTERNAL FREQUENCY V2"
-  echo "=============================================="
-else
-  echo "=============================================="
-  echo "QMatch runtime: DEFAULT FREQUENCY V1"
-  echo "=============================================="
-fi
+echo "=============================================="
+echo "QMatch runtime: FREQUENCY V2"
+echo "=============================================="
 echo ""
 
 exec flutter run --dart-define-from-file="$SECRETS_FILE" "$@"

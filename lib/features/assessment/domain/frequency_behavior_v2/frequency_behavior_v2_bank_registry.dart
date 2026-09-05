@@ -1,13 +1,10 @@
 import 'frequency_behavior_v2_contract.dart';
 
-/// Version-keyed bank registry for a future V2 activation.
+/// Version-keyed bank paths for Frequency V2 assets.
 ///
-/// Live Frequency routing must NOT call this. V1 sessions stay bound to
-/// `frequency_bank_*_v1` via persisted `bank_version` + `bank_locale`.
-/// Future runtime loaders must key by version, not locale alone.
-///
-/// [isRuntimeSelectable] stays false. Reviewed pools may be bundled as
-/// dormant Flutter assets without becoming the release track.
+/// Live routing always uses V2 via FrequencyRuntimeSelectionPolicy.
+/// [isRuntimeSelectable] is unused by production selection and stays false
+/// so draft pool metadata is not treated as a second switch.
 class FrequencyBehaviorV2BankRegistry {
   FrequencyBehaviorV2BankRegistry._();
 

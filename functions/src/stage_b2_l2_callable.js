@@ -5,11 +5,10 @@
  * Admin-omits reverse-blocked candidates (candidate blocked viewer).
  * Returns pair diagnostics only — never peer 20D vectors or block docs.
  *
- * Optional dormant `include_frequency_v2_diagnostics=true` may add a nested
- * Frequency V2 aggregate diagnostic. Optional dormant
- * `include_compatibility_v2_diagnostics=true` may add nested compatibility_v2
- * fusion. Default/absent is false and must not change structural reads,
- * schema, distance, or ranking inputs.
+ * Live ranking always Admin-reads Frequency V2 results and attaches
+ * `compatibility_v2` (`qmatch_compatibility_fusion_v2_policy_v1`).
+ * Optional `include_frequency_v2_diagnostics=true` still adds the nested
+ * Frequency V2 aggregate diagnostic. V1 Frequency is never an input.
  */
 
 'use strict';
@@ -79,7 +78,7 @@ function wantsFrequencyV2Diagnostics(data) {
 }
 
 function wantsCompatibilityV2Diagnostics(data) {
-  return data.include_compatibility_v2_diagnostics === true;
+  return data.include_compatibility_v2_diagnostics !== false;
 }
 
 function frequencyV2InputFromParsed(viewerParsed, candidateParsed) {
