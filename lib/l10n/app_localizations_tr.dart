@@ -260,6 +260,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get welcomeLogInWithEmail => 'E-posta ile giriş yap';
 
   @override
+  String get welcomeSignUpWithEmail => 'E-posta ile kayıt ol';
+
+  @override
   String get welcomeTagline => 'ZEKA. DUYGU. FREKANS.';
 
   @override
@@ -448,6 +451,38 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get loginErrorFailed => 'Giriş başarısız. Lütfen tekrar dene.';
+
+  @override
+  String get emailSignupTitle => 'Hesabını oluştur';
+
+  @override
+  String get emailSignupSubtitle => 'Devam etmek için e-postanla kayıt ol.';
+
+  @override
+  String get emailSignupConfirmPassword => 'Şifreyi tekrar gir';
+
+  @override
+  String get emailSignupAlreadyHaveAccount => 'Zaten hesabın var mı?';
+
+  @override
+  String get emailSignupErrorConfirmPassword => 'Lütfen şifreni tekrar gir';
+
+  @override
+  String get emailSignupErrorPasswordMismatch => 'Şifreler eşleşmiyor';
+
+  @override
+  String get emailSignupErrorEmailInUse =>
+      'Bu e-posta zaten kayıtlı. Giriş yapmayı dene.';
+
+  @override
+  String get emailSignupErrorWeakPassword => 'Lütfen daha güçlü bir şifre seç.';
+
+  @override
+  String get emailSignupErrorOperationNotAllowed =>
+      'E-posta ile kayıt şu anda kullanılamıyor.';
+
+  @override
+  String get emailSignupErrorFailed => 'Kayıt başarısız. Lütfen tekrar dene.';
 
   @override
   String get discoverTitle => 'Keşfet';

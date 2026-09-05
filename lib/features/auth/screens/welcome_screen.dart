@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
+import 'email_signup_screen.dart';
 import 'login_screen.dart';
 import 'phone_signup_screen.dart';
 
@@ -28,6 +29,13 @@ class WelcomeScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => const LoginScreen()),
+    );
+  }
+
+  void _goEmailSignup(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const EmailSignupScreen()),
     );
   }
 
@@ -65,7 +73,12 @@ class WelcomeScreen extends StatelessWidget {
                   final wordmark = (34.0 * scale).clamp(26.0, 38.0);
                   final cueIcon = (40.0 * scale).clamp(32.0, 44.0);
                   final ctaH = (52.0 * scale).clamp(46.0, 56.0);
-                  final heroBudget = h * (tiny ? 0.36 : short ? 0.40 : 0.45);
+                  final heroBudget = h *
+                      (tiny
+                          ? 0.36
+                          : short
+                              ? 0.40
+                              : 0.45);
                   final heroMax = (contentW * 0.96).clamp(220.0, 390.0);
 
                   final gapBrandCues = dense ? 8.0 : 12.0;
@@ -124,6 +137,12 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         SizedBox(height: gapCtaEmail),
                         _LoginLink(
+                          key: const Key('qmatch-welcome-email-signup'),
+                          label: l10n.welcomeSignUpWithEmail,
+                          onTap: () => _goEmailSignup(context),
+                        ),
+                        _LoginLink(
+                          key: const Key('qmatch-welcome-email-login'),
                           label: l10n.welcomeLogInWithEmail,
                           onTap: () => _goLogin(context),
                         ),
@@ -379,8 +398,7 @@ class _HeroState extends State<_Hero> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final size = widget.size;
-    final reduceMotion =
-        MediaQuery.maybeOf(context)?.disableAnimations == true;
+    final reduceMotion = MediaQuery.maybeOf(context)?.disableAnimations == true;
 
     return SizedBox(
       width: size,
@@ -584,7 +602,7 @@ class _Cta extends StatelessWidget {
 }
 
 class _LoginLink extends StatelessWidget {
-  const _LoginLink({required this.label, required this.onTap});
+  const _LoginLink({super.key, required this.label, required this.onTap});
   final String label;
   final VoidCallback onTap;
 

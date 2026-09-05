@@ -259,6 +259,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeLogInWithEmail => 'Log in with email';
 
   @override
+  String get welcomeSignUpWithEmail => 'Sign up with email';
+
+  @override
   String get welcomeTagline => 'INTELLIGENCE. EMOTION. FREQUENCY.';
 
   @override
@@ -449,6 +452,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginErrorFailed => 'Login failed. Please try again.';
+
+  @override
+  String get emailSignupTitle => 'Create your account';
+
+  @override
+  String get emailSignupSubtitle => 'Register with your email to continue.';
+
+  @override
+  String get emailSignupConfirmPassword => 'Re-enter password';
+
+  @override
+  String get emailSignupAlreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get emailSignupErrorConfirmPassword => 'Please re-enter your password';
+
+  @override
+  String get emailSignupErrorPasswordMismatch => 'Passwords do not match';
+
+  @override
+  String get emailSignupErrorEmailInUse =>
+      'This email is already registered. Try logging in.';
+
+  @override
+  String get emailSignupErrorWeakPassword =>
+      'Please choose a stronger password.';
+
+  @override
+  String get emailSignupErrorOperationNotAllowed =>
+      'Email registration is not available right now.';
+
+  @override
+  String get emailSignupErrorFailed => 'Registration failed. Please try again.';
 
   @override
   String get discoverTitle => 'Discover';

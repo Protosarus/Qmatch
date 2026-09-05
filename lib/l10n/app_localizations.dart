@@ -536,6 +536,12 @@ abstract class AppLocalizations {
   /// **'Log in with email'**
   String get welcomeLogInWithEmail;
 
+  /// No description provided for @welcomeSignUpWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up with email'**
+  String get welcomeSignUpWithEmail;
+
   /// No description provided for @welcomeTagline.
   ///
   /// In en, this message translates to:
@@ -883,6 +889,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login failed. Please try again.'**
   String get loginErrorFailed;
+
+  /// No description provided for @emailSignupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account'**
+  String get emailSignupTitle;
+
+  /// No description provided for @emailSignupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Register with your email to continue.'**
+  String get emailSignupSubtitle;
+
+  /// No description provided for @emailSignupConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter password'**
+  String get emailSignupConfirmPassword;
+
+  /// No description provided for @emailSignupAlreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get emailSignupAlreadyHaveAccount;
+
+  /// No description provided for @emailSignupErrorConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please re-enter your password'**
+  String get emailSignupErrorConfirmPassword;
+
+  /// No description provided for @emailSignupErrorPasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get emailSignupErrorPasswordMismatch;
+
+  /// No description provided for @emailSignupErrorEmailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already registered. Try logging in.'**
+  String get emailSignupErrorEmailInUse;
+
+  /// No description provided for @emailSignupErrorWeakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose a stronger password.'**
+  String get emailSignupErrorWeakPassword;
+
+  /// No description provided for @emailSignupErrorOperationNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Email registration is not available right now.'**
+  String get emailSignupErrorOperationNotAllowed;
+
+  /// No description provided for @emailSignupErrorFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration failed. Please try again.'**
+  String get emailSignupErrorFailed;
 
   /// No description provided for @discoverTitle.
   ///
