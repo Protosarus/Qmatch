@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' show ImageFilter;
 
@@ -9,7 +10,6 @@ import '../../../core/navigation/auth_navigation.dart';
 import '../../../core/services/auth_provider_resolver.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/services/pending_provider_link.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../l10n/app_localizations.dart';
 import '../apple_sign_in_flow.dart';
@@ -45,29 +45,100 @@ class WelcomeScreen extends StatefulWidget {
   static const Key googleErrorKey = Key('qmatch-welcome-google-error');
   static const Key appleButtonKey = Key('qmatch-welcome-apple');
   static const Key appleErrorKey = Key('qmatch-welcome-apple-error');
+  static const Key heroKey = Key('qmatch-welcome-hero');
 
   static const _maxContentWidth = 430.0;
+
+  /// Last pass already applied 0.82 to the original budget. This pass reduces
+  /// that current size by another ~18% so the couple stays secondary.
+  static const double _heroFromOriginal = 0.82 * 0.82;
+
+  @visibleForTesting
+  static double resolveHeroSize({
+    required double safeHeight,
+    required double contentWidth,
+  }) {
+    final tiny = safeHeight < 640;
+    final short = safeHeight < 720;
+    final budget = safeHeight *
+        (tiny
+            ? 0.36
+            : short
+                ? 0.40
+                : 0.45) *
+        _heroFromOriginal;
+    final maxExtent =
+        ((math.min(contentWidth, _maxContentWidth) * 0.96).clamp(220.0, 390.0)) *
+            _heroFromOriginal;
+    return budget.clamp(140.0, maxExtent);
+  }
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
+enum _AuthLoadingProvider {
+  // Phone CTA has no in-button spinner today.
+  // ignore: unused_field
+  phone,
+  google,
+  apple,
+}
+
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  bool _socialLoading = false;
+  static const _errorHold = Duration(milliseconds: 1500);
+  static const _errorFadeOut = Duration(milliseconds: 200);
+
+  _AuthLoadingProvider? _loadingProvider;
   bool _socialLocked = false;
   String? _googleError;
   String? _appleError;
+  bool _errorFading = false;
+  Timer? _errorDismissTimer;
   late bool _showApple;
 
   AuthService get _auth => widget.authService ?? AuthService();
 
-  bool get _busy => _socialLoading;
+  bool get _busy => _loadingProvider != null;
 
   @override
   void initState() {
     super.initState();
     _showApple =
         widget.showAppleButton ?? AppleSignInFlow.isNativeApplePlatform;
+  }
+
+  @override
+  void dispose() {
+    _errorDismissTimer?.cancel();
+    super.dispose();
+  }
+
+  void _cancelErrorDismiss() {
+    _errorDismissTimer?.cancel();
+    _errorDismissTimer = null;
+  }
+
+  void _presentWelcomeError({String? google, String? apple}) {
+    _cancelErrorDismiss();
+    if (!mounted) return;
+    setState(() {
+      _googleError = google;
+      _appleError = apple;
+      _errorFading = false;
+    });
+    _errorDismissTimer = Timer(_errorHold, () {
+      if (!mounted) return;
+      setState(() => _errorFading = true);
+      _errorDismissTimer = Timer(_errorFadeOut, () {
+        if (!mounted) return;
+        setState(() {
+          _googleError = null;
+          _appleError = null;
+          _errorFading = false;
+        });
+      });
+    });
   }
 
   void _goPhone() {
@@ -110,9 +181,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       final message = linked.error == null
           ? l10n.providerLinkErrorFailed
           : ProviderLinkFlow.mapAuthError(l10n, linked.error!);
-      setState(() {
-        _googleError = message;
-      });
+      _presentWelcomeError(google: message);
     }
     AuthNavigation.completeAuthentication(context);
   }
@@ -126,12 +195,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   Future<void> _handleGoogle() async {
-    if (_socialLocked || _socialLoading) return;
+    if (_socialLocked || _loadingProvider != null) return;
     _socialLocked = true;
+    _cancelErrorDismiss();
     setState(() {
-      _socialLoading = true;
+      _loadingProvider = _AuthLoadingProvider.google;
       _googleError = null;
       _appleError = null;
+      _errorFading = false;
     });
     try {
       final signIn = widget.signInWithGoogle ?? _auth.signInWithGoogle;
@@ -149,31 +220,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       }
       final error = attempt.error;
       final l10n = AppLocalizations.of(context)!;
-      setState(() {
-        _googleError = error == null
+      _presentWelcomeError(
+        google: error == null
             ? l10n.googleSignInErrorFailed
-            : GoogleSignInFlow.mapAuthError(l10n, error);
-      });
+            : GoogleSignInFlow.mapAuthError(l10n, error),
+      );
     } catch (_) {
       if (!mounted) return;
-      setState(() {
-        _googleError = AppLocalizations.of(context)!.googleSignInErrorFailed;
-      });
+      _presentWelcomeError(
+        google: AppLocalizations.of(context)!.googleSignInErrorFailed,
+      );
     } finally {
       _socialLocked = false;
       if (mounted) {
-        setState(() => _socialLoading = false);
+        setState(() => _loadingProvider = null);
       }
     }
   }
 
   Future<void> _handleApple() async {
-    if (_socialLocked || _socialLoading) return;
+    if (_socialLocked || _loadingProvider != null) return;
     _socialLocked = true;
+    _cancelErrorDismiss();
     setState(() {
-      _socialLoading = true;
+      _loadingProvider = _AuthLoadingProvider.apple;
       _googleError = null;
       _appleError = null;
+      _errorFading = false;
     });
     try {
       final signIn = widget.signInWithApple ?? _auth.signInWithApple;
@@ -191,20 +264,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       }
       final error = attempt.error;
       final l10n = AppLocalizations.of(context)!;
-      setState(() {
-        _appleError = error == null
+      _presentWelcomeError(
+        apple: error == null
             ? l10n.appleSignInErrorFailed
-            : AppleSignInFlow.mapAuthError(l10n, error);
-      });
+            : AppleSignInFlow.mapAuthError(l10n, error),
+      );
     } catch (_) {
       if (!mounted) return;
-      setState(() {
-        _appleError = AppLocalizations.of(context)!.appleSignInErrorFailed;
-      });
+      _presentWelcomeError(
+        apple: AppLocalizations.of(context)!.appleSignInErrorFailed,
+      );
     } finally {
       _socialLocked = false;
       if (mounted) {
-        setState(() => _socialLoading = false);
+        setState(() => _loadingProvider = null);
       }
     }
   }
@@ -243,154 +316,138 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   final wordmark = (34.0 * scale).clamp(26.0, 38.0);
                   final cueIcon = (40.0 * scale).clamp(32.0, 44.0);
                   final ctaH = (52.0 * scale).clamp(46.0, 56.0);
-                  final heroBudget = h *
-                      (tiny
-                          ? 0.36
-                          : short
-                              ? 0.40
-                              : 0.45);
-                  final heroMax = (contentW * 0.96).clamp(220.0, 390.0);
+                  final heroSize = WelcomeScreen.resolveHeroSize(
+                    safeHeight: h,
+                    contentWidth: contentW,
+                  );
 
-                  final gapBrandCues = dense ? 8.0 : 12.0;
-                  final gapCuesHero = dense ? 2.0 : 4.0;
+                  final gapBrandCues = dense ? 8.0 : 10.0;
+                  final gapCuesHero = 0.0;
                   final gapHeroCta = dense ? 8.0 : 12.0;
                   final gapCtaEmail = dense ? 8.0 : 10.0;
-                  final gapEmailCards = dense ? 12.0 : 16.0;
-                  final gapCardsLegal = dense ? 10.0 : 12.0;
+                  final gapStackEmail = dense ? 12.0 : 14.0;
+                  final gapEmailLegal = dense ? 10.0 : 12.0;
 
-                  Widget body = Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      padH,
-                      dense ? 2 : 6,
-                      padH,
-                      dense ? 8 : 12,
+                  final stack = <Widget>[
+                    _Brand(
+                      qSize: brandQ,
+                      wordmarkSize: wordmark,
+                      dense: dense,
+                      tagline: l10n.welcomeTagline,
                     ),
-                    child: Column(
-                      children: [
-                        _Brand(
-                          qSize: brandQ,
-                          wordmarkSize: wordmark,
-                          dense: dense,
-                          tagline: l10n.welcomeTagline,
-                        ),
-                        SizedBox(height: gapBrandCues),
-                        _Cues(
-                          iconSize: cueIcon,
-                          a: l10n.welcomeCueIntelligent,
-                          b: l10n.welcomeCueEmotional,
-                          c: l10n.welcomeCueVibrational,
-                        ),
-                        SizedBox(height: gapCuesHero),
-                        Expanded(
-                          child: Center(
-                            child: LayoutBuilder(
-                              builder: (_, box) {
-                                final size = math
-                                    .min(
-                                      heroBudget,
-                                      math.min(heroMax, box.maxHeight),
-                                    )
-                                    .clamp(160.0, heroMax);
-                                if (size < 140) {
-                                  return const SizedBox.shrink();
-                                }
-                                return _Hero(size: size);
-                              },
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: gapHeroCta),
-                        _Cta(
-                          label: l10n.welcomeContinueWithPhone,
-                          height: ctaH,
-                          enabled: !_busy,
-                          onTap: _goPhone,
-                        ),
-                        SizedBox(height: gapCtaEmail),
-                        _GoogleCta(
-                          key: WelcomeScreen.googleButtonKey,
-                          label: l10n.welcomeContinueWithGoogle,
-                          height: ctaH,
-                          loading: _busy,
-                          enabled: !_busy,
-                          onTap: _handleGoogle,
-                        ),
-                        if (_showApple) ...[
-                          SizedBox(height: gapCtaEmail),
-                          _AppleCta(
-                            key: WelcomeScreen.appleButtonKey,
-                            label: l10n.welcomeContinueWithApple,
-                            height: ctaH,
-                            loading: _busy,
-                            enabled: !_busy,
-                            onTap: _handleApple,
-                          ),
-                        ],
-                        if (_googleError != null) ...[
-                          const SizedBox(height: 10),
-                          _GoogleErrorBanner(message: _googleError!),
-                        ],
-                        if (_appleError != null) ...[
-                          const SizedBox(height: 10),
-                          _AppleErrorBanner(message: _appleError!),
-                        ],
-                        SizedBox(height: gapCtaEmail),
-                        _LoginLink(
-                          key: const Key('qmatch-welcome-email-signup'),
-                          label: l10n.welcomeSignUpWithEmail,
-                          enabled: !_busy,
-                          onTap: _goEmailSignup,
-                        ),
-                        _LoginLink(
-                          key: const Key('qmatch-welcome-email-login'),
-                          label: l10n.welcomeLogInWithEmail,
-                          enabled: !_busy,
-                          onTap: _goLogin,
-                        ),
-                        SizedBox(height: gapEmailCards),
-                        _TrustRow(
-                          compact: dense,
-                          t1: l10n.welcomeTrustPrivateTitle,
-                          b1: l10n.welcomeTrustPrivateBody,
-                          t2: l10n.welcomeTrustScienceTitle,
-                          b2: l10n.welcomeTrustScienceBody,
-                          t3: l10n.welcomeTrustMatchesTitle,
-                          b3: l10n.welcomeTrustMatchesBody,
-                        ),
-                        SizedBox(height: gapCardsLegal),
-                        _LegalFooter(
-                          prefix: l10n.welcomeLegalPrefix,
-                          terms: l10n.welcomeTermsOfService,
-                          andWord: l10n.welcomeLegalAnd,
-                          privacy: l10n.welcomePrivacyPolicy,
-                          suffix: l10n.welcomeLegalSuffix,
-                        ),
-                      ],
+                    SizedBox(height: gapBrandCues),
+                    _Cues(
+                      iconSize: cueIcon,
+                      a: l10n.welcomeCueIntelligent,
+                      b: l10n.welcomeCueEmotional,
+                      c: l10n.welcomeCueVibrational,
                     ),
-                  );
-
-                  body = ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: contentW),
-                    child: body,
-                  );
-
-                  if (tiny) {
-                    return Align(
-                      alignment: Alignment.topCenter,
-                      child: SingleChildScrollView(
-                        physics: const ClampingScrollPhysics(),
-                        child: SizedBox(
-                          height: math.max(h, 700),
-                          width: contentW,
-                          child: body,
+                    SizedBox(height: gapCuesHero),
+                    if (heroSize >= 140)
+                      _Hero(
+                        key: WelcomeScreen.heroKey,
+                        size: heroSize,
+                      ),
+                    SizedBox(height: gapHeroCta),
+                    _Cta(
+                      label: l10n.welcomeContinueWithPhone,
+                      height: ctaH,
+                      enabled: !_busy,
+                      onTap: _goPhone,
+                    ),
+                    SizedBox(height: gapCtaEmail),
+                    _GoogleCta(
+                      key: WelcomeScreen.googleButtonKey,
+                      label: l10n.welcomeContinueWithGoogle,
+                      height: ctaH,
+                      loading:
+                          _loadingProvider == _AuthLoadingProvider.google,
+                      enabled: !_busy,
+                      onTap: _handleGoogle,
+                    ),
+                    if (_showApple) ...[
+                      SizedBox(height: gapCtaEmail),
+                      _AppleCta(
+                        key: WelcomeScreen.appleButtonKey,
+                        label: l10n.welcomeContinueWithApple,
+                        height: ctaH,
+                        loading:
+                            _loadingProvider == _AuthLoadingProvider.apple,
+                        enabled: !_busy,
+                        onTap: _handleApple,
+                      ),
+                    ],
+                    if (_googleError != null) ...[
+                      const SizedBox(height: 16),
+                      AnimatedOpacity(
+                        opacity: _errorFading ? 0 : 1,
+                        duration: _errorFadeOut,
+                        curve: Curves.easeOutCubic,
+                        child: _AuthErrorBanner(
+                          key: WelcomeScreen.googleErrorKey,
+                          message: _googleError!,
                         ),
                       ),
-                    );
-                  }
+                    ],
+                    if (_appleError != null) ...[
+                      const SizedBox(height: 16),
+                      AnimatedOpacity(
+                        opacity: _errorFading ? 0 : 1,
+                        duration: _errorFadeOut,
+                        curve: Curves.easeOutCubic,
+                        child: _AuthErrorBanner(
+                          key: WelcomeScreen.appleErrorKey,
+                          message: _appleError!,
+                        ),
+                      ),
+                    ],
+                    SizedBox(height: gapStackEmail),
+                    _LoginLink(
+                      key: const Key('qmatch-welcome-email-signup'),
+                      label: l10n.welcomeSignUpWithEmail,
+                      enabled: !_busy,
+                      onTap: _goEmailSignup,
+                    ),
+                    _LoginLink(
+                      key: const Key('qmatch-welcome-email-login'),
+                      label: l10n.welcomeLogInWithEmail,
+                      enabled: !_busy,
+                      onTap: _goLogin,
+                    ),
+                    SizedBox(height: gapEmailLegal),
+                    _LegalFooter(
+                      prefix: l10n.welcomeLegalPrefix,
+                      terms: l10n.welcomeTermsOfService,
+                      andWord: l10n.welcomeLegalAnd,
+                      privacy: l10n.welcomePrivacyPolicy,
+                      suffix: l10n.welcomeLegalSuffix,
+                    ),
+                  ];
+
+                  // SafeArea owns the home-indicator inset. Only a light
+                  // content pad remains so we do not double-count the bottom.
+                  final pad = EdgeInsets.fromLTRB(
+                    padH,
+                    dense ? 2 : 6,
+                    padH,
+                    4,
+                  );
 
                   return Align(
                     alignment: Alignment.topCenter,
-                    child: SizedBox(width: contentW, child: body),
+                    child: SingleChildScrollView(
+                      physics: const ClampingScrollPhysics(),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: contentW),
+                        child: Padding(
+                          padding: pad,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: stack,
+                          ),
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -469,7 +526,7 @@ class _Brand extends StatelessWidget {
         ),
         SizedBox(height: dense ? 0 : 2),
         Text(
-          'Qmatch',
+          'QMatch',
           style: GoogleFonts.playfairDisplay(
             color: Colors.white,
             fontSize: wordmarkSize,
@@ -568,7 +625,7 @@ class _Cue extends StatelessWidget {
 }
 
 class _Hero extends StatefulWidget {
-  const _Hero({required this.size});
+  const _Hero({super.key, required this.size});
   final double size;
 
   @override
@@ -709,6 +766,75 @@ class _CenterSparkPainter extends CustomPainter {
       oldDelegate.t != t;
 }
 
+/// Shared geometry so Phone / Google / Apple CTAs stay aligned.
+class _AuthCtaLayout {
+  static const double horizontalPadding = 10;
+  static const double labelSize = 15.5;
+  static const double iconSize = 18;
+  static const double trailingSlot = 22;
+
+  static double leadingSlot(double height) => height - 14;
+}
+
+class _AuthCtaRow extends StatelessWidget {
+  const _AuthCtaRow({
+    required this.height,
+    required this.leading,
+    required this.label,
+    required this.labelColor,
+    this.trailing,
+  });
+
+  final double height;
+  final Widget leading;
+  final String label;
+  final Color labelColor;
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    final slot = _AuthCtaLayout.leadingSlot(height);
+    return SizedBox(
+      height: height,
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: _AuthCtaLayout.horizontalPadding,
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: slot,
+              height: slot,
+              child: leading,
+            ),
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: GoogleFonts.inter(
+                    color: labelColor,
+                    fontSize: _AuthCtaLayout.labelSize,
+                    fontWeight: FontWeight.w600,
+                    height: 1.1,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: _AuthCtaLayout.trailingSlot,
+              child: trailing,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _Cta extends StatelessWidget {
   const _Cta({
     required this.label,
@@ -731,21 +857,20 @@ class _Cta extends StatelessWidget {
           borderRadius: AppRadii.pillBorder,
           gradient: const LinearGradient(
             colors: [
-              Color(0xFF4A1FE0),
-              Color(0xFF8B4DFF),
-              Color(0xFFE0A84A),
-              Color(0xFFF5C94C),
+              Color(0xFF5A2BEA),
+              Color(0xFF8B4CF6),
+              Color(0xFFE9B83F),
             ],
-            stops: [0.0, 0.38, 0.74, 1.0],
+            stops: [0.0, 0.46, 1.0],
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFF5C94C).withValues(alpha: 0.38),
-              blurRadius: 20,
+              color: const Color(0xFFE9B83F).withValues(alpha: 0.26),
+              blurRadius: 18,
               offset: const Offset(6, 4),
             ),
             BoxShadow(
-              color: const Color(0xFF8B4DFF).withValues(alpha: 0.32),
+              color: const Color(0xFF8B4CF6).withValues(alpha: 0.30),
               blurRadius: 16,
               offset: const Offset(-4, 4),
             ),
@@ -756,48 +881,26 @@ class _Cta extends StatelessWidget {
           child: InkWell(
             onTap: enabled ? onTap : null,
             borderRadius: AppRadii.pillBorder,
-            child: SizedBox(
+            child: _AuthCtaRow(
               height: height,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: height - 14,
-                      height: height - 14,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black.withValues(alpha: 0.28),
-                        border: Border.all(color: Colors.white30),
-                      ),
-                      child: const Icon(
-                        Icons.phone_rounded,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        label,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 15.5,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_forward_rounded,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    const SizedBox(width: 4),
-                  ],
+              label: label,
+              labelColor: Colors.white,
+              leading: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.black.withValues(alpha: 0.28),
+                  border: Border.all(color: Colors.white30),
                 ),
+                child: const Icon(
+                  Icons.phone_rounded,
+                  color: Colors.white,
+                  size: _AuthCtaLayout.iconSize,
+                ),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_rounded,
+                color: Colors.white,
+                size: _AuthCtaLayout.iconSize,
               ),
             ),
           ),
@@ -828,8 +931,11 @@ class _GoogleCta extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: AppRadii.pillBorder,
-        color: const Color(0xEE161226),
-        border: Border.all(color: const Color(0x99E8E0F4), width: 1.1),
+        color: const Color.fromRGBO(17, 12, 35, 0.88),
+        border: Border.all(
+          color: const Color.fromRGBO(190, 151, 255, 0.55),
+          width: 1.1,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.28),
@@ -843,50 +949,28 @@ class _GoogleCta extends StatelessWidget {
         child: InkWell(
           onTap: enabled && !loading ? onTap : null,
           borderRadius: AppRadii.pillBorder,
-          child: SizedBox(
+          child: _AuthCtaRow(
             height: height,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  Container(
-                    width: height - 14,
-                    height: height - 14,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    alignment: Alignment.center,
-                    child: loading
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Color(0xFF4285F4),
-                              ),
-                            ),
-                          )
-                        : const _GoogleMark(),
-                  ),
-                  Expanded(
-                    child: Text(
-                      label,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 22),
-                ],
+            label: label,
+            labelColor: const Color(0xFFF6F2FF),
+            leading: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
               ),
+              alignment: Alignment.center,
+              child: loading
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Color(0xFF4285F4),
+                        ),
+                      ),
+                    )
+                  : const _GoogleMark(),
             ),
           ),
         ),
@@ -945,31 +1029,82 @@ class _GoogleGPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class _GoogleErrorBanner extends StatelessWidget {
-  const _GoogleErrorBanner({required this.message});
+class _AuthErrorBanner extends StatelessWidget {
+  const _AuthErrorBanner({
+    super.key,
+    required this.message,
+  });
 
   final String message;
 
+  static const _background = Color.fromRGBO(74, 15, 35, 0.78);
+  static const _border = Color.fromRGBO(255, 92, 115, 0.75);
+  static const _foreground = Color(0xFFFF7488);
+  static const _glow = Color.fromRGBO(255, 75, 105, 0.18);
+  static const _entry = Duration(milliseconds: 200);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: WelcomeScreen.googleErrorKey,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: AppRadii.buttonBorder,
-        color: AppColors.error.withValues(alpha: 0.12),
-        border: Border.all(
-          color: AppColors.error.withValues(alpha: 0.45),
-        ),
-      ),
-      child: Text(
-        message,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.inter(
-          color: AppColors.error.withValues(alpha: 0.95),
-          fontSize: 13,
-          height: 1.35,
+    return Semantics(
+      container: true,
+      liveRegion: true,
+      child: ClipRect(
+        child: TweenAnimationBuilder<double>(
+          duration: _entry,
+          curve: Curves.easeOutCubic,
+          tween: Tween<double>(begin: 0, end: 1),
+          builder: (context, t, child) {
+            return Opacity(
+              opacity: t,
+              child: Transform.translate(
+                offset: Offset(0, 6 * (1 - t)),
+                child: child,
+              ),
+            );
+          },
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: AppRadii.buttonBorder,
+              color: _background,
+              border: Border.all(color: _border, width: 1.1),
+              boxShadow: const [
+                BoxShadow(
+                  color: _glow,
+                  blurRadius: 16,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ExcludeSemantics(
+                    child: Icon(
+                      Icons.error_outline_rounded,
+                      color: _foreground,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      message,
+                      textAlign: TextAlign.start,
+                      softWrap: true,
+                      style: GoogleFonts.inter(
+                        color: _foreground,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -997,7 +1132,7 @@ class _AppleCta extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: AppRadii.pillBorder,
-        color: Colors.white,
+        color: Colors.black,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.22),
@@ -1011,50 +1146,22 @@ class _AppleCta extends StatelessWidget {
         child: InkWell(
           onTap: enabled && !loading ? onTap : null,
           borderRadius: AppRadii.pillBorder,
-          child: SizedBox(
+          child: _AuthCtaRow(
             height: height,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  Container(
-                    width: height - 14,
-                    height: height - 14,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                    ),
-                    alignment: Alignment.center,
-                    child: loading
-                        ? const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          )
-                        : const _AppleMark(),
-                  ),
-                  Expanded(
-                    child: Text(
-                      label,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.inter(
-                        color: Colors.black,
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w600,
+            label: label,
+            labelColor: Colors.white,
+            leading: loading
+                ? const Center(
+                    child: SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 22),
-                ],
-              ),
-            ),
+                  )
+                : const _AppleMark(),
           ),
         ),
       ),
@@ -1070,41 +1177,11 @@ class _AppleMark extends StatelessWidget {
     return const Icon(
       Icons.apple,
       color: Colors.white,
-      size: 18,
+      size: 22,
     );
   }
 }
 
-class _AppleErrorBanner extends StatelessWidget {
-  const _AppleErrorBanner({required this.message});
-
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: WelcomeScreen.appleErrorKey,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: AppRadii.buttonBorder,
-        color: AppColors.error.withValues(alpha: 0.12),
-        border: Border.all(
-          color: AppColors.error.withValues(alpha: 0.45),
-        ),
-      ),
-      child: Text(
-        message,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.inter(
-          color: AppColors.error.withValues(alpha: 0.95),
-          fontSize: 13,
-          height: 1.35,
-        ),
-      ),
-    );
-  }
-}
 
 class _LoginLink extends StatelessWidget {
   const _LoginLink({
@@ -1123,7 +1200,7 @@ class _LoginLink extends StatelessWidget {
       onTap: enabled ? onTap : null,
       behavior: HitTestBehavior.opaque,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: Text(
           label,
           textAlign: TextAlign.center,
@@ -1133,154 +1210,6 @@ class _LoginLink extends StatelessWidget {
             fontWeight: FontWeight.w500,
             decoration: TextDecoration.underline,
             decorationColor: const Color(0x99C4B0FF),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _TrustRow extends StatelessWidget {
-  const _TrustRow({
-    required this.compact,
-    required this.t1,
-    required this.b1,
-    required this.t2,
-    required this.b2,
-    required this.t3,
-    required this.b3,
-  });
-
-  final bool compact;
-  final String t1;
-  final String b1;
-  final String t2;
-  final String b2;
-  final String t3;
-  final String b3;
-
-  @override
-  Widget build(BuildContext context) {
-    final gap = compact ? 6.0 : 8.0;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final rowW = constraints.maxWidth;
-        final cardW = ((rowW - gap * 2) / 3).clamp(72.0, 160.0);
-        // ~15% shorter than prior 1.00/1.05 bands (78–112 → ~66–96).
-        final cardH = (cardW * (compact ? 0.88 : 0.85)).clamp(66.0, 96.0);
-
-        Widget cell({
-          required IconData icon,
-          required String title,
-          required String body,
-          required Color color,
-        }) {
-          return Expanded(
-            child: SizedBox(
-              height: cardH,
-              child: _Card(
-                icon,
-                title,
-                body,
-                color,
-                compact,
-              ),
-            ),
-          );
-        }
-
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            cell(
-              icon: Icons.verified_user_outlined,
-              title: t1,
-              body: b1,
-              color: const Color(0xFFE8C878),
-            ),
-            SizedBox(width: gap),
-            cell(
-              icon: Icons.hub_outlined,
-              title: t2,
-              body: b2,
-              color: const Color(0xFFB07CFF),
-            ),
-            SizedBox(width: gap),
-            cell(
-              icon: Icons.favorite_border_rounded,
-              title: t3,
-              body: b3,
-              color: const Color(0xFF7EB6FF),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _Card extends StatelessWidget {
-  const _Card(this.icon, this.title, this.body, this.color, this.compact);
-  final IconData icon;
-  final String title;
-  final String body;
-  final Color color;
-  final bool compact;
-
-  @override
-  Widget build(BuildContext context) {
-    final padV = compact ? 6.0 : 7.0;
-    final titleSize = compact ? 9.5 : 10.0;
-    final bodySize = compact ? 7.5 : 8.0;
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          padding: EdgeInsets.fromLTRB(6, padV, 6, padV),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: const Color(0x55101828),
-            border: Border.all(color: const Color(0x99B07CFF), width: 0.9),
-          ),
-          // Compact centered stack — no oversized reserved title/body bands.
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Icon(icon, size: compact ? 14 : 16, color: color),
-              SizedBox(height: compact ? 3 : 4),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: titleSize,
-                  fontWeight: FontWeight.w600,
-                  height: 1.12,
-                ),
-              ),
-              SizedBox(height: compact ? 2 : 3),
-              Text(
-                body,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.inter(
-                  color: const Color(0xFFA8A0C0),
-                  fontSize: bodySize,
-                  height: 1.15,
-                ),
-              ),
-            ],
           ),
         ),
       ),
@@ -1307,9 +1236,9 @@ class _LegalFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     const gold = Color(0xFFD4B06A);
     final base = GoogleFonts.inter(
-      color: Colors.white.withValues(alpha: 0.42),
-      fontSize: 8.5,
-      height: 1.3,
+      color: Colors.white.withValues(alpha: 0.58),
+      fontSize: 9,
+      height: 1.35,
     );
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1319,7 +1248,7 @@ class _LegalFooter extends StatelessWidget {
           child: Icon(
             Icons.shield_outlined,
             size: 11,
-            color: Colors.white.withValues(alpha: 0.42),
+            color: Colors.white.withValues(alpha: 0.58),
           ),
         ),
         const SizedBox(width: 5),
