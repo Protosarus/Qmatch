@@ -21,7 +21,6 @@ import '../../discover/services/discover_passport_client.dart';
 import '../../iap/domain/resonance_paywall_feature.dart';
 import '../../iap/screens/resonance_paywall_screen.dart';
 import '../../who_liked_you/navigation/who_liked_you_entry.dart';
-import '../services/account_deletion_request_service.dart';
 import 'about_screen.dart';
 import 'account_deletion_request_screen.dart';
 import 'blocked_users_screen.dart';
@@ -34,8 +33,6 @@ class SettingsScreen extends StatefulWidget {
     super.key,
     this.debugForceDebugRow,
     this.animateBackground,
-    this.deletionService,
-    this.debugDeletionPending,
     this.whoLikedYouEntry,
     this.passportClient,
     this.openPaywall,
@@ -46,11 +43,6 @@ class SettingsScreen extends StatefulWidget {
 
   /// Goldens: pass false to freeze cosmic animation.
   final bool? animateBackground;
-
-  final AccountDeletionRequestService? deletionService;
-
-  /// When non-null, skips Firestore and uses this pending flag (tests).
-  final bool? debugDeletionPending;
 
   /// UX routing for Resonance → Who Liked You. Tests inject a fake.
   final WhoLikedYouEntry? whoLikedYouEntry;
@@ -67,12 +59,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  late final AccountDeletionRequestService _deletionService =
-      widget.deletionService ?? AccountDeletionRequestService();
   late final DiscoverPassportClient _passportClient =
       widget.passportClient ?? DiscoverPassportClient();
-  bool _deletionPending = false;
-  bool _deletionPendingLoaded = false;
   DiscoverPassportSnapshot _passport = DiscoverPassportSnapshot.worldwide;
 
   bool get _showDebug => widget.debugForceDebugRow ?? DebugAccess.isAllowed;
@@ -94,7 +82,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    _loadDeletionPending();
     _loadPassport();
   }
 
@@ -164,23 +151,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  Future<void> _loadDeletionPending() async {
-    if (widget.debugDeletionPending != null) {
-      if (!mounted) return;
-      setState(() {
-        _deletionPending = widget.debugDeletionPending!;
-        _deletionPendingLoaded = true;
-      });
-      return;
-    }
-    final pending = await _deletionService.isAccountDeletionPending();
-    if (!mounted) return;
-    setState(() {
-      _deletionPending = pending;
-      _deletionPendingLoaded = true;
-    });
-  }
-
   Future<void> _loadPassport() async {
     try {
       final snap = await _passportClient.get();
@@ -236,7 +206,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         builder: (_) => const AccountDeletionRequestScreen(),
       ),
     );
-    if (mounted) await _loadDeletionPending();
   }
 
   Future<void> _confirmLogout(BuildContext context) async {
@@ -293,14 +262,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final deleteTitle = _deletionPending
-        ? l10n.settingsDeleteAccountPendingStatus
-        : l10n.settingsDeleteAccount;
-    final deleteSubtitle = !_deletionPendingLoaded
-        ? l10n.settingsDeleteAccountSubtitle
-        : (_deletionPending
-            ? l10n.settingsDeleteAccountPendingSubtitle
-            : l10n.settingsDeleteAccountSubtitle);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -327,20 +288,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (_deletionPending) ...[
-                        QGlassCard(
-                          key: const Key('qmatch-settings-deletion-banner'),
-                          child: Text(
-                            l10n.settingsDeleteAccountPendingBanner,
-                            style: GoogleFonts.inter(
-                              color: AppColors.softGold,
-                              fontSize: 13,
-                              height: 1.45,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: AppSpacing.md),
-                      ],
                       _SettingsGroup(
                         title: l10n.settingsGroupPreferences,
                         children: [
@@ -454,8 +401,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           QMatchSettingsTile(
                             key: const Key('qmatch-settings-delete'),
                             icon: Icons.delete_forever_outlined,
-                            title: deleteTitle,
-                            subtitle: deleteSubtitle,
+                            title: l10n.settingsDeleteAccount,
+                            subtitle: l10n.settingsDeleteAccountSubtitle,
                             destructive: true,
                             onTap: _openDeleteAccount,
                           ),

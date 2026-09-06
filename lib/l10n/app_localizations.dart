@@ -2417,7 +2417,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionMayRetainBody.
   ///
   /// In en, this message translates to:
-  /// **'• Safety reports and abuse-prevention records\n• App Store / Play purchase verification records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.'**
+  /// **'• Safety reports and abuse-prevention records\n• App Store / Play purchase verification records\n• Limited logs needed for legal or compliance reasons\n• Shared messages and chat artifacts needed for the other person’s conversation history\nThese are not used to keep your dating profile active.'**
   String get accountDeletionMayRetainBody;
 
   /// No description provided for @accountDeletionTimelineTitle.
@@ -2459,8 +2459,26 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionErrorGeneric.
   ///
   /// In en, this message translates to:
-  /// **'We couldn’t delete your account. Check your connection and try again.'**
+  /// **'We couldn’t delete your account. Try again.'**
   String get accountDeletionErrorGeneric;
+
+  /// No description provided for @accountDeletionErrorSessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session expired. Sign in again and try again.'**
+  String get accountDeletionErrorSessionExpired;
+
+  /// No description provided for @accountDeletionErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t reach the server. Check your connection and try again.'**
+  String get accountDeletionErrorNetwork;
+
+  /// No description provided for @accountDeletionErrorServer.
+  ///
+  /// In en, this message translates to:
+  /// **'The server couldn’t delete your account. Try again in a moment.'**
+  String get accountDeletionErrorServer;
 
   /// No description provided for @accountDeletionErrorAppleRevoke.
   ///

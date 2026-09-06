@@ -7,13 +7,9 @@ import '../../../core/services/auth_provider_resolver.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/services/pending_provider_link.dart';
 import '../../auth/apple_sign_in_flow.dart';
-import '../../auth/google_sign_in_flow.dart';
 
 enum AccountDeletionStage {
   cancelled,
-  needsPassword,
-  needsGoogle,
-  needsPhone,
   needsApple,
   appleRevokeFailed,
   uidMismatch,
@@ -34,32 +30,70 @@ class AccountDeletionResult {
   bool get isCancelled => stage == AccountDeletionStage.cancelled;
 }
 
-/// In-app deletion: reauth → Apple revoke if linked → trusted callable → sign out.
+enum AccountDeletionUserError {
+  sessionExpired,
+  network,
+  appleRequired,
+  appleRevoke,
+  uidMismatch,
+  server,
+  retry,
+}
+
+AccountDeletionUserError classifyAccountDeletionError(
+  AccountDeletionResult result,
+) {
+  switch (result.stage) {
+    case AccountDeletionStage.appleRevokeFailed:
+      return AccountDeletionUserError.appleRevoke;
+    case AccountDeletionStage.uidMismatch:
+      return AccountDeletionUserError.uidMismatch;
+    case AccountDeletionStage.needsApple:
+      return AccountDeletionUserError.appleRequired;
+    case AccountDeletionStage.cancelled:
+    case AccountDeletionStage.succeeded:
+      return AccountDeletionUserError.retry;
+    case AccountDeletionStage.failed:
+      break;
+  }
+
+  switch (result.errorCode) {
+    case 'unauthenticated':
+    case 'not_signed_in':
+      return AccountDeletionUserError.sessionExpired;
+    case 'unavailable':
+    case 'deadline-exceeded':
+    case 'network-request-failed':
+      return AccountDeletionUserError.network;
+    case 'failed-precondition':
+    case 'apple_revocation_required':
+      return AccountDeletionUserError.appleRequired;
+    case 'internal':
+      return AccountDeletionUserError.server;
+    default:
+      return AccountDeletionUserError.retry;
+  }
+}
+
+/// In-app deletion: current signed-in session → trusted callable → sign out.
 ///
-/// Logout never uses this path. Authorization codes stay in memory only.
+/// Apple-linked accounts revoke Sign in with Apple first. Password, Google,
+/// and phone are not re-collected. Logout never uses this path.
+/// Authorization codes stay in memory only.
 class AccountDeletionIdentity {
   const AccountDeletionIdentity({
     required this.uid,
-    this.email,
-    this.phoneNumber,
     this.appleLinked = false,
-    this.passwordLinked = false,
-    this.googleLinked = false,
-    this.phoneLinked = false,
   });
 
   final String uid;
-  final String? email;
-  final String? phoneNumber;
   final bool appleLinked;
-  final bool passwordLinked;
-  final bool googleLinked;
-  final bool phoneLinked;
 }
 
 class AccountDeletionCoordinator {
   AccountDeletionCoordinator({
     this.debugIdentity,
+    this.debugSignedOut = false,
     FirebaseAuth? auth,
     AuthService? authService,
     Future<Map<String, dynamic>> Function(Map<String, dynamic> data)?
@@ -69,8 +103,6 @@ class AccountDeletionCoordinator {
     Future<String> Function(AuthCredential credential)? resolveReauthUid,
     Future<AppleAuthorizationResult?> Function(String hashedNonce)?
         requestAppleAuthorization,
-    Future<({String? idToken, String? accessToken})?> Function()?
-        pickGoogleAuthTokens,
     String Function()? generateAppleNonce,
     Future<void> Function()? signOut,
   })  : _authOverride = auth,
@@ -80,7 +112,6 @@ class AccountDeletionCoordinator {
         _reauthenticate = reauthenticate,
         _resolveReauthUid = resolveReauthUid,
         _requestAppleAuthorization = requestAppleAuthorization,
-        _pickGoogleAuthTokens = pickGoogleAuthTokens,
         _generateAppleNonce = generateAppleNonce,
         _signOut = signOut;
 
@@ -88,6 +119,7 @@ class AccountDeletionCoordinator {
   static const String callableRegion = 'us-central1';
 
   final AccountDeletionIdentity? debugIdentity;
+  final bool debugSignedOut;
   final FirebaseAuth? _authOverride;
   final AuthService? _authServiceOverride;
   FirebaseAuth get _auth => _authOverride ?? FirebaseAuth.instance;
@@ -101,27 +133,22 @@ class AccountDeletionCoordinator {
   final Future<String> Function(AuthCredential credential)? _resolveReauthUid;
   final Future<AppleAuthorizationResult?> Function(String hashedNonce)?
       _requestAppleAuthorization;
-  final Future<({String? idToken, String? accessToken})?> Function()?
-      _pickGoogleAuthTokens;
   final String Function()? _generateAppleNonce;
   final Future<void> Function()? _signOut;
 
   AccountDeletionIdentity? get _identity {
+    if (debugSignedOut) return null;
     if (debugIdentity != null) return debugIdentity;
     final user = _auth.currentUser;
     if (user == null) return null;
     return AccountDeletionIdentity(
       uid: user.uid,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
       appleLinked: AuthProviderResolver.hasAppleLinked(user),
-      passwordLinked: AuthProviderResolver.hasPasswordLinked(user),
-      googleLinked: AuthProviderResolver.hasGoogleLinked(user),
-      phoneLinked: AuthProviderResolver.hasPhoneLinked(user),
     );
   }
 
   bool isAppleLinked([User? user]) {
+    if (debugSignedOut) return false;
     if (debugIdentity != null) return debugIdentity!.appleLinked;
     try {
       final current = user ?? _auth.currentUser;
@@ -132,11 +159,7 @@ class AccountDeletionCoordinator {
     }
   }
 
-  Future<AccountDeletionResult> deleteAccount({
-    String? password,
-    String? phoneCredentialVerificationId,
-    String? phoneSmsCode,
-  }) async {
+  Future<AccountDeletionResult> deleteAccount() async {
     final identity = _identity;
     if (identity == null) {
       return const AccountDeletionResult(
@@ -154,34 +177,6 @@ class AccountDeletionCoordinator {
           return apple;
         }
         appleRevoked = true;
-      } else if (identity.passwordLinked) {
-        final passwordValue = password?.trim() ?? '';
-        if (passwordValue.isEmpty) {
-          return const AccountDeletionResult(
-            stage: AccountDeletionStage.needsPassword,
-          );
-        }
-        final reauth = await _reauthWithCredential(
-          expectedUid,
-          EmailAuthProvider.credential(
-            email: identity.email ?? '',
-            password: passwordValue,
-          ),
-        );
-        if (reauth != null) return reauth;
-      } else if (identity.googleLinked) {
-        final google = await _reauthGoogle(expectedUid);
-        if (google != null) return google;
-      } else if (identity.phoneLinked) {
-        final id = phoneCredentialVerificationId?.trim() ?? '';
-        final code = phoneSmsCode?.trim() ?? '';
-        if (id.isNotEmpty && code.isNotEmpty) {
-          final reauth = await _reauthWithCredential(
-            expectedUid,
-            PhoneAuthProvider.credential(verificationId: id, smsCode: code),
-          );
-          if (reauth != null) return reauth;
-        }
       }
 
       await _invokeDelete(appleRevoked: appleRevoked);
@@ -201,27 +196,9 @@ class AccountDeletionCoordinator {
         stage: AccountDeletionStage.succeeded,
       );
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'requires-recent-login') {
-        if (identity.appleLinked) {
-          return const AccountDeletionResult(
-            stage: AccountDeletionStage.needsApple,
-            errorCode: 'requires-recent-login',
-          );
-        }
-        if (identity.passwordLinked) {
-          return const AccountDeletionResult(
-            stage: AccountDeletionStage.needsPassword,
-            errorCode: 'requires-recent-login',
-          );
-        }
-        if (identity.googleLinked) {
-          return const AccountDeletionResult(
-            stage: AccountDeletionStage.needsGoogle,
-            errorCode: 'requires-recent-login',
-          );
-        }
+      if (error.code == 'requires-recent-login' && identity.appleLinked) {
         return const AccountDeletionResult(
-          stage: AccountDeletionStage.needsPhone,
+          stage: AccountDeletionStage.needsApple,
           errorCode: 'requires-recent-login',
         );
       }
@@ -230,21 +207,31 @@ class AccountDeletionCoordinator {
           stage: AccountDeletionStage.cancelled,
         );
       }
-      debugPrint('Account deletion failed: ${error.code}');
+      debugPrint(
+        'Account deletion failed: stage=${AccountDeletionStage.failed.name} '
+        'code=${error.code}',
+      );
       return AccountDeletionResult(
         stage: AccountDeletionStage.failed,
         errorCode: error.code,
       );
     } on FirebaseFunctionsException catch (error) {
-      debugPrint('Account deletion callable failed: ${error.code}');
+      final stage = error.code == 'failed-precondition'
+          ? AccountDeletionStage.needsApple
+          : AccountDeletionStage.failed;
+      debugPrint(
+        'Account deletion callable failed: stage=${stage.name} '
+        'code=${error.code}',
+      );
       return AccountDeletionResult(
-        stage: error.code == 'failed-precondition'
-            ? AccountDeletionStage.needsApple
-            : AccountDeletionStage.failed,
+        stage: stage,
         errorCode: error.code,
       );
     } catch (error) {
-      debugPrint('Account deletion failed: ${error.runtimeType}');
+      debugPrint(
+        'Account deletion failed: stage=${AccountDeletionStage.failed.name} '
+        'type=${error.runtimeType}',
+      );
       return const AccountDeletionResult(
         stage: AccountDeletionStage.failed,
         errorCode: 'unknown',
@@ -324,29 +311,6 @@ class AccountDeletionCoordinator {
     return AppleAuthorizationResult(
       identityToken: credential.identityToken!,
       authorizationCode: credential.authorizationCode,
-    );
-  }
-
-  Future<AccountDeletionResult?> _reauthGoogle(String expectedUid) async {
-    final pickGoogleAuthTokens = _pickGoogleAuthTokens;
-    final tokens = pickGoogleAuthTokens != null
-        ? await pickGoogleAuthTokens()
-        : await GoogleSignInFlow.createClient().signIn().then((account) async {
-            if (account == null) return null;
-            final auth = await account.authentication;
-            return (idToken: auth.idToken, accessToken: auth.accessToken);
-          });
-    if (tokens == null || (tokens.idToken ?? '').isEmpty) {
-      return const AccountDeletionResult(
-        stage: AccountDeletionStage.cancelled,
-      );
-    }
-    return _reauthWithCredential(
-      expectedUid,
-      GoogleAuthProvider.credential(
-        idToken: tokens.idToken,
-        accessToken: tokens.accessToken,
-      ),
     );
   }
 

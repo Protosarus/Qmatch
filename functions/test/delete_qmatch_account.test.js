@@ -284,4 +284,96 @@ describe('delete_qmatch_account_v1 policy', () => {
     assert.strictEqual(db._store.get('entitlements/self').account_deleted, true);
     assert.strictEqual(db._store.has('entitlements/self/purchase_ledger/p1'), true);
   });
+
+  it('emits structured per-step timings without PII', async () => {
+    const db = new MemoryFirestore();
+    seedUser(db, 'self');
+    const lines = [];
+    const result = await runDeleteQMatchAccount('self', {
+      db,
+      getUser: async () => ({ uid: 'self', providerData: [] }),
+      deleteUser: async () => true,
+      listOwnedStorage: async () => [],
+      closeMatches: async () => ({ closed: 0 }),
+      serverTimestamp: () => ({ seconds: 1 }),
+      log: (line) => lines.push(line),
+    });
+    assert.strictEqual(result.ok, true);
+    assert.deepStrictEqual(result.completed_steps, STEPS);
+
+    const records = lines.map((line) => JSON.parse(line));
+    const steps = records.map((row) => row.step);
+    assert.deepStrictEqual(steps, [
+      'load_auth_user',
+      'claim_request',
+      'revoke_visibility',
+      'delete_public_profile',
+      'close_matches_threads',
+      'deidentify_shared_threads',
+      'delete_user_owned_data',
+      'delete_owned_storage',
+      'retain_entitlements',
+      'delete_user_doc',
+      'delete_auth_user',
+      'finalize_request',
+      'total',
+    ]);
+
+    const forbidden = [
+      'email',
+      'phone',
+      'name',
+      'token',
+      'authorization',
+      'identityToken',
+      'authorizationCode',
+      'message',
+      'preview',
+    ];
+    for (const row of records) {
+      assert.strictEqual(row.event, 'delete_qmatch_account_timing');
+      assert.strictEqual(typeof row.step, 'string');
+      assert.strictEqual(typeof row.duration_ms, 'number');
+      assert.strictEqual(typeof row.total_duration_ms, 'number');
+      assert.ok(row.duration_ms >= 0);
+      assert.ok(row.total_duration_ms >= row.duration_ms);
+      assert.deepStrictEqual(
+        Object.keys(row).sort(),
+        ['duration_ms', 'event', 'step', 'total_duration_ms'],
+      );
+      const raw = JSON.stringify(row);
+      for (const key of forbidden) {
+        assert.ok(!raw.toLowerCase().includes(key.toLowerCase()), key);
+      }
+      assert.ok(!raw.includes('self@'));
+      assert.ok(!raw.includes('+90'));
+    }
+    assert.ok(authDeleteIsLast(result.completed_steps));
+  });
+
+  it('still times load_auth_user when Apple revoke precondition fails', async () => {
+    const db = new MemoryFirestore();
+    seedUser(db, 'self');
+    const lines = [];
+    await assert.rejects(
+      () => runDeleteQMatchAccount('self', {
+        db,
+        getUser: async () => ({
+          uid: 'self',
+          providerData: [{ providerId: 'apple.com' }],
+        }),
+        requestData: {},
+        listOwnedStorage: async () => [],
+        closeMatches: async () => ({ closed: 0 }),
+        log: (line) => lines.push(line),
+      }),
+      (err) => err.code === 'failed-precondition',
+    );
+    const records = lines.map((line) => JSON.parse(line));
+    assert.deepStrictEqual(records.map((row) => row.step), [
+      'load_auth_user',
+      'total',
+    ]);
+    assert.strictEqual(db._store.has('users/self'), true);
+  });
 });

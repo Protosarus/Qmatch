@@ -12,18 +12,18 @@ import '../../../l10n/app_localizations.dart';
 import '../services/account_deletion_coordinator.dart';
 import '../services/account_deletion_request_service.dart';
 
-/// Settings → Delete account. Confirms, reauthenticates, then deletes.
+/// Settings → Delete account. Confirms, then deletes.
+///
+/// Apple-linked accounts still revoke Sign in with Apple before the wipe.
 class AccountDeletionRequestScreen extends StatefulWidget {
   const AccountDeletionRequestScreen({
     super.key,
     this.coordinator,
     this.debugAppleLinked = false,
-    this.debugShowPassword = false,
   });
 
   final AccountDeletionCoordinator? coordinator;
   final bool debugAppleLinked;
-  final bool debugShowPassword;
 
   @override
   State<AccountDeletionRequestScreen> createState() =>
@@ -35,25 +35,21 @@ class _AccountDeletionRequestScreenState
   late final AccountDeletionCoordinator _coordinator =
       widget.coordinator ?? AccountDeletionCoordinator();
   final _confirmController = TextEditingController();
-  final _passwordController = TextEditingController();
 
   bool _ackIrreversible = false;
   bool _ackTimeline = false;
   bool _submitting = false;
-  bool _showPassword = false;
   String? _inlineError;
 
   @override
   void initState() {
     super.initState();
     _confirmController.addListener(() => setState(() {}));
-    _showPassword = widget.debugShowPassword;
   }
 
   @override
   void dispose() {
     _confirmController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 
@@ -68,20 +64,20 @@ class _AccountDeletionRequestScreenState
   }
 
   String _messageFor(AppLocalizations l10n, AccountDeletionResult result) {
-    switch (result.stage) {
-      case AccountDeletionStage.appleRevokeFailed:
-        return l10n.accountDeletionErrorAppleRevoke;
-      case AccountDeletionStage.uidMismatch:
-        return l10n.accountDeletionErrorUidMismatch;
-      case AccountDeletionStage.needsPassword:
-        return l10n.accountDeletionPasswordHint;
-      case AccountDeletionStage.needsApple:
+    switch (classifyAccountDeletionError(result)) {
+      case AccountDeletionUserError.sessionExpired:
+        return l10n.accountDeletionErrorSessionExpired;
+      case AccountDeletionUserError.network:
+        return l10n.accountDeletionErrorNetwork;
+      case AccountDeletionUserError.appleRequired:
         return l10n.accountDeletionAppleReauthHint;
-      case AccountDeletionStage.needsGoogle:
-        return l10n.accountDeletionGoogleReauthHint;
-      case AccountDeletionStage.needsPhone:
-        return l10n.accountDeletionPhoneReauthHint;
-      default:
+      case AccountDeletionUserError.appleRevoke:
+        return l10n.accountDeletionErrorAppleRevoke;
+      case AccountDeletionUserError.uidMismatch:
+        return l10n.accountDeletionErrorUidMismatch;
+      case AccountDeletionUserError.server:
+        return l10n.accountDeletionErrorServer;
+      case AccountDeletionUserError.retry:
         return l10n.accountDeletionErrorGeneric;
     }
   }
@@ -93,21 +89,12 @@ class _AccountDeletionRequestScreenState
       _inlineError = null;
     });
 
-    final result = await _coordinator.deleteAccount(
-      password: _passwordController.text,
-    );
+    final result = await _coordinator.deleteAccount();
 
     if (!mounted) return;
     setState(() => _submitting = false);
 
     if (result.isCancelled) {
-      return;
-    }
-    if (result.stage == AccountDeletionStage.needsPassword) {
-      setState(() {
-        _showPassword = true;
-        _inlineError = l10n.accountDeletionPasswordHint;
-      });
       return;
     }
     if (!result.isSuccess) {
@@ -225,18 +212,6 @@ class _AccountDeletionRequestScreenState
                           AccountDeletionRequestService.confirmationToken,
                         ),
                       ),
-                      if (_showPassword) ...[
-                        const SizedBox(height: 12),
-                        TextField(
-                          key: const Key('qmatch-delete-password-field'),
-                          controller: _passwordController,
-                          enabled: !_submitting,
-                          obscureText: true,
-                          style: GoogleFonts.inter(color: Colors.white),
-                          decoration: _fieldDecoration(
-                              l10n.accountDeletionPasswordHint),
-                        ),
-                      ],
                       if (_inlineError != null) ...[
                         const SizedBox(height: 12),
                         Text(

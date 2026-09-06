@@ -206,7 +206,6 @@ void main() {
           supportedLocales: AppLocalizations.supportedLocales,
           home: SettingsScreen(
             animateBackground: false,
-            debugDeletionPending: false,
             debugForceDebugRow: false,
             whoLikedYouEntry: WhoLikedYouEntry(
               readResonanceAccess: () async => true,
@@ -238,7 +237,6 @@ void main() {
           supportedLocales: AppLocalizations.supportedLocales,
           home: SettingsScreen(
             animateBackground: false,
-            debugDeletionPending: false,
             whoLikedYouEntry: WhoLikedYouEntry(
               readResonanceAccess: () async => false,
               openInbox: (_) async {

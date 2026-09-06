@@ -1326,7 +1326,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get accountDeletionMayRetainBody =>
-      '• Güvenlik şikayetleri ve kötüye kullanım önleme kayıtları\n• App Store / Play satın alma doğrulama kayıtları\n• Yasal veya uyum için gereken sınırlı loglar\nBunlar dating profilini aktif tutmak için kullanılmaz.';
+      '• Güvenlik şikayetleri ve kötüye kullanım önleme kayıtları\n• App Store / Play satın alma doğrulama kayıtları\n• Yasal veya uyum için gereken sınırlı loglar\n• Karşı tarafın sohbet geçmişi için gereken paylaşılan mesajlar ve sohbet kayıtları\nBunlar dating profilini aktif tutmak için kullanılmaz.';
 
   @override
   String get accountDeletionTimelineTitle => 'Bu işlem hemen başlar';
@@ -1351,8 +1351,19 @@ class AppLocalizationsTr extends AppLocalizations {
       'Telefonuna gelen SMS koduyla onayla.';
 
   @override
-  String get accountDeletionErrorGeneric =>
-      'Hesabın silinemedi. Bağlantını kontrol edip tekrar dene.';
+  String get accountDeletionErrorGeneric => 'Hesabın silinemedi. Tekrar dene.';
+
+  @override
+  String get accountDeletionErrorSessionExpired =>
+      'Oturumun sona erdi. Tekrar giriş yapıp dene.';
+
+  @override
+  String get accountDeletionErrorNetwork =>
+      'Sunucuya ulaşılamadı. Bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get accountDeletionErrorServer =>
+      'Sunucu hesabını silemedi. Biraz sonra tekrar dene.';
 
   @override
   String get accountDeletionErrorAppleRevoke =>

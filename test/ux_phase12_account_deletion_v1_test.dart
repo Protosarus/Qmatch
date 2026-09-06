@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -68,28 +69,24 @@ void main() {
 
   AccountDeletionCoordinator coordinator({
     AccountDeletionIdentity? identity,
+    bool signedOut = false,
     Future<Map<String, dynamic>> Function(Map<String, dynamic> data)?
         callDelete,
     Future<void> Function(String authorizationCode)? revokeApple,
     Future<AppleAuthorizationResult?> Function(String hashedNonce)?
         requestApple,
     Future<String> Function(AuthCredential credential)? resolveReauthUid,
-    Future<({String? idToken, String? accessToken})?> Function()? pickGoogle,
     String Function()? generateAppleNonce,
     Future<void> Function()? signOut,
   }) {
     return AccountDeletionCoordinator(
       debugIdentity: identity ??
-          const AccountDeletionIdentity(
-            uid: 'self',
-            email: 'self@qmatch.test',
-            passwordLinked: true,
-          ),
+          (signedOut ? null : const AccountDeletionIdentity(uid: 'self')),
+      debugSignedOut: signedOut,
       callDelete: callDelete ?? (_) async => const {},
       revokeApple: revokeApple,
       requestAppleAuthorization: requestApple,
       resolveReauthUid: resolveReauthUid ?? (_) async => 'self',
-      pickGoogleAuthTokens: pickGoogle,
       generateAppleNonce: generateAppleNonce,
       signOut: signOut ?? () async {},
     );
@@ -109,6 +106,22 @@ void main() {
       expect(l10nTr.accountDeletionIntro.contains('geri alınamaz'), isTrue);
       expect(l10nEn.helpFaqDeleteAccountA.contains('30 days'), isFalse);
       expect(l10nTr.helpFaqDeleteAccountA.contains('30 gün'), isFalse);
+      expect(
+        l10nEn.accountDeletionMayRetainBody.contains('Shared messages'),
+        isTrue,
+      );
+      expect(
+        l10nTr.accountDeletionMayRetainBody.contains('paylaşılan mesajlar'),
+        isTrue,
+      );
+      expect(
+        l10nEn.accountDeletionErrorGeneric.contains('connection'),
+        isFalse,
+      );
+      expect(
+        l10nTr.accountDeletionErrorGeneric.contains('Bağlantını'),
+        isFalse,
+      );
     });
   });
 
@@ -212,7 +225,6 @@ void main() {
         identity: const AccountDeletionIdentity(
           uid: 'self',
           appleLinked: true,
-          googleLinked: true,
         ),
         generateAppleNonce: () => raw,
         requestApple: (hashedNonce) async {
@@ -305,7 +317,6 @@ void main() {
         identity: const AccountDeletionIdentity(
           uid: 'self',
           appleLinked: true,
-          googleLinked: true,
         ),
       );
       expect(coord.isAppleLinked(), isTrue);
@@ -335,82 +346,203 @@ void main() {
     });
   });
 
-  group('reauth K/L', () {
-    test('K password/Google/phone reauth preserve UID', () async {
-      AuthCredential? passwordCred;
-      final password = await coordinator(
-        identity: const AccountDeletionIdentity(
-          uid: 'self',
-          email: 'self@qmatch.test',
-          passwordLinked: true,
-        ),
-        resolveReauthUid: (credential) async {
-          passwordCred = credential;
+  group('signed-in delete without extra auth', () {
+    test('1 password session deletes without a password prompt', () async {
+      var deleted = false;
+      var reauthCalls = 0;
+      final result = await coordinator(
+        identity: const AccountDeletionIdentity(uid: 'self'),
+        resolveReauthUid: (_) async {
+          reauthCalls += 1;
           return 'self';
         },
-      ).deleteAccount(password: 'secret-pass');
-      expect(password.isSuccess, isTrue);
-      expect(passwordCred, isA<EmailAuthCredential>());
-
-      AuthCredential? googleCred;
-      final google = await coordinator(
-        identity: const AccountDeletionIdentity(
-          uid: 'self',
-          googleLinked: true,
-        ),
-        pickGoogle: () async => (
-          idToken: 'google-id',
-          accessToken: 'google-access',
-        ),
-        resolveReauthUid: (credential) async {
-          googleCred = credential;
-          return 'self';
+        callDelete: (_) async {
+          deleted = true;
+          return const {};
         },
       ).deleteAccount();
-      expect(google.isSuccess, isTrue);
-      expect(googleCred, isA<OAuthCredential>());
-
-      AuthCredential? phoneCred;
-      final phone = await coordinator(
-        identity: const AccountDeletionIdentity(
-          uid: 'self',
-          phoneLinked: true,
-          phoneNumber: '+15555550100',
-        ),
-        resolveReauthUid: (credential) async {
-          phoneCred = credential;
-          return 'self';
-        },
-      ).deleteAccount(
-        phoneCredentialVerificationId: 'ver-id',
-        phoneSmsCode: '123456',
-      );
-      expect(phone.isSuccess, isTrue);
-      expect(phoneCred, isA<PhoneAuthCredential>());
-
-      final phoneSession = await coordinator(
-        identity: const AccountDeletionIdentity(
-          uid: 'self',
-          phoneLinked: true,
-          phoneNumber: '+15555550100',
-        ),
-      ).deleteAccount();
-      expect(phoneSession.isSuccess, isTrue);
+      expect(result.isSuccess, isTrue);
+      expect(deleted, isTrue);
+      expect(reauthCalls, 0);
     });
 
-    test('L requires-recent-login is mapped, never raw', () async {
+    test('2 Google session deletes without a Google chooser', () async {
+      var deleted = false;
+      var reauthCalls = 0;
+      final src = File(
+        'lib/features/settings/services/account_deletion_coordinator.dart',
+      ).readAsStringSync();
+      expect(src.contains('_reauthGoogle'), isFalse);
+      expect(src.contains('pickGoogleAuthTokens'), isFalse);
+      expect(src.contains('GoogleSignInFlow'), isFalse);
+
       final result = await coordinator(
-        identity: const AccountDeletionIdentity(
-          uid: 'self',
-          email: 'self@qmatch.test',
-          passwordLinked: true,
+        identity: const AccountDeletionIdentity(uid: 'self'),
+        resolveReauthUid: (_) async {
+          reauthCalls += 1;
+          return 'self';
+        },
+        callDelete: (_) async {
+          deleted = true;
+          return const {};
+        },
+      ).deleteAccount();
+      expect(result.isSuccess, isTrue);
+      expect(deleted, isTrue);
+      expect(reauthCalls, 0);
+    });
+
+    test('3 phone session deletes without OTP', () async {
+      var deleted = false;
+      final result = await coordinator(
+        identity: const AccountDeletionIdentity(uid: 'self'),
+        callDelete: (_) async {
+          deleted = true;
+          return const {};
+        },
+      ).deleteAccount();
+      expect(result.isSuccess, isTrue);
+      expect(deleted, isTrue);
+      final src = File(
+        'lib/features/settings/services/account_deletion_coordinator.dart',
+      ).readAsStringSync();
+      expect(src.contains('PhoneAuthProvider'), isFalse);
+      expect(src.contains('phoneSmsCode'), isFalse);
+    });
+
+    test('4 Apple-linked still requires fresh Apple authorization', () async {
+      var deleted = false;
+      var appleCalls = 0;
+      final result = await coordinator(
+        identity: const AccountDeletionIdentity(uid: 'self', appleLinked: true),
+        requestApple: (_) async {
+          appleCalls += 1;
+          return const AppleAuthorizationResult(
+            identityToken: 'id',
+            authorizationCode: 'code',
+          );
+        },
+        revokeApple: (_) async {},
+        callDelete: (_) async {
+          deleted = true;
+          return const {};
+        },
+      ).deleteAccount();
+      expect(result.isSuccess, isTrue);
+      expect(appleCalls, 1);
+      expect(deleted, isTrue);
+    });
+
+    test('5 Google-current + Apple-linked still revokes Apple first', () async {
+      final events = <String>[];
+      final result = await coordinator(
+        identity: const AccountDeletionIdentity(uid: 'self', appleLinked: true),
+        requestApple: (_) async {
+          events.add('apple-auth');
+          return const AppleAuthorizationResult(
+            identityToken: 'id',
+            authorizationCode: 'code',
+          );
+        },
+        resolveReauthUid: (_) async {
+          events.add('apple-uid');
+          return 'self';
+        },
+        revokeApple: (_) async => events.add('revoke'),
+        callDelete: (_) async {
+          events.add('delete');
+          return const {};
+        },
+      ).deleteAccount();
+      expect(result.isSuccess, isTrue);
+      expect(events, ['apple-auth', 'apple-uid', 'revoke', 'delete']);
+      expect(
+        File('lib/core/services/auth_provider_resolver.dart')
+            .readAsStringSync()
+            .contains('hasAppleLinked'),
+        isTrue,
+      );
+    });
+
+    testWidgets('password/Google/phone UI never asks for extra credentials',
+        (tester) async {
+      configureView(tester);
+      var deleted = false;
+      await tester.pumpWidget(
+        app(
+          home: AccountDeletionRequestScreen(
+            coordinator: coordinator(
+              identity: const AccountDeletionIdentity(uid: 'self'),
+              callDelete: (_) async {
+                deleted = true;
+                return const {};
+              },
+            ),
+          ),
+        ),
+      );
+      expect(
+          find.byKey(const Key('qmatch-delete-password-field')), findsNothing);
+      expect(find.byKey(const Key('qmatch-delete-apple-hint')), findsNothing);
+      await completeConfirmation(tester);
+      await tester.tap(find.byKey(const Key('qmatch-delete-submit')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(deleted, isTrue);
+      expect(
+          find.byKey(const Key('qmatch-delete-password-field')), findsNothing);
+    });
+  });
+
+  group('failure + auth authority', () {
+    test('8 unauthenticated deletion is rejected', () async {
+      var deleted = false;
+      final result = await coordinator(
+        signedOut: true,
+        callDelete: (_) async {
+          deleted = true;
+          return const {};
+        },
+      ).deleteAccount();
+      expect(result.isSuccess, isFalse);
+      expect(result.errorCode, 'not_signed_in');
+      expect(deleted, isFalse);
+    });
+
+    test('9 backend deletes only request.auth.uid', () {
+      final policy =
+          File('functions/src/delete_qmatch_account.js').readAsStringSync();
+      expect(
+          policy.contains('Client-supplied targetUid is never used'), isTrue);
+      expect(policy.contains('Only request.auth.uid is deleted'), isTrue);
+      expect(policy.contains('request.auth && request.auth.uid'), isTrue);
+      expect(policy.contains('resolveDeletionUid'), isTrue);
+      final callable = File('functions/src/delete_qmatch_account_callable.js')
+          .readAsStringSync();
+      expect(callable.contains('resolveDeletionUid(request)'), isTrue);
+      expect(callable.contains('Never uses client targetUid'), isTrue);
+    });
+
+    test('L Apple requires-recent-login maps to needsApple, never raw',
+        () async {
+      var deleted = false;
+      final result = await coordinator(
+        identity: const AccountDeletionIdentity(uid: 'self', appleLinked: true),
+        requestApple: (_) async => const AppleAuthorizationResult(
+          identityToken: 'id',
+          authorizationCode: 'code',
         ),
         resolveReauthUid: (_) async {
           throw FirebaseAuthException(code: 'requires-recent-login');
         },
-      ).deleteAccount(password: 'secret');
-      expect(result.stage, AccountDeletionStage.needsPassword);
+        callDelete: (_) async {
+          deleted = true;
+          return const {};
+        },
+      ).deleteAccount();
+      expect(result.stage, AccountDeletionStage.needsApple);
       expect(result.errorCode, 'requires-recent-login');
+      expect(deleted, isFalse);
     });
   });
 
@@ -422,9 +554,22 @@ void main() {
         emailHint: 'link@qmatch.test',
       );
       expect(PendingProviderLinkStore.hasPending, isTrue);
-      final result = await coordinator().deleteAccount(password: 'secret');
+      final result = await coordinator().deleteAccount();
       expect(result.isSuccess, isTrue);
       expect(PendingProviderLinkStore.hasPending, isFalse);
+    });
+
+    test('11 deletion does not change provider linking or merge', () {
+      final coord = File(
+        'lib/features/settings/services/account_deletion_coordinator.dart',
+      ).readAsStringSync();
+      expect(coord.contains('linkPendingCredential'), isFalse);
+      expect(coord.contains('fetchSignInMethodsForEmail'), isFalse);
+      expect(coord.contains('linkWithCredential'), isFalse);
+      final screen = File(
+        'lib/features/settings/screens/account_deletion_request_screen.dart',
+      ).readAsStringSync();
+      expect(screen.contains('linkPendingCredential'), isFalse);
     });
 
     test('N logout remains non-destructive', () {
@@ -504,6 +649,25 @@ void main() {
       );
     });
 
+    test('Settings and Discover no longer render pending-deletion UX', () {
+      final settings = File(
+        'lib/features/settings/screens/settings_screen.dart',
+      ).readAsStringSync();
+      expect(settings.contains('isAccountDeletionPending'), isFalse);
+      expect(settings.contains('_deletionPending'), isFalse);
+      expect(settings.contains('_loadDeletionPending'), isFalse);
+      expect(settings.contains('qmatch-settings-deletion-banner'), isFalse);
+      expect(settings.contains('settingsDeleteAccountPending'), isFalse);
+
+      final discover = File(
+        'lib/features/discover/screens/discover_screen.dart',
+      ).readAsStringSync();
+      expect(discover.contains('isAccountDeletionPending'), isFalse);
+      expect(discover.contains('_deletionPending'), isFalse);
+      expect(discover.contains('_loadDeletionPending'), isFalse);
+      expect(discover.contains('_buildDeletionPendingBanner'), isFalse);
+    });
+
     testWidgets('Apple-linked settings screen explains the extra Apple step',
         (tester) async {
       configureView(tester);
@@ -522,6 +686,171 @@ void main() {
       );
       expect(find.byKey(const Key('qmatch-delete-apple-hint')), findsOneWidget);
       expect(find.text(l10nEn.accountDeletionAppleReauthHint), findsOneWidget);
+    });
+  });
+
+  group('deletion error mapping', () {
+    test('classifies session, network, Apple, server, and unknown separately',
+        () {
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'unauthenticated',
+          ),
+        ),
+        AccountDeletionUserError.sessionExpired,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'not_signed_in',
+          ),
+        ),
+        AccountDeletionUserError.sessionExpired,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'unavailable',
+          ),
+        ),
+        AccountDeletionUserError.network,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'deadline-exceeded',
+          ),
+        ),
+        AccountDeletionUserError.network,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'network-request-failed',
+          ),
+        ),
+        AccountDeletionUserError.network,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.needsApple,
+            errorCode: 'failed-precondition',
+          ),
+        ),
+        AccountDeletionUserError.appleRequired,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.appleRevokeFailed,
+          ),
+        ),
+        AccountDeletionUserError.appleRevoke,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'internal',
+          ),
+        ),
+        AccountDeletionUserError.server,
+      );
+      expect(
+        classifyAccountDeletionError(
+          const AccountDeletionResult(
+            stage: AccountDeletionStage.failed,
+            errorCode: 'unknown',
+          ),
+        ),
+        AccountDeletionUserError.retry,
+      );
+    });
+
+    testWidgets('unauthenticated shows session copy, not a network problem',
+        (tester) async {
+      configureView(tester);
+      await tester.pumpWidget(
+        app(
+          home: AccountDeletionRequestScreen(
+            coordinator: coordinator(
+              callDelete: (_) async {
+                throw FirebaseFunctionsException(
+                  message: 'auth',
+                  code: 'unauthenticated',
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await completeConfirmation(tester);
+      await tester.tap(find.byKey(const Key('qmatch-delete-submit')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.text(l10nEn.accountDeletionErrorSessionExpired), findsOneWidget);
+      expect(find.text(l10nEn.accountDeletionErrorNetwork), findsNothing);
+      expect(find.textContaining('unauthenticated'), findsNothing);
+    });
+
+    testWidgets('unavailable shows connectivity copy', (tester) async {
+      configureView(tester);
+      await tester.pumpWidget(
+        app(
+          home: AccountDeletionRequestScreen(
+            coordinator: coordinator(
+              callDelete: (_) async {
+                throw FirebaseFunctionsException(
+                  message: 'down',
+                  code: 'unavailable',
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await completeConfirmation(tester);
+      await tester.tap(find.byKey(const Key('qmatch-delete-submit')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.text(l10nEn.accountDeletionErrorNetwork), findsOneWidget);
+      expect(find.textContaining('unavailable'), findsNothing);
+    });
+
+    testWidgets('internal shows server copy, unknown shows generic retry',
+        (tester) async {
+      configureView(tester);
+      await tester.pumpWidget(
+        app(
+          home: AccountDeletionRequestScreen(
+            coordinator: coordinator(
+              callDelete: (_) async {
+                throw FirebaseFunctionsException(
+                  message: 'boom',
+                  code: 'internal',
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await completeConfirmation(tester);
+      await tester.tap(find.byKey(const Key('qmatch-delete-submit')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+
+      expect(find.text(l10nEn.accountDeletionErrorServer), findsOneWidget);
+      expect(find.text(l10nEn.accountDeletionErrorGeneric), findsNothing);
+      expect(find.textContaining('internal'), findsNothing);
     });
   });
 }

@@ -363,7 +363,7 @@ void main() {
       );
       expect(next['auth_provider'], AuthProviderResolver.apple);
       expect(next['email'], 'hidden@privaterelay.appleid.com');
-      expect(next['name'], 'Ada Lovelace');
+      expect(next.containsKey('name'), isFalse);
       expect(next['test_completed'], isFalse);
       expect(next['discover_eligible'], isFalse);
       expect(next.containsKey('email_verified'), isFalse);

@@ -27,6 +27,12 @@ class AuthWrapper extends StatefulWidget {
   final Widget Function(AssessmentColdStartDecision decision)?
       buildAssessmentDestinationOverride;
 
+  /// Canonical `users.name` missing/invalid → nickname screen.
+  @visibleForTesting
+  static bool needsDisplayNameCompletion(Map<String, dynamic>? userDoc) {
+    return !DisplayNameService.isValidCanonicalDisplayNameFromMap(userDoc);
+  }
+
   @override
   State<AuthWrapper> createState() => _AuthWrapperState();
 }
@@ -56,8 +62,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   Future<_AuthStartup> _runStartup(String uid) async {
     final userDoc = await AuthService().ensureUserDocumentExists();
-    final nameOk =
-        DisplayNameService.isValidCanonicalDisplayNameFromMap(userDoc);
+    final nameOk = !AuthWrapper.needsDisplayNameCompletion(userDoc);
     return _AuthStartup(userDoc: userDoc, hasValidDisplayName: nameOk);
   }
 

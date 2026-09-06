@@ -295,10 +295,21 @@ class AuthService {
     );
   }
 
-  Map<String, dynamic> _createdEnsureView(UserDocumentEnsureInput input) {
-    final seededName = input.displayName?.trim() ?? '';
-    if (seededName.isEmpty) return <String, dynamic>{};
-    return <String, dynamic>{'name': seededName};
+  Map<String, dynamic> _createdEnsureView(UserDocumentEnsureWrite write) {
+    final name = write.fields['name'];
+    if (name is! String || name.trim().isEmpty) return <String, dynamic>{};
+    return <String, dynamic>{'name': name.trim()};
+  }
+
+  Future<void> _offerAuthDisplayNamePrefill(
+      User user, String? candidate) async {
+    final name = candidate?.trim() ?? '';
+    if (name.isEmpty) return;
+    final current = user.displayName?.trim() ?? '';
+    if (current.isNotEmpty) return;
+    try {
+      await user.updateDisplayName(name);
+    } catch (_) {}
   }
 
   Future<Map<String, dynamic>?> _ensureUserDocument(
@@ -315,7 +326,7 @@ class AuthService {
       );
       if (write.isCreate) {
         tx.set(ref, write.fields);
-        return _createdEnsureView(input);
+        return _createdEnsureView(write);
       }
       tx.set(ref, write.fields, SetOptions(merge: true));
       return existing;
@@ -681,6 +692,10 @@ class AuthService {
         final appleName = AppleSignInFlow.displayName(
           givenName: apple.givenName,
           familyName: apple.familyName,
+        );
+        await _offerAuthDisplayNamePrefill(
+          user,
+          appleName.isEmpty ? null : appleName,
         );
         await _ensureUserDocument(
           _ensureInputFor(

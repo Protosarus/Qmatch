@@ -1332,7 +1332,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeletionMayRetainBody =>
-      '• Safety reports and abuse-prevention records\n• App Store / Play purchase verification records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.';
+      '• Safety reports and abuse-prevention records\n• App Store / Play purchase verification records\n• Limited logs needed for legal or compliance reasons\n• Shared messages and chat artifacts needed for the other person’s conversation history\nThese are not used to keep your dating profile active.';
 
   @override
   String get accountDeletionTimelineTitle => 'This is immediate';
@@ -1358,7 +1358,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeletionErrorGeneric =>
-      'We couldn’t delete your account. Check your connection and try again.';
+      'We couldn’t delete your account. Try again.';
+
+  @override
+  String get accountDeletionErrorSessionExpired =>
+      'Your session expired. Sign in again and try again.';
+
+  @override
+  String get accountDeletionErrorNetwork =>
+      'We couldn’t reach the server. Check your connection and try again.';
+
+  @override
+  String get accountDeletionErrorServer =>
+      'The server couldn’t delete your account. Try again in a moment.';
 
   @override
   String get accountDeletionErrorAppleRevoke =>

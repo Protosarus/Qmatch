@@ -1,9 +1,15 @@
+import 'auth_provider_resolver.dart';
+
 /// Create-if-missing / safe-merge plan for `users/{uid}`.
 ///
 /// Existing completion, profile, and identity fields are never reset.
 /// Provider linking reuses this helper idempotently and must not rewrite
 /// `auth_provider`, IQ/EQ/Frequency/Persona, profile, Discover, or
 /// subscription fields on an existing document.
+///
+/// Google/Apple provider profile names are prefill candidates only. They must
+/// not become canonical `users.name` on create. Email/phone keep their
+/// existing create-time name seeding.
 class UserDocumentEnsureInput {
   const UserDocumentEnsureInput({
     required this.uid,
@@ -56,6 +62,12 @@ class UserDocumentEnsure {
     return false;
   }
 
+  /// OAuth profile names stay off `users.name` until the user confirms them.
+  static bool persistProviderDisplayNameAsCanonical(String authProvider) {
+    return authProvider != AuthProviderResolver.google &&
+        authProvider != AuthProviderResolver.apple;
+  }
+
   static UserDocumentEnsureWrite decide({
     required Map<String, dynamic>? existing,
     required UserDocumentEnsureInput input,
@@ -63,10 +75,13 @@ class UserDocumentEnsure {
   }) {
     if (existing == null) {
       final trimmedName = input.displayName?.trim() ?? '';
+      final seedName =
+          persistProviderDisplayNameAsCanonical(input.authProvider) &&
+              trimmedName.isNotEmpty;
       return UserDocumentEnsureWrite.create({
         'uid': input.uid,
         if (!isBlank(input.phoneNumber)) 'phone_number': input.phoneNumber,
-        if (trimmedName.isNotEmpty) 'name': trimmedName,
+        if (seedName) 'name': trimmedName,
         'email': input.email,
         'auth_provider': input.authProvider,
         'test_completed': false,

@@ -222,7 +222,6 @@ void main() {
         tester,
         SettingsScreen(
           animateBackground: false,
-          debugDeletionPending: false,
           debugForceDebugRow: false,
           passportClient: client,
           openPaywall: (context, f) async {
@@ -253,7 +252,6 @@ void main() {
         tester,
         SettingsScreen(
           animateBackground: false,
-          debugDeletionPending: false,
           debugForceDebugRow: false,
           passportClient: client,
           openPaywall: (_, __) async => false,
@@ -284,7 +282,6 @@ void main() {
         tester,
         SettingsScreen(
           animateBackground: false,
-          debugDeletionPending: false,
           debugForceDebugRow: false,
           passportClient: client,
         ),

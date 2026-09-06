@@ -54,7 +54,6 @@ void main() {
       tester,
       home: const SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: true,
       ),
     );
@@ -77,7 +76,6 @@ void main() {
       tester,
       home: const SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: false,
       ),
     );
@@ -109,7 +107,6 @@ void main() {
       tester,
       home: const SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: false,
       ),
     );
@@ -123,13 +120,28 @@ void main() {
       textScale: 1.3,
       home: const SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: true,
         debugForceDebugRow: false,
       ),
     );
     expect(find.byKey(const Key('qmatch-settings-deletion-banner')),
-        findsOneWidget);
+        findsNothing);
+    expect(find.text('Hesap silme devam ediyor'), findsNothing);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('never shows pending deletion banner or title', (tester) async {
+    await pumpSettings(
+      tester,
+      home: const SettingsScreen(
+        animateBackground: false,
+        debugForceDebugRow: false,
+      ),
+    );
+    expect(find.byKey(const Key('qmatch-settings-deletion-banner')),
+        findsNothing);
+    expect(find.text('Hesap silme devam ediyor'), findsNothing);
+    expect(find.text('Account deletion in progress'), findsNothing);
+    expect(find.byKey(const Key('qmatch-settings-delete')), findsOneWidget);
   });
 
   testWidgets('logout and delete keys are distinct', (tester) async {
@@ -137,7 +149,6 @@ void main() {
       tester,
       home: const SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: false,
       ),
     );

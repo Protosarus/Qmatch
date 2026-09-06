@@ -37,6 +37,46 @@ function timestamp(deps) {
   return FieldValue.serverTimestamp();
 }
 
+const TIMING_EVENT = 'delete_qmatch_account_timing';
+
+function emitTiming(deps, record) {
+  const line = JSON.stringify(record);
+  if (deps && typeof deps.log === 'function') {
+    deps.log(line);
+    return;
+  }
+  console.log(line);
+}
+
+function createDeletionTimer(deps) {
+  const startedAt = Date.now();
+  return {
+    async time(step, work) {
+      const stepStartedAt = Date.now();
+      try {
+        return await work();
+      } finally {
+        const now = Date.now();
+        emitTiming(deps, {
+          event: TIMING_EVENT,
+          step,
+          duration_ms: now - stepStartedAt,
+          total_duration_ms: now - startedAt,
+        });
+      }
+    },
+    finish() {
+      const now = Date.now();
+      emitTiming(deps, {
+        event: TIMING_EVENT,
+        step: 'total',
+        duration_ms: now - startedAt,
+        total_duration_ms: now - startedAt,
+      });
+    },
+  };
+}
+
 async function deleteCollectionDocs(db, collectionRef) {
   const snap = await collectionRef.get();
   if (!snap.size) return 0;
@@ -169,6 +209,7 @@ async function deidentifySharedThreads(db, uid, deps) {
  *   deleteStoragePath?,
  *   closeMatches?,
  *   requestData?,
+ *   log?,
  * }} [deps]
  */
 async function runDeleteQMatchAccount(uid, deps = {}) {
@@ -179,115 +220,137 @@ async function runDeleteQMatchAccount(uid, deps = {}) {
   }
   const db = resolveDb(deps);
   const completed = [];
-  const authUser = await loadAuthUser(deps, uid);
-  if (authUser && requiresAppleRevocationSignal(authUser)
-      && !appleRevocationAccepted(deps.requestData)) {
-    const err = new Error('apple_revocation_required');
-    err.code = 'failed-precondition';
-    err.details = { code: 'apple_revocation_required' };
-    throw err;
-  }
+  const timer = createDeletionTimer(deps);
+  try {
+    const authUser = await timer.time('load_auth_user', () => loadAuthUser(deps, uid));
+    if (authUser && requiresAppleRevocationSignal(authUser)
+        && !appleRevocationAccepted(deps.requestData)) {
+      const err = new Error('apple_revocation_required');
+      err.code = 'failed-precondition';
+      err.details = { code: 'apple_revocation_required' };
+      throw err;
+    }
 
-  const requestRef = db.collection('account_deletion_requests').doc(uid);
-  const userRef = db.collection('users').doc(uid);
-  const publicRef = db.collection('public_profiles').doc(uid);
-  const entitlementRef = db.collection('entitlements').doc(uid);
+    const requestRef = db.collection('account_deletion_requests').doc(uid);
+    const userRef = db.collection('users').doc(uid);
+    const publicRef = db.collection('public_profiles').doc(uid);
+    const entitlementRef = db.collection('entitlements').doc(uid);
 
-  await requestRef.set(
-    {
-      uid,
-      ...requestClaimFields(),
-      processing_started_at: timestamp(deps),
-      updated_at: timestamp(deps),
-    },
-    { merge: true },
-  );
-  completed.push('claim_request');
-
-  await userRef.set(
-    {
-      ...visibilityRevokeFields(),
-      account_deletion_requested_at: timestamp(deps),
-      updated_at: timestamp(deps),
-    },
-    { merge: true },
-  );
-  completed.push('revoke_visibility');
-
-  const publicSnap = await publicRef.get();
-  if (publicSnap.exists) {
-    await publicRef.delete();
-  }
-  completed.push('delete_public_profile');
-
-  const close = deps.closeMatches
-    || closeAllActiveMatchesForDeletion;
-  await close(uid, { db });
-  completed.push('close_matches_threads');
-
-  await deidentifySharedThreads(db, uid, deps);
-  completed.push('deidentify_shared_threads');
-
-  let ownedDeletes = 0;
-  for (const name of USER_OWNED_SUBCOLLECTIONS) {
-    // eslint-disable-next-line no-await-in-loop
-    ownedDeletes += await deleteCollectionDocs(
-      db,
-      db.collection(`users/${uid}/${name}`),
-    );
-  }
-  completed.push('delete_user_owned_data');
-
-  const storageDeleted = await deleteOwnedStorage(deps, uid);
-  completed.push('delete_owned_storage');
-
-  const entitlementSnap = await entitlementRef.get();
-  if (entitlementSnap.exists) {
-    await entitlementRef.set(
+    await timer.time('claim_request', () => requestRef.set(
       {
-        ...entitlementRetainPatch(uid),
+        uid,
+        ...requestClaimFields(),
+        processing_started_at: timestamp(deps),
         updated_at: timestamp(deps),
       },
       { merge: true },
+    ));
+    completed.push('claim_request');
+
+    await timer.time('revoke_visibility', () => userRef.set(
+      {
+        ...visibilityRevokeFields(),
+        account_deletion_requested_at: timestamp(deps),
+        updated_at: timestamp(deps),
+      },
+      { merge: true },
+    ));
+    completed.push('revoke_visibility');
+
+    await timer.time('delete_public_profile', async () => {
+      const publicSnap = await publicRef.get();
+      if (publicSnap.exists) {
+        await publicRef.delete();
+      }
+    });
+    completed.push('delete_public_profile');
+
+    const close = deps.closeMatches
+      || closeAllActiveMatchesForDeletion;
+    await timer.time('close_matches_threads', () => close(uid, { db }));
+    completed.push('close_matches_threads');
+
+    await timer.time(
+      'deidentify_shared_threads',
+      () => deidentifySharedThreads(db, uid, deps),
     );
-  }
-  completed.push('retain_entitlements');
+    completed.push('deidentify_shared_threads');
 
-  const userSnap = await userRef.get();
-  if (userSnap.exists) {
-    await userRef.delete();
-  }
-  completed.push('delete_user_doc');
+    let ownedDeletes = 0;
+    await timer.time('delete_user_owned_data', async () => {
+      for (const name of USER_OWNED_SUBCOLLECTIONS) {
+        // eslint-disable-next-line no-await-in-loop
+        ownedDeletes += await deleteCollectionDocs(
+          db,
+          db.collection(`users/${uid}/${name}`),
+        );
+      }
+    });
+    completed.push('delete_user_owned_data');
 
-  const authDeleted = await deleteAuthUser(deps, uid);
-  completed.push('delete_auth_user');
+    const storageDeleted = await timer.time(
+      'delete_owned_storage',
+      () => deleteOwnedStorage(deps, uid),
+    );
+    completed.push('delete_owned_storage');
 
-  await requestRef.set(
-    {
+    await timer.time('retain_entitlements', async () => {
+      const entitlementSnap = await entitlementRef.get();
+      if (entitlementSnap.exists) {
+        await entitlementRef.set(
+          {
+            ...entitlementRetainPatch(uid),
+            updated_at: timestamp(deps),
+          },
+          { merge: true },
+        );
+      }
+    });
+    completed.push('retain_entitlements');
+
+    await timer.time('delete_user_doc', async () => {
+      const userSnap = await userRef.get();
+      if (userSnap.exists) {
+        await userRef.delete();
+      }
+    });
+    completed.push('delete_user_doc');
+
+    const authDeleted = await timer.time(
+      'delete_auth_user',
+      () => deleteAuthUser(deps, uid),
+    );
+    completed.push('delete_auth_user');
+
+    await timer.time('finalize_request', () => requestRef.set(
+      {
+        uid,
+        ...requestCompletedFields(),
+        processed_at: timestamp(deps),
+        updated_at: timestamp(deps),
+        owned_docs_deleted: ownedDeletes,
+        storage_objects_deleted: storageDeleted,
+        auth_deleted: authDeleted !== false,
+        completed_steps: STEPS,
+      },
+      { merge: true },
+    ));
+    completed.push('finalize_request');
+
+    return {
+      ok: true,
+      policy: POLICY,
       uid,
-      ...requestCompletedFields(),
-      processed_at: timestamp(deps),
-      updated_at: timestamp(deps),
-      owned_docs_deleted: ownedDeletes,
-      storage_objects_deleted: storageDeleted,
+      completed_steps: completed,
       auth_deleted: authDeleted !== false,
-      completed_steps: STEPS,
-    },
-    { merge: true },
-  );
-  completed.push('finalize_request');
-
-  return {
-    ok: true,
-    policy: POLICY,
-    uid,
-    completed_steps: completed,
-    auth_deleted: authDeleted !== false,
-    messages_deleted: false,
-    chat_media_deleted: false,
-    entitlements_deleted: false,
-    reports_deleted: false,
-  };
+      messages_deleted: false,
+      chat_media_deleted: false,
+      entitlements_deleted: false,
+      reports_deleted: false,
+    };
+  } finally {
+    timer.finish();
+  }
 }
 
 module.exports = {

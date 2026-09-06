@@ -126,7 +126,6 @@ void main() {
       tester,
       child: SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: true,
         passportClient: _passportStub(),
       ),
@@ -139,7 +138,6 @@ void main() {
       tester,
       child: SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: false,
         passportClient: _passportStub(),
       ),
@@ -147,17 +145,19 @@ void main() {
     await expectGolden(tester, 'goldens/settings/release_no_debug_1_0.png');
   });
 
-  testWidgets('settings deletion pending', (tester) async {
+  testWidgets('settings never shows pending deletion banner', (tester) async {
     await pump(
       tester,
       child: SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: true,
         debugForceDebugRow: false,
         passportClient: _passportStub(),
       ),
     );
-    await expectGolden(tester, 'goldens/settings/deletion_pending_1_0.png');
+    expect(find.byKey(const Key('qmatch-settings-deletion-banner')),
+        findsNothing);
+    expect(find.text('Account deletion in progress'), findsNothing);
+    expect(find.text('Hesap silme devam ediyor'), findsNothing);
   });
 
   testWidgets('settings textScale 1.3', (tester) async {
@@ -166,7 +166,6 @@ void main() {
       textScale: 1.3,
       child: SettingsScreen(
         animateBackground: false,
-        debugDeletionPending: false,
         debugForceDebugRow: false,
         passportClient: _passportStub(),
       ),

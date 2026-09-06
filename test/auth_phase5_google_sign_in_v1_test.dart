@@ -277,7 +277,7 @@ void main() {
       );
       expect(next['auth_provider'], AuthProviderResolver.google);
       expect(next['email'], 'ada@gmail.com');
-      expect(next['name'], 'Ada');
+      expect(next.containsKey('name'), isFalse);
       expect(next['test_completed'], isFalse);
       expect(next['discover_eligible'], isFalse);
       expect(next['profile_completed'], isFalse);

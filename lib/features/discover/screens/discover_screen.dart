@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/debug/qmatch_perf.dart';
-import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
@@ -21,7 +20,6 @@ import '../../matching/services/like_match_outcome.dart';
 import '../../matching/services/swipe_service.dart';
 import '../../messages/screens/chat_detail_screen.dart';
 import '../../messages/services/chat_service.dart';
-import '../../settings/services/account_deletion_request_service.dart';
 import '../../who_liked_you/navigation/who_liked_you_entry.dart';
 import '../models/discover_user_model.dart';
 import '../domain/discover_eligible_query_plan.dart';
@@ -155,8 +153,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   late final EntitlementRepository _entitlements;
   StreamSubscription<EntitlementSnapshot>? _entitlementSub;
   final SwipeService _swipeService = SwipeService();
-  final AccountDeletionRequestService _deletionService =
-      AccountDeletionRequestService();
 
   bool _isLoading = true;
   bool _isActionLoading = false;
@@ -167,7 +163,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   int _nextRewindActionId = 0;
   int? _rewindActionId;
   Future<_DiscoverCommitState>? _rewindCommitFuture;
-  bool _deletionPending = false;
   bool _hasError = false;
   bool _lastCardCommitted = false;
   bool _showGestureOnboarding = false;
@@ -223,7 +218,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     DiscoverGestureOnboardingStore.guidanceRevision
         .addListener(_onGuidanceRevision);
     _watchEntitlement();
-    _loadDeletionPending();
     debugPrint(
         'Discover runtime uid=${FirebaseAuth.instance.currentUser?.uid}');
     _loadCandidates();
@@ -309,12 +303,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       debugPrint('Discover gesture onboarding debug reset failed: $e\n$st');
     }
     await _syncFirstUseGuidanceFromStore();
-  }
-
-  Future<void> _loadDeletionPending() async {
-    final pending = await _deletionService.isAccountDeletionPending();
-    if (!mounted) return;
-    setState(() => _deletionPending = pending);
   }
 
   Future<void> _loadCandidates() async {
@@ -1053,7 +1041,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           child: SafeArea(
             child: Column(
               children: [
-                if (_deletionPending) _buildDeletionPendingBanner(context),
                 Expanded(child: _buildBody()),
               ],
             ),
@@ -1145,35 +1132,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       );
     }
     return header;
-  }
-
-  Widget _buildDeletionPendingBanner(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return Material(
-      color: AppColors.glassSurfaceStrong,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.md,
-          vertical: AppSpacing.sm,
-        ),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: AppColors.borderSubtle.withValues(alpha: 0.8),
-            ),
-          ),
-        ),
-        child: Text(
-          l10n.discoverAccountDeletionPendingBanner,
-          style: const TextStyle(
-            color: AppColors.softGold,
-            fontSize: 13,
-            height: 1.35,
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _buildBody() {
