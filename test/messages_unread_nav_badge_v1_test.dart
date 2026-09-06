@@ -220,6 +220,7 @@ Widget _wrapNav(Stream<List<ChatThreadModel>> stream) {
     home: MainNavigationScreen(
       currentUid: 'me',
       threadsStream: stream,
+      relationshipActivityBadgeStream: const Stream<bool>.empty(),
       screens: const [
         SizedBox.expand(),
         SizedBox.expand(),

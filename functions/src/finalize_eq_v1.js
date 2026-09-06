@@ -9,6 +9,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const {
   validateAssessmentFinalizeSession,
 } = require('./assessment_finalize_validation_v1');
@@ -37,14 +38,10 @@ const FROZEN_USER_KEYS = Object.freeze([
 ]);
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required to finalize EQ.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required to finalize EQ.',
+  );
 }
 
 function resolveDb(deps) {

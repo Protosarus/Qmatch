@@ -22,6 +22,7 @@ class FrequencyIntroScreen extends StatelessWidget {
         builder: (context, constraints) {
           final compact = constraints.maxHeight < 700;
           return Column(
+            key: const Key('frequency-v2-intro'),
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               FrequencyQuestionTopBar(
@@ -44,8 +45,8 @@ class FrequencyIntroScreen extends StatelessWidget {
               SizedBox(height: compact ? 4 : 8),
               Text(
                 l10n.frequencyIntroDescription,
-                maxLines: compact ? 3 : 4,
                 textAlign: TextAlign.center,
+                softWrap: true,
                 style: GoogleFonts.inter(
                   color: Colors.white.withValues(alpha: 0.78),
                   fontSize: compact ? 11.5 : 13.5,
@@ -70,6 +71,7 @@ class FrequencyIntroScreen extends StatelessWidget {
               ),
               SizedBox(height: compact ? 6 : 10),
               FrequencyContinueButton(
+                key: const Key('frequency-v2-intro-start'),
                 label: l10n.startFrequencyTest,
                 active: true,
                 onPressed: () {
@@ -186,8 +188,7 @@ class _FrequencyIntroBullet extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+            softWrap: true,
             style: GoogleFonts.inter(
               color: Colors.white.withValues(alpha: 0.88),
               fontSize: compact ? 10.5 : 12.5,

@@ -9,6 +9,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const {
   isLikeDirection,
   isValidLiveUser,
@@ -25,14 +26,10 @@ const CALLABLE_NAME = 'likeAndMaybeCreateMatch';
 const PUBLIC_OUTCOME_KEYS = Object.freeze(['outcome', 'like_rewindable']);
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required to Like.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required to Like.',
+  );
 }
 
 function resolveDb(deps) {

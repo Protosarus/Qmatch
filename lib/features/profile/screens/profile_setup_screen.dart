@@ -175,7 +175,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       if (mounted) {
         showElegantWarning(
           context,
-          AppLocalizations.of(context)!.profileSetupErrorGeneric(e.toString()),
+          AppLocalizations.of(context)!.qmatchFeedbackGenericError,
         );
       }
     }

@@ -7,6 +7,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_primary_action.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
@@ -18,8 +19,10 @@ class HelpSupportScreen extends StatelessWidget {
   Future<void> _copySupportEmail(BuildContext context) async {
     await Clipboard.setData(const ClipboardData(text: AppSupport.email));
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context)!.supportEmailLabel)),
+    QMatchFeedback.show(
+      context,
+      message: AppLocalizations.of(context)!.supportEmailLabel,
+      type: QMatchFeedbackType.success,
     );
   }
 

@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../features/auth/apple_sign_in_flow.dart';
+import '../../features/auth/google_sign_in_flow.dart';
+import '../../features/auth/provider_link_flow.dart';
 import '../notifications/notification_registration_service.dart';
 import 'auth_provider_resolver.dart';
+import 'email_verification_policy.dart';
+import 'pending_provider_link.dart';
 import 'user_document_ensure.dart';
 
 typedef EmailPasswordCreate = Future<UserCredential> Function({
@@ -12,18 +18,56 @@ typedef EmailPasswordCreate = Future<UserCredential> Function({
   required String password,
 });
 
+typedef GoogleAuthTokenPicker
+    = Future<({String? idToken, String? accessToken})?> Function();
+
+typedef FirebaseCredentialSignIn = Future<UserCredential> Function(
+  AuthCredential credential,
+);
+
+typedef GoogleSessionSignOut = Future<void> Function();
+
+typedef AppleNonceGenerator = String Function();
+
+typedef AppleAuthorizationRequest = Future<AppleAuthorizationResult?> Function(
+  String hashedNonce,
+);
+
+typedef AppleOAuthCredentialBuilder = AuthCredential Function({
+  required String idToken,
+  required String rawNonce,
+});
+
 class AuthService {
   AuthService({
     FirebaseAuth? auth,
     FirebaseFirestore? firestore,
     EmailPasswordCreate? createUserWithEmailAndPassword,
+    GoogleAuthTokenPicker? pickGoogleAuthTokens,
+    FirebaseCredentialSignIn? signInWithCredential,
+    GoogleSessionSignOut? signOutGoogle,
+    AppleNonceGenerator? generateAppleNonce,
+    AppleAuthorizationRequest? requestAppleAuthorization,
+    AppleOAuthCredentialBuilder? buildAppleCredential,
   })  : _authOverride = auth,
         _firestoreOverride = firestore,
-        _createEmailUser = createUserWithEmailAndPassword;
+        _createEmailUser = createUserWithEmailAndPassword,
+        _pickGoogleAuthTokens = pickGoogleAuthTokens,
+        _signInWithCredential = signInWithCredential,
+        _signOutGoogle = signOutGoogle,
+        _generateAppleNonce = generateAppleNonce,
+        _requestAppleAuthorization = requestAppleAuthorization,
+        _buildAppleCredential = buildAppleCredential;
 
   final FirebaseAuth? _authOverride;
   final FirebaseFirestore? _firestoreOverride;
   final EmailPasswordCreate? _createEmailUser;
+  final GoogleAuthTokenPicker? _pickGoogleAuthTokens;
+  final FirebaseCredentialSignIn? _signInWithCredential;
+  final GoogleSessionSignOut? _signOutGoogle;
+  final AppleNonceGenerator? _generateAppleNonce;
+  final AppleAuthorizationRequest? _requestAppleAuthorization;
+  final AppleOAuthCredentialBuilder? _buildAppleCredential;
 
   FirebaseAuth get _auth => _authOverride ?? FirebaseAuth.instance;
   FirebaseFirestore get _firestore =>
@@ -466,13 +510,314 @@ class AuthService {
     await _auth.currentUser?.sendEmailVerification();
   }
 
+  /// Google account chooser → Firebase credential → idempotent user ensure.
+  ///
+  /// Cancellation returns [GoogleSignInAttempt.cancelled] and writes nothing.
+  /// Collision captures a memory-only pending credential and never merges UIDs.
+  Future<GoogleSignInAttempt> signInWithGoogle() async {
+    ({String? idToken, String? accessToken})? tokens;
+    try {
+      tokens = await _obtainGoogleAuthTokens();
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'cancelled') {
+        return GoogleSignInAttempt.cancelled();
+      }
+      return GoogleSignInAttempt.failed(error);
+    } on PlatformException catch (error) {
+      final mapped = _googlePlatformError(error);
+      if (mapped.code == 'cancelled') {
+        return GoogleSignInAttempt.cancelled();
+      }
+      return GoogleSignInAttempt.failed(mapped);
+    } catch (_) {
+      return GoogleSignInAttempt.failed(
+        FirebaseAuthException(code: 'unknown'),
+      );
+    }
+
+    if (tokens == null) {
+      return GoogleSignInAttempt.cancelled();
+    }
+
+    final idToken = tokens.idToken;
+    final accessToken = tokens.accessToken;
+    if ((idToken == null || idToken.isEmpty) &&
+        (accessToken == null || accessToken.isEmpty)) {
+      await _signOutGoogleSession();
+      return GoogleSignInAttempt.failed(
+        FirebaseAuthException(code: 'invalid-credential'),
+      );
+    }
+
+    try {
+      final credential = GoogleAuthProvider.credential(
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+      final signIn = _signInWithCredential ?? _auth.signInWithCredential;
+      final userCredential = await signIn(credential);
+      final user = userCredential.user;
+      if (user != null) {
+        SignInProviderMemory.remember(AuthProviderResolver.googleProviderId);
+        await _ensureUserDocument(_ensureInputFor(user));
+      }
+      return GoogleSignInAttempt.success(userCredential);
+    } on FirebaseAuthException catch (error) {
+      await _signOutGoogleSession();
+      if (error.code == 'account-exists-with-different-credential') {
+        PendingProviderLinkStore.captureFromCollision(
+          error,
+          attemptedProvider: AuthProviderResolver.googleProviderId,
+        );
+        return GoogleSignInAttempt.collision(error);
+      }
+      return GoogleSignInAttempt.failed(error);
+    } on PlatformException catch (error) {
+      await _signOutGoogleSession();
+      return GoogleSignInAttempt.failed(_googlePlatformError(error));
+    } catch (_) {
+      await _signOutGoogleSession();
+      return GoogleSignInAttempt.failed(
+        FirebaseAuthException(code: 'unknown'),
+      );
+    }
+  }
+
+  Future<({String? idToken, String? accessToken})?>
+      _obtainGoogleAuthTokens() async {
+    final pickGoogleAuthTokens = _pickGoogleAuthTokens;
+    if (pickGoogleAuthTokens != null) {
+      return pickGoogleAuthTokens();
+    }
+    final account = await GoogleSignInFlow.createClient().signIn();
+    if (account == null) return null;
+    final auth = await account.authentication;
+    return (idToken: auth.idToken, accessToken: auth.accessToken);
+  }
+
+  FirebaseAuthException _googlePlatformError(PlatformException error) {
+    final code = error.code.toLowerCase();
+    final message = (error.message ?? '').toLowerCase();
+    if (code.contains('network') || message.contains('network')) {
+      return FirebaseAuthException(code: 'network-request-failed');
+    }
+    if (code.contains('canceled') ||
+        code.contains('cancelled') ||
+        message.contains('canceled') ||
+        message.contains('cancelled')) {
+      return FirebaseAuthException(code: 'cancelled');
+    }
+    return FirebaseAuthException(code: 'unknown');
+  }
+
+  Future<void> _signOutGoogleSession() async {
+    try {
+      final signOutGoogle = _signOutGoogle;
+      if (signOutGoogle != null) {
+        await signOutGoogle();
+        return;
+      }
+      await GoogleSignInFlow.createClient().signOut();
+    } catch (_) {}
+  }
+
+  /// Apple nonce flow → Firebase credential → idempotent user ensure.
+  ///
+  /// Cancellation returns [AppleSignInAttempt.cancelled] and writes nothing.
+  /// Collision captures a memory-only pending credential and never merges UIDs.
+  /// Normal sign-out never revokes Apple authorization.
+  Future<AppleSignInAttempt> signInWithApple() async {
+    final rawNonce =
+        (_generateAppleNonce ?? AppleSignInFlow.generateRawNonce)();
+    final hashedNonce = AppleSignInFlow.sha256Of(rawNonce);
+
+    AppleAuthorizationResult? apple;
+    try {
+      apple = await _obtainAppleAuthorization(hashedNonce);
+    } on SignInWithAppleAuthorizationException catch (error) {
+      if (error.code == AuthorizationErrorCode.canceled) {
+        return AppleSignInAttempt.cancelled();
+      }
+      return AppleSignInAttempt.failed(
+        AppleSignInFlow.mapAppleException(error),
+      );
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'cancelled') {
+        return AppleSignInAttempt.cancelled();
+      }
+      return AppleSignInAttempt.failed(error);
+    } catch (_) {
+      return AppleSignInAttempt.failed(
+        FirebaseAuthException(code: 'apple-unknown'),
+      );
+    }
+
+    if (apple == null) {
+      return AppleSignInAttempt.cancelled();
+    }
+    if (apple.identityToken.trim().isEmpty) {
+      return AppleSignInAttempt.failed(
+        FirebaseAuthException(code: 'invalid-credential'),
+      );
+    }
+
+    try {
+      final build = _buildAppleCredential ??
+          ({required String idToken, required String rawNonce}) {
+            return OAuthProvider('apple.com').credential(
+              idToken: idToken,
+              rawNonce: rawNonce,
+            );
+          };
+      final credential = build(
+        idToken: apple.identityToken,
+        rawNonce: rawNonce,
+      );
+      final signIn = _signInWithCredential ?? _auth.signInWithCredential;
+      final userCredential = await signIn(credential);
+      final user = userCredential.user;
+      if (user != null) {
+        SignInProviderMemory.remember(AuthProviderResolver.appleProviderId);
+        final appleName = AppleSignInFlow.displayName(
+          givenName: apple.givenName,
+          familyName: apple.familyName,
+        );
+        await _ensureUserDocument(
+          _ensureInputFor(
+            user,
+            nameOverride: appleName.isEmpty ? null : appleName,
+            emailOverride:
+                UserDocumentEnsure.isBlank(apple.email) ? null : apple.email,
+          ),
+        );
+      }
+      return AppleSignInAttempt.success(userCredential);
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'account-exists-with-different-credential') {
+        PendingProviderLinkStore.captureFromCollision(
+          error,
+          attemptedProvider: AuthProviderResolver.appleProviderId,
+        );
+        return AppleSignInAttempt.collision(error);
+      }
+      return AppleSignInAttempt.failed(error);
+    } catch (_) {
+      return AppleSignInAttempt.failed(
+        FirebaseAuthException(code: 'unknown'),
+      );
+    }
+  }
+
+  Future<AppleAuthorizationResult?> _obtainAppleAuthorization(
+    String hashedNonce,
+  ) async {
+    final requestAppleAuthorization = _requestAppleAuthorization;
+    if (requestAppleAuthorization != null) {
+      return requestAppleAuthorization(hashedNonce);
+    }
+    final credential = await SignInWithApple.getAppleIDCredential(
+      scopes: const [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: hashedNonce,
+    );
+    final identityToken = credential.identityToken;
+    if (identityToken == null || identityToken.isEmpty) {
+      throw FirebaseAuthException(code: 'invalid-credential');
+    }
+    return AppleAuthorizationResult(
+      identityToken: identityToken,
+      authorizationCode: credential.authorizationCode,
+      email: credential.email,
+      givenName: credential.givenName,
+      familyName: credential.familyName,
+    );
+  }
+
   // Çıkış yap
   Future<void> signOut() async {
+    PendingProviderLinkStore.clear();
+    SignInProviderMemory.clear();
     await unregisterPushTokenThenSignOut(
       unregister: () =>
           NotificationRegistrationService.instance.unregisterForLogout(),
-      signOut: () => _auth.signOut(),
+      signOut: () async {
+        await _auth.signOut();
+        await _signOutGoogleSession();
+      },
     );
+  }
+
+  /// Links a memory-only pending OAuth credential to the **current** user.
+  ///
+  /// Existing Firebase UID is authoritative. Never merges two UIDs, never
+  /// copies Firestore data, and never links during an unverified password
+  /// session (Phase 3 gate stays in force).
+  Future<ProviderLinkAttempt> linkPendingCredential({
+    String? existingUid,
+    bool? emailVerified,
+    String? currentSignInProvider,
+    Future<String> Function(AuthCredential credential)? linkAndReturnUid,
+    Future<void> Function(String uid)? ensureExistingUser,
+  }) async {
+    final pending = PendingProviderLinkStore.current;
+    if (pending == null) {
+      return const ProviderLinkAttempt.idle();
+    }
+
+    final user = existingUid == null ? _auth.currentUser : null;
+    final uid = existingUid ?? user?.uid;
+    if (uid == null || uid.isEmpty) {
+      return ProviderLinkAttempt.failed(
+        FirebaseAuthException(code: 'invalid-credential'),
+      );
+    }
+
+    final provider =
+        (currentSignInProvider ?? SignInProviderMemory.current ?? '').trim();
+    final verified = emailVerified ?? user?.emailVerified ?? false;
+    if (ProviderLinkFlow.shouldDeferUnverifiedPassword(
+      currentSignInProvider: provider,
+      emailVerified: verified,
+    )) {
+      return const ProviderLinkAttempt.deferred();
+    }
+
+    final linker = linkAndReturnUid ??
+        (AuthCredential credential) async {
+          final current = _auth.currentUser;
+          if (current == null) {
+            throw FirebaseAuthException(code: 'invalid-credential');
+          }
+          final result = await current.linkWithCredential(credential);
+          return result.user?.uid ?? current.uid;
+        };
+
+    final attempt = await ProviderLinkFlow.linkToExistingUid(
+      existingUid: uid,
+      credential: pending.credential,
+      linkAndReturnUid: linker,
+    );
+
+    if (attempt.isSuccess) {
+      PendingProviderLinkStore.clear();
+      final ensure = ensureExistingUser ??
+          (String linkedUid) async {
+            final current = _auth.currentUser;
+            if (current != null && current.uid == linkedUid) {
+              await _ensureUserDocument(_ensureInputFor(current));
+            }
+          };
+      await ensure(uid);
+      return attempt;
+    }
+
+    if (attempt.error != null &&
+        ProviderLinkFlow.isUnrecoverableLinkError(attempt.error!.code)) {
+      PendingProviderLinkStore.clear();
+    }
+    return attempt;
   }
 }
 

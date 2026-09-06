@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../l10n/app_localizations.dart';
 import 'profile_setup_screen.dart';
@@ -29,21 +30,21 @@ class _NameSelectionScreenState extends State<NameSelectionScreen> {
     final name = _nameController.text.trim();
 
     if (name.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.nameSelectionErrorEmpty),
-          backgroundColor: Colors.red,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.nameSelectionErrorEmpty,
+        type: QMatchFeedbackType.error,
+        compact: true,
       );
       return;
     }
 
     if (name.length < 2) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.nameSelectionErrorMinLength),
-          backgroundColor: Colors.red,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.nameSelectionErrorMinLength,
+        type: QMatchFeedbackType.error,
+        compact: true,
       );
       return;
     }
@@ -63,11 +64,11 @@ class _NameSelectionScreenState extends State<NameSelectionScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.errorMessage(e.toString())),
-            backgroundColor: Colors.red,
-          ),
+        QMatchFeedback.show(
+          context,
+          message: l10n.qmatchFeedbackGenericError,
+          type: QMatchFeedbackType.error,
+          compact: true,
         );
       }
     } finally {

@@ -20,7 +20,7 @@ void main() {
 
     test('client may create only a Pass swipe', () {
       expect(
-        swipeRules.contains('allow create: if isOwner(uid)'),
+        swipeRules.contains('allow create: if isVerifiedOwner(uid)'),
         isTrue,
       );
       expect(
@@ -33,7 +33,7 @@ void main() {
 
     test('client cannot downgrade an Admin Like into Pass', () {
       expect(
-        swipeRules.contains('allow update: if isOwner(uid)'),
+        swipeRules.contains('allow update: if isVerifiedOwner(uid)'),
         isTrue,
       );
       expect(

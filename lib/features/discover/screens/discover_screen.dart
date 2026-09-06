@@ -9,6 +9,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/entitlement_snapshot.dart';
@@ -223,7 +224,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         .addListener(_onGuidanceRevision);
     _watchEntitlement();
     _loadDeletionPending();
-    debugPrint('Discover runtime uid=${FirebaseAuth.instance.currentUser?.uid}');
+    debugPrint(
+        'Discover runtime uid=${FirebaseAuth.instance.currentUser?.uid}');
     _loadCandidates();
     _refreshSuperResonanceBalance();
   }
@@ -448,11 +450,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     final sanitized = message.toLowerCase().contains('block')
         ? AppLocalizations.of(context)!.discoverSuperResonanceSendFailed
         : message;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(sanitized),
-        backgroundColor: AppColors.error,
-      ),
+    QMatchFeedback.show(
+      context,
+      message: sanitized,
+      type: QMatchFeedbackType.error,
     );
   }
 
@@ -630,6 +631,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     if (_likeDispatchedUids.contains(c.uid)) {
       return Future<void>.value();
     }
+    if (_showGestureOnboarding) {
+      unawaited(_completeGestureOnboarding());
+    }
 
     final isLast = _isLastCandidate;
     final actionId = ++_nextRewindActionId;
@@ -692,11 +696,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         if (!mounted) return;
 
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.discoverActionFailed),
-            backgroundColor: AppColors.error,
-          ),
+        QMatchFeedback.show(
+          context,
+          message: l10n.discoverActionFailed,
+          type: QMatchFeedbackType.error,
         );
       }
     }());
@@ -835,11 +838,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       });
 
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.discoverActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.discoverActionFailed,
+        type: QMatchFeedbackType.error,
       );
     } finally {
       if (mounted) {
@@ -855,6 +857,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     final c = _currentCandidate;
     if (c == null || _rewindBusy || _isActionLoading) return;
     if (!_likeDispatchedUids.add(c.uid)) return;
+    if (_showGestureOnboarding) {
+      unawaited(_completeGestureOnboarding());
+    }
 
     final isLast = _isLastCandidate;
     final actionId = ++_nextRewindActionId;
@@ -1011,11 +1016,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       debugPrint('Discover like failed: $e\n$st');
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.discoverActionFailed),
-            backgroundColor: AppColors.error,
-          ),
+        QMatchFeedback.show(
+          context,
+          message: l10n.discoverActionFailed,
+          type: QMatchFeedbackType.error,
         );
       }
     }
@@ -1107,8 +1111,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       debugPrint('Passport disable failed: $e\n$st');
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.discoverActionFailed)),
+      QMatchFeedback.show(
+        context,
+        message: l10n.discoverActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }
@@ -1285,9 +1291,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
                 QMatchDiscoverSwipeableCard(
                   candidateId: c.uid,
-                  enabled: !_isActionLoading &&
-                      !_rewindBusy &&
-                      !_showGestureOnboarding,
+                  enabled: !_isActionLoading && !_rewindBusy,
                   showSwipeStamps:
                       DiscoverGestureOnboardingStore.showSwipeStamps(
                     _committedSwipeCount,
@@ -1327,13 +1331,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 : (_rewindTargetUid == null ? null : _onRewindPressed),
             onPass: (_isActionLoading ||
                     _rewindBusy ||
-                    _showGestureOnboarding ||
                     _likeDispatchedUids.contains(c.uid))
                 ? null
                 : _onPassAction,
             onLike: (_isActionLoading ||
                     _rewindBusy ||
-                    _showGestureOnboarding ||
                     _likeDispatchedUids.contains(c.uid))
                 ? null
                 : _onLikeAction,

@@ -2,9 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 /// Maps Firebase Auth provider IDs to the existing `users.auth_provider` field.
 ///
-/// Does not link accounts or store a provider graph. When several IDs are
-/// present, the first match in [resolve] wins so a future Google/Apple user
-/// is never stamped as `email` merely because they have an email address.
+/// `users.auth_provider` is a **bootstrap / last-known label only**. It is
+/// never the security authority. After provider linking, a user may have
+/// several Firebase `providerData` IDs; identity stays
+/// `request.auth.uid` + ID-token `sign_in_provider` / `email_verified`.
+///
+/// Linking must not overwrite a populated `auth_provider`. [resolve] still
+/// prefers password→email when several IDs are present so a *new* document
+/// keeps a stable original label. That preference is not a provider graph.
 class AuthProviderResolver {
   AuthProviderResolver._();
 
@@ -42,6 +47,31 @@ class AuthProviderResolver {
     return resolve(
       providerIds: user.providerData.map((info) => info.providerId),
       phoneNumber: user.phoneNumber,
+    );
+  }
+
+  /// Linked Apple is read from Firebase providerData, not the current session.
+  static bool hasAppleLinked(User user) {
+    return user.providerData.any(
+      (info) => info.providerId == appleProviderId,
+    );
+  }
+
+  static bool hasPasswordLinked(User user) {
+    return user.providerData.any(
+      (info) => info.providerId == passwordProviderId,
+    );
+  }
+
+  static bool hasGoogleLinked(User user) {
+    return user.providerData.any(
+      (info) => info.providerId == googleProviderId,
+    );
+  }
+
+  static bool hasPhoneLinked(User user) {
+    return user.providerData.any(
+      (info) => info.providerId == phoneProviderId,
     );
   }
 }

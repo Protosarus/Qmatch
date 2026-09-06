@@ -93,7 +93,8 @@ void main() {
   });
 
   group('PersonaRuntimeHandoffPersistence assignAndPersist', () {
-    test('writes after valid 20D assign; path is assessments/persona', () async {
+    test('writes after valid 20D assign; path is assessments/persona',
+        () async {
       final writes = <Map<String, dynamic>>[];
       final persistence = PersonaRuntimeHandoffPersistence(
         writeForUidOverride: (uid, fields) async {
@@ -119,7 +120,7 @@ void main() {
       expect(
         'users/uid_persist_b/assessments/persona',
         'users/${writes.single['uid']}/assessments/'
-        '${PersonaRuntimeHandoffPersistence.assessmentType}',
+            '${PersonaRuntimeHandoffPersistence.assessmentType}',
       );
 
       // Second write with same assignment is safe (idempotent merge contract).
@@ -176,7 +177,11 @@ void main() {
       final rules = File('firestore.rules').readAsStringSync();
       expect(rules.contains('match /assessments/{docId}'), isTrue);
       expect(
-        rules.contains('allow read, write: if isOwner(uid);'),
+        rules.contains('allow read: if isVerifiedOwner(uid);'),
+        isTrue,
+      );
+      expect(
+        rules.contains("docId != 'frequency_v2'"),
         isTrue,
       );
       // No special-case deny for persona; docId includes persona.

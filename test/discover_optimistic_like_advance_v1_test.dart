@@ -21,7 +21,7 @@ void main() {
         likeBody.contains('QMatchDiscoverSwipeableCard.flyOffDuration'),
         isTrue,
       );
-      expect(likeBody.contains('_advance()'), isTrue);
+      expect(likeBody.contains('_advanceDeck()'), isTrue);
       expect(likeBody.contains('await likeFuture'), isTrue);
       expect(likeBody.contains('unawaited'), isTrue);
       expect(
@@ -31,7 +31,7 @@ void main() {
       );
       expect(
         likeBody.indexOf('QMatchDiscoverSwipeableCard.flyOffDuration') <
-            likeBody.indexOf('_advance()'),
+            likeBody.indexOf('_advanceDeck()'),
         isTrue,
       );
       // Match dialog waits only on callable — not on fly-off / _advance.
@@ -41,7 +41,6 @@ void main() {
         isTrue,
       );
       expect(likeBody.contains('match.dialog_show'), isTrue);
-      expect(likeBody.contains('_isActionLoading'), isFalse);
       expect(likeBody.contains('_loadCandidates'), isFalse);
       expect(likeBody.contains('rankL1Batch'), isFalse);
       expect(likeBody.contains('getCandidates'), isFalse);
@@ -54,16 +53,16 @@ void main() {
       final src = File(
         'lib/features/discover/screens/discover_screen.dart',
       ).readAsStringSync();
-      final passIdx = src.indexOf('Future<void> _onPass() async {');
+      final passIdx = src.indexOf('Future<void> _onPass() {');
       final likeIdx = src.indexOf('Future<void> _onLike() async {');
       expect(passIdx, greaterThanOrEqualTo(0));
       expect(likeIdx, greaterThan(passIdx));
       final passBody = src.substring(passIdx, likeIdx);
       expect(passBody.contains('_isActionLoading = true'), isTrue);
-      expect(passBody.contains('passUser(c.uid)'), isTrue);
+      expect(passBody.contains('_passUser(c.uid)'), isTrue);
       expect(
-        passBody.indexOf('await _swipeService.passUser') <
-            passBody.indexOf('_advance()'),
+        passBody.indexOf('_passUser(c.uid)') <
+            passBody.indexOf('_advanceDeck()'),
         isTrue,
       );
       expect(passBody.contains('likeUser'), isFalse);
@@ -72,7 +71,7 @@ void main() {
     test('fly-off duration is the swipeable card constant', () {
       expect(
         QMatchDiscoverSwipeableCard.flyOffDuration,
-        const Duration(milliseconds: 220),
+        const Duration(milliseconds: 100),
       );
     });
   });

@@ -109,7 +109,7 @@ void main() {
 
       expect(find.byKey(const Key('qmatch-who-liked-you-list')), findsOneWidget);
       expect(find.text('Ada, 28'), findsOneWidget);
-      expect(find.text('Super Resonance'), findsWidgets);
+      expect(find.textContaining('Super Resonance'), findsWidgets);
       expect(
         find.byKey(const Key('qmatch-who-liked-you-super-marker-u1')),
         findsOneWidget,

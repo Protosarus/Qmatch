@@ -22,7 +22,24 @@ import '../widgets/auth_keyboard_dismiss.dart';
 import '../widgets/auth_world_map_accent.dart';
 
 class PhoneSignupScreen extends StatefulWidget {
-  const PhoneSignupScreen({super.key});
+  const PhoneSignupScreen({
+    super.key,
+    this.debugShowCodeStep = false,
+    this.sendCodeOverride,
+    this.verifyCodeOverride,
+  });
+
+  /// Test-only: render the OTP step without a Firebase send.
+  final bool debugShowCodeStep;
+  final Future<void> Function()? sendCodeOverride;
+  final Future<void> Function()? verifyCodeOverride;
+
+  static const Key phoneFieldKey = Key('qmatch-phone-number-field');
+  static const Key codeFieldKey = Key('qmatch-phone-code-field');
+  static const Key sendCodeKey = Key('qmatch-phone-send-code');
+  static const Key verifyKey = Key('qmatch-phone-verify');
+  static const Key changeNumberKey = Key('qmatch-phone-change-number');
+  static const Key resendKey = Key('qmatch-phone-resend');
 
   @override
   State<PhoneSignupScreen> createState() => _PhoneSignupScreenState();
@@ -55,6 +72,11 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
     super.initState();
     _initialIsoCode = _detectDefaultIsoCode();
     _dialCode = _dialCodeForIso(_initialIsoCode);
+    if (widget.debugShowCodeStep) {
+      _codeSent = true;
+      _verificationId = 'test-otp';
+      _e164Phone = '+905551112233';
+    }
     _phoneFocus.addListener(() {
       if (!mounted) return;
       setState(() => _phoneFocused = _phoneFocus.hasFocus);
@@ -258,6 +280,28 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
       return;
     }
 
+    if (widget.sendCodeOverride != null) {
+      _sendInFlight = true;
+      if (!mounted) {
+        _sendInFlight = false;
+        return;
+      }
+      setState(() {
+        _isLoading = true;
+        _error = null;
+        _e164Phone = phone;
+      });
+      try {
+        await widget.sendCodeOverride!();
+        if (mounted) setState(() => _isLoading = false);
+      } catch (_) {
+        if (mounted) _setError(l10n.phoneSignupErrorSmsFailed);
+      } finally {
+        _sendInFlight = false;
+      }
+      return;
+    }
+
     _sendInFlight = true;
     if (!mounted) {
       _sendInFlight = false;
@@ -354,6 +398,16 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
       _error = null;
     });
 
+    if (widget.verifyCodeOverride != null) {
+      try {
+        await widget.verifyCodeOverride!();
+        if (mounted) setState(() => _isLoading = false);
+      } catch (_) {
+        if (mounted) _setError(l10n.phoneSignupErrorVerificationFailed);
+      }
+      return;
+    }
+
     try {
       await _authService.verifySmsCode(
         verificationId: verificationId,
@@ -383,7 +437,10 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     const accent = _accentLavender;
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final media = MediaQuery.of(context);
+    final keyboardInset = media.viewInsets.bottom;
+    final safeBottom = media.padding.bottom;
+    final bottomPad = 16.0 + (keyboardInset > 0 ? keyboardInset : safeBottom);
     final displayedPhone = _e164Phone ?? '';
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -391,15 +448,20 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: AppColors.midnightNavy,
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarDividerColor: Colors.transparent,
       ),
       child: AuthKeyboardDismiss(
         child: Scaffold(
           backgroundColor: AppColors.midnightNavy,
+          resizeToAvoidBottomInset: false,
           body: Stack(
             fit: StackFit.expand,
             children: [
               const _PhoneCosmicBackdrop(),
               SafeArea(
+                bottom: false,
                 child: Column(
                   children: [
                     Padding(
@@ -422,16 +484,19 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                           final padH =
                               (constraints.maxWidth * 0.06).clamp(20.0, 28.0);
                           return SingleChildScrollView(
-                            padding: EdgeInsets.only(
-                              left: padH,
-                              right: padH,
-                              bottom: bottomInset + 16,
+                            keyboardDismissBehavior:
+                                ScrollViewKeyboardDismissBehavior.onDrag,
+                            padding: EdgeInsets.fromLTRB(
+                              padH,
+                              0,
+                              padH,
+                              bottomPad,
                             ),
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
                                 minHeight: math.max(
                                   0.0,
-                                  constraints.maxHeight - bottomInset,
+                                  constraints.maxHeight - bottomPad,
                                 ),
                                 maxWidth: 430,
                               ),
@@ -563,14 +628,17 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                                   ),
                                             ),
                                             child: IntlPhoneField(
-                                              key: const Key(
-                                                'qmatch-phone-number-field',
-                                              ),
+                                              key: PhoneSignupScreen
+                                                  .phoneFieldKey,
                                               controller: _phoneController,
                                               focusNode: _phoneFocus,
                                               initialCountryCode:
                                                   _initialIsoCode,
                                               keyboardType: TextInputType.phone,
+                                              keyboardAppearance:
+                                                  Brightness.dark,
+                                              dropdownDecoration:
+                                                  const BoxDecoration(),
                                               textInputAction:
                                                   TextInputAction.done,
                                               onSubmitted: (_) =>
@@ -700,9 +768,11 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                                 : null,
                                           ),
                                           child: TextFormField(
+                                            key: PhoneSignupScreen.codeFieldKey,
                                             controller: _codeController,
                                             focusNode: _codeFocus,
                                             keyboardType: TextInputType.number,
+                                            keyboardAppearance: Brightness.dark,
                                             textInputAction:
                                                 TextInputAction.done,
                                             cursorColor: _accentLavender,
@@ -737,6 +807,8 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                         Row(
                                           children: [
                                             TextButton(
+                                              key: PhoneSignupScreen
+                                                  .changeNumberKey,
                                               onPressed: _isLoading
                                                   ? null
                                                   : () {
@@ -776,6 +848,7 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                             ),
                                             const Spacer(),
                                             TextButton(
+                                              key: PhoneSignupScreen.resendKey,
                                               onPressed:
                                                   _isLoading ? null : _sendCode,
                                               style: TextButton.styleFrom(
@@ -813,6 +886,9 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                                   Column(
                                     children: [
                                       _CosmicCtaButton(
+                                        key: _codeSent
+                                            ? PhoneSignupScreen.verifyKey
+                                            : PhoneSignupScreen.sendCodeKey,
                                         loading: _isLoading,
                                         label: _codeSent
                                             ? l10n.verify
@@ -846,15 +922,6 @@ class _PhoneSignupScreenState extends State<PhoneSignupScreen> {
                   ],
                 ),
               ),
-              if (_phoneFocused)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: AuthKeyboardActionBar(
-                    onPressed: _dismissKeyboard,
-                  ),
-                ),
             ],
           ),
         ),
@@ -982,6 +1049,7 @@ class _StarFieldPainter extends CustomPainter {
 
 class _CosmicCtaButton extends StatelessWidget {
   const _CosmicCtaButton({
+    super.key,
     required this.label,
     required this.onPressed,
     required this.loading,

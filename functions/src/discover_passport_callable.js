@@ -9,6 +9,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const {
   normalizeSnapshot,
   defaultFreeSnapshot,
@@ -30,14 +31,10 @@ const PUBLIC_GET_KEYS = Object.freeze([
 ]);
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required for Discover Passport.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required for Discover Passport.',
+  );
 }
 
 function resolveDb(deps) {

@@ -7,6 +7,7 @@ import 'package:qmatch/core/notifications/message_push_tap_host.dart';
 import 'package:qmatch/core/notifications/message_push_tap_router.dart';
 import 'package:qmatch/core/notifications/push_messaging_port.dart';
 import 'package:qmatch/core/notifications/push_permission_state.dart';
+import 'package:qmatch/core/widgets/qmatch_feedback.dart';
 import 'package:qmatch/features/messages/models/chat_thread_model.dart';
 import 'package:qmatch/l10n/app_localizations.dart';
 
@@ -405,17 +406,22 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.text('Yeni bir mesajın var.'), findsOneWidget);
+    expect(find.byKey(QMatchFeedback.bannerKey), findsOneWidget);
     expect(find.text('Aç'), findsNothing);
     expect(find.text('Open'), findsNothing);
     expect(actions.opens, isEmpty);
 
-    final banner = tester.widget<InkWell>(
-      find.ancestor(
-        of: find.text('Yeni bir mesajın var.'),
-        matching: find.byType(InkWell),
-      ),
+    final detector = tester.widget<GestureDetector>(
+      find
+          .ancestor(
+            of: find.byKey(QMatchFeedback.bannerKey),
+            matching: find.byWidgetPredicate(
+              (widget) => widget is GestureDetector && widget.onTap != null,
+            ),
+          )
+          .first,
     );
-    banner.onTap!();
+    detector.onTap!();
     await tester.pump();
     await tester.pump();
 

@@ -10,6 +10,7 @@ import '../../../core/utils/firestore_paths.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../discover/utils/discover_identity_format.dart';
@@ -237,11 +238,10 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     } catch (_) {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.discoverActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.discoverActionFailed,
+        type: QMatchFeedbackType.error,
       );
     } finally {
       if (mounted) setState(() => _busy = false);
@@ -261,11 +261,10 @@ class _WhoLikedYouScreenState extends State<WhoLikedYouScreen> {
     } catch (_) {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.discoverActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.discoverActionFailed,
+        type: QMatchFeedbackType.error,
       );
     } finally {
       if (mounted) setState(() => _busy = false);

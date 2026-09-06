@@ -82,8 +82,16 @@ class MainNavigationScreenState extends State<MainNavigationScreen> {
   String? _uid() => widget.currentUid ?? FirebaseAuth.instance.currentUser?.uid;
 
   Stream<bool> _relationshipActivityBadgeStream() {
-    return widget.relationshipActivityBadgeStream ??
-        RelationshipAnalysisDiscovery.watchActivityBadge(uid: _uid());
+    final injected = widget.relationshipActivityBadgeStream;
+    if (injected != null) {
+      return injected;
+    }
+    // Production RA entry is currently hidden; do not open a Firebase
+    // listener for a badge that cannot render.
+    if (!_showRelationshipAnalysisUi) {
+      return const Stream<bool>.empty();
+    }
+    return RelationshipAnalysisDiscovery.watchActivityBadge(uid: _uid());
   }
 
   @override

@@ -8,6 +8,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../safety/services/safety_service.dart';
@@ -148,11 +149,10 @@ class BlockedUsersScreen extends StatelessWidget {
                                     await _unblock(blockedUid);
                                   } catch (e) {
                                     if (!context.mounted) return;
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(l10n.chatActionFailed),
-                                        backgroundColor: AppColors.error,
-                                      ),
+                                    QMatchFeedback.show(
+                                      context,
+                                      message: l10n.chatActionFailed,
+                                      type: QMatchFeedbackType.error,
                                     );
                                   }
                                 },

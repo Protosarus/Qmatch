@@ -5,6 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/notification_prefs_snapshot.dart';
@@ -81,11 +82,11 @@ class _NotificationsSettingsScreenState
   }
 
   void _showError(String message) {
-    final messenger = ScaffoldMessenger.maybeOf(context);
-    if (messenger == null) return;
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(message)));
+    QMatchFeedback.show(
+      context,
+      message: message,
+      type: QMatchFeedbackType.error,
+    );
   }
 
   @override

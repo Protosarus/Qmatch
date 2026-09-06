@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/iq_bank/iq_bank.dart';
 import '../domain/iq_session/iq_session.dart';
@@ -336,8 +337,11 @@ class _IQTestScreenState extends State<IQTestScreen> {
         l10n.iqCanonicalAnswerError,
       _ => l10n.iqCanonicalSessionError,
     };
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
+    QMatchFeedback.show(
+      context,
+      message: message,
+      type: QMatchFeedbackType.error,
+      compact: true,
     );
     debugPrint('IQ canonical error code=$code');
   }
@@ -475,8 +479,7 @@ class _IQTestScreenState extends State<IQTestScreen> {
                           return IqAnswerOptionRow(
                             index: i,
                             label: options[i].text,
-                            selected:
-                                _selectedOptionId == options[i].optionId,
+                            selected: _selectedOptionId == options[i].optionId,
                             compact: true,
                             onTap: (_busy || pendingFinalize)
                                 ? () {}

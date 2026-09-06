@@ -9,11 +9,21 @@ import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
 import '../../../core/widgets/qmatch_primary_action.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
+import '../services/account_deletion_coordinator.dart';
 import '../services/account_deletion_request_service.dart';
 
-/// Settings → Account → Delete Account — submits a **request**, does not wipe data.
+/// Settings → Delete account. Confirms, reauthenticates, then deletes.
 class AccountDeletionRequestScreen extends StatefulWidget {
-  const AccountDeletionRequestScreen({super.key});
+  const AccountDeletionRequestScreen({
+    super.key,
+    this.coordinator,
+    this.debugAppleLinked = false,
+    this.debugShowPassword = false,
+  });
+
+  final AccountDeletionCoordinator? coordinator;
+  final bool debugAppleLinked;
+  final bool debugShowPassword;
 
   @override
   State<AccountDeletionRequestScreen> createState() =>
@@ -22,43 +32,58 @@ class AccountDeletionRequestScreen extends StatefulWidget {
 
 class _AccountDeletionRequestScreenState
     extends State<AccountDeletionRequestScreen> {
-  final _service = AccountDeletionRequestService();
+  late final AccountDeletionCoordinator _coordinator =
+      widget.coordinator ?? AccountDeletionCoordinator();
   final _confirmController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   bool _ackIrreversible = false;
   bool _ackTimeline = false;
   bool _submitting = false;
-  bool _alreadyPending = false;
-  bool _pendingLoaded = false;
+  bool _showPassword = false;
   String? _inlineError;
 
   @override
   void initState() {
     super.initState();
     _confirmController.addListener(() => setState(() {}));
-    _loadPending();
-  }
-
-  Future<void> _loadPending() async {
-    final pending = await _service.isAccountDeletionPending();
-    if (!mounted) return;
-    setState(() {
-      _alreadyPending = pending;
-      _pendingLoaded = true;
-    });
+    _showPassword = widget.debugShowPassword;
   }
 
   @override
   void dispose() {
     _confirmController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
+  bool get _appleLinked =>
+      widget.debugAppleLinked || _coordinator.isAppleLinked();
+
   bool get _canSubmit {
-    if (_submitting || _alreadyPending || !_pendingLoaded) return false;
+    if (_submitting) return false;
     if (!_ackIrreversible || !_ackTimeline) return false;
     return _confirmController.text.trim().toUpperCase() ==
         AccountDeletionRequestService.confirmationToken;
+  }
+
+  String _messageFor(AppLocalizations l10n, AccountDeletionResult result) {
+    switch (result.stage) {
+      case AccountDeletionStage.appleRevokeFailed:
+        return l10n.accountDeletionErrorAppleRevoke;
+      case AccountDeletionStage.uidMismatch:
+        return l10n.accountDeletionErrorUidMismatch;
+      case AccountDeletionStage.needsPassword:
+        return l10n.accountDeletionPasswordHint;
+      case AccountDeletionStage.needsApple:
+        return l10n.accountDeletionAppleReauthHint;
+      case AccountDeletionStage.needsGoogle:
+        return l10n.accountDeletionGoogleReauthHint;
+      case AccountDeletionStage.needsPhone:
+        return l10n.accountDeletionPhoneReauthHint;
+      default:
+        return l10n.accountDeletionErrorGeneric;
+    }
   }
 
   Future<void> _submit(AppLocalizations l10n) async {
@@ -68,63 +93,31 @@ class _AccountDeletionRequestScreenState
       _inlineError = null;
     });
 
-    final result = await _service.submitRequest(
-      localeLanguageCode: Localizations.localeOf(context).languageCode,
-      appVersion: l10n.aboutVersion,
+    final result = await _coordinator.deleteAccount(
+      password: _passwordController.text,
     );
 
     if (!mounted) return;
-
     setState(() => _submitting = false);
 
-    if (!result.ok) {
+    if (result.isCancelled) {
+      return;
+    }
+    if (result.stage == AccountDeletionStage.needsPassword) {
       setState(() {
-        _inlineError = result.errorMessage == 'not_signed_in'
-            ? l10n.loginRequired
-            : l10n.accountDeletionRequestError;
+        _showPassword = true;
+        _inlineError = l10n.accountDeletionPasswordHint;
       });
       return;
     }
-
-    if (result.alreadyRequested) {
-      setState(() => _alreadyPending = true);
+    if (!result.isSuccess) {
+      setState(() => _inlineError = _messageFor(l10n, result));
       return;
     }
 
-    setState(() => _alreadyPending = true);
-
-    await showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) {
-        return AlertDialog(
-          backgroundColor: AppColors.surfaceElevated,
-          title: Text(
-            l10n.accountDeletionSuccessTitle,
-            style: GoogleFonts.playfairDisplay(
-              color: AppColors.textPrimary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          content: Text(
-            l10n.accountDeletionSuccessBody(AppSupport.email),
-            style: GoogleFonts.inter(color: Colors.white, height: 1.45),
-          ),
-          actions: [
-            SizedBox(
-              width: 170,
-              child: QMatchPrimaryAction(
-                label: l10n.accountDeletionSuccessAction,
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-          ],
-        );
-      },
-    );
+    if (!mounted) return;
+    Navigator.of(context, rootNavigator: true)
+        .popUntil((route) => route.isFirst);
   }
 
   @override
@@ -145,17 +138,147 @@ class _AccountDeletionRequestScreenState
                 titleKey: const Key('qmatch-delete-title'),
               ),
               Expanded(
-                child: !_pendingLoaded
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            AppColors.softGold,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpacing.md,
+                    AppSpacing.sm,
+                    AppSpacing.md,
+                    AppSpacing.xl,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        l10n.accountDeletionWarningTitle,
+                        style: GoogleFonts.playfairDisplay(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                          height: 1.3,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        l10n.accountDeletionIntro,
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 14,
+                          height: 1.45,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      _card(
+                        title: l10n.accountDeletionWillDeleteTitle,
+                        body: l10n.accountDeletionWillDeleteBody,
+                      ),
+                      const SizedBox(height: 12),
+                      _card(
+                        title: l10n.accountDeletionMayRetainTitle,
+                        body: l10n.accountDeletionMayRetainBody,
+                      ),
+                      const SizedBox(height: 12),
+                      if (_appleLinked) ...[
+                        Text(
+                          key: const Key('qmatch-delete-apple-hint'),
+                          l10n.accountDeletionAppleReauthHint,
+                          style: GoogleFonts.inter(
+                            color: AppColors.textSecondary,
+                            fontSize: 13,
+                            height: 1.45,
                           ),
                         ),
-                      )
-                    : (_alreadyPending
-                        ? _buildPendingBody(l10n)
-                        : _buildRequestBody(l10n)),
+                        const SizedBox(height: 12),
+                      ],
+                      _checkRow(
+                        key: const Key('qmatch-delete-ack-irreversible'),
+                        value: _ackIrreversible,
+                        onChanged: (v) =>
+                            setState(() => _ackIrreversible = v ?? false),
+                        label: l10n.accountDeletionAckIrreversible,
+                      ),
+                      _checkRow(
+                        key: const Key('qmatch-delete-ack-timeline'),
+                        value: _ackTimeline,
+                        onChanged: (v) =>
+                            setState(() => _ackTimeline = v ?? false),
+                        label: l10n.accountDeletionAckTimeline,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        l10n.accountDeletionTypeDeleteHint(
+                          AccountDeletionRequestService.confirmationToken,
+                        ),
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 13,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        key: const Key('qmatch-delete-confirm-field'),
+                        controller: _confirmController,
+                        enabled: !_submitting,
+                        autocorrect: false,
+                        textCapitalization: TextCapitalization.characters,
+                        style: GoogleFonts.inter(color: Colors.white),
+                        decoration: _fieldDecoration(
+                          AccountDeletionRequestService.confirmationToken,
+                        ),
+                      ),
+                      if (_showPassword) ...[
+                        const SizedBox(height: 12),
+                        TextField(
+                          key: const Key('qmatch-delete-password-field'),
+                          controller: _passwordController,
+                          enabled: !_submitting,
+                          obscureText: true,
+                          style: GoogleFonts.inter(color: Colors.white),
+                          decoration: _fieldDecoration(
+                              l10n.accountDeletionPasswordHint),
+                        ),
+                      ],
+                      if (_inlineError != null) ...[
+                        const SizedBox(height: 12),
+                        Text(
+                          key: const Key('qmatch-delete-error'),
+                          _inlineError!,
+                          style: GoogleFonts.inter(
+                            color: const Color(0xFFFFB4A8),
+                            fontSize: 13,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 20),
+                      QMatchPrimaryAction(
+                        key: const Key('qmatch-delete-submit'),
+                        label: l10n.accountDeletionSubmit,
+                        onPressed: _canSubmit ? () => _submit(l10n) : null,
+                        enabled: _canSubmit,
+                        loading: _submitting,
+                        tone: QMatchPrimaryActionTone.destructive,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        l10n.accountDeletionNotImmediateNote,
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                          height: 1.4,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        l10n.accountDeletionSupportHint(AppSupport.email),
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 12,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -164,182 +287,20 @@ class _AccountDeletionRequestScreenState
     );
   }
 
-  Widget _buildPendingBody(AppLocalizations l10n) {
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.sm,
-        AppSpacing.md,
-        AppSpacing.xl,
+  InputDecoration _fieldDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: GoogleFonts.inter(color: AppColors.textSecondary),
+      filled: true,
+      fillColor: AppColors.glassSurfaceStrong,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: AppColors.borderGlow),
       ),
-      children: [
-        Text(
-          l10n.accountDeletionPendingTitle,
-          style: GoogleFonts.inter(
-            color: AppColors.softGold,
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          l10n.accountDeletionPendingBody(AppSupport.email),
-          style: GoogleFonts.inter(
-            color: Colors.white,
-            fontSize: 14,
-            height: 1.5,
-          ),
-        ),
-        const SizedBox(height: 18),
-        _card(
-          title: l10n.accountDeletionTimelineTitle,
-          body: l10n.accountDeletionTimelineBody,
-        ),
-        const SizedBox(height: 12),
-        Text(
-          l10n.accountDeletionSupportHint(AppSupport.email),
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 13,
-            height: 1.45,
-          ),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          l10n.accountDeletionPendingNoResubmit,
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 12,
-            height: 1.4,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRequestBody(AppLocalizations l10n) {
-    return ListView(
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.sm,
-        AppSpacing.md,
-        AppSpacing.xl,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: AppColors.borderGlow),
       ),
-      children: [
-        Text(
-          l10n.accountDeletionWarningTitle,
-          style: GoogleFonts.inter(
-            color: Colors.redAccent,
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          l10n.accountDeletionIntro,
-          style: GoogleFonts.inter(
-            color: Colors.white,
-            fontSize: 14,
-            height: 1.5,
-          ),
-        ),
-        const SizedBox(height: 18),
-        _card(
-          title: l10n.accountDeletionWillDeleteTitle,
-          body: l10n.accountDeletionWillDeleteBody,
-        ),
-        const SizedBox(height: 12),
-        _card(
-          title: l10n.accountDeletionMayRetainTitle,
-          body: l10n.accountDeletionMayRetainBody,
-        ),
-        const SizedBox(height: 12),
-        _card(
-          title: l10n.accountDeletionTimelineTitle,
-          body: l10n.accountDeletionTimelineBody,
-        ),
-        const SizedBox(height: 12),
-        Text(
-          l10n.accountDeletionSupportHint(AppSupport.email),
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 13,
-            height: 1.45,
-          ),
-        ),
-        const SizedBox(height: 18),
-        _checkRow(
-          value: _ackIrreversible,
-          onChanged: (v) => setState(() => _ackIrreversible = v ?? false),
-          label: l10n.accountDeletionAckIrreversible,
-        ),
-        _checkRow(
-          value: _ackTimeline,
-          onChanged: (v) => setState(() => _ackTimeline = v ?? false),
-          label: l10n.accountDeletionAckTimeline,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          l10n.accountDeletionTypeDeleteHint(
-            AccountDeletionRequestService.confirmationToken,
-          ),
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 13,
-          ),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: _confirmController,
-          enabled: !_submitting,
-          autocorrect: false,
-          textCapitalization: TextCapitalization.characters,
-          style: GoogleFonts.inter(color: Colors.white),
-          decoration: InputDecoration(
-            hintText: AccountDeletionRequestService.confirmationToken,
-            hintStyle: GoogleFonts.inter(color: AppColors.textSecondary),
-            filled: true,
-            fillColor: AppColors.glassSurfaceStrong,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: AppColors.borderGlow,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                color: AppColors.borderGlow,
-              ),
-            ),
-          ),
-        ),
-        if (_inlineError != null) ...[
-          const SizedBox(height: 12),
-          Text(
-            _inlineError!,
-            style: GoogleFonts.inter(color: Colors.redAccent, fontSize: 13),
-          ),
-        ],
-        const SizedBox(height: 20),
-        QMatchPrimaryAction(
-          key: const Key('qmatch-delete-submit'),
-          label: l10n.accountDeletionSubmit,
-          onPressed: _canSubmit ? () => _submit(l10n) : null,
-          enabled: _canSubmit,
-          loading: _submitting,
-          tone: QMatchPrimaryActionTone.destructive,
-        ),
-        const SizedBox(height: 10),
-        Text(
-          l10n.accountDeletionNotImmediateNote,
-          style: GoogleFonts.inter(
-            color: AppColors.textSecondary,
-            fontSize: 12,
-            height: 1.4,
-          ),
-        ),
-      ],
     );
   }
 
@@ -371,11 +332,13 @@ class _AccountDeletionRequestScreenState
   }
 
   Widget _checkRow({
+    Key? key,
     required bool value,
     required ValueChanged<bool?> onChanged,
     required String label,
   }) {
     return CheckboxListTile(
+      key: key,
       value: value,
       onChanged: onChanged,
       activeColor: AppColors.softGold,

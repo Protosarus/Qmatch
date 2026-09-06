@@ -69,7 +69,7 @@ void main() {
     expect(src.contains('_precacheUpcomingCandidatePhotos'), isTrue);
     expect(src.contains('for (var i = 1; i <= 2; i++)'), isTrue);
     expect(src.contains('precacheImage'), isTrue);
-    expect(src.contains("'discover.first_card'"), isTrue);
+    expect(src.contains("'discover.photo_precache'"), isTrue);
   });
 
   test('main disables Google Fonts runtime fetching without a fake Cinzel file',
@@ -147,7 +147,11 @@ void main() {
         screen.contains('late Stream<List<MessageModel>> _messages'), isTrue);
     expect(screen.contains('didUpdateWidget'), isTrue);
     expect(screen.contains('oldWidget.threadId != widget.threadId'), isTrue);
-    expect(screen.contains('_messages = _chat.getMessagesStream'), isTrue);
+    expect(
+      screen.contains('_messages = _chat!.getMessagesStream') ||
+          screen.contains('_messages = _chat.getMessagesStream'),
+      isTrue,
+    );
     expect(screen.contains('stream: _messages'), isTrue);
     expect(screen.contains('markThreadAsRead(widget.threadId)'), isTrue);
     expect(screen.contains('getThreadById(widget.threadId)'), isFalse);

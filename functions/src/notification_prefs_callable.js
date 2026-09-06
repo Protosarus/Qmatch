@@ -8,6 +8,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const {
   SCHEMA_VERSION,
   BOOL_KEYS,
@@ -22,14 +23,10 @@ const GET_CALLABLE_NAME = 'getNotificationPrefs';
 const SET_CALLABLE_NAME = 'setNotificationPrefs';
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required for notification preferences.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required for notification preferences.',
+  );
 }
 
 function resolveDb(deps) {

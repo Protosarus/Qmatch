@@ -35,7 +35,8 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('legacy cleanup 4A — hydration gate', () {
-    test('viewer Frequency hydrate runs only when needLegacyCompat is true', () {
+    test('viewer Frequency hydrate runs only when needLegacyCompat is true',
+        () {
       final service = File(
         'lib/features/discover/services/discover_service.dart',
       ).readAsStringSync();
@@ -47,7 +48,8 @@ void main() {
         isTrue,
       );
       expect(
-        service.contains('if (needLegacyCompat) {\n      await _hydrateViewerLegacyFrequencyMirrors('),
+        service.contains(
+            'if (needLegacyCompat) {\n      await _hydrateViewerLegacyFrequencyMirrors('),
         isTrue,
       );
       expect(
@@ -62,21 +64,39 @@ void main() {
       expect(service.contains('usesTrustedStructuralL2'), isTrue);
     });
 
-    test('active mode stays L2; legacy_v1 remains rollback', () {
-      expect(DiscoverRankingMode.active, DiscoverRankingMode.structuralL2V1);
+    test('active mode is compatibilityFusionV2; L2 and legacy remain rollback',
+        () {
       expect(
-        DiscoverRankingMode.active.usesLegacyCompatibilityScoring,
+        DiscoverRankingMode.active,
+        DiscoverRankingMode.compatibilityFusionV2,
+      );
+      expect(DiscoverRankingMode.active.usesCompatibilityFusionV2, isTrue);
+      expect(
+          DiscoverRankingMode.active.usesLegacyCompatibilityScoring, isFalse);
+      expect(DiscoverRankingMode.active.usesTrustedStructuralL2, isTrue);
+      expect(
+        DiscoverRankingMode.structuralL2V1.usesTrustedStructuralL2,
+        isTrue,
+      );
+      expect(
+        DiscoverRankingMode.structuralL2V1.usesCompatibilityFusionV2,
+        isFalse,
+      );
+      expect(
+        DiscoverRankingMode.structuralL2V1.usesLegacyCompatibilityScoring,
         isFalse,
       );
       expect(
         DiscoverRankingMode.legacyV1.usesLegacyCompatibilityScoring,
         isTrue,
       );
+      expect(DiscoverRankingMode.legacyV1.usesTrustedStructuralL2, isFalse);
+      expect(DiscoverRankingMode.legacyV1.usesCompatibilityFusionV2, isFalse);
     });
   });
 
   group('legacy cleanup 4A — candidate card', () {
-    testWidgets('structural_l2_v1 hides category/archetype chips and hint',
+    testWidgets('production card hides category/archetype chips and hint',
         (tester) async {
       await tester.pumpWidget(
         _wrapCard(
@@ -97,10 +117,10 @@ void main() {
       expect(find.text('Compatible profile'), findsNothing);
       expect(find.text('Mindset-aligned'), findsNothing);
       expect(find.text('Enjoys quiet evenings.'), findsOneWidget);
-      expect(find.byKey(const Key('qmatch-candidate-compat-score')),
-          findsNothing);
-      expect(find.byKey(const Key('qmatch-candidate-compat-label')),
-          findsNothing);
+      expect(
+          find.byKey(const Key('qmatch-candidate-compat-score')), findsNothing);
+      expect(
+          find.byKey(const Key('qmatch-candidate-compat-label')), findsNothing);
     });
 
     testWidgets('legacy_v1 keeps category/archetype chips, hint, and %',

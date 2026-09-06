@@ -12,6 +12,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const contract = require('./frequency_behavior_v2_contract');
 const { scoreSession } = require('./frequency_behavior_v2_scorer');
 const {
@@ -87,14 +88,10 @@ const PERSISTED_FORBIDDEN_RESULT_KEYS = Object.freeze([
 ]);
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required to finalize Frequency V2.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required to finalize Frequency V2.',
+  );
 }
 
 function resolveDb(deps) {

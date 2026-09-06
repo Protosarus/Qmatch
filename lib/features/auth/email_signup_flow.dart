@@ -5,7 +5,7 @@ import '../../l10n/app_localizations.dart';
 
 /// Client validation + AuthService wiring for email registration.
 ///
-/// Does not enforce email verification — that is Phase 3.
+/// Email verification is enforced by the root AuthWrapper, not here.
 class EmailSignupFlow {
   EmailSignupFlow._();
 
@@ -53,6 +53,8 @@ class EmailSignupFlow {
   ) {
     switch (error.code) {
       case 'email-already-in-use':
+        // Existing Google/Apple (or password) account. Guidance only —
+        // never capture the raw password for later linking.
         return l10n.emailSignupErrorEmailInUse;
       case 'invalid-email':
         return l10n.loginErrorValidEmailAddress;

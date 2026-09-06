@@ -16,9 +16,7 @@ void main() {
       'balancedFrequency',
       'frequencyScore',
       'seeMyFrequency',
-      'emailSignupTitle',
       'socialCreateAccountSubtitle',
-      'emailVerificationResend',
     ];
 
     for (final path in [

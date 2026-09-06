@@ -126,7 +126,8 @@ void main() {
     final src = File('lib/features/auth/screens/phone_signup_screen.dart')
         .readAsStringSync();
     expect(src.contains('AuthKeyboardDismiss'), isTrue);
-    expect(src.contains('AuthKeyboardActionBar'), isTrue);
+    expect(src.contains('AuthKeyboardActionBar'), isFalse);
+    expect(src.contains('0xFF2C2C2E'), isFalse);
     expect(src.contains('TextInputType.phone'), isTrue);
     expect(src.contains('TextInputAction.done'), isTrue);
     expect(src.contains('qmatch-phone-number-field'), isTrue);
@@ -135,5 +136,6 @@ void main() {
     expect(src.contains('_dismissKeyboard()'), isTrue);
     expect(src.contains('_sendCode'), isTrue);
     expect(src.contains('_verifyCode'), isTrue);
+    expect(src.contains('resizeToAvoidBottomInset: false'), isTrue);
   });
 }

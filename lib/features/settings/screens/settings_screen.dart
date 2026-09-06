@@ -10,6 +10,7 @@ import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_glass_card.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../debug/debug_home_screen.dart';
@@ -102,55 +103,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     bool isError = false,
   }) {
     if (!mounted) return;
-
-    final messenger = ScaffoldMessenger.of(context);
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          elevation: 0,
-          backgroundColor: const Color(0xF5111629),
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 105),
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
-            side: BorderSide(
-              color: (isError ? AppColors.error : AppColors.resonanceViolet)
-                  .withValues(alpha: 0.55),
-            ),
-          ),
-          content: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  isError
-                      ? Icons.error_outline_rounded
-                      : Icons.check_circle_outline_rounded,
-                  color: isError ? AppColors.error : const Color(0xFFDAC8ED),
-                  size: 21,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    message,
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFF3EFFA),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      height: 1.35,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+    QMatchFeedback.show(
+      context,
+      message: message,
+      type: isError ? QMatchFeedbackType.error : QMatchFeedbackType.success,
+    );
   }
 
   Future<void> _sendPasswordReset() async {

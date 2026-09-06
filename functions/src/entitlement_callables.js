@@ -7,6 +7,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const { VERIFICATION_NOT_CONFIGURED } = require('./entitlement_schema');
 const { verifyApplePurchase } = require('./store_verify_apple');
 const { verifyPlayPurchase } = require('./store_verify_play');
@@ -39,14 +40,10 @@ function verificationNotConfiguredResult(uid, operation) {
  * @returns {string}
  */
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required for entitlement operations.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required for entitlement operations.',
+  );
 }
 
 /**

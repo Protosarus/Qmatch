@@ -24,7 +24,7 @@ void main() {
     ).readAsStringSync();
     final likeIdx = src.indexOf('Future<void> _onLike() async {');
     final buildIdx = src.indexOf('Widget build(BuildContext context)');
-    final passIdx = src.indexOf('Future<void> _onPass() async {');
+    final passIdx = src.indexOf('Future<void> _onPass() {');
     final bodyIdx = src.indexOf('Widget _buildBody() {');
     expect(likeIdx, greaterThanOrEqualTo(0));
     expect(passIdx, greaterThanOrEqualTo(0));
@@ -44,7 +44,7 @@ void main() {
           likeBody.indexOf('QMatchDiscoverSwipeableCard.flyOffDuration'),
       isTrue,
     );
-    expect(likeBody.contains('_isActionLoading'), isFalse);
+    expect(likeBody.contains('_isActionLoading'), isTrue);
     expect(likeBody.contains('_loadCandidates'), isFalse);
     expect(buildBody.contains('if (!_lastCardCommitted)'), isTrue);
     expect(
@@ -70,18 +70,23 @@ void main() {
   test('empty state appears after commit', () {
     expect(
       likeBody.indexOf('QMatchDiscoverSwipeableCard.flyOffDuration') <
-          likeBody.indexOf('_advance()'),
+          likeBody.indexOf('_advanceDeck()'),
       isTrue,
     );
     expect(passBody.contains('QMatchDiscoverSwipeableCard.flyOffDuration'),
         isTrue);
     expect(
       passBody.indexOf('QMatchDiscoverSwipeableCard.flyOffDuration') <
-          passBody.indexOf('_advance()'),
+          passBody.indexOf('_advanceDeck()'),
       isTrue,
     );
     expect(buildBody.contains('QMatchDiscoverEmptyState'), isTrue);
-    expect(buildBody.contains('onRetry: _loadCandidates'), isTrue);
+    expect(
+      buildBody.contains(
+        'onRetry: passportEmpty ? _openPassportPicker : _loadCandidates',
+      ),
+      isTrue,
+    );
     final emptyIdx = buildBody.indexOf('if (c == null)');
     final cardIdx = buildBody.indexOf('QMatchDiscoverSwipeableCard');
     expect(emptyIdx, greaterThanOrEqualTo(0));

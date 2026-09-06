@@ -8,6 +8,7 @@ import 'package:qmatch/features/assessment/domain/eq_session/eq_session.dart';
 import 'package:qmatch/features/assessment/domain/frequency_bank/frequency_bank.dart';
 import 'package:qmatch/features/assessment/domain/frequency_scoring/frequency_scoring.dart';
 import 'package:qmatch/features/assessment/domain/frequency_session/frequency_session.dart';
+import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import 'package:qmatch/features/assessment/domain/iq_session/iq_session.dart';
 import 'package:qmatch/features/assessment/models/assessment_progress.dart';
 import 'package:qmatch/features/assessment/services/assessment_cold_start_pending_reconciler.dart';
@@ -601,11 +602,13 @@ void main() {
       iqRepository: IqSessionMemoryRepository(),
       eqRepository: EqSessionMemoryRepository(),
       frequencyRepository: built.repo,
+      frequencyV2Repository: FrequencyV2SessionMemoryRepository(),
     ).reconcile(uid: uid, progress: _completedProgress());
 
-    expect(decision.destination, AssessmentFlowDestination.frequency);
-    expect(decision.openAssessmentTestScreen, isTrue);
-    expect(decision.reason, 'frequency_pending_finalization');
+    // Live runtime is V2-only: leftover V1 pending is not reopened.
+    expect(decision.destination, AssessmentFlowDestination.profileSetup);
+    expect(decision.openAssessmentTestScreen, isFalse);
+    expect(decision.reason, 'progress_routing');
     expect(
       (await built.repo.loadActiveSession(uid)).state!.remoteFinalized,
       isFalse,

@@ -13,6 +13,7 @@ import '../../features/who_liked_you/navigation/who_liked_you_entry.dart';
 import '../debug/qmatch_perf.dart';
 import '../navigation/main_navigation_screen.dart';
 import '../utils/firestore_paths.dart';
+import '../widgets/qmatch_feedback.dart';
 import 'firebase_push_messaging_adapter.dart';
 import 'message_push_tap_router.dart';
 import 'push_messaging_port.dart';
@@ -186,23 +187,16 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
     final messenger = ScaffoldMessenger.maybeOf(context);
     if (messenger == null || body.isEmpty) return;
 
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: InkWell(
-            onTap: () {
-              unawaited(_onTap(data));
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Text(body),
-            ),
-          ),
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 4),
-        ),
-      );
+    QMatchFeedback.show(
+      context,
+      messenger: messenger,
+      message: body,
+      type: QMatchFeedbackType.info,
+      duration: const Duration(seconds: 4),
+      onTap: () {
+        unawaited(_onTap(data));
+      },
+    );
 
     _log('qmatch.push foreground_banner type=$type');
   }
@@ -420,6 +414,10 @@ class _MessagePushTapHostState extends State<MessagePushTapHost> {
           screens: widget.mainScreens,
           threadsStream: widget.threadsStream,
           currentUid: widget.currentUid?.call(),
+          relationshipActivityBadgeStream:
+              widget.mainScreens != null || widget.threadsStream != null
+                  ? const Stream<bool>.empty()
+                  : null,
         );
   }
 }

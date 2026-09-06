@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../l10n/app_localizations.dart';
@@ -66,11 +67,10 @@ class QMatchConversationUnmatchSwipe extends StatelessWidget {
           return true;
         } catch (_) {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(l10n.chatActionFailed),
-                backgroundColor: AppColors.error,
-              ),
+            QMatchFeedback.show(
+              context,
+              message: l10n.chatActionFailed,
+              type: QMatchFeedbackType.error,
             );
           }
           return false;

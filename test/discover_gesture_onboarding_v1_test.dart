@@ -12,6 +12,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   const overlay = Key('qmatch-discover-gesture-onboarding');
+  const caption = Key('qmatch-discover-gesture-onboarding-caption');
   const stepLike = Key('qmatch-discover-gesture-onboarding-step-like');
   const stepPass = Key('qmatch-discover-gesture-onboarding-step-pass');
   const heart = Key('qmatch-discover-gesture-onboarding-heart');
@@ -96,7 +97,7 @@ void main() {
       var completed = 0;
       await pumpOverlay(tester, onCompleted: () => completed++);
 
-      await tester.tap(find.byKey(overlay));
+      await tester.tap(find.byKey(caption));
       await tester.pump();
 
       expect(find.byKey(stepPass), findsOneWidget);
@@ -119,7 +120,7 @@ void main() {
       );
 
       expect(find.text('Beğenmek için sağa kaydır.'), findsOneWidget);
-      await tester.tap(find.byKey(overlay));
+      await tester.tap(find.byKey(caption));
       await tester.pump();
       expect(find.text('Geçmek için sola kaydır.'), findsOneWidget);
       expect(find.text('Anladım'), findsOneWidget);
@@ -411,7 +412,6 @@ void main() {
       ).readAsStringSync();
       expect(src.contains('Icons.close_rounded'), isTrue);
       expect(src.contains('Icons.favorite_rounded'), isTrue);
-      expect(src.contains('child: Text('), isFalse);
       expect(src.contains('passLabel,'), isTrue);
       expect(src.contains('likeLabel,'), isTrue);
       expect(src.contains('subdued'), isTrue);
@@ -419,6 +419,15 @@ void main() {
       expect(src.contains('InkWell'), isFalse);
       expect(src.contains('Material('), isFalse);
       expect(src.contains('BoxShape.circle'), isTrue);
+      expect(src.contains('Icon-only: X (pass)'), isTrue);
+      expect(
+        src.contains('qmatch-discover-super-resonance-balance'),
+        isTrue,
+      );
+      final passLikeTextLabels = RegExp(
+        r"Text\(\s*'(Pass|Like|Geç|Beğen)'",
+      );
+      expect(passLikeTextLabels.hasMatch(src), isFalse);
     });
   });
 }

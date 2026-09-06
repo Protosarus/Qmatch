@@ -18,6 +18,9 @@ const {
   closeAllActiveMatchesForDeletion,
 } = require('./src/deletion_close_all_runner');
 const {
+  handleDeleteQMatchAccount,
+} = require('./src/delete_qmatch_account_callable');
+const {
   handleVerifyAndApplyPurchase,
   handleRestorePurchases,
 } = require('./src/entitlement_callables');
@@ -93,6 +96,17 @@ exports.closeMatchesOnAccountDeletionRequested = onDocumentWritten(
     const summary = await closeAllActiveMatchesForDeletion(uid);
     return summary;
   },
+);
+
+/**
+ * In-app account deletion. Auth required. Only request.auth.uid.
+ * Unverified password users may delete themselves. Apple-linked accounts
+ * must send apple_revocation_completed after client-side revoke.
+ * Do not deploy from this phase.
+ */
+exports.deleteQMatchAccount = onCall(
+  { region: 'us-central1' },
+  handleDeleteQMatchAccount(),
 );
 
 /**

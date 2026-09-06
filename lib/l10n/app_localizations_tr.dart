@@ -144,23 +144,50 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get frequencyIntroDescription =>
-      'Frekans zeka ile ilgili değildir. Nasıl bağ kurduğun, iletişim kurduğun ve güven inşa ettiğinle ilgilidir.';
+      'Bu sorular gündelik davranış eğilimlerini anlamaya yöneliktir. Doğru veya yanlış cevap yoktur.';
 
   @override
-  String get frequencyBulletConnect =>
-      'Ne kadar derin bağ kurmayı tercih ettiğin';
+  String get frequencyBulletConnect => 'Kendine en yakın seçeneği seç';
 
   @override
-  String get frequencyBulletTrust => 'Güveni ne kadar hızlı kurduğun';
+  String get frequencyBulletTrust => 'Yaklaşık 50 soru';
 
   @override
-  String get frequencyBulletOpenness => 'Ne kadar duygusal açıklık gösterdiğin';
+  String get frequencyBulletOpenness => 'İlk doğal cevabını tercih et';
 
   @override
-  String get frequencyBulletRhythm => 'Sana nasıl bir konuşma ritminin uyduğu';
+  String get frequencyBulletRhythm =>
+      'Acele etme — hiçbir seçenek doğru ya da yanlış sayılmaz';
 
   @override
   String get startFrequencyTest => 'Frekans Testine Başla';
+
+  @override
+  String get frequencyV2Loading => 'Soruların hazırlanıyor…';
+
+  @override
+  String get frequencyV2Finishing => 'Sonuçların hazırlanıyor…';
+
+  @override
+  String get frequencyV2LoadError =>
+      'Test şu anda yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get frequencyV2SaveErrorNetwork =>
+      'Sonuçların kaydedilemedi. Bağlantını kontrol edip tekrar dene. Cevapların duruyor.';
+
+  @override
+  String get frequencyV2SaveErrorGeneric =>
+      'Sonuçların şu anda kaydedilemedi. Cevapların güvende — tekrar dene.';
+
+  @override
+  String get frequencyV2SaveErrorAccount =>
+      'Sonuçlarını kaydetmek için tekrar giriş yap. Cevapların duruyor.';
+
+  @override
+  String frequencyV2ProgressSemantic(int current, int total) {
+    return 'Soru $current / $total';
+  }
 
   @override
   String get continueAction => 'Devam';
@@ -255,6 +282,160 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get welcomeContinueWithPhone => 'Telefon ile devam et';
+
+  @override
+  String get welcomeContinueWithGoogle => 'Google ile devam et';
+
+  @override
+  String get googleSignInErrorNetwork =>
+      'Google’a ulaşılamadı. Bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get googleSignInErrorTooManyRequests =>
+      'Çok fazla deneme. Lütfen bir süre bekleyip tekrar dene.';
+
+  @override
+  String get googleSignInErrorUserDisabled => 'Bu hesap devre dışı.';
+
+  @override
+  String get googleSignInErrorNotAllowed =>
+      'Google ile giriş şu anda kullanılamıyor.';
+
+  @override
+  String get googleSignInErrorInvalidCredential =>
+      'Google ile giriş tamamlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get googleSignInErrorAccountExistsDifferent =>
+      'Bu e-posta başka bir giriş yöntemiyle kayıtlı. Lütfen o yöntemle giriş yap.';
+
+  @override
+  String get googleSignInErrorCredentialInUse =>
+      'Bu Google hesabı başka bir QMatch kullanıcısına bağlı. Mevcut yöntemle giriş yap.';
+
+  @override
+  String get googleSignInErrorFailed =>
+      'Google ile giriş başarısız. Lütfen tekrar dene.';
+
+  @override
+  String get welcomeContinueWithApple => 'Apple ile devam et';
+
+  @override
+  String get appleSignInErrorNetwork =>
+      'Apple’a ulaşılamadı. Bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get appleSignInErrorTooManyRequests =>
+      'Çok fazla deneme. Lütfen bir süre bekleyip tekrar dene.';
+
+  @override
+  String get appleSignInErrorUserDisabled => 'Bu hesap devre dışı.';
+
+  @override
+  String get appleSignInErrorNotAllowed =>
+      'Apple ile giriş şu anda kullanılamıyor.';
+
+  @override
+  String get appleSignInErrorInvalidCredential =>
+      'Apple ile giriş tamamlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get appleSignInErrorAccountExistsDifferent =>
+      'Bu e-posta başka bir giriş yöntemiyle kayıtlı. Lütfen o yöntemle giriş yap.';
+
+  @override
+  String get appleSignInErrorCredentialInUse =>
+      'Bu Apple hesabı başka bir QMatch kullanıcısına bağlı. Mevcut yöntemle giriş yap.';
+
+  @override
+  String get appleSignInErrorAppleFailed =>
+      'Apple ile giriş başarısız. Lütfen tekrar dene.';
+
+  @override
+  String get appleSignInErrorInvalidResponse =>
+      'Apple geçersiz bir yanıt döndürdü. Lütfen tekrar dene.';
+
+  @override
+  String get appleSignInErrorNotHandled =>
+      'Bu cihazda Apple ile giriş işlenemedi.';
+
+  @override
+  String get appleSignInErrorUnknown =>
+      'Apple ile giriş tamamlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get appleSignInErrorFailed =>
+      'Apple ile giriş başarısız. Lütfen tekrar dene.';
+
+  @override
+  String get providerCollisionTitle =>
+      'Bu e-posta ile zaten bir QMatch hesabı var';
+
+  @override
+  String get providerCollisionBody =>
+      'Bu e-posta ile zaten bir QMatch hesabı var. Mevcut giriş yönteminle giriş yap; ardından bu hesabı güvenli şekilde bağlayacağız.';
+
+  @override
+  String get providerCollisionContinueEmail => 'E-posta ile devam et';
+
+  @override
+  String get providerCollisionContinueGoogle => 'Google ile devam et';
+
+  @override
+  String get providerCollisionContinueApple => 'Apple ile devam et';
+
+  @override
+  String get providerCollisionCancel => 'Şimdilik vazgeç';
+
+  @override
+  String get providerLinkErrorProviderAlreadyLinked =>
+      'Bu giriş yöntemi zaten hesabına bağlı.';
+
+  @override
+  String get providerLinkErrorCredentialInUse =>
+      'Bu giriş yöntemi başka bir QMatch hesabına ait. Hesapları otomatik birleştiremiyoruz. Kullandığın mevcut hesapla giriş yap.';
+
+  @override
+  String get providerLinkErrorEmailInUse =>
+      'Bu e-posta başka bir QMatch hesabında kullanılıyor.';
+
+  @override
+  String get providerLinkErrorInvalidCredential =>
+      'Bu giriş yöntemi bağlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get providerLinkErrorRequiresRecentLogin =>
+      'Lütfen tekrar giriş yap, sonra bağlamayı dene.';
+
+  @override
+  String get providerLinkErrorNetwork =>
+      'Ağ hatası. Bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get providerLinkErrorTooManyRequests =>
+      'Çok fazla deneme. Lütfen bir süre bekleyip tekrar dene.';
+
+  @override
+  String get providerLinkErrorUserDisabled => 'Bu hesap devre dışı.';
+
+  @override
+  String get providerLinkErrorNotAllowed =>
+      'Bu giriş yöntemi şu anda kullanılamıyor.';
+
+  @override
+  String get providerLinkErrorFailed =>
+      'Bu giriş yöntemi bağlanamadı. Lütfen tekrar dene.';
+
+  @override
+  String get qmatchFeedbackGenericError =>
+      'Bir sorun oluştu. Lütfen tekrar dene.';
+
+  @override
+  String get qmatchFeedbackGenericSuccess => 'İşlem tamamlandı.';
+
+  @override
+  String get qmatchFeedbackNetworkError =>
+      'Bağlantını kontrol edip tekrar dene.';
 
   @override
   String get welcomeLogInWithEmail => 'E-posta ile giriş yap';
@@ -472,7 +653,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get emailSignupErrorEmailInUse =>
-      'Bu e-posta zaten kayıtlı. Giriş yapmayı dene.';
+      'Bu e-posta zaten kayıtlı. Mevcut giriş yönteminle giriş yap.';
 
   @override
   String get emailSignupErrorWeakPassword => 'Lütfen daha güçlü bir şifre seç.';
@@ -483,6 +664,58 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get emailSignupErrorFailed => 'Kayıt başarısız. Lütfen tekrar dene.';
+
+  @override
+  String get emailVerificationTitle => 'E-postanı doğrula';
+
+  @override
+  String get emailVerificationBody =>
+      'E-posta adresine bir doğrulama bağlantısı gönderdik. Bağlantıyı aç, sonra buraya dönüp Doğruladım’a bas.';
+
+  @override
+  String emailVerificationBodyWithEmail(String email) {
+    return '$email adresine bir doğrulama bağlantısı gönderdik. Bağlantıyı aç, sonra buraya dönüp Doğruladım’a bas.';
+  }
+
+  @override
+  String get emailVerificationCheck => 'Doğruladım';
+
+  @override
+  String get emailVerificationResend => 'Doğrulama e-postasını tekrar gönder';
+
+  @override
+  String emailVerificationResendCooldown(int seconds) {
+    return 'Tekrar göndermek için $seconds sn';
+  }
+
+  @override
+  String get emailVerificationResendSent =>
+      'Doğrulama e-postası tekrar gönderildi.';
+
+  @override
+  String get emailVerificationStillPending =>
+      'E-posta henüz doğrulanmadı. Gelen kutundaki bağlantıyı açıp tekrar dene.';
+
+  @override
+  String get emailVerificationSignOut => 'Çıkış yap / başka hesap kullan';
+
+  @override
+  String get emailVerificationTooManyRequests =>
+      'Çok fazla deneme. Lütfen bir süre bekleyip tekrar dene.';
+
+  @override
+  String get emailVerificationNetworkError =>
+      'Sunucuya ulaşılamadı. Bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get emailVerificationUserDisabled => 'Bu hesap devre dışı.';
+
+  @override
+  String get emailVerificationRequiresRecentLogin =>
+      'Devam etmek için tekrar giriş yap.';
+
+  @override
+  String get emailVerificationFailed => 'Bir sorun oluştu. Lütfen tekrar dene.';
 
   @override
   String get discoverTitle => 'Keşfet';
@@ -1043,7 +1276,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get helpSupportContact =>
-      'Daha fazla yardıma mı ihtiyacın var?\n\nBize support@qmatch.site adresinden yaz.\n\nHer mesajı okuruz. Hesabı silmek için Ayarlar → Hesabı sil yolunu kullan (30 gün içinde işlenir) veya hesabına bağlı telefon/e-posta ile destekle iletişime geç.';
+      'Daha fazla yardıma mı ihtiyacın var?\n\nBize support@qmatch.site adresinden yaz.\n\nHer mesajı okuruz. Hesabı silmek için Ayarlar → Hesabı sil yolunu kullan. Onayladığında silme başlar. Hesabına bağlı telefon/e-posta ile de destekle iletişime geçebilirsin.';
 
   @override
   String get supportEmailLabel => 'support@qmatch.site';
@@ -1058,51 +1291,76 @@ class AppLocalizationsTr extends AppLocalizations {
   String get settingsDeleteAccount => 'Hesabı sil';
 
   @override
-  String get settingsDeleteAccountSubtitle =>
-      'Kalıcı hesap silme talebi oluştur';
+  String get settingsDeleteAccountSubtitle => 'Hesabını kalıcı olarak sil';
 
   @override
-  String get settingsDeleteAccountPendingStatus => 'Hesap silme talep edildi';
+  String get settingsDeleteAccountPendingStatus => 'Hesap silme devam ediyor';
 
   @override
-  String get settingsDeleteAccountPendingSubtitle =>
-      'Talep durumunu ve süreyi görüntüle';
+  String get settingsDeleteAccountPendingSubtitle => 'Bitmediyse tekrar dene';
 
   @override
   String get settingsDeleteAccountPendingBanner =>
-      'Hesap silme talebin beklemede. 30 gün içinde işleyeceğiz. Yardım için support@qmatch.site adresine yaz.';
+      'Hesap silme işlemi zaten devam ediyor. Bitmediyse Hesabı sil’den tekrar dene. Yardım için support@qmatch.site adresine yaz.';
 
   @override
   String get accountDeletionTitle => 'Hesabı sil';
 
   @override
   String get accountDeletionWarningTitle =>
-      'Bu işlem kalıcı silme talebi başlatır';
+      'Hesabını kalıcı olarak silmek istediğine emin misin?';
 
   @override
   String get accountDeletionIntro =>
-      'Qmatch hesabının kalıcı silinmesini uygulama içinden talep edebilirsin. Bu formu göndermek her şeyi anında silmez—işleyeceğimiz bir silme talebi oluşturur.';
+      'Bu işlem geri alınamaz. Profilin, fotoğrafların, değerlendirmelerin ve Keşfet görünürlüğün silinir. Eşleşmeler ve sohbetler kapanır. Karşı taraf kendi sohbet geçmişini korur.';
 
   @override
-  String get accountDeletionWillDeleteTitle => 'Silmeyi planladığımız veriler';
+  String get accountDeletionWillDeleteTitle => 'Sildiğimiz veriler';
 
   @override
   String get accountDeletionWillDeleteBody =>
-      '• Profil bilgilerin\n• Fotoğraflar ve profil medya referansları\n• Değerlendirme cevapları ve sonuçları (IQ, EQ, Frequency)\n• Hesaba bağlı uyumluluk ve Keşfet görünürlük verileri\n• Bu hesaba bağlı eşleşme ve sohbet erişimin (hesap kapanmasının parçası olarak)';
+      '• Profil bilgilerin\n• Fotoğraflar ve profil medyası\n• Değerlendirme cevapları ve sonuçları (IQ, EQ, Frequency)\n• Hesaba bağlı uyumluluk ve Keşfet görünürlük verileri\n• Bu hesaba bağlı eşleşme ve sohbet erişimin';
 
   @override
-  String get accountDeletionMayRetainTitle => 'Sınırlı süre saklanabilecekler';
+  String get accountDeletionMayRetainTitle => 'Sakladığımız kayıtlar';
 
   @override
   String get accountDeletionMayRetainBody =>
-      '• Güvenlik şikayetleri ve kötüye kullanım önleme kayıtları\n• Yasal veya uyum için gereken sınırlı loglar\nBunlar dating profilini aktif tutmak için kullanılmaz.';
+      '• Güvenlik şikayetleri ve kötüye kullanım önleme kayıtları\n• App Store / Play satın alma doğrulama kayıtları\n• Yasal veya uyum için gereken sınırlı loglar\nBunlar dating profilini aktif tutmak için kullanılmaz.';
 
   @override
-  String get accountDeletionTimelineTitle => 'İşlem süresi';
+  String get accountDeletionTimelineTitle => 'Bu işlem hemen başlar';
 
   @override
   String get accountDeletionTimelineBody =>
-      'Talebini 30 gün içinde işleyeceğiz. Bu geçici deaktivasyon değildir—işlem tamamlandığında hedef kalıcı hesap silmedir.';
+      'Onayladığında silme başlar. Bu geçici bir deaktivasyon değildir.';
+
+  @override
+  String get accountDeletionAppleReauthHint =>
+      'Hesabına Sign in with Apple bağlı olduğu için, bu erişimi iptal etmek üzere Apple ile bir kez doğrulaman gerekir.';
+
+  @override
+  String get accountDeletionPasswordHint => 'Onaylamak için şifreni gir.';
+
+  @override
+  String get accountDeletionGoogleReauthHint =>
+      'Bunun hâlâ senin hesabın olduğunu doğrulamak için Google ile bir kez onayla.';
+
+  @override
+  String get accountDeletionPhoneReauthHint =>
+      'Telefonuna gelen SMS koduyla onayla.';
+
+  @override
+  String get accountDeletionErrorGeneric =>
+      'Hesabın silinemedi. Bağlantını kontrol edip tekrar dene.';
+
+  @override
+  String get accountDeletionErrorAppleRevoke =>
+      'Apple erişimi iptal edilemedi. Hesabın silinmedi. Tekrar dene.';
+
+  @override
+  String get accountDeletionErrorUidMismatch =>
+      'Giriş bu hesapla eşleşmedi. Hiçbir şey silinmedi.';
 
   @override
   String accountDeletionSupportHint(String email) {
@@ -1111,11 +1369,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get accountDeletionAckIrreversible =>
-      'Bu talebin geçici deaktivasyon değil, kalıcı silme için olduğunu anlıyorum.';
+      'Hesabımın kalıcı olarak silineceğini ve bu işlemin geri alınamayacağını anlıyorum.';
 
   @override
   String get accountDeletionAckTimeline =>
-      'İşlemin 30 güne kadar sürebileceğini anlıyorum.';
+      'Eşleşmelerin ve sohbetlerin kapanacağını, bunun geçici bir duraklama olmadığını anlıyorum.';
 
   @override
   String accountDeletionTypeDeleteHint(String token) {
@@ -1123,18 +1381,18 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get accountDeletionSubmit => 'Silme talebini gönder';
+  String get accountDeletionSubmit => 'Hesabımı sil';
 
   @override
   String get accountDeletionNotImmediateNote =>
-      'Göndermek verilerini anında silmez. İşlem tamamlandığında bilgilendiririz.';
+      'Bu işlem hesabını kalıcı olarak siler.';
 
   @override
   String get accountDeletionPendingTitle => 'Talep zaten alındı';
 
   @override
   String accountDeletionPendingBody(String email) {
-    return 'Silme talebin alındı ve beklemede. 30 gün içinde işleyeceğiz. Soruların için $email ile iletişime geçebilirsin.';
+    return 'Silme işlemi zaten devam ediyor. Ayarlar → Hesabı sil’den tekrar deneyebilir veya yardım için $email ile iletişime geçebilirsin.';
   }
 
   @override
@@ -1150,11 +1408,11 @@ class AppLocalizationsTr extends AppLocalizations {
       'Hesap silme talebin beklemede.';
 
   @override
-  String get accountDeletionSuccessTitle => 'Talep alındı';
+  String get accountDeletionSuccessTitle => 'Hesap silindi';
 
   @override
   String accountDeletionSuccessBody(String email) {
-    return 'Silme talebin alındı. 30 gün içinde işleyeceğiz. Soruların için $email ile iletişime geçebilirsin.';
+    return 'Qmatch hesabın silindi. Soruların için $email ile iletişime geçebilirsin.';
   }
 
   @override
@@ -1514,7 +1772,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get helpFaqDeleteAccountA =>
-      'Ayarlar → Hesabı sil’e git, uyarıları oku, iki onay kutusunu işaretle, DELETE yaz ve gönder. Talepleri 30 gün içinde işleriz. İstersen support@qmatch.site adresine de yazabilirsin.';
+      'Ayarlar → Hesabı sil’e git, uyarıları oku, iki onay kutusunu işaretle, DELETE yaz ve gönder. Silme hemen başlar ve geri alınamaz. İstersen support@qmatch.site adresine de yazabilirsin.';
 
   @override
   String get helpFaqDataQ => 'Qmatch hangi verileri kullanır?';

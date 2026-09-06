@@ -106,7 +106,12 @@ void main() {
     final emptyBranch = src.substring(emptyIdx, cardIdx);
     expect(emptyBranch.contains('QMatchDiscoverEmptyState'), isTrue);
     expect(emptyBranch.contains('discoverEmptyRetry'), isTrue);
-    expect(emptyBranch.contains('onRetry: _loadCandidates'), isTrue);
+    expect(
+      emptyBranch.contains(
+        'onRetry: passportEmpty ? _openPassportPicker : _loadCandidates',
+      ),
+      isTrue,
+    );
     expect(emptyBranch.contains('QMatchDiscoverActionBar'), isFalse);
     expect(src.contains('Timer('), isFalse);
     expect(src.contains('periodic'), isFalse);

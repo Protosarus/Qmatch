@@ -8,6 +8,7 @@ import 'package:qmatch/features/assessment/domain/eq_bank/eq_bank.dart';
 import 'package:qmatch/features/assessment/domain/eq_scoring/eq_scoring.dart';
 import 'package:qmatch/features/assessment/domain/eq_session/eq_session.dart';
 import 'package:qmatch/features/assessment/domain/frequency_session/frequency_session.dart';
+import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import 'package:qmatch/features/assessment/domain/iq_session/iq_session.dart';
 import 'package:qmatch/features/assessment/models/assessment_progress.dart';
 import 'package:qmatch/features/assessment/services/assessment_cold_start_pending_reconciler.dart';
@@ -588,6 +589,7 @@ void main() {
       iqRepository: IqSessionMemoryRepository(),
       eqRepository: built.repo,
       frequencyRepository: FrequencySessionMemoryRepository(),
+      frequencyV2Repository: FrequencyV2SessionMemoryRepository(),
     ).reconcile(uid: uid, progress: _frequencyProgress());
 
     expect(decision.destination, AssessmentFlowDestination.eq);

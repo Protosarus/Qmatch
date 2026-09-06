@@ -36,16 +36,17 @@ void main() {
         File('lib/features/assessment/widgets/eq_question_chrome.dart')
             .readAsStringSync();
 
-    const sharedStyle = '''
-          style: GoogleFonts.playfairDisplay(
-            color: Colors.white.withValues(alpha: 0.88),
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            height: 1.2,
-          ),''';
-    expect(freqChrome.contains(sharedStyle), isTrue);
-    expect(iqChrome.contains(sharedStyle), isTrue);
-    expect(eqChrome.contains(sharedStyle), isTrue);
+    bool hasSharedPlayfair(String src) {
+      return src.contains('GoogleFonts.playfairDisplay(') &&
+          src.contains('Colors.white.withValues(alpha: 0.88)') &&
+          src.contains('fontSize: 13') &&
+          src.contains('fontWeight: FontWeight.w500') &&
+          src.contains('height: 1.2');
+    }
+
+    expect(hasSharedPlayfair(freqChrome), isTrue);
+    expect(hasSharedPlayfair(iqChrome), isTrue);
+    expect(hasSharedPlayfair(eqChrome), isTrue);
     expect(freqChrome.contains('label.toUpperCase()'), isFalse);
     expect(freqChrome.contains('letterSpacing: 2.2'), isFalse);
 

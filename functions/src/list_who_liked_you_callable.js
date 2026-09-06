@@ -9,6 +9,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const { normalizeSnapshot } = require('./entitlement_access');
 const {
   isValidLiveUser,
@@ -33,14 +34,10 @@ const PUBLIC_CARD_KEYS = Object.freeze([
 ]);
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required to list Who Liked You.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required to list Who Liked You.',
+  );
 }
 
 function resolveDb(deps) {

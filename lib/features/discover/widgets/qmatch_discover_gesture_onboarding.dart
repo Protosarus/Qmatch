@@ -29,6 +29,11 @@ class QMatchDiscoverGestureOnboarding extends StatefulWidget {
   static const Duration autoAdvanceAfter = Duration(milliseconds: 2600);
   static const Duration motionDuration = Duration(milliseconds: 1100);
 
+  static const Key overlayKey = Key('qmatch-discover-gesture-onboarding');
+  static const Key captionKey =
+      Key('qmatch-discover-gesture-onboarding-caption');
+  static const Key gotItKey = Key('qmatch-discover-gesture-onboarding-got-it');
+
   @override
   State<QMatchDiscoverGestureOnboarding> createState() =>
       _QMatchDiscoverGestureOnboardingState();
@@ -96,23 +101,25 @@ class _QMatchDiscoverGestureOnboardingState
   @override
   Widget build(BuildContext context) {
     final reduceMotion = MediaQuery.disableAnimationsOf(context);
-    return GestureDetector(
-      key: const Key('qmatch-discover-gesture-onboarding'),
-      behavior: HitTestBehavior.opaque,
-      onTap: _isLikeStep ? _goToPassStep : null,
-      child: AnimatedBuilder(
-        animation: _motion,
-        builder: (context, _) {
-          final t = (!widget.animate || reduceMotion) ? 0.55 : _motion.value;
-          final dx = (_isLikeStep ? 1.0 : -1.0) * (18 + (t * 22));
-          final rotation = (_isLikeStep ? 1.0 : -1.0) * 0.045 * t;
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              ColoredBox(
-                color: AppColors.midnightNavy.withValues(alpha: 0.18),
+    return AnimatedBuilder(
+      animation: _motion,
+      builder: (context, _) {
+        final t = (!widget.animate || reduceMotion) ? 0.55 : _motion.value;
+        final dx = (_isLikeStep ? 1.0 : -1.0) * (18 + (t * 22));
+        final rotation = (_isLikeStep ? 1.0 : -1.0) * 0.045 * t;
+        return Stack(
+          key: QMatchDiscoverGestureOnboarding.overlayKey,
+          fit: StackFit.expand,
+          children: [
+            const Positioned.fill(
+              child: IgnorePointer(
+                child: ColoredBox(
+                  color: Color(0x2E0A0F1C),
+                ),
               ),
-              Center(
+            ),
+            IgnorePointer(
+              child: Center(
                 child: Transform.translate(
                   offset: Offset(dx, -6 * t),
                   child: Transform.rotate(
@@ -121,21 +128,22 @@ class _QMatchDiscoverGestureOnboardingState
                   ),
                 ),
               ),
-              Positioned(
-                key: _isLikeStep
-                    ? const Key(
-                        'qmatch-discover-gesture-onboarding-step-like',
-                      )
-                    : const Key(
-                        'qmatch-discover-gesture-onboarding-step-pass',
-                      ),
-                top: AppSpacing.xl,
-                left: AppSpacing.lg,
-                right: AppSpacing.lg,
+            ),
+            Positioned(
+              key: _isLikeStep
+                  ? const Key(
+                      'qmatch-discover-gesture-onboarding-step-like',
+                    )
+                  : const Key(
+                      'qmatch-discover-gesture-onboarding-step-pass',
+                    ),
+              top: AppSpacing.xl,
+              left: AppSpacing.lg,
+              right: AppSpacing.lg,
+              child: IgnorePointer(
                 child: Align(
-                  alignment: _isLikeStep
-                      ? Alignment.topRight
-                      : Alignment.topLeft,
+                  alignment:
+                      _isLikeStep ? Alignment.topRight : Alignment.topLeft,
                   child: _GlowCue(
                     key: _isLikeStep
                         ? const Key(
@@ -151,38 +159,41 @@ class _QMatchDiscoverGestureOnboardingState
                   ),
                 ),
               ),
-              Positioned(
-                left: AppSpacing.lg,
-                right: AppSpacing.lg,
-                bottom: AppSpacing.lg,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _CaptionGlass(
+            ),
+            Positioned(
+              left: AppSpacing.lg,
+              right: AppSpacing.lg,
+              bottom: AppSpacing.lg,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    key: QMatchDiscoverGestureOnboarding.captionKey,
+                    onTap: _isLikeStep ? _goToPassStep : null,
+                    behavior: HitTestBehavior.opaque,
+                    child: _CaptionGlass(
                       text: _isLikeStep
                           ? widget.swipeRightText
                           : widget.swipeLeftText,
                     ),
-                    if (!_isLikeStep) ...[
-                      const SizedBox(height: AppSpacing.md),
-                      QCosmicButton(
-                        key: const Key(
-                          'qmatch-discover-gesture-onboarding-got-it',
-                        ),
-                        label: widget.gotItLabel,
-                        onPressed: widget.onCompleted,
-                        variant: QCosmicButtonVariant.cosmic,
-                        expanded: false,
-                        height: 48,
-                      ),
-                    ],
+                  ),
+                  if (!_isLikeStep) ...[
+                    const SizedBox(height: AppSpacing.md),
+                    QCosmicButton(
+                      key: QMatchDiscoverGestureOnboarding.gotItKey,
+                      label: widget.gotItLabel,
+                      onPressed: widget.onCompleted,
+                      variant: QCosmicButtonVariant.cosmic,
+                      expanded: false,
+                      height: 48,
+                    ),
                   ],
-                ),
+                ],
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

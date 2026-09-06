@@ -335,31 +335,31 @@ abstract class AppLocalizations {
   /// No description provided for @frequencyIntroDescription.
   ///
   /// In en, this message translates to:
-  /// **'Frequency is not about intelligence. It is about how you connect, communicate, and build trust.'**
+  /// **'These questions look at everyday behavior tendencies. There are no right or wrong answers.'**
   String get frequencyIntroDescription;
 
   /// No description provided for @frequencyBulletConnect.
   ///
   /// In en, this message translates to:
-  /// **'How deeply you prefer to connect'**
+  /// **'Choose the option closest to you'**
   String get frequencyBulletConnect;
 
   /// No description provided for @frequencyBulletTrust.
   ///
   /// In en, this message translates to:
-  /// **'How fast you build trust'**
+  /// **'About 50 questions'**
   String get frequencyBulletTrust;
 
   /// No description provided for @frequencyBulletOpenness.
   ///
   /// In en, this message translates to:
-  /// **'How much emotional openness you bring'**
+  /// **'Go with your first natural answer'**
   String get frequencyBulletOpenness;
 
   /// No description provided for @frequencyBulletRhythm.
   ///
   /// In en, this message translates to:
-  /// **'What kind of conversation rhythm fits you'**
+  /// **'Take your time — nothing here is scored as correct or incorrect'**
   String get frequencyBulletRhythm;
 
   /// No description provided for @startFrequencyTest.
@@ -367,6 +367,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start Frequency Test'**
   String get startFrequencyTest;
+
+  /// No description provided for @frequencyV2Loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your questions…'**
+  String get frequencyV2Loading;
+
+  /// No description provided for @frequencyV2Finishing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your results…'**
+  String get frequencyV2Finishing;
+
+  /// No description provided for @frequencyV2LoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'The test couldn\'t be loaded right now. Please try again.'**
+  String get frequencyV2LoadError;
+
+  /// No description provided for @frequencyV2SaveErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your results. Check your connection and try again. Your answers are still here.'**
+  String get frequencyV2SaveErrorNetwork;
+
+  /// No description provided for @frequencyV2SaveErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save your results right now. Your answers are safe — try again.'**
+  String get frequencyV2SaveErrorGeneric;
+
+  /// No description provided for @frequencyV2SaveErrorAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in again to finish saving your results. Your answers are still here.'**
+  String get frequencyV2SaveErrorAccount;
+
+  /// No description provided for @frequencyV2ProgressSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String frequencyV2ProgressSemantic(int current, int total);
 
   /// No description provided for @continueAction.
   ///
@@ -529,6 +571,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue with Phone'**
   String get welcomeContinueWithPhone;
+
+  /// No description provided for @welcomeContinueWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get welcomeContinueWithGoogle;
+
+  /// No description provided for @googleSignInErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t reach Google. Check your connection and try again.'**
+  String get googleSignInErrorNetwork;
+
+  /// No description provided for @googleSignInErrorTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again.'**
+  String get googleSignInErrorTooManyRequests;
+
+  /// No description provided for @googleSignInErrorUserDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is disabled.'**
+  String get googleSignInErrorUserDisabled;
+
+  /// No description provided for @googleSignInErrorNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in is not available right now.'**
+  String get googleSignInErrorNotAllowed;
+
+  /// No description provided for @googleSignInErrorInvalidCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in could not be completed. Please try again.'**
+  String get googleSignInErrorInvalidCredential;
+
+  /// No description provided for @googleSignInErrorAccountExistsDifferent.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already used with another sign-in method. Sign in with that method instead.'**
+  String get googleSignInErrorAccountExistsDifferent;
+
+  /// No description provided for @googleSignInErrorCredentialInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This Google account is already linked to another QMatch user. Sign in with the existing method.'**
+  String get googleSignInErrorCredentialInUse;
+
+  /// No description provided for @googleSignInErrorFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Google sign-in failed. Please try again.'**
+  String get googleSignInErrorFailed;
+
+  /// No description provided for @welcomeContinueWithApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get welcomeContinueWithApple;
+
+  /// No description provided for @appleSignInErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t reach Apple. Check your connection and try again.'**
+  String get appleSignInErrorNetwork;
+
+  /// No description provided for @appleSignInErrorTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again.'**
+  String get appleSignInErrorTooManyRequests;
+
+  /// No description provided for @appleSignInErrorUserDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is disabled.'**
+  String get appleSignInErrorUserDisabled;
+
+  /// No description provided for @appleSignInErrorNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple is not available right now.'**
+  String get appleSignInErrorNotAllowed;
+
+  /// No description provided for @appleSignInErrorInvalidCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple could not be completed. Please try again.'**
+  String get appleSignInErrorInvalidCredential;
+
+  /// No description provided for @appleSignInErrorAccountExistsDifferent.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already used with another sign-in method. Sign in with that method instead.'**
+  String get appleSignInErrorAccountExistsDifferent;
+
+  /// No description provided for @appleSignInErrorCredentialInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This Apple account is already linked to another QMatch user. Sign in with the existing method.'**
+  String get appleSignInErrorCredentialInUse;
+
+  /// No description provided for @appleSignInErrorAppleFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple failed. Please try again.'**
+  String get appleSignInErrorAppleFailed;
+
+  /// No description provided for @appleSignInErrorInvalidResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple returned an invalid response. Please try again.'**
+  String get appleSignInErrorInvalidResponse;
+
+  /// No description provided for @appleSignInErrorNotHandled.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple could not be handled on this device.'**
+  String get appleSignInErrorNotHandled;
+
+  /// No description provided for @appleSignInErrorUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple could not be completed. Please try again.'**
+  String get appleSignInErrorUnknown;
+
+  /// No description provided for @appleSignInErrorFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple failed. Please try again.'**
+  String get appleSignInErrorFailed;
+
+  /// No description provided for @providerCollisionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This email already has a QMatch account'**
+  String get providerCollisionTitle;
+
+  /// No description provided for @providerCollisionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A QMatch account already exists for this email. Sign in with your existing method and we\'ll safely link this sign-in to that account.'**
+  String get providerCollisionBody;
+
+  /// No description provided for @providerCollisionContinueEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with email'**
+  String get providerCollisionContinueEmail;
+
+  /// No description provided for @providerCollisionContinueGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get providerCollisionContinueGoogle;
+
+  /// No description provided for @providerCollisionContinueApple.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Apple'**
+  String get providerCollisionContinueApple;
+
+  /// No description provided for @providerCollisionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get providerCollisionCancel;
+
+  /// No description provided for @providerLinkErrorProviderAlreadyLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in method is already connected to your account.'**
+  String get providerLinkErrorProviderAlreadyLinked;
+
+  /// No description provided for @providerLinkErrorCredentialInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in method belongs to a different QMatch account. We can\'t merge accounts automatically. Sign in with the account you already use.'**
+  String get providerLinkErrorCredentialInUse;
+
+  /// No description provided for @providerLinkErrorEmailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already used by another QMatch account.'**
+  String get providerLinkErrorEmailInUse;
+
+  /// No description provided for @providerLinkErrorInvalidCredential.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in could not be linked. Please try again.'**
+  String get providerLinkErrorInvalidCredential;
+
+  /// No description provided for @providerLinkErrorRequiresRecentLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in again, then retry linking.'**
+  String get providerLinkErrorRequiresRecentLogin;
+
+  /// No description provided for @providerLinkErrorNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your connection and try again.'**
+  String get providerLinkErrorNetwork;
+
+  /// No description provided for @providerLinkErrorTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again.'**
+  String get providerLinkErrorTooManyRequests;
+
+  /// No description provided for @providerLinkErrorUserDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is disabled.'**
+  String get providerLinkErrorUserDisabled;
+
+  /// No description provided for @providerLinkErrorNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'This sign-in method is not available right now.'**
+  String get providerLinkErrorNotAllowed;
+
+  /// No description provided for @providerLinkErrorFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t link this sign-in method. Please try again.'**
+  String get providerLinkErrorFailed;
+
+  /// No description provided for @qmatchFeedbackGenericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get qmatchFeedbackGenericError;
+
+  /// No description provided for @qmatchFeedbackGenericSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Done.'**
+  String get qmatchFeedbackGenericSuccess;
+
+  /// No description provided for @qmatchFeedbackNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your connection and try again.'**
+  String get qmatchFeedbackNetworkError;
 
   /// No description provided for @welcomeLogInWithEmail.
   ///
@@ -929,7 +1217,7 @@ abstract class AppLocalizations {
   /// No description provided for @emailSignupErrorEmailInUse.
   ///
   /// In en, this message translates to:
-  /// **'This email is already registered. Try logging in.'**
+  /// **'This email is already registered. Sign in with your existing method instead.'**
   String get emailSignupErrorEmailInUse;
 
   /// No description provided for @emailSignupErrorWeakPassword.
@@ -949,6 +1237,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Registration failed. Please try again.'**
   String get emailSignupErrorFailed;
+
+  /// No description provided for @emailVerificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your email'**
+  String get emailVerificationTitle;
+
+  /// No description provided for @emailVerificationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a verification link to your email. Open it, then come back here and tap I verified.'**
+  String get emailVerificationBody;
+
+  /// No description provided for @emailVerificationBodyWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a verification link to {email}. Open it, then come back here and tap I verified.'**
+  String emailVerificationBodyWithEmail(String email);
+
+  /// No description provided for @emailVerificationCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'I verified'**
+  String get emailVerificationCheck;
+
+  /// No description provided for @emailVerificationResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend verification email'**
+  String get emailVerificationResend;
+
+  /// No description provided for @emailVerificationResendCooldown.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend available in {seconds}s'**
+  String emailVerificationResendCooldown(int seconds);
+
+  /// No description provided for @emailVerificationResendSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification email sent again.'**
+  String get emailVerificationResendSent;
+
+  /// No description provided for @emailVerificationStillPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Your email is not verified yet. Open the link in your inbox and try again.'**
+  String get emailVerificationStillPending;
+
+  /// No description provided for @emailVerificationSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out / use another account'**
+  String get emailVerificationSignOut;
+
+  /// No description provided for @emailVerificationTooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a moment and try again.'**
+  String get emailVerificationTooManyRequests;
+
+  /// No description provided for @emailVerificationNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t reach the server. Check your connection and try again.'**
+  String get emailVerificationNetworkError;
+
+  /// No description provided for @emailVerificationUserDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is disabled.'**
+  String get emailVerificationUserDisabled;
+
+  /// No description provided for @emailVerificationRequiresRecentLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in again to continue.'**
+  String get emailVerificationRequiresRecentLogin;
+
+  /// No description provided for @emailVerificationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get emailVerificationFailed;
 
   /// No description provided for @discoverTitle.
   ///
@@ -1955,7 +2327,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpSupportContact.
   ///
   /// In en, this message translates to:
-  /// **'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.'**
+  /// **'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account. Deletion starts when you confirm. You can also email support with the phone or email on your account.'**
   String get helpSupportContact;
 
   /// No description provided for @supportEmailLabel.
@@ -1985,25 +2357,25 @@ abstract class AppLocalizations {
   /// No description provided for @settingsDeleteAccountSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Request permanent account deletion'**
+  /// **'Permanently delete your account'**
   String get settingsDeleteAccountSubtitle;
 
   /// No description provided for @settingsDeleteAccountPendingStatus.
   ///
   /// In en, this message translates to:
-  /// **'Account deletion requested'**
+  /// **'Account deletion in progress'**
   String get settingsDeleteAccountPendingStatus;
 
   /// No description provided for @settingsDeleteAccountPendingSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'View request status and timeline'**
+  /// **'Retry if deletion did not finish'**
   String get settingsDeleteAccountPendingSubtitle;
 
   /// No description provided for @settingsDeleteAccountPendingBanner.
   ///
   /// In en, this message translates to:
-  /// **'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.site if you need help.'**
+  /// **'Account deletion is already in progress. Open Delete account to retry if it did not finish. Contact support@qmatch.site if you need help.'**
   String get settingsDeleteAccountPendingBanner;
 
   /// No description provided for @accountDeletionTitle.
@@ -2015,50 +2387,92 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionWarningTitle.
   ///
   /// In en, this message translates to:
-  /// **'This starts a permanent deletion request'**
+  /// **'Are you sure you want to permanently delete your account?'**
   String get accountDeletionWarningTitle;
 
   /// No description provided for @accountDeletionIntro.
   ///
   /// In en, this message translates to:
-  /// **'You can request permanent deletion of your Qmatch account from inside the app. Submitting this form does not delete everything instantly—it creates a deletion request that we process.'**
+  /// **'This cannot be undone. Your profile, photos, assessments, and Discover visibility will be removed. Matches and chats will close. The other person keeps their conversation history.'**
   String get accountDeletionIntro;
 
   /// No description provided for @accountDeletionWillDeleteTitle.
   ///
   /// In en, this message translates to:
-  /// **'What we plan to delete'**
+  /// **'What we delete'**
   String get accountDeletionWillDeleteTitle;
 
   /// No description provided for @accountDeletionWillDeleteBody.
   ///
   /// In en, this message translates to:
-  /// **'• Your profile information\n• Photos and profile media references\n• Assessment answers and results (IQ, EQ, Frequency)\n• Account-linked compatibility and Discover visibility data\n• Your access to matches and chats tied to this account (as part of account closure)'**
+  /// **'• Your profile information\n• Photos and profile media\n• Assessment answers and results (IQ, EQ, Frequency)\n• Account-linked compatibility and Discover visibility data\n• Your access to matches and chats tied to this account'**
   String get accountDeletionWillDeleteBody;
 
   /// No description provided for @accountDeletionMayRetainTitle.
   ///
   /// In en, this message translates to:
-  /// **'What may be kept for a limited time'**
+  /// **'What we keep'**
   String get accountDeletionMayRetainTitle;
 
   /// No description provided for @accountDeletionMayRetainBody.
   ///
   /// In en, this message translates to:
-  /// **'• Safety reports and abuse-prevention records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.'**
+  /// **'• Safety reports and abuse-prevention records\n• App Store / Play purchase verification records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.'**
   String get accountDeletionMayRetainBody;
 
   /// No description provided for @accountDeletionTimelineTitle.
   ///
   /// In en, this message translates to:
-  /// **'Processing timeline'**
+  /// **'This is immediate'**
   String get accountDeletionTimelineTitle;
 
   /// No description provided for @accountDeletionTimelineBody.
   ///
   /// In en, this message translates to:
-  /// **'We will process your request within 30 days. This is not temporary deactivation—the goal is permanent account deletion once processing is complete.'**
+  /// **'Deletion starts when you confirm. It is not temporary deactivation.'**
   String get accountDeletionTimelineBody;
+
+  /// No description provided for @accountDeletionAppleReauthHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Because Sign in with Apple is linked, you’ll confirm with Apple once so we can revoke that access.'**
+  String get accountDeletionAppleReauthHint;
+
+  /// No description provided for @accountDeletionPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password to confirm.'**
+  String get accountDeletionPasswordHint;
+
+  /// No description provided for @accountDeletionGoogleReauthHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm with Google once so we know this is still your account.'**
+  String get accountDeletionGoogleReauthHint;
+
+  /// No description provided for @accountDeletionPhoneReauthHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm with the SMS code sent to your phone.'**
+  String get accountDeletionPhoneReauthHint;
+
+  /// No description provided for @accountDeletionErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn’t delete your account. Check your connection and try again.'**
+  String get accountDeletionErrorGeneric;
+
+  /// No description provided for @accountDeletionErrorAppleRevoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple access could not be revoked. Your account was not deleted. Try again.'**
+  String get accountDeletionErrorAppleRevoke;
+
+  /// No description provided for @accountDeletionErrorUidMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in didn’t match this account. Nothing was deleted.'**
+  String get accountDeletionErrorUidMismatch;
 
   /// No description provided for @accountDeletionSupportHint.
   ///
@@ -2069,13 +2483,13 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionAckIrreversible.
   ///
   /// In en, this message translates to:
-  /// **'I understand this request is for permanent deletion, not temporary deactivation.'**
+  /// **'I understand this permanently deletes my account and cannot be undone.'**
   String get accountDeletionAckIrreversible;
 
   /// No description provided for @accountDeletionAckTimeline.
   ///
   /// In en, this message translates to:
-  /// **'I understand processing can take up to 30 days.'**
+  /// **'I understand matches and chats will close, and this is not a temporary pause.'**
   String get accountDeletionAckTimeline;
 
   /// No description provided for @accountDeletionTypeDeleteHint.
@@ -2087,13 +2501,13 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionSubmit.
   ///
   /// In en, this message translates to:
-  /// **'Submit deletion request'**
+  /// **'Delete my account'**
   String get accountDeletionSubmit;
 
   /// No description provided for @accountDeletionNotImmediateNote.
   ///
   /// In en, this message translates to:
-  /// **'Submitting does not immediately erase your data. We confirm when processing is complete.'**
+  /// **'This permanently deletes your account.'**
   String get accountDeletionNotImmediateNote;
 
   /// No description provided for @accountDeletionPendingTitle.
@@ -2105,7 +2519,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionPendingBody.
   ///
   /// In en, this message translates to:
-  /// **'Your deletion request has been received and is pending. We will process it within 30 days. You can contact {email} if you have questions.'**
+  /// **'Deletion is already in progress. You can retry from Settings → Delete account, or contact {email} if you need help.'**
   String accountDeletionPendingBody(String email);
 
   /// No description provided for @accountDeletionPendingNoResubmit.
@@ -2129,13 +2543,13 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeletionSuccessTitle.
   ///
   /// In en, this message translates to:
-  /// **'Request received'**
+  /// **'Account deleted'**
   String get accountDeletionSuccessTitle;
 
   /// No description provided for @accountDeletionSuccessBody.
   ///
   /// In en, this message translates to:
-  /// **'Your deletion request has been received. We will process it within 30 days. You can contact {email} if you have questions.'**
+  /// **'Your Qmatch account has been deleted. You can contact {email} if you have questions.'**
   String accountDeletionSuccessBody(String email);
 
   /// No description provided for @accountDeletionSuccessAction.
@@ -2789,7 +3203,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpFaqDeleteAccountA.
   ///
   /// In en, this message translates to:
-  /// **'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.site.'**
+  /// **'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. Deletion starts immediately and cannot be undone. You can also email support@qmatch.site.'**
   String get helpFaqDeleteAccountA;
 
   /// No description provided for @helpFaqDataQ.

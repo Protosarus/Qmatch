@@ -8,6 +8,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/widgets/cosmic/q_glass_card.dart';
 import '../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../core/widgets/qmatch_feedback.dart';
 import '../../core/widgets/qmatch_primary_action.dart';
 import '../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../l10n/app_localizations.dart';
@@ -159,12 +160,10 @@ class DebugHomeScreen extends StatelessWidget {
                             );
                             await store.resetFirstUseGuidance();
                             if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  l10n.debugReplayDiscoverTutorialHint,
-                                ),
-                              ),
+                            QMatchFeedback.show(
+                              context,
+                              message: l10n.debugReplayDiscoverTutorialHint,
+                              type: QMatchFeedbackType.info,
                             );
                           },
                         ),

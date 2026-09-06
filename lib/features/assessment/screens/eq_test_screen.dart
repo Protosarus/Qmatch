@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/eq_bank/eq_bank.dart';
 import '../domain/eq_session/eq_session.dart';
@@ -198,8 +199,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
           debugPrint('EQ answer failed: ${answered.message}');
           if (!mounted) return;
           final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+          QMatchFeedback.show(
+            context,
+            message: l10n.iqCanonicalAnswerError,
+            type: QMatchFeedbackType.error,
+            compact: true,
           );
           return;
         }
@@ -221,8 +225,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
           if (!reconciled.ok || reconciled.state == null) {
             if (!mounted) return;
             final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+            QMatchFeedback.show(
+              context,
+              message: l10n.iqCanonicalAnswerError,
+              type: QMatchFeedbackType.error,
+              compact: true,
             );
             return;
           }
@@ -257,8 +264,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
       debugPrint('EQ continue failed: $e');
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.iqCanonicalPersistError)),
+      QMatchFeedback.show(
+        context,
+        message: l10n.iqCanonicalPersistError,
+        type: QMatchFeedbackType.error,
+        compact: true,
       );
     } finally {
       if (mounted) {
@@ -326,10 +336,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
           _isFinishing = false;
           _busy = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.iqCanonicalPersistError),
-          ),
+        QMatchFeedback.show(
+          context,
+          message: AppLocalizations.of(context)!.iqCanonicalPersistError,
+          type: QMatchFeedbackType.error,
+          compact: true,
         );
         return;
       }
@@ -348,10 +359,11 @@ class _EQTestScreenState extends State<EQTestScreen> {
         _isFinishing = false;
         _busy = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.iqCanonicalPersistError),
-        ),
+      QMatchFeedback.show(
+        context,
+        message: AppLocalizations.of(context)!.iqCanonicalPersistError,
+        type: QMatchFeedbackType.error,
+        compact: true,
       );
     } finally {
       _pipelineInFlight = false;
@@ -504,8 +516,7 @@ class _EQTestScreenState extends State<EQTestScreen> {
                               : () {
                                   _dismissSelectAnswerWarning();
                                   setState(() {
-                                    _selectedOptionId =
-                                        options[index].optionId;
+                                    _selectedOptionId = options[index].optionId;
                                   });
                                 },
                         );

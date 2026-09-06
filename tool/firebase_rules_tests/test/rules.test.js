@@ -2514,3 +2514,236 @@ describe('Chat media Storage rules', () => {
     );
   });
 });
+
+function passwordFirestore(uid, emailVerified) {
+  return testEnv.authenticatedContext(uid, {
+    email: `${uid}@example.com`,
+    email_verified: emailVerified,
+    firebase: { sign_in_provider: 'password' },
+  }).firestore();
+}
+
+function phoneAuthFirestore(uid) {
+  return testEnv.authenticatedContext(uid, {
+    firebase: { sign_in_provider: 'phone' },
+  }).firestore();
+}
+
+function googleAuthFirestore(uid, emailVerified) {
+  return testEnv.authenticatedContext(uid, {
+    email: `${uid}@gmail.com`,
+    email_verified: emailVerified,
+    firebase: { sign_in_provider: 'google.com' },
+  }).firestore();
+}
+
+const bootstrapUserCreate = (uid) => ({
+  uid,
+  email: `${uid}@example.com`,
+  auth_provider: 'email',
+  test_completed: false,
+  frequency_completed: false,
+  profile_completed: false,
+  discover_eligible: false,
+  active: true,
+});
+
+describe('verified-password product principal', () => {
+  it('A unverified password cannot read protected own user data', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/pwUnverified'), {
+        uid: 'pwUnverified',
+        discover_eligible: false,
+        email: 'pw@example.com',
+      });
+    });
+    await assertFails(
+      getDoc(doc(passwordFirestore('pwUnverified', false), 'users/pwUnverified')),
+    );
+  });
+
+  it('B unverified password cannot write protected own user data', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/pwUnverified'), {
+        uid: 'pwUnverified',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(passwordFirestore('pwUnverified', false), 'users/pwUnverified'), {
+        last_active_at: serverTimestamp(),
+      }),
+    );
+  });
+
+  it('C verified password can perform the same valid owner access', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/pwVerified'), {
+        uid: 'pwVerified',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    const db = passwordFirestore('pwVerified', true);
+    await assertSucceeds(getDoc(doc(db, 'users/pwVerified')));
+    await assertSucceeds(
+      updateDoc(doc(db, 'users/pwVerified'), {
+        last_active_at: serverTimestamp(),
+      }),
+    );
+  });
+
+  it('D phone user remains allowed without email verification', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/phoneUser'), {
+        uid: 'phoneUser',
+        discover_eligible: false,
+        active: true,
+        auth_provider: 'phone',
+      });
+    });
+    const db = phoneAuthFirestore('phoneUser');
+    await assertSucceeds(getDoc(doc(db, 'users/phoneUser')));
+    await assertSucceeds(
+      updateDoc(doc(db, 'users/phoneUser'), {
+        last_active_at: serverTimestamp(),
+      }),
+    );
+  });
+
+  it('E unverified password cannot self-grant discover_eligible', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/pwUnverified'), {
+        uid: 'pwUnverified',
+        discover_eligible: false,
+        active: true,
+      });
+    });
+    await assertFails(
+      updateDoc(doc(passwordFirestore('pwUnverified', false), 'users/pwUnverified'), {
+        discover_eligible: true,
+      }),
+    );
+  });
+
+  it('F unverified password cannot write assessment authority fields', async () => {
+    const db = passwordFirestore('pwUnverified', false);
+    await assertFails(
+      setDoc(doc(db, 'users/pwUnverified/assessments/iq'), {
+        answers: { q1: 'a' },
+      }),
+    );
+    await assertFails(
+      setDoc(doc(db, 'users/pwUnverified/profiles/canonical_v1'), {
+        scores: { iq: 1 },
+      }),
+    );
+  });
+
+  it('G narrow bootstrap user create works for unverified password', async () => {
+    await assertSucceeds(
+      setDoc(
+        doc(passwordFirestore('pwNew', false), 'users/pwNew'),
+        bootstrapUserCreate('pwNew'),
+      ),
+    );
+  });
+
+  it('H bootstrap create cannot contain protected/completion/discover fields', async () => {
+    await assertFails(
+      setDoc(doc(passwordFirestore('pwBad1', false), 'users/pwBad1'), {
+        ...bootstrapUserCreate('pwBad1'),
+        discover_eligible: true,
+      }),
+    );
+    await assertFails(
+      setDoc(doc(passwordFirestore('pwBad2', false), 'users/pwBad2'), {
+        ...bootstrapUserCreate('pwBad2'),
+        iq_score: 99,
+      }),
+    );
+    await assertFails(
+      setDoc(doc(passwordFirestore('pwBad3', false), 'users/pwBad3'), {
+        ...bootstrapUserCreate('pwBad3'),
+        assessment_flow_completed: true,
+      }),
+    );
+    await assertFails(
+      setDoc(doc(passwordFirestore('pwBad4', false), 'users/pwBad4'), {
+        ...bootstrapUserCreate('pwBad4'),
+        persona: 'Sezgisel',
+      }),
+    );
+  });
+
+  it('I peer/matching/messages stay available to eligible principals only', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'matches/pwA_pwB'), {
+        users: ['pwA', 'pwB'],
+        user_a: 'pwA',
+        user_b: 'pwB',
+        state: 'active',
+        thread_id: 'pwA_pwB',
+      });
+      await setDoc(doc(db, 'threads/pwA_pwB'), {
+        participants: ['pwA', 'pwB'],
+        status: 'active',
+        match_id: 'pwA_pwB',
+      });
+    });
+    await assertFails(
+      getDoc(doc(passwordFirestore('pwA', false), 'matches/pwA_pwB')),
+    );
+    await assertFails(
+      getDoc(doc(passwordFirestore('pwA', false), 'threads/pwA_pwB')),
+    );
+    await assertSucceeds(
+      getDoc(doc(passwordFirestore('pwA', true), 'matches/pwA_pwB')),
+    );
+    await assertSucceeds(
+      getDoc(doc(passwordFirestore('pwA', true), 'threads/pwA_pwB')),
+    );
+    await assertSucceeds(
+      setDoc(
+        doc(passwordFirestore('pwA', true), 'threads/pwA_pwB/messages/m1'),
+        {
+          sender_id: 'pwA',
+          type: 'text',
+          text: 'hello',
+        },
+      ),
+    );
+  });
+
+  it('J Admin/server writes remain unrestricted by client rules', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      const db = ctx.firestore();
+      await setDoc(doc(db, 'users/adminWrite'), {
+        uid: 'adminWrite',
+        discover_eligible: true,
+        assessment_verification_v1: { iq: { source: 'admin' } },
+      });
+      await setDoc(doc(db, 'users/adminWrite/assessments/frequency_v2'), {
+        schema_version: 'frequency_behavior_v2_result_v1',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(passwordFirestore('adminWrite', true), 'users/adminWrite')),
+    );
+  });
+
+  it('Google sign-in is not blocked by the password-email gate', async () => {
+    await testEnv.withSecurityRulesDisabled(async (ctx) => {
+      await setDoc(doc(ctx.firestore(), 'users/googleUser'), {
+        uid: 'googleUser',
+        discover_eligible: false,
+        email: 'googleUser@gmail.com',
+      });
+    });
+    await assertSucceeds(
+      getDoc(doc(googleAuthFirestore('googleUser', false), 'users/googleUser')),
+    );
+  });
+});

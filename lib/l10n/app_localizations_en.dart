@@ -143,23 +143,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get frequencyIntroDescription =>
-      'Frequency is not about intelligence. It is about how you connect, communicate, and build trust.';
+      'These questions look at everyday behavior tendencies. There are no right or wrong answers.';
 
   @override
-  String get frequencyBulletConnect => 'How deeply you prefer to connect';
+  String get frequencyBulletConnect => 'Choose the option closest to you';
 
   @override
-  String get frequencyBulletTrust => 'How fast you build trust';
+  String get frequencyBulletTrust => 'About 50 questions';
 
   @override
-  String get frequencyBulletOpenness => 'How much emotional openness you bring';
+  String get frequencyBulletOpenness => 'Go with your first natural answer';
 
   @override
   String get frequencyBulletRhythm =>
-      'What kind of conversation rhythm fits you';
+      'Take your time — nothing here is scored as correct or incorrect';
 
   @override
   String get startFrequencyTest => 'Start Frequency Test';
+
+  @override
+  String get frequencyV2Loading => 'Preparing your questions…';
+
+  @override
+  String get frequencyV2Finishing => 'Preparing your results…';
+
+  @override
+  String get frequencyV2LoadError =>
+      'The test couldn\'t be loaded right now. Please try again.';
+
+  @override
+  String get frequencyV2SaveErrorNetwork =>
+      'Couldn\'t save your results. Check your connection and try again. Your answers are still here.';
+
+  @override
+  String get frequencyV2SaveErrorGeneric =>
+      'Couldn\'t save your results right now. Your answers are safe — try again.';
+
+  @override
+  String get frequencyV2SaveErrorAccount =>
+      'Please sign in again to finish saving your results. Your answers are still here.';
+
+  @override
+  String frequencyV2ProgressSemantic(int current, int total) {
+    return 'Question $current of $total';
+  }
 
   @override
   String get continueAction => 'Continue';
@@ -254,6 +281,160 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeContinueWithPhone => 'Continue with Phone';
+
+  @override
+  String get welcomeContinueWithGoogle => 'Continue with Google';
+
+  @override
+  String get googleSignInErrorNetwork =>
+      'We couldn’t reach Google. Check your connection and try again.';
+
+  @override
+  String get googleSignInErrorTooManyRequests =>
+      'Too many attempts. Please wait a moment and try again.';
+
+  @override
+  String get googleSignInErrorUserDisabled => 'This account is disabled.';
+
+  @override
+  String get googleSignInErrorNotAllowed =>
+      'Google sign-in is not available right now.';
+
+  @override
+  String get googleSignInErrorInvalidCredential =>
+      'Google sign-in could not be completed. Please try again.';
+
+  @override
+  String get googleSignInErrorAccountExistsDifferent =>
+      'This email is already used with another sign-in method. Sign in with that method instead.';
+
+  @override
+  String get googleSignInErrorCredentialInUse =>
+      'This Google account is already linked to another QMatch user. Sign in with the existing method.';
+
+  @override
+  String get googleSignInErrorFailed =>
+      'Google sign-in failed. Please try again.';
+
+  @override
+  String get welcomeContinueWithApple => 'Continue with Apple';
+
+  @override
+  String get appleSignInErrorNetwork =>
+      'We couldn’t reach Apple. Check your connection and try again.';
+
+  @override
+  String get appleSignInErrorTooManyRequests =>
+      'Too many attempts. Please wait a moment and try again.';
+
+  @override
+  String get appleSignInErrorUserDisabled => 'This account is disabled.';
+
+  @override
+  String get appleSignInErrorNotAllowed =>
+      'Sign in with Apple is not available right now.';
+
+  @override
+  String get appleSignInErrorInvalidCredential =>
+      'Sign in with Apple could not be completed. Please try again.';
+
+  @override
+  String get appleSignInErrorAccountExistsDifferent =>
+      'This email is already used with another sign-in method. Sign in with that method instead.';
+
+  @override
+  String get appleSignInErrorCredentialInUse =>
+      'This Apple account is already linked to another QMatch user. Sign in with the existing method.';
+
+  @override
+  String get appleSignInErrorAppleFailed =>
+      'Sign in with Apple failed. Please try again.';
+
+  @override
+  String get appleSignInErrorInvalidResponse =>
+      'Apple returned an invalid response. Please try again.';
+
+  @override
+  String get appleSignInErrorNotHandled =>
+      'Sign in with Apple could not be handled on this device.';
+
+  @override
+  String get appleSignInErrorUnknown =>
+      'Sign in with Apple could not be completed. Please try again.';
+
+  @override
+  String get appleSignInErrorFailed =>
+      'Sign in with Apple failed. Please try again.';
+
+  @override
+  String get providerCollisionTitle =>
+      'This email already has a QMatch account';
+
+  @override
+  String get providerCollisionBody =>
+      'A QMatch account already exists for this email. Sign in with your existing method and we\'ll safely link this sign-in to that account.';
+
+  @override
+  String get providerCollisionContinueEmail => 'Continue with email';
+
+  @override
+  String get providerCollisionContinueGoogle => 'Continue with Google';
+
+  @override
+  String get providerCollisionContinueApple => 'Continue with Apple';
+
+  @override
+  String get providerCollisionCancel => 'Cancel';
+
+  @override
+  String get providerLinkErrorProviderAlreadyLinked =>
+      'This sign-in method is already connected to your account.';
+
+  @override
+  String get providerLinkErrorCredentialInUse =>
+      'This sign-in method belongs to a different QMatch account. We can\'t merge accounts automatically. Sign in with the account you already use.';
+
+  @override
+  String get providerLinkErrorEmailInUse =>
+      'This email is already used by another QMatch account.';
+
+  @override
+  String get providerLinkErrorInvalidCredential =>
+      'This sign-in could not be linked. Please try again.';
+
+  @override
+  String get providerLinkErrorRequiresRecentLogin =>
+      'Please sign in again, then retry linking.';
+
+  @override
+  String get providerLinkErrorNetwork =>
+      'Network error. Please check your connection and try again.';
+
+  @override
+  String get providerLinkErrorTooManyRequests =>
+      'Too many attempts. Please wait a moment and try again.';
+
+  @override
+  String get providerLinkErrorUserDisabled => 'This account is disabled.';
+
+  @override
+  String get providerLinkErrorNotAllowed =>
+      'This sign-in method is not available right now.';
+
+  @override
+  String get providerLinkErrorFailed =>
+      'We couldn\'t link this sign-in method. Please try again.';
+
+  @override
+  String get qmatchFeedbackGenericError =>
+      'Something went wrong. Please try again.';
+
+  @override
+  String get qmatchFeedbackGenericSuccess => 'Done.';
+
+  @override
+  String get qmatchFeedbackNetworkError =>
+      'Check your connection and try again.';
 
   @override
   String get welcomeLogInWithEmail => 'Log in with email';
@@ -473,7 +654,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailSignupErrorEmailInUse =>
-      'This email is already registered. Try logging in.';
+      'This email is already registered. Sign in with your existing method instead.';
 
   @override
   String get emailSignupErrorWeakPassword =>
@@ -485,6 +666,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailSignupErrorFailed => 'Registration failed. Please try again.';
+
+  @override
+  String get emailVerificationTitle => 'Verify your email';
+
+  @override
+  String get emailVerificationBody =>
+      'We sent a verification link to your email. Open it, then come back here and tap I verified.';
+
+  @override
+  String emailVerificationBodyWithEmail(String email) {
+    return 'We sent a verification link to $email. Open it, then come back here and tap I verified.';
+  }
+
+  @override
+  String get emailVerificationCheck => 'I verified';
+
+  @override
+  String get emailVerificationResend => 'Resend verification email';
+
+  @override
+  String emailVerificationResendCooldown(int seconds) {
+    return 'Resend available in ${seconds}s';
+  }
+
+  @override
+  String get emailVerificationResendSent => 'Verification email sent again.';
+
+  @override
+  String get emailVerificationStillPending =>
+      'Your email is not verified yet. Open the link in your inbox and try again.';
+
+  @override
+  String get emailVerificationSignOut => 'Sign out / use another account';
+
+  @override
+  String get emailVerificationTooManyRequests =>
+      'Too many attempts. Please wait a moment and try again.';
+
+  @override
+  String get emailVerificationNetworkError =>
+      'We couldn’t reach the server. Check your connection and try again.';
+
+  @override
+  String get emailVerificationUserDisabled => 'This account is disabled.';
+
+  @override
+  String get emailVerificationRequiresRecentLogin =>
+      'Please sign in again to continue.';
+
+  @override
+  String get emailVerificationFailed =>
+      'Something went wrong. Please try again.';
 
   @override
   String get discoverTitle => 'Discover';
@@ -1047,7 +1280,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpSupportContact =>
-      'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account (processed within 30 days), or email support with the phone or email on your account.';
+      'Need more help?\n\nEmail us at support@qmatch.site\n\nWe read every message. To delete your account, use Settings → Delete account. Deletion starts when you confirm. You can also email support with the phone or email on your account.';
 
   @override
   String get supportEmailLabel => 'support@qmatch.site';
@@ -1062,52 +1295,78 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDeleteAccount => 'Delete account';
 
   @override
-  String get settingsDeleteAccountSubtitle =>
-      'Request permanent account deletion';
+  String get settingsDeleteAccountSubtitle => 'Permanently delete your account';
 
   @override
-  String get settingsDeleteAccountPendingStatus => 'Account deletion requested';
+  String get settingsDeleteAccountPendingStatus =>
+      'Account deletion in progress';
 
   @override
   String get settingsDeleteAccountPendingSubtitle =>
-      'View request status and timeline';
+      'Retry if deletion did not finish';
 
   @override
   String get settingsDeleteAccountPendingBanner =>
-      'Your account deletion request is pending. We will process it within 30 days. Contact support@qmatch.site if you need help.';
+      'Account deletion is already in progress. Open Delete account to retry if it did not finish. Contact support@qmatch.site if you need help.';
 
   @override
   String get accountDeletionTitle => 'Delete account';
 
   @override
   String get accountDeletionWarningTitle =>
-      'This starts a permanent deletion request';
+      'Are you sure you want to permanently delete your account?';
 
   @override
   String get accountDeletionIntro =>
-      'You can request permanent deletion of your Qmatch account from inside the app. Submitting this form does not delete everything instantly—it creates a deletion request that we process.';
+      'This cannot be undone. Your profile, photos, assessments, and Discover visibility will be removed. Matches and chats will close. The other person keeps their conversation history.';
 
   @override
-  String get accountDeletionWillDeleteTitle => 'What we plan to delete';
+  String get accountDeletionWillDeleteTitle => 'What we delete';
 
   @override
   String get accountDeletionWillDeleteBody =>
-      '• Your profile information\n• Photos and profile media references\n• Assessment answers and results (IQ, EQ, Frequency)\n• Account-linked compatibility and Discover visibility data\n• Your access to matches and chats tied to this account (as part of account closure)';
+      '• Your profile information\n• Photos and profile media\n• Assessment answers and results (IQ, EQ, Frequency)\n• Account-linked compatibility and Discover visibility data\n• Your access to matches and chats tied to this account';
 
   @override
-  String get accountDeletionMayRetainTitle =>
-      'What may be kept for a limited time';
+  String get accountDeletionMayRetainTitle => 'What we keep';
 
   @override
   String get accountDeletionMayRetainBody =>
-      '• Safety reports and abuse-prevention records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.';
+      '• Safety reports and abuse-prevention records\n• App Store / Play purchase verification records\n• Limited logs needed for legal or compliance reasons\nThese are not used to keep your dating profile active.';
 
   @override
-  String get accountDeletionTimelineTitle => 'Processing timeline';
+  String get accountDeletionTimelineTitle => 'This is immediate';
 
   @override
   String get accountDeletionTimelineBody =>
-      'We will process your request within 30 days. This is not temporary deactivation—the goal is permanent account deletion once processing is complete.';
+      'Deletion starts when you confirm. It is not temporary deactivation.';
+
+  @override
+  String get accountDeletionAppleReauthHint =>
+      'Because Sign in with Apple is linked, you’ll confirm with Apple once so we can revoke that access.';
+
+  @override
+  String get accountDeletionPasswordHint => 'Enter your password to confirm.';
+
+  @override
+  String get accountDeletionGoogleReauthHint =>
+      'Confirm with Google once so we know this is still your account.';
+
+  @override
+  String get accountDeletionPhoneReauthHint =>
+      'Confirm with the SMS code sent to your phone.';
+
+  @override
+  String get accountDeletionErrorGeneric =>
+      'We couldn’t delete your account. Check your connection and try again.';
+
+  @override
+  String get accountDeletionErrorAppleRevoke =>
+      'Apple access could not be revoked. Your account was not deleted. Try again.';
+
+  @override
+  String get accountDeletionErrorUidMismatch =>
+      'Sign-in didn’t match this account. Nothing was deleted.';
 
   @override
   String accountDeletionSupportHint(String email) {
@@ -1116,11 +1375,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeletionAckIrreversible =>
-      'I understand this request is for permanent deletion, not temporary deactivation.';
+      'I understand this permanently deletes my account and cannot be undone.';
 
   @override
   String get accountDeletionAckTimeline =>
-      'I understand processing can take up to 30 days.';
+      'I understand matches and chats will close, and this is not a temporary pause.';
 
   @override
   String accountDeletionTypeDeleteHint(String token) {
@@ -1128,18 +1387,18 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get accountDeletionSubmit => 'Submit deletion request';
+  String get accountDeletionSubmit => 'Delete my account';
 
   @override
   String get accountDeletionNotImmediateNote =>
-      'Submitting does not immediately erase your data. We confirm when processing is complete.';
+      'This permanently deletes your account.';
 
   @override
   String get accountDeletionPendingTitle => 'Request already received';
 
   @override
   String accountDeletionPendingBody(String email) {
-    return 'Your deletion request has been received and is pending. We will process it within 30 days. You can contact $email if you have questions.';
+    return 'Deletion is already in progress. You can retry from Settings → Delete account, or contact $email if you need help.';
   }
 
   @override
@@ -1155,11 +1414,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your account deletion request is pending.';
 
   @override
-  String get accountDeletionSuccessTitle => 'Request received';
+  String get accountDeletionSuccessTitle => 'Account deleted';
 
   @override
   String accountDeletionSuccessBody(String email) {
-    return 'Your deletion request has been received. We will process it within 30 days. You can contact $email if you have questions.';
+    return 'Your Qmatch account has been deleted. You can contact $email if you have questions.';
   }
 
   @override
@@ -1522,7 +1781,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpFaqDeleteAccountA =>
-      'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. We process requests within 30 days. You can also email support@qmatch.site.';
+      'Go to Settings → Delete account, read the notices, confirm both checkboxes, type DELETE, and submit. Deletion starts immediately and cannot be undone. You can also email support@qmatch.site.';
 
   @override
   String get helpFaqDataQ => 'What data does Qmatch use?';

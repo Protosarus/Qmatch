@@ -7,6 +7,7 @@ import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/relationship_analysis_state.dart';
@@ -225,8 +226,10 @@ class _RelationshipAnalysisMicroScanScreenState
       if (!mounted) return;
       setState(() => _saving = false);
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.relationshipAnalysisSaveFailed)),
+      QMatchFeedback.show(
+        context,
+        message: l10n.relationshipAnalysisSaveFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }

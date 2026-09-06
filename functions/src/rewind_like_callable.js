@@ -1,6 +1,7 @@
 'use strict';
 
 const { HttpsError } = require('firebase-functions/v2/https');
+const { requireVerifiedProductUid } = require('./verified_product_auth');
 const { normalizeSnapshot } = require('./entitlement_access');
 const {
   deterministicMatchId,
@@ -11,14 +12,10 @@ const PUBLIC_RESULT_KEYS = Object.freeze(['rewound']);
 const REWIND_REQUIRES_RESONANCE = 'Rewind requires Resonance.';
 
 function requireAuthUid(request) {
-  const uid = request.auth && request.auth.uid;
-  if (!uid) {
-    throw new HttpsError(
-      'unauthenticated',
-      'Authentication required to Rewind a Like.',
-    );
-  }
-  return uid;
+  return requireVerifiedProductUid(
+    request,
+    'Authentication required to Rewind a Like.',
+  );
 }
 
 function requireTargetUid(request, viewerUid) {

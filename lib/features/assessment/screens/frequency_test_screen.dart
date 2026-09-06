@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/services/auth_service.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/frequency_bank/frequency_bank.dart';
 import '../domain/frequency_session/frequency_session.dart';
@@ -205,8 +206,11 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
           debugPrint('Frequency answer failed: ${answered.message}');
           if (!mounted) return;
           final l10n = AppLocalizations.of(context)!;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+          QMatchFeedback.show(
+            context,
+            message: l10n.iqCanonicalAnswerError,
+            type: QMatchFeedbackType.error,
+            compact: true,
           );
           return;
         }
@@ -233,8 +237,11 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
           if (!reconciled.ok || reconciled.state == null) {
             if (!mounted) return;
             final l10n = AppLocalizations.of(context)!;
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.iqCanonicalAnswerError)),
+            QMatchFeedback.show(
+              context,
+              message: l10n.iqCanonicalAnswerError,
+              type: QMatchFeedbackType.error,
+              compact: true,
             );
             return;
           }
@@ -269,8 +276,11 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
       debugPrint('Frequency continue failed: $e');
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.iqCanonicalPersistError)),
+      QMatchFeedback.show(
+        context,
+        message: l10n.iqCanonicalPersistError,
+        type: QMatchFeedbackType.error,
+        compact: true,
       );
     } finally {
       if (mounted) {
@@ -338,10 +348,11 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
           _isFinishing = false;
           _busy = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(AppLocalizations.of(context)!.iqCanonicalPersistError),
-          ),
+        QMatchFeedback.show(
+          context,
+          message: AppLocalizations.of(context)!.iqCanonicalPersistError,
+          type: QMatchFeedbackType.error,
+          compact: true,
         );
         return;
       }
@@ -374,10 +385,11 @@ class _FrequencyTestScreenState extends State<FrequencyTestScreen> {
         _isFinishing = false;
         _busy = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.iqCanonicalPersistError),
-        ),
+      QMatchFeedback.show(
+        context,
+        message: AppLocalizations.of(context)!.iqCanonicalPersistError,
+        type: QMatchFeedbackType.error,
+        compact: true,
       );
     } finally {
       _pipelineInFlight = false;

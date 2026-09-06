@@ -6,14 +6,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/navigation/auth_routing_refresh.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../l10n/app_localizations.dart';
 import '../domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 import '../domain/frequency_v2_runtime/frequency_v2_screen_finalize_coordinator.dart';
+import '../services/frequency_v2_finalize_callable_client.dart';
 import '../services/frequency_v2_pending_finalization_pipeline.dart';
 import '../utils/assessment_language.dart';
 import '../widgets/frequency_question_chrome.dart';
 import '../widgets/q_assessment_progress.dart';
 import '../widgets/q_assessment_scaffold.dart';
 import 'persona_assignment_gate_screen.dart';
+
+enum _FrequencyV2LoadFailure { unsigned, generic }
+
+enum _FrequencyV2SaveFailure { network, generic, account }
 
 /// Live Frequency V2 question UI.
 ///
@@ -58,8 +64,8 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
   bool _isFinishing = false;
   bool _busy = false;
   bool _continuingToProduct = false;
-  String? _loadError;
-  String? _uiErrorCode;
+  _FrequencyV2LoadFailure? _loadFailure;
+  _FrequencyV2SaveFailure? _saveFailure;
   int? _heldOptionIndex;
 
   FrequencyV2SessionController? get _controller => widget.controller ?? _owned;
@@ -89,6 +95,11 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     final injected = widget.controller;
     if (injected != null) {
       _ensureFinalize(injected);
+      if (injected.session?.status ==
+          FrequencyV2PersistedSessionStatus.completedPendingPersistence) {
+        _isFinishing = true;
+        _busy = true;
+      }
     } else if (widget.pendingPipeline != null) {
       _finalize = FrequencyV2ScreenFinalizeCoordinator(
         pipeline: widget.pendingPipeline!,
@@ -117,7 +128,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
       final uid = _currentUid();
       if (uid == null || uid.isEmpty) {
         if (!mounted) return;
-        setState(() => _loadError = 'owner_unavailable');
+        setState(() => _loadFailure = _FrequencyV2LoadFailure.unsigned);
         return;
       }
       final languageCode = AssessmentLanguage.languageUsed(context: context);
@@ -142,8 +153,9 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         _schedulePendingPipelineOnce();
       }
     } catch (error) {
+      debugPrint('Frequency V2 load failed: ${error.runtimeType}');
       if (!mounted) return;
-      setState(() => _loadError = error.toString());
+      setState(() => _loadFailure = _FrequencyV2LoadFailure.generic);
     }
   }
 
@@ -202,11 +214,15 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
       await controller.selectOption(optionId);
       await controller.lockIfComplete();
       if (!mounted) return;
+      final lockedPending = controller.session?.status ==
+          FrequencyV2PersistedSessionStatus.completedPendingPersistence;
       setState(() {
         _heldOptionIndex = null;
+        if (lockedPending) {
+          _isFinishing = true;
+        }
       });
-      if (controller.session?.status ==
-          FrequencyV2PersistedSessionStatus.completedPendingPersistence) {
+      if (lockedPending) {
         widget.onLocked?.call();
         await _runPendingFinalizationPipeline();
       }
@@ -232,7 +248,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     setState(() {
       _isFinishing = true;
       _busy = true;
-      _uiErrorCode = null;
+      _saveFailure = null;
     });
     try {
       final outcome = await coordinator.runIfPending(session);
@@ -255,9 +271,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
       setState(() {
         _isFinishing = false;
         _busy = false;
-        _uiErrorCode = outcome.uiErrorCode ??
-            outcome.failureKind?.name ??
-            'finalize_failed';
+        _saveFailure = _mapSaveFailure(outcome);
       });
     } finally {
       _pipelineInFlight = false;
@@ -273,7 +287,7 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         setState(() {
           _isFinishing = false;
           _busy = false;
-          _uiErrorCode = null;
+          _saveFailure = null;
         });
       }
       return;
@@ -296,11 +310,63 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
       _pipelineInFlight ||
       _continuingToProduct ||
       _heldOptionIndex != null ||
+      _saveFailure != null ||
       _controller?.session?.status ==
           FrequencyV2PersistedSessionStatus.completedPendingPersistence;
 
+  bool get _hasReadySession => _controller?.session != null;
+
+  _FrequencyV2SaveFailure? _mapSaveFailure(
+    FrequencyV2PendingPipelineResult outcome,
+  ) {
+    if (outcome.destination ==
+        FrequencyV2PendingPipelineDestination.productCompletion) {
+      return null;
+    }
+    final code = outcome.uiErrorCode;
+    if (code == 'FREQUENCY_V2_ALREADY_FINALIZED') {
+      return null;
+    }
+    if (outcome.failureKind ==
+            FrequencyV2FinalizeFailureKind.accountInconsistency ||
+        code == 'unauthenticated' ||
+        code == 'owner_unavailable' ||
+        code == 'owner_mismatch') {
+      return _FrequencyV2SaveFailure.account;
+    }
+    if (outcome.failureKind == FrequencyV2FinalizeFailureKind.retryable) {
+      return _FrequencyV2SaveFailure.network;
+    }
+    return _FrequencyV2SaveFailure.generic;
+  }
+
+  Future<void> _retryLoad() async {
+    if (_owned != null || _controller != null) {
+      return;
+    }
+    setState(() {
+      _loadFailure = null;
+    });
+    await _bootstrapFromAssets();
+  }
+
+  String _saveFailureMessage(
+    AppLocalizations l10n,
+    _FrequencyV2SaveFailure failure,
+  ) {
+    switch (failure) {
+      case _FrequencyV2SaveFailure.network:
+        return l10n.frequencyV2SaveErrorNetwork;
+      case _FrequencyV2SaveFailure.account:
+        return l10n.frequencyV2SaveErrorAccount;
+      case _FrequencyV2SaveFailure.generic:
+        return l10n.frequencyV2SaveErrorGeneric;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = _controller;
     final plan = controller?.currentPlan;
     final item = controller?.currentItem;
@@ -319,12 +385,21 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
     final visualIndex = _heldOptionIndex ??
         (selectedIndex != null && selectedIndex >= 0 ? selectedIndex : null);
     final compact = MediaQuery.sizeOf(context).height < 700;
-    final statusLine = _uiErrorCode ?? _loadError;
-    final retryable = _uiErrorCode != null &&
-        _uiErrorCode != 'FREQUENCY_V2_ALREADY_FINALIZED' &&
+    final total = controller?.progressTotal ?? 50;
+    final rawIndex = controller?.progressIndex ?? 0;
+    final index = rawIndex.clamp(1, total);
+    final progress = (index / total).clamp(0.0, 1.0);
+    final showQuestion = _hasReadySession &&
+        _loadFailure == null &&
+        _saveFailure == null &&
+        !_isFinishing &&
+        item != null &&
+        labels.isNotEmpty;
+    final retryFinalize = _saveFailure != null &&
         !_continuingToProduct &&
         controller?.session?.status ==
             FrequencyV2PersistedSessionStatus.completedPendingPersistence;
+    final retryLoad = _loadFailure != null && !_hasReadySession;
     return QAssessmentScaffold(
       richBackdrop: true,
       backgroundImageAsset: 'assets/images/welcome_cosmic_background.png',
@@ -332,44 +407,38 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const FrequencyQuestionTopBar(),
-          if (statusLine != null)
-            Text(
-              statusLine,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.inter(
-                color: Colors.white.withValues(alpha: 0.55),
-                fontSize: 11,
-              ),
+          if (showQuestion || _isFinishing || _saveFailure != null) ...[
+            FrequencyProgressHeader(
+              label: '$index / $total',
+              progress: progress,
+              semanticLabel: l10n.frequencyV2ProgressSemantic(index, total),
             ),
-          FrequencyProgressHeader(
-            label:
-                '${controller?.progressIndex ?? 1} / ${controller?.progressTotal ?? 50}',
-            progress: (controller?.progressIndex ?? 1) /
-                (controller?.progressTotal ?? 50),
-          ),
-          QAssessmentProgress(
-            value: (controller?.progressIndex ?? 1) /
-                (controller?.progressTotal ?? 50),
-          ),
-          const SizedBox(height: 8),
+            QAssessmentProgress(value: progress),
+            const SizedBox(height: 8),
+          ],
           Expanded(
-            child: FrequencyQuestionPanel(
+            child: _buildBody(
+              l10n: l10n,
               compact: compact,
-              eyebrow: 'Frequency',
-              question: item?.prompt ?? '',
+              showQuestion: showQuestion,
+              itemPrompt: item?.prompt ?? '',
               labels: labels,
-              selectedValue: visualIndex != null ? visualIndex + 1 : null,
-              onSelected: _onPanelSelected,
+              visualIndex: visualIndex,
             ),
           ),
-          if (retryable)
+          if (retryFinalize || retryLoad)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: FrequencyContinueButton(
-                label: 'Retry finalize',
+                key: const Key('frequency-v2-retry'),
+                label: l10n.retry,
                 active: !_pipelineInFlight && _finalize?.isBusy != true,
                 saving: _pipelineInFlight || _finalize?.isBusy == true,
                 onPressed: () {
+                  if (retryLoad) {
+                    unawaited(_retryLoad());
+                    return;
+                  }
                   if (_pipelineInFlight || _finalize?.isBusy == true) {
                     return;
                   }
@@ -378,6 +447,118 @@ class _FrequencyV2TestScreenState extends State<FrequencyV2TestScreen> {
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildBody({
+    required AppLocalizations l10n,
+    required bool compact,
+    required bool showQuestion,
+    required String itemPrompt,
+    required List<String> labels,
+    required int? visualIndex,
+  }) {
+    if (_loadFailure != null && !_hasReadySession) {
+      return _FrequencyV2StatusPane(
+        key: const Key('frequency-v2-load-error'),
+        compact: compact,
+        message: _loadFailure == _FrequencyV2LoadFailure.unsigned
+            ? l10n.frequencyV2SaveErrorAccount
+            : l10n.frequencyV2LoadError,
+      );
+    }
+    if (!_hasReadySession) {
+      return _FrequencyV2StatusPane(
+        key: const Key('frequency-v2-loading'),
+        compact: compact,
+        message: l10n.frequencyV2Loading,
+        busy: true,
+      );
+    }
+    if (_saveFailure != null) {
+      return _FrequencyV2StatusPane(
+        key: const Key('frequency-v2-save-error'),
+        compact: compact,
+        message: _saveFailureMessage(l10n, _saveFailure!),
+      );
+    }
+    if (_isFinishing) {
+      return _FrequencyV2StatusPane(
+        key: const Key('frequency-v2-finishing'),
+        compact: compact,
+        message: l10n.frequencyV2Finishing,
+        busy: true,
+      );
+    }
+    if (!showQuestion) {
+      return _FrequencyV2StatusPane(
+        key: const Key('frequency-v2-loading'),
+        compact: compact,
+        message: l10n.frequencyV2Loading,
+        busy: true,
+      );
+    }
+    return FrequencyQuestionPanel(
+      key: const Key('frequency-v2-question-panel'),
+      compact: compact,
+      enabled: !_inputsLocked,
+      eyebrow: l10n.assessmentStageFrequency,
+      question: itemPrompt,
+      labels: labels,
+      selectedValue: visualIndex != null ? visualIndex + 1 : null,
+      onSelected: _onPanelSelected,
+    );
+  }
+}
+
+class _FrequencyV2StatusPane extends StatelessWidget {
+  const _FrequencyV2StatusPane({
+    super.key,
+    required this.compact,
+    required this.message,
+    this.busy = false,
+  });
+
+  final bool compact;
+  final String message;
+  final bool busy;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      liveRegion: true,
+      label: message,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (busy) ...[
+                const SizedBox(
+                  width: 28,
+                  height: 28,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.4,
+                    color: Color(0xFFDAC8ED),
+                  ),
+                ),
+                SizedBox(height: compact ? 16 : 20),
+              ],
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  color: Colors.white.withValues(alpha: 0.88),
+                  fontSize: compact ? 14.5 : 16,
+                  height: 1.4,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

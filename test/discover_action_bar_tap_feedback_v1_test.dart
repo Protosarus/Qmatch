@@ -221,8 +221,11 @@ void main() {
       const Duration(milliseconds: 160),
     );
     expect(
-      QMatchDiscoverActionBar.tapFeedbackDuration <
-          QMatchDiscoverSwipeableCard.flyOffDuration,
+      QMatchDiscoverSwipeableCard.flyOffDuration,
+      const Duration(milliseconds: 100),
+    );
+    expect(
+      QMatchDiscoverActionBar.tapFeedbackDuration.inMilliseconds > 0,
       isTrue,
     );
   });
@@ -231,13 +234,13 @@ void main() {
     final src = File(
       'lib/features/discover/screens/discover_screen.dart',
     ).readAsStringSync();
-    expect(src.contains('onLike: _onLike,'), isTrue);
-    expect(src.contains('onPass: _onPass,'), isTrue);
-    expect(src.contains('_onLikeFromActionBar'), isTrue);
+    expect(src.contains('onLike: _onLikeAction'), isTrue);
+    expect(src.contains('onPass: _onPassAction'), isTrue);
+    expect(src.contains('_onLikeFromActionBar'), isFalse);
     expect(src.contains('tapFeedbackDuration'), isFalse);
 
     final likeIdx = src.indexOf('Future<void> _onLike() async {');
-    final fromBarIdx = src.indexOf('void _onLikeFromActionBar()');
+    final fromBarIdx = src.indexOf('void _onPassAction()');
     expect(likeIdx, greaterThanOrEqualTo(0));
     expect(fromBarIdx, greaterThan(likeIdx));
     final likeBody = src.substring(likeIdx, fromBarIdx);

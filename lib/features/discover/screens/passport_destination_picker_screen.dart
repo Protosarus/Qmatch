@@ -6,6 +6,7 @@ import '../../../core/theme/app_radii.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/cosmic/q_cosmic_button.dart';
 import '../../../core/widgets/cosmic/qmatch_cosmic_background.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_pushed_screen_header.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../iap/domain/resonance_paywall_feature.dart';
@@ -114,10 +115,10 @@ class _PassportDestinationPickerScreenState
     } catch (e) {
       if (!mounted) return;
       setState(() => _busy = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.discoverActionFailed),
-        ),
+      QMatchFeedback.show(
+        context,
+        message: AppLocalizations.of(context)!.discoverActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }
@@ -132,10 +133,10 @@ class _PassportDestinationPickerScreenState
     } catch (e) {
       if (!mounted) return;
       setState(() => _busy = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.discoverActionFailed),
-        ),
+      QMatchFeedback.show(
+        context,
+        message: AppLocalizations.of(context)!.discoverActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }

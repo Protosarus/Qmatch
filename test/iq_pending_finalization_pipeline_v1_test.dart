@@ -13,6 +13,7 @@ import 'package:qmatch/features/assessment/services/iq_finalize_callable_client.
 import 'package:qmatch/features/assessment/services/iq_pending_finalization_pipeline.dart';
 import 'package:qmatch/features/assessment/domain/eq_session/eq_session.dart';
 import 'package:qmatch/features/assessment/domain/frequency_session/frequency_session.dart';
+import 'package:qmatch/features/assessment/domain/frequency_v2_runtime/frequency_v2_runtime.dart';
 
 const _bankPath = 'assets/data/assessment_v3/iq/iq_bank_tr_v1.json';
 
@@ -367,6 +368,7 @@ void main() {
       iqRepository: built.repo,
       eqRepository: EqSessionMemoryRepository(),
       frequencyRepository: FrequencySessionMemoryRepository(),
+      frequencyV2Repository: FrequencyV2SessionMemoryRepository(),
     ).reconcile(uid: uid, progress: _eqProgress());
 
     expect(decision.destination, AssessmentFlowDestination.iq);

@@ -73,95 +73,102 @@ class FrequencyProgressHeader extends StatelessWidget {
     super.key,
     required this.label,
     required this.progress,
+    this.semanticLabel,
   });
 
   final String label;
   final double progress;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
     final clamped = progress.clamp(0.0, 1.0);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.playfairDisplay(
-            color: Colors.white.withValues(alpha: 0.88),
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            height: 1.2,
+    return Semantics(
+      label: semanticLabel ?? label,
+      value: '${(clamped * 100).round()}%',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.playfairDisplay(
+              color: Colors.white.withValues(alpha: 0.88),
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              height: 1.2,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final fillWidth = constraints.maxWidth * clamped;
-            final tipX = (fillWidth - 7).clamp(0.0, constraints.maxWidth - 14);
-            return SizedBox(
-              height: 14,
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.centerLeft,
-                children: [
-                  Container(
-                    height: 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(99),
-                      color: const Color(0x55171A34),
-                      border: Border.all(
-                        color: const Color(0x446F6D9B),
-                        width: 0.7,
+          const SizedBox(height: 8),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final fillWidth = constraints.maxWidth * clamped;
+              final tipX =
+                  (fillWidth - 7).clamp(0.0, constraints.maxWidth - 14);
+              return SizedBox(
+                height: 14,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.centerLeft,
+                  children: [
+                    Container(
+                      height: 4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(99),
+                        color: const Color(0x55171A34),
+                        border: Border.all(
+                          color: const Color(0x446F6D9B),
+                          width: 0.7,
+                        ),
                       ),
                     ),
-                  ),
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 280),
-                    curve: Curves.easeOutCubic,
-                    width: fillWidth,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(99),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF7756F4),
-                          Color(0xFFC663F3),
-                          Color(0xFFFFD47B),
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 280),
+                      curve: Curves.easeOutCubic,
+                      width: fillWidth,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(99),
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFF7756F4),
+                            Color(0xFFC663F3),
+                            Color(0xFFFFD47B),
+                          ],
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x88BC68FF),
+                            blurRadius: 9,
+                          ),
                         ],
                       ),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x88BC68FF),
-                          blurRadius: 9,
-                        ),
-                      ],
                     ),
-                  ),
-                  Positioned(
-                    left: tipX,
-                    child: Container(
-                      width: 14,
-                      height: 14,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: RadialGradient(
-                          colors: [
-                            Colors.white,
-                            Color(0xFFFFD685),
-                            Color(0x00FFD685),
-                          ],
-                          stops: [0, 0.28, 1],
+                    Positioned(
+                      left: tipX,
+                      child: Container(
+                        width: 14,
+                        height: 14,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: RadialGradient(
+                            colors: [
+                              Colors.white,
+                              Color(0xFFFFD685),
+                              Color(0x00FFD685),
+                            ],
+                            stops: [0, 0.28, 1],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ],
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -227,6 +234,7 @@ class FrequencyQuestionPanel extends StatelessWidget {
     required this.selectedValue,
     required this.onSelected,
     this.compact = false,
+    this.enabled = true,
   });
 
   final String eyebrow;
@@ -235,6 +243,7 @@ class FrequencyQuestionPanel extends StatelessWidget {
   final int? selectedValue;
   final ValueChanged<int> onSelected;
   final bool compact;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -288,14 +297,13 @@ class FrequencyQuestionPanel extends StatelessWidget {
               SizedBox(height: compact ? 3 : 6),
               Text(
                 question,
-                maxLines: compact ? 2 : 3,
-                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
+                softWrap: true,
                 style: GoogleFonts.playfairDisplay(
                   color: const Color(0xFFF2EEF7),
                   fontSize: compact ? 15.5 : 18.5,
                   fontWeight: FontWeight.w500,
-                  height: 1.18,
+                  height: 1.22,
                 ),
               ),
               SizedBox(height: compact ? 5 : 9),
@@ -318,6 +326,7 @@ class FrequencyQuestionPanel extends StatelessWidget {
                                 label: labels[i],
                                 selected: selectedValue == i + 1,
                                 compact: compact,
+                                enabled: enabled,
                                 onTap: () => onSelected(i + 1),
                               ),
                           ],
@@ -343,6 +352,7 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
     required this.selected,
     required this.onTap,
     required this.compact,
+    this.enabled = true,
   });
 
   final int value;
@@ -350,99 +360,109 @@ class FrequencyAnswerOptionRow extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
   final bool compact;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
-    final minHeight = compact ? 38.0 : 44.0;
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
-        child: Container(
-          constraints: BoxConstraints(minHeight: minHeight),
-          padding: EdgeInsets.symmetric(
-            horizontal: compact ? 10 : 12,
-            vertical: compact ? 6 : 8,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            gradient: selected
-                ? const LinearGradient(
-                    colors: [
-                      Color(0xB34C25C9),
-                      Color(0xA06D34DA),
-                      Color(0x99D89C47),
-                    ],
-                  )
-                : const LinearGradient(
-                    colors: [
-                      Color(0x8A17142D),
-                      Color(0x72101227),
-                    ],
-                  ),
-            border: Border.all(
-              color:
-                  selected ? const Color(0x99F2D08A) : const Color(0x554F4D79),
+    final minHeight = compact ? 44.0 : 48.0;
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      selected: selected,
+      label: label,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: enabled ? onTap : null,
+          borderRadius: BorderRadius.circular(14),
+          child: Container(
+            constraints: BoxConstraints(minHeight: minHeight),
+            padding: EdgeInsets.symmetric(
+              horizontal: compact ? 10 : 12,
+              vertical: compact ? 6 : 8,
             ),
-            boxShadow: selected
-                ? const [
-                    BoxShadow(
-                      color: Color(0x554D25D2),
-                      blurRadius: 12,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              gradient: selected
+                  ? const LinearGradient(
+                      colors: [
+                        Color(0xB34C25C9),
+                        Color(0xA06D34DA),
+                        Color(0x99D89C47),
+                      ],
+                    )
+                  : const LinearGradient(
+                      colors: [
+                        Color(0x8A17142D),
+                        Color(0x72101227),
+                      ],
                     ),
-                  ]
-                : null,
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: compact ? 27 : 31,
-                height: compact ? 27 : 31,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: const Color(0x55201638),
-                  border: Border.all(
+              border: Border.all(
+                color: selected
+                    ? const Color(0x99F2D08A)
+                    : const Color(0x554F4D79),
+              ),
+              boxShadow: selected
+                  ? const [
+                      BoxShadow(
+                        color: Color(0x554D25D2),
+                        blurRadius: 12,
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: compact ? 27 : 31,
+                  height: compact ? 27 : 31,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: const Color(0x55201638),
+                    border: Border.all(
+                      color: selected
+                          ? const Color(0xFFFFD68B)
+                          : const Color(0x668D70B0),
+                    ),
+                  ),
+                  child: CustomPaint(
+                    painter: _FrequencyGlyphPainter(
+                      value: value,
+                      selected: selected,
+                    ),
+                  ),
+                ),
+                SizedBox(width: compact ? 9 : 11),
+                Expanded(
+                  child: Text(
+                    label,
+                    softWrap: true,
+                    style: GoogleFonts.inter(
+                      color: Colors.white.withValues(
+                        alpha: selected ? 1 : 0.92,
+                      ),
+                      fontSize: compact ? 13.5 : 14.5,
+                      fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                      height: 1.28,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 6),
+                SizedBox(
+                  height: compact ? 27 : 31,
+                  child: Icon(
+                    selected
+                        ? Icons.check_circle_rounded
+                        : Icons.circle_outlined,
+                    size: compact ? 19 : 21,
                     color: selected
                         ? const Color(0xFFFFD68B)
-                        : const Color(0x668D70B0),
+                        : const Color(0x777D7597),
                   ),
                 ),
-                child: CustomPaint(
-                  painter: _FrequencyGlyphPainter(
-                    value: value,
-                    selected: selected,
-                  ),
-                ),
-              ),
-              SizedBox(width: compact ? 9 : 11),
-              Expanded(
-                child: Text(
-                  label,
-                  softWrap: true,
-                  style: GoogleFonts.inter(
-                    color: Colors.white.withValues(
-                      alpha: selected ? 1 : 0.92,
-                    ),
-                    fontSize: compact ? 13.5 : 14.5,
-                    fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                    height: 1.28,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 6),
-              SizedBox(
-                height: compact ? 27 : 31,
-                child: Icon(
-                  selected ? Icons.check_circle_rounded : Icons.circle_outlined,
-                  size: compact ? 19 : 21,
-                  color: selected
-                      ? const Color(0xFFFFD68B)
-                      : const Color(0x777D7597),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -505,87 +525,92 @@ class FrequencyContinueButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tint = active ? 1.0 : 0.72;
-    return Opacity(
-      opacity: active ? 1 : 0.92,
-      child: Container(
-        height: 54,
-        decoration: BoxDecoration(
-          borderRadius: AppRadii.pillBorder,
-          boxShadow: active
-              ? const [
-                  BoxShadow(
-                    color: Color(0x884D25DF),
-                    blurRadius: 20,
-                    offset: Offset(-6, 5),
-                  ),
-                  BoxShadow(
-                    color: Color(0x77F0B95B),
-                    blurRadius: 18,
-                    offset: Offset(7, 4),
-                  ),
-                ]
-              : null,
-        ),
-        child: ClipRRect(
-          borderRadius: AppRadii.pillBorder,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: saving ? null : onPressed,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: AppRadii.pillBorder,
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(84, 34, 221, 0.9 * tint),
-                      Color.fromRGBO(126, 55, 229, 0.82 * tint),
-                      Color.fromRGBO(221, 154, 65, 0.86 * tint),
-                      Color.fromRGBO(255, 210, 116, 0.92 * tint),
-                    ],
-                  ),
-                  border: Border.all(
-                    color: Colors.white.withValues(
-                      alpha: active ? 0.45 : 0.18,
+    return Semantics(
+      button: true,
+      enabled: active && !saving,
+      label: label,
+      child: Opacity(
+        opacity: active ? 1 : 0.92,
+        child: Container(
+          height: 54,
+          decoration: BoxDecoration(
+            borderRadius: AppRadii.pillBorder,
+            boxShadow: active
+                ? const [
+                    BoxShadow(
+                      color: Color(0x884D25DF),
+                      blurRadius: 20,
+                      offset: Offset(-6, 5),
+                    ),
+                    BoxShadow(
+                      color: Color(0x77F0B95B),
+                      blurRadius: 18,
+                      offset: Offset(7, 4),
+                    ),
+                  ]
+                : null,
+          ),
+          child: ClipRRect(
+            borderRadius: AppRadii.pillBorder,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: saving ? null : onPressed,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    borderRadius: AppRadii.pillBorder,
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(84, 34, 221, 0.9 * tint),
+                        Color.fromRGBO(126, 55, 229, 0.82 * tint),
+                        Color.fromRGBO(221, 154, 65, 0.86 * tint),
+                        Color.fromRGBO(255, 210, 116, 0.92 * tint),
+                      ],
+                    ),
+                    border: Border.all(
+                      color: Colors.white.withValues(
+                        alpha: active ? 0.45 : 0.18,
+                      ),
                     ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.auto_awesome_rounded,
-                        color: Colors.white,
-                        size: 19,
-                      ),
-                      Expanded(
-                        child: saving
-                            ? const Center(
-                                child: SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.auto_awesome_rounded,
+                          color: Colors.white,
+                          size: 19,
+                        ),
+                        Expanded(
+                          child: saving
+                              ? const Center(
+                                  child: SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              : Text(
+                                  label,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.playfairDisplay(
                                     color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                              )
-                            : Text(
-                                label,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.playfairDisplay(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_rounded,
-                        color: Color(0xFFFFEDC4),
-                        size: 20,
-                      ),
-                    ],
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Color(0xFFFFEDC4),
+                          size: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

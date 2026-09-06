@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_spacing.dart';
+import '../../../../core/widgets/qmatch_feedback.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/home_geography.dart';
 import '../../utils/profile_option_labels.dart';
@@ -84,24 +85,25 @@ class _BasicInfoStepState extends State<BasicInfoStep> {
         widget.onLocationChanged(position, locationText, homeGeography);
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(l10n.profileLocationSuccess(locationText)),
-              backgroundColor: AppColors.success,
-            ),
+          QMatchFeedback.show(
+            context,
+            message: l10n.profileLocationSuccess(locationText),
+            type: QMatchFeedbackType.success,
+            compact: true,
           );
         }
       }
     } catch (e) {
       if (mounted) {
-        final msg = e is String ? e : e.toString();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              AppLocalizations.of(context)!.profileLocationError(msg),
-            ),
-            backgroundColor: AppColors.danger,
-          ),
+        final live = AppLocalizations.of(context)!;
+        final message = e is String && e.trim().isNotEmpty
+            ? e
+            : live.qmatchFeedbackGenericError;
+        QMatchFeedback.show(
+          context,
+          message: message,
+          type: QMatchFeedbackType.error,
+          compact: true,
         );
       }
     } finally {

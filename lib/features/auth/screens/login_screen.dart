@@ -7,17 +7,37 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/navigation/auth_navigation.dart';
+import '../../../core/services/auth_provider_resolver.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../core/services/email_verification_policy.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_gradients.dart';
 import '../../../core/theme/app_radii.dart';
 import '../../../core/widgets/elegant_warning.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../core/widgets/qmatch_glass_icon_button.dart';
 import '../../../l10n/app_localizations.dart';
+import '../provider_link_flow.dart';
 import '../widgets/auth_world_map_accent.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({
+    super.key,
+    this.initialEmail,
+    this.signIn,
+    this.completePendingLink,
+  });
+
+  final String? initialEmail;
+  final Future<void> Function({
+    required String email,
+    required String password,
+  })? signIn;
+  final Future<ProviderLinkAttempt> Function()? completePendingLink;
+
+  static const Key emailFieldKey = Key('qmatch-login-email');
+  static const Key passwordFieldKey = Key('qmatch-login-password');
+  static const Key submitKey = Key('qmatch-login-submit');
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -39,6 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    final seeded = widget.initialEmail?.trim() ?? '';
+    if (seeded.isNotEmpty) {
+      _emailController.text = seeded;
+    }
     _emailFocus.addListener(() {
       if (!mounted) return;
       setState(() => _emailFocused = _emailFocus.hasFocus);
@@ -117,14 +141,31 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final signIn = widget.signIn ??
+          ({required String email, required String password}) {
+            return FirebaseAuth.instance.signInWithEmailAndPassword(
+              email: email,
+              password: password,
+            );
+          };
+      await signIn(
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
-
-      if (mounted) {
-        AuthNavigation.completeAuthentication(context);
+      SignInProviderMemory.remember(AuthProviderResolver.passwordProviderId);
+      final link = widget.completePendingLink ??
+          () => AuthService().linkPendingCredential(
+                currentSignInProvider: AuthProviderResolver.passwordProviderId,
+              );
+      final linked = await link();
+      if (!mounted) return;
+      if (linked.isFailed) {
+        final message = linked.error == null
+            ? l10n.providerLinkErrorFailed
+            : ProviderLinkFlow.mapAuthError(l10n, linked.error!);
+        setState(() => _inlineError = message);
       }
+      AuthNavigation.completeAuthentication(context);
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
@@ -155,55 +196,12 @@ class _LoginScreenState extends State<LoginScreen> {
     bool isError = false,
   }) {
     if (!mounted) return;
-
-    final messenger = ScaffoldMessenger.of(context);
-    messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          elevation: 0,
-          backgroundColor: const Color(0xF5111629),
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 105),
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
-            side: BorderSide(
-              color: (isError ? AppColors.error : AppColors.resonanceViolet)
-                  .withValues(alpha: 0.55),
-            ),
-          ),
-          content: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  isError
-                      ? Icons.error_outline_rounded
-                      : Icons.check_circle_outline_rounded,
-                  color: isError ? AppColors.error : _accentLavender,
-                  size: 21,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    message,
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFF3EFFA),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      height: 1.35,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+    QMatchFeedback.show(
+      context,
+      message: message,
+      type: isError ? QMatchFeedbackType.error : QMatchFeedbackType.success,
+      compact: true,
+    );
   }
 
   Future<void> _showForgotPasswordDialog() async {
@@ -543,6 +541,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _glowField(
                                         focused: _emailFocused,
                                         child: TextFormField(
+                                          key: LoginScreen.emailFieldKey,
                                           controller: _emailController,
                                           focusNode: _emailFocus,
                                           keyboardType:
@@ -580,6 +579,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       _glowField(
                                         focused: _passwordFocused,
                                         child: TextFormField(
+                                          key: LoginScreen.passwordFieldKey,
                                           controller: _passwordController,
                                           focusNode: _passwordFocus,
                                           obscureText: _obscurePassword,
@@ -659,6 +659,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Column(
                                     children: [
                                       _CosmicCtaButton(
+                                        key: LoginScreen.submitKey,
                                         loading: _isLoading,
                                         label: l10n.logIn,
                                         onPressed:
@@ -813,6 +814,7 @@ class _StarFieldPainter extends CustomPainter {
 
 class _CosmicCtaButton extends StatelessWidget {
   const _CosmicCtaButton({
+    super.key,
     required this.label,
     required this.onPressed,
     required this.loading,

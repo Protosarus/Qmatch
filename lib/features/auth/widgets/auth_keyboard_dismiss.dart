@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_colors.dart';
+
 /// Dismisses the software keyboard when the user taps outside the focused input.
 class AuthKeyboardDismiss extends StatelessWidget {
   const AuthKeyboardDismiss({
@@ -36,8 +38,8 @@ class AuthKeyboardDismiss extends StatelessWidget {
   }
 }
 
-/// iOS-style keyboard accessory with a compact forward control (no action key on
-/// the phone pad). Tap dismisses the keyboard; it does not send SMS.
+/// Compact keyboard dismiss control. Not mounted on phone auth — a full-width
+/// gray accessory there read as an unexplained bottom banner.
 class AuthKeyboardActionBar extends StatelessWidget {
   const AuthKeyboardActionBar({
     super.key,
@@ -51,7 +53,7 @@ class AuthKeyboardActionBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: const Color(0xFF2C2C2E),
+      color: AppColors.midnightNavy,
       child: SizedBox(
         height: 48,
         width: double.infinity,

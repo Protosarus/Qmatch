@@ -19,11 +19,22 @@ class QMatchDiscoverSwipeableCard extends StatefulWidget {
     required this.child,
     this.enabled = true,
     this.showSwipeStamps = true,
-    this.dragThreshold = defaultDragThreshold,
+    this.dragThreshold,
     this.onSwipeFeedback,
   });
 
+  /// Fallback used only when a caller wants a fixed pixel threshold.
   static const double defaultDragThreshold = 120;
+
+  /// Production commit distance is this fraction of screen width.
+  static const double dragThresholdFraction = 0.28;
+
+  /// Minimum travel before a fast fling may commit.
+  static const double minFlingDistance = 36;
+
+  /// Horizontal fling speed (px/s) that can commit with [minFlingDistance].
+  static const double flingVelocity = 1100;
+
   static const double overlayStartPx = 24;
   static const double maxRotationRadians = 0.14;
   static const Duration flyOffDuration = Duration(milliseconds: 100);
@@ -36,7 +47,9 @@ class QMatchDiscoverSwipeableCard extends StatefulWidget {
   final Widget child;
   final bool enabled;
   final bool showSwipeStamps;
-  final double dragThreshold;
+
+  /// Absolute pixel commit distance. Null → [dragThresholdFraction] of width.
+  final double? dragThreshold;
 
   /// Signed drag progress from this card: `+` like/right, `-` pass/left, `0` center.
   /// Clamped to `-1..1`. Uses the same threshold and overlay deadzone as stamps.
@@ -97,10 +110,16 @@ class _QMatchDiscoverSwipeableCardState
 
   bool get _gesturesActive => widget.enabled && !_actionDispatched;
 
+  double _thresholdOf(BuildContext context) {
+    final explicit = widget.dragThreshold;
+    if (explicit != null && explicit > 0) return explicit;
+    return MediaQuery.sizeOf(context).width *
+        QMatchDiscoverSwipeableCard.dragThresholdFraction;
+  }
+
   double get _progress {
-    final t = widget.dragThreshold <= 0
-        ? 1.0
-        : _offset.dx.abs() / widget.dragThreshold;
+    final threshold = _thresholdOf(context);
+    final t = threshold <= 0 ? 1.0 : _offset.dx.abs() / threshold;
     return t.clamp(0.0, 1.0);
   }
 
@@ -132,9 +151,15 @@ class _QMatchDiscoverSwipeableCardState
       return;
     }
     final dx = _offset.dx;
-    final pastThreshold = dx.abs() >= widget.dragThreshold;
-    if (pastThreshold) {
-      _commit(like: dx > 0);
+    final threshold = _thresholdOf(context);
+    final vx = details.velocity.pixelsPerSecond.dx;
+    final sameDirection = dx == 0 ? vx > 0 : vx.sign == dx.sign;
+    final flingCommit =
+        dx.abs() >= QMatchDiscoverSwipeableCard.minFlingDistance &&
+            vx.abs() >= QMatchDiscoverSwipeableCard.flingVelocity &&
+            sameDirection;
+    if (dx.abs() >= threshold || flingCommit) {
+      _commit(like: dx != 0 ? dx > 0 : vx > 0);
     } else {
       _snapBack();
     }

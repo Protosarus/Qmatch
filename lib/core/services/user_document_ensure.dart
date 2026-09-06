@@ -1,6 +1,9 @@
 /// Create-if-missing / safe-merge plan for `users/{uid}`.
 ///
 /// Existing completion, profile, and identity fields are never reset.
+/// Provider linking reuses this helper idempotently and must not rewrite
+/// `auth_provider`, IQ/EQ/Frequency/Persona, profile, Discover, or
+/// subscription fields on an existing document.
 class UserDocumentEnsureInput {
   const UserDocumentEnsureInput({
     required this.uid,

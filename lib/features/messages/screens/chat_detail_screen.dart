@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/debug/qmatch_perf.dart';
 import '../../../core/identity/identity.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widgets/qmatch_feedback.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../matching/services/match_service.dart';
 import '../../safety/services/safety_service.dart';
@@ -196,11 +197,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       debugPrint('ChatDetail send failed: $e\n$st');
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.chatSendFailed),
-            backgroundColor: AppColors.error,
-          ),
+        QMatchFeedback.show(
+          context,
+          message: l10n.chatSendFailed,
+          type: QMatchFeedbackType.error,
         );
       }
     } finally {
@@ -347,11 +347,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       debugPrint('ChatDetail image send failed: $e\n$st');
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.chatSendFailed),
-            backgroundColor: AppColors.error,
-          ),
+        QMatchFeedback.show(
+          context,
+          message: l10n.chatSendFailed,
+          type: QMatchFeedbackType.error,
         );
       }
     } finally {
@@ -368,11 +367,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     final giphy = GiphyService();
 
     if (!giphy.isConfigured) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatGifNotConfigured),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.chatGifNotConfigured,
+        type: QMatchFeedbackType.error,
       );
       return;
     }
@@ -431,11 +429,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       debugPrint('ChatDetail GIF send failed: $e\n$st');
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.chatSendFailed),
-            backgroundColor: AppColors.error,
-          ),
+        QMatchFeedback.show(
+          context,
+          message: l10n.chatSendFailed,
+          type: QMatchFeedbackType.error,
         );
       }
     } finally {
@@ -581,19 +578,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         matchId: matchId,
         threadId: widget.threadId,
       );
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatReportSubmitted),
-          backgroundColor: AppColors.success,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatReportSubmitted,
+        type: QMatchFeedbackType.success,
       );
     } catch (e, st) {
       debugPrint('ChatDetail report failed: $e\n$st');
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatActionFailed,
+        type: QMatchFeedbackType.error,
       );
     } finally {
       detailsCtrl.dispose();
@@ -604,11 +601,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     final l10n = AppLocalizations.of(context)!;
     final matchId = _matchId;
     if (matchId == null || matchId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatMatchNotFound),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.chatMatchNotFound,
+        type: QMatchFeedbackType.error,
       );
       return;
     }
@@ -652,19 +648,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       await _matchService!.unmatch(matchId);
       if (!mounted) return;
       Navigator.pop(context);
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatMatchRemoved),
-          backgroundColor: AppColors.success,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatMatchRemoved,
+        type: QMatchFeedbackType.success,
       );
     } catch (e, st) {
       debugPrint('ChatDetail unmatch failed: $e\n$st');
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }
@@ -724,19 +720,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       }
       if (!mounted) return;
       Navigator.pop(context);
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatUserBlocked),
-          backgroundColor: AppColors.success,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatUserBlocked,
+        type: QMatchFeedbackType.success,
       );
     } catch (e, st) {
       debugPrint('ChatDetail block failed: $e\n$st');
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }
@@ -787,19 +783,19 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       }
       if (!mounted) return;
       setState(() => _blockedByMe = false);
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatUserUnblocked),
-          backgroundColor: AppColors.success,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatUserUnblocked,
+        type: QMatchFeedbackType.success,
       );
     } catch (e, st) {
       debugPrint('ChatDetail unblock failed: $e\n$st');
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        messenger: messenger,
+        message: l10n.chatActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }
@@ -829,11 +825,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.chatActionFailed),
-          backgroundColor: AppColors.error,
-        ),
+      QMatchFeedback.show(
+        context,
+        message: l10n.chatActionFailed,
+        type: QMatchFeedbackType.error,
       );
     }
   }

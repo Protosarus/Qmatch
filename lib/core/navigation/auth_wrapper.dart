@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/assessment/services/assessment_cold_start_pending_reconciler.dart';
+import '../../features/auth/screens/email_verification_screen.dart';
 import '../../features/auth/screens/welcome_screen.dart';
 import '../../features/profile/screens/display_name_completion_screen.dart';
 import '../../features/profile/services/display_name_service.dart';
 import '../../features/iap/widgets/ios_iap_session_host.dart';
 import '../services/auth_service.dart';
+import '../services/email_verification_policy.dart';
 import 'assessment_progress_route_gate.dart';
 import 'auth_routing_refresh.dart';
 
@@ -76,44 +78,123 @@ class _AuthWrapperState extends State<AuthWrapper> {
               return const WelcomeScreen();
             }
 
-            final user = snapshot.data!;
+            final streamUser = snapshot.data!;
+            final user = FirebaseAuth.instance.currentUser ?? streamUser;
+            return AuthSignedInPolicyGate(
+              user: user,
+              child: IosIapSessionHost(
+                key: ValueKey('qmatch-iap-session-${user.uid}'),
+                child: FutureBuilder<_AuthStartup>(
+                  future: _startupFor(user.uid, refreshToken),
+                  builder: (context, ensureSnap) {
+                    if (ensureSnap.connectionState == ConnectionState.waiting) {
+                      return const AuthAssessmentLoadingScaffold();
+                    }
 
-            return IosIapSessionHost(
-              key: ValueKey('qmatch-iap-session-${user.uid}'),
-              child: FutureBuilder<_AuthStartup>(
-                future: _startupFor(user.uid, refreshToken),
-                builder: (context, ensureSnap) {
-                  if (ensureSnap.connectionState == ConnectionState.waiting) {
-                    return const AuthAssessmentLoadingScaffold();
-                  }
+                    if (ensureSnap.hasError) {
+                      return AuthAssessmentProgressErrorScaffold(
+                        onRetry: () {
+                          setState(_clearStartupCache);
+                        },
+                      );
+                    }
 
-                  if (ensureSnap.hasError) {
-                    return AuthAssessmentProgressErrorScaffold(
-                      onRetry: () {
-                        setState(_clearStartupCache);
-                      },
+                    final startup = ensureSnap.data;
+                    if (startup == null || !startup.hasValidDisplayName) {
+                      return const DisplayNameCompletionScreen();
+                    }
+
+                    return AssessmentProgressRouteGate(
+                      uid: user.uid,
+                      refreshToken: refreshToken,
+                      initialUserDoc: startup.userDoc,
+                      resolveRoute: widget.resolveAssessmentRoute,
+                      buildDestination:
+                          widget.buildAssessmentDestinationOverride,
                     );
-                  }
-
-                  final startup = ensureSnap.data;
-                  if (startup == null || !startup.hasValidDisplayName) {
-                    return const DisplayNameCompletionScreen();
-                  }
-
-                  return AssessmentProgressRouteGate(
-                    uid: user.uid,
-                    refreshToken: refreshToken,
-                    initialUserDoc: startup.userDoc,
-                    resolveRoute: widget.resolveAssessmentRoute,
-                    buildDestination: widget.buildAssessmentDestinationOverride,
-                  );
-                },
+                  },
+                ),
               ),
             );
           },
         );
       },
     );
+  }
+}
+
+/// Resolves the Phase 3 gate from the **current** sign-in provider.
+///
+/// Linked Google/Apple sessions are not password-gated. Mixed accounts wait
+/// for the ID-token `sign_in_provider` when memory has no hint.
+class AuthSignedInPolicyGate extends StatelessWidget {
+  const AuthSignedInPolicyGate({
+    super.key,
+    required this.user,
+    required this.child,
+  });
+
+  final User user;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final providerIds = user.providerData.map((info) => info.providerId);
+    final sync = EmailVerificationPolicy.tryResolveSync(
+      providerIds: providerIds,
+      emailVerified: user.emailVerified,
+      currentSignInProvider: SignInProviderMemory.current,
+    );
+    if (sync != null) {
+      return AuthSignedInVerificationBranch(
+        requiresEmailVerification: sync,
+        email: user.email,
+        child: child,
+      );
+    }
+    return FutureBuilder<String?>(
+      future: EmailVerificationPolicy.readTokenSignInProvider(user),
+      builder: (context, snap) {
+        if (snap.connectionState == ConnectionState.waiting && !snap.hasData) {
+          return const AuthAssessmentLoadingScaffold();
+        }
+        final requires = EmailVerificationPolicy.requiresEmailVerification(
+          providerIds: providerIds,
+          emailVerified: user.emailVerified,
+          currentSignInProvider: snap.data ?? SignInProviderMemory.current,
+        );
+        return AuthSignedInVerificationBranch(
+          requiresEmailVerification: requires,
+          email: user.email,
+          child: child,
+        );
+      },
+    );
+  }
+}
+
+/// Signed-in branch used by the single root [AuthWrapper].
+///
+/// Unverified password users stay on [EmailVerificationScreen] and never
+/// reach display-name / assessment / main routing.
+class AuthSignedInVerificationBranch extends StatelessWidget {
+  const AuthSignedInVerificationBranch({
+    super.key,
+    required this.requiresEmailVerification,
+    required this.child,
+    this.email,
+  });
+
+  final bool requiresEmailVerification;
+  final String? email;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (requiresEmailVerification) {
+      return EmailVerificationScreen(email: email);
+    }
+    return child;
   }
 }
 
